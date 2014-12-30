@@ -14,6 +14,20 @@
 		07508E911A51346300873B45 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07508E901A51346300873B45 /* Images.xcassets */; };
 		07508E941A51346300873B45 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07508E921A51346300873B45 /* LaunchScreen.xib */; };
 		07508EA01A51346300873B45 /* XiaoerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E9F1A51346300873B45 /* XiaoerTests.m */; };
+		07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E5361A1A528BE6005E1DA9 /* XETabBarViewController.m */; };
+		07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E5361D1A528C28005E1DA9 /* XETabBarView.m */; };
+		07E536211A528C4B005E1DA9 /* XETabBarItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E536201A528C4B005E1DA9 /* XETabBarItemView.m */; };
+		07E536231A528CBF005E1DA9 /* XETabBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E536221A528CBF005E1DA9 /* XETabBarView.xib */; };
+		07E536251A528CF8005E1DA9 /* XETabBarItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E536241A528CF8005E1DA9 /* XETabBarItemView.xib */; };
+		07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E536271A529037005E1DA9 /* SuperMainViewController.m */; };
+		07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E5362A1A52905F005E1DA9 /* MainPageViewController.m */; };
+		07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E5362B1A52905F005E1DA9 /* MainPageViewController.xib */; };
+		07E536311A5290C9005E1DA9 /* EvaluationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E5362F1A5290C9005E1DA9 /* EvaluationViewController.m */; };
+		07E536321A5290C9005E1DA9 /* EvaluationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E536301A5290C9005E1DA9 /* EvaluationViewController.xib */; };
+		07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E536341A529210005E1DA9 /* ExpertChatViewController.m */; };
+		07E536371A529210005E1DA9 /* ExpertChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E536351A529210005E1DA9 /* ExpertChatViewController.xib */; };
+		07E5363B1A529259005E1DA9 /* MineTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E536391A529259005E1DA9 /* MineTabViewController.m */; };
+		07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E5363A1A529259005E1DA9 /* MineTabViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +54,28 @@
 		07508E991A51346300873B45 /* XiaoerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XiaoerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07508E9E1A51346300873B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07508E9F1A51346300873B45 /* XiaoerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XiaoerTests.m; sourceTree = "<group>"; };
+		07E536191A528BE6005E1DA9 /* XETabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XETabBarViewController.h; sourceTree = "<group>"; };
+		07E5361A1A528BE6005E1DA9 /* XETabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XETabBarViewController.m; sourceTree = "<group>"; };
+		07E5361C1A528C28005E1DA9 /* XETabBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XETabBarView.h; sourceTree = "<group>"; };
+		07E5361D1A528C28005E1DA9 /* XETabBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XETabBarView.m; sourceTree = "<group>"; };
+		07E5361F1A528C4B005E1DA9 /* XETabBarItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XETabBarItemView.h; sourceTree = "<group>"; };
+		07E536201A528C4B005E1DA9 /* XETabBarItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XETabBarItemView.m; sourceTree = "<group>"; };
+		07E536221A528CBF005E1DA9 /* XETabBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XETabBarView.xib; sourceTree = "<group>"; };
+		07E536241A528CF8005E1DA9 /* XETabBarItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XETabBarItemView.xib; sourceTree = "<group>"; };
+		07E536261A529037005E1DA9 /* SuperMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperMainViewController.h; sourceTree = "<group>"; };
+		07E536271A529037005E1DA9 /* SuperMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperMainViewController.m; sourceTree = "<group>"; };
+		07E536291A52905F005E1DA9 /* MainPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageViewController.h; sourceTree = "<group>"; };
+		07E5362A1A52905F005E1DA9 /* MainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageViewController.m; sourceTree = "<group>"; };
+		07E5362B1A52905F005E1DA9 /* MainPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainPageViewController.xib; sourceTree = "<group>"; };
+		07E5362E1A5290C9005E1DA9 /* EvaluationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluationViewController.h; sourceTree = "<group>"; };
+		07E5362F1A5290C9005E1DA9 /* EvaluationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluationViewController.m; sourceTree = "<group>"; };
+		07E536301A5290C9005E1DA9 /* EvaluationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EvaluationViewController.xib; sourceTree = "<group>"; };
+		07E536331A529210005E1DA9 /* ExpertChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertChatViewController.h; sourceTree = "<group>"; };
+		07E536341A529210005E1DA9 /* ExpertChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertChatViewController.m; sourceTree = "<group>"; };
+		07E536351A529210005E1DA9 /* ExpertChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpertChatViewController.xib; sourceTree = "<group>"; };
+		07E536381A529259005E1DA9 /* MineTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTabViewController.h; sourceTree = "<group>"; };
+		07E536391A529259005E1DA9 /* MineTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTabViewController.m; sourceTree = "<group>"; };
+		07E5363A1A529259005E1DA9 /* MineTabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineTabViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +119,12 @@
 			children = (
 				07508E871A51346300873B45 /* AppDelegate.h */,
 				07508E881A51346300873B45 /* AppDelegate.m */,
+				07E536101A528239005E1DA9 /* Engine */,
+				07E536111A528239005E1DA9 /* Model */,
+				07E536131A528239005E1DA9 /* ViewControllers */,
+				07E536141A528239005E1DA9 /* Views */,
+				07E536121A528239005E1DA9 /* Utils */,
+				07E5360F1A528203005E1DA9 /* External */,
 				07508E8A1A51346300873B45 /* ViewController.h */,
 				07508E8B1A51346300873B45 /* ViewController.m */,
 				07508E8D1A51346300873B45 /* Main.storyboard */,
@@ -117,6 +159,102 @@
 				07508E9E1A51346300873B45 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		07E5360F1A528203005E1DA9 /* External */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		07E536101A528239005E1DA9 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		07E536111A528239005E1DA9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		07E536121A528239005E1DA9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		07E536131A528239005E1DA9 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				07E536181A528625005E1DA9 /* TabBar */,
+				07E536151A52828E005E1DA9 /* Base */,
+				07E536161A52828E005E1DA9 /* Main */,
+				07E536171A52828E005E1DA9 /* Mine */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		07E536141A528239005E1DA9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		07E536151A52828E005E1DA9 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				07E536261A529037005E1DA9 /* SuperMainViewController.h */,
+				07E536271A529037005E1DA9 /* SuperMainViewController.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		07E536161A52828E005E1DA9 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				07E536291A52905F005E1DA9 /* MainPageViewController.h */,
+				07E5362A1A52905F005E1DA9 /* MainPageViewController.m */,
+				07E5362B1A52905F005E1DA9 /* MainPageViewController.xib */,
+				07E5362E1A5290C9005E1DA9 /* EvaluationViewController.h */,
+				07E5362F1A5290C9005E1DA9 /* EvaluationViewController.m */,
+				07E536301A5290C9005E1DA9 /* EvaluationViewController.xib */,
+				07E536331A529210005E1DA9 /* ExpertChatViewController.h */,
+				07E536341A529210005E1DA9 /* ExpertChatViewController.m */,
+				07E536351A529210005E1DA9 /* ExpertChatViewController.xib */,
+				07E536381A529259005E1DA9 /* MineTabViewController.h */,
+				07E536391A529259005E1DA9 /* MineTabViewController.m */,
+				07E5363A1A529259005E1DA9 /* MineTabViewController.xib */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		07E536171A52828E005E1DA9 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		07E536181A528625005E1DA9 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				07E536191A528BE6005E1DA9 /* XETabBarViewController.h */,
+				07E5361A1A528BE6005E1DA9 /* XETabBarViewController.m */,
+				07E5361C1A528C28005E1DA9 /* XETabBarView.h */,
+				07E5361D1A528C28005E1DA9 /* XETabBarView.m */,
+				07E536221A528CBF005E1DA9 /* XETabBarView.xib */,
+				07E5361F1A528C4B005E1DA9 /* XETabBarItemView.h */,
+				07E536201A528C4B005E1DA9 /* XETabBarItemView.m */,
+				07E536241A528CF8005E1DA9 /* XETabBarItemView.xib */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,8 +336,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07E536321A5290C9005E1DA9 /* EvaluationViewController.xib in Resources */,
+				07E536251A528CF8005E1DA9 /* XETabBarItemView.xib in Resources */,
 				07508E8F1A51346300873B45 /* Main.storyboard in Resources */,
+				07E536231A528CBF005E1DA9 /* XETabBarView.xib in Resources */,
+				07E536371A529210005E1DA9 /* ExpertChatViewController.xib in Resources */,
 				07508E941A51346300873B45 /* LaunchScreen.xib in Resources */,
+				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
+				07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */,
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,9 +362,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
 				07508E8C1A51346300873B45 /* ViewController.m in Sources */,
 				07508E891A51346300873B45 /* AppDelegate.m in Sources */,
+				07E536311A5290C9005E1DA9 /* EvaluationViewController.m in Sources */,
+				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
+				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
+				07E5363B1A529259005E1DA9 /* MineTabViewController.m in Sources */,
+				07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */,
 				07508E861A51346300873B45 /* main.m in Sources */,
+				07E536211A528C4B005E1DA9 /* XETabBarItemView.m in Sources */,
+				07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +496,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = Xiaoer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -354,6 +507,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = Xiaoer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -413,6 +567,7 @@
 				07508EA51A51346400873B45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		07508EA61A51346400873B45 /* Build configuration list for PBXNativeTarget "XiaoerTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +576,7 @@
 				07508EA81A51346400873B45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -7,8 +7,11 @@
 //
 
 #import "AppDelegate.h"
-
-//3123123123
+#import "ViewController.h"
+#import "MainPageViewController.h"
+#import "EvaluationViewController.h"
+#import "ExpertChatViewController.h"
+#import "MineTabViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,7 +22,37 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor clearColor];
+    
+    [self signIn];
+    
+    [self.window makeKeyAndVisible];
+    
     return YES;
+}
+
+- (void)signIn{
+    NSLog(@"signIn");
+    
+    XETabBarViewController* tabViewController = [[XETabBarViewController alloc] init];
+    tabViewController.viewControllers = [NSArray arrayWithObjects:
+                                         [[MainPageViewController alloc] init],
+                                         [[EvaluationViewController alloc] init],
+                                         [[ExpertChatViewController alloc] init],
+                                         [[MineTabViewController alloc] init],
+                                         nil];
+    
+    _mainTabViewController = tabViewController;
+    
+    UINavigationController* tabNavVc = [[UINavigationController alloc] initWithRootViewController:tabViewController];
+//    tabNavVc.navigationBarHidden = YES;
+    self.window.rootViewController = tabNavVc;
+    
+}
+- (void)signOut{
+    NSLog(@"signOut");
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
