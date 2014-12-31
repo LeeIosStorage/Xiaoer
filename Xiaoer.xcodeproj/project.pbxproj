@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		073FD96E1A53A2E000FF0EFD /* XEEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD96D1A53A2E000FF0EFD /* XEEngine.m */; };
 		07508E861A51346300873B45 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E851A51346300873B45 /* main.m */; };
 		07508E891A51346300873B45 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E881A51346300873B45 /* AppDelegate.m */; };
 		07508E8C1A51346300873B45 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E8B1A51346300873B45 /* ViewController.m */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		073FD96C1A53A2E000FF0EFD /* XEEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEEngine.h; sourceTree = "<group>"; };
+		073FD96D1A53A2E000FF0EFD /* XEEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEEngine.m; sourceTree = "<group>"; };
 		07508E801A51346300873B45 /* Xiaoer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xiaoer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07508E841A51346300873B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07508E851A51346300873B45 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -185,6 +188,8 @@
 		07E536101A528239005E1DA9 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				073FD96C1A53A2E000FF0EFD /* XEEngine.h */,
+				073FD96D1A53A2E000FF0EFD /* XEEngine.m */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -381,6 +386,7 @@
 				07E5363B1A529259005E1DA9 /* MineTabViewController.m in Sources */,
 				07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */,
 				07508E861A51346300873B45 /* main.m in Sources */,
+				073FD96E1A53A2E000FF0EFD /* XEEngine.m in Sources */,
 				07E536211A528C4B005E1DA9 /* XETabBarItemView.m in Sources */,
 				07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */,
 			);
