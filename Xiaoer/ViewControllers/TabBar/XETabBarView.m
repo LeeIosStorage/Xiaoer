@@ -19,13 +19,11 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        //        UIImageView* imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        //        imageView.contentMode = UIViewContentModeScaleToFill;
-        //        //CGRect rc = self.bounds;
-        //        [imageView setImage:[UIImage imageNamed:@"nav_bottom_bg.png"]];
-        //
-        self.backgroundColor = [UIColor yellowColor];
-        //        [self addSubview:imageView];
+//        UIImageView* imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+//        imageView.contentMode = UIViewContentModeScaleToFill;
+//        [imageView setImage:[UIImage imageNamed:@"tabbar_bg"]];
+        self.backgroundColor = [UIColor blackColor];
+//        [self addSubview:imageView];
     }
     return self;
 }

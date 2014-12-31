@@ -102,20 +102,20 @@
         XETabBarItemView *tabItem = [[[NSBundle mainBundle] loadNibNamed:@"XETabBarItemView" owner:nil options:nil] objectAtIndex:0];
         
         if (tagIndex == 0) {
-            tabItem.itemIconImageView.image = [UIImage imageNamed:@"s_n_lianmeng_tabbar_icon.png"];
-            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"s_n_lianmeng_tabbar_icon_hover.png"];
+            tabItem.itemIconImageView.image = [UIImage imageNamed:@"UITabBarItemMain"];
+            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"UITabBarItemMain"];
         }else if (tagIndex == 1){
-            tabItem.itemIconImageView.image = [UIImage imageNamed:@"s_n_foundgroup_bottom_btn_group.png"];
-            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"s_n_foundgroup_bottom_btn_group_hover.png"];
+            tabItem.itemIconImageView.image = [UIImage imageNamed:@"UITabBarItemEvaluation"];
+            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"UITabBarItemEvaluation"];
             
             
         }else if (tagIndex == 2){
-            tabItem.itemIconImageView.image = [UIImage imageNamed:@"s_n_foundgroup_bottom_btn_message.png"];
-            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"s_n_foundgroup_bottom_btn_message_hover.png"];
+            tabItem.itemIconImageView.image = [UIImage imageNamed:@"UITabBarItemChat"];
+            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"UITabBarItemChat"];
             
         }else if (tagIndex == 3){
-            tabItem.itemIconImageView.image = [UIImage imageNamed:@"s_n_foundgroup_bottom_btn_me.png"];
-            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"s_n_foundgroup_bottom_btn_me_hover.png"];
+            tabItem.itemIconImageView.image = [UIImage imageNamed:@"UITabBarItemMine"];
+            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"UITabBarItemMine"];
             
         }
         
