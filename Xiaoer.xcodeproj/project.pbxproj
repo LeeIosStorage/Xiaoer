@@ -14,6 +14,7 @@
 		07508E911A51346300873B45 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07508E901A51346300873B45 /* Images.xcassets */; };
 		07508E941A51346300873B45 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07508E921A51346300873B45 /* LaunchScreen.xib */; };
 		07508EA01A51346300873B45 /* XiaoerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E9F1A51346300873B45 /* XiaoerTests.m */; };
+		077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98AE1A53A11000E2985B /* XEUserInfo.m */; };
 		07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E5361A1A528BE6005E1DA9 /* XETabBarViewController.m */; };
 		07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E5361D1A528C28005E1DA9 /* XETabBarView.m */; };
 		07E536211A528C4B005E1DA9 /* XETabBarItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E536201A528C4B005E1DA9 /* XETabBarItemView.m */; };
@@ -54,6 +55,10 @@
 		07508E991A51346300873B45 /* XiaoerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XiaoerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07508E9E1A51346300873B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07508E9F1A51346300873B45 /* XiaoerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XiaoerTests.m; sourceTree = "<group>"; };
+		077C98AD1A53A11000E2985B /* XEUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEUserInfo.h; sourceTree = "<group>"; };
+		077C98AE1A53A11000E2985B /* XEUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEUserInfo.m; sourceTree = "<group>"; };
+		077C98B11A53A16C00E2985B /* XESystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XESystem.h; sourceTree = "<group>"; };
+		077C98B21A53A16C00E2985B /* XEUIKitMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEUIKitMacro.h; sourceTree = "<group>"; };
 		07E536191A528BE6005E1DA9 /* XETabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XETabBarViewController.h; sourceTree = "<group>"; };
 		07E5361A1A528BE6005E1DA9 /* XETabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XETabBarViewController.m; sourceTree = "<group>"; };
 		07E5361C1A528C28005E1DA9 /* XETabBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XETabBarView.h; sourceTree = "<group>"; };
@@ -123,7 +128,7 @@
 				07E536111A528239005E1DA9 /* Model */,
 				07E536131A528239005E1DA9 /* ViewControllers */,
 				07E536141A528239005E1DA9 /* Views */,
-				07E536121A528239005E1DA9 /* Utils */,
+				077C98B01A53A16C00E2985B /* Utils */,
 				07E5360F1A528203005E1DA9 /* External */,
 				07508E8A1A51346300873B45 /* ViewController.h */,
 				07508E8B1A51346300873B45 /* ViewController.m */,
@@ -161,6 +166,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		077C98B01A53A16C00E2985B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				077C98B11A53A16C00E2985B /* XESystem.h */,
+				077C98B21A53A16C00E2985B /* XEUIKitMacro.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		07E5360F1A528203005E1DA9 /* External */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,15 +192,10 @@
 		07E536111A528239005E1DA9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				077C98AD1A53A11000E2985B /* XEUserInfo.h */,
+				077C98AE1A53A11000E2985B /* XEUserInfo.m */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		07E536121A528239005E1DA9 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		07E536131A528239005E1DA9 /* ViewControllers */ = {
@@ -365,6 +374,7 @@
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
 				07508E8C1A51346300873B45 /* ViewController.m in Sources */,
 				07508E891A51346300873B45 /* AppDelegate.m in Sources */,
+				077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */,
 				07E536311A5290C9005E1DA9 /* EvaluationViewController.m in Sources */,
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,

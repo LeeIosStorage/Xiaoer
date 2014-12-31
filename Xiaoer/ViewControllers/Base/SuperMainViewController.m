@@ -7,6 +7,7 @@
 //
 
 #import "SuperMainViewController.h"
+#import "XEUIKitMacro.h"
 
 @interface SuperMainViewController ()
 
@@ -17,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.view setBackgroundColor:UIColorRGB(240, 240, 240)];
 }
 
 - (void)didReceiveMemoryWarning {
