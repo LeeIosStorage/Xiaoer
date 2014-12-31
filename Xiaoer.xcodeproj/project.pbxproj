@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		073FD96E1A53A2E000FF0EFD /* XEEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD96D1A53A2E000FF0EFD /* XEEngine.m */; };
+		073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9841A53C3A000FF0EFD /* EGOCache.m */; };
+		073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9871A53C55200FF0EFD /* PathHelper.m */; };
+		073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9961A53D64400FF0EFD /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9991A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m */; };
+		073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD99C1A53EB9700FF0EFD /* XELinkerHandler.m */; };
 		07508E861A51346300873B45 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E851A51346300873B45 /* main.m */; };
 		07508E891A51346300873B45 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E881A51346300873B45 /* AppDelegate.m */; };
 		07508E8C1A51346300873B45 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E8B1A51346300873B45 /* ViewController.m */; };
@@ -45,6 +50,16 @@
 /* Begin PBXFileReference section */
 		073FD96C1A53A2E000FF0EFD /* XEEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEEngine.h; sourceTree = "<group>"; };
 		073FD96D1A53A2E000FF0EFD /* XEEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEEngine.m; sourceTree = "<group>"; };
+		073FD9831A53C3A000FF0EFD /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
+		073FD9841A53C3A000FF0EFD /* EGOCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOCache.m; sourceTree = "<group>"; };
+		073FD9861A53C55200FF0EFD /* PathHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathHelper.h; sourceTree = "<group>"; };
+		073FD9871A53C55200FF0EFD /* PathHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PathHelper.m; sourceTree = "<group>"; };
+		073FD9951A53D64400FF0EFD /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		073FD9961A53D64400FF0EFD /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		073FD9981A53E18E00FF0EFD /* NSDictionary+ObjectForKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ObjectForKey.h"; sourceTree = "<group>"; };
+		073FD9991A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ObjectForKey.m"; sourceTree = "<group>"; };
+		073FD99B1A53EB9700FF0EFD /* XELinkerHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XELinkerHandler.h; sourceTree = "<group>"; };
+		073FD99C1A53EB9700FF0EFD /* XELinkerHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XELinkerHandler.m; sourceTree = "<group>"; };
 		07508E801A51346300873B45 /* Xiaoer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xiaoer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07508E841A51346300873B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07508E851A51346300873B45 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -104,6 +119,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		073FD9821A53C3A000FF0EFD /* EGOCache */ = {
+			isa = PBXGroup;
+			children = (
+				073FD9831A53C3A000FF0EFD /* EGOCache.h */,
+				073FD9841A53C3A000FF0EFD /* EGOCache.m */,
+			);
+			path = EGOCache;
+			sourceTree = "<group>";
+		};
+		073FD98D1A53D5C300FF0EFD /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				073FD9951A53D64400FF0EFD /* JSONKit.h */,
+				073FD9961A53D64400FF0EFD /* JSONKit.m */,
+			);
+			path = JSONKit;
+			sourceTree = "<group>";
+		};
 		07508E771A51346300873B45 = {
 			isa = PBXGroup;
 			children = (
@@ -172,8 +205,12 @@
 		077C98B01A53A16C00E2985B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				073FD9861A53C55200FF0EFD /* PathHelper.h */,
+				073FD9871A53C55200FF0EFD /* PathHelper.m */,
 				077C98B11A53A16C00E2985B /* XESystem.h */,
 				077C98B21A53A16C00E2985B /* XEUIKitMacro.h */,
+				073FD9981A53E18E00FF0EFD /* NSDictionary+ObjectForKey.h */,
+				073FD9991A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -181,6 +218,8 @@
 		07E5360F1A528203005E1DA9 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				073FD98D1A53D5C300FF0EFD /* JSONKit */,
+				073FD9821A53C3A000FF0EFD /* EGOCache */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -190,6 +229,8 @@
 			children = (
 				073FD96C1A53A2E000FF0EFD /* XEEngine.h */,
 				073FD96D1A53A2E000FF0EFD /* XEEngine.m */,
+				073FD99B1A53EB9700FF0EFD /* XELinkerHandler.h */,
+				073FD99C1A53EB9700FF0EFD /* XELinkerHandler.m */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -376,16 +417,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */,
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
 				07508E8C1A51346300873B45 /* ViewController.m in Sources */,
 				07508E891A51346300873B45 /* AppDelegate.m in Sources */,
 				077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */,
 				07E536311A5290C9005E1DA9 /* EvaluationViewController.m in Sources */,
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
+				073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */,
+				073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */,
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
 				07E5363B1A529259005E1DA9 /* MineTabViewController.m in Sources */,
 				07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */,
 				07508E861A51346300873B45 /* main.m in Sources */,
+				073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */,
+				073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */,
 				073FD96E1A53A2E000FF0EFD /* XEEngine.m in Sources */,
 				07E536211A528C4B005E1DA9 /* XETabBarItemView.m in Sources */,
 				07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */,
