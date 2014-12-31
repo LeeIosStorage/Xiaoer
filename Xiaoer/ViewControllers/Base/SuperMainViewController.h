@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XEBaseSuperViewController.h"
 
-@interface SuperMainViewController : UIViewController
+@interface SuperMainViewController : XEBaseSuperViewController
 
 @end

@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"评测";
+    [self setTitle:@"评测"];
 }
 
 - (void)didReceiveMemoryWarning {

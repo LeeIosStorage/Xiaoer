@@ -1,23 +1,22 @@
 //
-//  ExpertChatViewController.m
+//  XENavigationController.m
 //  Xiaoer
 //
-//  Created by KID on 14/12/30.
+//  Created by KID on 14/12/31.
 //
 //
 
-#import "ExpertChatViewController.h"
+#import "XENavigationController.h"
 
-@interface ExpertChatViewController ()
+@interface XENavigationController ()
 
 @end
 
-@implementation ExpertChatViewController
+@implementation XENavigationController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    [self setTitle:@"专家聊"];
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
