@@ -12,6 +12,7 @@
 #import "EvaluationViewController.h"
 #import "ExpertChatViewController.h"
 #import "MineTabViewController.h"
+#import "XENavigationController.h"
 
 @interface AppDelegate ()
 
@@ -46,8 +47,8 @@
     
     _mainTabViewController = tabViewController;
     
-    UINavigationController* tabNavVc = [[UINavigationController alloc] initWithRootViewController:tabViewController];
-//    tabNavVc.navigationBarHidden = YES;
+    XENavigationController* tabNavVc = [[XENavigationController alloc] initWithRootViewController:tabViewController];
+    tabNavVc.navigationBarHidden = YES;
     self.window.rootViewController = tabNavVc;
     
 }

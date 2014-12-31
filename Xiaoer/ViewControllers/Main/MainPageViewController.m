@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"首页";
+    [self setTitle:@"首页"];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -21,6 +21,12 @@
 		07508E941A51346300873B45 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07508E921A51346300873B45 /* LaunchScreen.xib */; };
 		07508EA01A51346300873B45 /* XiaoerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E9F1A51346300873B45 /* XiaoerTests.m */; };
 		077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98AE1A53A11000E2985B /* XEUserInfo.m */; };
+		077C98B51A53A6B300E2985B /* XENavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98B41A53A6B300E2985B /* XENavigationController.m */; };
+		077C98B81A53BEAE00E2985B /* XEBaseSuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98B71A53BEAE00E2985B /* XEBaseSuperViewController.m */; };
+		077C98BB1A53C85C00E2985B /* XETitleNavBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98BA1A53C85C00E2985B /* XETitleNavBarView.m */; };
+		077C98BD1A53CC0600E2985B /* XETitleNavBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077C98BC1A53CC0600E2985B /* XETitleNavBarView.xib */; };
+		077C98C01A53D12700E2985B /* XECommonUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98BF1A53D12700E2985B /* XECommonUtils.m */; };
+		077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98C21A53D48800E2985B /* XEUIUtils.m */; };
 		07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E5361A1A528BE6005E1DA9 /* XETabBarViewController.m */; };
 		07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E5361D1A528C28005E1DA9 /* XETabBarView.m */; };
 		07E536211A528C4B005E1DA9 /* XETabBarItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E536201A528C4B005E1DA9 /* XETabBarItemView.m */; };
@@ -77,6 +83,17 @@
 		077C98AE1A53A11000E2985B /* XEUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEUserInfo.m; sourceTree = "<group>"; };
 		077C98B11A53A16C00E2985B /* XESystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XESystem.h; sourceTree = "<group>"; };
 		077C98B21A53A16C00E2985B /* XEUIKitMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEUIKitMacro.h; sourceTree = "<group>"; };
+		077C98B31A53A6B300E2985B /* XENavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XENavigationController.h; sourceTree = "<group>"; };
+		077C98B41A53A6B300E2985B /* XENavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XENavigationController.m; sourceTree = "<group>"; };
+		077C98B61A53BEAE00E2985B /* XEBaseSuperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBaseSuperViewController.h; sourceTree = "<group>"; };
+		077C98B71A53BEAE00E2985B /* XEBaseSuperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBaseSuperViewController.m; sourceTree = "<group>"; };
+		077C98B91A53C85C00E2985B /* XETitleNavBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XETitleNavBarView.h; sourceTree = "<group>"; };
+		077C98BA1A53C85C00E2985B /* XETitleNavBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XETitleNavBarView.m; sourceTree = "<group>"; };
+		077C98BC1A53CC0600E2985B /* XETitleNavBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XETitleNavBarView.xib; sourceTree = "<group>"; };
+		077C98BE1A53D12700E2985B /* XECommonUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECommonUtils.h; sourceTree = "<group>"; };
+		077C98BF1A53D12700E2985B /* XECommonUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECommonUtils.m; sourceTree = "<group>"; };
+		077C98C11A53D48800E2985B /* XEUIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEUIUtils.h; sourceTree = "<group>"; };
+		077C98C21A53D48800E2985B /* XEUIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEUIUtils.m; sourceTree = "<group>"; };
 		07E536191A528BE6005E1DA9 /* XETabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XETabBarViewController.h; sourceTree = "<group>"; };
 		07E5361A1A528BE6005E1DA9 /* XETabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XETabBarViewController.m; sourceTree = "<group>"; };
 		07E5361C1A528C28005E1DA9 /* XETabBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XETabBarView.h; sourceTree = "<group>"; };
@@ -211,6 +228,10 @@
 				077C98B21A53A16C00E2985B /* XEUIKitMacro.h */,
 				073FD9981A53E18E00FF0EFD /* NSDictionary+ObjectForKey.h */,
 				073FD9991A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m */,
+				077C98BE1A53D12700E2985B /* XECommonUtils.h */,
+				077C98BF1A53D12700E2985B /* XECommonUtils.m */,
+				077C98C11A53D48800E2985B /* XEUIUtils.h */,
+				077C98C21A53D48800E2985B /* XEUIUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -265,8 +286,15 @@
 		07E536151A52828E005E1DA9 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				077C98B31A53A6B300E2985B /* XENavigationController.h */,
+				077C98B41A53A6B300E2985B /* XENavigationController.m */,
 				07E536261A529037005E1DA9 /* SuperMainViewController.h */,
 				07E536271A529037005E1DA9 /* SuperMainViewController.m */,
+				077C98B61A53BEAE00E2985B /* XEBaseSuperViewController.h */,
+				077C98B71A53BEAE00E2985B /* XEBaseSuperViewController.m */,
+				077C98B91A53C85C00E2985B /* XETitleNavBarView.h */,
+				077C98BA1A53C85C00E2985B /* XETitleNavBarView.m */,
+				077C98BC1A53CC0600E2985B /* XETitleNavBarView.xib */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -395,6 +423,7 @@
 				07E536251A528CF8005E1DA9 /* XETabBarItemView.xib in Resources */,
 				07508E8F1A51346300873B45 /* Main.storyboard in Resources */,
 				07E536231A528CBF005E1DA9 /* XETabBarView.xib in Resources */,
+				077C98BD1A53CC0600E2985B /* XETitleNavBarView.xib in Resources */,
 				07E536371A529210005E1DA9 /* ExpertChatViewController.xib in Resources */,
 				07508E941A51346300873B45 /* LaunchScreen.xib in Resources */,
 				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
@@ -418,11 +447,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */,
+				077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */,
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
+				077C98B81A53BEAE00E2985B /* XEBaseSuperViewController.m in Sources */,
+				077C98BB1A53C85C00E2985B /* XETitleNavBarView.m in Sources */,
 				07508E8C1A51346300873B45 /* ViewController.m in Sources */,
 				07508E891A51346300873B45 /* AppDelegate.m in Sources */,
 				077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */,
+				077C98B51A53A6B300E2985B /* XENavigationController.m in Sources */,
 				07E536311A5290C9005E1DA9 /* EvaluationViewController.m in Sources */,
+				077C98C01A53D12700E2985B /* XECommonUtils.m in Sources */,
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
 				073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */,
 				073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */,
@@ -559,6 +593,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = Xiaoer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -570,6 +605,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = Xiaoer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
