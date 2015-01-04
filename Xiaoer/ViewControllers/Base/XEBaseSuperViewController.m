@@ -97,6 +97,11 @@
 -(void) initTitleNavBar
 {
     _titleNavBar = [[XETitleNavBarView alloc] init:self];
+    
+    if ([_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
+        _titleNavBarLeftButton = ((XETitleNavBarView *) _titleNavBar).toolBarLeftButton;
+        _titleNavBarRightBtn = ((XETitleNavBarView *) _titleNavBar).toolBarRightButton;
+    }
 }
 
 //title
@@ -137,6 +142,44 @@
     
     if (_titleNavBarLeftCustomView) {
         _titleNavBarLeftCustomView.hidden = isHide;
+    }
+}
+
+//返回按钮, 前面默认是的back
+
+-(void) setLeftButtonTitle:(NSString *) buttonTitle
+{
+    if (![_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
+        return;
+    }
+    
+    if (_titleNavBarLeftButton) {
+        [_titleNavBarLeftButton setTitle:buttonTitle forState:UIControlStateNormal];
+    }
+}
+
+-(void) setLeftButtonWithSelector:(SEL) selector
+{
+    if (![_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
+        return;
+    }
+    if (_titleNavBarLeftButton) {
+        _titleNavBarLeftButton.hidden = NO;
+        [_titleNavBarLeftButton addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+//right button
+-(void) setRightButtonWithTitle:(NSString *) buttonTitle selector:(SEL) selector
+{
+    if (![_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
+        return;
+    }
+    
+    if (_titleNavBarRightBtn) {
+        _titleNavBarRightBtn.hidden = NO;
+        [_titleNavBarRightBtn setTitle:buttonTitle forState:UIControlStateNormal];
+        [_titleNavBarRightBtn addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
