@@ -25,6 +25,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)initNormalTitleNavBarSubviews{
+    
+    [self setLeftButtonTitle:@"按钮"];
+    [self setLeftButtonWithSelector:@selector(settingAction:)];
+    
+    [self setRightButtonWithTitle:@"按钮" selector:@selector(settingAction:)];
+}
+
+#pragma mark - IBAction
+//-(void)backAction:(id)sender{
+//    
+//}
+-(void)settingAction:(id)sender{
+    
+}
+
 /*
 #pragma mark - Navigation
 

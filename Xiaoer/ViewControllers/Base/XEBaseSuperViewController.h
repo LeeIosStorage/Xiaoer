@@ -32,6 +32,14 @@
 /*! @brief 设置tableview的contentInset
  *
  */
+
+//返回按钮, 前面默认是back
+-(void) setLeftButtonTitle:(NSString *) buttonTitle;
+-(void) setLeftButtonWithSelector:(SEL) selector;
+
+//right button
+-(void) setRightButtonWithTitle:(NSString *) buttonTitle selector:(SEL) selector;
+
 -(void) setContentInsetForScrollView:(UIScrollView *) scrollview;
 -(void) setContentInsetForScrollView:(UIScrollView *) scrollview inset:(UIEdgeInsets) inset;
 
