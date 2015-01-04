@@ -11,6 +11,9 @@
 #import "JSONKit.h"
 #import "PathHelper.h"
 #import "XECommonUtils.h"
+#import "AFNetworking.h"
+#import "XEProgressHUD.h"
+#import "URLHelper.h"
 #import "NSDictionary+objectForKey.h"
 
 #define CONNECT_TIMEOUT 20
@@ -118,6 +121,14 @@ static XEEngine* s_ShareInstance = nil;
     return self;
 }
 
+- (void)logout{
+    
+
+}
+
+- (void)logout:(BOOL)removeAccout{
+
+}
 
 - (NSString*)getCurrentAccoutDocDirectory{
     return [PathHelper documentDirectoryPathWithName:[NSString stringWithFormat:@"accounts/%@", _uid]];
@@ -264,6 +275,24 @@ static XEEngine* s_ShareInstance = nil;
     return [_onAppServiceBlockMap objectForKey:[NSNumber numberWithInt:tag]];
 }
 
+- (NSDictionary*)getRequestJsonWithUrl:(NSString*)url type:(int)type parameters:(NSDictionary *)params{
+    return [self getRequestJsonWithUrl:url requestType:type serverType:1 parameters:params fileParam:nil];
+}
+
+- (NSDictionary*)getRequestJsonWithUrl:(NSString*)url requestType:(int)requestType serverType:(int)serverType parameters:(NSDictionary *)params fileParam:(NSString*)fileParam{
+    NSMutableDictionary* dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:url forKey:@"url"];
+    [dic setObject:[NSNumber numberWithInt:requestType]  forKey:@"requestType"];
+    [dic setObject:[NSNumber numberWithInt:serverType] forKey:@"serverType"];
+    if ([params count] > 0) {
+        [dic setObject:[URLHelper getURL:nil queryParameters:params prefixed:NO] forKey:@"params"];
+    }
+    if (fileParam) {
+        [dic setObject:fileParam forKey:@"fileParam"];
+    }
+    return dic;
+}
+
 - (BOOL)loginWithAccredit:(NSString*)loginType error:(NSError **)errPtr
 {
     //..UM
@@ -271,14 +300,76 @@ static XEEngine* s_ShareInstance = nil;
     return NO;
 }
 
-- (BOOL)loginWithPhone:(NSString*)phone password:(NSString*)password error:(NSError **)errPtr
+- (BOOL)loginWithPhone:(NSString *)phone password:(NSString *)password error:(NSError **)errPtr
 {
+    return NO;
+}
+
+- (BOOL)setUserwithUid:(NSString*)uid Password:(NSString*)password tag:(int)tag error:(NSError **)errPtr
+{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:uid forKey:@"uid"];
+    [params setObject:password forKey:@"password"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:@"/........" type:0 parameters:params];
+    return [self reDirectWeimiCommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:errPtr];
+}
+
+- (BOOL)reDirectWeimiCommonWithFormatDic:(NSDictionary *)dic
+                                withData:(NSData *)data
+                                 withTag:(NSInteger)tag
+                             withTimeout:(NSTimeInterval)timeout
+                                   error:(NSError **)errPtr {
+    //........
     return NO;
 }
 
 - (BOOL)loginWithEmail:(NSString*)email password:(NSString*)password error:(NSError **)errPtr
 {
     return NO;
+}
+
+
+//////////////////////
+- (void)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure
+{
+    // 1.创建请求管理对象
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 2.发送请求
+    [manager POST:url parameters:params
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              if (success) {
+                  success(responseObject);
+              }
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              if (failure) {
+                  failure(error);
+              }
+              //统一提示连接超时
+              [XEProgressHUD AlertErrorTimeOut];
+              [XEProgressHUD AlertLoadDone];
+          }];
+}
+
+- (void)getWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure
+{
+    // 1.创建请求管理对象
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 2.发送请求
+    [manager GET:url parameters:params
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             if (success) {
+                 success(responseObject);
+             }
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             if (failure) {
+                 failure(error);
+             }
+             //统一提示连接超时
+             [XEProgressHUD AlertErrorTimeOut];
+             [XEProgressHUD AlertLoadDone];
+         }];
 }
 
 
