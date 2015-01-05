@@ -33,6 +33,8 @@ static XEEngine* s_ShareInstance = nil;
     NSMutableSet* _needCacheUrls;
     
     NSMutableDictionary* _urlCacheTagMap;
+    
+    NSMutableDictionary* _urlTagMap;
 }
 
 @end
@@ -105,6 +107,7 @@ static XEEngine* s_ShareInstance = nil;
     _onAppServiceBlockMap = [[NSMutableDictionary alloc] init];
     _needCacheUrls = [[NSMutableSet alloc] init];
     _urlCacheTagMap = [[NSMutableDictionary alloc] init];
+    _urlTagMap = [[NSMutableDictionary alloc] init];
     
     _uid = nil;
     
@@ -219,6 +222,10 @@ static XEEngine* s_ShareInstance = nil;
     [_onAppServiceBlockMap removeObjectForKey:[NSNumber numberWithInt:tag]];
 }
 
+- (onAppServiceBlock)getonAppServiceBlockByTag:(int)tag{
+    return [_onAppServiceBlockMap objectForKey:[NSNumber numberWithInt:tag]];
+}
+
 - (void)addGetCacheTag:(int)tag{
     [_urlCacheTagMap setObject:@"" forKey:[NSNumber numberWithInt:tag]];
 }
@@ -271,10 +278,6 @@ static XEEngine* s_ShareInstance = nil;
     return [XECommonUtils getDirectorySizeForPath:cachesDirectory];
 }
 
-- (onAppServiceBlock)getonAppServiceBlockByTag:(int)tag{
-    return [_onAppServiceBlockMap objectForKey:[NSNumber numberWithInt:tag]];
-}
-
 - (NSDictionary*)getRequestJsonWithUrl:(NSString*)url type:(int)type parameters:(NSDictionary *)params{
     return [self getRequestJsonWithUrl:url requestType:type serverType:1 parameters:params fileParam:nil];
 }
@@ -284,12 +287,13 @@ static XEEngine* s_ShareInstance = nil;
     [dic setObject:url forKey:@"url"];
     [dic setObject:[NSNumber numberWithInt:requestType]  forKey:@"requestType"];
     [dic setObject:[NSNumber numberWithInt:serverType] forKey:@"serverType"];
-    if ([params count] > 0) {
-        [dic setObject:[URLHelper getURL:nil queryParameters:params prefixed:NO] forKey:@"params"];
-    }
-    if (fileParam) {
-        [dic setObject:fileParam forKey:@"fileParam"];
-    }
+//    if ([params count] > 0) {
+//        [dic setObject:[URLHelper getURL:nil queryParameters:params prefixed:NO] forKey:@"params"];
+//    }
+//    if (fileParam) {
+//        [dic setObject:fileParam forKey:@"fileParam"];
+//    }
+    [dic setObject:params forKey:@"params"];
     return dic;
 }
 
@@ -305,29 +309,60 @@ static XEEngine* s_ShareInstance = nil;
     return NO;
 }
 
-- (BOOL)setUserwithUid:(NSString*)uid Password:(NSString*)password tag:(int)tag error:(NSError **)errPtr
-{
-    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:uid forKey:@"uid"];
-    [params setObject:password forKey:@"password"];
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:@"/........" type:0 parameters:params];
-    return [self reDirectWeimiCommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:errPtr];
-}
-
-- (BOOL)reDirectWeimiCommonWithFormatDic:(NSDictionary *)dic
-                                withData:(NSData *)data
-                                 withTag:(NSInteger)tag
-                             withTimeout:(NSTimeInterval)timeout
-                                   error:(NSError **)errPtr {
-    //........
-    return NO;
-}
-
 - (BOOL)loginWithEmail:(NSString*)email password:(NSString*)password error:(NSError **)errPtr
 {
     return NO;
 }
 
+- (BOOL)setPasswordwithUid:(NSString*)uid Password:(NSString*)password tag:(int)tag error:(NSError **)errPtr
+{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:uid forKey:@"uid"];
+    [params setObject:password forKey:@"password"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:@"/........" type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:errPtr];
+}
+
+- (BOOL)reDirectXECommonWithFormatDic:(NSDictionary *)dic withData:(NSData *)data withTag:(NSInteger)tag withTimeout:(NSTimeInterval)timeout error:(NSError **)errPtr {
+    
+    NSString* url = [dic objectForKey:@"url"];
+    NSString* method = @"POST";
+    if ([[dic objectForKey:@"requestType"] integerValue] == 1) {
+        method = @"GET";
+    }
+    
+    NSDictionary *params = [dic objectForKey:@"params"];
+    
+    if ([method isEqualToString:@"GET"]) {
+        NSString* fullUrl = url;
+        if (params) {
+            NSString *param = [URLHelper getURL:nil queryParameters:params prefixed:NO];
+            fullUrl = [NSString stringWithFormat:@"%@?%@", fullUrl, param];
+        }
+        if ([_urlCacheTagMap objectForKey:[NSNumber numberWithInteger:tag]]) {
+            [_urlCacheTagMap setObject:fullUrl forKey:[NSNumber numberWithInteger:tag]];
+            [_needCacheUrls addObject:fullUrl];
+            return YES;
+        }
+        [_urlTagMap setObject:fullUrl forKey:[NSNumber numberWithInteger:tag]];
+        [self getWithURL:fullUrl params:params success:^(id json) {
+            NSLog(@"fullUrl===========%@",json);
+        } failure:^(NSError *error) {
+            [XEProgressHUD lightAlert:@"请检查网络状况"];
+        }];
+        return YES;
+    }else {
+        [self postWithURL:url params:params success:^(id json) {
+            NSLog(@"url===========%@",json);
+        } failure:^(NSError *error) {
+            [XEProgressHUD lightAlert:@"请检查网络状况"];
+
+        }];
+        return YES;
+    }
+    
+    return NO;
+}
 
 //////////////////////
 - (void)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure
