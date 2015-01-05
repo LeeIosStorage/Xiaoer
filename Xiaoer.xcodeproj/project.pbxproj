@@ -44,6 +44,8 @@
 		077C98BD1A53CC0600E2985B /* XETitleNavBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077C98BC1A53CC0600E2985B /* XETitleNavBarView.xib */; };
 		077C98C01A53D12700E2985B /* XECommonUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98BF1A53D12700E2985B /* XECommonUtils.m */; };
 		077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98C21A53D48800E2985B /* XEUIUtils.m */; };
+		0794259B1A5A59A7002BF56C /* QHQnetworkingTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 079425981A5A59A7002BF56C /* QHQnetworkingTool.m */; };
+		0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 0794259A1A5A59A7002BF56C /* UIImage+HQ.m */; };
 		07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E5361A1A528BE6005E1DA9 /* XETabBarViewController.m */; };
 		07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E5361D1A528C28005E1DA9 /* XETabBarView.m */; };
 		07E536211A528C4B005E1DA9 /* XETabBarItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E536201A528C4B005E1DA9 /* XETabBarItemView.m */; };
@@ -145,6 +147,10 @@
 		077C98BF1A53D12700E2985B /* XECommonUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECommonUtils.m; sourceTree = "<group>"; };
 		077C98C11A53D48800E2985B /* XEUIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEUIUtils.h; sourceTree = "<group>"; };
 		077C98C21A53D48800E2985B /* XEUIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEUIUtils.m; sourceTree = "<group>"; };
+		079425971A5A59A7002BF56C /* QHQnetworkingTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHQnetworkingTool.h; sourceTree = "<group>"; };
+		079425981A5A59A7002BF56C /* QHQnetworkingTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QHQnetworkingTool.m; sourceTree = "<group>"; };
+		079425991A5A59A7002BF56C /* UIImage+HQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+HQ.h"; sourceTree = "<group>"; };
+		0794259A1A5A59A7002BF56C /* UIImage+HQ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+HQ.m"; sourceTree = "<group>"; };
 		07E536191A528BE6005E1DA9 /* XETabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XETabBarViewController.h; sourceTree = "<group>"; };
 		07E5361A1A528BE6005E1DA9 /* XETabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XETabBarViewController.m; sourceTree = "<group>"; };
 		07E5361C1A528C28005E1DA9 /* XETabBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XETabBarView.h; sourceTree = "<group>"; };
@@ -355,9 +361,21 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		079425961A5A59A7002BF56C /* HQ */ = {
+			isa = PBXGroup;
+			children = (
+				079425971A5A59A7002BF56C /* QHQnetworkingTool.h */,
+				079425981A5A59A7002BF56C /* QHQnetworkingTool.m */,
+				079425991A5A59A7002BF56C /* UIImage+HQ.h */,
+				0794259A1A5A59A7002BF56C /* UIImage+HQ.m */,
+			);
+			path = HQ;
+			sourceTree = "<group>";
+		};
 		07E5360F1A528203005E1DA9 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				079425961A5A59A7002BF56C /* HQ */,
 				075E40AD1A593AAB0062F6AD /* MBProgressHUD */,
 				075E40A41A593A820062F6AD /* ProgressHUD */,
 				075E40831A59386C0062F6AD /* AFNetworking */,
@@ -597,11 +615,13 @@
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
 				075E409B1A59386C0062F6AD /* AFSecurityPolicy.m in Sources */,
 				073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */,
+				0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */,
 				073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */,
 				075E409A1A59386C0062F6AD /* AFNetworkReachabilityManager.m in Sources */,
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
 				075E409D1A59386C0062F6AD /* AFURLRequestSerialization.m in Sources */,
+				0794259B1A5A59A7002BF56C /* QHQnetworkingTool.m in Sources */,
 				07E5363B1A529259005E1DA9 /* MineTabViewController.m in Sources */,
 				07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */,
 				07508E861A51346300873B45 /* main.m in Sources */,

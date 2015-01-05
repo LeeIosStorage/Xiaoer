@@ -15,6 +15,7 @@
 #import "XEProgressHUD.h"
 #import "URLHelper.h"
 #import "NSDictionary+objectForKey.h"
+#import "QHQnetworkingTool.h"
 
 #define CONNECT_TIMEOUT 20
 
@@ -314,7 +315,7 @@ static XEEngine* s_ShareInstance = nil;
     return NO;
 }
 
-- (BOOL)setPasswordwithUid:(NSString*)uid Password:(NSString*)password tag:(int)tag error:(NSError **)errPtr
+- (BOOL)setPasswordwithUid:(NSString*)uid Password:(NSString*)password tag:(int)tag error:(NSError *)errPtr
 {
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     [params setObject:uid forKey:@"uid"];
@@ -323,7 +324,7 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:errPtr];
 }
 
-- (BOOL)reDirectXECommonWithFormatDic:(NSDictionary *)dic withData:(NSData *)data withTag:(NSInteger)tag withTimeout:(NSTimeInterval)timeout error:(NSError **)errPtr {
+- (BOOL)reDirectXECommonWithFormatDic:(NSDictionary *)dic withData:(NSData *)data withTag:(int)tag withTimeout:(NSTimeInterval)timeout error:(NSError *)errPtr {
     
     NSString* url = [dic objectForKey:@"url"];
     NSString* method = @"POST";
@@ -339,21 +340,23 @@ static XEEngine* s_ShareInstance = nil;
             NSString *param = [URLHelper getURL:nil queryParameters:params prefixed:NO];
             fullUrl = [NSString stringWithFormat:@"%@?%@", fullUrl, param];
         }
-        if ([_urlCacheTagMap objectForKey:[NSNumber numberWithInteger:tag]]) {
-            [_urlCacheTagMap setObject:fullUrl forKey:[NSNumber numberWithInteger:tag]];
+        if ([_urlCacheTagMap objectForKey:[NSNumber numberWithInt:tag]]) {
+            [_urlCacheTagMap setObject:fullUrl forKey:[NSNumber numberWithInt:tag]];
             [_needCacheUrls addObject:fullUrl];
             return YES;
         }
         [_urlTagMap setObject:fullUrl forKey:[NSNumber numberWithInteger:tag]];
-        [self getWithURL:fullUrl params:params success:^(id json) {
-            NSLog(@"fullUrl===========%@",json);
+        [QHQnetworkingTool getWithURL:fullUrl params:params success:^(NSString* response) {
+            NSLog(@"fullUrl===========%@",response);
+            [self onResponse:response withTag:tag withError:errPtr];
         } failure:^(NSError *error) {
             [XEProgressHUD lightAlert:@"请检查网络状况"];
         }];
         return YES;
     }else {
-        [self postWithURL:url params:params success:^(id json) {
-            NSLog(@"url===========%@",json);
+        [QHQnetworkingTool postWithURL:url params:params success:^(NSString* response) {
+            NSLog(@"url===========%@",response);
+            [self onResponse:response withTag:tag withError:errPtr];
         } failure:^(NSError *error) {
             [XEProgressHUD lightAlert:@"请检查网络状况"];
 
@@ -364,48 +367,43 @@ static XEEngine* s_ShareInstance = nil;
     return NO;
 }
 
-//////////////////////
-- (void)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure
+- (void)onResponse:(NSString *)response withTag:(int)tag withError:(NSError *)errPtr
 {
-    // 1.创建请求管理对象
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary* jsonRet = nil;
     
-    // 2.发送请求
-    [manager POST:url parameters:params
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              if (success) {
-                  success(responseObject);
-              }
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              if (failure) {
-                  failure(error);
-              }
-              //统一提示连接超时
-              [XEProgressHUD AlertErrorTimeOut];
-              [XEProgressHUD AlertLoadDone];
-          }];
-}
+    if (response.length == 0) {
+        NSLog(@"#######response == 0");
+    } else {
+        jsonRet = [response objectFromJSONString];
+    }
 
-- (void)getWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure
-{
-    // 1.创建请求管理对象
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    // 2.发送请求
-    [manager GET:url parameters:params
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             if (success) {
-                 success(responseObject);
-             }
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             if (failure) {
-                 failure(error);
-             }
-             //统一提示连接超时
-             [XEProgressHUD AlertErrorTimeOut];
-             [XEProgressHUD AlertLoadDone];
-         }];
+    dispatch_async(dispatch_get_main_queue(), ^(){
+        BOOL timeout = NO;
+        if ([[jsonRet objectForKey:@"text"] isEqualToString:@"timeout"]) {
+            timeout = YES;
+        }
+        if (jsonRet && !errPtr) {
+            NSString* fullUrl = [_urlTagMap objectForKey:[NSNumber numberWithInt:tag]];
+            if (fullUrl) {
+                //有错误的内容不缓存
+                if ([_needCacheUrls containsObject:fullUrl] && ![XEEngine getErrorMsgWithReponseDic:jsonRet]) {
+                    [[self getCacheInstance] setString:response forKey:[XECommonUtils fileNameEncodedString:fullUrl]];
+                }
+            }
+        }
+        
+        [_urlTagMap removeObjectForKey:[NSNumber numberWithInt:tag]];
+        
+        onAppServiceBlock block = [self getonAppServiceBlockByTag:tag];
+        if (block) {
+            [self removeOnAppServiceBlockForTag:tag];
+            if (timeout) {
+                block(tag, nil, [NSError errorWithDomain:@"timeout" code:408 userInfo:nil]);
+            }else{
+                block(tag, jsonRet, errPtr);
+            }
+        }
+    });
 }
-
 
 @end
