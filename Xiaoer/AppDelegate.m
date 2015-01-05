@@ -13,6 +13,12 @@
 #import "ExpertChatViewController.h"
 #import "MineTabViewController.h"
 #import "XENavigationController.h"
+#import "UMSocialQQHandler.h"
+#import "UMSocialSinaHandler.h"
+#import "UMSocialWechatHandler.h"
+#import "XESystem.h"
+#import "UMSocial.h"
+#import "LoginViewController.h"
 
 @interface AppDelegate ()
 
@@ -24,10 +30,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    //友盟组件
+    [UMSocialData setAppKey:UMS_APP];
+    [UMSocialWechatHandler setWXAppId:UMS_WX_ID appSecret:UMS_WX_Key url:nil];
+    [UMSocialQQHandler setQQWithAppId:UMS_QQ_ID appKey:UMS_QQ_Key    url:nil];
+    [UMSocialSinaHandler openSSOWithRedirectURL:Sina_RedirectURL];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor clearColor];
     
-    [self signIn];
+    [self signOut];
     
     [self.window makeKeyAndVisible];
     
@@ -54,6 +66,26 @@
 }
 - (void)signOut{
     NSLog(@"signOut");
+    
+    LoginViewController* loginViewController = [[LoginViewController alloc] init];
+    XENavigationController* navigationController = [[XENavigationController alloc] initWithRootViewController:loginViewController];
+    navigationController.navigationBarHidden = YES;
+    self.window.rootViewController = navigationController;
+    
+    _mainTabViewController = nil;
+    
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [UMSocialSnsService handleOpenURL:url];
+}
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return  [UMSocialSnsService handleOpenURL:url];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
