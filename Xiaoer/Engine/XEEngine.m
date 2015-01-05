@@ -364,6 +364,14 @@ static XEEngine* s_ShareInstance = nil;
         return YES;
     }
     
+    NSError* err = nil;
+    
+    onAppServiceBlock block = [self getonAppServiceBlockByTag:tag];
+    if (block) {
+        [self removeOnAppServiceBlockForTag:tag];
+        block(tag, nil, err);
+    }
+    
     return NO;
 }
 
