@@ -14,6 +14,8 @@
 		073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9991A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m */; };
 		073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD99C1A53EB9700FF0EFD /* XELinkerHandler.m */; };
 		074593FC1A5B782B008F4665 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 074593FB1A5B782B008F4665 /* SystemConfiguration.framework */; };
+		074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074594021A5BB4FD008F4665 /* NewIntroViewController.m */; };
+		074594061A5BB52C008F4665 /* NewIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 074594051A5BB52C008F4665 /* NewIntroView.m */; };
 		07508E861A51346300873B45 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E851A51346300873B45 /* main.m */; };
 		07508E891A51346300873B45 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E881A51346300873B45 /* AppDelegate.m */; };
 		07508E8C1A51346300873B45 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E8B1A51346300873B45 /* ViewController.m */; };
@@ -117,6 +119,10 @@
 		073FD99C1A53EB9700FF0EFD /* XELinkerHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XELinkerHandler.m; sourceTree = "<group>"; };
 		074593FB1A5B782B008F4665 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		074593FF1A5B8391008F4665 /* Xiaoer-Prefx.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Xiaoer-Prefx.pch"; sourceTree = "<group>"; };
+		074594011A5BB4FD008F4665 /* NewIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewIntroViewController.h; sourceTree = "<group>"; };
+		074594021A5BB4FD008F4665 /* NewIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewIntroViewController.m; sourceTree = "<group>"; };
+		074594041A5BB52C008F4665 /* NewIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewIntroView.h; sourceTree = "<group>"; };
+		074594051A5BB52C008F4665 /* NewIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewIntroView.m; sourceTree = "<group>"; };
 		07508E801A51346300873B45 /* Xiaoer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xiaoer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07508E841A51346300873B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07508E851A51346300873B45 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -620,6 +626,10 @@
 				07E284921A5A8F26005651EB /* LoginViewController.h */,
 				07E284931A5A8F26005651EB /* LoginViewController.m */,
 				07E284941A5A8F26005651EB /* LoginViewController.xib */,
+				074594011A5BB4FD008F4665 /* NewIntroViewController.h */,
+				074594021A5BB4FD008F4665 /* NewIntroViewController.m */,
+				074594041A5BB52C008F4665 /* NewIntroView.h */,
+				074594051A5BB52C008F4665 /* NewIntroView.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -888,6 +898,7 @@
 				075E409A1A59386C0062F6AD /* AFNetworkReachabilityManager.m in Sources */,
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
+				074594061A5BB52C008F4665 /* NewIntroView.m in Sources */,
 				075E409D1A59386C0062F6AD /* AFURLRequestSerialization.m in Sources */,
 				0794259B1A5A59A7002BF56C /* QHQnetworkingTool.m in Sources */,
 				07E284951A5A8F26005651EB /* LoginViewController.m in Sources */,
@@ -895,6 +906,7 @@
 				07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */,
 				07508E861A51346300873B45 /* main.m in Sources */,
 				073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */,
+				074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */,
 				073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */,
 				075E40B31A5940920062F6AD /* URLHelper.m in Sources */,
 				073FD96E1A53A2E000FF0EFD /* XEEngine.m in Sources */,

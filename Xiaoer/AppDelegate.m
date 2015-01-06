@@ -18,8 +18,9 @@
 #import "UMSocialWechatHandler.h"
 #import "UMSocial.h"
 #import "LoginViewController.h"
+#import "NewIntroViewController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <NewIntroViewControllerDelegate>
 
 @end
 
@@ -29,20 +30,33 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    application.statusBarHidden = NO;
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     //友盟组件
     [UMSocialData setAppKey:UMS_APP];
     [UMSocialWechatHandler setWXAppId:UMS_WX_ID appSecret:UMS_WX_Key url:nil];
     [UMSocialQQHandler setQQWithAppId:UMS_QQ_ID appKey:UMS_QQ_Key    url:nil];
+    [UMSocialQQHandler setSupportWebView:YES];
     [UMSocialSinaHandler openSSOWithRedirectURL:Sina_RedirectURL];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor clearColor];
     
-    [self signOut];
+    [self showNewIntro];
     
     [self.window makeKeyAndVisible];
     
     return YES;
+}
+
+//新手引导
+-(void)showNewIntro{
+    
+    NewIntroViewController *introVc = [[NewIntroViewController alloc] init];
+    introVc.delegate = self;
+    self.window.rootViewController = introVc;
+    
 }
 
 - (void)signIn{
@@ -85,6 +99,12 @@
          annotation:(id)annotation
 {
     return  [UMSocialSnsService handleOpenURL:url];
+}
+
+#pragma mark -LSIntroduceVcDelegate
+
+- (void)introduceVcFinish:(NewIntroViewController *)vc {
+    [self signIn];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -28,6 +28,11 @@
     return self;
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -94,8 +99,16 @@
 }
 */
 
+-(BOOL) isHasNormalTitle
+{
+    return YES;
+}
+
 -(void) initTitleNavBar
 {
+    if (![self isHasNormalTitle]) {
+        return;
+    }
     _titleNavBar = [[XETitleNavBarView alloc] init:self];
     
     if ([_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
