@@ -128,6 +128,10 @@
 - (BOOL)shouldAutorotate{
     return NO;
 }
+- (NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     
 }
@@ -137,9 +141,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (NSUInteger)supportedInterfaceOrientations{
-    return UIInterfaceOrientationMaskPortrait;
-}
 - (void)viewDidUnload {
     [super viewDidUnload];
 }
