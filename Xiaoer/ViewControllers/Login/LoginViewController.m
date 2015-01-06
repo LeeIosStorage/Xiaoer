@@ -32,6 +32,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)initNormalTitleNavBarSubviews{
+    //title
+    [self setTitle:@"注册"];
+    //right buttom
+    [self setRightButtonWithTitle:@"登录" selector:@selector(loginAction:)];
+}
+
 /*
 #pragma mark - Navigation
 
@@ -46,7 +53,7 @@
 - (IBAction)getCodeAction:(id)sender {
     
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getCodeWithUid:@"13738168453" tag:tag];
+    [[XEEngine shareInstance] getCodeWithPhone:@"13738168453" tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -55,8 +62,6 @@
             }
             return;
         }
-        
-        
         
     }tag:tag];
 }

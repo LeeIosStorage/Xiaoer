@@ -18,8 +18,8 @@
 #import "QHQnetworkingTool.h"
 
 #define CONNECT_TIMEOUT 20
-#define JFun_IP @"http://app.nacute.com"
-#define JFun_Generate(P) [NSString stringWithFormat:@"%@/api/user/register/getCode?phone=%@",JFun_IP,P]
+
+#define API_URL @"http://192.168.16.29"
 
 static XEEngine* s_ShareInstance = nil;
 
@@ -66,10 +66,10 @@ static XEEngine* s_ShareInstance = nil;
     if (dic == nil) {
         return @"请检查网络连接是否正常";
     }
-    if ([dic objectForKey:@"apistatus"] == nil) {
+    if ([dic objectForKey:@"code"] == nil) {
         return nil;
     }
-    if ([[dic objectForKey:@"apistatus"] intValue] == 1){
+    if ([[dic objectForKey:@"code"] intValue] == -2){
         return nil;
     }
     NSString* error = [[dic objectForKey:@"result"] objectForKey:@"error_zh_CN"];
@@ -413,11 +413,11 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:errPtr];
 }
 
-- (BOOL)getCodeWithUid:(NSString*)uid tag:(int)tag
+- (BOOL)getCodeWithPhone:(NSString*)phone tag:(int)tag
 {
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:uid forKey:@"uid"];
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:@"http://app.nacute.com/api/user/register/getCode?phone=" type:1 parameters:params];
+    [params setObject:phone forKey:@"phone"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/api/user/register/getCode?phone",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
