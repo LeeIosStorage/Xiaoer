@@ -19,6 +19,7 @@
 -(void) setTitle:(NSString *) title;
 -(void) setTitle:(NSString *) title font:(UIFont *) font;
 
+-(BOOL) isHasNormalTitle;
 /*! @brief 子类中重写些函数去初始化基本的titleNavBar
  *
  */
