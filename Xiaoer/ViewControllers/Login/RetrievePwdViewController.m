@@ -7,6 +7,7 @@
 //
 
 #import "RetrievePwdViewController.h"
+#import "XEEngine.h"
 
 @interface RetrievePwdViewController ()
 
@@ -42,7 +43,17 @@
 }
 
 - (IBAction)getCodeAction:(id)sender {
-    
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] getCodeWithPhone:@"13738168453" tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"获取失败";
+            }
+            return;
+        }
+    }tag:tag];
 }
 
 - (IBAction)sendAction:(id)sender {

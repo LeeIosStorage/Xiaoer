@@ -394,9 +394,12 @@ static XEEngine* s_ShareInstance = nil;
     return NO;
 }
 
-- (BOOL)loginWithPhone:(NSString *)phone password:(NSString *)password error:(NSError **)errPtr
+- (BOOL)loginWithPhone:(NSString *)phone password:(NSString *)password tag:(int)tag error:(NSError **)errPtr
 {
-    return NO;
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:phone forKey:@"phone"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/msg/code",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:0 withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
 - (BOOL)loginWithEmail:(NSString*)email password:(NSString*)password error:(NSError **)errPtr
@@ -417,7 +420,7 @@ static XEEngine* s_ShareInstance = nil;
 {
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     [params setObject:phone forKey:@"phone"];
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/api/user/register/getCode?phone",API_URL] type:1 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/msg/code",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
