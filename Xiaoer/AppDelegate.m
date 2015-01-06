@@ -43,7 +43,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor clearColor];
     
-    [self showNewIntro];
+    [self signOut];
     
     [self.window makeKeyAndVisible];
     
@@ -104,7 +104,7 @@
 #pragma mark -LSIntroduceVcDelegate
 
 - (void)introduceVcFinish:(NewIntroViewController *)vc {
-    [self signIn];
+    [self signOut];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

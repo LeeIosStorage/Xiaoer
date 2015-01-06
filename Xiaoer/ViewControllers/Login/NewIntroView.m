@@ -70,9 +70,25 @@
     
     if (index == _introPages.count - 1) {
         
+        UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        loginBtn.frame = CGRectMake(0, 0, 100, 40);
+        [loginBtn setTitle:@"登陆" forState:0];
+//        CGFloat originalH = self.frame.size.height > 500 ? 508 : 420;
+        loginBtn.center = self.center;
+        [loginBtn setBackgroundImage:[UIImage imageNamed:@"welcom_button"] forState:UIControlStateNormal];
+        [loginBtn addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
+        [pageView addSubview:loginBtn];
+        
     }
     
     return pageView;
+}
+
+- (void)loginAction:(id)sender
+{
+    if (self.loginIntroCallBack) {
+        self.loginIntroCallBack();
+    }
 }
 
 /*

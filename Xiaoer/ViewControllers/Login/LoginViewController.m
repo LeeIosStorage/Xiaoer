@@ -40,6 +40,17 @@
     [self setTitle:@"注册"];
     //right buttom
     [self setRightButtonWithTitle:@"登录" selector:@selector(loginAction:)];
+    
+//    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] init];
+//    segmentedControl.center = self.titleNavBar.center;
+//    [self.titleNavBar addSubview:segmentedControl];
+    
+    UIView *categoryView = [[UIView alloc] init];
+    categoryView.backgroundColor = [UIColor clearColor];
+    categoryView.frame = CGRectMake(0, 0, 100, 30);
+    categoryView.center = self.titleNavBar.center;
+    [self.titleNavBar addSubview:categoryView];
+    
 }
 
 /*

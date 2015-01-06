@@ -28,6 +28,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(BOOL)isHasNormalTitle
+{
+    return NO;
+}
+
 /*
 #pragma mark - Navigation
 
@@ -47,11 +52,16 @@
     UIImage *page5 = [UIImage imageNamed:@"welcome5"];
     
     _introView = [[NewIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1, page2, page3, page4, page5]];
+    __weak NewIntroViewController *weakSelf = self;
+    [_introView setLoginIntroCallBack:^(){
+        [weakSelf loginAction];
+    }];
     [self.view addSubview:_introView];
 }
 
--(BOOL)isHasNormalTitle
-{
-    return NO;
+-(void)loginAction{
+    if (_delegate && [_delegate respondsToSelector:@selector(introduceVcFinish:)] ) {
+        [_delegate introduceVcFinish:self];
+    }
 }
 @end
