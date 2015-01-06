@@ -10,6 +10,7 @@
 #import "UMSocial.h"
 #import "XEProgressHUD.h"
 #import "XEEngine.h"
+#import "RetrievePwdViewController.h"
 
 @interface LoginViewController ()
 {
@@ -18,6 +19,8 @@
 
 - (IBAction)getCodeAction:(id)sender;
 - (IBAction)loginAction:(id)sender;
+- (IBAction)retrieveAction:(id)sender;
+
 @end
 
 @implementation LoginViewController
@@ -50,6 +53,11 @@
 */
 
 #pragma mark - IBAction
+- (IBAction)retrieveAction:(id)sender {
+    RetrievePwdViewController *rpVc = [[RetrievePwdViewController alloc] init];
+    [self.navigationController pushViewController:rpVc animated:YES];
+}
+
 - (IBAction)getCodeAction:(id)sender {
     
     int tag = [[XEEngine shareInstance] getConnectTag];

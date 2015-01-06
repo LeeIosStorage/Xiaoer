@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0712B37E1A5BC0DE000A1A7F /* RetrievePwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0712B37C1A5BC0DE000A1A7F /* RetrievePwdViewController.m */; };
+		0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0712B37D1A5BC0DE000A1A7F /* RetrievePwdViewController.xib */; };
 		073FD96E1A53A2E000FF0EFD /* XEEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD96D1A53A2E000FF0EFD /* XEEngine.m */; };
 		073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9841A53C3A000FF0EFD /* EGOCache.m */; };
 		073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9871A53C55200FF0EFD /* PathHelper.m */; };
@@ -103,6 +105,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0712B37B1A5BC0DE000A1A7F /* RetrievePwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetrievePwdViewController.h; sourceTree = "<group>"; };
+		0712B37C1A5BC0DE000A1A7F /* RetrievePwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetrievePwdViewController.m; sourceTree = "<group>"; };
+		0712B37D1A5BC0DE000A1A7F /* RetrievePwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RetrievePwdViewController.xib; sourceTree = "<group>"; };
 		073FD96C1A53A2E000FF0EFD /* XEEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEEngine.h; sourceTree = "<group>"; };
 		073FD96D1A53A2E000FF0EFD /* XEEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEEngine.m; sourceTree = "<group>"; };
 		073FD9831A53C3A000FF0EFD /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
@@ -620,6 +625,9 @@
 				07E284921A5A8F26005651EB /* LoginViewController.h */,
 				07E284931A5A8F26005651EB /* LoginViewController.m */,
 				07E284941A5A8F26005651EB /* LoginViewController.xib */,
+				0712B37B1A5BC0DE000A1A7F /* RetrievePwdViewController.h */,
+				0712B37C1A5BC0DE000A1A7F /* RetrievePwdViewController.m */,
+				0712B37D1A5BC0DE000A1A7F /* RetrievePwdViewController.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -841,6 +849,7 @@
 				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
 				07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */,
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
+				0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -900,6 +909,7 @@
 				073FD96E1A53A2E000FF0EFD /* XEEngine.m in Sources */,
 				07E536211A528C4B005E1DA9 /* XETabBarItemView.m in Sources */,
 				07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */,
+				0712B37E1A5BC0DE000A1A7F /* RetrievePwdViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
