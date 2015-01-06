@@ -19,4 +19,11 @@
 #define UMS_WX_Key                      @"b49d08f5de0880348e5e00a9688af60b"
 #define Sina_RedirectURL                @"sina.54aa3f96fd98c551990006a6://"
 
+// 自定义Log
+#ifdef DEBUG
+#define XELog(...) NSLog(__VA_ARGS__)
+#else
+#define XELog(...)
+#endif
+
 #endif

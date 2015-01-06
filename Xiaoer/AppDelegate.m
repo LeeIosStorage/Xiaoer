@@ -16,7 +16,6 @@
 #import "UMSocialQQHandler.h"
 #import "UMSocialSinaHandler.h"
 #import "UMSocialWechatHandler.h"
-#import "XESystem.h"
 #import "UMSocial.h"
 #import "LoginViewController.h"
 

@@ -13,6 +13,7 @@
 		073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9961A53D64400FF0EFD /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9991A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m */; };
 		073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD99C1A53EB9700FF0EFD /* XELinkerHandler.m */; };
+		074593FC1A5B782B008F4665 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 074593FB1A5B782B008F4665 /* SystemConfiguration.framework */; };
 		07508E861A51346300873B45 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E851A51346300873B45 /* main.m */; };
 		07508E891A51346300873B45 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E881A51346300873B45 /* AppDelegate.m */; };
 		07508E8C1A51346300873B45 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E8B1A51346300873B45 /* ViewController.m */; };
@@ -73,7 +74,6 @@
 		07E2848A1A5A8E92005651EB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E284891A5A8E92005651EB /* Security.framework */; };
 		07E2848C1A5A8EA2005651EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E2848B1A5A8EA2005651EB /* CoreGraphics.framework */; };
 		07E2848E1A5A8EAE005651EB /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E2848D1A5A8EAE005651EB /* CoreTelephony.framework */; };
-		07E284901A5A8EC1005651EB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E2848F1A5A8EC1005651EB /* SystemConfiguration.framework */; };
 		07E284951A5A8F26005651EB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E284931A5A8F26005651EB /* LoginViewController.m */; };
 		07E284961A5A8F26005651EB /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E284941A5A8F26005651EB /* LoginViewController.xib */; };
 		07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E5361A1A528BE6005E1DA9 /* XETabBarViewController.m */; };
@@ -115,6 +115,8 @@
 		073FD9991A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ObjectForKey.m"; sourceTree = "<group>"; };
 		073FD99B1A53EB9700FF0EFD /* XELinkerHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XELinkerHandler.h; sourceTree = "<group>"; };
 		073FD99C1A53EB9700FF0EFD /* XELinkerHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XELinkerHandler.m; sourceTree = "<group>"; };
+		074593FB1A5B782B008F4665 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		074593FF1A5B8391008F4665 /* Xiaoer-Prefx.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Xiaoer-Prefx.pch"; sourceTree = "<group>"; };
 		07508E801A51346300873B45 /* Xiaoer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xiaoer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07508E841A51346300873B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07508E851A51346300873B45 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -228,7 +230,6 @@
 		07E284891A5A8E92005651EB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		07E2848B1A5A8EA2005651EB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		07E2848D1A5A8EAE005651EB /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		07E2848F1A5A8EC1005651EB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		07E284921A5A8F26005651EB /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		07E284931A5A8F26005651EB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		07E284941A5A8F26005651EB /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -261,7 +262,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07E284901A5A8EC1005651EB /* SystemConfiguration.framework in Frameworks */,
+				074593FC1A5B782B008F4665 /* SystemConfiguration.framework in Frameworks */,
 				07E2848E1A5A8EAE005651EB /* CoreTelephony.framework in Frameworks */,
 				07E2848C1A5A8EA2005651EB /* CoreGraphics.framework in Frameworks */,
 				07E2848A1A5A8E92005651EB /* Security.framework in Frameworks */,
@@ -308,10 +309,10 @@
 			path = JSONKit;
 			sourceTree = "<group>";
 		};
-		07508E771A51346300873B45 = {
+		074594001A5B8BBE008F4665 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				07E2848F1A5A8EC1005651EB /* SystemConfiguration.framework */,
+				074593FB1A5B782B008F4665 /* SystemConfiguration.framework */,
 				07E2848D1A5A8EAE005651EB /* CoreTelephony.framework */,
 				07E2848B1A5A8EA2005651EB /* CoreGraphics.framework */,
 				07E284891A5A8E92005651EB /* Security.framework */,
@@ -319,8 +320,17 @@
 				07E284851A5A8E7B005651EB /* libstdc++.6.0.9.dylib */,
 				07E284831A5A8E6B005651EB /* libz.dylib */,
 				07E284811A5A8E61005651EB /* libsqlite3.0.dylib */,
+			);
+			name = Frameworks;
+			path = XiaoerTests;
+			sourceTree = "<group>";
+		};
+		07508E771A51346300873B45 = {
+			isa = PBXGroup;
+			children = (
 				07508E821A51346300873B45 /* Xiaoer */,
 				07508E9C1A51346300873B45 /* XiaoerTests */,
+				074594001A5B8BBE008F4665 /* Frameworks */,
 				07508E811A51346300873B45 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -360,6 +370,7 @@
 			isa = PBXGroup;
 			children = (
 				07508E841A51346300873B45 /* Info.plist */,
+				074593FF1A5B8391008F4665 /* Xiaoer-Prefx.pch */,
 				07508E851A51346300873B45 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -1026,7 +1037,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 				);
-				GCC_PREFIX_HEADER = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Xiaoer/Xiaoer-Prefx.pch";
 				INFOPLIST_FILE = Xiaoer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1052,7 +1064,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 				);
-				GCC_PREFIX_HEADER = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Xiaoer/Xiaoer-Prefx.pch";
 				INFOPLIST_FILE = Xiaoer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -66,7 +66,14 @@
     if (1)
     {
         _loginType = @"";
-        _loginType = [[NSString alloc]initWithString:UMShareToSina];//UMShareToQQ UMShareToWechatSession //UMShareToSina
+        UIButton *button = (UIButton *)sender;
+        if (button.tag == 0) {
+            _loginType = [[NSString alloc]initWithString:UMShareToQQ];
+        }else if (button.tag == 1){
+            _loginType = [[NSString alloc]initWithString:UMShareToSina];
+        }else if (button.tag == 2){
+            _loginType = [[NSString alloc]initWithString:UMShareToWechatSession];
+        }
         UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:_loginType];
         snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response)
                                       {
