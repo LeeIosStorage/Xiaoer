@@ -9,11 +9,14 @@
 #import "LoginViewController.h"
 #import "UMSocial.h"
 #import "XEProgressHUD.h"
+#import "XEEngine.h"
 
 @interface LoginViewController ()
 {
     NSString                *_loginType;
 }
+
+- (IBAction)getCodeAction:(id)sender;
 - (IBAction)loginAction:(id)sender;
 @end
 
@@ -40,6 +43,24 @@
 */
 
 #pragma mark - IBAction
+- (IBAction)getCodeAction:(id)sender {
+    
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] getCodeWithUid:@"13738168453" tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"获取失败";
+            }
+            return;
+        }
+        
+        
+        
+    }tag:tag];
+}
+
 - (IBAction)loginAction:(id)sender {
     
     if (1)

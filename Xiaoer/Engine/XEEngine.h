@@ -51,6 +51,9 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 
 - (void)logout;
 - (void)logout:(BOOL)removeAccout;
+
+
+- (BOOL)getCodeWithUid:(NSString*)uid tag:(int)tag;
 /////////////////
 
 - (BOOL)setPasswordwithUid:(NSString*)uid Password:(NSString*)password tag:(int)tag error:(NSError *)errPtr;

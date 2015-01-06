@@ -18,6 +18,8 @@
 #import "QHQnetworkingTool.h"
 
 #define CONNECT_TIMEOUT 20
+#define JFun_IP @"http://app.nacute.com"
+#define JFun_Generate(P) [NSString stringWithFormat:@"%@/api/user/register/getCode?phone=%@",JFun_IP,P]
 
 static XEEngine* s_ShareInstance = nil;
 
@@ -298,32 +300,6 @@ static XEEngine* s_ShareInstance = nil;
     return dic;
 }
 
-- (BOOL)loginWithAccredit:(NSString*)loginType error:(NSError **)errPtr
-{
-    //..UM
-    //if else
-    return NO;
-}
-
-- (BOOL)loginWithPhone:(NSString *)phone password:(NSString *)password error:(NSError **)errPtr
-{
-    return NO;
-}
-
-- (BOOL)loginWithEmail:(NSString*)email password:(NSString*)password error:(NSError **)errPtr
-{
-    return NO;
-}
-
-- (BOOL)setPasswordwithUid:(NSString*)uid Password:(NSString*)password tag:(int)tag error:(NSError *)errPtr
-{
-    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:uid forKey:@"uid"];
-    [params setObject:password forKey:@"password"];
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:@"/........" type:0 parameters:params];
-    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:errPtr];
-}
-
 - (BOOL)reDirectXECommonWithFormatDic:(NSDictionary *)dic withData:(NSData *)data withTag:(int)tag withTimeout:(NSTimeInterval)timeout error:(NSError *)errPtr {
     
     NSString* url = [dic objectForKey:@"url"];
@@ -375,19 +351,15 @@ static XEEngine* s_ShareInstance = nil;
     return NO;
 }
 
-- (void)onResponse:(NSString *)response withTag:(int)tag withError:(NSError *)errPtr
+- (void)onResponse:(id)jsonRet withTag:(int)tag withError:(NSError *)errPtr
 {
-    NSDictionary* jsonRet = nil;
-    
-    if (response.length == 0) {
-        NSLog(@"#######response == 0");
-    } else {
-        jsonRet = [response objectFromJSONString];
+    if (!jsonRet) {
+        NSLog(@"========================");
     }
 
     dispatch_async(dispatch_get_main_queue(), ^(){
         BOOL timeout = NO;
-        if ([[jsonRet objectForKey:@"text"] isEqualToString:@"timeout"]) {
+        if ([[jsonRet objectForKey:@"code"] isEqualToString:@"2"]) {
             timeout = YES;
         }
         if (jsonRet && !errPtr) {
@@ -395,7 +367,8 @@ static XEEngine* s_ShareInstance = nil;
             if (fullUrl) {
                 //有错误的内容不缓存
                 if ([_needCacheUrls containsObject:fullUrl] && ![XEEngine getErrorMsgWithReponseDic:jsonRet]) {
-                    [[self getCacheInstance] setString:response forKey:[XECommonUtils fileNameEncodedString:fullUrl]];
+                 //   [[self getCacheInstance] setString:response forKey:[XECommonUtils fileNameEncodedString:fullUrl]];
+                    NSLog(@"=======================%@",jsonRet);
                 }
             }
         }
@@ -412,6 +385,40 @@ static XEEngine* s_ShareInstance = nil;
             }
         }
     });
+}
+
+- (BOOL)loginWithAccredit:(NSString*)loginType error:(NSError **)errPtr
+{
+    //..UM
+    //if else
+    return NO;
+}
+
+- (BOOL)loginWithPhone:(NSString *)phone password:(NSString *)password error:(NSError **)errPtr
+{
+    return NO;
+}
+
+- (BOOL)loginWithEmail:(NSString*)email password:(NSString*)password error:(NSError **)errPtr
+{
+    return NO;
+}
+
+- (BOOL)setPasswordwithUid:(NSString*)uid Password:(NSString*)password tag:(int)tag error:(NSError *)errPtr
+{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:uid forKey:@"uid"];
+    [params setObject:password forKey:@"password"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:@"/........" type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:errPtr];
+}
+
+- (BOOL)getCodeWithUid:(NSString*)uid tag:(int)tag
+{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:uid forKey:@"uid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:@"http://app.nacute.com/api/user/register/getCode?phone=" type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
 @end
