@@ -37,20 +37,16 @@
 
 - (void)initNormalTitleNavBarSubviews{
     //title
-    [self setTitle:@"注册"];
+//    [self setTitle:@"注册"];
     //right buttom
     [self setRightButtonWithTitle:@"登录" selector:@selector(loginAction:)];
     
-//    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] init];
-//    segmentedControl.center = self.titleNavBar.center;
-//    [self.titleNavBar addSubview:segmentedControl];
-    
-    UIView *categoryView = [[UIView alloc] init];
-    categoryView.backgroundColor = [UIColor clearColor];
-    categoryView.frame = CGRectMake(0, 0, 100, 30);
-    categoryView.center = self.titleNavBar.center;
-    [self.titleNavBar addSubview:categoryView];
-    
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"手机登录",@"邮箱登录"]];
+    segmentedControl.frame = CGRectMake((self.titleNavBar.frame.size.width-215)/2,self.titleNavBar.frame.size.height - 25 - 10 , 215, 25);
+    segmentedControl.tintColor = [UIColor whiteColor];
+    segmentedControl.selectedSegmentIndex = 0;
+    [segmentedControl addTarget:self action:@selector(segmentedControlAction:) forControlEvents:UIControlEventValueChanged];
+    [self.titleNavBar addSubview:segmentedControl];
 }
 
 /*
@@ -223,4 +219,23 @@
         [XEProgressHUD AlertErrorNetwork];
     
 }
+
+-(void)segmentedControlAction:(UISegmentedControl *)sender{
+    
+    switch (sender.selectedSegmentIndex) {
+        case 0:
+        {
+            XELog(@"selectedSegmentIndex0");
+        }
+            break;
+        case 1:
+        {
+            XELog(@"selectedSegmentIndex1");
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 @end
