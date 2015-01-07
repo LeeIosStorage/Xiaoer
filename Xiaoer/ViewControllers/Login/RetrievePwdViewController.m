@@ -30,6 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,7 +41,25 @@
 
 - (void)initNormalTitleNavBarSubviews{
     //title
-    [self setTitle:@"手机找回密码"];
+    
+    if (self.reType == TYPE_PHONE) {
+        [self setTitle:@"手机找回密码"];
+        [self.retrieveImageView setImage:[UIImage imageNamed:@"verify_phone_icon"]];
+    }else{
+        [self setTitle:@"邮箱找回密码"];
+        [self.retrieveImageView setImage:[UIImage imageNamed:@"verify_eamil_icon"]];
+        self.titleLabel.text = @"请输入您的邮箱账号";
+        self.noticeLabel.text = @"您的密码重置链接将发送到您的邮箱\n如果没有收到，请检查垃圾邮件";
+        CGRect frame = self.noticeLabel.frame;
+        CGSize size = CGSizeMake(180, MAXFLOAT);
+        CGSize titleSize = [self.noticeLabel.text sizeWithFont:self.noticeLabel.font constrainedToSize:size lineBreakMode:UILineBreakModeCharacterWrap];
+        frame.size.height = titleSize.height;
+        self.noticeLabel.frame = frame;
+
+        self.commitTextField.placeholder = @"";
+        [self.commitButton setTitle:@"找回密码" forState:UIControlStateNormal];
+        self.phoneNumView.hidden = YES;
+    }
 }
 
 - (IBAction)getCodeAction:(id)sender {

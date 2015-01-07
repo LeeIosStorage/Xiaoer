@@ -66,6 +66,8 @@
 #pragma mark - IBAction
 - (IBAction)retrieveAction:(id)sender {
     RetrievePwdViewController *rpVc = [[RetrievePwdViewController alloc] init];
+    rpVc.reType = TYPE_PHONE;
+//    rpVc.reType = TYPE_EMAIL;
     [self.navigationController pushViewController:rpVc animated:YES];
 }
 

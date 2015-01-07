@@ -8,8 +8,14 @@
 
 #import "XESuperViewController.h"
 
+typedef enum RETRIEVE_TYPE_
+{
+    TYPE_PHONE = 0,
+    TYPE_EMAIL = 1,
+}RETRIEVE_TYPE;
+
 @interface RetrievePwdViewController : XESuperViewController
 
-@property (assign, nonatomic) int type;
+@property (nonatomic, assign) RETRIEVE_TYPE reType;
 
 @end
