@@ -11,12 +11,24 @@
 @interface XEUserInfo : NSObject
 
 @property(nonatomic, strong) NSString* uid;
+
 @property(nonatomic, strong) NSString* nickName;
 @property(nonatomic, strong) NSString* gender;
 @property(nonatomic, strong) NSString* region;
-@property(nonatomic, strong) NSString* address;
-@property(nonatomic, strong) NSString* phone;
+@property(nonatomic, strong) NSString* address;//
+@property(nonatomic, strong) NSString* phone;//
 @property(nonatomic, strong) NSString* avatarId;
+
+@property(nonatomic, strong) NSString* account;
+@property(nonatomic, strong) NSString* district;
+@property(nonatomic, strong) NSString* email;
+@property(nonatomic, assign) int fansNum;
+@property(nonatomic, assign) int isExpert;
+@property(nonatomic, strong) NSDate* modifyTime;
+@property(nonatomic, strong) NSString* name;
+@property(nonatomic, strong) NSDate* registerTime;
+@property(nonatomic, strong) NSString* title;
+@property(nonatomic, assign) int topicNum;
 
 //baby
 @property(nonatomic, strong) NSString* babyNick;

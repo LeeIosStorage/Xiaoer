@@ -13,6 +13,37 @@
 
 - (void)doSetUserInfoByJsonDic:(NSDictionary*)dic {
     //....
+    if ([dic objectForKey:@"account"]) {
+        _account = [dic objectForKey:@"account"];
+    }
+    if ([dic objectForKey:@"district"]) {
+        _district = [dic objectForKey:@"district"];
+    }
+    if ([dic objectForKey:@"email"]) {
+        _email = [dic objectForKey:@"email"];
+    }
+    if ([dic objectForKey:@"fansNum"]) {
+        _fansNum = [[dic objectForKey:@"fansNum"] intValue];
+    }
+    if ([dic objectForKey:@"isExpert"]) {
+        _isExpert = [[dic objectForKey:@"isExpert"] intValue];
+    }
+    if ([dic objectForKey:@"modifyTime"]) {
+        _modifyTime = [dic objectForKey:@"modifyTime"];
+    }
+    if ([dic objectForKey:@"name"]) {
+        _name = [dic objectForKey:@"name"];
+    }
+    if ([dic objectForKey:@"registerTime"]) {
+        _registerTime = [dic objectForKey:@"registerTime"];
+    }
+    if ([dic objectForKey:@"title"]) {
+        _title = [dic objectForKey:@"title"];
+    }
+    if ([dic objectForKey:@"name"]) {
+        _topicNum = [[dic objectForKey:@"topicNum"] intValue];
+        
+    }
     if ([dic objectForKey:@"gender"]) {
         _gender = [dic objectForKey:@"gender"];
     }

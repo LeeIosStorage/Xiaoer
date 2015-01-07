@@ -14,7 +14,8 @@
 
 @interface LoginViewController ()
 {
-    NSString                *_loginType;
+    int _retrieveIndex;
+    NSString *_loginType;
 }
 
 - (IBAction)getCodeAction:(id)sender;
@@ -28,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    _retrieveIndex = 0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,8 +64,7 @@
 #pragma mark - IBAction
 - (IBAction)retrieveAction:(id)sender {
     RetrievePwdViewController *rpVc = [[RetrievePwdViewController alloc] init];
-    rpVc.reType = TYPE_PHONE;
-//    rpVc.reType = TYPE_EMAIL;
+    rpVc.reType = _retrieveIndex;
     [self.navigationController pushViewController:rpVc animated:YES];
 }
 
@@ -226,11 +227,13 @@
         case 0:
         {
             XELog(@"selectedSegmentIndex0");
+            _retrieveIndex = 0;
         }
             break;
         case 1:
         {
             XELog(@"selectedSegmentIndex1");
+            _retrieveIndex = 1;
         }
             break;
         default:

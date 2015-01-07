@@ -8,6 +8,7 @@
 
 #import "RetrievePwdViewController.h"
 #import "XEEngine.h"
+#import "XEUserInfo.h"
 
 @interface RetrievePwdViewController ()
 
@@ -77,7 +78,27 @@
 }
 
 - (IBAction)sendAction:(id)sender {
-    
+    //test
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] loginWithUid:@"t1" password:@"123456" tag:tag error:nil];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"获取失败";
+            }
+            return;
+        }
+        
+        if ([jsonRet objectForKey:@"object"]) {
+            NSDictionary *dic = [jsonRet objectForKey:@"object"];
+            
+            XEUserInfo *userInfo = [[XEUserInfo alloc] init];
+            [userInfo setUserInfoByJsonDic:dic];
+            NSLog(@"================");
+        }
+        
+    }tag:tag];
 }
 
 

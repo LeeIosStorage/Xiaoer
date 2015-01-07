@@ -66,20 +66,21 @@ static XEEngine* s_ShareInstance = nil;
     if (dic == nil) {
         return @"请检查网络连接是否正常";
     }
-    if ([dic objectForKey:@"code"] == nil) {
-        return nil;
-    }
-    if ([[dic objectForKey:@"code"] intValue] == -2){
-        return nil;
-    }
-    NSString* error = [[dic objectForKey:@"result"] objectForKey:@"error_zh_CN"];
-    if (!error) {
-        error = [[dic objectForKey:@"result"] objectForKey:@"error"];
-    }
-    if (error == nil) {
-        error = @"unknow error";
-    }
-    return error;
+//    if ([dic objectForKey:@"code"] == nil) {
+//        return nil;
+//    }
+//    if ([[dic objectForKey:@"code"] intValue] == -2){
+//        return nil;
+//    }
+//    NSString* error = [[dic objectForKey:@"result"] objectForKey:@"error_zh_CN"];
+//    if (!error) {
+//        error = [[dic objectForKey:@"result"] objectForKey:@"error"];
+//    }
+//    if (error == nil) {
+//        error = @"unknow error";
+//    }
+//    return error;
+    return nil;
 }
 
 + (NSString*)getErrorCodeWithReponseDic:(NSDictionary*)dic {
@@ -322,7 +323,7 @@ static XEEngine* s_ShareInstance = nil;
             return YES;
         }
         [_urlTagMap setObject:fullUrl forKey:[NSNumber numberWithInteger:tag]];
-        [QHQnetworkingTool getWithURL:fullUrl params:params success:^(NSString* response) {
+        [QHQnetworkingTool getWithURL:fullUrl params:params success:^(id response) {
             NSLog(@"fullUrl===========%@",response);
             [self onResponse:response withTag:tag withError:errPtr];
         } failure:^(NSError *error) {
@@ -330,7 +331,7 @@ static XEEngine* s_ShareInstance = nil;
         }];
         return YES;
     }else {
-        [QHQnetworkingTool postWithURL:url params:params success:^(NSString* response) {
+        [QHQnetworkingTool postWithURL:url params:params success:^(id response) {
             NSLog(@"url===========%@",response);
             [self onResponse:response withTag:tag withError:errPtr];
         } failure:^(NSError *error) {
@@ -354,14 +355,15 @@ static XEEngine* s_ShareInstance = nil;
 - (void)onResponse:(id)jsonRet withTag:(int)tag withError:(NSError *)errPtr
 {
     if (!jsonRet) {
-        NSLog(@"========================");
+        NSLog(@"========================%@",[jsonRet objectForKey:@"code"]);
     }
-
+    NSLog(@"========================%d",[[jsonRet objectForKey:@"code"] intValue]);
     dispatch_async(dispatch_get_main_queue(), ^(){
         BOOL timeout = NO;
-        if ([[jsonRet objectForKey:@"code"] isEqualToString:@"2"]) {
-            timeout = YES;
-        }
+//        if ([jsonRet integerForKey:@"code"] == 2) {
+//            timeout = YES;
+//        }
+//        NSLog(@"========================%@",[jsonRet objectForKey:@"result"]);
         if (jsonRet && !errPtr) {
             NSString* fullUrl = [_urlTagMap objectForKey:[NSNumber numberWithInt:tag]];
             if (fullUrl) {
@@ -398,8 +400,17 @@ static XEEngine* s_ShareInstance = nil;
 {
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     [params setObject:phone forKey:@"phone"];
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/msg/code",API_URL] type:1 parameters:params];
-    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:0 withTimeout:CONNECT_TIMEOUT error:nil];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/login",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)loginWithUid:(NSString *)uid password:(NSString*)password tag:(int)tag error:(NSError **)errPtr{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:uid forKey:@"content"];
+    [params setObject:password forKey:@"password"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/login",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+
 }
 
 - (BOOL)loginWithEmail:(NSString*)email password:(NSString*)password error:(NSError **)errPtr
