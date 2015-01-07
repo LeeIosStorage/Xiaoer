@@ -183,6 +183,16 @@
 }
 
 //right button
+-(void) setRightButtonWithTitle:(NSString *) buttonTitle{
+    if (![_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
+        return;
+    }
+    
+    if (_titleNavBarRightBtn) {
+        _titleNavBarRightBtn.hidden = NO;
+        [_titleNavBarRightBtn setTitle:buttonTitle forState:UIControlStateNormal];
+    }
+}
 -(void) setRightButtonWithTitle:(NSString *) buttonTitle selector:(SEL) selector
 {
     if (![_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {

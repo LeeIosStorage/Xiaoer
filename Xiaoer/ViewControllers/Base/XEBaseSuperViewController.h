@@ -39,6 +39,7 @@
 -(void) setLeftButtonWithSelector:(SEL) selector;
 
 //right button
+-(void) setRightButtonWithTitle:(NSString *) buttonTitle;
 -(void) setRightButtonWithTitle:(NSString *) buttonTitle selector:(SEL) selector;
 
 -(void) setContentInsetForScrollView:(UIScrollView *) scrollview;
