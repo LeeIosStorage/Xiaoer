@@ -66,21 +66,21 @@ static XEEngine* s_ShareInstance = nil;
     if (dic == nil) {
         return @"请检查网络连接是否正常";
     }
-//    if ([dic objectForKey:@"code"] == nil) {
-//        return nil;
-//    }
-//    if ([[dic objectForKey:@"code"] intValue] == -2){
-//        return nil;
-//    }
-//    NSString* error = [[dic objectForKey:@"result"] objectForKey:@"error_zh_CN"];
-//    if (!error) {
-//        error = [[dic objectForKey:@"result"] objectForKey:@"error"];
-//    }
-//    if (error == nil) {
-//        error = @"unknow error";
-//    }
-//    return error;
-    return nil;
+    if ([dic objectForKey:@"code"] == nil) {
+        return nil;
+    }
+    if ([[dic objectForKey:@"code"] intValue] == 0){
+        return nil;
+    }
+    NSString* error = [dic objectForKey:@"result"];
+    if (!error) {
+        error = [dic objectForKey:@"result"];
+    }
+    if (error == nil) {
+        error = @"unknow error";
+    }
+    return error;
+//    return nil;
 }
 
 + (NSString*)getErrorCodeWithReponseDic:(NSDictionary*)dic {

@@ -40,7 +40,7 @@
     if ([dic objectForKey:@"title"]) {
         _title = [dic objectForKey:@"title"];
     }
-    if ([dic objectForKey:@"name"]) {
+    if ([dic objectForKey:@"topicNum"]) {
         _topicNum = [[dic objectForKey:@"topicNum"] intValue];
         
     }

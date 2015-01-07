@@ -14,5 +14,8 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (readonly, nonatomic) XETabBarViewController* mainTabViewController;
 
+- (void)signIn;
+- (void)signOut;
+
 @end
 

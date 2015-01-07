@@ -11,10 +11,16 @@
 #import "XEProgressHUD.h"
 #import "XEEngine.h"
 #import "RetrievePwdViewController.h"
+#import "SetPwdViewController.h"
+#import "XEUserInfo.h"
+#import "AppDelegate.h"
 
 @interface LoginViewController ()
 {
     NSString *_loginType;
+    NSString *_registerPhoneTextFieldText;
+    NSString *_loginPhoneTextFieldText;
+    NSString *_loginPasswordTextFieldText;
 }
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @property (assign, nonatomic) NSInteger selectedSegmentIndex;
@@ -314,31 +320,47 @@
     
     if (_vcType == VcType_Register) {
         if (_selectedSegmentIndex == 0) {
-            
+            [self checkCode];
         }else if (_selectedSegmentIndex == 1){
-            
+//            [self registerWithEmail];
         }
     }
 }
 
 - (IBAction)getCodeAction:(id)sender {
     
+    _registerPhoneTextFieldText = [_registerPhoneTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (_registerPhoneTextFieldText.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入手机号"];
+        return;
+    }
+    
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getCodeWithPhone:@"13738168453" tag:tag];
+    [[XEEngine shareInstance] getCodeWithPhone:_registerPhoneTextFieldText tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
-                errorMsg = @"获取失败";
+                errorMsg = @"请求失败!";
             }
+            [XEProgressHUD AlertError:errorMsg];
             return;
         }
+        
+        [XEProgressHUD AlertSuccess:@"验证码发送成功."];
         
     }tag:tag];
 }
 
 - (IBAction)loginAction:(id)sender {
     
+    if (_vcType == VcType_Login) {
+        if (_selectedSegmentIndex == 0) {
+            [self loginWithPhone];
+        }else if (_selectedSegmentIndex == 1){
+            [self loginWithPhone];
+        }
+    }
 }
 
 -(void)segmentedControlAction:(UISegmentedControl *)sender{
@@ -359,6 +381,133 @@
         default:
             break;
     }
+}
+
+-(void)loginWithPhone{
+    
+    _loginPhoneTextFieldText = [_accountTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (_loginPhoneTextFieldText.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入手机号"];
+        return;
+    }
+    _loginPasswordTextFieldText = [_passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (_loginPasswordTextFieldText.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入密码"];
+        return;
+    }
+    [XEProgressHUD AlertLoading:@"正在登录..."];
+//    __weak LoginViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] loginWithUid:_loginPhoneTextFieldText password:_loginPasswordTextFieldText tag:tag error:nil];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:@"登录成功."];
+        
+        NSDictionary *object = [jsonRet objectForKey:@"object"];
+        XEUserInfo *userInfo = [[XEUserInfo alloc] init];
+        [userInfo setUserInfoByJsonDic:object];
+        
+        [self performSelector:@selector(loginFinished) withObject:nil afterDelay:1.5];
+        
+    }tag:tag];
+    
+}
+-(void)loginWithEmail{
+    
+}
+
+-(void)loginFinished{
+    
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate signIn];
+}
+
+-(void)checkCode{
+    
+    _registerPhoneTextFieldText = [_registerPhoneTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (_registerPhoneTextFieldText.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入手机号"];
+        return;
+    }
+    NSString *verifyAndemailTextFieldText = [_verifyAndemailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (verifyAndemailTextFieldText.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入验证码"];
+        return;
+    }
+    
+    __weak LoginViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] checkCodeWithPhone:_registerPhoneTextFieldText code:verifyAndemailTextFieldText codeType:@"0" tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        
+        SetPwdViewController *spVc = [[SetPwdViewController alloc] init];
+        [weakSelf.navigationController pushViewController:spVc animated:YES];
+        
+    }tag:tag];
+
+}
+
+-(void)registerWithPhone{
+    
+    _registerPhoneTextFieldText = [_registerPhoneTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (_registerPhoneTextFieldText.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入手机号"];
+        return;
+    }
+    NSString *verifyAndemailTextFieldText = [_verifyAndemailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (verifyAndemailTextFieldText.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入验证码"];
+        return;
+    }
+    
+//    __weak LoginViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] registerWithPhone:@"13803833466" password:@"916881" tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"获取失败";
+            }
+            return;
+        }
+        
+        
+        
+    }tag:tag];
+}
+
+-(void)registerWithEmail{
+    
+    //    __weak LoginViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] registerWithEmail:@"123@qq.com" password:@"123456" tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"获取失败";
+            }
+            return;
+        }
+        
+    }tag:tag];
 }
 
 @end

@@ -69,5 +69,8 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 
 - (BOOL)setPasswordwithUid:(NSString*)uid Password:(NSString*)password tag:(int)tag error:(NSError *)errPtr;
 
+//注册
+- (BOOL)registerWithPhone:(NSString*)phone password:(NSString*)password tag:(int)tag;
+- (BOOL)registerWithEmail:(NSString*)email password:(NSString*)password tag:(int)tag;
 
 @end
