@@ -10,4 +10,6 @@
 
 @interface SetPwdViewController : XESuperViewController
 
+@property (nonatomic, strong) NSString *registerName;
+
 @end

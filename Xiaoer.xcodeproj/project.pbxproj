@@ -44,6 +44,7 @@
 		07508EA01A51346300873B45 /* XiaoerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E9F1A51346300873B45 /* XiaoerTests.m */; };
 		075CAF4C1A5D0E6A005CF4B6 /* SetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075CAF4A1A5D0E6A005CF4B6 /* SetPwdViewController.m */; };
 		075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075CAF4B1A5D0E6A005CF4B6 /* SetPwdViewController.xib */; };
+		075CAF721A5D338F005CF4B6 /* NSString+Value.m in Sources */ = {isa = PBXBuildFile; fileRef = 075CAF711A5D338F005CF4B6 /* NSString+Value.m */; };
 		075E40971A59386C0062F6AD /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40851A59386C0062F6AD /* AFHTTPRequestOperation.m */; };
 		075E40981A59386C0062F6AD /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40871A59386C0062F6AD /* AFHTTPRequestOperationManager.m */; };
 		075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40891A59386C0062F6AD /* AFHTTPSessionManager.m */; };
@@ -198,6 +199,8 @@
 		075CAF491A5D0E6A005CF4B6 /* SetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPwdViewController.h; sourceTree = "<group>"; };
 		075CAF4A1A5D0E6A005CF4B6 /* SetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPwdViewController.m; sourceTree = "<group>"; };
 		075CAF4B1A5D0E6A005CF4B6 /* SetPwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetPwdViewController.xib; sourceTree = "<group>"; };
+		075CAF701A5D338F005CF4B6 /* NSString+Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Value.h"; sourceTree = "<group>"; };
+		075CAF711A5D338F005CF4B6 /* NSString+Value.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Value.m"; sourceTree = "<group>"; };
 		075E40841A59386C0062F6AD /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		075E40851A59386C0062F6AD /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		075E40861A59386C0062F6AD /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -577,6 +580,8 @@
 				073FD9871A53C55200FF0EFD /* PathHelper.m */,
 				077C98B11A53A16C00E2985B /* XESystem.h */,
 				077C98B21A53A16C00E2985B /* XEUIKitMacro.h */,
+				075CAF701A5D338F005CF4B6 /* NSString+Value.h */,
+				075CAF711A5D338F005CF4B6 /* NSString+Value.m */,
 				073FD9981A53E18E00FF0EFD /* NSDictionary+ObjectForKey.h */,
 				073FD9991A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m */,
 				077C98BE1A53D12700E2985B /* XECommonUtils.h */,
@@ -1024,6 +1029,7 @@
 				0712B3A51A5BD853000A1A7F /* NSData+GIF.m in Sources */,
 				074594061A5BB52C008F4665 /* NewIntroView.m in Sources */,
 				0712B3B41A5BD853000A1A7F /* UIView+WebCacheOperation.m in Sources */,
+				075CAF721A5D338F005CF4B6 /* NSString+Value.m in Sources */,
 				0712B3A71A5BD853000A1A7F /* SDImageCache.m in Sources */,
 				0712B3AC1A5BD853000A1A7F /* SDWebImageManager.m in Sources */,
 				075E409D1A59386C0062F6AD /* AFURLRequestSerialization.m in Sources */,

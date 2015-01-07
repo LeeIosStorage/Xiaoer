@@ -45,6 +45,9 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 
 
 #pragma mark -register and login
+- (BOOL)registerWithPhone:(NSString*)phone password:(NSString*)password tag:(int)tag;
+- (BOOL)registerWithEmail:(NSString*)email password:(NSString*)password tag:(int)tag;
+
 - (BOOL)loginWithAccredit:(NSString*)loginType error:(NSError **)errPtr;
 - (BOOL)loginWithPhone:(NSString*)phone password:(NSString*)password tag:(int)tag error:(NSError **)errPtr;
 - (BOOL)loginWithEmail:(NSString*)email password:(NSString*)password error:(NSError **)errPtr;
@@ -58,6 +61,9 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getCodeWithPhone:(NSString*)phone tag:(int)tag;
 //校验验证码
 - (BOOL)checkCodeWithPhone:(NSString*)phone code:(NSString*)msgcode codeType:(NSString*)type tag:(int)tag;
+
+//重置密码
+- (BOOL)resetPassword:(NSString*)password withUid:(NSString*)uid tag:(int)tag;
 
 /////////////////
 

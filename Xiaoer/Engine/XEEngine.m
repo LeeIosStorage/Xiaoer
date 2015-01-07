@@ -389,6 +389,24 @@ static XEEngine* s_ShareInstance = nil;
     });
 }
 
+- (BOOL)registerWithPhone:(NSString*)phone password:(NSString*)password tag:(int)tag
+{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:phone forKey:@"phone"];
+    [params setObject:password forKey:@"password"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/reg/phone",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)registerWithEmail:(NSString*)email password:(NSString*)password tag:(int)tag
+{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:email forKey:@"email"];
+    [params setObject:password forKey:@"password"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/reg/email",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
 - (BOOL)loginWithAccredit:(NSString*)loginType error:(NSError **)errPtr
 {
     //..UM
@@ -444,6 +462,15 @@ static XEEngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/check/msgcode",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 
+}
+
+- (BOOL)resetPassword:(NSString*)password withUid:(NSString*)uid tag:(int)tag
+{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:password forKey:@"password"];
+    [params setObject:uid forKey:@"userid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/password/reset",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
 @end

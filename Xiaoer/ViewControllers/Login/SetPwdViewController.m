@@ -8,6 +8,8 @@
 
 #import "SetPwdViewController.h"
 #import "XEProgressHUD.h"
+#import "XEEngine.h"
+#import "NSString+Value.h"
 
 @interface SetPwdViewController ()
 
@@ -63,8 +65,50 @@
     }
     
     if ([self.setPwdTextField.text isEqualToString:self.comfirmTextField.text]) {
-        
+        int tag = [[XEEngine shareInstance] getConnectTag];
+        if (self.registerName.length != 0) {
+            [XEProgressHUD AlertLoading:@"正在注册"];
+            if ([self.registerName isPhone]) {
+                [[XEEngine shareInstance] registerWithPhone:self.registerName password:self.setPwdTextField.text tag:tag];
+                [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+                    NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+                    if (!jsonRet || errorMsg) {
+                        if (!errorMsg.length) {
+                            errorMsg = @"获取失败";
+                        }
+                        return;
+                    }
+                    [XEProgressHUD AlertLoading:@"注册成功"];
+                }tag:tag];
+            }else if([self.registerName isEmail]){
+                [[XEEngine shareInstance] registerWithEmail:self.registerName password:self.setPwdTextField.text tag:tag];
+                [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+                    NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+                    if (!jsonRet || errorMsg) {
+                        if (!errorMsg.length) {
+                            errorMsg = @"获取失败";
+                        }
+                        return;
+                    }
+                    [XEProgressHUD AlertLoading:@"注册成功"];
+                }tag:tag];
+            }
+        }else{
+            [XEProgressHUD AlertLoading:@"正在重置密码"];
+            [[XEEngine shareInstance] resetPassword:self.setPwdTextField.text withUid:@"t1" tag:tag];
+            [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+                NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+                if (!jsonRet || errorMsg) {
+                    if (!errorMsg.length) {
+                        errorMsg = @"获取失败";
+                    }
+                    return;
+                }
+                [XEProgressHUD AlertLoading:@"重置密码成功"];
+            }tag:tag];
+        }
     }else{
+        [self.comfirmTextField becomeFirstResponder];
         [XEProgressHUD AlertError:@"两次密码不一致"];
     }
 }
