@@ -435,4 +435,15 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
+- (BOOL)checkCodeWithPhone:(NSString*)phone code:(NSString*)msgcode codeType:(NSString*)type tag:(int)tag
+{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:phone forKey:@"phone"];
+    [params setObject:msgcode forKey:@"msgcode"];
+    [params setObject:type forKey:@"type"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/check/msgcode",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+
+}
+
 @end

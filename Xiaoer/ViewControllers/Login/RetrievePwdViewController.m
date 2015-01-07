@@ -9,6 +9,7 @@
 #import "RetrievePwdViewController.h"
 #import "XEEngine.h"
 #import "XEUserInfo.h"
+#import "SetPwdViewController.h"
 
 @interface RetrievePwdViewController ()
 
@@ -65,7 +66,7 @@
 
 - (IBAction)getCodeAction:(id)sender {
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getCodeWithPhone:@"13738168453" tag:tag];
+    [[XEEngine shareInstance] getCodeWithPhone:@"13888888888" tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -74,13 +75,15 @@
             }
             return;
         }
+        NSLog(@"=====%@",[jsonRet objectForKey:@"obj"]);
     }tag:tag];
 }
 
 - (IBAction)sendAction:(id)sender {
     //test
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] loginWithUid:@"t1" password:@"123456" tag:tag error:nil];
+//    [[XEEngine shareInstance] loginWithUid:@"t1" password:@"123456" tag:tag error:nil];
+    [[XEEngine shareInstance] checkCodeWithPhone:@"13888888888" code:@"835576" codeType:@"1" tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -90,13 +93,15 @@
             return;
         }
         
-        if ([jsonRet objectForKey:@"object"]) {
-            NSDictionary *dic = [jsonRet objectForKey:@"object"];
-            
-            XEUserInfo *userInfo = [[XEUserInfo alloc] init];
-            [userInfo setUserInfoByJsonDic:dic];
-            NSLog(@"================");
-        }
+//        if ([jsonRet objectForKey:@"object"]) {
+//            NSDictionary *dic = [jsonRet objectForKey:@"object"];
+//            XEUserInfo *userInfo = [[XEUserInfo alloc] init];
+//            [userInfo setUserInfoByJsonDic:dic];
+//            NSLog(@"================");
+//        }
+        
+        SetPwdViewController *spVc = [[SetPwdViewController alloc] init];
+        [self.navigationController pushViewController:spVc animated:YES];
         
     }tag:tag];
 }

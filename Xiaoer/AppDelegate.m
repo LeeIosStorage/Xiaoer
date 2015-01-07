@@ -44,7 +44,7 @@
     self.window.backgroundColor = [UIColor clearColor];
     
     [self signOut];
-    
+    //[self signIn];
     [self.window makeKeyAndVisible];
     
     return YES;

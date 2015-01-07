@@ -25,6 +25,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)initNormalTitleNavBarSubviews{
+    
+    [self setTitle:@"我的"];
+    
+    [self setRightButtonWithTitle:@"设置" selector:@selector(settingAction)];
+}
+
+- (void)settingAction
+{
+    UIAlertView *Alert = [[UIAlertView alloc] initWithTitle:@"还没好还没好！！！"
+                                                    message:nil
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"知道了", nil];
+    [Alert show];
+}
 /*
 #pragma mark - Navigation
 

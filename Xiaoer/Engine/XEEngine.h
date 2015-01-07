@@ -54,8 +54,10 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (void)logout;
 - (void)logout:(BOOL)removeAccout;
 
-
+//获取验证码
 - (BOOL)getCodeWithPhone:(NSString*)phone tag:(int)tag;
+//校验验证码
+- (BOOL)checkCodeWithPhone:(NSString*)phone code:(NSString*)msgcode codeType:(NSString*)type tag:(int)tag;
 
 /////////////////
 
