@@ -61,17 +61,18 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (void)logout:(BOOL)removeAccout;
 
 //获取验证码
-- (BOOL)getCodeWithPhone:(NSString*)phone tag:(int)tag;
+- (BOOL)getCodeWithPhone:(NSString*)phone type:(NSString*)type tag:(int)tag;
 //校验验证码
 - (BOOL)checkCodeWithPhone:(NSString*)phone code:(NSString*)msgcode codeType:(NSString*)type tag:(int)tag;
 
 //重置密码
 - (BOOL)resetPassword:(NSString*)password withUid:(NSString*)uid tag:(int)tag;
-- (BOOL)setPasswordwithUid:(NSString*)uid Password:(NSString*)password tag:(int)tag error:(NSError *)errPtr;
 
 //校验邮箱 uid可以为空
 - (BOOL)checkEmailWithEmail:(NSString *)email uid:(NSString *)uid tag:(int)tag;
 //校验手机号 uid可以为空
 - (BOOL)checkPhoneWithPhone:(NSString *)phone uid:(NSString *)uid tag:(int)tag;
+//修改头像
+- (BOOL)updateAvatarWithUid:(NSString *)uid avatar:(NSString *)avatar tag:(int)tag;
 
 @end

@@ -97,8 +97,8 @@
         </view>
     </objects>
     <resources>
-        <image name="login_btn_enabled" width="410" height="62"/>
-        <image name="verify_commit_bg" width="410" height="60"/>
+        <image name="login_btn_enabled" width="248" height="42"/>
+        <image name="verify_commit_bg" width="248" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

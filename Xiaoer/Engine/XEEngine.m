@@ -452,19 +452,11 @@ static XEEngine* s_ShareInstance = nil;
     return NO;
 }
 
-- (BOOL)setPasswordwithUid:(NSString*)uid Password:(NSString*)password tag:(int)tag error:(NSError *)errPtr
-{
-    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:uid forKey:@"uid"];
-    [params setObject:password forKey:@"password"];
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:@"/........" type:0 parameters:params];
-    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:errPtr];
-}
-
-- (BOOL)getCodeWithPhone:(NSString*)phone tag:(int)tag
+- (BOOL)getCodeWithPhone:(NSString*)phone type:(NSString*)type tag:(int)tag
 {
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     [params setObject:phone forKey:@"phone"];
+    [params setObject:type forKey:@"type"];
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/msg/code",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
@@ -512,6 +504,14 @@ static XEEngine* s_ShareInstance = nil;
         [params setObject:phone forKey:@"phone"];
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/check/phone",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)updateAvatarWithUid:(NSString *)uid avatar:(NSString *)avatar tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:uid forKey:@"userid"];
+    [params setObject:avatar forKey:@"avatar"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/avatar",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 

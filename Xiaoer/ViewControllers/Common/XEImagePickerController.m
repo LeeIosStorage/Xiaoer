@@ -38,9 +38,7 @@
 }
 
 -(void)viewDidDisappear:(BOOL)animated
-{
-    //    NSLog(@"LSImagePickView viewDidDisappear");
-    
+{    
     if (self.sourceType == UIImagePickerControllerSourceTypeCamera) {
         //记录当前的相机状态
         UIImagePickerControllerCameraFlashMode flashModel = [self cameraFlashMode];
