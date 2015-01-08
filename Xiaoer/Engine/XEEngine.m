@@ -200,6 +200,20 @@ static XEEngine* s_ShareInstance = nil;
     //.....account信息
 }
 
+- (void)saveAccount{
+    NSMutableDictionary* accountDic= [NSMutableDictionary dictionaryWithCapacity:2];
+    if (_uid) {
+        [accountDic setValue:_uid forKey:@"uid"];
+    }
+    
+    [accountDic writeToFile:[self getAccountsStoragePath] atomically:NO];
+}
+
+- (void)setUserInfo:(XEUserInfo *)userInfo{
+    _userInfo = userInfo;
+    [[NSNotificationCenter defaultCenter] postNotificationName:LS_USERINFO_CHANGED_NOTIFICATION object:self];
+    [self saveUserInfo];
+}
 
 - (void)setDebugMode:(BOOL)debugMode save:(BOOL)save {
     _debugMode = debugMode;
@@ -470,6 +484,32 @@ static XEEngine* s_ShareInstance = nil;
     [params setObject:password forKey:@"password"];
     [params setObject:uid forKey:@"userid"];
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/password/reset",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+
+- (BOOL)checkEmailWithEmail:(NSString *)email uid:(NSString *)uid tag:(int)tag{
+    
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    if (email) {
+        [params setObject:email forKey:@"email"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/check/email",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)checkPhoneWithPhone:(NSString *)phone uid:(NSString *)uid tag:(int)tag{
+    
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    if (phone) {
+        [params setObject:phone forKey:@"phone"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/check/phone",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 

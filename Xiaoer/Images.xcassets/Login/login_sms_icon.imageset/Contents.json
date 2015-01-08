@@ -6,12 +6,13 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "短信icon2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "短信icon.png"
+      "filename" : "短信icon3x.png"
     }
   ],
   "info" : {

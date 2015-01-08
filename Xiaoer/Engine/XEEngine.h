@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "XEUserInfo.h"
 
+#define LS_USERINFO_CHANGED_NOTIFICATION @"LS_USERINFO_CHANGED_NOTIFICATION"
+
 typedef void(^onAppServiceBlock)(NSInteger tag, NSDictionary* jsonRet, NSError* err);
 typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expectedSize);
 
@@ -25,6 +27,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 + (NSString*)getErrorMsgWithReponseDic:(NSDictionary*)dic;
 + (NSString*)getErrorCodeWithReponseDic:(NSDictionary*)dic;
 
+- (void)saveAccount;
 - (NSString*)getCurrentAccoutDocDirectory;
 
 //////////////////
@@ -69,8 +72,9 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 
 - (BOOL)setPasswordwithUid:(NSString*)uid Password:(NSString*)password tag:(int)tag error:(NSError *)errPtr;
 
-//注册
-- (BOOL)registerWithPhone:(NSString*)phone password:(NSString*)password tag:(int)tag;
-- (BOOL)registerWithEmail:(NSString*)email password:(NSString*)password tag:(int)tag;
+//校验邮箱 uid可以为空
+- (BOOL)checkEmailWithEmail:(NSString *)email uid:(NSString *)uid tag:(int)tag;
+//校验手机号 uid可以为空
+- (BOOL)checkPhoneWithPhone:(NSString *)phone uid:(NSString *)uid tag:(int)tag;
 
 @end

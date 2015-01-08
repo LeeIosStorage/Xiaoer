@@ -7,11 +7,12 @@
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "微信button.png"
+      "filename" : "weixinbutton2x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "weixinbutton3x.png"
     }
   ],
   "info" : {

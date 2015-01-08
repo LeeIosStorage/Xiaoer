@@ -27,10 +27,10 @@
 
 -(void)initNormalTitleNavBarSubviews{
     
-    [self setLeftButtonTitle:@"按钮"];
-    [self setLeftButtonWithSelector:@selector(settingAction:)];
+//    [self setLeftButtonTitle:@"按钮"];
+//    [self setLeftButtonWithSelector:@selector(settingAction:)];
     
-    [self setRightButtonWithTitle:@"按钮" selector:@selector(settingAction:)];
+//    [self setRightButtonWithTitle:@"按钮" selector:@selector(settingAction:)];
 }
 
 #pragma mark - IBAction
