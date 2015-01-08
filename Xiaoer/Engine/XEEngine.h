@@ -27,6 +27,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 + (NSString*)getErrorMsgWithReponseDic:(NSDictionary*)dic;
 + (NSString*)getErrorCodeWithReponseDic:(NSDictionary*)dic;
 
+- (void)saveAccount;
 - (NSString*)getCurrentAccoutDocDirectory;
 
 //////////////////
@@ -66,13 +67,11 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 
 //重置密码
 - (BOOL)resetPassword:(NSString*)password withUid:(NSString*)uid tag:(int)tag;
-
-/////////////////
-
 - (BOOL)setPasswordwithUid:(NSString*)uid Password:(NSString*)password tag:(int)tag error:(NSError *)errPtr;
 
-//注册
-- (BOOL)registerWithPhone:(NSString*)phone password:(NSString*)password tag:(int)tag;
-- (BOOL)registerWithEmail:(NSString*)email password:(NSString*)password tag:(int)tag;
+//校验邮箱 uid可以为空
+- (BOOL)checkEmailWithEmail:(NSString *)email uid:(NSString *)uid tag:(int)tag;
+//校验手机号 uid可以为空
+- (BOOL)checkPhoneWithPhone:(NSString *)phone uid:(NSString *)uid tag:(int)tag;
 
 @end
