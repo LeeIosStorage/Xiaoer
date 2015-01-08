@@ -43,8 +43,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor clearColor];
     
-    [self signOut];
-    //[self signIn];
+    //[self signOut];
+    [self signIn];
     [self.window makeKeyAndVisible];
     
     return YES;

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "XEUserInfo.h"
 
+#define XE_USERINFO_CHANGED_NOTIFICATION @"XE_USERINFO_CHANGED_NOTIFICATION"
+
 typedef void(^onAppServiceBlock)(NSInteger tag, NSDictionary* jsonRet, NSError* err);
 typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expectedSize);
 

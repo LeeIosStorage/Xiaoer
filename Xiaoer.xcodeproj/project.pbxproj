@@ -35,6 +35,9 @@
 		074593FC1A5B782B008F4665 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 074593FB1A5B782B008F4665 /* SystemConfiguration.framework */; };
 		074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074594021A5BB4FD008F4665 /* NewIntroViewController.m */; };
 		074594061A5BB52C008F4665 /* NewIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 074594051A5BB52C008F4665 /* NewIntroView.m */; };
+		074DD0DA1A5E33B80042B721 /* MineTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 074DD0D81A5E33B80042B721 /* MineTabCell.m */; };
+		074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074DD0D91A5E33B80042B721 /* MineTabCell.xib */; };
+		074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 074DD0DD1A5E6A740042B721 /* XESettingConfig.m */; };
 		07508E861A51346300873B45 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E851A51346300873B45 /* main.m */; };
 		07508E891A51346300873B45 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E881A51346300873B45 /* AppDelegate.m */; };
 		07508E8C1A51346300873B45 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E8B1A51346300873B45 /* ViewController.m */; };
@@ -183,6 +186,11 @@
 		074594021A5BB4FD008F4665 /* NewIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewIntroViewController.m; sourceTree = "<group>"; };
 		074594041A5BB52C008F4665 /* NewIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewIntroView.h; sourceTree = "<group>"; };
 		074594051A5BB52C008F4665 /* NewIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewIntroView.m; sourceTree = "<group>"; };
+		074DD0D71A5E33B80042B721 /* MineTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTabCell.h; sourceTree = "<group>"; };
+		074DD0D81A5E33B80042B721 /* MineTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTabCell.m; sourceTree = "<group>"; };
+		074DD0D91A5E33B80042B721 /* MineTabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineTabCell.xib; sourceTree = "<group>"; };
+		074DD0DC1A5E6A740042B721 /* XESettingConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XESettingConfig.h; sourceTree = "<group>"; };
+		074DD0DD1A5E6A740042B721 /* XESettingConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XESettingConfig.m; sourceTree = "<group>"; };
 		07508E801A51346300873B45 /* Xiaoer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xiaoer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07508E841A51346300873B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07508E851A51346300873B45 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -436,6 +444,16 @@
 			);
 			name = Frameworks;
 			path = XiaoerTests;
+			sourceTree = "<group>";
+		};
+		074DD0D61A5E33B80042B721 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				074DD0D71A5E33B80042B721 /* MineTabCell.h */,
+				074DD0D81A5E33B80042B721 /* MineTabCell.m */,
+				074DD0D91A5E33B80042B721 /* MineTabCell.xib */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		07508E771A51346300873B45 = {
@@ -771,6 +789,8 @@
 				073FD96D1A53A2E000FF0EFD /* XEEngine.m */,
 				073FD99B1A53EB9700FF0EFD /* XELinkerHandler.h */,
 				073FD99C1A53EB9700FF0EFD /* XELinkerHandler.m */,
+				074DD0DC1A5E6A740042B721 /* XESettingConfig.h */,
+				074DD0DD1A5E6A740042B721 /* XESettingConfig.m */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -800,6 +820,7 @@
 		07E536141A528239005E1DA9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				074DD0D61A5E33B80042B721 /* Main */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -950,6 +971,7 @@
 				07E284721A5A8DFC005651EB /* UMSCommentDetailController.xib in Resources */,
 				07E284781A5A8DFC005651EB /* UMSnsAccountViewController.xib in Resources */,
 				07E284731A5A8DFC005651EB /* UMSCommentInputController.xib in Resources */,
+				074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */,
 				07E284741A5A8DFC005651EB /* UMSCommentInputControlleriPad.xib in Resources */,
 				07E284961A5A8F26005651EB /* LoginViewController.xib in Resources */,
 				07E536251A528CF8005E1DA9 /* XETabBarItemView.xib in Resources */,
@@ -987,6 +1009,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				075E40971A59386C0062F6AD /* AFHTTPRequestOperation.m in Sources */,
+				074DD0DA1A5E33B80042B721 /* MineTabCell.m in Sources */,
 				073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */,
 				077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */,
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
@@ -1026,6 +1049,7 @@
 				075E409A1A59386C0062F6AD /* AFNetworkReachabilityManager.m in Sources */,
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
+				074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */,
 				0712B3A51A5BD853000A1A7F /* NSData+GIF.m in Sources */,
 				074594061A5BB52C008F4665 /* NewIntroView.m in Sources */,
 				0712B3B41A5BD853000A1A7F /* UIView+WebCacheOperation.m in Sources */,

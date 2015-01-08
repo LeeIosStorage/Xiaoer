@@ -194,6 +194,14 @@ static XEEngine* s_ShareInstance = nil;
     [self.userInfo.jsonString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
+- (void)setUserInfo:(XEUserInfo *)userInfo{
+    _userInfo = userInfo;
+    //[[LSSettingConfig staticInstance] setUserCfg:_userInfo.userInfoByJsonDic];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XE_USERINFO_CHANGED_NOTIFICATION object:self];
+    [self saveUserInfo];
+}
+
+
 - (void)loadAccount{
     NSDictionary * accountDic = [NSDictionary dictionaryWithContentsOfFile:[self getAccountsStoragePath]];
     _uid = [accountDic objectForKey:@"uid"];
