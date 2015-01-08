@@ -7,7 +7,10 @@
 //
 
 #import "XESuperViewController.h"
+#import "XEUserInfo.h"
 
 @interface PerfectInfoViewController : XESuperViewController
+
+@property (nonatomic, strong) XEUserInfo *userInfo;
 
 @end

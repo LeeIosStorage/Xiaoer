@@ -13,6 +13,8 @@
 //系统相机闪光灯状态
 @property (nonatomic, assign) int systemCameraFlashStatus;
 
++(XESettingConfig *)staticInstance;
+
 + (void)logout;
 - (void)login;
 

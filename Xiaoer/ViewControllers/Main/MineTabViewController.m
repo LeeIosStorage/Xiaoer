@@ -10,6 +10,7 @@
 #import "MineTabCell.h"
 #import "XEEngine.h"
 #import "UIImageView+WebCache.h"
+#import "PerfectInfoViewController.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
@@ -29,6 +30,7 @@ enum TABLEVIEW_SECTION_INDEX {
 
 - (IBAction)ownerHeadAction:(id)sender;
 - (IBAction)setOwnerImageAction:(id)sender;
+- (IBAction)editInfoAction:(id)sender;
 
 @end
 
@@ -204,5 +206,11 @@ enum TABLEVIEW_SECTION_INDEX {
 
 - (IBAction)setOwnerImageAction:(id)sender {
     NSLog(@"===========%s",__func__);
+}
+
+- (IBAction)editInfoAction:(id)sender {
+    PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
+    piVc.userInfo = _userInfo;
+    [self.navigationController pushViewController:piVc animated:YES];
 }
 @end
