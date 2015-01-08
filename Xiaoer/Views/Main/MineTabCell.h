@@ -12,6 +12,10 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
+@property (strong, nonatomic) IBOutlet UILabel *introLabel;
+
+@property (nonatomic, strong) IBOutlet UIImageView *leftAvater;
+
 @property (nonatomic, strong) IBOutlet UIImageView *topline;
 
 @property (nonatomic, strong) IBOutlet UIImageView *sepline;
