@@ -65,6 +65,8 @@
 		075E40B31A5940920062F6AD /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40B21A5940920062F6AD /* URLHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		07702D011A5901AF00168E2E /* XESuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07702D001A5901AF00168E2E /* XESuperViewController.m */; };
 		07702D051A5909B400168E2E /* XECommonVcTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 07702D041A5909B400168E2E /* XECommonVcTransition.m */; };
+		077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0779166E1A5E64BA0047C17C /* PerfectInfoViewController.m */; };
+		077916711A5E64BA0047C17C /* PerfectInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0779166F1A5E64BA0047C17C /* PerfectInfoViewController.xib */; };
 		077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98AE1A53A11000E2985B /* XEUserInfo.m */; };
 		077C98B51A53A6B300E2985B /* XENavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98B41A53A6B300E2985B /* XENavigationController.m */; };
 		077C98B81A53BEAE00E2985B /* XEBaseSuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98B71A53BEAE00E2985B /* XEBaseSuperViewController.m */; };
@@ -243,6 +245,9 @@
 		07702D001A5901AF00168E2E /* XESuperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XESuperViewController.m; sourceTree = "<group>"; };
 		07702D031A5909B400168E2E /* XECommonVcTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECommonVcTransition.h; sourceTree = "<group>"; };
 		07702D041A5909B400168E2E /* XECommonVcTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECommonVcTransition.m; sourceTree = "<group>"; };
+		0779166D1A5E64BA0047C17C /* PerfectInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerfectInfoViewController.h; sourceTree = "<group>"; };
+		0779166E1A5E64BA0047C17C /* PerfectInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerfectInfoViewController.m; sourceTree = "<group>"; };
+		0779166F1A5E64BA0047C17C /* PerfectInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PerfectInfoViewController.xib; sourceTree = "<group>"; };
 		077C98AD1A53A11000E2985B /* XEUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEUserInfo.h; sourceTree = "<group>"; };
 		077C98AE1A53A11000E2985B /* XEUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEUserInfo.m; sourceTree = "<group>"; };
 		077C98B11A53A16C00E2985B /* XESystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XESystem.h; sourceTree = "<group>"; };
@@ -759,6 +764,9 @@
 				075CAF491A5D0E6A005CF4B6 /* SetPwdViewController.h */,
 				075CAF4A1A5D0E6A005CF4B6 /* SetPwdViewController.m */,
 				075CAF4B1A5D0E6A005CF4B6 /* SetPwdViewController.xib */,
+				0779166D1A5E64BA0047C17C /* PerfectInfoViewController.h */,
+				0779166E1A5E64BA0047C17C /* PerfectInfoViewController.m */,
+				0779166F1A5E64BA0047C17C /* PerfectInfoViewController.xib */,
 				074594011A5BB4FD008F4665 /* NewIntroViewController.h */,
 				074594021A5BB4FD008F4665 /* NewIntroViewController.m */,
 				074594041A5BB52C008F4665 /* NewIntroView.h */,
@@ -969,6 +977,7 @@
 				07E284771A5A8DFC005651EB /* UMSLoginViewController.xib in Resources */,
 				07E536321A5290C9005E1DA9 /* EvaluationViewController.xib in Resources */,
 				07E284721A5A8DFC005651EB /* UMSCommentDetailController.xib in Resources */,
+				077916711A5E64BA0047C17C /* PerfectInfoViewController.xib in Resources */,
 				07E284781A5A8DFC005651EB /* UMSnsAccountViewController.xib in Resources */,
 				07E284731A5A8DFC005651EB /* UMSCommentInputController.xib in Resources */,
 				074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */,
@@ -1042,6 +1051,7 @@
 				075E409F1A59386C0062F6AD /* AFURLSessionManager.m in Sources */,
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
 				075E409B1A59386C0062F6AD /* AFSecurityPolicy.m in Sources */,
+				077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */,
 				0712B3AB1A5BD853000A1A7F /* SDWebImageDownloaderOperation.m in Sources */,
 				073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */,
 				0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */,

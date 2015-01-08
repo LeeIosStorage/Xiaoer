@@ -360,6 +360,9 @@
         case 1:
         {
             XELog(@"selectedSegmentIndex1");
+            SetPwdViewController *spVc = [[SetPwdViewController alloc] init];
+            spVc.registerName = @"13888888888";
+            [self.navigationController pushViewController:spVc animated:YES];
         }
             break;
         default:

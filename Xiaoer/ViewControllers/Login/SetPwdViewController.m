@@ -10,6 +10,7 @@
 #import "XEProgressHUD.h"
 #import "XEEngine.h"
 #import "NSString+Value.h"
+#import "PerfectInfoViewController.h"
 
 @interface SetPwdViewController ()
 
@@ -43,6 +44,7 @@
 
 - (IBAction)confirmAction:(id)sender {
     NSLog(@"================");
+    [self perfectInformation];
     if  (self.setPwdTextField.text.length == 0)
     {
         [self.setPwdTextField becomeFirstResponder];
@@ -64,6 +66,7 @@
         return;
     }
     
+//    __weak SetPwdViewController *weakSelf = self;
     if ([self.setPwdTextField.text isEqualToString:self.comfirmTextField.text]) {
         int tag = [[XEEngine shareInstance] getConnectTag];
         if (self.registerName.length != 0) {
@@ -112,4 +115,9 @@
         [XEProgressHUD AlertError:@"两次密码不一致"];
     }
 }
+
+-(void)perfectInformation{
+    PerfectInfoViewController *pVc = [[PerfectInfoViewController alloc] init];
+    [self.navigationController pushViewController:pVc animated:YES];}
+
 @end
