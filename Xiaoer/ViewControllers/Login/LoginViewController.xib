@@ -32,7 +32,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="ruC-H9-927" userLabel="View - login">
-                    <rect key="frame" x="0.0" y="84" width="320" height="150"/>
+                    <rect key="frame" x="0.0" y="104" width="320" height="150"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入邮箱" textAlignment="center" minimumFontSize="17" background="verify_commit_bg" id="WQA-D2-6tS">
@@ -225,12 +225,12 @@
         </view>
     </objects>
     <resources>
-        <image name="login_btn_enabled" width="410" height="62"/>
-        <image name="login_btn_hover" width="410" height="60"/>
-        <image name="login_qq_btn" width="145" height="50"/>
-        <image name="login_sina_btn" width="145" height="50"/>
-        <image name="login_wx_btn" width="145" height="50"/>
-        <image name="verify_commit_bg" width="410" height="60"/>
+        <image name="login_btn_enabled" width="248" height="42"/>
+        <image name="login_btn_hover" width="248" height="42"/>
+        <image name="login_qq_btn" width="87" height="30"/>
+        <image name="login_sina_btn" width="87" height="30"/>
+        <image name="login_wx_btn" width="87" height="30"/>
+        <image name="verify_commit_bg" width="248" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

@@ -118,6 +118,9 @@
 
 -(void)perfectInformation{
     PerfectInfoViewController *pVc = [[PerfectInfoViewController alloc] init];
+    XEUserInfo *userInfo = [[XEUserInfo alloc] init];
+    userInfo.uid = @"1";
+    pVc.userInfo = userInfo;
     [self.navigationController pushViewController:pVc animated:YES];}
 
 @end

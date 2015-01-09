@@ -75,4 +75,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 //修改头像
 - (BOOL)updateAvatarWithUid:(NSString *)uid avatar:(NSString *)avatar tag:(int)tag;
 
+//用户信息编辑
+- (BOOL)editUserInfoWithUid:(NSString *)uid name:(NSString *)name nickname:(NSString *)nickname title:(NSString *)title desc:(NSString *)desc district:(NSString *)district address:(NSString *)address bbId:(NSString *)bbId bbName:(NSString *)bbName bbGender:(NSString *)bbGender bbBirthday:(NSString *)bbBirthday bbAvatar:(NSString *)bbAvatar tag:(int)tag;
+
 @end

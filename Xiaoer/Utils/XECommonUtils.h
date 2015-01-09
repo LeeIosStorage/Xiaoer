@@ -31,4 +31,8 @@ dispatch_sync(dispatch_get_main_queue(), block);\
 //获取文件夹大小
 + (unsigned long long)getDirectorySizeForPath:(NSString*)path;
 
++ (UInt32)getDistinctAsciiTextNum:(NSString*)text;
++ (UInt32)getHanziTextNum:(NSString*)text;
++ (NSString*)getHanziTextWithText:(NSString*)text maxLength:(UInt32)maxLength;
+
 @end

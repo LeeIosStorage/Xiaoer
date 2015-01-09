@@ -333,6 +333,7 @@ static XEEngine* s_ShareInstance = nil;
             NSString *param = [URLHelper getURL:nil queryParameters:params prefixed:NO];
             fullUrl = [NSString stringWithFormat:@"%@?%@", fullUrl, param];
         }
+        NSLog(@"getFullUrl=%@",fullUrl);
         if ([_urlCacheTagMap objectForKey:[NSNumber numberWithInt:tag]]) {
             [_urlCacheTagMap setObject:fullUrl forKey:[NSNumber numberWithInt:tag]];
             [_needCacheUrls addObject:fullUrl];
@@ -340,15 +341,21 @@ static XEEngine* s_ShareInstance = nil;
         }
         [_urlTagMap setObject:fullUrl forKey:[NSNumber numberWithInteger:tag]];
         [QHQnetworkingTool getWithURL:fullUrl params:params success:^(id response) {
-            NSLog(@"fullUrl===========%@",response);
+            NSLog(@"getFullUrl===========%@ response%@",fullUrl,response);
             [self onResponse:response withTag:tag withError:errPtr];
         } failure:^(NSError *error) {
             [XEProgressHUD lightAlert:@"请检查网络状况"];
         }];
         return YES;
     }else {
-        [QHQnetworkingTool postWithURL:url params:params success:^(id response) {
-            NSLog(@"url===========%@",response);
+        NSString* fullUrl = url;
+        if (params) {
+            NSString *param = [URLHelper getURL:nil queryParameters:params prefixed:NO];
+            fullUrl = [NSString stringWithFormat:@"%@?%@", fullUrl, param];
+        }
+        NSLog(@"postFullUrl=%@",fullUrl);
+        [QHQnetworkingTool postWithURL:fullUrl params:params success:^(id response) {
+            NSLog(@"postFullUrl===========%@ response%@",fullUrl,response);
             [self onResponse:response withTag:tag withError:errPtr];
         } failure:^(NSError *error) {
             [XEProgressHUD lightAlert:@"请检查网络状况"];
@@ -513,6 +520,50 @@ static XEEngine* s_ShareInstance = nil;
     [params setObject:avatar forKey:@"avatar"];
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/avatar",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)editUserInfoWithUid:(NSString *)uid name:(NSString *)name nickname:(NSString *)nickname title:(NSString *)title desc:(NSString *)desc district:(NSString *)district address:(NSString *)address bbId:(NSString *)bbId bbName:(NSString *)bbName bbGender:(NSString *)bbGender bbBirthday:(NSString *)bbBirthday bbAvatar:(NSString *)bbAvatar tag:(int)tag{
+    
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (uid) {
+        [params setObject:uid forKey:@"id"];
+    }
+    if (name) {
+        [params setObject:name forKey:@"name"];
+    }
+    if (nickname) {
+        [params setObject:nickname forKey:@"nickname"];
+    }
+    if (title) {
+        [params setObject:title forKey:@"title"];
+    }
+    if (desc) {
+        [params setObject:desc forKey:@"desc"];
+    }
+    if (district) {
+        [params setObject:district forKey:@"district"];
+    }
+    if (address) {
+        [params setObject:address forKey:@"address"];
+    }
+    if (bbId) {
+        [params setObject:bbId forKey:@"bb_id"];
+    }
+    if (bbName) {
+        [params setObject:bbName forKey:@"bb_name"];
+    }
+    if (bbGender) {
+        [params setObject:bbGender forKey:@"bb_gender"];
+    }
+    if (bbBirthday) {
+        [params setObject:bbBirthday forKey:@"bb_born"];
+    }
+    if (bbAvatar) {
+        [params setObject:bbAvatar forKey:@"bb_avatar"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/edit",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+    
 }
 
 @end

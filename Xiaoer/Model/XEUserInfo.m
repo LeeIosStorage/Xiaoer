@@ -96,6 +96,42 @@
     self.jsonString = [_userInfoByJsonDic JSONString];
 }
 
+- (void)setBirthdayDate:(NSDate *)birthdayDate{
+    _birthdayDate = birthdayDate;
+    if (birthdayDate) {
+        NSCalendar * calender = [NSCalendar currentCalendar];
+        unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit |
+        NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit;
+        NSDateComponents *comps = [calender components:unitFlags fromDate:birthdayDate];
+        _birthdayString = [NSString stringWithFormat:@"%ld-%ld-%ld", comps.year, comps.month, comps.day];
+    }
+    
+}
+- (void)setBirthdayString:(NSString *)birthdayString{
+    
+    NSArray* items = [birthdayString componentsSeparatedByString:@"-"];
+    if (items.count != 3) {
+        return;
+    }
+    
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setDay:[[items objectAtIndex:2] integerValue]];
+    [comps setMonth:[[items objectAtIndex:1] integerValue]];
+    [comps setYear:[[items objectAtIndex:0] integerValue]];
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDate *date = [gregorian dateFromComponents:comps];
+    
+    _birthdayDate = date;
+    _birthdayString = birthdayString;
+}
 
++ (NSString*)getBirthdayByDate:(NSDate*)date{
+    NSCalendar * calender = [NSCalendar currentCalendar];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit |
+    NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit;
+    NSDateComponents *comps = [calender components:unitFlags fromDate:date];
+    return [NSString stringWithFormat:@"%ld-%ld-%ld", comps.year, comps.month, comps.day];
+}
 
 @end

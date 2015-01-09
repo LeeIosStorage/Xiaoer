@@ -22,6 +22,8 @@
 #define SINGLE_CELL_HEIGHT 44.f
 #define SINGLE_HEADER_HEADER 6.f
 
+#define XE_IMAGE_COMPRESSION_QUALITY 0.4
+
 // 自定义Log
 #ifdef DEBUG
 #define XELog(...) NSLog(__VA_ARGS__)

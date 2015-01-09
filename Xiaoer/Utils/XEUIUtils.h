@@ -23,4 +23,15 @@
  */
 +(BOOL)updateFrameWithView:(UIView *)view superView:(UIView *)superView isAddHeight:(BOOL)isAddHeight delHeight:(CGFloat)height;
 
++(void)showAlertWithMsg:(NSString *)msg;
++(void)showAlertWithMsg:(NSString *)msg title:(NSString *) title;
+
+//年龄
++ (int)getAgeByDate:(NSDate*)date;
++(NSDateFormatter *) dateFormatterOFUS;
++(NSDateComponents *) dateComponentsFromDate:(NSDate *) date;
+
++ (NSString*)documentOfCameraDenied;
++ (NSString*)documentOfAVCaptureDenied;
+
 @end

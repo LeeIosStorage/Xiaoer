@@ -80,6 +80,12 @@
 - (void)signOut{
     NSLog(@"signOut");
     
+//    long hexColor = 0xb4b5b5;
+//    float red = ((float)((hexColor & 0xFF0000) >> 16));
+//    float green = ((float)((hexColor & 0xFF00) >> 8));
+//    float blue = ((float)(hexColor & 0xFF));
+    
+    
     LoginViewController* loginViewController = [[LoginViewController alloc] init];
     XENavigationController* navigationController = [[XENavigationController alloc] initWithRootViewController:loginViewController];
     navigationController.navigationBarHidden = YES;

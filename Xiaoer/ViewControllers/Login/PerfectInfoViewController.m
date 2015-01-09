@@ -9,9 +9,33 @@
 #import "PerfectInfoViewController.h"
 #import "AppDelegate.h"
 #import "MineTabCell.h"
+#import "UIImageView+WebCache.h"
+#import "XEInputViewController.h"
+#import "XEActionSheet.h"
+#import "XEAlertView.h"
+#import "XEImagePickerController.h"
+#import "UIImage+ProportionalFill.h"
+#import "AVCamUtilities.h"
+#import "XEUIUtils.h"
+#import "XEProgressHUD.h"
+#import "XEEngine.h"
 
-@interface PerfectInfoViewController () <UITableViewDataSource,UITableViewDelegate>
+#define TAG_USER_NAME      0
+#define TAG_USER_IDENTITY  1
+#define TAG_USER_REGION    2
+#define TAG_USER_ADDRESS   3
+#define TAG_USER_PHONE     4
+#define TAG_BOBY_NAME      5
+#define TAG_BOBY_GENDER    6
+#define TAG_BOBY_DATE      7
+#define TAG_USER_AVATER    8
+#define TAG_BOBY_AVATER    9
 
+@interface PerfectInfoViewController () <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,XEInputViewControllerDelegate>
+{
+    int _editTag;
+    UIImage *_babyAvatar;
+}
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *footerView;
 @property (strong, nonatomic) IBOutlet UIButton *saveButton;
@@ -24,12 +48,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setTilteLeftViewHide:YES];
     
+    XEUserInfo *oldUserInfo = _userInfo;
+    oldUserInfo.uid = _userInfo.uid;
+    if (_userInfo.title.length == 0) {
+        _userInfo.title = @"妈妈";
+    }
+    _userInfo = [[XEUserInfo alloc] init];
+    _userInfo = oldUserInfo;
+    
+    [self setTilteLeftViewHide:YES];
     self.saveButton.layer.cornerRadius = 4;
     self.saveButton.layer.masksToBounds = YES;
     self.tableView.tableFooterView = self.footerView;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = UIColorRGB(240, 240, 240);
     
     [self.tableView reloadData];
 }
@@ -57,15 +89,101 @@
 }
 */
 
+-(void)editUserInfo{
+    
+//    _babyAvatar = [UIImage imageNamed:@"tmp_avatar_icon"];
+//    NSData* imageData = UIImageJPEGRepresentation(_babyAvatar, XE_IMAGE_COMPRESSION_QUALITY);
+//    NSString* pictureDataString =[imageData base64Encoding];
+//    NSString *dataStr = [[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
+    
+    [XEProgressHUD AlertLoading:@"保存中"];
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] editUserInfoWithUid:_userInfo.uid name:@"1" nickname:_userInfo.nickName title:_userInfo.title desc:@"1" district:_userInfo.region address:_userInfo.address bbId:nil bbName:_userInfo.babyNick bbGender:_userInfo.babyGender bbBirthday:_userInfo.birthdayString bbAvatar:_userInfo.babyAvatarId tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"保存失败";
+            }
+            return;
+        }
+        
+        [XEProgressHUD AlertSuccess:@"保存成功."];
+    }tag:tag];
+    
+}
+
 #pragma mark - custom
 -(void)skipAction:(id)sender{
     
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate signIn];
+    XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"你确定要跳过吗？确定将不保存已输入的内容" cancelButtonTitle:@"取消" cancelBlock:^{
+        
+    } okButtonTitle:@"确认" okBlock:^{
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate signIn];
+    }];
+    [alertView show];
 }
 
 - (IBAction)saveAction:(id)sender {
     
+    if (_userInfo.nickName.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入昵称"];
+        return;
+    }
+    if ([XECommonUtils getHanziTextNum:_userInfo.nickName] < 2) {
+        [XEProgressHUD lightAlert:@"昵称太短了"];
+        return;
+    }
+    if (_userInfo.babyNick.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入宝宝昵称"];
+        return;
+    }
+    if ([XECommonUtils getHanziTextNum:_userInfo.babyNick] < 2) {
+        [XEProgressHUD lightAlert:@"宝宝昵称太短了"];
+        return;
+    }
+//    if (_userInfo.region.length == 0) {
+//        [XEProgressHUD lightAlert:@"请输入您的地区"];
+//        return;
+//    }
+    if (_userInfo.birthdayString.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入宝宝生日"];
+        return;
+    }
+    if (_userInfo.babyGender.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入宝宝性别"];
+        return;
+    }
+    
+    [self editUserInfo];
+}
+
+-(void)doActionSheetClickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (1 == buttonIndex ) {
+        //检查设备是否有相机功能
+        if (![AVCamUtilities userCameraIsUsable]) {
+            [XEUIUtils showAlertWithMsg:[XEUIUtils documentOfCameraDenied]];
+            return;
+        }
+        //判断ios7用户相机是否打开
+        if (![AVCamUtilities userCaptureIsAuthorization]) {
+            [XEUIUtils showAlertWithMsg:[XEUIUtils documentOfAVCaptureDenied]];
+            return;
+        }
+    }
+    
+    XEImagePickerController *picker = [[XEImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    
+    if (buttonIndex == 1) {
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    [self presentViewController:picker animated:YES completion:^{
+        
+    }];
 }
 
 -(NSDictionary *)tableDataModule{
@@ -83,19 +201,23 @@
     
     //section = 1
     NSMutableDictionary *sectionDict1 = [NSMutableDictionary dictionary];
-    intro = @"妈妈";
+    intro = _userInfo.nickName;
     NSDictionary *dict10 = @{@"titleLabel": @"昵称",
-                            @"intro": intro!=nil?intro:@"",
+                            @"intro": intro!=nil?intro:@"2-16个字",
                             };
+    intro = _userInfo.title;
     NSDictionary *dict11 = @{@"titleLabel": @"我的身份",
                              @"intro": intro!=nil?intro:@"",
                              };
+    intro = _userInfo.region;
     NSDictionary *dict12 = @{@"titleLabel": @"地区",
                              @"intro": intro!=nil?intro:@"",
                              };
+    intro = _userInfo.address;
     NSDictionary *dict13 = @{@"titleLabel": @"详细地址",
                              @"intro": intro!=nil?intro:@"",
                              };
+    intro = _userInfo.phone;
     NSDictionary *dict14 = @{@"titleLabel": @"常用手机",
                              @"intro": intro!=nil?intro:@"",
                              };
@@ -111,12 +233,20 @@
     NSDictionary *dict20 = @{@"titleLabel": @"宝宝头像",
                              @"intro": intro!=nil?intro:@"",
                              };
+    intro = _userInfo.babyNick;
     NSDictionary *dict21 = @{@"titleLabel": @"宝宝昵称",
-                             @"intro": intro!=nil?intro:@"",
+                             @"intro": intro!=nil?intro:@"2-16个字",
                              };
+    intro = @"";
+    if ([_userInfo.babyGender isEqualToString:@"m"]) {
+        intro = @"男宝宝";
+    }else if ([_userInfo.babyGender isEqualToString:@"f"]){
+        intro = @"宝宝";
+    }
     NSDictionary *dict22 = @{@"titleLabel": @"宝宝性别",
                              @"intro": intro!=nil?intro:@"",
                              };
+    intro = _userInfo.birthdayString;
     NSDictionary *dict23 = @{@"titleLabel": @"出生日期",
                              @"intro": intro!=nil?intro:@"",
                              };
@@ -157,7 +287,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 10)];
-    view.backgroundColor = UIColorRGB(240, 240, 240);
+    view.backgroundColor = [UIColor clearColor];
     return view;
 }
 
@@ -205,9 +335,14 @@
     
     NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%ld", indexPath.section]];
     NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%ld", indexPath.row]];
-    NSLog(@"cellDicts==%@",rowDicts);
     cell.titleLabel.text = [rowDicts objectForKey:@"titleLabel"];
-    cell.introLabel.text = [rowDicts objectForKey:@"intro"];
+    
+    if (!cell.introLabel.hidden) {
+        cell.introLabel.text = [rowDicts objectForKey:@"intro"];
+    }
+    if (!cell.leftAvater.hidden) {
+        [cell.leftAvater sd_setImageWithURL:[NSURL URLWithString:[rowDicts objectForKey:@"intro"]] placeholderImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
+    }
     
     return cell;
 }
@@ -216,5 +351,138 @@
     
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
+    
+    NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%ld", indexPath.section]];
+    NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%ld", indexPath.row]];
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            _editTag = TAG_USER_AVATER;
+            __weak PerfectInfoViewController *weakSelf = self;
+            XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"设置%@",[rowDicts objectForKey:@"titleLabel"]] actionBlock:^(NSInteger buttonIndex) {
+                if (2 == buttonIndex) {
+                    return;
+                }
+                
+                [weakSelf doActionSheetClickedButtonAtIndex:buttonIndex];
+            } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从手机相册选择", @"拍一张", nil];
+            [sheet showInView:self.view];
+        }
+    }else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            [self editUserInfo:TAG_USER_NAME withRowDicts:rowDicts];
+        }else if (indexPath.row == 1){
+            _editTag = TAG_USER_IDENTITY;
+            __weak PerfectInfoViewController *weakSelf = self;
+            XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:@"身份" actionBlock:^(NSInteger buttonIndex) {
+                if (2 == buttonIndex) {
+                    return;
+                }
+                if (buttonIndex == 0) {
+                    _userInfo.title = @"妈妈";
+                }else if (buttonIndex == 1){
+                    _userInfo.title = @"爸爸";
+                }
+                [weakSelf.tableView reloadData];
+            } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"我是妈妈", @"我是爸爸", nil];
+            [sheet showInView:self.view];
+        }else if (indexPath.row == 2){
+            [self editUserInfo:TAG_USER_REGION withRowDicts:rowDicts];
+        }else if (indexPath.row == 3){
+            [self editUserInfo:TAG_USER_ADDRESS withRowDicts:rowDicts];
+        }else if (indexPath.row == 4){
+            [self editUserInfo:TAG_USER_PHONE withRowDicts:rowDicts];
+        }
+    }else if (indexPath.section == 2){
+        if (indexPath.row == 0) {
+            _editTag = TAG_BOBY_AVATER;
+            __weak PerfectInfoViewController *weakSelf = self;
+            XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"设置%@",[rowDicts objectForKey:@"titleLabel"]] actionBlock:^(NSInteger buttonIndex) {
+                if (2 == buttonIndex) {
+                    return;
+                }
+                
+                [weakSelf doActionSheetClickedButtonAtIndex:buttonIndex];
+            } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从手机相册选择", @"拍一张", nil];
+            [sheet showInView:self.view];
+        }else if (indexPath.row == 1) {
+            [self editUserInfo:TAG_BOBY_NAME withRowDicts:rowDicts];
+        }else if (indexPath.row == 2){
+            _editTag = TAG_BOBY_GENDER;
+            __weak PerfectInfoViewController *weakSelf = self;
+            XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:@"宝宝性别" actionBlock:^(NSInteger buttonIndex) {
+                if (2 == buttonIndex) {
+                    return;
+                }
+                if (buttonIndex == 0) {
+                    weakSelf.userInfo.babyGender = @"m";
+                }else if (buttonIndex == 1){
+                    weakSelf.userInfo.babyGender = @"f";
+                }
+                [weakSelf.tableView reloadData];
+            } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"男宝宝", @"女宝宝", nil];
+            [sheet showInView:self.view];
+        }else if (indexPath.row == 3){
+            _editTag = TAG_BOBY_DATE;
+            NSDate *nowDate = [NSDate date];
+            _userInfo.birthdayDate = nowDate;
+            [self.tableView reloadData];
+        }
+    }
 }
+
+-(void)editUserInfo:(int)Tag withRowDicts:(NSDictionary *)rowDicts{
+    
+    _editTag = Tag;
+    XEInputViewController *lvc = [[XEInputViewController alloc] init];
+    lvc.delegate = self;
+    lvc.oldText = [rowDicts objectForKey:@"intro"];
+    if (Tag == TAG_USER_NAME) {
+        lvc.oldText = _userInfo.nickName;
+    }
+    if (Tag == TAG_BOBY_NAME) {
+        lvc.oldText = _userInfo.babyNick;
+    }
+    lvc.titleText = [rowDicts objectForKey:@"titleLabel"];
+    [self.navigationController pushViewController:lvc animated:YES];
+}
+
+#pragma mark -XEInputViewControllerDelegate
+- (void)inputViewControllerWithText:(NSString*)text{
+    XELog(@"text==%@",text);
+    if (_editTag == TAG_USER_NAME) {
+        _userInfo.nickName = text;
+    }else if (_editTag == TAG_USER_REGION){
+        _userInfo.region = text;
+    }else if (_editTag == TAG_USER_ADDRESS){
+        _userInfo.address = text;
+    }else if (_editTag == TAG_USER_PHONE){
+        _userInfo.phone = text;
+    }else if (_editTag == TAG_BOBY_NAME){
+        _userInfo.babyNick = text;
+    }
+    [self.tableView reloadData];
+}
+
+#pragma mark -UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
+    
+    {
+        UIImage* imageAfterScale = image;
+        if (image.size.width != image.size.height) {
+            CGSize cropSize = image.size;
+            cropSize.height = MIN(image.size.width, image.size.height);
+            cropSize.width = MIN(image.size.width, image.size.height);
+            imageAfterScale = [image imageCroppedToFitSize:cropSize];
+        }
+        
+        NSData* imageData = UIImageJPEGRepresentation(imageAfterScale, XE_IMAGE_COMPRESSION_QUALITY);
+        XELog(@"imageData%@",imageData);
+        
+    }
+    [picker dismissModalViewControllerAnimated:YES];
+//    [LSCommonUtils saveImageToAlbum:picker Img:image];
+    
+}
+
 @end

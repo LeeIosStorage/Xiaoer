@@ -63,6 +63,11 @@
 		075E40AC1A593A820062F6AD /* ProgressHUDJF.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40A91A593A820062F6AD /* ProgressHUDJF.m */; };
 		075E40B01A593AAC0062F6AD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40AF1A593AAB0062F6AD /* MBProgressHUD.m */; };
 		075E40B31A5940920062F6AD /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40B21A5940920062F6AD /* URLHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		076F32581A5F806200346F44 /* XEInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32561A5F806200346F44 /* XEInputViewController.m */; };
+		076F32591A5F806200346F44 /* XEInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076F32571A5F806200346F44 /* XEInputViewController.xib */; };
+		076F32611A5F9C3500346F44 /* XEActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32601A5F9C3500346F44 /* XEActionSheet.m */; };
+		076F32651A5F9D0C00346F44 /* XEAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32641A5F9D0C00346F44 /* XEAlertView.m */; };
+		076F32681A5FA67700346F44 /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32671A5FA67700346F44 /* UIImage+ProportionalFill.m */; };
 		07702D011A5901AF00168E2E /* XESuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07702D001A5901AF00168E2E /* XESuperViewController.m */; };
 		077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0779166E1A5E64BA0047C17C /* PerfectInfoViewController.m */; };
 		077916711A5E64BA0047C17C /* PerfectInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0779166F1A5E64BA0047C17C /* PerfectInfoViewController.xib */; };
@@ -246,6 +251,15 @@
 		075E40AF1A593AAB0062F6AD /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		075E40B11A5940920062F6AD /* URLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHelper.h; sourceTree = "<group>"; };
 		075E40B21A5940920062F6AD /* URLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHelper.m; sourceTree = "<group>"; };
+		076F32551A5F806200346F44 /* XEInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEInputViewController.h; sourceTree = "<group>"; };
+		076F32561A5F806200346F44 /* XEInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEInputViewController.m; sourceTree = "<group>"; };
+		076F32571A5F806200346F44 /* XEInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEInputViewController.xib; sourceTree = "<group>"; };
+		076F325F1A5F9C3500346F44 /* XEActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEActionSheet.h; sourceTree = "<group>"; };
+		076F32601A5F9C3500346F44 /* XEActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEActionSheet.m; sourceTree = "<group>"; };
+		076F32631A5F9D0C00346F44 /* XEAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAlertView.h; sourceTree = "<group>"; };
+		076F32641A5F9D0C00346F44 /* XEAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAlertView.m; sourceTree = "<group>"; };
+		076F32661A5FA67700346F44 /* UIImage+ProportionalFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ProportionalFill.h"; sourceTree = "<group>"; };
+		076F32671A5FA67700346F44 /* UIImage+ProportionalFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ProportionalFill.m"; sourceTree = "<group>"; };
 		07702CFF1A5901AF00168E2E /* XESuperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XESuperViewController.h; sourceTree = "<group>"; };
 		07702D001A5901AF00168E2E /* XESuperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XESuperViewController.m; sourceTree = "<group>"; };
 		0779166D1A5E64BA0047C17C /* PerfectInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerfectInfoViewController.h; sourceTree = "<group>"; };
@@ -600,15 +614,33 @@
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
+		076F325E1A5F9C0E00346F44 /* XEActionSheetWithBlock */ = {
+			isa = PBXGroup;
+			children = (
+				076F325F1A5F9C3500346F44 /* XEActionSheet.h */,
+				076F32601A5F9C3500346F44 /* XEActionSheet.m */,
+			);
+			path = XEActionSheetWithBlock;
+			sourceTree = "<group>";
+		};
+		076F32621A5F9D0C00346F44 /* XEAlertViewWithBlock */ = {
+			isa = PBXGroup;
+			children = (
+				076F32631A5F9D0C00346F44 /* XEAlertView.h */,
+				076F32641A5F9D0C00346F44 /* XEAlertView.m */,
+			);
+			path = XEAlertViewWithBlock;
+			sourceTree = "<group>";
+		};
 		077C98B01A53A16C00E2985B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				077C98B11A53A16C00E2985B /* XESystem.h */,
+				077C98B21A53A16C00E2985B /* XEUIKitMacro.h */,
 				075E40B11A5940920062F6AD /* URLHelper.h */,
 				075E40B21A5940920062F6AD /* URLHelper.m */,
 				073FD9861A53C55200FF0EFD /* PathHelper.h */,
 				073FD9871A53C55200FF0EFD /* PathHelper.m */,
-				077C98B11A53A16C00E2985B /* XESystem.h */,
-				077C98B21A53A16C00E2985B /* XEUIKitMacro.h */,
 				075CAF701A5D338F005CF4B6 /* NSString+Value.h */,
 				075CAF711A5D338F005CF4B6 /* NSString+Value.m */,
 				073FD9981A53E18E00FF0EFD /* NSDictionary+ObjectForKey.h */,
@@ -617,6 +649,8 @@
 				077C98BF1A53D12700E2985B /* XECommonUtils.m */,
 				077C98C11A53D48800E2985B /* XEUIUtils.h */,
 				077C98C21A53D48800E2985B /* XEUIUtils.m */,
+				076F32661A5FA67700346F44 /* UIImage+ProportionalFill.h */,
+				076F32671A5FA67700346F44 /* UIImage+ProportionalFill.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -639,6 +673,9 @@
 				07C49F461A5E7C9800E1725C /* XECommonVcTransition.m */,
 				07C49F481A5E7CD000E1725C /* XEImagePickerController.h */,
 				07C49F491A5E7CD000E1725C /* XEImagePickerController.m */,
+				076F32551A5F806200346F44 /* XEInputViewController.h */,
+				076F32561A5F806200346F44 /* XEInputViewController.m */,
+				076F32571A5F806200346F44 /* XEInputViewController.xib */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -877,6 +914,8 @@
 		07E536141A528239005E1DA9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				076F32621A5F9D0C00346F44 /* XEAlertViewWithBlock */,
+				076F325E1A5F9C0E00346F44 /* XEActionSheetWithBlock */,
 				074DD0D61A5E33B80042B721 /* Main */,
 			);
 			path = Views;
@@ -1045,6 +1084,7 @@
 				075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */,
 				07E284791A5A8DFC005651EB /* UMSShareListController.xib in Resources */,
 				07E2847A1A5A8DFC005651EB /* UMSocialSDKResourcesNew.bundle in Resources */,
+				076F32591A5F806200346F44 /* XEInputViewController.xib in Resources */,
 				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
 				07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */,
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
@@ -1085,6 +1125,7 @@
 				075E40AC1A593A820062F6AD /* ProgressHUDJF.m in Sources */,
 				07702D011A5901AF00168E2E /* XESuperViewController.m in Sources */,
 				075E409C1A59386C0062F6AD /* AFURLConnectionOperation.m in Sources */,
+				076F32611A5F9C3500346F44 /* XEActionSheet.m in Sources */,
 				07C49F4A1A5E7CD000E1725C /* XEImagePickerController.m in Sources */,
 				0712B3B21A5BD853000A1A7F /* UIImageView+HighlightedWebCache.m in Sources */,
 				075E40981A59386C0062F6AD /* AFHTTPRequestOperationManager.m in Sources */,
@@ -1099,8 +1140,10 @@
 				07E536311A5290C9005E1DA9 /* EvaluationViewController.m in Sources */,
 				077C98C01A53D12700E2985B /* XECommonUtils.m in Sources */,
 				075E40AB1A593A820062F6AD /* ProgressHUD.m in Sources */,
+				076F32581A5F806200346F44 /* XEInputViewController.m in Sources */,
 				075E409F1A59386C0062F6AD /* AFURLSessionManager.m in Sources */,
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
+				076F32651A5F9D0C00346F44 /* XEAlertView.m in Sources */,
 				075E409B1A59386C0062F6AD /* AFSecurityPolicy.m in Sources */,
 				077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */,
 				0712B3AB1A5BD853000A1A7F /* SDWebImageDownloaderOperation.m in Sources */,
@@ -1116,6 +1159,7 @@
 				0712B3B41A5BD853000A1A7F /* UIView+WebCacheOperation.m in Sources */,
 				075CAF721A5D338F005CF4B6 /* NSString+Value.m in Sources */,
 				0712B3A71A5BD853000A1A7F /* SDImageCache.m in Sources */,
+				076F32681A5FA67700346F44 /* UIImage+ProportionalFill.m in Sources */,
 				0712B3AC1A5BD853000A1A7F /* SDWebImageManager.m in Sources */,
 				075E409D1A59386C0062F6AD /* AFURLRequestSerialization.m in Sources */,
 				0712B3AD1A5BD853000A1A7F /* SDWebImagePrefetcher.m in Sources */,

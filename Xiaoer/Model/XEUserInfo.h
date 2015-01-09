@@ -41,4 +41,6 @@
 @property(nonatomic, strong) NSDictionary* userInfoByJsonDic;
 @property(nonatomic, strong) NSString* jsonString;
 
++ (NSString*)getBirthdayByDate:(NSDate*)date;
+
 @end

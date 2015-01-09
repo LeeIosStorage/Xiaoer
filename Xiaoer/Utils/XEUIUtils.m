@@ -7,6 +7,7 @@
 //
 
 #import "XEUIUtils.h"
+#import "XEAlertView.h"
 
 @implementation XEUIUtils
 
@@ -47,6 +48,52 @@
     view.frame = viewFrame;
     
     return YES;
+}
+
++(void)showAlertWithMsg:(NSString *)msg
+{
+    [self showAlertWithMsg:msg title:nil];
+}
+
++(void)showAlertWithMsg:(NSString *)msg title:(NSString *) title
+{
+    XEAlertView *alert = [[XEAlertView alloc] initWithTitle:title message:msg cancelButtonTitle:@"确定"];
+    [alert show];
+}
+
++ (int)getAgeByDate:(NSDate*)date{
+    NSDate* nowDate = [NSDate date];
+    NSCalendar * calender = [NSCalendar currentCalendar];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit |
+    NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit;
+    NSDateComponents *comps = [calender components:unitFlags fromDate:date];
+    NSDateComponents *compsNow = [calender components:unitFlags fromDate:nowDate];
+    return (int)compsNow.year - (int)comps.year;
+}
+
++(NSDateFormatter *) dateFormatterOFUS {
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEE MMM d HH:mm:ss zzzz yyyy"];
+    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [dateFormatter setLocale:usLocale];
+    return dateFormatter;
+}
++(NSDateComponents *) dateComponentsFromDate:(NSDate *) date{
+    if (!date) {
+        return nil;
+    }
+    NSCalendar * calender = [NSCalendar currentCalendar];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit ;
+    return [calender components:unitFlags fromDate:date];
+}
+
++ (NSString*)documentOfCameraDenied
+{
+    return @"请检查设备是否有相机功能";
+}
++ (NSString*)documentOfAVCaptureDenied
+{
+    return @"无法访问你的相机。\n请到手机系统的[设置]->[隐私]->[相机]允许微米使用相机";
 }
 
 @end
