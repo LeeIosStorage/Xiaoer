@@ -34,6 +34,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    if ([_titleText isEqualToString:@"常用手机"]) {
+        _inputTextView.keyboardType = UIKeyboardTypeNumberPad;
+    }
+    
     self.view.backgroundColor = UIColorRGB(240, 240, 240);
 //    _inputBgImageView.image = [[UIImage imageNamed:@"verify_commit_bg"] stretchableImageWithLeftCapWidth:124 topCapHeight:20];
     
@@ -42,9 +46,9 @@
     }
     
     if ([_toolRightType isEqualToString:@"Finish"]) {
-        [self.titleNavBarRightBtn setTitle:@"完成" forState:0];
-    }else{
         [self.titleNavBarRightBtn setTitle:@"保存" forState:0];
+    }else{
+        [self.titleNavBarRightBtn setTitle:@"完成" forState:0];
     }
     
     if (_maxTextLength == 0) {

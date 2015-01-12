@@ -7,8 +7,14 @@
 //
 
 #import "XENavigationController.h"
+#import "XESuperViewController.h"
+#import "XECommonVcTransition.h"
 
 @interface XENavigationController ()
+
+@property (nonatomic, strong) NSMutableArray *needPushArray;
+@property (nonatomic, assign) BOOL isPushing;
+@property (nonatomic, strong) XECommonVcTransition *tempTransition;
 
 @end
 
@@ -18,6 +24,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.delegate = self;
+#ifdef USE_SYS_PAN_GESTURE
+    __weak LSNavigationController *weakSelf = self;
+    
+    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
+    {
+        self.interactivePopGestureRecognizer.delegate = weakSelf;
+    }
+#endif
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,6 +48,51 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController
+       didShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animate
+{
+    // Enable the gesture again once the new controller is shown
+    _isPushing = NO;
+    
+#ifdef USE_SYS_PAN_GESTURE
+    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]){
+        //if current view controll is root level, disable gesture recognizer.
+        if ([navigationController viewControllers].count == 1) {
+            self.interactivePopGestureRecognizer.enabled = NO;
+        }else
+            self.interactivePopGestureRecognizer.enabled = YES;
+    }
+#endif
+    if (_needPushArray.count > 0) {
+//        [self doPushViewController];
+    }
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                fromViewController:(UIViewController *)fromVC
+                                                  toViewController:(UIViewController *)toVC  NS_AVAILABLE_IOS(7_0){
+    if(operation == UINavigationControllerOperationPop){
+        if([fromVC isKindOfClass:[XESuperViewController class]]){
+            XESuperViewController *vc = (XESuperViewController *)fromVC;
+            self.tempTransition = vc.interactivePopTransition;
+            return vc.interactivePopTransition;
+        }
+    }
+    return nil;
+}
+
+- (id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
+                          interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController NS_AVAILABLE_IOS(7_0){
+    if([animationController isKindOfClass:[XECommonVcTransition class]]){
+        return self.tempTransition;
+    }
+    return nil;
+}
 
 #pragma mark -- 禁止横竖屏切换
 -(BOOL)shouldSupportRotate{

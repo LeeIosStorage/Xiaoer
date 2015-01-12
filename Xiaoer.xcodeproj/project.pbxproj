@@ -86,6 +86,10 @@
 		07C49F571A5E7E9900E1725C /* AVCamRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C49F501A5E7E9900E1725C /* AVCamRecorder.m */; };
 		07C49F581A5E7E9900E1725C /* AVCamUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C49F521A5E7E9900E1725C /* AVCamUtilities.m */; };
 		07C49F591A5E7E9900E1725C /* DDExpandableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C49F551A5E7E9900E1725C /* DDExpandableButton.m */; };
+		07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C9880F1A63AAEA003A2B30 /* SelectBirthdayViewController.m */; };
+		07C988121A63AAEA003A2B30 /* SelectBirthdayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07C988101A63AAEA003A2B30 /* SelectBirthdayViewController.xib */; };
+		07C988161A63B44B003A2B30 /* ChooseLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C988141A63B44B003A2B30 /* ChooseLocationViewController.m */; };
+		07C988171A63B44B003A2B30 /* ChooseLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07C988151A63B44B003A2B30 /* ChooseLocationViewController.xib */; };
 		07E2846D1A5A8DFC005651EB /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E2843B1A5A8DFC005651EB /* libMobClickLibrary.a */; };
 		07E2846E1A5A8DFC005651EB /* libUMFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E2843F1A5A8DFC005651EB /* libUMFeedback.a */; };
 		07E2846F1A5A8DFC005651EB /* umFeedback.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 07E284401A5A8DFC005651EB /* umFeedback.bundle */; };
@@ -296,6 +300,12 @@
 		07C49F521A5E7E9900E1725C /* AVCamUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamUtilities.m; sourceTree = "<group>"; };
 		07C49F541A5E7E9900E1725C /* DDExpandableButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDExpandableButton.h; sourceTree = "<group>"; };
 		07C49F551A5E7E9900E1725C /* DDExpandableButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDExpandableButton.m; sourceTree = "<group>"; };
+		07C9880E1A63AAEA003A2B30 /* SelectBirthdayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectBirthdayViewController.h; sourceTree = "<group>"; };
+		07C9880F1A63AAEA003A2B30 /* SelectBirthdayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectBirthdayViewController.m; sourceTree = "<group>"; };
+		07C988101A63AAEA003A2B30 /* SelectBirthdayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectBirthdayViewController.xib; sourceTree = "<group>"; };
+		07C988131A63B44B003A2B30 /* ChooseLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseLocationViewController.h; sourceTree = "<group>"; };
+		07C988141A63B44B003A2B30 /* ChooseLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseLocationViewController.m; sourceTree = "<group>"; };
+		07C988151A63B44B003A2B30 /* ChooseLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseLocationViewController.xib; sourceTree = "<group>"; };
 		07E2843B1A5A8DFC005651EB /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		07E2843C1A5A8DFC005651EB /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		07E2843D1A5A8DFC005651EB /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
@@ -852,6 +862,12 @@
 				0779166D1A5E64BA0047C17C /* PerfectInfoViewController.h */,
 				0779166E1A5E64BA0047C17C /* PerfectInfoViewController.m */,
 				0779166F1A5E64BA0047C17C /* PerfectInfoViewController.xib */,
+				07C9880E1A63AAEA003A2B30 /* SelectBirthdayViewController.h */,
+				07C9880F1A63AAEA003A2B30 /* SelectBirthdayViewController.m */,
+				07C988101A63AAEA003A2B30 /* SelectBirthdayViewController.xib */,
+				07C988131A63B44B003A2B30 /* ChooseLocationViewController.h */,
+				07C988141A63B44B003A2B30 /* ChooseLocationViewController.m */,
+				07C988151A63B44B003A2B30 /* ChooseLocationViewController.xib */,
 				074594011A5BB4FD008F4665 /* NewIntroViewController.h */,
 				074594021A5BB4FD008F4665 /* NewIntroViewController.m */,
 				074594041A5BB52C008F4665 /* NewIntroView.h */,
@@ -1063,6 +1079,7 @@
 				07E284751A5A8DFC005651EB /* UMShareEditViewController.xib in Resources */,
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
 				07E284771A5A8DFC005651EB /* UMSLoginViewController.xib in Resources */,
+				07C988171A63B44B003A2B30 /* ChooseLocationViewController.xib in Resources */,
 				07E536321A5290C9005E1DA9 /* EvaluationViewController.xib in Resources */,
 				07E284721A5A8DFC005651EB /* UMSCommentDetailController.xib in Resources */,
 				077916711A5E64BA0047C17C /* PerfectInfoViewController.xib in Resources */,
@@ -1074,6 +1091,7 @@
 				07E536251A528CF8005E1DA9 /* XETabBarItemView.xib in Resources */,
 				07508E8F1A51346300873B45 /* Main.storyboard in Resources */,
 				07E536231A528CBF005E1DA9 /* XETabBarView.xib in Resources */,
+				07C988121A63AAEA003A2B30 /* SelectBirthdayViewController.xib in Resources */,
 				077C98BD1A53CC0600E2985B /* XETitleNavBarView.xib in Resources */,
 				07E536371A529210005E1DA9 /* ExpertChatViewController.xib in Resources */,
 				07508E941A51346300873B45 /* LaunchScreen.xib in Resources */,
@@ -1144,6 +1162,7 @@
 				075E409F1A59386C0062F6AD /* AFURLSessionManager.m in Sources */,
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
 				076F32651A5F9D0C00346F44 /* XEAlertView.m in Sources */,
+				07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */,
 				075E409B1A59386C0062F6AD /* AFSecurityPolicy.m in Sources */,
 				077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */,
 				0712B3AB1A5BD853000A1A7F /* SDWebImageDownloaderOperation.m in Sources */,
@@ -1163,6 +1182,7 @@
 				0712B3AC1A5BD853000A1A7F /* SDWebImageManager.m in Sources */,
 				075E409D1A59386C0062F6AD /* AFURLRequestSerialization.m in Sources */,
 				0712B3AD1A5BD853000A1A7F /* SDWebImagePrefetcher.m in Sources */,
+				07C988161A63B44B003A2B30 /* ChooseLocationViewController.m in Sources */,
 				0794259B1A5A59A7002BF56C /* QHQnetworkingTool.m in Sources */,
 				07E284951A5A8F26005651EB /* LoginViewController.m in Sources */,
 				07C49F571A5E7E9900E1725C /* AVCamRecorder.m in Sources */,

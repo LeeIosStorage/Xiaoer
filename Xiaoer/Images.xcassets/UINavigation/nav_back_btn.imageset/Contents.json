@@ -7,12 +7,12 @@
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "back-small-01.png"
+      "filename" : "back2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "back.png"
+      "filename" : "back3x.png"
     }
   ],
   "info" : {

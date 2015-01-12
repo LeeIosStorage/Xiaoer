@@ -20,6 +20,8 @@
 #import "XEProgressHUD.h"
 #import "XEEngine.h"
 #import "QHQnetworkingTool.h"
+#import "SelectBirthdayViewController.h"
+#import "ChooseLocationViewController.h"
 
 #define TAG_USER_NAME      0
 #define TAG_USER_IDENTITY  1
@@ -32,7 +34,7 @@
 #define TAG_USER_AVATER    8
 #define TAG_BOBY_AVATER    9
 
-@interface PerfectInfoViewController () <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,XEInputViewControllerDelegate>
+@interface PerfectInfoViewController () <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,XEInputViewControllerDelegate,SelectBirthdayViewControllerDelegate,ChooseLocationDelegate>
 {
     int _editTag;
     UIImage *_userAvatar;
@@ -412,7 +414,11 @@
             } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"我是妈妈", @"我是爸爸", nil];
             [sheet showInView:self.view];
         }else if (indexPath.row == 2){
-            [self editUserInfo:TAG_USER_REGION withRowDicts:rowDicts];
+            _editTag = TAG_USER_REGION;
+            //            [self editUserInfo:TAG_USER_REGION withRowDicts:rowDicts];
+            ChooseLocationViewController *chooseLocationVc=[[ChooseLocationViewController alloc] initWithLoactionType:ChooseLoactionTypeCountry WithCode:nil];
+            chooseLocationVc.delegate=self;
+            [self.navigationController pushViewController:chooseLocationVc animated:YES];
         }else if (indexPath.row == 3){
             [self editUserInfo:TAG_USER_ADDRESS withRowDicts:rowDicts];
         }else if (indexPath.row == 4){
@@ -449,9 +455,19 @@
             [sheet showInView:self.view];
         }else if (indexPath.row == 3){
             _editTag = TAG_BOBY_DATE;
-            NSDate *nowDate = [NSDate date];
-            _userInfo.birthdayDate = nowDate;
-            [self.tableView reloadData];
+            
+            SelectBirthdayViewController* selectBirthdayViewController = [[SelectBirthdayViewController alloc] init];
+            selectBirthdayViewController.delegate = self;
+            if (_userInfo.birthdayDate) {
+                selectBirthdayViewController.oldDate = _userInfo.birthdayDate;
+            }else{
+                selectBirthdayViewController.oldDate = _userInfo.birthdayDate;
+            }
+            [self.navigationController pushViewController:selectBirthdayViewController animated:YES];
+            
+//            NSDate *nowDate = [NSDate date];
+//            _userInfo.birthdayDate = nowDate;
+//            [self.tableView reloadData];
         }
     }
 }
@@ -472,6 +488,12 @@
         lvc.minTextLength = 2;
         lvc.maxTextLength = 16;
     }
+    if (Tag == TAG_USER_PHONE) {
+        lvc.oldText = _userInfo.phone;
+//        lvc.minTextLength = 1;
+//        lvc.maxTextLength = 6;
+        lvc.maxTextViewHight = 50.0f;
+    }
     lvc.titleText = [rowDicts objectForKey:@"titleLabel"];
     [self.navigationController pushViewController:lvc animated:YES];
 }
@@ -490,6 +512,20 @@
     }else if (_editTag == TAG_BOBY_NAME){
         _userInfo.babyNick = text;
     }
+    [self.tableView reloadData];
+}
+
+#pragma mark - SelectBirthdayViewControllerDelegate
+- (void)SelectBirthdayWithDate:(NSDate *)date{
+    
+    _userInfo.birthdayDate = date;
+    [self.tableView reloadData];
+    
+}
+
+#pragma mark - ChooseLocationDelegate
+-(void) didSelectLocation:(NSDictionary *)location
+{
     [self.tableView reloadData];
 }
 
