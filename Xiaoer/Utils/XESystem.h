@@ -10,6 +10,7 @@
 #define Xiaoer_XESystem_h
 
 #import "XEUIKitMacro.h"
+#import "NSDictionary+ObjectForKey.h"
 
 //友盟参数
 #define UMS_APP                         @"54aa3f96fd98c551990006a6"
