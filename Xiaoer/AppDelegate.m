@@ -19,6 +19,9 @@
 #import "UMSocial.h"
 #import "LoginViewController.h"
 #import "NewIntroViewController.h"
+#import "XEEngine.h"
+#import "XESettingConfig.h"
+
 
 @interface AppDelegate () <NewIntroViewControllerDelegate>
 
@@ -43,7 +46,28 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor clearColor];
     
-    [self signOut];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        
+        if ([[XEEngine shareInstance] hasAccoutLoggedin] && [XEEngine shareInstance].userInfo.nickName.length > 0) {
+            if ([XESettingConfig isFirstEnterVersion]) {
+                //                LSIntroduceVc* introVc = [[LSIntroduceVc alloc] init];
+                NewIntroViewController *introVc = [[NewIntroViewController alloc] init];
+                introVc.delegate = self;
+                self.window.rootViewController = introVc;
+            } else {
+                [self signIn];
+            }
+        }else{
+            NSLog(@"signOut for accout miss");
+            [self signOut];
+        }
+        
+    } else {
+        
+        //self.window.rootViewController = self.splitViewController;
+    }
+
+//    [self signOut];
 //    [self signIn];
     [self.window makeKeyAndVisible];
     
@@ -111,6 +135,7 @@
 
 - (void)introduceVcFinish:(NewIntroViewController *)vc {
     [self signOut];
+//    [self signIn];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

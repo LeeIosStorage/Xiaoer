@@ -23,6 +23,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 @property (nonatomic, readonly) NSDictionary* globalDefaultConfig;
 @property (nonatomic,assign) BOOL debugMode;
 
+@property (nonatomic, readonly) BOOL isFirstLoginInThisDevice;
 
 + (XEEngine *)shareInstance;
 + (NSDictionary*)getReponseDicByContent:(NSData*)content err:(NSError*)err;
@@ -59,6 +60,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 
 - (BOOL)loginWithUid:(NSString *)uid password:(NSString*)password tag:(int)tag error:(NSError **)errPtr;
 
+- (BOOL)hasAccoutLoggedin;
 - (void)logout;
 - (void)logout:(BOOL)removeAccout;
 

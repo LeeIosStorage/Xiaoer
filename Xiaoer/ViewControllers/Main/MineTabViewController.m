@@ -12,10 +12,12 @@
 #import "UIImageView+WebCache.h"
 #import "PerfectInfoViewController.h"
 #import "XETabBarViewController.h"
+#import "LoginViewController.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
     kMyCard,
+    kSetting,
     kSectionNumber,
 };
 
@@ -166,6 +168,10 @@ enum TABLEVIEW_SECTION_INDEX {
                 break;
             }
         }
+        case kSetting:{
+            cell.titleLabel.text = @"用户退出";
+            break;
+        }
         default:
             break;
     }
@@ -203,6 +209,13 @@ enum TABLEVIEW_SECTION_INDEX {
                 NSLog(@"============历史测评");
                 break;
             }
+        }
+        case kSetting:{
+            //暂时放下
+            [[XEEngine shareInstance] logout];
+            LoginViewController *loginVc = [[LoginViewController alloc] init];
+            [self.navigationController pushViewController:loginVc animated:YES];
+            break;
         }
         default:
             break;

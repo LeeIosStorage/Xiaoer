@@ -132,12 +132,19 @@ static XEEngine* s_ShareInstance = nil;
 
 - (void)logout{
     
-
+    _isFirstLoginInThisDevice = NO;
+    [self logout:NO];
 }
 
 - (void)logout:(BOOL)removeAccout{
+    
+    if (removeAccout) {
+        _account = nil;
+    }
+    
     _userPassword = nil;
     [self saveAccount];
+    _userInfo = [[XEUserInfo alloc] init];
     [XESettingConfig logout];
     _cacheInstance = nil;
 }
@@ -237,6 +244,11 @@ static XEEngine* s_ShareInstance = nil;
 - (void)setDebugMode:(BOOL)debugMode{
     
     [self setDebugMode:debugMode save:YES];
+}
+
+- (BOOL)hasAccoutLoggedin{
+    NSLog(@"_account=%@, _userPassword=%@, _uid=%@", _account, _userPassword, _uid);
+    return (_account && _userPassword && _uid);
 }
 
 //////////////////////

@@ -8,6 +8,7 @@
 
 #import "NewIntroViewController.h"
 #import "NewIntroView.h"
+#import "XESettingConfig.h"
 
 @interface NewIntroViewController ()
 
@@ -57,6 +58,7 @@
         [weakSelf loginAction];
     }];
     [self.view addSubview:_introView];
+    [XESettingConfig saveEnterVersion];
 }
 
 -(void)loginAction{

@@ -8,6 +8,9 @@
 
 #import "XESettingConfig.h"
 #import "XEEngine.h"
+#import "PathHelper.h"
+
+static int s_isFirstEnterVersion = -1;
 
 @implementation XESettingConfig
 
@@ -102,6 +105,46 @@ static XESettingConfig *s_instance = nil;
     //...
     [aCoder encodeInt32:_systemCameraFlashStatus forKey:@"systemCameraFlashStatus"];
 
+}
+
++(NSString *)getTagPath{
+    NSString *tpath = [[PathHelper documentDirectoryPathWithName:nil] stringByAppendingPathComponent:@"version.rc"];
+    
+    return tpath;
+}
+
++(NSString *)getSkipSavePath{
+    NSString *spath = [[PathHelper documentDirectoryPathWithName:nil] stringByAppendingPathComponent:@"skip.rc"];
+    
+    return spath;
+}
+
++(void)saveEnterVersion{
+    NSString *localVserion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
+    NSMutableDictionary *td = [NSMutableDictionary dictionaryWithContentsOfFile:[self getTagPath]];
+    if (!td) {
+        td = [NSMutableDictionary dictionary];
+    }
+    [td removeAllObjects];
+    [td setObject:@"1" forKey:localVserion];
+    [td writeToFile:[self getTagPath] atomically:YES];
+    s_isFirstEnterVersion = NO;
+}
+
++(BOOL)isFirstEnterVersion{
+    if (s_isFirstEnterVersion == -1) {
+        NSString *localVserion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
+        NSMutableDictionary *td = [NSMutableDictionary dictionaryWithContentsOfFile:[self getTagPath]];
+        
+        id value = [td objectForKey:localVserion];
+        if (!value) {
+            s_isFirstEnterVersion = YES;
+        } else {
+            s_isFirstEnterVersion = NO;
+        }
+        
+    }
+    return s_isFirstEnterVersion;
 }
 
 -(void)dealloc

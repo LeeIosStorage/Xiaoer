@@ -21,4 +21,7 @@
 -(void)saveSettingCfg;
 -(void)setUserCfg:(NSDictionary*)dict;
 
++(void)saveEnterVersion;
++(BOOL)isFirstEnterVersion;
+
 @end
