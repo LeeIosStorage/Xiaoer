@@ -19,6 +19,7 @@
 #import "XEUIUtils.h"
 #import "XEProgressHUD.h"
 #import "XEEngine.h"
+#import "QHQnetworkingTool.h"
 
 #define TAG_USER_NAME      0
 #define TAG_USER_IDENTITY  1
@@ -34,7 +35,11 @@
 @interface PerfectInfoViewController () <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,XEInputViewControllerDelegate>
 {
     int _editTag;
+    UIImage *_userAvatar;
+    NSData  *_userData;
     UIImage *_babyAvatar;
+    NSData  *_babyData;
+    NSString *_babyAvatarId;
 }
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *footerView;
@@ -96,7 +101,9 @@
 //    NSString* pictureDataString =[imageData base64Encoding];
 //    NSString *dataStr = [[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
     
+    
     [XEProgressHUD AlertLoading:@"保存中"];
+    __weak PerfectInfoViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] editUserInfoWithUid:_userInfo.uid name:@"1" nickname:_userInfo.nickName title:_userInfo.title desc:@"1" district:_userInfo.region address:_userInfo.address bbId:nil bbName:_userInfo.babyNick bbGender:_userInfo.babyGender bbBirthday:_userInfo.birthdayString bbAvatar:_userInfo.babyAvatarId tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
@@ -110,6 +117,8 @@
         }
         
         [XEProgressHUD AlertSuccess:@"保存成功."];
+        [weakSelf.tableView reloadData];
+        
     }tag:tag];
     
 }
@@ -128,12 +137,20 @@
 
 - (IBAction)saveAction:(id)sender {
     
+    if (!_userData) {
+        [XEProgressHUD lightAlert:@"请上传用户头像"];
+        return;
+    }
     if (_userInfo.nickName.length == 0) {
         [XEProgressHUD lightAlert:@"请输入昵称"];
         return;
     }
     if ([XECommonUtils getHanziTextNum:_userInfo.nickName] < 2) {
         [XEProgressHUD lightAlert:@"昵称太短了"];
+        return;
+    }
+    if (_userInfo.babyAvatarId.length == 0) {
+        [XEProgressHUD lightAlert:@"请上传宝宝头像"];
         return;
     }
     if (_userInfo.babyNick.length == 0) {
@@ -193,7 +210,7 @@
     
     //section = 0
     NSMutableDictionary *sectionDict0 = [NSMutableDictionary dictionary];
-    NSString *intro = @"";
+    NSString *intro = _userInfo.avatarId;
     NSDictionary *dict00 = @{@"titleLabel": @"我的头像",
                            @"intro": intro!=nil?intro:@"",
                            };
@@ -229,7 +246,7 @@
     
     //section = 2
     NSMutableDictionary *sectionDict2 = [NSMutableDictionary dictionary];
-    intro = @"";
+    intro = _userInfo.babyAvatarId;
     NSDictionary *dict20 = @{@"titleLabel": @"宝宝头像",
                              @"intro": intro!=nil?intro:@"",
                              };
@@ -241,7 +258,7 @@
     if ([_userInfo.babyGender isEqualToString:@"m"]) {
         intro = @"男宝宝";
     }else if ([_userInfo.babyGender isEqualToString:@"f"]){
-        intro = @"宝宝";
+        intro = @"女宝宝";
     }
     NSDictionary *dict22 = @{@"titleLabel": @"宝宝性别",
                              @"intro": intro!=nil?intro:@"",
@@ -330,6 +347,7 @@
     if (indexPath.section == 0 || indexPath.section == 2) {
         if (indexPath.row == 0) {
             cell.leftAvater.hidden = NO;
+            cell.introLabel.hidden = YES;
         }
     }
     
@@ -341,7 +359,14 @@
         cell.introLabel.text = [rowDicts objectForKey:@"intro"];
     }
     if (!cell.leftAvater.hidden) {
-        [cell.leftAvater sd_setImageWithURL:[NSURL URLWithString:[rowDicts objectForKey:@"intro"]] placeholderImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
+        if (_userAvatar && indexPath.section == 0) {
+            [cell.leftAvater setImage:_userAvatar];
+        }else if (_babyAvatar && indexPath.section == 2){
+            [cell.leftAvater setImage:_babyAvatar];
+        }else{
+            [cell.leftAvater sd_setImageWithURL:nil];
+            [cell.leftAvater sd_setImageWithURL:[NSURL URLWithString:[rowDicts objectForKey:@"intro"]] placeholderImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
+        }
     }
     
     return cell;
@@ -439,9 +464,13 @@
     lvc.oldText = [rowDicts objectForKey:@"intro"];
     if (Tag == TAG_USER_NAME) {
         lvc.oldText = _userInfo.nickName;
+        lvc.minTextLength = 2;
+        lvc.maxTextLength = 16;
     }
     if (Tag == TAG_BOBY_NAME) {
         lvc.oldText = _userInfo.babyNick;
+        lvc.minTextLength = 2;
+        lvc.maxTextLength = 16;
     }
     lvc.titleText = [rowDicts objectForKey:@"titleLabel"];
     [self.navigationController pushViewController:lvc animated:YES];
@@ -477,12 +506,78 @@
         }
         
         NSData* imageData = UIImageJPEGRepresentation(imageAfterScale, XE_IMAGE_COMPRESSION_QUALITY);
-        XELog(@"imageData%@",imageData);
+//        XELog(@"imageData%@",imageData);
         
+        if (_editTag == TAG_USER_AVATER) {
+            _userData = imageData;
+            _userAvatar = imageAfterScale;
+            [self updateUserAvatar:imageData];
+        }else if (_editTag == TAG_BOBY_AVATER){
+            _babyData = imageData;
+            _babyAvatar = imageAfterScale;
+            [self updateBabyAvatar:imageData];
+        }
+        [self.tableView reloadData];
     }
     [picker dismissModalViewControllerAnimated:YES];
 //    [LSCommonUtils saveImageToAlbum:picker Img:image];
     
+}
+
+-(void)updateUserAvatar:(NSData *)data{
+    
+    QHQFormData* pData = [[QHQFormData alloc] init];
+    pData.data = data;
+    pData.name = @"avatar";
+    pData.filename = @"userAvatar";
+    pData.mimeType = @"image/png";
+    
+    [XEProgressHUD AlertLoading:@"头像上传中..."];
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] updateAvatarWithUid:_userInfo.uid avatar:@[pData] tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"上传失败";
+            }
+            return;
+        }
+        [XEProgressHUD AlertSuccess:@"上传成功."];
+    }tag:tag];
+}
+
+-(void)updateBabyAvatar:(NSData *)data{
+    
+    NSMutableArray *dataArray = [NSMutableArray array];
+    if (data) {
+        QHQFormData* pData = [[QHQFormData alloc] init];
+        pData.data = data;
+        pData.name = @"bbavatar";
+        pData.filename = @"bbAvatar";
+        pData.mimeType = @"image/png";
+        [dataArray addObject:pData];
+    }
+    
+    [XEProgressHUD AlertLoading:@"头像上传中..."];
+    __weak PerfectInfoViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] updateBabyAvatarWithBabyUid:nil avatar:dataArray tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"上传失败";
+            }
+            return;
+        }
+        [XEProgressHUD AlertSuccess:@"上传成功."];
+        weakSelf.userInfo.babyAvatarId = [jsonRet stringObjectForKey:@"object"];
+        [weakSelf.tableView reloadData];
+        
+    }tag:tag];
 }
 
 @end

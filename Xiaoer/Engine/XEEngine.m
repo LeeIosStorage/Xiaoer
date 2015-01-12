@@ -339,7 +339,7 @@ static XEEngine* s_ShareInstance = nil;
     return dic;
 }
 
-- (BOOL)reDirectXECommonWithFormatDic:(NSDictionary *)dic withData:(NSData *)data withTag:(int)tag withTimeout:(NSTimeInterval)timeout error:(NSError *)errPtr {
+- (BOOL)reDirectXECommonWithFormatDic:(NSDictionary *)dic withData:(NSArray *)dataArray withTag:(int)tag withTimeout:(NSTimeInterval)timeout error:(NSError *)errPtr {
     
     NSString* url = [dic objectForKey:@"url"];
     NSString* method = @"POST";
@@ -376,13 +376,24 @@ static XEEngine* s_ShareInstance = nil;
             fullUrl = [NSString stringWithFormat:@"%@?%@", fullUrl, param];
         }
         NSLog(@"postFullUrl=%@",fullUrl);
-        [QHQnetworkingTool postWithURL:fullUrl params:params success:^(id response) {
-            NSLog(@"postFullUrl===========%@ response%@",fullUrl,response);
-            [self onResponse:response withTag:tag withError:errPtr];
-        } failure:^(NSError *error) {
-            [XEProgressHUD lightAlert:@"请检查网络状况"];
-
-        }];
+        if (dataArray) {
+            
+            [QHQnetworkingTool postWithURL:fullUrl params:nil formDataArray:dataArray success:^(id response) {
+                NSLog(@"postFullUrl===========%@ response%@",fullUrl,response);
+                [self onResponse:response withTag:tag withError:errPtr];
+            } failure:^(NSError *error) {
+                [XEProgressHUD lightAlert:@"请检查网络状况"];
+            }];
+            
+        }else{
+            [QHQnetworkingTool postWithURL:fullUrl params:params success:^(id response) {
+                NSLog(@"postFullUrl===========%@ response%@",fullUrl,response);
+                [self onResponse:response withTag:tag withError:errPtr];
+            } failure:^(NSError *error) {
+                [XEProgressHUD lightAlert:@"请检查网络状况"];
+                
+            }];
+        }
         return YES;
     }
     
@@ -536,12 +547,22 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)updateAvatarWithUid:(NSString *)uid avatar:(NSString *)avatar tag:(int)tag{
+- (BOOL)updateAvatarWithUid:(NSString *)uid avatar:(NSArray *)data tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    
     [params setObject:uid forKey:@"userid"];
-    [params setObject:avatar forKey:@"avatar"];
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/avatar",API_URL] type:0 parameters:params];
-    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+    
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/avatar",API_URL] type:2 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:data withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)updateBabyAvatarWithBabyUid:(NSString *)bbUid avatar:(NSArray *)data tag:(int)tag{
+    
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (bbUid) {
+        [params setObject:bbUid forKey:@"babyid"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/bbavatar",API_URL] type:2 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:data withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
 - (BOOL)editUserInfoWithUid:(NSString *)uid name:(NSString *)name nickname:(NSString *)nickname title:(NSString *)title desc:(NSString *)desc district:(NSString *)district address:(NSString *)address bbId:(NSString *)bbId bbName:(NSString *)bbName bbGender:(NSString *)bbGender bbBirthday:(NSString *)bbBirthday bbAvatar:(NSString *)bbAvatar tag:(int)tag{
