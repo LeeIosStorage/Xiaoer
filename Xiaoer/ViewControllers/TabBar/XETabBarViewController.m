@@ -102,21 +102,21 @@
         XETabBarItemView *tabItem = [[[NSBundle mainBundle] loadNibNamed:@"XETabBarItemView" owner:nil options:nil] objectAtIndex:0];
         
         if (tagIndex == 0) {
-            tabItem.itemIconImageView.image = [UIImage imageNamed:@"UITabBarItemMain"];
-            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"UITabBarItemMain"];
+            tabItem.itemIconImageView.image = [UIImage imageNamed:@"main_tabbar_icon"];
+            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"main_tabbar_icon_hover"];
+            tabItem.itemLabel.text = @"首页";
         }else if (tagIndex == 1){
-            tabItem.itemIconImageView.image = [UIImage imageNamed:@"UITabBarItemEvaluation"];
-            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"UITabBarItemEvaluation"];
-            
-            
+            tabItem.itemIconImageView.image = [UIImage imageNamed:@"evaluations_tabbar_icon"];
+            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"evaluations_tabbar_icon_hover"];
+            tabItem.itemLabel.text = @"测评";
         }else if (tagIndex == 2){
-            tabItem.itemIconImageView.image = [UIImage imageNamed:@"UITabBarItemChat"];
-            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"UITabBarItemChat"];
-            
+            tabItem.itemIconImageView.image = [UIImage imageNamed:@"chat_tabbar_icon"];
+            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"chat_tabbar_icon_hover"];
+            tabItem.itemLabel.text = @"专家聊";
         }else if (tagIndex == 3){
-            tabItem.itemIconImageView.image = [UIImage imageNamed:@"UITabBarItemMine"];
-            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"UITabBarItemMine"];
-            
+            tabItem.itemIconImageView.image = [UIImage imageNamed:@"mine_tabbar_icon"];
+            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"mine_tabbar_icon_hover"];
+            tabItem.itemLabel.text = @"我的";
         }
         
         

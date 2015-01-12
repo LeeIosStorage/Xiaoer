@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *itemBtn;
 @property (strong, nonatomic) IBOutlet UIImageView *itemIconImageView;
+@property (strong, nonatomic) IBOutlet UILabel *itemLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *bkImageView;
 
 @property(nonatomic,assign) id<XETabBarItemViewProtocol> delegate;

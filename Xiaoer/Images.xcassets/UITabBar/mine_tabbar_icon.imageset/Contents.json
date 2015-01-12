@@ -6,13 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "UITabBarItemEvaluation@2x.png"
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "UITabBarItemEvaluation@3x.png"
+      "filename" : "tabbar我的-未选中.png"
     }
   ],
   "info" : {

@@ -22,7 +22,7 @@
 //        UIImageView* imageView = [[UIImageView alloc] initWithFrame:self.bounds];
 //        imageView.contentMode = UIViewContentModeScaleToFill;
 //        [imageView setImage:[UIImage imageNamed:@"tabbar_bg"]];
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor whiteColor];
 //        [self addSubview:imageView];
     }
     return self;
@@ -64,12 +64,16 @@
             continue;
         }
         tab.selected = NO;
+        [tab.bkImageView setBackgroundColor:[UIColor whiteColor]];
+        tab.itemLabel.textColor = UIColorRGB(112, 196, 231);
     }
     if (!sender.selected) {
         sender.selected = YES;
         self.selectedTabBarItem = sender;
-        
+        [self.selectedTabBarItem.bkImageView setBackgroundColor:UIColorRGB(112, 196, 231)];
+        self.selectedTabBarItem.itemLabel.textColor = [UIColor whiteColor];
     }
+    
     [self.delegate tabBar:self didSelectTabAtIndex:[self.items indexOfObject:sender]];
     
 }
@@ -86,9 +90,9 @@
     
     CGRect currentBounds = self.bounds;
     
-    UIImageView *bgImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"s_n_foundgroup_bottom_bg.png"]];
-    bgImg.frame = currentBounds;
-    [self addSubview:bgImg];
+//    UIImageView *bgImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"s_n_foundgroup_bottom_bg.png"]];
+//    bgImg.frame = currentBounds;
+//    [self addSubview:bgImg];
     
     int width = self.bounds.size.width/self.items.count;
     currentBounds.size.width = width;
@@ -105,6 +109,8 @@
     }
     
     [self.selectedTabBarItem setSelected:YES];
+    [self.selectedTabBarItem.bkImageView setBackgroundColor:UIColorRGB(112, 196, 231)];
+    self.selectedTabBarItem.itemLabel.textColor = [UIColor whiteColor];
 }
 
 -(void) setFrame:(CGRect)aFrame {

@@ -208,7 +208,7 @@ static XEEngine* s_ShareInstance = nil;
 
 - (void)setUserInfo:(XEUserInfo *)userInfo{
     _userInfo = userInfo;
-    //[[LSSettingConfig staticInstance] setUserCfg:_userInfo.userInfoByJsonDic];
+    [[XESettingConfig staticInstance] setUserCfg:_userInfo.userInfoByJsonDic];
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_USERINFO_CHANGED_NOTIFICATION object:self];
     [self saveUserInfo];
 }
