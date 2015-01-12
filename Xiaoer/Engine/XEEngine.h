@@ -17,6 +17,8 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 @interface XEEngine : NSObject
 
 @property (nonatomic, strong) NSString* uid;
+@property (nonatomic, strong) NSString* account;
+@property (nonatomic, strong) NSString* userPassword;
 @property (nonatomic, strong) XEUserInfo* userInfo;
 @property (nonatomic, readonly) NSDictionary* globalDefaultConfig;
 @property (nonatomic,assign) BOOL debugMode;

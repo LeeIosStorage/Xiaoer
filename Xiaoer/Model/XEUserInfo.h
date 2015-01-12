@@ -18,6 +18,7 @@
 @property(nonatomic, strong) NSString* address;//
 @property(nonatomic, strong) NSString* phone;//
 @property(nonatomic, strong) NSString* avatarId;
+@property(nonatomic, strong) NSString* password;
 
 @property(nonatomic, strong) NSString* account;
 @property(nonatomic, strong) NSString* district;

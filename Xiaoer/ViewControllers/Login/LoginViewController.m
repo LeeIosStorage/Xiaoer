@@ -403,6 +403,11 @@
         [userInfo setUserInfoByJsonDic:object];
         [XEEngine shareInstance].userInfo = userInfo;
         
+        [XEEngine shareInstance].uid = userInfo.uid;
+        [XEEngine shareInstance].account = userInfo.account;
+        [XEEngine shareInstance].userPassword = _passwordTextField.text;
+        [[XEEngine shareInstance] saveAccount];
+        
         [weakSelf performSelector:@selector(loginFinished) withObject:nil afterDelay:1.0];
         
     }tag:tag];

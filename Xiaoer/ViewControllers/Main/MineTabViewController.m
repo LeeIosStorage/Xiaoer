@@ -11,6 +11,7 @@
 #import "XEEngine.h"
 #import "UIImageView+WebCache.h"
 #import "PerfectInfoViewController.h"
+#import "XETabBarViewController.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
@@ -23,10 +24,14 @@ enum TABLEVIEW_SECTION_INDEX {
 @property (nonatomic, strong) XEUserInfo *userInfo;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) IBOutlet UIImageView *bkImageView;
-@property (nonatomic, strong) IBOutlet UIView *headView;
+@property (strong, nonatomic) IBOutlet UIImageView *bkImageView;
+@property (strong, nonatomic) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UIImageView *headEdgeview;
-@property (nonatomic, strong) IBOutlet UIImageView *ownerHeadImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *ownerHeadImageView;
+@property (strong, nonatomic) IBOutlet UILabel *nickName;
+@property (strong, nonatomic) IBOutlet UILabel *address;
+@property (strong, nonatomic) IBOutlet UILabel *birthday;
+
 
 - (IBAction)ownerHeadAction:(id)sender;
 - (IBAction)setOwnerImageAction:(id)sender;
@@ -39,9 +44,9 @@ enum TABLEVIEW_SECTION_INDEX {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
-    
     [self refreshUserInfoShow];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,6 +59,13 @@ enum TABLEVIEW_SECTION_INDEX {
     [self setTitle:@"我的"];
     
     [self setRightButtonWithTitle:@"设置" selector:@selector(settingAction)];
+}
+
+- (UINavigationController *)navigationController{
+    if ([super navigationController]) {
+        return [super navigationController];
+    }
+    return self.tabController.navigationController;
 }
 
 - (void)settingAction
@@ -81,6 +93,10 @@ enum TABLEVIEW_SECTION_INDEX {
 //    }else{
 //        [self.bkImageView setImage:[UIImage imageNamed:@"1.3.0_selfphoto_headBg@2x.png"]];
 //    }
+    
+    self.nickName.text = _userInfo.nickName;
+    self.birthday.text = _userInfo.birthdayString;
+    self.address.text  = _userInfo.address;
     self.tableView.tableHeaderView = self.headView;
 }
 
@@ -213,4 +229,5 @@ enum TABLEVIEW_SECTION_INDEX {
     piVc.userInfo = _userInfo;
     [self.navigationController pushViewController:piVc animated:YES];
 }
+
 @end

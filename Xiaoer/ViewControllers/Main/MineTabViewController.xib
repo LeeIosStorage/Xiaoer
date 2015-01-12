@@ -7,9 +7,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MineTabViewController">
             <connections>
+                <outlet property="address" destination="xIV-hs-8ZM" id="rP9-EJ-Gh9"/>
+                <outlet property="birthday" destination="gKf-FQ-O24" id="gOv-7v-QR1"/>
                 <outlet property="bkImageView" destination="KnS-mo-gxM" id="uEU-3T-IS4"/>
                 <outlet property="headEdgeview" destination="gTH-cY-qcw" id="AxH-Xz-LH6"/>
                 <outlet property="headView" destination="Zp7-nl-tgZ" id="qMV-tu-gZs"/>
+                <outlet property="nickName" destination="gLK-C1-S6p" id="RLG-Sf-IUU"/>
                 <outlet property="ownerHeadImageView" destination="7io-dh-jJ6" id="RZG-Pu-F1A"/>
                 <outlet property="tableView" destination="pj2-xM-z9K" id="XUh-Qj-kVS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

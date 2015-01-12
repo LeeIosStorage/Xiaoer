@@ -16,6 +16,7 @@
 #import "URLHelper.h"
 #import "NSDictionary+objectForKey.h"
 #import "QHQnetworkingTool.h"
+#import "XESettingConfig.h"
 
 #define CONNECT_TIMEOUT 20
 
@@ -114,6 +115,7 @@ static XEEngine* s_ShareInstance = nil;
     _urlTagMap = [[NSMutableDictionary alloc] init];
     
     _uid = nil;
+    _userPassword = nil;
     
     //获取用户信息
     [self loadAccount];
@@ -122,8 +124,8 @@ static XEEngine* s_ShareInstance = nil;
     _userInfo.uid = _uid;
     [self loadUserInfo];
     
+    //设置访问
     [self setDebugMode:[[NSUserDefaults standardUserDefaults] boolForKey:@"clientDebugMode2"]];
-
     
     return self;
 }
@@ -134,7 +136,10 @@ static XEEngine* s_ShareInstance = nil;
 }
 
 - (void)logout:(BOOL)removeAccout{
-
+    _userPassword = nil;
+    [self saveAccount];
+    [XESettingConfig logout];
+    _cacheInstance = nil;
 }
 
 - (NSString*)getCurrentAccoutDocDirectory{
@@ -204,8 +209,10 @@ static XEEngine* s_ShareInstance = nil;
 
 - (void)loadAccount{
     NSDictionary * accountDic = [NSDictionary dictionaryWithContentsOfFile:[self getAccountsStoragePath]];
+     //.....account信息
     _uid = [accountDic objectForKey:@"uid"];
-    //.....account信息
+    _account = [accountDic objectForKey:@"account"];
+    _userPassword = [accountDic objectForKey:@"accountPwd"];
 }
 
 - (void)saveAccount{
@@ -213,7 +220,10 @@ static XEEngine* s_ShareInstance = nil;
     if (_uid) {
         [accountDic setValue:_uid forKey:@"uid"];
     }
-    
+    if (_account)
+        [accountDic setValue:_account forKey:@"account"];
+    if(_userPassword)
+        [accountDic setValue:_userPassword forKey:@"accountPwd"];
     [accountDic writeToFile:[self getAccountsStoragePath] atomically:NO];
 }
 
