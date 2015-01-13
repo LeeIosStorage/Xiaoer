@@ -360,9 +360,9 @@
         case 1:
         {
             XELog(@"selectedSegmentIndex1");
-            SetPwdViewController *spVc = [[SetPwdViewController alloc] init];
-            spVc.registerName = @"13888888888";
-            [self.navigationController pushViewController:spVc animated:YES];
+//            SetPwdViewController *spVc = [[SetPwdViewController alloc] init];
+//            spVc.registerName = @"13888888888";
+//            [self.navigationController pushViewController:spVc animated:YES];
         }
             break;
         default:
@@ -436,19 +436,21 @@
         return;
     }
     
+    [XEProgressHUD AlertLoading:@"正在验证,请稍等"];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] checkCodeWithPhone:_registerPhoneTextFieldText code:verifyAndemailTextFieldText codeType:@"0" tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+//            [XEProgressHUD AlertError:errorMsg];
+            [XEUIUtils showAlertWithMsg:errorMsg];
             return;
         }
-        
         SetPwdViewController *spVc = [[SetPwdViewController alloc] init];
         spVc.registerName = _registerPhoneTextFieldText;
         [weakSelf.navigationController pushViewController:spVc animated:YES];
@@ -489,16 +491,19 @@
         return;
     }
     
+    [XEProgressHUD AlertLoading:@"正在验证手机号"];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] checkPhoneWithPhone:_registerPhoneTextFieldText uid:nil tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
                 errorMsg = @"请求失败!";
             }
-            [XEProgressHUD AlertError:errorMsg];
+//            [XEProgressHUD AlertError:errorMsg];
+            [XEUIUtils showAlertWithMsg:errorMsg];
             return;
         }
         [weakSelf sendCode];
@@ -515,18 +520,23 @@
         return;
     }
     
+    [XEProgressHUD AlertLoading:@"正在验证邮箱"];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] checkEmailWithEmail:verifyAndemailTextFieldText uid:nil tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+//            [XEProgressHUD AlertError:errorMsg];
+            [XEUIUtils showAlertWithMsg:errorMsg];
             return;
         }
+        
+        [XEProgressHUD AlertSuccess:@"邮箱验证通过."];
         
         SetPwdViewController *spVc = [[SetPwdViewController alloc] init];
         spVc.registerName = verifyAndemailTextFieldText;
