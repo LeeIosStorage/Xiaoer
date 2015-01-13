@@ -11,9 +11,9 @@
 
 typedef enum ChooseLoactionType {
     
-    ChooseLoactionTypeCountry = 0,
-    ChooseLoactionTypeProvince,
-    ChooseLoactionTypeLocal
+    ChooseLoactionTypeProvince = 0,
+    ChooseLoactionTypeLocal,
+    ChooseLoactionTypeCountry
 } ChooseLoactionType;
 
 @protocol ChooseLocationDelegate <NSObject>
@@ -26,6 +26,7 @@ typedef enum ChooseLoactionType {
 
 @property (nonatomic,strong) NSArray *dataArray;
 @property (strong,nonatomic) NSString *searchLocationCode;
+@property (strong,nonatomic) NSString *searchLocationCodeName;
 @property (nonatomic,weak) UIViewController<ChooseLocationDelegate> *delegate;
 
 -(id) initWithLoactionType:(ChooseLoactionType) type WithCode:(NSString *) code;

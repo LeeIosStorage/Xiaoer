@@ -27,7 +27,7 @@
         NSDateComponents *comps = [[NSDateComponents alloc] init];
         [comps setDay:1];
         [comps setMonth:1];
-        [comps setYear:1990];
+        [comps setYear:2000];
         NSCalendar *gregorian = [[NSCalendar alloc]
                                  initWithCalendarIdentifier:NSGregorianCalendar];
         NSDate *date = [gregorian dateFromComponents:comps];
@@ -35,7 +35,17 @@
         
         [_datePicker setDate:date];
     }
+    
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setDay:1];
+    [comps setMonth:1];
+    [comps setYear:1970];
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDate *minDate = [gregorian dateFromComponents:comps];
+    _datePicker.minimumDate = minDate;
     _datePicker.maximumDate = [NSDate date];
+    
     NSCalendar * calender = [NSCalendar currentCalendar];
     unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit |
     NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit;

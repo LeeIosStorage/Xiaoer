@@ -15,6 +15,7 @@
 @property(nonatomic, strong) NSString* nickName;
 @property(nonatomic, strong) NSString* gender;
 @property(nonatomic, strong) NSString* region;
+@property(nonatomic, strong) NSString* regionName;
 @property(nonatomic, strong) NSString* address;//
 @property(nonatomic, strong) NSString* phone;//
 @property(nonatomic, strong) NSString* avatarId;
@@ -34,11 +35,15 @@
 @property(nonatomic, assign) int topicNum;
 
 //baby
+@property(nonatomic, strong) NSString* babyId;
 @property(nonatomic, strong) NSString* babyNick;
 @property(nonatomic, strong) NSString* babyAvatarId;
 @property(nonatomic, strong) NSString* babyGender;
+@property(nonatomic, assign) int babyMonth;
 @property(nonatomic, strong) NSDate* birthdayDate;
 @property(nonatomic, strong) NSString* birthdayString;
+
+@property(nonatomic, strong) NSDictionary* userAndBabyInfoByJsonDic;
 
 @property(nonatomic, readonly) NSURL* smallAvatarUrl;
 @property(nonatomic, readonly) NSURL* mediumAvatarUrl;

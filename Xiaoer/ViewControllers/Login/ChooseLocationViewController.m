@@ -60,7 +60,7 @@
             NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
             if (!jsonRet || errorMsg) {
                 if (!errorMsg.length) {
-                    errorMsg = @"上传失败";
+                    errorMsg = @"请求失败";
                 }
                 return;
             }
@@ -119,7 +119,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify];
         cell.backgroundColor = [UIColor whiteColor];
     }
-    if (_locationType == ChooseLoactionTypeLocal) {
+    if (_locationType == ChooseLoactionTypeCountry) {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }else{
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -136,8 +136,21 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     NSDictionary *location =[_dataArray objectAtIndex:indexPath.row];
-    if (_locationType==ChooseLoactionTypeLocal) {
-        [_delegate didSelectLocation:location];
+    
+    if (![[location objectForKey:@"name"] isEqualToString:@"市辖区"] && ![[location objectForKey:@"name"] isEqualToString:@"县"]) {
+        NSString *codeName = [location objectForKey:@"name"];
+        _searchLocationCodeName = _searchLocationCodeName!=nil?_searchLocationCodeName:@"";
+        NSMutableString *mutStr = [NSMutableString stringWithString:_searchLocationCodeName];
+        [mutStr appendString:[NSString stringWithFormat:@" %@",codeName]];
+        _searchLocationCodeName = mutStr;
+        
+    }
+    if (_locationType == ChooseLoactionTypeCountry) {
+        NSMutableDictionary *mutLocation = [NSMutableDictionary dictionaryWithDictionary:location];
+        if (_searchLocationCodeName) {
+            [mutLocation setObject:_searchLocationCodeName forKey:@"fullname"];
+        }
+        [_delegate didSelectLocation:mutLocation];
         [self.navigationController popToViewController:_delegate animated:YES];
         return;
     }else{
@@ -145,9 +158,17 @@
         if (_locationType==ChooseLoactionTypeProvince) {
             ChooseLoactionType nextType=ChooseLoactionTypeLocal;
             ChooseLocationViewController *chooseLocationVc=[[ChooseLocationViewController alloc] initWithLoactionType:nextType WithCode:[location objectForKey:@"code"]];
-//            chooseLocationVc.dataArray=tempArray;
-            chooseLocationVc.delegate=self.delegate;
+            chooseLocationVc.searchLocationCodeName = _searchLocationCodeName;
+            chooseLocationVc.delegate = self.delegate;
             [self.navigationController pushViewController:chooseLocationVc animated:YES];
+            return;
+        }if (_locationType==ChooseLoactionTypeLocal) {
+            ChooseLoactionType nextType=ChooseLoactionTypeCountry;
+            ChooseLocationViewController *chooseLocationVc=[[ChooseLocationViewController alloc] initWithLoactionType:nextType WithCode:[location objectForKey:@"code"]];
+            chooseLocationVc.searchLocationCodeName = _searchLocationCodeName;
+            chooseLocationVc.delegate = self.delegate;
+            [self.navigationController pushViewController:chooseLocationVc animated:YES];
+            return;
         }else{
             [self.delegate didSelectLocation:location];
             [self.navigationController popToViewController:self.delegate animated:YES];
