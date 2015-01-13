@@ -98,12 +98,6 @@
 
 -(void)editUserInfo{
     
-//    _babyAvatar = [UIImage imageNamed:@"tmp_avatar_icon"];
-//    NSData* imageData = UIImageJPEGRepresentation(_babyAvatar, XE_IMAGE_COMPRESSION_QUALITY);
-//    NSString* pictureDataString =[imageData base64Encoding];
-//    NSString *dataStr = [[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
-    
-    
     [XEProgressHUD AlertLoading:@"保存中"];
     __weak PerfectInfoViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
@@ -118,7 +112,9 @@
             return;
         }
         
-        [XEProgressHUD AlertSuccess:@"保存成功."];
+        [XEProgressHUD AlertSuccess:[XEEngine getSuccessMsgWithReponseDic:jsonRet]];
+        [_userInfo setUserAndBabyInfoByJsonDic:[jsonRet objectForKey:@"object"]];
+        [XEEngine shareInstance].userInfo = _userInfo;
         [weakSelf.tableView reloadData];
         
     }tag:tag];
@@ -163,10 +159,10 @@
         [XEProgressHUD lightAlert:@"宝宝昵称太短了"];
         return;
     }
-//    if (_userInfo.region.length == 0) {
-//        [XEProgressHUD lightAlert:@"请输入您的地区"];
-//        return;
-//    }
+    if (_userInfo.regionName.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入您的地区"];
+        return;
+    }
     if (_userInfo.birthdayString.length == 0) {
         [XEProgressHUD lightAlert:@"请输入宝宝生日"];
         return;
@@ -228,7 +224,7 @@
     NSDictionary *dict11 = @{@"titleLabel": @"我的身份",
                              @"intro": intro!=nil?intro:@"",
                              };
-    intro = _userInfo.region;
+    intro = _userInfo.regionName;
     NSDictionary *dict12 = @{@"titleLabel": @"地区",
                              @"intro": intro!=nil?intro:@"",
                              };
@@ -503,8 +499,6 @@
     XELog(@"text==%@",text);
     if (_editTag == TAG_USER_NAME) {
         _userInfo.nickName = text;
-    }else if (_editTag == TAG_USER_REGION){
-        _userInfo.region = text;
     }else if (_editTag == TAG_USER_ADDRESS){
         _userInfo.address = text;
     }else if (_editTag == TAG_USER_PHONE){
@@ -526,6 +520,9 @@
 #pragma mark - ChooseLocationDelegate
 -(void) didSelectLocation:(NSDictionary *)location
 {
+    _userInfo.region = [location objectForKey:@"code"];
+    _userInfo.regionName = [location objectForKey:@"fullname"];
+    
     [self.tableView reloadData];
 }
 

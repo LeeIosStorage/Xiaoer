@@ -30,6 +30,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 + (NSDictionary*)getReponseDicByContent:(NSData*)content err:(NSError*)err;
 + (NSString*)getErrorMsgWithReponseDic:(NSDictionary*)dic;
 + (NSString*)getErrorCodeWithReponseDic:(NSDictionary*)dic;
++ (NSString*)getSuccessMsgWithReponseDic:(NSDictionary*)dic;
 
 - (void)saveAccount;
 - (NSString*)getCurrentAccoutDocDirectory;

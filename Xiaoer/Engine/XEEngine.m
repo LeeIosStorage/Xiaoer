@@ -86,6 +86,18 @@ static XEEngine* s_ShareInstance = nil;
     return [[[dic dictionaryObjectForKey:@"result"] stringObjectForKey:@"error_code"] description];
 }
 
++ (NSString*)getSuccessMsgWithReponseDic:(NSDictionary*)dic{
+    
+    if (dic == nil) {
+        return nil;
+    }
+    if ([[dic objectForKey:@"code"] intValue] == 0){
+        return [dic objectForKey:@"result"];
+    }else{
+        return nil;
+    }
+}
+
 - (EGOCache *)getCacheInstance{
     @synchronized(self) {
         if (_uid.length == 0) {
