@@ -23,6 +23,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 @property (nonatomic, readonly) NSDictionary* globalDefaultConfig;
 @property (nonatomic,assign) BOOL debugMode;
 
+@property (nonatomic,readonly) NSString* baseUrl;
 @property (nonatomic, readonly) BOOL isFirstLoginInThisDevice;
 
 + (XEEngine *)shareInstance;

@@ -30,6 +30,7 @@ enum TABLEVIEW_SECTION_INDEX {
 @property (strong, nonatomic) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UIImageView *headEdgeview;
 @property (strong, nonatomic) IBOutlet UIImageView *ownerHeadImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *ownerbkImageView;
 @property (strong, nonatomic) IBOutlet UILabel *nickName;
 @property (strong, nonatomic) IBOutlet UILabel *address;
 @property (strong, nonatomic) IBOutlet UILabel *birthday;
@@ -88,14 +89,17 @@ enum TABLEVIEW_SECTION_INDEX {
 {
     _userInfo = [XEEngine shareInstance].userInfo;
     
-//    [self.ownerHeadImageView sd_setImageWithURL:_userInfo.largeAvatarUrl placeholderImage:[UIImage imageNamed:@"defaultavatar_110x110@2x"]];
-//    
+    [self.ownerbkImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatar] placeholderImage:[UIImage imageNamed:@"placeholder_avatar_bg"]];
+    [self.ownerHeadImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatar] placeholderImage:[UIImage imageNamed:@"placeholder_avatar_icon"]];
+    
+//    [self.ownerHeadImageView sd_setImageWithURL:_userInfo.mediumAvatarUrl placeholderImage:[UIImage imageNamed:@"placeholder_avatar_icon"]];
 //    if (_userInfo.backgroudImageUrl) {
-//        [self.bkImageView sd_setImageWithURL:_userInfo.backgroudImageUrl placeholderImage:[UIImage imageNamed:@"1.3.0_selfphoto_headBg@2x.png"]];
+//        [self.ownerbkImageView sd_setImageWithURL:_userInfo.largeAvatarUrl placeholderImage:[UIImage imageNamed:@"placeholder_avatar_bg"]];
 //    }else{
-//        [self.bkImageView setImage:[UIImage imageNamed:@"1.3.0_selfphoto_headBg@2x.png"]];
+//        [self.ownerbkImageView setImage:[UIImage imageNamed:@"placeholder_avatar_bg"]];
 //    }
     
+    self.ownerHeadImageView.layer.CornerRadius = 8;
     self.nickName.text = _userInfo.nickName;
     self.birthday.text = _userInfo.birthdayString;
     self.address.text  = _userInfo.address;

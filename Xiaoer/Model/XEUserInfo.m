@@ -8,6 +8,7 @@
 
 #import "XEUserInfo.h"
 #import "JSONKit.h"
+#import "XEEngine.h"
 
 @implementation XEUserInfo
 
@@ -54,28 +55,31 @@
         _region = [dic objectForKey:@"region"];
     }
     if ([dic objectForKey:@"address"]) {
-        _region = [dic objectForKey:@"address"];
+        _address = [dic objectForKey:@"address"];
     }
     if ([dic objectForKey:@"phone"]) {
-        _region = [dic objectForKey:@"phone"];
+        _phone = [dic objectForKey:@"phone"];
+    }
+    if ([dic objectForKey:@"avatar"]) {
+        _avatar = [dic objectForKey:@"avatar"];
     }
     if ([dic objectForKey:@"avatarId"]) {
-        _region = [dic objectForKey:@"avatarId"];
+        _avatarId = [dic objectForKey:@"avatarId"];
     }
     if ([dic objectForKey:@"babyNick"]) {
-        _region = [dic objectForKey:@"babyNick"];
+        _babyNick = [dic objectForKey:@"babyNick"];
     }
     if ([dic objectForKey:@"babyAvatarId"]) {
-        _region = [dic objectForKey:@"babyAvatarId"];
+        _babyAvatarId = [dic objectForKey:@"babyAvatarId"];
     }
     if ([dic objectForKey:@"babyGender"]) {
-        _region = [dic objectForKey:@"babyGender"];
+        _babyGender = [dic objectForKey:@"babyGender"];
     }
     if ([dic objectForKey:@"birthdayDate"]) {
-        _region = [dic objectForKey:@"birthdayDate"];
+        _birthdayDate = [dic objectForKey:@"birthdayDate"];
     }
     if ([dic objectForKey:@"birthdayString"]) {
-        _region = [dic objectForKey:@"birthdayString"];
+        _birthdayString = [dic objectForKey:@"birthdayString"];
     }
 }
 
@@ -94,6 +98,58 @@
     }
     
     self.jsonString = [_userInfoByJsonDic JSONString];
+}
+
++ (NSString*)getAvatarUrlWithUid:(NSString*)uid avatarId:(NSString*)avatarId size:(int)size{
+    
+    return [NSString stringWithFormat:@"%@/avatar/%@/%@/0/%d", [[XEEngine shareInstance] baseUrl], uid, avatarId, size];
+}
+
+- (NSString*)getAvatarUrlWithSize:(int)size{
+    if (_avatarId == nil) {
+        return nil;
+    }
+    return [NSString stringWithFormat:@"%@/avatar/%@/%@/0/%d", [[XEEngine shareInstance] baseUrl], _uid, _avatarId, size];
+}
+
+- (NSURL *)smallAvatarUrl {
+    if (_avatarId == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/avatar/%@/%@/0/%d", [[XEEngine shareInstance] baseUrl], _uid, _avatarId, 70]];
+}
+
+- (NSURL *)mediumAvatarUrl{
+    if (_avatarId == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/avatar/%@/%@/0/%d", [[XEEngine shareInstance] baseUrl], _uid, _avatarId, 110]];
+}
+
+- (NSURL *)largeAvatarUrl{
+    if (_avatarId == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/avatar/%@/%@/0/%d", [[XEEngine shareInstance] baseUrl], _uid, _avatarId, 140]];
+}
+
+- (NSURL *)originalAvatarUrl {
+    if (_avatarId == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/avatar/%@/%@/0/%d", [[XEEngine shareInstance] baseUrl], _uid, _avatarId, 0]];
+}
+
+- (NSString*)getSmallAvatarUrl{
+    return [self getAvatarUrlWithSize:70];
+}
+
+- (NSString*)getMediumAvatarUrl{
+    return [self getAvatarUrlWithSize:110];
+}
+
+- (NSString*)getlargeAvatarUrl{
+    return [self getAvatarUrlWithSize:140];
 }
 
 - (void)setBirthdayDate:(NSDate *)birthdayDate{
@@ -133,5 +189,7 @@
     NSDateComponents *comps = [calender components:unitFlags fromDate:date];
     return [NSString stringWithFormat:@"%ld-%ld-%ld", comps.year, comps.month, comps.day];
 }
+
+
 
 @end

@@ -18,6 +18,8 @@
 @property(nonatomic, strong) NSString* address;//
 @property(nonatomic, strong) NSString* phone;//
 @property(nonatomic, strong) NSString* avatarId;
+//暂时用下
+@property(nonatomic, strong) NSString* avatar;
 @property(nonatomic, strong) NSString* password;
 
 @property(nonatomic, strong) NSString* account;
@@ -38,6 +40,11 @@
 @property(nonatomic, strong) NSDate* birthdayDate;
 @property(nonatomic, strong) NSString* birthdayString;
 
+@property(nonatomic, readonly) NSURL* smallAvatarUrl;
+@property(nonatomic, readonly) NSURL* mediumAvatarUrl;
+@property(nonatomic, readonly) NSURL* largeAvatarUrl;
+@property(nonatomic, readonly) NSURL* originalAvatarUrl;
+@property(nonatomic, readonly) NSURL* backgroudImageUrl;
 
 @property(nonatomic, strong) NSDictionary* userInfoByJsonDic;
 @property(nonatomic, strong) NSString* jsonString;

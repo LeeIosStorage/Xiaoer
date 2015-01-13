@@ -248,6 +248,10 @@ static XEEngine* s_ShareInstance = nil;
     return (_account && _userPassword && _uid);
 }
 
+-(NSString *)baseUrl{
+    return API_URL;
+}
+
 //////////////////////
 - (int)getConnectTag{
     return _connectTag++;
