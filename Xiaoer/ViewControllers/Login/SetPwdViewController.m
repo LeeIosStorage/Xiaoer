@@ -43,6 +43,7 @@
 }
 
 - (IBAction)confirmAction:(id)sender {
+    
     if  (self.setPwdTextField.text.length == 0)
     {
         [self.setPwdTextField becomeFirstResponder];
@@ -72,12 +73,14 @@
             if ([weakSelf.registerName isPhone]) {
                 [[XEEngine shareInstance] registerWithPhone:weakSelf.registerName password:weakSelf.setPwdTextField.text tag:tag];
                 [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+                    [XEProgressHUD AlertLoadDone];
                     NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
                     if (!jsonRet || errorMsg) {
                         if (!errorMsg.length) {
                             errorMsg = @"获取失败";
                             [XEProgressHUD AlertError:errorMsg];
                         }
+                        [XEUIUtils showAlertWithMsg:errorMsg];
                         return;
                     }
                     [XEProgressHUD AlertSuccess:@"注册成功"];
@@ -86,12 +89,14 @@
             }else if([weakSelf.registerName isEmail]){
                 [[XEEngine shareInstance] registerWithEmail:weakSelf.registerName password:self.setPwdTextField.text tag:tag];
                 [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+                    [XEProgressHUD AlertLoadDone];
                     NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
                     if (!jsonRet || errorMsg) {
                         if (!errorMsg.length) {
                             errorMsg = @"获取失败";
                             [XEProgressHUD AlertError:errorMsg];
                         }
+                        [XEUIUtils showAlertWithMsg:errorMsg];
                         return;
                     }
                     [XEProgressHUD AlertSuccess:@"注册成功"];
@@ -102,12 +107,14 @@
             [XEProgressHUD lightAlert:@"正在重置密码"];
             [[XEEngine shareInstance] resetPassword:self.setPwdTextField.text withUid:@"t1" tag:tag];
             [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+                [XEProgressHUD AlertLoadDone];
                 NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
                 if (!jsonRet || errorMsg) {
                     if (!errorMsg.length) {
                         errorMsg = @"获取失败";
                         [XEProgressHUD AlertError:errorMsg];
                     }
+                    [XEUIUtils showAlertWithMsg:errorMsg];
                     return;
                 }
                 [XEProgressHUD AlertSuccess:@"重置密码成功"];
