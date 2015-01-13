@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0703466F1A64F8E200EDE251 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0703466D1A64F8E200EDE251 /* WelcomeViewController.m */; };
+		070346701A64F8E200EDE251 /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0703466E1A64F8E200EDE251 /* WelcomeViewController.xib */; };
 		0712B37E1A5BC0DE000A1A7F /* RetrievePwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0712B37C1A5BC0DE000A1A7F /* RetrievePwdViewController.m */; };
 		0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0712B37D1A5BC0DE000A1A7F /* RetrievePwdViewController.xib */; };
 		0712B3A41A5BD853000A1A7F /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0712B3821A5BD853000A1A7F /* MKAnnotationView+WebCache.m */; };
@@ -146,6 +148,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0703466C1A64F8E200EDE251 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
+		0703466D1A64F8E200EDE251 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		0703466E1A64F8E200EDE251 /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
 		0712B37B1A5BC0DE000A1A7F /* RetrievePwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetrievePwdViewController.h; sourceTree = "<group>"; };
 		0712B37C1A5BC0DE000A1A7F /* RetrievePwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetrievePwdViewController.m; sourceTree = "<group>"; };
 		0712B37D1A5BC0DE000A1A7F /* RetrievePwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RetrievePwdViewController.xib; sourceTree = "<group>"; };
@@ -853,6 +858,9 @@
 				07E284921A5A8F26005651EB /* LoginViewController.h */,
 				07E284931A5A8F26005651EB /* LoginViewController.m */,
 				07E284941A5A8F26005651EB /* LoginViewController.xib */,
+				0703466C1A64F8E200EDE251 /* WelcomeViewController.h */,
+				0703466D1A64F8E200EDE251 /* WelcomeViewController.m */,
+				0703466E1A64F8E200EDE251 /* WelcomeViewController.xib */,
 				0712B37B1A5BC0DE000A1A7F /* RetrievePwdViewController.h */,
 				0712B37C1A5BC0DE000A1A7F /* RetrievePwdViewController.m */,
 				0712B37D1A5BC0DE000A1A7F /* RetrievePwdViewController.xib */,
@@ -1098,6 +1106,7 @@
 				07508E941A51346300873B45 /* LaunchScreen.xib in Resources */,
 				07E2847E1A5A8DFC005651EB /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				07E2846F1A5A8DFC005651EB /* umFeedback.bundle in Resources */,
+				070346701A64F8E200EDE251 /* WelcomeViewController.xib in Resources */,
 				07E284701A5A8DFC005651EB /* UMSocialLocalizable.strings in Resources */,
 				07E284761A5A8DFC005651EB /* UMShareEditViewControlleriPad.xib in Resources */,
 				075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */,
@@ -1132,6 +1141,7 @@
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
 				075E40A31A5939C20062F6AD /* XEProgressHUD.m in Sources */,
 				075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */,
+				0703466F1A64F8E200EDE251 /* WelcomeViewController.m in Sources */,
 				0712B3B01A5BD853000A1A7F /* UIImage+MultiFormat.m in Sources */,
 				077C98B81A53BEAE00E2985B /* XEBaseSuperViewController.m in Sources */,
 				0712B3B11A5BD853000A1A7F /* UIImage+WebP.m in Sources */,

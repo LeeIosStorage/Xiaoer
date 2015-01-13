@@ -67,13 +67,17 @@
                     </connections>
                 </button>
                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="s_n_set_line" id="U0q-ji-Qjn">
-                    <rect key="frame" x="0.0" y="134" width="320" height="2"/>
+                    <rect key="frame" x="0.0" y="135" width="320" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView contentMode="scaleToFill" id="gTH-cY-qcw">
                     <rect key="frame" x="0.0" y="134" width="320" height="59"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </imageView>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="s_n_set_line" id="pm9-0R-M4x">
+                    <rect key="frame" x="0.0" y="192" width="320" height="1"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <view contentMode="scaleToFill" id="uMh-T4-w1Z" userLabel="View - head -round">
                     <rect key="frame" x="20" y="85" width="90" height="90"/>
@@ -99,7 +103,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location_mine_icon" id="8n3-0E-LAl">
-                    <rect key="frame" x="115" y="144" width="24" height="29"/>
+                    <rect key="frame" x="115" y="144" width="22" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浙江杭州" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xIV-hs-8ZM">
@@ -110,7 +114,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nuZ-32-M9w">
-                    <rect key="frame" x="266" y="139" width="46" height="30"/>
+                    <rect key="frame" x="266" y="148" width="46" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="编辑" backgroundImage="edit_mine_icon">
                         <color key="titleColor" red="0.43921571970000001" green="0.76862752440000004" blue="0.90588241820000004" alpha="1" colorSpace="deviceRGB"/>

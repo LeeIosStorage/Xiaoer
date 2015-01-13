@@ -70,7 +70,7 @@
     //title
 //    [self setTitle:@"注册"];
     //right buttom
-    [self setRightButtonWithTitle:@"注册" selector:@selector(loginAndRegisterTypeAction:)];
+    //[self setRightButtonWithTitle:@"注册" selector:@selector(loginAndRegisterTypeAction:)];
     
     [self setSegmentedControlWithSelector:@selector(segmentedControlAction:) items:@[@"手机登录",@"邮箱登录"]];
     
@@ -100,7 +100,7 @@
 -(void)refreshUIControl{
     
     if (_vcType == VcType_Login) {
-        [self setRightButtonWithTitle:@"注册"];
+       // [self setRightButtonWithTitle:@"注册"];
         [self.segmentedControl setTitle:@"手机登录" forSegmentAtIndex:0];
         [self.segmentedControl setTitle:@"邮箱登录" forSegmentAtIndex:1];
         self.loginButton.layer.cornerRadius = 4;
@@ -122,7 +122,7 @@
         _socialContainerView.hidden = NO;
         _registerContainerView.hidden = YES;
     }else if (_vcType == VcType_Register){
-        [self setRightButtonWithTitle:@"登录"];
+      //  [self setRightButtonWithTitle:@"登录"];
         [self.segmentedControl setTitle:@"手机注册" forSegmentAtIndex:0];
         [self.segmentedControl setTitle:@"邮箱注册" forSegmentAtIndex:1];
         [_protocolButton setTitleColor:UIColorToRGB(0x6cc5e9) forState:0];

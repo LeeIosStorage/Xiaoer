@@ -7,6 +7,7 @@
 //
 
 #import "MainPageViewController.h"
+#import "XETabBarViewController.h"
 
 @interface MainPageViewController ()
 
@@ -30,6 +31,14 @@
     [self setLeftButtonWithSelector:@selector(settingAction:)];
 //    [self setRightButtonWithTitle:@"按钮" selector:@selector(settingAction:)];
 }
+
+- (UINavigationController *)navigationController{
+    if ([super navigationController]) {
+        return [super navigationController];
+    }
+    return self.tabController.navigationController;
+}
+
 
 #pragma mark - IBAction
 //-(void)backAction:(id)sender{

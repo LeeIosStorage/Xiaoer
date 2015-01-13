@@ -21,6 +21,7 @@
 #import "NewIntroViewController.h"
 #import "XEEngine.h"
 #import "XESettingConfig.h"
+#import "WelcomeViewController.h"
 
 
 @interface AppDelegate () <NewIntroViewControllerDelegate>
@@ -86,6 +87,16 @@
 - (void)signIn{
     NSLog(@"signIn");
     
+    
+    if([XESettingConfig isFirstEnterVersion]){
+        NewIntroViewController *introVc = [[NewIntroViewController alloc] init];
+        introVc.delegate = self;
+        self.window.rootViewController = introVc;
+        return;
+    }
+    
+    [XESettingConfig saveEnterUsr];
+    
     XETabBarViewController* tabViewController = [[XETabBarViewController alloc] init];
     tabViewController.viewControllers = [NSArray arrayWithObjects:
                                          [[MainPageViewController alloc] init],
@@ -98,25 +109,32 @@
     
     XENavigationController* tabNavVc = [[XENavigationController alloc] initWithRootViewController:tabViewController];
     tabNavVc.navigationBarHidden = YES;
+    
+    if (self.firstLogin) {
+        _mainTabViewController.initialIndex = 0;
+    }
+    
     self.window.rootViewController = tabNavVc;
+    
+    //[self checkVersion];
     
 }
 - (void)signOut{
     NSLog(@"signOut");
     
-//    long hexColor = 0xb4b5b5;
-//    float red = ((float)((hexColor & 0xFF0000) >> 16));
-//    float green = ((float)((hexColor & 0xFF00) >> 8));
-//    float blue = ((float)(hexColor & 0xFF));
-    
-    
-    LoginViewController* loginViewController = [[LoginViewController alloc] init];
-    XENavigationController* navigationController = [[XENavigationController alloc] initWithRootViewController:loginViewController];
+    WelcomeViewController* welcomeViewController = [[WelcomeViewController alloc] init];
+    XENavigationController* navigationController = [[XENavigationController alloc] initWithRootViewController:welcomeViewController];
     navigationController.navigationBarHidden = YES;
     self.window.rootViewController = navigationController;
     
     _mainTabViewController = nil;
     
+    [[XEEngine shareInstance] logout];
+    self.firstLogin = NO;
+}
+
+- (void)checkVersion{
+
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
@@ -134,8 +152,8 @@
 #pragma mark -LSIntroduceVcDelegate
 
 - (void)introduceVcFinish:(NewIntroViewController *)vc {
-    [self signOut];
-//    [self signIn];
+//    [self signOut];
+    [self signIn];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -24,4 +24,6 @@
 +(void)saveEnterVersion;
 +(BOOL)isFirstEnterVersion;
 
++(void)saveEnterUsr;
+
 @end

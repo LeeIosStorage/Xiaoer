@@ -12,7 +12,9 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (readonly, nonatomic) XETabBarViewController* mainTabViewController;
+@property (readwrite, nonatomic) XETabBarViewController* mainTabViewController;
+
+@property (assign, nonatomic) BOOL firstLogin;
 
 - (void)signIn;
 - (void)signOut;

@@ -119,6 +119,15 @@ static XESettingConfig *s_instance = nil;
     return spath;
 }
 
++(void)saveEnterUsr{
+    NSMutableDictionary *sd = [NSMutableDictionary dictionaryWithContentsOfFile:[self getSkipSavePath]];
+    if (!sd) {
+        sd = [NSMutableDictionary dictionary];
+    }
+    [sd setObject:@"1" forKey:[XEEngine shareInstance].uid];
+    [sd writeToFile:[self getSkipSavePath] atomically:YES];
+}
+
 +(void)saveEnterVersion{
     NSString *localVserion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
     NSMutableDictionary *td = [NSMutableDictionary dictionaryWithContentsOfFile:[self getTagPath]];

@@ -12,7 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "PerfectInfoViewController.h"
 #import "XETabBarViewController.h"
-#import "LoginViewController.h"
+#import "WelcomeViewController.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
@@ -127,14 +127,15 @@ enum TABLEVIEW_SECTION_INDEX {
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return SINGLE_CELL_HEIGHT;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return SINGLE_HEADER_HEADER;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return SINGLE_HEADER_HEADER;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, SINGLE_HEADER_HEADER)];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -218,8 +219,8 @@ enum TABLEVIEW_SECTION_INDEX {
         case kSetting:{
             //暂时放下
             [[XEEngine shareInstance] logout];
-            LoginViewController *loginVc = [[LoginViewController alloc] init];
-            [self.navigationController pushViewController:loginVc animated:YES];
+            WelcomeViewController *weVc = [[WelcomeViewController alloc] init];
+            [self.navigationController pushViewController:weVc animated:YES];
             break;
         }
         default:
