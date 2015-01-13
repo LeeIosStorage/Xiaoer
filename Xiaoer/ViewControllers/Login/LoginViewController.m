@@ -22,7 +22,7 @@
     NSString *_loginPhoneTextFieldText;
     NSString *_loginPasswordTextFieldText;
 }
-@property (strong, nonatomic) UISegmentedControl *segmentedControl;
+//@property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @property (assign, nonatomic) NSInteger selectedSegmentIndex;
 @property (strong, nonatomic) IBOutlet UIView *loginContainerView;
 @property (strong, nonatomic) IBOutlet UITextField *accountTextField;
@@ -72,12 +72,14 @@
     //right buttom
     [self setRightButtonWithTitle:@"注册" selector:@selector(loginAndRegisterTypeAction:)];
     
-    _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"手机登录",@"邮箱登录"]];
-    _segmentedControl.frame = CGRectMake((self.titleNavBar.frame.size.width-215)/2,self.titleNavBar.frame.size.height - 25 - 10 , 215, 25);
-    _segmentedControl.tintColor = [UIColor whiteColor];
-    _segmentedControl.selectedSegmentIndex = _selectedSegmentIndex;
-    [_segmentedControl addTarget:self action:@selector(segmentedControlAction:) forControlEvents:UIControlEventValueChanged];
-    [self.titleNavBar addSubview:_segmentedControl];
+    [self setSegmentedControlWithSelector:@selector(segmentedControlAction:) items:@[@"手机登录",@"邮箱登录"]];
+    
+//    _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"手机登录",@"邮箱登录"]];
+//    _segmentedControl.frame = CGRectMake((self.view.bounds.size.width-215)/2,self.titleNavBar.frame.size.height - 25 - 10 , 215, 25);
+//    _segmentedControl.tintColor = [UIColor whiteColor];
+//    _segmentedControl.selectedSegmentIndex = _selectedSegmentIndex;
+//    [_segmentedControl addTarget:self action:@selector(segmentedControlAction:) forControlEvents:UIControlEventValueChanged];
+//    [self.titleNavBar addSubview:_segmentedControl];
 }
 
 -(void)setVcType:(VcType)vcType{
@@ -99,8 +101,8 @@
     
     if (_vcType == VcType_Login) {
         [self setRightButtonWithTitle:@"注册"];
-        [_segmentedControl setTitle:@"手机登录" forSegmentAtIndex:0];
-        [_segmentedControl setTitle:@"邮箱登录" forSegmentAtIndex:1];
+        [self.segmentedControl setTitle:@"手机登录" forSegmentAtIndex:0];
+        [self.segmentedControl setTitle:@"邮箱登录" forSegmentAtIndex:1];
         self.loginButton.layer.cornerRadius = 4;
         self.loginButton.layer.masksToBounds = YES;
         [_retrievePasswordButton setTitleColor:UIColorToRGB(0x6cc5e9) forState:0];
@@ -121,8 +123,8 @@
         _registerContainerView.hidden = YES;
     }else if (_vcType == VcType_Register){
         [self setRightButtonWithTitle:@"登录"];
-        [_segmentedControl setTitle:@"手机注册" forSegmentAtIndex:0];
-        [_segmentedControl setTitle:@"邮箱注册" forSegmentAtIndex:1];
+        [self.segmentedControl setTitle:@"手机注册" forSegmentAtIndex:0];
+        [self.segmentedControl setTitle:@"邮箱注册" forSegmentAtIndex:1];
         [_protocolButton setTitleColor:UIColorToRGB(0x6cc5e9) forState:0];
         self.registerAffirmButton.layer.cornerRadius = 4;
         self.registerAffirmButton.layer.masksToBounds = YES;

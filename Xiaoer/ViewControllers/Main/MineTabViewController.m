@@ -61,7 +61,8 @@ enum TABLEVIEW_SECTION_INDEX {
     
     [self setTitle:@"我的"];
     
-    [self setRightButtonWithTitle:@"设置" selector:@selector(settingAction)];
+//    [self setRightButtonWithTitle:@"设置" selector:@selector(settingAction)];
+    [self setRightButtonWithImageName:@"setting_mine_icon" selector:@selector(settingAction)];
 }
 
 - (UINavigationController *)navigationController{
