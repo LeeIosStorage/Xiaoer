@@ -332,7 +332,9 @@ static XEEngine* s_ShareInstance = nil;
 //    if (fileParam) {
 //        [dic setObject:fileParam forKey:@"fileParam"];
 //    }
-    [dic setObject:params forKey:@"params"];
+    if (params) {
+        [dic setObject:params forKey:@"params"];
+    }
     return dic;
 }
 
@@ -604,6 +606,22 @@ static XEEngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/edit",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
     
+}
+
+- (BOOL)getCommonAreaRoot:(int)tag{
+    
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/common/area/root",API_URL] type:1 parameters:nil];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+    
+}
+- (BOOL)getCommonAreaNodeWithCode:(NSString *)code tag:(int)tag{
+    
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (code) {
+        [params setObject:code forKey:@"code"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/common/area/node",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
 @end

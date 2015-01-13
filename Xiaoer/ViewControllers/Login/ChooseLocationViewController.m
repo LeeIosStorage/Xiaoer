@@ -41,42 +41,41 @@
 }
 
 -(void)getRegion{
-//    __weak ChooseLocationViewController *weakSelf=self;
-//    
-//    int tag =[[XEEngine shareInstance] getConnectTag];
-//    NSError *error;
+    
+    __weak ChooseLocationViewController *weakSelf=self;
+    int tag =[[XEEngine shareInstance] getConnectTag];
     if (_dataArray.count>0) {
         [self.tableView reloadData];
     }else{
-//        if (_locationType == ChooseLoactionTypeCountry) {
-//            [[XEEngine shareInstance] getRegionContriesByTag:tag error:&error];
-//        }else if (_locationType ==ChooseLoactionTypeProvince){
-//            [[XEEngine shareInstance] getRegionChildrenWithCode:_searchLocationCode  withChildren:YES   tag:tag error:&error];
-//        }else{
-//            [[XEEngine shareInstance] getRegionChildrenWithCode:_searchLocationCode   tag:tag error:&error];
-//        }
+        if (_locationType == ChooseLoactionTypeProvince){
+            [[XEEngine shareInstance] getCommonAreaRoot:tag];
+        }else{
+            [[XEEngine shareInstance] getCommonAreaNodeWithCode:_searchLocationCode tag:tag];
+        }
         
-//        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-//            if (weakSelf == nil) {
-//                return ;
-//            }
-////            NSString* errorMsg = [LanShanEngine getErrorMsgWithReponseDic:jsonRet];
-////            if (errorMsg.length > 0) {
-////                [LSUIUtils showErrorMsgWithJsonRet:jsonRet onView:weakSelf.view withFinish:nil];
-////                return ;
-////            }
-////            
-////            if (_locationType ==ChooseLoactionTypeProvince) {
-////                weakSelf.dataArray=[[jsonRet objectForKey:@"result"] objectForKey:@"children"];
-////            }else{
-////                weakSelf.dataArray=[jsonRet objectForKey:@"result"];
-////            }
-////            if (![weakSelf.dataArray isKindOfClass:[NSArray class]]) {
-////                weakSelf.dataArray = nil;
-////            }
-//            
-//            [weakSelf.tableView reloadData];
-//        } tag:tag];
+        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+            if (weakSelf == nil) {
+                return ;
+            }
+            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+            if (!jsonRet || errorMsg) {
+                if (!errorMsg.length) {
+                    errorMsg = @"上传失败";
+                }
+                return;
+            }
+            weakSelf.dataArray = [NSArray array];
+            if (_locationType ==ChooseLoactionTypeProvince) {
+                weakSelf.dataArray = [jsonRet objectForKey:@"object"];
+            }else{
+                weakSelf.dataArray = [jsonRet objectForKey:@"object"];
+            }
+            if (![weakSelf.dataArray isKindOfClass:[NSArray class]]) {
+                weakSelf.dataArray = nil;
+            }
+            
+            [weakSelf.tableView reloadData];
+        } tag:tag];
     }
 }
 
@@ -104,7 +103,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 8;
+    return _dataArray.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -128,7 +127,6 @@
     
     NSDictionary *location =[_dataArray objectAtIndex:indexPath.row];
     cell.textLabel.text = [location objectForKey:@"name"];
-    cell.textLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row];
     
     return cell;
 }
@@ -143,14 +141,11 @@
         [self.navigationController popToViewController:_delegate animated:YES];
         return;
     }else{
-        NSArray *tempArray = [location objectForKey:@"children"];
-        if (tempArray.count>0 || _locationType==ChooseLoactionTypeCountry) {
-            ChooseLoactionType nextType=ChooseLoactionTypeProvince;
-            if (_locationType==ChooseLoactionTypeProvince) {
-                nextType=ChooseLoactionTypeLocal;
-            }
+//        NSArray *tempArray = [location objectForKey:@"children"];
+        if (_locationType==ChooseLoactionTypeProvince) {
+            ChooseLoactionType nextType=ChooseLoactionTypeLocal;
             ChooseLocationViewController *chooseLocationVc=[[ChooseLocationViewController alloc] initWithLoactionType:nextType WithCode:[location objectForKey:@"code"]];
-            chooseLocationVc.dataArray=tempArray;
+//            chooseLocationVc.dataArray=tempArray;
             chooseLocationVc.delegate=self.delegate;
             [self.navigationController pushViewController:chooseLocationVc animated:YES];
         }else{

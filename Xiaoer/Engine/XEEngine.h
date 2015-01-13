@@ -84,4 +84,8 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 //用户信息编辑
 - (BOOL)editUserInfoWithUid:(NSString *)uid name:(NSString *)name nickname:(NSString *)nickname title:(NSString *)title desc:(NSString *)desc district:(NSString *)district address:(NSString *)address bbId:(NSString *)bbId bbName:(NSString *)bbName bbGender:(NSString *)bbGender bbBirthday:(NSString *)bbBirthday bbAvatar:(NSString *)bbAvatar tag:(int)tag;
 
+//获取地区-省
+- (BOOL)getCommonAreaRoot:(int)tag;
+//获取地区-市
+- (BOOL)getCommonAreaNodeWithCode:(NSString *)code tag:(int)tag;
 @end

@@ -416,7 +416,7 @@
         }else if (indexPath.row == 2){
             _editTag = TAG_USER_REGION;
             //            [self editUserInfo:TAG_USER_REGION withRowDicts:rowDicts];
-            ChooseLocationViewController *chooseLocationVc=[[ChooseLocationViewController alloc] initWithLoactionType:ChooseLoactionTypeCountry WithCode:nil];
+            ChooseLocationViewController *chooseLocationVc=[[ChooseLocationViewController alloc] initWithLoactionType:ChooseLoactionTypeProvince WithCode:nil];
             chooseLocationVc.delegate=self;
             [self.navigationController pushViewController:chooseLocationVc animated:YES];
         }else if (indexPath.row == 3){
