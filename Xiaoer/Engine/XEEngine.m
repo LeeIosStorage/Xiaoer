@@ -412,7 +412,7 @@ static XEEngine* s_ShareInstance = nil;
     if (!jsonRet) {
         NSLog(@"========================%@",[jsonRet objectForKey:@"code"]);
     }
-    NSLog(@"========================%d",[[jsonRet objectForKey:@"code"] intValue]);
+    
     dispatch_async(dispatch_get_main_queue(), ^(){
         BOOL timeout = NO;
 //        if ([jsonRet integerForKey:@"code"] == 2) {
@@ -425,7 +425,7 @@ static XEEngine* s_ShareInstance = nil;
                 //有错误的内容不缓存
                 if ([_needCacheUrls containsObject:fullUrl] && ![XEEngine getErrorMsgWithReponseDic:jsonRet]) {
                  //   [[self getCacheInstance] setString:response forKey:[XECommonUtils fileNameEncodedString:fullUrl]];
-                    NSLog(@"=======================%@",jsonRet);
+                 //   NSLog(@"=======================%@",jsonRet);
                 }
             }
         }
