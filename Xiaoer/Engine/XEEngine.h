@@ -25,6 +25,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 
 @property (nonatomic,readonly) NSString* baseUrl;
 @property (nonatomic, readonly) BOOL isFirstLoginInThisDevice;
+@property (assign, nonatomic) BOOL bVisitor;
 
 + (XEEngine *)shareInstance;
 + (NSDictionary*)getReponseDicByContent:(NSData*)content err:(NSError*)err;

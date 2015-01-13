@@ -13,6 +13,7 @@
 #import "PerfectInfoViewController.h"
 #import "XETabBarViewController.h"
 #import "WelcomeViewController.h"
+#import "AppDelegate.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
@@ -34,6 +35,7 @@ enum TABLEVIEW_SECTION_INDEX {
 @property (strong, nonatomic) IBOutlet UILabel *nickName;
 @property (strong, nonatomic) IBOutlet UILabel *address;
 @property (strong, nonatomic) IBOutlet UILabel *birthday;
+@property (strong, nonatomic) IBOutlet UIButton *editBtn;
 
 
 - (IBAction)ownerHeadAction:(id)sender;
@@ -105,6 +107,10 @@ enum TABLEVIEW_SECTION_INDEX {
     self.birthday.text = _userInfo.birthdayString;
     self.address.text  = _userInfo.address;
     self.tableView.tableHeaderView = self.headView;
+    
+    if ([XEEngine shareInstance].bVisitor) {
+        self.editBtn.enabled = NO;
+    }
 }
 
 

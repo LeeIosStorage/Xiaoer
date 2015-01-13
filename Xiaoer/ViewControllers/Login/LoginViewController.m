@@ -58,7 +58,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     _selectedSegmentIndex = 0;
-    [self setVcType:VcType_Login];
+    //[self setVcType:VcType_Login];
+    [self refreshUIControl];
 }
 
 - (void)didReceiveMemoryWarning {

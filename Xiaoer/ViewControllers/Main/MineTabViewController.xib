@@ -10,6 +10,7 @@
                 <outlet property="address" destination="xIV-hs-8ZM" id="rP9-EJ-Gh9"/>
                 <outlet property="birthday" destination="gKf-FQ-O24" id="gOv-7v-QR1"/>
                 <outlet property="bkImageView" destination="KnS-mo-gxM" id="uEU-3T-IS4"/>
+                <outlet property="editBtn" destination="nuZ-32-M9w" id="q45-6m-faA"/>
                 <outlet property="headEdgeview" destination="gTH-cY-qcw" id="AxH-Xz-LH6"/>
                 <outlet property="headView" destination="Zp7-nl-tgZ" id="qMV-tu-gZs"/>
                 <outlet property="nickName" destination="gLK-C1-S6p" id="RLG-Sf-IUU"/>
@@ -96,7 +97,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1周岁8个月" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gKf-FQ-O24">
-                    <rect key="frame" x="118" y="109" width="81" height="21"/>
+                    <rect key="frame" x="118" y="109" width="155" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -107,7 +108,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浙江杭州" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xIV-hs-8ZM">
-                    <rect key="frame" x="147" y="148" width="70" height="21"/>
+                    <rect key="frame" x="147" y="148" width="111" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -125,7 +126,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="马小跳" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gLK-C1-S6p">
-                    <rect key="frame" x="118" y="88" width="52" height="16"/>
+                    <rect key="frame" x="118" y="88" width="155" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

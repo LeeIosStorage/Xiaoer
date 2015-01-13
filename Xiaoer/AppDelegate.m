@@ -86,7 +86,7 @@
 
 - (void)signIn{
     NSLog(@"signIn");
-    
+    [XEEngine shareInstance].bVisitor = NO;
     
     if([XESettingConfig isFirstEnterVersion]){
         NewIntroViewController *introVc = [[NewIntroViewController alloc] init];

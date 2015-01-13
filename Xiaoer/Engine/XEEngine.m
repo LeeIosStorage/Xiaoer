@@ -144,6 +144,7 @@ static XEEngine* s_ShareInstance = nil;
     _userInfo = [[XEUserInfo alloc] init];
     [XESettingConfig logout];
     _cacheInstance = nil;
+    _bVisitor = YES;
 }
 
 - (NSString*)getCurrentAccoutDocDirectory{

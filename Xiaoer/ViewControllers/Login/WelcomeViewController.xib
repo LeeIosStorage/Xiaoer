@@ -45,7 +45,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6hu-ha-MJE">
-                    <rect key="frame" x="167" y="247" width="93" height="32"/>
+                    <rect key="frame" x="166.99999892327091" y="247" width="93" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="注册" backgroundImage="login_btn_enabled">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -56,7 +56,7 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" id="sHY-nd-5bw" userLabel="View - social">
-                    <rect key="frame" x="0.0" y="501" width="320" height="67"/>
+                    <rect key="frame" x="0.0" y="501" width="319.99999820294926" height="67"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="mzY-6X-p6b">
@@ -65,7 +65,7 @@
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="lyG-g2-O9f">
-                            <rect key="frame" x="227.00000048114589" y="10" width="83" height="1"/>
+                            <rect key="frame" x="226.99999868409515" y="10" width="83" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
@@ -104,7 +104,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Zbj-91-7RD">
-                    <rect key="frame" x="60" y="293" width="200" height="32"/>
+                    <rect key="frame" x="60" y="293" width="199.99999892327091" height="32"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="随便看看" backgroundImage="login_btn_enabled">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
