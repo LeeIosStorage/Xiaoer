@@ -12,5 +12,6 @@
 @interface PerfectInfoViewController : XESuperViewController
 
 @property (nonatomic, strong) XEUserInfo *userInfo;
+@property (nonatomic, assign) BOOL isNeedSkip;
 
 @end

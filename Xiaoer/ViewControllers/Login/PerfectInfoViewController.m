@@ -64,7 +64,7 @@
     _userInfo = [[XEUserInfo alloc] init];
     _userInfo = oldUserInfo;
     
-    [self setTilteLeftViewHide:YES];
+//    [self setTilteLeftViewHide:_isNeedSkip];
     self.saveButton.layer.cornerRadius = 4;
     self.saveButton.layer.masksToBounds = YES;
     self.tableView.tableFooterView = self.footerView;
@@ -81,9 +81,9 @@
 - (void)initNormalTitleNavBarSubviews{
     //title
     [self setTitle:@"完善资料"];
-    
-    [self setRightButtonWithTitle:@"跳过" selector:@selector(skipAction:)];
-    
+    if (_isNeedSkip) {
+        [self setRightButtonWithTitle:@"跳过" selector:@selector(skipAction:)];
+    }
 }
 
 /*
@@ -116,6 +116,13 @@
         [_userInfo setUserAndBabyInfoByJsonDic:[jsonRet objectForKey:@"object"]];
         [XEEngine shareInstance].userInfo = _userInfo;
         [weakSelf.tableView reloadData];
+        
+        if (_isNeedSkip) {
+            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            [appDelegate signIn];
+        }else{
+            [self.navigationController popViewControllerAnimated:YES];
+        }
         
     }tag:tag];
     
