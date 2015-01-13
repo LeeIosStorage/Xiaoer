@@ -34,7 +34,7 @@
     // Override point for customization after application launch.
     
     application.statusBarHidden = NO;
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     //友盟组件
     [UMSocialData setAppKey:UMS_APP];

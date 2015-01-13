@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) IBOutlet UIView *titleNavBar;
 @property (nonatomic, strong) IBOutlet UIButton *titleNavBarRightBtn;
+@property (nonatomic, strong) IBOutlet UISegmentedControl *segmentedControl;
 
 //title
 -(void) setTitle:(NSString *) title;
@@ -30,18 +31,30 @@
  */
 -(void) setTilteLeftViewHide:(BOOL)isHide;
 
-/*! @brief 设置tableview的contentInset
+/*! @brief SegmentedControl控件
  *
  */
+-(void) setSegmentedControlWithSelector:(SEL) selector items:(NSArray *)items;
+
 
 //返回按钮, 前面默认是back
 -(void) setLeftButtonTitle:(NSString *) buttonTitle;
 -(void) setLeftButtonWithSelector:(SEL) selector;
 
+-(void) setLeftButtonWithImageName:(NSString *) butonImageName;
+-(void) setLeftButtonWithImageName:(NSString *) butonImageName selector:(SEL) selector;
+
+
 //right button
 -(void) setRightButtonWithTitle:(NSString *) buttonTitle;
 -(void) setRightButtonWithTitle:(NSString *) buttonTitle selector:(SEL) selector;
 
+-(void) setRightButtonWithImageName:(NSString *) butonImageName selector:(SEL) selector;
+
+
+/*! @brief 设置tableview的contentInset
+ *
+ */
 -(void) setContentInsetForScrollView:(UIScrollView *) scrollview;
 -(void) setContentInsetForScrollView:(UIScrollView *) scrollview inset:(UIEdgeInsets) inset;
 

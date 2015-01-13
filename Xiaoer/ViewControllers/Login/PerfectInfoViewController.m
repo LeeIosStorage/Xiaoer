@@ -339,7 +339,7 @@
     CGRect frame = cell.leftAvater.frame;
     frame.size.width = 61-8*2;
     frame.size.height = frame.size.width;
-    frame.origin.x = cell.frame.size.width - frame.size.width - 12;
+    frame.origin.x = self.view.bounds.size.width - frame.size.width - 12;
     cell.leftAvater.frame = frame;
     cell.leftAvater.layer.cornerRadius = 5;
     cell.leftAvater.layer.masksToBounds = YES;

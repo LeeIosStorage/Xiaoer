@@ -39,7 +39,7 @@
     
     [self.view setBackgroundColor:[UIColor whiteColor]];//UIColorRGB(240, 240, 240)
     self.view.clipsToBounds = YES;
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     BOOL isAddTitleNavBar = NO;
     if (!_titleNavBar) {
@@ -114,6 +114,8 @@
     if ([_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
         _titleNavBarLeftButton = ((XETitleNavBarView *) _titleNavBar).toolBarLeftButton;
         _titleNavBarRightBtn = ((XETitleNavBarView *) _titleNavBar).toolBarRightButton;
+        _segmentedControl = ((XETitleNavBarView *) _titleNavBar).segmentedControl;
+        _segmentedControl.hidden = YES;
     }
 }
 
@@ -158,6 +160,29 @@
     }
 }
 
+-(void) setSegmentedControlWithSelector:(SEL) selector items:(NSArray *)items{
+    if (![_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
+        return;
+    }
+    
+    if (!_segmentedControl) {
+        _segmentedControl = ((XETitleNavBarView *) _titleNavBar).segmentedControl;
+    }
+    if (_segmentedControl) {
+        _segmentedControl.hidden = NO;
+        _titleLabel.hidden = YES;
+        for (int index = 0; index < items.count; index ++ ) {
+            id title = [items objectAtIndex:index];
+            if ([title isKindOfClass:[NSString class]]) {
+                [_segmentedControl setTitle:title forSegmentAtIndex:index];
+            }
+        }
+        _segmentedControl.tintColor = [UIColor whiteColor];
+        _segmentedControl.selectedSegmentIndex = 0;
+        [_segmentedControl addTarget:self action:selector forControlEvents:UIControlEventValueChanged];
+    }
+}
+
 //返回按钮, 前面默认是的back
 
 -(void) setLeftButtonTitle:(NSString *) buttonTitle
@@ -182,6 +207,38 @@
     }
 }
 
+-(void) setLeftButtonWithImageName:(NSString *) butonImageName
+{
+    [self setLeftButtonWithImage:[UIImage imageNamed:butonImageName]];
+}
+-(void) setLeftButtonWithImage:(UIImage *) butonImage
+{
+    if (![_titleNavBar isMemberOfClass:[XETitleNavBarView class]])
+    {
+        return;
+    }
+    if (_titleNavBarLeftButton) {
+        [_titleNavBarLeftButton setImage:butonImage forState:UIControlStateNormal];
+    }
+}
+-(void) setLeftButtonWithImageName:(NSString *) butonImageName selector:(SEL) selector
+{
+    [self setLeftButtonWithImage:[UIImage imageNamed:butonImageName] selector:selector];
+}
+-(void) setLeftButtonWithImage:(UIImage *) butonImage selector:(SEL) selector
+{
+    if (![_titleNavBar isMemberOfClass:[XETitleNavBarView class]])
+    {
+        return;
+    }
+    if (_titleNavBarLeftButton) {
+        _titleNavBarLeftButton.hidden = NO;
+        [_titleNavBarLeftButton setImage:butonImage forState:UIControlStateNormal];
+        [_titleNavBarLeftButton addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+
 //right button
 -(void) setRightButtonWithTitle:(NSString *) buttonTitle{
     if (![_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
@@ -205,6 +262,22 @@
         [_titleNavBarRightBtn addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
     }
 }
+
+//customview
+
+-(void) setRightButtonWithImageName:(NSString *) butonImageName selector:(SEL) selector
+{
+    return [self setRightButtonWithImage:[UIImage imageNamed:butonImageName] selector:selector];
+}
+-(void) setRightButtonWithImage:(UIImage *) butonImage selector:(SEL) selector
+{
+    if ([_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
+        _titleNavBarRightBtn.hidden = NO;
+        [_titleNavBarRightBtn setImage:butonImage forState:UIControlStateNormal];
+        [_titleNavBarRightBtn addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
 
 #pragma mark - ScrollViewContentInset
 -(void) setContentInsetForScrollView:(UIScrollView *) scrollview
