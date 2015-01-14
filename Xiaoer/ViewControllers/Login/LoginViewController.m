@@ -14,8 +14,9 @@
 #import "SetPwdViewController.h"
 #import "XEUserInfo.h"
 #import "AppDelegate.h"
+#import "NSString+Value.h"
 
-@interface LoginViewController ()
+@interface LoginViewController () <UITextFieldDelegate>
 {
     NSString *_loginType;
     NSString *_registerPhoneTextFieldText;
@@ -53,6 +54,16 @@
 @end
 
 @implementation LoginViewController
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkTextChaneg:) name:UITextFieldTextDidChangeNotification object:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -122,11 +133,15 @@
         _loginContainerView.hidden = NO;
         _socialContainerView.hidden = NO;
         _registerContainerView.hidden = YES;
+        
+        [self loginButtonEnabled];
+        
     }else if (_vcType == VcType_Register){
       //  [self setRightButtonWithTitle:@"登录"];
         [self.segmentedControl setTitle:@"手机注册" forSegmentAtIndex:0];
         [self.segmentedControl setTitle:@"邮箱注册" forSegmentAtIndex:1];
         [_protocolButton setTitleColor:UIColorToRGB(0x6cc5e9) forState:0];
+        
         self.registerAffirmButton.layer.cornerRadius = 4;
         self.registerAffirmButton.layer.masksToBounds = YES;
         
@@ -164,8 +179,111 @@
         _loginContainerView.hidden = YES;
         _socialContainerView.hidden = YES;
         _registerContainerView.hidden = NO;
+        
+        [self loginButtonEnabled];
     }
     
+}
+
+- (BOOL)loginButtonEnabled{
+    if (_vcType == VcType_Login) {
+        if (_selectedSegmentIndex == 0) {
+            if ([[_accountTextField text] isPhone] && ([_passwordTextField text].length >= 6 &&[_passwordTextField text].length <= 15)) {
+                _loginButton.enabled = YES;
+                return YES;
+            }
+            _loginButton.enabled = NO;
+            return NO;
+        }else if (_selectedSegmentIndex == 1){
+            if ([[_accountTextField text] isEmail] && ([_passwordTextField text].length >= 6 &&[_passwordTextField text].length <= 15)) {
+                _loginButton.enabled = YES;
+                return YES;
+            }
+            _loginButton.enabled = NO;
+            return NO;
+        }
+    }else if (_vcType == VcType_Register){
+        if (_selectedSegmentIndex == 0) {
+            if ([[_registerPhoneTextField text] isPhone]) {
+                _registerVerifyButton.enabled = YES;
+                [_registerVerifyButton setBackgroundColor:UIColorToRGB(0x6cc5e9)];
+                if (_verifyAndemailTextField.text.length > 0) {
+                    _registerAffirmButton.enabled = YES;
+                    return YES;
+                }
+                _registerAffirmButton.enabled = NO;
+                return YES;
+            }
+            _registerVerifyButton.enabled = NO;
+            _registerAffirmButton.enabled = NO;
+            [_registerVerifyButton setBackgroundColor:UIColorToRGB(0x699db2)];
+            return NO;
+            
+        }else if (_selectedSegmentIndex == 1){
+            if ([[_verifyAndemailTextField text] isEmail] ) {
+                _registerAffirmButton.enabled = YES;
+                return YES;
+            }
+            _registerAffirmButton.enabled = NO;
+            return NO;
+        }
+    }
+    return NO;
+}
+
+- (void)checkTextChaneg:(NSNotification *)notif
+{
+//    UITextField *textField = notif.object;
+    if (_selectedSegmentIndex == 0) {
+        [self loginButtonEnabled];
+    }else if (_selectedSegmentIndex == 1){
+        [self loginButtonEnabled];
+    }
+}
+#pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if ([string isEqualToString:@"\n"]) {
+        return NO;
+    }
+    if (!string.length && range.length > 0) {
+        return YES;
+    }
+    NSString *oldString = [textField.text copy];
+    NSString *newString = [oldString stringByReplacingCharactersInRange:range withString:string];
+    
+    if (_vcType == VcType_Login) {
+        if (_selectedSegmentIndex == 0) {
+            if (textField == _accountTextField && textField.markedTextRange == nil) {
+                if (newString.length > 11 && textField.text.length >= 11) {
+                    return NO;
+                }
+            }else if (textField == _passwordTextField){
+                if (newString.length > 15 && textField.text.length >= 15) {
+                    return NO;
+                }
+            }
+            return YES;
+        }else if (_selectedSegmentIndex == 1){
+            if (textField == _passwordTextField){
+                if (newString.length > 15 && textField.text.length >= 15) {
+                    return NO;
+                }
+            }
+        }
+    }else if (_vcType == VcType_Register){
+        if (_selectedSegmentIndex == 0) {
+            if (textField == _registerPhoneTextField && textField.markedTextRange == nil) {
+                if (newString.length > 11 && textField.text.length >= 11) {
+                    return NO;
+                }
+            }
+            return YES;
+        }else if (_selectedSegmentIndex == 1){
+            
+        }
+    }
+    return YES;
 }
 
 #pragma mark - IBAction
@@ -354,6 +472,17 @@
     
     _selectedSegmentIndex = sender.selectedSegmentIndex;
     [self refreshUIControl];
+    
+    [self.registerPhoneTextField resignFirstResponder];
+    self.registerPhoneTextField.text = nil;
+    [self.verifyAndemailTextField resignFirstResponder];
+    self.verifyAndemailTextField.text = nil;
+    
+    [self.accountTextField resignFirstResponder];
+    self.accountTextField.text = nil;
+    [self.passwordTextField resignFirstResponder];
+    self.passwordTextField.text = nil;
+    
     switch (_selectedSegmentIndex) {
         case 0:
         {

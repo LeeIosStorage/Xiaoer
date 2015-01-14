@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *setPwdImageView;
 @property (strong, nonatomic) IBOutlet UITextField *setPwdTextField;
 @property (strong, nonatomic) IBOutlet UITextField *comfirmTextField;
+@property (strong, nonatomic) IBOutlet UIButton *comfimAction;
 
 
 - (IBAction)confirmAction:(id)sender;
@@ -24,6 +25,16 @@
 @end
 
 @implementation SetPwdViewController
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkTextChaneg:) name:UITextFieldTextDidChangeNotification object:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -131,6 +142,47 @@
     XEUserInfo *userInfo = [[XEUserInfo alloc] init];
     userInfo.uid = @"1";
     pVc.userInfo = userInfo;
-    [self.navigationController pushViewController:pVc animated:YES];}
+    [self.navigationController pushViewController:pVc animated:YES];
+}
+
+
+- (BOOL)loginButtonEnabled{
+    if ([[_setPwdTextField text] length] >= 6 && [_comfirmTextField text].length >= 6) {
+        _comfimAction.enabled = YES;
+        return YES;
+    }
+    _comfimAction.enabled = NO;
+    return NO;
+}
+
+- (void)checkTextChaneg:(NSNotification *)notif
+{
+    //    UITextField *textField = notif.object;
+    [self loginButtonEnabled];
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if ([string isEqualToString:@"\n"]) {
+        return NO;
+    }
+    if (!string.length && range.length > 0) {
+        return YES;
+    }
+    NSString *oldString = [textField.text copy];
+    NSString *newString = [oldString stringByReplacingCharactersInRange:range withString:string];
+    
+    if (textField == _setPwdTextField) {
+        if (newString.length > 15 && textField.text.length >= 15) {
+            return NO;
+        }
+    }else if (textField == _comfirmTextField){
+        if (newString.length > 15 && textField.text.length >= 15) {
+            return NO;
+        }
+    }
+    return YES;
+}
 
 @end

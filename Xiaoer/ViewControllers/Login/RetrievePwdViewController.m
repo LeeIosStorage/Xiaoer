@@ -10,6 +10,7 @@
 #import "XEEngine.h"
 #import "XEUserInfo.h"
 #import "SetPwdViewController.h"
+#import "NSString+Value.h"
 
 @interface RetrievePwdViewController ()
 
@@ -28,6 +29,16 @@
 @end
 
 @implementation RetrievePwdViewController
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkTextChaneg:) name:UITextFieldTextDidChangeNotification object:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,6 +73,7 @@
         [self.commitButton setTitle:@"找回密码" forState:UIControlStateNormal];
         self.phoneNumView.hidden = YES;
     }
+    [self loginButtonEnabled];
 }
 
 - (IBAction)getCodeAction:(id)sender {
@@ -107,5 +119,64 @@
 }
 
 
+- (BOOL)loginButtonEnabled{
+    
+    if (self.reType == TYPE_PHONE) {
+        if ([[_phoneTextField text] isPhone]) {
+            _verifyButton.enabled = YES;
+            [_verifyButton setBackgroundColor:UIColorToRGB(0x6cc5e9)];
+            if (_commitTextField.text.length > 0) {
+                _commitButton.enabled = YES;
+                return YES;
+            }
+            _commitButton.enabled = NO;
+            return YES;
+        }
+        _verifyButton.enabled = NO;
+        _commitButton.enabled = NO;
+        [_verifyButton setBackgroundColor:UIColorToRGB(0x699db2)];
+        return NO;
+        
+    }else if (self.reType == TYPE_EMAIL){
+        if ([[_commitTextField text] isEmail] ) {
+            _commitButton.enabled = YES;
+            return YES;
+        }
+        _commitButton.enabled = NO;
+        return NO;
+    }
+    return NO;
+}
+
+- (void)checkTextChaneg:(NSNotification *)notif
+{
+    //    UITextField *textField = notif.object;
+    [self loginButtonEnabled];
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if ([string isEqualToString:@"\n"]) {
+        return NO;
+    }
+    if (!string.length && range.length > 0) {
+        return YES;
+    }
+    NSString *oldString = [textField.text copy];
+    NSString *newString = [oldString stringByReplacingCharactersInRange:range withString:string];
+    
+    if (self.reType == TYPE_PHONE) {
+        if (textField == _phoneTextField && textField.markedTextRange == nil) {
+            if (newString.length > 11 && textField.text.length >= 11) {
+                return NO;
+            }
+        }
+        return YES;
+    }else if (self.reType == TYPE_EMAIL){
+        
+    }
+    return YES;
+}
 
 @end
