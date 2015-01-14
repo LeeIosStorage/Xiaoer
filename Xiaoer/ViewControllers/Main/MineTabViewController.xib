@@ -13,11 +13,15 @@
                 <outlet property="editBtn" destination="nuZ-32-M9w" id="q45-6m-faA"/>
                 <outlet property="headEdgeview" destination="gTH-cY-qcw" id="AxH-Xz-LH6"/>
                 <outlet property="headView" destination="Zp7-nl-tgZ" id="qMV-tu-gZs"/>
+                <outlet property="locationImageView" destination="8n3-0E-LAl" id="QH9-dh-aIt"/>
+                <outlet property="loginBtn" destination="Np3-Lh-CGZ" id="T23-4a-KlA"/>
                 <outlet property="nickName" destination="gLK-C1-S6p" id="RLG-Sf-IUU"/>
                 <outlet property="ownerHeadImageView" destination="7io-dh-jJ6" id="RZG-Pu-F1A"/>
                 <outlet property="ownerbkImageView" destination="koH-Ad-NNr" id="TNi-gV-n7S"/>
                 <outlet property="tableView" destination="pj2-xM-z9K" id="XUh-Qj-kVS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="visitorHeadView" destination="BZH-82-3et" id="EF7-uk-pbt"/>
+                <outlet property="visitorImageView" destination="rWA-VX-zZU" id="2QL-aw-S00"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -133,10 +137,47 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-93" y="458.5"/>
+        </view>
+        <view contentMode="scaleToFill" id="BZH-82-3et">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="113"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" id="YlK-pD-H0T" userLabel="View - head -round">
+                    <rect key="frame" x="17" y="12" width="90" height="90"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="avatar_mine_bg_icon" id="Nr0-qQ-7Gt">
+                            <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" id="rWA-VX-zZU">
+                            <rect key="frame" x="3" y="3" width="84" height="84"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Np3-Lh-CGZ">
+                    <rect key="frame" x="115" y="67" width="50" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="请登录" backgroundImage="edit_mine_icon">
+                        <color key="titleColor" red="0.43921571970000001" green="0.76862752440000004" blue="0.90588241820000004" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="loginAction:" destination="-1" eventType="touchUpInside" id="Yqh-nK-xRX"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-93" y="176.5"/>
         </view>
     </objects>
     <resources>

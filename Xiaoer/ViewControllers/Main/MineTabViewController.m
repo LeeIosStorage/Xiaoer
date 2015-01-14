@@ -31,16 +31,21 @@ enum TABLEVIEW_SECTION_INDEX {
 @property (strong, nonatomic) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UIImageView *headEdgeview;
 @property (strong, nonatomic) IBOutlet UIImageView *ownerHeadImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *locationImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *ownerbkImageView;
 @property (strong, nonatomic) IBOutlet UILabel *nickName;
 @property (strong, nonatomic) IBOutlet UILabel *address;
 @property (strong, nonatomic) IBOutlet UILabel *birthday;
 @property (strong, nonatomic) IBOutlet UIButton *editBtn;
+@property (strong, nonatomic) IBOutlet UIButton *loginBtn;
 
+@property (strong, nonatomic) IBOutlet UIView *visitorHeadView;
+@property (strong, nonatomic) IBOutlet UIImageView *visitorImageView;
 
 - (IBAction)ownerHeadAction:(id)sender;
 - (IBAction)setOwnerImageAction:(id)sender;
 - (IBAction)editInfoAction:(id)sender;
+- (IBAction)loginAction:(id)sender;
 
 @end
 
@@ -60,9 +65,6 @@ enum TABLEVIEW_SECTION_INDEX {
 }
 
 - (void)initNormalTitleNavBarSubviews{
-    
-    [self setTitle:@"我的"];
-    
 //    [self setRightButtonWithTitle:@"设置" selector:@selector(settingAction)];
     [self setRightButtonWithImageName:@"setting_mine_icon" selector:@selector(settingAction)];
 }
@@ -88,29 +90,44 @@ enum TABLEVIEW_SECTION_INDEX {
     [self.tableView reloadData];
 }
 
+- (BOOL)isVisitor{
+    if ([XEEngine shareInstance].bVisitor) {
+        return YES;
+    }
+    return NO;
+}
+
 - (void)refreshUserInfoShow
 {
     _userInfo = [XEEngine shareInstance].userInfo;
     
-    [self.ownerbkImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatar] placeholderImage:[UIImage imageNamed:@"placeholder_avatar_bg"]];
-    [self.ownerHeadImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatar] placeholderImage:[UIImage imageNamed:@"placeholder_avatar_icon"]];
-    
+    if ([self isVisitor]) {
+        [self setTitle:@"未登录"];
+        [self.visitorImageView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
+        self.visitorImageView.layer.CornerRadius = 8;
+        self.tableView.tableHeaderView = self.visitorHeadView;
+    }else{
+        if (_userInfo.nickName.length > 0) {
+            [self setTitle:_userInfo.nickName];
+        }else{
+            [self setTitle:@"我的"];
+        }
+        self.loginBtn.hidden = YES;
+        [self.ownerbkImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatar] placeholderImage:[UIImage imageNamed:@"placeholder_avatar_bg"]];
+        [self.ownerHeadImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatar] placeholderImage:[UIImage imageNamed:@"placeholder_avatar_icon"]];
+        
+        self.ownerHeadImageView.layer.CornerRadius = 8;
+        self.nickName.text = _userInfo.nickName;
+        self.birthday.text = _userInfo.birthdayString;
+        self.address.text  = _userInfo.address;
+        self.tableView.tableHeaderView = self.headView;
+    }
 //    [self.ownerHeadImageView sd_setImageWithURL:_userInfo.mediumAvatarUrl placeholderImage:[UIImage imageNamed:@"placeholder_avatar_icon"]];
 //    if (_userInfo.backgroudImageUrl) {
 //        [self.ownerbkImageView sd_setImageWithURL:_userInfo.largeAvatarUrl placeholderImage:[UIImage imageNamed:@"placeholder_avatar_bg"]];
 //    }else{
 //        [self.ownerbkImageView setImage:[UIImage imageNamed:@"placeholder_avatar_bg"]];
 //    }
-    
-    self.ownerHeadImageView.layer.CornerRadius = 8;
-    self.nickName.text = _userInfo.nickName;
-    self.birthday.text = _userInfo.birthdayString;
-    self.address.text  = _userInfo.address;
-    self.tableView.tableHeaderView = self.headView;
-    
-    if ([XEEngine shareInstance].bVisitor) {
-        self.editBtn.enabled = NO;
-    }
 }
 
 
@@ -253,6 +270,11 @@ enum TABLEVIEW_SECTION_INDEX {
     PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
     piVc.userInfo = _userInfo;
     [self.navigationController pushViewController:piVc animated:YES];
+}
+
+- (IBAction)loginAction:(id)sender {
+    WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
+    [self.navigationController pushViewController:welcomeVc animated:YES];
 }
 
 @end
