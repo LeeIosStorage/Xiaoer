@@ -103,7 +103,7 @@
                     [weakSelf perfectInformation];
                 }tag:tag];
             }else if([weakSelf.registerName isEmail]){
-                [[XEEngine shareInstance] registerWithEmail:weakSelf.registerName password:self.setPwdTextField.text tag:tag];
+                [[XEEngine shareInstance] registerWithEmail:weakSelf.registerName password:weakSelf.setPwdTextField.text tag:tag];
                 [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
                     [XEProgressHUD AlertLoadDone];
                     NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -148,6 +148,11 @@
 }
 
 -(void)perfectInformation{
+    [XEEngine shareInstance].uid = _userInfo.uid;
+    [XEEngine shareInstance].account = self.registerName;
+    [XEEngine shareInstance].userPassword = self.setPwdTextField.text;
+    [[XEEngine shareInstance] saveAccount];
+    
     PerfectInfoViewController *pVc = [[PerfectInfoViewController alloc] init];
     pVc.userInfo = _userInfo;
     [self.navigationController pushViewController:pVc animated:YES];
