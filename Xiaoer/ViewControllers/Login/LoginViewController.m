@@ -536,7 +536,7 @@
         [XEEngine shareInstance].userInfo = userInfo;
         
         [XEEngine shareInstance].uid = userInfo.uid;
-        [XEEngine shareInstance].account = userInfo.account;
+        [XEEngine shareInstance].account = _accountTextField.text;
         [XEEngine shareInstance].userPassword = _passwordTextField.text;
         [[XEEngine shareInstance] saveAccount];
         

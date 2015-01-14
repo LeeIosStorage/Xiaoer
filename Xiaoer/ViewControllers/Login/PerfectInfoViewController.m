@@ -108,7 +108,7 @@
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
-                errorMsg = @"保存失败";
+                errorMsg = @"保存失败";  
             }
             return;
         }
@@ -370,7 +370,6 @@
         }else if (_babyAvatar && indexPath.section == 2){
             [cell.leftAvater setImage:_babyAvatar];
         }else{
-            NSLog(@"2222==============%@",[rowDicts objectForKey:@"intro"]);
             [cell.leftAvater sd_setImageWithURL:nil];
             [cell.leftAvater sd_setImageWithURL:[NSURL URLWithString:[rowDicts objectForKey:@"intro"]] placeholderImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
         }
@@ -534,8 +533,6 @@
     
     [self.tableView reloadData];
 }
-//http://192.168.16.29/upload/small/7d625ec372f34f1386636408e26f045d
-//http://192.168.16.29/upload/samll/7d625ec372f34f1386636408e26f045d
 
 #pragma mark -UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
