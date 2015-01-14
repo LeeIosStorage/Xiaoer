@@ -59,7 +59,6 @@
 		075E409D1A59386C0062F6AD /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40921A59386C0062F6AD /* AFURLRequestSerialization.m */; };
 		075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40941A59386C0062F6AD /* AFURLResponseSerialization.m */; };
 		075E409F1A59386C0062F6AD /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40961A59386C0062F6AD /* AFURLSessionManager.m */; };
-		075E40A31A5939C20062F6AD /* XEProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40A21A5939C20062F6AD /* XEProgressHUD.m */; };
 		075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 075E40A51A593A820062F6AD /* ProgressHUD.bundle */; };
 		075E40AB1A593A820062F6AD /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40A71A593A820062F6AD /* ProgressHUD.m */; };
 		075E40AC1A593A820062F6AD /* ProgressHUDJF.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40A91A593A820062F6AD /* ProgressHUDJF.m */; };
@@ -67,10 +66,17 @@
 		075E40B31A5940920062F6AD /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40B21A5940920062F6AD /* URLHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		076F32581A5F806200346F44 /* XEInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32561A5F806200346F44 /* XEInputViewController.m */; };
 		076F32591A5F806200346F44 /* XEInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076F32571A5F806200346F44 /* XEInputViewController.xib */; };
-		076F32611A5F9C3500346F44 /* XEActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32601A5F9C3500346F44 /* XEActionSheet.m */; };
-		076F32651A5F9D0C00346F44 /* XEAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32641A5F9D0C00346F44 /* XEAlertView.m */; };
 		076F32681A5FA67700346F44 /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32671A5FA67700346F44 /* UIImage+ProportionalFill.m */; };
 		07702D011A5901AF00168E2E /* XESuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07702D001A5901AF00168E2E /* XESuperViewController.m */; };
+		0774A8621A6663AD00336465 /* XEThemeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774A8611A6663AD00336465 /* XEThemeInfo.m */; };
+		0774A8731A666EAB00336465 /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774A8661A666EAB00336465 /* GMGridView.m */; };
+		0774A8741A666EAB00336465 /* GMGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774A86C1A666EAB00336465 /* GMGridViewCell.m */; };
+		0774A8751A666EAB00336465 /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774A86E1A666EAB00336465 /* GMGridViewLayoutStrategies.m */; };
+		0774A8761A666EAB00336465 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774A8701A666EAB00336465 /* UIGestureRecognizer+GMGridViewAdditions.m */; };
+		0774A8771A666EAB00336465 /* UIView+GMGridViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774A8721A666EAB00336465 /* UIView+GMGridViewAdditions.m */; };
+		0774A8851A66705D00336465 /* XEActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774A87E1A66705D00336465 /* XEActionSheet.m */; };
+		0774A8861A66705D00336465 /* XEAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774A8811A66705D00336465 /* XEAlertView.m */; };
+		0774A8871A66705D00336465 /* XEProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774A8841A66705D00336465 /* XEProgressHUD.m */; };
 		077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0779166E1A5E64BA0047C17C /* PerfectInfoViewController.m */; };
 		077916711A5E64BA0047C17C /* PerfectInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0779166F1A5E64BA0047C17C /* PerfectInfoViewController.xib */; };
 		077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98AE1A53A11000E2985B /* XEUserInfo.m */; };
@@ -249,8 +255,6 @@
 		075E40941A59386C0062F6AD /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		075E40951A59386C0062F6AD /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		075E40961A59386C0062F6AD /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
-		075E40A11A5939C20062F6AD /* XEProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XEProgressHUD.h; path = Common/XEProgressHUD.h; sourceTree = "<group>"; };
-		075E40A21A5939C20062F6AD /* XEProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEProgressHUD.m; path = Common/XEProgressHUD.m; sourceTree = "<group>"; };
 		075E40A51A593A820062F6AD /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
 		075E40A61A593A820062F6AD /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		075E40A71A593A820062F6AD /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
@@ -263,14 +267,30 @@
 		076F32551A5F806200346F44 /* XEInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEInputViewController.h; sourceTree = "<group>"; };
 		076F32561A5F806200346F44 /* XEInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEInputViewController.m; sourceTree = "<group>"; };
 		076F32571A5F806200346F44 /* XEInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEInputViewController.xib; sourceTree = "<group>"; };
-		076F325F1A5F9C3500346F44 /* XEActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEActionSheet.h; sourceTree = "<group>"; };
-		076F32601A5F9C3500346F44 /* XEActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEActionSheet.m; sourceTree = "<group>"; };
-		076F32631A5F9D0C00346F44 /* XEAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAlertView.h; sourceTree = "<group>"; };
-		076F32641A5F9D0C00346F44 /* XEAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAlertView.m; sourceTree = "<group>"; };
 		076F32661A5FA67700346F44 /* UIImage+ProportionalFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ProportionalFill.h"; sourceTree = "<group>"; };
 		076F32671A5FA67700346F44 /* UIImage+ProportionalFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ProportionalFill.m"; sourceTree = "<group>"; };
 		07702CFF1A5901AF00168E2E /* XESuperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XESuperViewController.h; sourceTree = "<group>"; };
 		07702D001A5901AF00168E2E /* XESuperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XESuperViewController.m; sourceTree = "<group>"; };
+		0774A8601A6663AD00336465 /* XEThemeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEThemeInfo.h; sourceTree = "<group>"; };
+		0774A8611A6663AD00336465 /* XEThemeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEThemeInfo.m; sourceTree = "<group>"; };
+		0774A8641A666EAB00336465 /* GMGridView-Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridView-Constants.h"; sourceTree = "<group>"; };
+		0774A8651A666EAB00336465 /* GMGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridView.h; sourceTree = "<group>"; };
+		0774A8661A666EAB00336465 /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
+		0774A86A1A666EAB00336465 /* GMGridViewCell+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridViewCell+Extended.h"; sourceTree = "<group>"; };
+		0774A86B1A666EAB00336465 /* GMGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridViewCell.h; sourceTree = "<group>"; };
+		0774A86C1A666EAB00336465 /* GMGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridViewCell.m; sourceTree = "<group>"; };
+		0774A86D1A666EAB00336465 /* GMGridViewLayoutStrategies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridViewLayoutStrategies.h; sourceTree = "<group>"; };
+		0774A86E1A666EAB00336465 /* GMGridViewLayoutStrategies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridViewLayoutStrategies.m; sourceTree = "<group>"; };
+		0774A86F1A666EAB00336465 /* UIGestureRecognizer+GMGridViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+GMGridViewAdditions.h"; sourceTree = "<group>"; };
+		0774A8701A666EAB00336465 /* UIGestureRecognizer+GMGridViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+GMGridViewAdditions.m"; sourceTree = "<group>"; };
+		0774A8711A666EAB00336465 /* UIView+GMGridViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GMGridViewAdditions.h"; sourceTree = "<group>"; };
+		0774A8721A666EAB00336465 /* UIView+GMGridViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GMGridViewAdditions.m"; sourceTree = "<group>"; };
+		0774A87D1A66705D00336465 /* XEActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEActionSheet.h; sourceTree = "<group>"; };
+		0774A87E1A66705D00336465 /* XEActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEActionSheet.m; sourceTree = "<group>"; };
+		0774A8801A66705D00336465 /* XEAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAlertView.h; sourceTree = "<group>"; };
+		0774A8811A66705D00336465 /* XEAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAlertView.m; sourceTree = "<group>"; };
+		0774A8831A66705D00336465 /* XEProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEProgressHUD.h; sourceTree = "<group>"; };
+		0774A8841A66705D00336465 /* XEProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEProgressHUD.m; sourceTree = "<group>"; };
 		0779166D1A5E64BA0047C17C /* PerfectInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerfectInfoViewController.h; sourceTree = "<group>"; };
 		0779166E1A5E64BA0047C17C /* PerfectInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerfectInfoViewController.m; sourceTree = "<group>"; };
 		0779166F1A5E64BA0047C17C /* PerfectInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PerfectInfoViewController.xib; sourceTree = "<group>"; };
@@ -602,8 +622,9 @@
 		075E40A01A5939580062F6AD /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				075E40A11A5939C20062F6AD /* XEProgressHUD.h */,
-				075E40A21A5939C20062F6AD /* XEProgressHUD.m */,
+				0774A87C1A66705D00336465 /* XEActionSheetWithBlock */,
+				0774A87F1A66705D00336465 /* XEAlertViewWithBlock */,
+				0774A8821A66705D00336465 /* XEProgressHUD */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -629,22 +650,53 @@
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
-		076F325E1A5F9C0E00346F44 /* XEActionSheetWithBlock */ = {
+		0774A8631A666EAB00336465 /* GMGridView */ = {
 			isa = PBXGroup;
 			children = (
-				076F325F1A5F9C3500346F44 /* XEActionSheet.h */,
-				076F32601A5F9C3500346F44 /* XEActionSheet.m */,
+				0774A8641A666EAB00336465 /* GMGridView-Constants.h */,
+				0774A8651A666EAB00336465 /* GMGridView.h */,
+				0774A8661A666EAB00336465 /* GMGridView.m */,
+				0774A86A1A666EAB00336465 /* GMGridViewCell+Extended.h */,
+				0774A86B1A666EAB00336465 /* GMGridViewCell.h */,
+				0774A86C1A666EAB00336465 /* GMGridViewCell.m */,
+				0774A86D1A666EAB00336465 /* GMGridViewLayoutStrategies.h */,
+				0774A86E1A666EAB00336465 /* GMGridViewLayoutStrategies.m */,
+				0774A86F1A666EAB00336465 /* UIGestureRecognizer+GMGridViewAdditions.h */,
+				0774A8701A666EAB00336465 /* UIGestureRecognizer+GMGridViewAdditions.m */,
+				0774A8711A666EAB00336465 /* UIView+GMGridViewAdditions.h */,
+				0774A8721A666EAB00336465 /* UIView+GMGridViewAdditions.m */,
 			);
-			path = XEActionSheetWithBlock;
+			path = GMGridView;
 			sourceTree = "<group>";
 		};
-		076F32621A5F9D0C00346F44 /* XEAlertViewWithBlock */ = {
+		0774A87C1A66705D00336465 /* XEActionSheetWithBlock */ = {
 			isa = PBXGroup;
 			children = (
-				076F32631A5F9D0C00346F44 /* XEAlertView.h */,
-				076F32641A5F9D0C00346F44 /* XEAlertView.m */,
+				0774A87D1A66705D00336465 /* XEActionSheet.h */,
+				0774A87E1A66705D00336465 /* XEActionSheet.m */,
 			);
-			path = XEAlertViewWithBlock;
+			name = XEActionSheetWithBlock;
+			path = Common/XEActionSheetWithBlock;
+			sourceTree = "<group>";
+		};
+		0774A87F1A66705D00336465 /* XEAlertViewWithBlock */ = {
+			isa = PBXGroup;
+			children = (
+				0774A8801A66705D00336465 /* XEAlertView.h */,
+				0774A8811A66705D00336465 /* XEAlertView.m */,
+			);
+			name = XEAlertViewWithBlock;
+			path = Common/XEAlertViewWithBlock;
+			sourceTree = "<group>";
+		};
+		0774A8821A66705D00336465 /* XEProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				0774A8831A66705D00336465 /* XEProgressHUD.h */,
+				0774A8841A66705D00336465 /* XEProgressHUD.m */,
+			);
+			name = XEProgressHUD;
+			path = Common/XEProgressHUD;
 			sourceTree = "<group>";
 		};
 		077C98B01A53A16C00E2985B /* Utils */ = {
@@ -887,6 +939,7 @@
 		07E5360F1A528203005E1DA9 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				0774A8631A666EAB00336465 /* GMGridView */,
 				07C49F4B1A5E7E9900E1725C /* MyAVCameraView */,
 				07E284391A5A8DFC005651EB /* UMeng */,
 				079425961A5A59A7002BF56C /* HQ */,
@@ -918,6 +971,8 @@
 			children = (
 				077C98AD1A53A11000E2985B /* XEUserInfo.h */,
 				077C98AE1A53A11000E2985B /* XEUserInfo.m */,
+				0774A8601A6663AD00336465 /* XEThemeInfo.h */,
+				0774A8611A6663AD00336465 /* XEThemeInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -938,8 +993,6 @@
 		07E536141A528239005E1DA9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				076F32621A5F9D0C00346F44 /* XEAlertViewWithBlock */,
-				076F325E1A5F9C0E00346F44 /* XEActionSheetWithBlock */,
 				074DD0D61A5E33B80042B721 /* Main */,
 			);
 			path = Views;
@@ -1136,10 +1189,10 @@
 			files = (
 				075E40971A59386C0062F6AD /* AFHTTPRequestOperation.m in Sources */,
 				074DD0DA1A5E33B80042B721 /* MineTabCell.m in Sources */,
+				0774A8771A666EAB00336465 /* UIView+GMGridViewAdditions.m in Sources */,
 				073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */,
 				077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */,
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
-				075E40A31A5939C20062F6AD /* XEProgressHUD.m in Sources */,
 				075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */,
 				0703466F1A64F8E200EDE251 /* WelcomeViewController.m in Sources */,
 				0712B3B01A5BD853000A1A7F /* UIImage+MultiFormat.m in Sources */,
@@ -1150,18 +1203,21 @@
 				07C49F581A5E7E9900E1725C /* AVCamUtilities.m in Sources */,
 				075E40B01A593AAC0062F6AD /* MBProgressHUD.m in Sources */,
 				077C98BB1A53C85C00E2985B /* XETitleNavBarView.m in Sources */,
+				0774A8861A66705D00336465 /* XEAlertView.m in Sources */,
 				0712B3A61A5BD853000A1A7F /* NSData+ImageContentType.m in Sources */,
 				075E40AC1A593A820062F6AD /* ProgressHUDJF.m in Sources */,
+				0774A8871A66705D00336465 /* XEProgressHUD.m in Sources */,
 				07702D011A5901AF00168E2E /* XESuperViewController.m in Sources */,
 				075E409C1A59386C0062F6AD /* AFURLConnectionOperation.m in Sources */,
-				076F32611A5F9C3500346F44 /* XEActionSheet.m in Sources */,
 				07C49F4A1A5E7CD000E1725C /* XEImagePickerController.m in Sources */,
 				0712B3B21A5BD853000A1A7F /* UIImageView+HighlightedWebCache.m in Sources */,
 				075E40981A59386C0062F6AD /* AFHTTPRequestOperationManager.m in Sources */,
 				07508E8C1A51346300873B45 /* ViewController.m in Sources */,
 				07508E891A51346300873B45 /* AppDelegate.m in Sources */,
 				07C49F471A5E7C9800E1725C /* XECommonVcTransition.m in Sources */,
+				0774A8751A666EAB00336465 /* GMGridViewLayoutStrategies.m in Sources */,
 				077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */,
+				0774A8741A666EAB00336465 /* GMGridViewCell.m in Sources */,
 				0712B3AA1A5BD853000A1A7F /* SDWebImageDownloader.m in Sources */,
 				0712B3AE1A5BD853000A1A7F /* UIButton+WebCache.m in Sources */,
 				0712B3A41A5BD853000A1A7F /* MKAnnotationView+WebCache.m in Sources */,
@@ -1170,9 +1226,9 @@
 				077C98C01A53D12700E2985B /* XECommonUtils.m in Sources */,
 				075E40AB1A593A820062F6AD /* ProgressHUD.m in Sources */,
 				076F32581A5F806200346F44 /* XEInputViewController.m in Sources */,
+				0774A8621A6663AD00336465 /* XEThemeInfo.m in Sources */,
 				075E409F1A59386C0062F6AD /* AFURLSessionManager.m in Sources */,
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
-				076F32651A5F9D0C00346F44 /* XEAlertView.m in Sources */,
 				07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */,
 				075E409B1A59386C0062F6AD /* AFSecurityPolicy.m in Sources */,
 				077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */,
@@ -1184,6 +1240,7 @@
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
 				074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */,
+				0774A8731A666EAB00336465 /* GMGridView.m in Sources */,
 				0712B3A51A5BD853000A1A7F /* NSData+GIF.m in Sources */,
 				074594061A5BB52C008F4665 /* NewIntroView.m in Sources */,
 				0712B3B41A5BD853000A1A7F /* UIView+WebCacheOperation.m in Sources */,
@@ -1197,7 +1254,9 @@
 				0794259B1A5A59A7002BF56C /* QHQnetworkingTool.m in Sources */,
 				07E284951A5A8F26005651EB /* LoginViewController.m in Sources */,
 				07C49F571A5E7E9900E1725C /* AVCamRecorder.m in Sources */,
+				0774A8851A66705D00336465 /* XEActionSheet.m in Sources */,
 				07E5363B1A529259005E1DA9 /* MineTabViewController.m in Sources */,
+				0774A8761A666EAB00336465 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */,
 				07508E861A51346300873B45 /* main.m in Sources */,
 				073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */,
