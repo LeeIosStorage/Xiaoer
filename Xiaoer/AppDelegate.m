@@ -47,29 +47,16 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor clearColor];
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        
-        if ([[XEEngine shareInstance] hasAccoutLoggedin] && [XEEngine shareInstance].userInfo.nickName.length > 0) {
-            if ([XESettingConfig isFirstEnterVersion]) {
-                //                LSIntroduceVc* introVc = [[LSIntroduceVc alloc] init];
-                NewIntroViewController *introVc = [[NewIntroViewController alloc] init];
-                introVc.delegate = self;
-                self.window.rootViewController = introVc;
-            } else {
-                [self signIn];
-            }
-        }else{
-            NSLog(@"signOut for accout miss");
-            [self signOut];
+    if ([[XEEngine shareInstance] hasAccoutLoggedin]) {
+        if ([XESettingConfig isFirstEnterVersion]) {
+            [self showNewIntro];
+        } else {
+            [self signIn];
         }
-        
-    } else {
-        
-        //self.window.rootViewController = self.splitViewController;
+    }else{
+        NSLog(@"signOut for accout miss");
+        [self signOut];
     }
-
-//    [self signOut];
-//    [self signIn];
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -77,11 +64,9 @@
 
 //新手引导
 -(void)showNewIntro{
-    
     NewIntroViewController *introVc = [[NewIntroViewController alloc] init];
     introVc.delegate = self;
     self.window.rootViewController = introVc;
-    
 }
 
 - (void)signIn{
@@ -89,9 +74,7 @@
     [XEEngine shareInstance].bVisitor = NO;
     
     if([XESettingConfig isFirstEnterVersion]){
-        NewIntroViewController *introVc = [[NewIntroViewController alloc] init];
-        introVc.delegate = self;
-        self.window.rootViewController = introVc;
+        [self showNewIntro];
         return;
     }
     
@@ -119,8 +102,14 @@
     //[self checkVersion];
     
 }
+
 - (void)signOut{
     NSLog(@"signOut");
+    
+    if([XESettingConfig isFirstEnterVersion]){
+        [self showNewIntro];
+        return;
+    }
     
     WelcomeViewController* welcomeViewController = [[WelcomeViewController alloc] init];
     XENavigationController* navigationController = [[XENavigationController alloc] initWithRootViewController:welcomeViewController];
@@ -152,8 +141,8 @@
 #pragma mark -LSIntroduceVcDelegate
 
 - (void)introduceVcFinish:(NewIntroViewController *)vc {
-//    [self signOut];
-    [self signIn];
+    [self signOut];
+//    [self signIn];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
