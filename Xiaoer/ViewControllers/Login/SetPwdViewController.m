@@ -50,7 +50,7 @@
     //title
     [self setTitle:@"设置密码"];
     [self.setPwdImageView setImage:[UIImage imageNamed:@"set_pwd_icon"]];
-    
+    [self loginButtonEnabled];
 }
 
 - (IBAction)confirmAction:(id)sender {

@@ -34,7 +34,7 @@
                     <rect key="frame" x="48" y="186" width="224" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="JXH-gm-0vY"/>
                     </connections>
@@ -43,7 +43,7 @@
                     <rect key="frame" x="48" y="231" width="224" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                    <textInputTraits key="textInputTraits" keyboardType="phonePad" secureTextEntry="YES"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="Mx1-Eu-fbQ"/>
                     </connections>
