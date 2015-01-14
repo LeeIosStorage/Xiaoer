@@ -26,9 +26,13 @@
     if ([dic objectForKey:@"name"]) {
         _babyNick = [dic objectForKey:@"name"];
     }
+//    if ([dic objectForKey:@"icon"]) {
+//        _babyAvatar = [dic objectForKey:@"icon"];
+//    }
     if ([dic objectForKey:@"icon"]) {
-        _babyAvatar = [dic objectForKey:@"icon"];
+        _babyAvatarId = [dic objectForKey:@"icon"];
     }
+    
     if ([dic objectForKey:@"gender"]) {
         _babyGender = [dic objectForKey:@"gender"];
     }
@@ -39,6 +43,13 @@
 //        _region = [dic objectForKey:@"birthdayString"];
 //    }
     _babyMonth = [[dic objectForKey:@"month"] intValue];
+}
+
+- (NSURL *)babySmallAvatarUrl {
+    if (_babyAvatarId == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small", _babyAvatarId]];
 }
 
 - (void)doSetUserInfoByJsonDic:(NSDictionary*)dic {
@@ -63,6 +74,9 @@
     }
     if ([dic objectForKey:@"name"]) {
         _name = [dic objectForKey:@"name"];
+    }
+    if ([dic objectForKey:@"desc"]) {
+        _desc = [dic objectForKey:@"desc"];
     }
     if ([dic objectForKey:@"registerTime"]) {
         _registerTime = [dic objectForKey:@"registerTime"];
@@ -90,13 +104,13 @@
         _phone = [dic objectForKey:@"phone"];
     }
     if ([dic objectForKey:@"avatar"]) {
-        if ([[dic objectForKey:@"avatar"] containsString:@"."]) {
-            NSString *avaStr = [[dic objectForKey:@"avatar"] stringByReplacingOccurrencesOfString:@"." withString:@""];
-            _avatar = avaStr;
-        }else{
-            _avatar = [dic objectForKey:@"avatar"];
-        }
-        //_avatar = [dic objectForKey:@"avatar"];
+//        if ([[dic objectForKey:@"avatar"] containsString:@"."]) {
+//            NSString *avaStr = [[dic objectForKey:@"avatar"] stringByReplacingOccurrencesOfString:@"." withString:@""];
+//            _avatar = avaStr;
+//        }else{
+//            _avatar = [dic objectForKey:@"avatar"];
+//        }
+        _avatar = [dic objectForKey:@"avatar"];
     }
     
     _babys = [[NSMutableArray alloc] init];

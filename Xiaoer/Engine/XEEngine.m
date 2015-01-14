@@ -581,7 +581,7 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:data withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)editUserInfoWithUid:(NSString *)uid name:(NSString *)name nickname:(NSString *)nickname title:(NSString *)title desc:(NSString *)desc district:(NSString *)district address:(NSString *)address bbId:(NSString *)bbId bbName:(NSString *)bbName bbGender:(NSString *)bbGender bbBirthday:(NSString *)bbBirthday bbAvatar:(NSString *)bbAvatar tag:(int)tag{
+- (BOOL)editUserInfoWithUid:(NSString *)uid name:(NSString *)name nickname:(NSString *)nickname title:(NSString *)title desc:(NSString *)desc district:(NSString *)district address:(NSString *)address bbId:(NSString *)bbId bbName:(NSString *)bbName bbGender:(NSString *)bbGender bbBirthday:(NSString *)bbBirthday bbAvatar:(NSString *)bbAvatar userAvatar:(NSString *)userAvatar tag:(int)tag{
     
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (uid) {
@@ -618,7 +618,10 @@ static XEEngine* s_ShareInstance = nil;
         [params setObject:bbBirthday forKey:@"bb_born"];
     }
     if (bbAvatar) {
-        [params setObject:bbAvatar forKey:@"bb_avatar"];
+        [params setObject:bbAvatar forKey:@"bb_icon"];
+    }
+    if (userAvatar) {
+        [params setObject:userAvatar forKey:@"avatar"];
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/edit",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
