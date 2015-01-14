@@ -22,6 +22,7 @@
 #import "QHQnetworkingTool.h"
 #import "SelectBirthdayViewController.h"
 #import "ChooseLocationViewController.h"
+#import "JSONKit.h"
 
 #define TAG_USER_NAME      0
 #define TAG_USER_IDENTITY  1
@@ -43,6 +44,8 @@
     NSData  *_babyData;
     NSString *_babyAvatarId;
     NSString *_userAvatarId;
+    
+    XEUserInfo *_oldUserInfo;
 }
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *footerView;
@@ -57,13 +60,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    XEUserInfo *oldUserInfo = _userInfo;
-    oldUserInfo.uid = _userInfo.uid;
+    if (_userInfo == nil || _userInfo.uid.length == 0) {
+        [XEProgressHUD AlertError:@"用户不存在"];
+    }
+    
+    XEUserInfo* tmpUserInfo = _userInfo;
+    _oldUserInfo = [[XEUserInfo alloc] init];
+    [_oldUserInfo setUserInfoByJsonDic:tmpUserInfo.userInfoByJsonDic];
+    
+    _userInfo = [[XEUserInfo alloc] init];
+    [_userInfo setUserInfoByJsonDic:tmpUserInfo.userInfoByJsonDic];
     if (_userInfo.title.length == 0) {
         _userInfo.title = @"妈妈";
     }
-    _userInfo = [[XEUserInfo alloc] init];
-    _userInfo = oldUserInfo;
+    _userInfo.uid = tmpUserInfo.uid;
     
 //    [self setTilteLeftViewHide:_isNeedSkip];
     self.saveButton.layer.cornerRadius = 4;
@@ -99,10 +109,11 @@
 
 -(void)editUserInfo{
     
+    XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
     [XEProgressHUD AlertLoading:@"保存中"];
     __weak PerfectInfoViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] editUserInfoWithUid:_userInfo.uid name:@"1" nickname:_userInfo.nickName title:_userInfo.title desc:@"1" district:_userInfo.region address:_userInfo.address bbId:nil bbName:_userInfo.babyNick bbGender:_userInfo.babyGender bbBirthday:_userInfo.birthdayString bbAvatar:_userInfo.babyAvatarId tag:tag];
+    [[XEEngine shareInstance] editUserInfoWithUid:_userInfo.uid name:_userInfo.name nickname:_userInfo.nickName title:_userInfo.title desc:_userInfo.desc district:_userInfo.region address:_userInfo.address bbId:babyUserInfo.babyId bbName:babyUserInfo.babyNick bbGender:babyUserInfo.babyGender bbBirthday:babyUserInfo.birthdayString bbAvatar:babyUserInfo.babyAvatarId userAvatar:_userInfo.avatar tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -114,7 +125,7 @@
         }
         
         [XEProgressHUD AlertSuccess:[XEEngine getSuccessMsgWithReponseDic:jsonRet]];
-        [_userInfo setUserInfoByJsonDic:[jsonRet objectForKey:@"object"]];
+        [_userInfo setUserInfoByJsonDic:[[jsonRet objectForKey:@"object"] objectForKey:@"user"]];
         [XEEngine shareInstance].userInfo = _userInfo;
         [weakSelf.tableView reloadData];
         
@@ -160,7 +171,7 @@
         return;
     }
     XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
-    if (babyUserInfo.babyAvatar.length == 0) {
+    if (babyUserInfo.babyAvatarId.length == 0) {
         [XEProgressHUD lightAlert:@"请上传宝宝头像"];
         return;
     }
@@ -181,7 +192,17 @@
         return;
     }
     
-    [self editUserInfo];
+    XEUserInfo *oldBabyUserInfo = [self getOldBabyUserInfo:0];
+    if (![_userInfo.avatar isEqualToString:_oldUserInfo.avatar] || ![_userInfo.nickName isEqualToString:_oldUserInfo.nickName] || ![_userInfo.title isEqualToString:_oldUserInfo.title] || ![_userInfo.address isEqualToString:_oldUserInfo.address] || ![_userInfo.phone isEqualToString:_oldUserInfo.phone] || ![_userInfo.regionName isEqualToString:_oldUserInfo.regionName] || ![babyUserInfo.babyAvatarId isEqualToString:oldBabyUserInfo.babyAvatarId] || ![babyUserInfo.babyNick isEqualToString:oldBabyUserInfo.babyNick] || ![babyUserInfo.birthdayString isEqualToString:oldBabyUserInfo.birthdayString] || ![babyUserInfo.babyGender isEqualToString:oldBabyUserInfo.babyGender]) {
+        
+        [self editUserInfo];
+        
+    }else{
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+    
 }
 
 -(void)doActionSheetClickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -211,8 +232,22 @@
 }
 
 -(XEUserInfo *)getBabyUserInfo:(NSInteger)index{
+    
+    if (_userInfo.babys.count == 0) {
+        XEUserInfo *babyInfo = [[XEUserInfo alloc] init];
+        [_userInfo.babys addObject:babyInfo];
+    }
     if (_userInfo.babys.count > index) {
         XEUserInfo *babyUserInfo = [_userInfo.babys objectAtIndex:index];
+        return babyUserInfo;
+    }
+    
+    return nil;
+}
+
+-(XEUserInfo *)getOldBabyUserInfo:(NSInteger)index{
+    if (_oldUserInfo.babys.count > index) {
+        XEUserInfo *babyUserInfo = [_oldUserInfo.babys objectAtIndex:index];
         return babyUserInfo;
     }
     return nil;
@@ -263,7 +298,7 @@
     XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
     
     NSMutableDictionary *sectionDict2 = [NSMutableDictionary dictionary];
-    intro = babyUserInfo.babyAvatarId;
+    intro = [babyUserInfo.babySmallAvatarUrl absoluteString];
     NSDictionary *dict20 = @{@"titleLabel": @"宝宝头像",
                              @"intro": intro!=nil?intro:@"",
                              };
@@ -500,6 +535,8 @@
         lvc.maxTextLength = 16;
     }
     if (Tag == TAG_BOBY_NAME) {
+        XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
+        lvc.oldText = babyUserInfo.babyNick;
         lvc.minTextLength = 2;
         lvc.maxTextLength = 16;
     }
@@ -629,7 +666,8 @@
             return;
         }
         [XEProgressHUD AlertSuccess:@"上传成功."];
-        weakSelf.userInfo.babyAvatarId = [jsonRet stringObjectForKey:@"object"];
+        XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
+        babyUserInfo.babyAvatarId = [jsonRet stringObjectForKey:@"object"];
         [weakSelf.tableView reloadData];
         
     }tag:tag];
