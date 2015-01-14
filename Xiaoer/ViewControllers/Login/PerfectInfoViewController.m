@@ -114,7 +114,7 @@
         }
         
         [XEProgressHUD AlertSuccess:[XEEngine getSuccessMsgWithReponseDic:jsonRet]];
-        [_userInfo setUserAndBabyInfoByJsonDic:[jsonRet objectForKey:@"object"]];
+        [_userInfo setUserInfoByJsonDic:[jsonRet objectForKey:@"object"]];
         [XEEngine shareInstance].userInfo = _userInfo;
         [weakSelf.tableView reloadData];
         
@@ -143,7 +143,7 @@
 
 - (IBAction)saveAction:(id)sender {
     
-    if (!_userData) {
+    if (_userInfo.avatar.length == 0) {
         [XEProgressHUD lightAlert:@"请上传用户头像"];
         return;
     }
@@ -155,27 +155,28 @@
         [XEProgressHUD lightAlert:@"昵称太短了"];
         return;
     }
-    if (_userInfo.babyAvatarId.length == 0) {
-        [XEProgressHUD lightAlert:@"请上传宝宝头像"];
-        return;
-    }
-    if (_userInfo.babyNick.length == 0) {
-        [XEProgressHUD lightAlert:@"请输入宝宝昵称"];
-        return;
-    }
-    if ([XECommonUtils getHanziTextNum:_userInfo.babyNick] < 2) {
-        [XEProgressHUD lightAlert:@"宝宝昵称太短了"];
-        return;
-    }
     if (_userInfo.regionName.length == 0) {
         [XEProgressHUD lightAlert:@"请输入您的地区"];
         return;
     }
-    if (_userInfo.birthdayString.length == 0) {
+    XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
+    if (babyUserInfo.babyAvatar.length == 0) {
+        [XEProgressHUD lightAlert:@"请上传宝宝头像"];
+        return;
+    }
+    if (babyUserInfo.babyNick.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入宝宝昵称"];
+        return;
+    }
+    if ([XECommonUtils getHanziTextNum:babyUserInfo.babyNick] < 2) {
+        [XEProgressHUD lightAlert:@"宝宝昵称太短了"];
+        return;
+    }
+    if (babyUserInfo.birthdayString.length == 0) {
         [XEProgressHUD lightAlert:@"请输入宝宝生日"];
         return;
     }
-    if (_userInfo.babyGender.length == 0) {
+    if (babyUserInfo.babyGender.length == 0) {
         [XEProgressHUD lightAlert:@"请输入宝宝性别"];
         return;
     }
@@ -207,6 +208,14 @@
     [self presentViewController:picker animated:YES completion:^{
         
     }];
+}
+
+-(XEUserInfo *)getBabyUserInfo:(NSInteger)index{
+    if (_userInfo.babys.count > index) {
+        XEUserInfo *babyUserInfo = [_userInfo.babys objectAtIndex:index];
+        return babyUserInfo;
+    }
+    return nil;
 }
 
 -(NSDictionary *)tableDataModule{
@@ -251,25 +260,27 @@
     [sectionDict1 setObject:dict14 forKey:[NSString stringWithFormat:@"r%ld",sectionDict1.count]];
     
     //section = 2
+    XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
+    
     NSMutableDictionary *sectionDict2 = [NSMutableDictionary dictionary];
-    intro = _userInfo.babyAvatarId;
+    intro = babyUserInfo.babyAvatarId;
     NSDictionary *dict20 = @{@"titleLabel": @"宝宝头像",
                              @"intro": intro!=nil?intro:@"",
                              };
-    intro = _userInfo.babyNick;
+    intro = babyUserInfo.babyNick;
     NSDictionary *dict21 = @{@"titleLabel": @"宝宝昵称",
                              @"intro": intro!=nil?intro:@"2-16个字",
                              };
     intro = @"";
-    if ([_userInfo.babyGender isEqualToString:@"m"]) {
+    if ([babyUserInfo.babyGender isEqualToString:@"m"]) {
         intro = @"男宝宝";
-    }else if ([_userInfo.babyGender isEqualToString:@"f"]){
+    }else if ([babyUserInfo.babyGender isEqualToString:@"f"]){
         intro = @"女宝宝";
     }
     NSDictionary *dict22 = @{@"titleLabel": @"宝宝性别",
                              @"intro": intro!=nil?intro:@"",
                              };
-    intro = _userInfo.birthdayString;
+    intro = babyUserInfo.birthdayString;
     NSDictionary *dict23 = @{@"titleLabel": @"出生日期",
                              @"intro": intro!=nil?intro:@"",
                              };
@@ -450,10 +461,11 @@
                 if (2 == buttonIndex) {
                     return;
                 }
+                XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
                 if (buttonIndex == 0) {
-                    weakSelf.userInfo.babyGender = @"m";
+                    babyUserInfo.babyGender = @"m";
                 }else if (buttonIndex == 1){
-                    weakSelf.userInfo.babyGender = @"f";
+                    babyUserInfo.babyGender = @"f";
                 }
                 [weakSelf.tableView reloadData];
             } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"男宝宝", @"女宝宝", nil];
@@ -489,7 +501,6 @@
         lvc.maxTextLength = 16;
     }
     if (Tag == TAG_BOBY_NAME) {
-        lvc.oldText = _userInfo.babyNick;
         lvc.minTextLength = 2;
         lvc.maxTextLength = 16;
     }
@@ -513,15 +524,16 @@
     }else if (_editTag == TAG_USER_PHONE){
         _userInfo.phone = text;
     }else if (_editTag == TAG_BOBY_NAME){
-        _userInfo.babyNick = text;
+        XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
+        babyUserInfo.babyNick = text;
     }
     [self.tableView reloadData];
 }
 
 #pragma mark - SelectBirthdayViewControllerDelegate
 - (void)SelectBirthdayWithDate:(NSDate *)date{
-    
-    _userInfo.birthdayDate = date;
+    XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
+    babyUserInfo.birthdayDate = date;
     [self.tableView reloadData];
     
 }

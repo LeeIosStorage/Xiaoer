@@ -10,6 +10,12 @@
 #import "JSONKit.h"
 #import "XEEngine.h"
 
+@interface XEUserInfo () {
+    NSMutableArray* _babys;
+    NSString* _jsonString;
+}
+@end
+
 @implementation XEUserInfo
 
 - (void)doSetBabyInfoByJsonDic:(NSDictionary*)dic{
@@ -20,14 +26,14 @@
     if ([dic objectForKey:@"name"]) {
         _babyNick = [dic objectForKey:@"name"];
     }
-    if ([dic objectForKey:@"avatar"]) {
-        _babyAvatarId = [dic objectForKey:@"avatar"];
+    if ([dic objectForKey:@"icon"]) {
+        _babyAvatar = [dic objectForKey:@"icon"];
     }
     if ([dic objectForKey:@"gender"]) {
         _babyGender = [dic objectForKey:@"gender"];
     }
     if ([dic objectForKey:@"born"]) {
-        _birthdayString = [dic objectForKey:@"born"];
+        self.birthdayString = [dic objectForKey:@"born"];
     }
 //    if ([dic objectForKey:@"birthdayString"]) {
 //        _region = [dic objectForKey:@"birthdayString"];
@@ -40,9 +46,9 @@
     if ([dic objectForKey:@"account"]) {
         _account = [dic objectForKey:@"account"];
     }
-    if ([dic objectForKey:@"district"]) {
-        _district = [dic objectForKey:@"district"];
-    }
+//    if ([dic objectForKey:@"district"]) {
+//        _district = [dic objectForKey:@"district"];
+//    }
     if ([dic objectForKey:@"email"]) {
         _email = [dic objectForKey:@"email"];
     }
@@ -74,8 +80,8 @@
     if ([dic objectForKey:@"nickName"]) {
         _nickName = [dic objectForKey:@"nickName"];
     }
-    if ([dic objectForKey:@"region"]) {
-        _regionName = [dic objectForKey:@"region"];
+    if ([dic objectForKey:@"district"]) {
+        _regionName = [dic objectForKey:@"district"];
     }
     if ([dic objectForKey:@"address"]) {
         _address = [dic objectForKey:@"address"];
@@ -91,6 +97,13 @@
             _avatar = [dic objectForKey:@"avatar"];
         }
         //_avatar = [dic objectForKey:@"avatar"];
+    }
+    
+    _babys = [[NSMutableArray alloc] init];
+    for (NSDictionary*babyDic in [dic objectForKey:@"babys"]) {
+        XEUserInfo* babyInfo = [[XEUserInfo alloc] init];
+        [babyInfo doSetBabyInfoByJsonDic:babyDic];
+        [_babys addObject:babyInfo];
     }
 }
 
@@ -111,26 +124,26 @@
     self.jsonString = [_userInfoByJsonDic JSONString];
 }
 
-- (void)setUserAndBabyInfoByJsonDic:(NSDictionary*)dic{
-    if (![dic isKindOfClass:[NSDictionary class]]) {
-        return;
-    }
-    if (![[dic objectForKey:@"baby"] isKindOfClass:[NSDictionary class]] || ![[dic objectForKey:@"user"] isKindOfClass:[NSDictionary class]]) {
-        return;
-    }
-    _userAndBabyInfoByJsonDic = [[NSMutableDictionary alloc] initWithDictionary:dic];
-    _uid = [[[dic objectForKey:@"user"] objectForKey:@"id"] description];
-    
-    @try {
-        [self doSetUserInfoByJsonDic:[dic objectForKey:@"user"]];
-        [self doSetBabyInfoByJsonDic:[dic objectForKey:@"baby"]];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"####XEUserInfo setUserAndBabyInfoByJsonDic exception:%@", exception);
-    }
-    
-    self.jsonString = [[dic objectForKey:@"user"] JSONString];
-}
+//- (void)setUserAndBabyInfoByJsonDic:(NSDictionary*)dic{
+//    if (![dic isKindOfClass:[NSDictionary class]]) {
+//        return;
+//    }
+//    if (![[dic objectForKey:@"baby"] isKindOfClass:[NSDictionary class]] || ![[dic objectForKey:@"user"] isKindOfClass:[NSDictionary class]]) {
+//        return;
+//    }
+//    _userAndBabyInfoByJsonDic = [[NSMutableDictionary alloc] initWithDictionary:dic];
+//    _uid = [[[dic objectForKey:@"user"] objectForKey:@"id"] description];
+//    
+//    @try {
+//        [self doSetUserInfoByJsonDic:[dic objectForKey:@"user"]];
+//        [self doSetBabyInfoByJsonDic:[dic objectForKey:@"baby"]];
+//    }
+//    @catch (NSException *exception) {
+//        NSLog(@"####XEUserInfo setUserAndBabyInfoByJsonDic exception:%@", exception);
+//    }
+//    
+//    self.jsonString = [[dic objectForKey:@"user"] JSONString];
+//}
 
 + (NSString*)getAvatarUrlWithAvatar:(NSString*)avatar size:(int)size{
     

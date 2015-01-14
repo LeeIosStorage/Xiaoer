@@ -7,9 +7,11 @@
 //
 
 #import "XESuperViewController.h"
+#import "XEUserInfo.h"
 
 @interface SetPwdViewController : XESuperViewController
 
 @property (nonatomic, strong) NSString *registerName;
+@property (nonatomic, strong) XEUserInfo *userInfo;
 
 @end

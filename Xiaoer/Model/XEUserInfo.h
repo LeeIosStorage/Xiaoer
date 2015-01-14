@@ -33,16 +33,18 @@
 @property(nonatomic, strong) NSString* title;
 @property(nonatomic, assign) int topicNum;
 
+@property(nonatomic, strong) NSMutableArray *babys;
 //baby
 @property(nonatomic, strong) NSString* babyId;
 @property(nonatomic, strong) NSString* babyNick;
+@property(nonatomic, strong) NSString* babyAvatar;
 @property(nonatomic, strong) NSString* babyAvatarId;
 @property(nonatomic, strong) NSString* babyGender;
 @property(nonatomic, assign) int babyMonth;
 @property(nonatomic, strong) NSDate* birthdayDate;
 @property(nonatomic, strong) NSString* birthdayString;
 
-@property(nonatomic, strong) NSDictionary* userAndBabyInfoByJsonDic;
+//@property(nonatomic, strong) NSDictionary* userAndBabyInfoByJsonDic;
 
 @property(nonatomic, readonly) NSURL* smallAvatarUrl;
 @property(nonatomic, readonly) NSURL* mediumAvatarUrl;

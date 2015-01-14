@@ -78,7 +78,7 @@
     
     __weak SetPwdViewController *weakSelf = self;
     if ([self.setPwdTextField.text isEqualToString:self.comfirmTextField.text]) {
-        [XEProgressHUD lightAlert:@"正在注册"];
+        [XEProgressHUD AlertLoading:@"正在注册"];
         int tag = [[XEEngine shareInstance] getConnectTag];
         if (weakSelf.registerName.length != 0) {
             if ([weakSelf.registerName isPhone]) {
@@ -95,6 +95,11 @@
                         return;
                     }
                     [XEProgressHUD AlertSuccess:@"注册成功"];
+                    NSDictionary *dic = [jsonRet objectForKey:@"object"];
+                    if (!_userInfo) {
+                        _userInfo = [[XEUserInfo alloc] init];
+                    }
+                    [_userInfo setUserInfoByJsonDic:dic];
                     [weakSelf perfectInformation];
                 }tag:tag];
             }else if([weakSelf.registerName isEmail]){
@@ -111,6 +116,11 @@
                         return;
                     }
                     [XEProgressHUD AlertSuccess:@"注册成功"];
+                    NSDictionary *dic = [jsonRet objectForKey:@"object"];
+                    if (!_userInfo) {
+                        _userInfo = [[XEUserInfo alloc] init];
+                    }
+                    [_userInfo setUserInfoByJsonDic:dic];
                     [weakSelf perfectInformation];
                 }tag:tag];
             }
@@ -139,9 +149,7 @@
 
 -(void)perfectInformation{
     PerfectInfoViewController *pVc = [[PerfectInfoViewController alloc] init];
-    XEUserInfo *userInfo = [[XEUserInfo alloc] init];
-    userInfo.uid = @"1";
-    pVc.userInfo = userInfo;
+    pVc.userInfo = _userInfo;
     [self.navigationController pushViewController:pVc animated:YES];
 }
 
