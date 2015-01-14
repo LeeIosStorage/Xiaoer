@@ -42,6 +42,7 @@
     UIImage *_babyAvatar;
     NSData  *_babyData;
     NSString *_babyAvatarId;
+    NSString *_userAvatarId;
 }
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *footerView;
@@ -215,7 +216,7 @@
     
     //section = 0
     NSMutableDictionary *sectionDict0 = [NSMutableDictionary dictionary];
-    NSString *intro = _userInfo.avatarId;
+    NSString *intro = _userInfo.getSmallAvatarUrl;
     NSDictionary *dict00 = @{@"titleLabel": @"我的头像",
                            @"intro": intro!=nil?intro:@"",
                            };
@@ -369,6 +370,7 @@
         }else if (_babyAvatar && indexPath.section == 2){
             [cell.leftAvater setImage:_babyAvatar];
         }else{
+            NSLog(@"2222==============%@",[rowDicts objectForKey:@"intro"]);
             [cell.leftAvater sd_setImageWithURL:nil];
             [cell.leftAvater sd_setImageWithURL:[NSURL URLWithString:[rowDicts objectForKey:@"intro"]] placeholderImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
         }
@@ -532,6 +534,8 @@
     
     [self.tableView reloadData];
 }
+//http://192.168.16.29/upload/small/7d625ec372f34f1386636408e26f045d
+//http://192.168.16.29/upload/samll/7d625ec372f34f1386636408e26f045d
 
 #pragma mark -UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
@@ -573,6 +577,7 @@
     pData.mimeType = @"image/png";
     
     [XEProgressHUD AlertLoading:@"头像上传中..."];
+    __weak PerfectInfoViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] updateAvatarWithUid:_userInfo.uid avatar:@[pData] tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
@@ -584,6 +589,7 @@
             }
             return;
         }
+        weakSelf.userInfo.avatar = [jsonRet stringObjectForKey:@"object"];
         [XEProgressHUD AlertSuccess:@"上传成功."];
     }tag:tag];
 }

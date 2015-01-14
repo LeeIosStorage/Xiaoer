@@ -84,12 +84,14 @@
         _phone = [dic objectForKey:@"phone"];
     }
     if ([dic objectForKey:@"avatar"]) {
-        _avatar = [dic objectForKey:@"avatar"];
+        if ([[dic objectForKey:@"avatar"] containsString:@"."]) {
+            NSString *avaStr = [[dic objectForKey:@"avatar"] stringByReplacingOccurrencesOfString:@"." withString:@""];
+            _avatar = avaStr;
+        }else{
+            _avatar = [dic objectForKey:@"avatar"];
+        }
+        //_avatar = [dic objectForKey:@"avatar"];
     }
-    if ([dic objectForKey:@"avatarId"]) {
-        _avatarId = [dic objectForKey:@"avatarId"];
-    }
-    
 }
 
 - (void)setUserInfoByJsonDic:(NSDictionary*)dic{
@@ -130,56 +132,56 @@
     self.jsonString = [[dic objectForKey:@"user"] JSONString];
 }
 
-+ (NSString*)getAvatarUrlWithUid:(NSString*)uid avatarId:(NSString*)avatarId size:(int)size{
++ (NSString*)getAvatarUrlWithAvatar:(NSString*)avatar size:(int)size{
     
-    return [NSString stringWithFormat:@"%@/avatar/%@/%@/0/%d", [[XEEngine shareInstance] baseUrl], uid, avatarId, size];
+    return [NSString stringWithFormat:@"%@/upload/%d/%@", [[XEEngine shareInstance] baseUrl], size, avatar];
 }
 
-- (NSString*)getAvatarUrlWithSize:(int)size{
-    if (_avatarId == nil) {
+- (NSString*)getAvatarUrlWithType:(NSString*)type{
+    if (_avatar == nil) {
         return nil;
     }
-    return [NSString stringWithFormat:@"%@/avatar/%@/%@/0/%d", [[XEEngine shareInstance] baseUrl], _uid, _avatarId, size];
+    return [NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], type, _avatar];
 }
 
 - (NSURL *)smallAvatarUrl {
-    if (_avatarId == nil) {
+    if (_avatar == nil) {
         return nil;
     }
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/avatar/%@/%@/0/%d", [[XEEngine shareInstance] baseUrl], _uid, _avatarId, 70]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small", _avatar]];
 }
 
 - (NSURL *)mediumAvatarUrl{
-    if (_avatarId == nil) {
+    if (_avatar == nil) {
         return nil;
     }
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/avatar/%@/%@/0/%d", [[XEEngine shareInstance] baseUrl], _uid, _avatarId, 110]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"middle", _avatar]];
 }
 
 - (NSURL *)largeAvatarUrl{
-    if (_avatarId == nil) {
+    if (_avatar == nil) {
         return nil;
     }
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/avatar/%@/%@/0/%d", [[XEEngine shareInstance] baseUrl], _uid, _avatarId, 140]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"large", _avatar]];
 }
 
 - (NSURL *)originalAvatarUrl {
-    if (_avatarId == nil) {
+    if (_avatar == nil) {
         return nil;
     }
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/avatar/%@/%@/0/%d", [[XEEngine shareInstance] baseUrl], _uid, _avatarId, 0]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl], _avatar]];
 }
 
 - (NSString*)getSmallAvatarUrl{
-    return [self getAvatarUrlWithSize:70];
+    return [self getAvatarUrlWithType:@"small"];
 }
 
 - (NSString*)getMediumAvatarUrl{
-    return [self getAvatarUrlWithSize:110];
+    return [self getAvatarUrlWithType:@"middle"];
 }
 
 - (NSString*)getlargeAvatarUrl{
-    return [self getAvatarUrlWithSize:140];
+    return [self getAvatarUrlWithType:@"large"];
 }
 
 - (void)setBirthdayDate:(NSDate *)birthdayDate{

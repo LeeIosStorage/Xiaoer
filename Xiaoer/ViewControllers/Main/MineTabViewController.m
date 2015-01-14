@@ -51,10 +51,17 @@ enum TABLEVIEW_SECTION_INDEX {
 
 @implementation MineTabViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    _userInfo = [XEEngine shareInstance].userInfo;
+    [self refreshUserInfoShow];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self refreshUserInfoShow];
+//    [self refreshUserInfoShow];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
 }
@@ -99,8 +106,7 @@ enum TABLEVIEW_SECTION_INDEX {
 
 - (void)refreshUserInfoShow
 {
-    _userInfo = [XEEngine shareInstance].userInfo;
-    
+
     if ([self isVisitor]) {
         [self setTitle:@"未登录"];
         [self.visitorImageView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
@@ -113,9 +119,9 @@ enum TABLEVIEW_SECTION_INDEX {
             [self setTitle:@"我的"];
         }
         self.loginBtn.hidden = YES;
-        [self.ownerbkImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatar] placeholderImage:[UIImage imageNamed:@"placeholder_avatar_bg"]];
-        [self.ownerHeadImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.avatar] placeholderImage:[UIImage imageNamed:@"placeholder_avatar_icon"]];
-        
+        [self.ownerbkImageView sd_setImageWithURL:_userInfo.originalAvatarUrl placeholderImage:[UIImage imageNamed:@"placeholder_avatar_bg"]];
+        [self.ownerHeadImageView sd_setImageWithURL:_userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"placeholder_avatar_icon"]];
+        NSLog(@"_userInfo.smallAvatarUrl========================%@",_userInfo.smallAvatarUrl);
         self.ownerHeadImageView.layer.CornerRadius = 8;
         self.nickName.text = _userInfo.nickName;
         self.birthday.text = _userInfo.birthdayString;

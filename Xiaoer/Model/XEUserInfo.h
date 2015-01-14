@@ -18,8 +18,7 @@
 @property(nonatomic, strong) NSString* regionName;
 @property(nonatomic, strong) NSString* address;//
 @property(nonatomic, strong) NSString* phone;//
-@property(nonatomic, strong) NSString* avatarId;
-//暂时用下
+
 @property(nonatomic, strong) NSString* avatar;
 @property(nonatomic, strong) NSString* password;
 
@@ -55,5 +54,11 @@
 @property(nonatomic, strong) NSString* jsonString;
 
 + (NSString*)getBirthdayByDate:(NSDate*)date;
+
++ (NSString*)getAvatarUrlWithAvatar:(NSString*)avatar size:(int)size;
+
+- (NSString*)getSmallAvatarUrl;
+- (NSString*)getMediumAvatarUrl;
+- (NSString*)getlargeAvatarUrl;
 
 @end
