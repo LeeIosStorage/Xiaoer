@@ -17,6 +17,7 @@
 #import "XEGridView.h"
 #import "GMGridView.h"
 #import "GMGridViewLayoutStrategies.h"
+#import "ExpertListViewController.h"
 
 #define GROUP_GRID_PADDING_TOP  15
 #define GROUP_GRID_ITEM_WIDTH   70
@@ -144,8 +145,9 @@
 
 -(void)initNormalTitleNavBarSubviews{
     
-    [self setLeftButtonWithSelector:@selector(settingAction:)];
-//    [self setRightButtonWithTitle:@"按钮" selector:@selector(settingAction:)];
+//    [self setLeftButtonWithSelector:@selector(settingAction:)];
+    [self setRightButtonWithTitle:@"按钮" selector:@selector(settingAction:)];
+    
 }
 
 - (UINavigationController *)navigationController{
@@ -157,7 +159,8 @@
 
 #pragma mark - IBAction
 -(void)settingAction:(id)sender{
-    
+    ExpertListViewController *vc = [[ExpertListViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -- GMGridViewDataSource
@@ -209,8 +212,11 @@
         case 4:
             NSLog(@"============活动");
             break;
-        case 3:
+        case 3:{
             NSLog(@"============专家");
+            ExpertListViewController *vc = [[ExpertListViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
             break;
         case 2:
             NSLog(@"============测评");
