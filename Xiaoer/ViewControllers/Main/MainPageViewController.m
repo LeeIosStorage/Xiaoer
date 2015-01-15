@@ -14,8 +14,15 @@
 #import "MainTabCell.h"
 #import "XEScrollPage.h"
 #import "XELinkerHandler.h"
+#import "XEGridView.h"
+#import "GMGridView.h"
+#import "GMGridViewLayoutStrategies.h"
 
-@interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,XEScrollPageDelegate,UIScrollViewDelegate>{
+#define GROUP_GRID_PADDING_TOP  15
+#define GROUP_GRID_ITEM_WIDTH   70
+#define GROUP_GRID_ITEM_HEIGHT  90
+
+@interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,GMGridViewActionDelegate,GMGridViewDataSource>{
     XEScrollPage *scrollPageView;
     BOOL _isScrollViewDrag;
 }
@@ -25,6 +32,7 @@
 @property (nonatomic, strong) IBOutlet UIView *adsViewContainer;
 @property (strong, nonatomic) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet GMGridView *setGridview;
 
 @end
 
@@ -35,6 +43,8 @@
     // Do any additional setup after loading the view from its nib.
     [self setTitle:@"首页"];
     
+    [self initGridView];
+    //获取广告位信息
     [self getThemeInfo];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
@@ -104,6 +114,29 @@
     [self.tableView reloadData];
 }
 
+- (void)initGridView{
+    
+//    NSInteger spacing = GROUP_GRID_PADDING_TOP;
+    
+//    float gaps = (_setGridview.frame.size.width - GROUP_GRID_ITEM_WIDTH*3);
+//    
+//    float edge = (gaps - spacing*2)/2.f;
+    
+    _setGridview.minEdgeInsets = UIEdgeInsetsMake(GROUP_GRID_PADDING_TOP, 30, 8, 30);
+    
+    _setGridview.style = GMGridViewStyleSwap;
+    _setGridview.itemSpacing = 20;
+    _setGridview.centerGrid = NO;
+    _setGridview.layoutStrategy = [GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutVertical];
+    _setGridview.actionDelegate = self;
+    _setGridview.showsHorizontalScrollIndicator = NO;
+    _setGridview.showsVerticalScrollIndicator = NO;
+    _setGridview.dataSource = self;
+    _setGridview.scrollEnabled = NO;
+    
+    [_setGridview reloadData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -122,14 +155,76 @@
     return self.tabController.navigationController;
 }
 
-
-
 #pragma mark - IBAction
-//-(void)backAction:(id)sender{
-//    
-//}
 -(void)settingAction:(id)sender{
     
+}
+
+#pragma mark -- GMGridViewDataSource
+- (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView{
+    return 6;
+}
+
+- (CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation{
+    return CGSizeMake(GROUP_GRID_ITEM_WIDTH, GROUP_GRID_ITEM_HEIGHT);
+}
+
+- (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index{
+    
+    GMGridViewCell *cell = [[GMGridViewCell alloc] init];
+    XEGridView *chatSetv;
+    chatSetv = [[[NSBundle mainBundle] loadNibNamed:@"XEGridView" owner:nil options:nil] objectAtIndex:0];
+    cell.contentView = chatSetv;
+    chatSetv.nameLabel.textColor = [UIColor darkGrayColor];
+    if(index == 0){
+        cell.deleteButtonIcon = nil;
+        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
+        [chatSetv.nameLabel setText:@"食谱"];
+    }else if(index == 1){
+        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
+        chatSetv.nameLabel.text = @"养育";
+    }else if(index == 2){
+        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
+        chatSetv.nameLabel.text = @"测评";
+    }else if(index == 3){
+        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
+        chatSetv.nameLabel.text = @"专家";
+    }else if(index == 4){
+        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
+        chatSetv.nameLabel.text = @"活动";
+    }else if(index == 5){
+        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
+        chatSetv.nameLabel.text = @"商城";
+    }
+    
+    return cell;
+}
+
+#pragma mark -- GMGridViewActionDelegate
+- (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position{
+    switch (position) {
+        case 5:
+            NSLog(@"============商城");
+            break;
+        case 4:
+            NSLog(@"============活动");
+            break;
+        case 3:
+            NSLog(@"============专家");
+            break;
+        case 2:
+            NSLog(@"============测评");
+            break;
+        case 1:
+            NSLog(@"============养育");
+            break;
+        case 0:
+            NSLog(@"============食谱");
+            break;
+        default:
+            break;
+    }
+    //NSInteger count = [self numberOfItemsInGMGridView:gridView];
 }
 
 #pragma mark - Table view data source

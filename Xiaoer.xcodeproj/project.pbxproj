@@ -145,6 +145,8 @@
 		07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E5363A1A529259005E1DA9 /* MineTabViewController.xib */; };
 		07FC6D1B1A675D3E001F34D8 /* XEScrollPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC6D1A1A675D3E001F34D8 /* XEScrollPage.m */; };
 		07FC6D1D1A675D66001F34D8 /* XEScrollPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07FC6D1C1A675D66001F34D8 /* XEScrollPage.xib */; };
+		07FC6D201A679D22001F34D8 /* XEGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC6D1F1A679D22001F34D8 /* XEGridView.m */; };
+		07FC6D241A679D4C001F34D8 /* XEGridView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07FC6D231A679D4C001F34D8 /* XEGridView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -413,6 +415,9 @@
 		07FC6D191A675D3E001F34D8 /* XEScrollPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XEScrollPage.h; path = Common/XEScrollPage/XEScrollPage.h; sourceTree = "<group>"; };
 		07FC6D1A1A675D3E001F34D8 /* XEScrollPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEScrollPage.m; path = Common/XEScrollPage/XEScrollPage.m; sourceTree = "<group>"; };
 		07FC6D1C1A675D66001F34D8 /* XEScrollPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEScrollPage.xib; sourceTree = "<group>"; };
+		07FC6D1E1A679D22001F34D8 /* XEGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEGridView.h; sourceTree = "<group>"; };
+		07FC6D1F1A679D22001F34D8 /* XEGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEGridView.m; sourceTree = "<group>"; };
+		07FC6D231A679D4C001F34D8 /* XEGridView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEGridView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -534,6 +539,9 @@
 				071D51931A674FC6003D6752 /* MainTabCell.h */,
 				071D51941A674FC6003D6752 /* MainTabCell.m */,
 				071D51951A674FC6003D6752 /* MainTabCell.xib */,
+				07FC6D1E1A679D22001F34D8 /* XEGridView.h */,
+				07FC6D1F1A679D22001F34D8 /* XEGridView.m */,
+				07FC6D231A679D4C001F34D8 /* XEGridView.xib */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1173,6 +1181,7 @@
 				07E284781A5A8DFC005651EB /* UMSnsAccountViewController.xib in Resources */,
 				07E284731A5A8DFC005651EB /* UMSCommentInputController.xib in Resources */,
 				074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */,
+				07FC6D241A679D4C001F34D8 /* XEGridView.xib in Resources */,
 				07E284741A5A8DFC005651EB /* UMSCommentInputControlleriPad.xib in Resources */,
 				07E284961A5A8F26005651EB /* LoginViewController.xib in Resources */,
 				07E536251A528CF8005E1DA9 /* XETabBarItemView.xib in Resources */,
@@ -1218,6 +1227,7 @@
 				0774A8771A666EAB00336465 /* UIView+GMGridViewAdditions.m in Sources */,
 				073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */,
 				077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */,
+				07FC6D201A679D22001F34D8 /* XEGridView.m in Sources */,
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
 				07FC6D1B1A675D3E001F34D8 /* XEScrollPage.m in Sources */,
 				075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */,
