@@ -28,6 +28,8 @@
 		0712B3B21A5BD853000A1A7F /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0712B39F1A5BD853000A1A7F /* UIImageView+HighlightedWebCache.m */; };
 		0712B3B31A5BD853000A1A7F /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0712B3A11A5BD853000A1A7F /* UIImageView+WebCache.m */; };
 		0712B3B41A5BD853000A1A7F /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0712B3A31A5BD853000A1A7F /* UIView+WebCacheOperation.m */; };
+		071D51961A674FC6003D6752 /* MainTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 071D51941A674FC6003D6752 /* MainTabCell.m */; };
+		071D51971A674FC6003D6752 /* MainTabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 071D51951A674FC6003D6752 /* MainTabCell.xib */; };
 		073FD96E1A53A2E000FF0EFD /* XEEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD96D1A53A2E000FF0EFD /* XEEngine.m */; };
 		073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9841A53C3A000FF0EFD /* EGOCache.m */; };
 		073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9871A53C55200FF0EFD /* PathHelper.m */; };
@@ -141,6 +143,8 @@
 		07E536371A529210005E1DA9 /* ExpertChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E536351A529210005E1DA9 /* ExpertChatViewController.xib */; };
 		07E5363B1A529259005E1DA9 /* MineTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E536391A529259005E1DA9 /* MineTabViewController.m */; };
 		07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E5363A1A529259005E1DA9 /* MineTabViewController.xib */; };
+		07FC6D1B1A675D3E001F34D8 /* XEScrollPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC6D1A1A675D3E001F34D8 /* XEScrollPage.m */; };
+		07FC6D1D1A675D66001F34D8 /* XEScrollPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07FC6D1C1A675D66001F34D8 /* XEScrollPage.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,6 +199,9 @@
 		0712B3A11A5BD853000A1A7F /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		0712B3A21A5BD853000A1A7F /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		0712B3A31A5BD853000A1A7F /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		071D51931A674FC6003D6752 /* MainTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabCell.h; sourceTree = "<group>"; };
+		071D51941A674FC6003D6752 /* MainTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabCell.m; sourceTree = "<group>"; };
+		071D51951A674FC6003D6752 /* MainTabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTabCell.xib; sourceTree = "<group>"; };
 		073FD96C1A53A2E000FF0EFD /* XEEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEEngine.h; sourceTree = "<group>"; };
 		073FD96D1A53A2E000FF0EFD /* XEEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEEngine.m; sourceTree = "<group>"; };
 		073FD9831A53C3A000FF0EFD /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
@@ -403,6 +410,9 @@
 		07E536381A529259005E1DA9 /* MineTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTabViewController.h; sourceTree = "<group>"; };
 		07E536391A529259005E1DA9 /* MineTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTabViewController.m; sourceTree = "<group>"; };
 		07E5363A1A529259005E1DA9 /* MineTabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineTabViewController.xib; sourceTree = "<group>"; };
+		07FC6D191A675D3E001F34D8 /* XEScrollPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XEScrollPage.h; path = Common/XEScrollPage/XEScrollPage.h; sourceTree = "<group>"; };
+		07FC6D1A1A675D3E001F34D8 /* XEScrollPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEScrollPage.m; path = Common/XEScrollPage/XEScrollPage.m; sourceTree = "<group>"; };
+		07FC6D1C1A675D66001F34D8 /* XEScrollPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEScrollPage.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -521,6 +531,9 @@
 				074DD0D71A5E33B80042B721 /* MineTabCell.h */,
 				074DD0D81A5E33B80042B721 /* MineTabCell.m */,
 				074DD0D91A5E33B80042B721 /* MineTabCell.xib */,
+				071D51931A674FC6003D6752 /* MainTabCell.h */,
+				071D51941A674FC6003D6752 /* MainTabCell.m */,
+				071D51951A674FC6003D6752 /* MainTabCell.xib */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -622,6 +635,7 @@
 		075E40A01A5939580062F6AD /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				07FC6D181A675CEE001F34D8 /* XEScrollPage */,
 				0774A87C1A66705D00336465 /* XEActionSheetWithBlock */,
 				0774A87F1A66705D00336465 /* XEAlertViewWithBlock */,
 				0774A8821A66705D00336465 /* XEProgressHUD */,
@@ -1057,6 +1071,16 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
+		07FC6D181A675CEE001F34D8 /* XEScrollPage */ = {
+			isa = PBXGroup;
+			children = (
+				07FC6D191A675D3E001F34D8 /* XEScrollPage.h */,
+				07FC6D1A1A675D3E001F34D8 /* XEScrollPage.m */,
+				07FC6D1C1A675D66001F34D8 /* XEScrollPage.xib */,
+			);
+			name = XEScrollPage;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1145,6 +1169,7 @@
 				07E536321A5290C9005E1DA9 /* EvaluationViewController.xib in Resources */,
 				07E284721A5A8DFC005651EB /* UMSCommentDetailController.xib in Resources */,
 				077916711A5E64BA0047C17C /* PerfectInfoViewController.xib in Resources */,
+				071D51971A674FC6003D6752 /* MainTabCell.xib in Resources */,
 				07E284781A5A8DFC005651EB /* UMSnsAccountViewController.xib in Resources */,
 				07E284731A5A8DFC005651EB /* UMSCommentInputController.xib in Resources */,
 				074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */,
@@ -1169,6 +1194,7 @@
 				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
 				07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */,
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
+				07FC6D1D1A675D66001F34D8 /* XEScrollPage.xib in Resources */,
 				0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1193,6 +1219,7 @@
 				073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */,
 				077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */,
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
+				07FC6D1B1A675D3E001F34D8 /* XEScrollPage.m in Sources */,
 				075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */,
 				0703466F1A64F8E200EDE251 /* WelcomeViewController.m in Sources */,
 				0712B3B01A5BD853000A1A7F /* UIImage+MultiFormat.m in Sources */,
@@ -1245,6 +1272,7 @@
 				074594061A5BB52C008F4665 /* NewIntroView.m in Sources */,
 				0712B3B41A5BD853000A1A7F /* UIView+WebCacheOperation.m in Sources */,
 				075CAF721A5D338F005CF4B6 /* NSString+Value.m in Sources */,
+				071D51961A674FC6003D6752 /* MainTabCell.m in Sources */,
 				0712B3A71A5BD853000A1A7F /* SDImageCache.m in Sources */,
 				076F32681A5FA67700346F44 /* UIImage+ProportionalFill.m in Sources */,
 				0712B3AC1A5BD853000A1A7F /* SDWebImageManager.m in Sources */,

@@ -25,6 +25,7 @@
 
 #define XE_IMAGE_COMPRESSION_QUALITY 0.4
 
+#define SKIN_COLOR [UIColor colorWithRed:(1.0*0x1b/0xff) green:(1.0*0xa7/0xff) blue:(1.0*0xd8/0xff) alpha:1]
 // 自定义Log
 #ifdef DEBUG
 #define XELog(...) NSLog(__VA_ARGS__)

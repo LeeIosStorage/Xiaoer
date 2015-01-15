@@ -31,7 +31,7 @@
 
 - (void)doSetUserInfoByJsonDic:(NSDictionary*)dic {
     if ([dic objectForKey:@"url"]) {
-        _url = [dic objectForKey:@"url"];
+        _themeImageUrl = [dic objectForKey:@"url"];
     }
     if ([dic objectForKey:@"cat"]) {
         _cat = [dic objectForKey:@"cat"];

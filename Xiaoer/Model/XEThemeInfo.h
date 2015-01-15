@@ -11,7 +11,7 @@
 @interface XEThemeInfo : NSObject
 
 @property(nonatomic, strong) NSString* tid;
-@property(nonatomic, strong) NSString* url;
+@property(nonatomic, strong) NSString* themeImageUrl;
 @property(nonatomic, strong) NSString* cat;
 
 @property(nonatomic, strong) NSString* jsonString;
