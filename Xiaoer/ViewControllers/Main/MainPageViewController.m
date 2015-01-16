@@ -245,7 +245,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -268,6 +268,14 @@
     if (cell == nil) {
         NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
         cell = [cells objectAtIndex:0];
+    }
+    
+    if (indexPath.row == 0) {
+        cell.titleLabel.text = @"智能垫";
+        cell.itemImageView.image = [UIImage imageNamed:@"tmp_avatar_icon"];
+    }else if (indexPath.row == 1) {
+        cell.titleLabel.text = @"爬行毯";
+        cell.itemImageView.image = [UIImage imageNamed:@"tmp_avatar_icon"];
     }
     
     return cell;
