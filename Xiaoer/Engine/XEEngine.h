@@ -98,5 +98,6 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 
 //获取资讯(食谱,养育,评测)标签页数据http://192.168.16.29/index/info/tab
 - (BOOL)getInfoWithBabyId:(NSString *)bbId tag:(int)tag;
-
+//专家列表
+- (BOOL)getExpertListWithPage:(int)page tag:(int)tag;
 @end

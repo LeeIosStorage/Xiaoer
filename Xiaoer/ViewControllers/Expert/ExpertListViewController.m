@@ -10,6 +10,9 @@
 #import "ExpertListViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "ExpertIntroViewController.h"
+#import "XEEngine.h"
+#import "XEProgressHUD.h"
+#import "XEDoctorInfo.h"
 
 @interface ExpertListViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -48,13 +51,34 @@
 
 - (void)refreshExpertList{
     
+    [XEProgressHUD AlertLoading:@"数据加载中..."];
     __weak ExpertListViewController *weakSelf = self;
-    weakSelf.expertList = [[NSMutableArray alloc] init];
-    [weakSelf.expertList addObject:@""];
-    [weakSelf.expertList addObject:@""];
-    [weakSelf.expertList addObject:@""];
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] getExpertListWithPage:1 tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        
+        weakSelf.expertList = [[NSMutableArray alloc] init];
+        NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"experts"];
+        for (NSDictionary *dic in object) {
+            XEDoctorInfo *doctorInfo = [[XEDoctorInfo alloc] init];
+            [doctorInfo setDoctorInfoByJsonDic:dic];
+            [weakSelf.expertList addObject:doctorInfo];
+        }
+        [weakSelf.tableView reloadData];
+        
+    }tag:tag];
     
-    [weakSelf.tableView reloadData];
+    
 }
 
 #pragma mark - custom
@@ -75,7 +99,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
 //    if (indexPath.row == 1) {
-//        return 100;
+//        return 110;
 //    }
     return 145;
 }

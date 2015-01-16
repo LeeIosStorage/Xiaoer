@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XEDoctorInfo.h"
 
 @interface ExpertListViewCell : UITableViewCell
 

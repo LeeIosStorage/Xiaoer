@@ -12,7 +12,22 @@
 @implementation XEDoctorInfo
 
 - (void)doSetDoctorInfoByJsonDic:(NSDictionary*)dic {
-    
+    if ([dic objectForKey:@"name"]) {
+        _doctorName = [dic objectForKey:@"name"];
+    }
+    if ([dic objectForKey:@"hospital"]) {
+        _hospital = [dic objectForKey:@"hospital"];
+    }
+    if ([dic objectForKey:@"title"]) {
+        _title = [dic objectForKey:@"title"];
+    }
+    if ([dic objectForKey:@"des"]) {
+        _des = [dic objectForKey:@"des"];
+    }
+    if ([dic objectForKey:@"avatar"]) {
+        _avatar = [dic objectForKey:@"avatar"];
+    }
+    _age = [[dic objectForKey:@"age"] intValue];
 }
 
 -(void)setDoctorInfoByJsonDic:(NSDictionary *)dic{

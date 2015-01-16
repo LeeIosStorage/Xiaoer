@@ -659,4 +659,14 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
+- (BOOL)getExpertListWithPage:(int)page tag:(int)tag{
+    
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (page > 0 ) {
+        [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/expert",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
 @end
