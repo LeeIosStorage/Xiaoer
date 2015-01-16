@@ -92,11 +92,12 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 //获取地区-市
 - (BOOL)getCommonAreaNodeWithCode:(NSString *)code tag:(int)tag;
 
-
+#pragma mark - home
 //获取轮播信息
 - (BOOL)getBannerWithTag:(int)tag;
-
-//获取资讯(食谱,养育,评测)标签页数据http://192.168.16.29/index/info/tab
+//获取资讯(食谱,养育,评测)标签页数据
 - (BOOL)getInfoWithBabyId:(NSString *)bbId tag:(int)tag;
+//获取资讯(食谱,养育,评测)列表数据
+- (BOOL)getListInfoWithNum:(NSString *)pagenum stage:(NSString *)stage cat:(NSString *)cat tag:(int)tag;
 
 @end

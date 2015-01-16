@@ -17,6 +17,7 @@
 #import "XEGridView.h"
 #import "GMGridView.h"
 #import "GMGridViewLayoutStrategies.h"
+#import "RecipesViewController.h"
 
 #define GROUP_GRID_PADDING_TOP  15
 #define GROUP_GRID_ITEM_WIDTH   70
@@ -102,8 +103,7 @@
         [view removeFromSuperview];
     }
     
-    CGRect frame = _adsViewContainer.bounds;
-    scrollPageView = [[XEScrollPage alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+    scrollPageView = [[XEScrollPage alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(_adsViewContainer.frame))];
     scrollPageView.duration = 4;
     scrollPageView.adsType = AdsType_Theme;
     scrollPageView.dataArray = _adsThemeArray;
@@ -219,8 +219,12 @@
             NSLog(@"============养育");
             break;
         case 0:
+        {
             NSLog(@"============食谱");
+            RecipesViewController *rVc = [[RecipesViewController alloc] init];
+            [self.navigationController pushViewController:rVc animated:YES];
             break;
+        }
         default:
             break;
     }

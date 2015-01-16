@@ -39,7 +39,7 @@
             <subviews>
                 <view contentMode="scaleToFill" id="6TQ-SH-oBU">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="eKA-EW-aW8">
