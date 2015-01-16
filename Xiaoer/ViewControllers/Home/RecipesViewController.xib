@@ -19,21 +19,22 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="hgs-ah-dXY">
-                    <rect key="frame" x="0.0" y="47" width="320" height="42"/>
+                    <rect key="frame" x="0.0" y="47" width="320" height="50"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="HE8-gi-TUT">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <color key="backgroundColor" red="0.97254908080000002" green="0.97254908080000002" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="8Gy-39-R0C"/>
                             </connections>
                         </scrollView>
                     </subviews>
+                    <color key="backgroundColor" red="0.91764712329999998" green="0.91764712329999998" blue="0.91764712329999998" alpha="1" colorSpace="deviceRGB"/>
                 </view>
                 <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="heF-Rb-hbb">
-                    <rect key="frame" x="0.0" y="89" width="320" height="479"/>
+                    <rect key="frame" x="0.0" y="97" width="320" height="471"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>

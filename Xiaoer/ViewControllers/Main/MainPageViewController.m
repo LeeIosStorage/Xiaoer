@@ -218,16 +218,25 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
-        case 2:
+        case 2:{
             NSLog(@"============测评");
+            RecipesViewController *rVc = [[RecipesViewController alloc] init];
+            rVc.infoType = TYPE_EVALUATION;
+            [self.navigationController pushViewController:rVc animated:YES];
             break;
-        case 1:
+        }
+        case 1:{
             NSLog(@"============养育");
+            RecipesViewController *rVc = [[RecipesViewController alloc] init];
+            rVc.infoType = TYPE_NOURISH;
+            [self.navigationController pushViewController:rVc animated:YES];
             break;
+        }
         case 0:
         {
             NSLog(@"============食谱");
             RecipesViewController *rVc = [[RecipesViewController alloc] init];
+            rVc.infoType = TYPE_RECIPES;
             [self.navigationController pushViewController:rVc animated:YES];
             break;
         }

@@ -10,7 +10,7 @@
 
 @interface CategoryItemCell : UITableViewCell
 
-@property (strong, nonatomic) IBOutlet UIImageView *itemImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *infoImageView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (strong, nonatomic) IBOutlet UILabel *collectLabel;

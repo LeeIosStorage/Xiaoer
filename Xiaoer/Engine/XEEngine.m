@@ -659,12 +659,14 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)getListInfoWithNum:(NSString *)pagenum stage:(NSString *)stage cat:(NSString *)cat tag:(int)tag{
+- (BOOL)getListInfoWithNum:(NSString *)pagenum stage:(NSUInteger)stage cat:(int)cat tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/info/list",API_URL] type:0 parameters:params];
-    [params setObject:pagenum forKey:@"pagenum"];
-    [params setObject:stage forKey:@"stage"];
-    [params setObject:cat forKey:@"cat"];
+    if (pagenum) {
+        [params setObject:pagenum forKey:@"pagenum"];
+    }
+    [params setObject:[NSNumber numberWithInteger:stage] forKey:@"stage"];
+    [params setObject:[NSNumber numberWithInteger:cat] forKey:@"cat"];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 

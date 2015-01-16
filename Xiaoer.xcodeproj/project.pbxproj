@@ -34,6 +34,8 @@
 		073F9F0F1A68B31D009D94E3 /* XECategoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073F9F0E1A68B31D009D94E3 /* XECategoryView.xib */; };
 		073F9F131A68B38F009D94E3 /* CategoryItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 073F9F111A68B38F009D94E3 /* CategoryItemCell.m */; };
 		073F9F141A68B38F009D94E3 /* CategoryItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073F9F121A68B38F009D94E3 /* CategoryItemCell.xib */; };
+		073F9F171A68D0CB009D94E3 /* XERecipesInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 073F9F161A68D0CB009D94E3 /* XERecipesInfo.m */; };
+		073F9F1A1A68E1D5009D94E3 /* UIColor+bit.m in Sources */ = {isa = PBXBuildFile; fileRef = 073F9F191A68E1D5009D94E3 /* UIColor+bit.m */; };
 		073FD96E1A53A2E000FF0EFD /* XEEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD96D1A53A2E000FF0EFD /* XEEngine.m */; };
 		073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9841A53C3A000FF0EFD /* EGOCache.m */; };
 		073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9871A53C55200FF0EFD /* PathHelper.m */; };
@@ -226,6 +228,10 @@
 		073F9F101A68B38F009D94E3 /* CategoryItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryItemCell.h; path = Home/CategoryItemCell.h; sourceTree = "<group>"; };
 		073F9F111A68B38F009D94E3 /* CategoryItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryItemCell.m; path = Home/CategoryItemCell.m; sourceTree = "<group>"; };
 		073F9F121A68B38F009D94E3 /* CategoryItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CategoryItemCell.xib; path = Home/CategoryItemCell.xib; sourceTree = "<group>"; };
+		073F9F151A68D0CB009D94E3 /* XERecipesInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XERecipesInfo.h; sourceTree = "<group>"; };
+		073F9F161A68D0CB009D94E3 /* XERecipesInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XERecipesInfo.m; sourceTree = "<group>"; };
+		073F9F181A68E1D5009D94E3 /* UIColor+bit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+bit.h"; sourceTree = "<group>"; };
+		073F9F191A68E1D5009D94E3 /* UIColor+bit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+bit.m"; sourceTree = "<group>"; };
 		073FD96C1A53A2E000FF0EFD /* XEEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEEngine.h; sourceTree = "<group>"; };
 		073FD96D1A53A2E000FF0EFD /* XEEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEEngine.m; sourceTree = "<group>"; };
 		073FD9831A53C3A000FF0EFD /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
@@ -778,6 +784,8 @@
 		077C98B01A53A16C00E2985B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				073F9F181A68E1D5009D94E3 /* UIColor+bit.h */,
+				073F9F191A68E1D5009D94E3 /* UIColor+bit.m */,
 				077C98B11A53A16C00E2985B /* XESystem.h */,
 				077C98B21A53A16C00E2985B /* XEUIKitMacro.h */,
 				075E40B11A5940920062F6AD /* URLHelper.h */,
@@ -1079,6 +1087,8 @@
 				07B6505A1A67B85200DEDE4E /* XEDoctorInfo.m */,
 				07B6505C1A67B88000DEDE4E /* XETopicInfo.h */,
 				07B6505D1A67B88000DEDE4E /* XETopicInfo.m */,
+				073F9F151A68D0CB009D94E3 /* XERecipesInfo.h */,
+				073F9F161A68D0CB009D94E3 /* XERecipesInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1367,6 +1377,7 @@
 				0712B3AA1A5BD853000A1A7F /* SDWebImageDownloader.m in Sources */,
 				0712B3AE1A5BD853000A1A7F /* UIButton+WebCache.m in Sources */,
 				0712B3A41A5BD853000A1A7F /* MKAnnotationView+WebCache.m in Sources */,
+				073F9F1A1A68E1D5009D94E3 /* UIColor+bit.m in Sources */,
 				07913F5F1A676F840083E8E5 /* ExpertListViewController.m in Sources */,
 				077C98B51A53A6B300E2985B /* XENavigationController.m in Sources */,
 				07E536311A5290C9005E1DA9 /* EvaluationViewController.m in Sources */,
@@ -1379,6 +1390,7 @@
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
 				07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */,
 				075E409B1A59386C0062F6AD /* AFSecurityPolicy.m in Sources */,
+				073F9F171A68D0CB009D94E3 /* XERecipesInfo.m in Sources */,
 				077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */,
 				0712B3AB1A5BD853000A1A7F /* SDWebImageDownloaderOperation.m in Sources */,
 				073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */,

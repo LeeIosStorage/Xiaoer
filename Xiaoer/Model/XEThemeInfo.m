@@ -19,17 +19,17 @@
     _tid = [[dic objectForKey:@"id"] description];
     
     @try {
-        [self doSetUserInfoByJsonDic:dic];
+        [self doSetThemeInfoByJsonDic:dic];
     }
     @catch (NSException *exception) {
-        NSLog(@"####XEUserInfo setUserInfoByJsonDic exception:%@", exception);
+        NSLog(@"####XEThemeInfo setThemeInfoByJsonDic exception:%@", exception);
     }
     
     self.jsonString = [_themeInfoByJsonDic JSONString];
 
 }
 
-- (void)doSetUserInfoByJsonDic:(NSDictionary*)dic {
+- (void)doSetThemeInfoByJsonDic:(NSDictionary*)dic {
     if ([dic objectForKey:@"url"]) {
         _themeImageUrl = [dic objectForKey:@"url"];
     }
