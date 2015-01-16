@@ -7,7 +7,10 @@
 //
 
 #import "XESuperViewController.h"
+#import "XEDoctorInfo.h"
 
 @interface ExpertIntroViewController : XESuperViewController
+
+@property (strong, nonatomic) XEDoctorInfo *doctorInfo;
 
 @end
