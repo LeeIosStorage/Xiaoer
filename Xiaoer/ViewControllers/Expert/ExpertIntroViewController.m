@@ -24,6 +24,10 @@
 @property (strong, nonatomic) IBOutlet UIButton *topicButton;
 @property (strong, nonatomic) IBOutlet UIButton *fansButton;
 
+@property (nonatomic, strong) IBOutlet UIView *sectionView;
+@property (strong, nonatomic) IBOutlet UILabel *topicLabel;
+
+
 - (IBAction)topicAction:(id)sender;
 - (IBAction)fansAction:(id)sender;
 @end
@@ -66,6 +70,13 @@
     [weakSelf.doctorTopics addObject:@""];
     [weakSelf.doctorTopics addObject:@""];
     [weakSelf.doctorTopics addObject:@""];
+    [weakSelf.doctorTopics addObject:@""];
+    [weakSelf.doctorTopics addObject:@""];
+    [weakSelf.doctorTopics addObject:@""];
+    [weakSelf.doctorTopics addObject:@""];
+    [weakSelf.doctorTopics addObject:@""];
+    [weakSelf.doctorTopics addObject:@""];
+    [weakSelf.doctorTopics addObject:@""];
     
     [weakSelf.tableView reloadData];
 }
@@ -93,6 +104,14 @@
 {
     // Return the number of sections.
     return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return self.sectionView.frame.size.height;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    return self.sectionView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

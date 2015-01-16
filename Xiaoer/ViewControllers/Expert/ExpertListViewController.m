@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) NSMutableArray *expertList;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (assign, nonatomic) SInt64  nextCursor;
 
 @end
 

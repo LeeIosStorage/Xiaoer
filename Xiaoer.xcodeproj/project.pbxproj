@@ -55,6 +55,11 @@
 		07508E911A51346300873B45 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07508E901A51346300873B45 /* Images.xcassets */; };
 		07508E941A51346300873B45 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07508E921A51346300873B45 /* LaunchScreen.xib */; };
 		07508EA01A51346300873B45 /* XiaoerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E9F1A51346300873B45 /* XiaoerTests.m */; };
+		075AA03A1A68B85D000B6302 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075AA0381A68B85D000B6302 /* ActivityViewController.m */; };
+		075AA03B1A68B85D000B6302 /* ActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075AA0391A68B85D000B6302 /* ActivityViewController.xib */; };
+		075AA03E1A68D5EC000B6302 /* XEActivityInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 075AA03D1A68D5EC000B6302 /* XEActivityInfo.m */; };
+		075AA0431A68DEFA000B6302 /* ActivityViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075AA0411A68DEFA000B6302 /* ActivityViewCell.m */; };
+		075AA0441A68DEFA000B6302 /* ActivityViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075AA0421A68DEFA000B6302 /* ActivityViewCell.xib */; };
 		075CAF4C1A5D0E6A005CF4B6 /* SetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075CAF4A1A5D0E6A005CF4B6 /* SetPwdViewController.m */; };
 		075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075CAF4B1A5D0E6A005CF4B6 /* SetPwdViewController.xib */; };
 		075CAF721A5D338F005CF4B6 /* NSString+Value.m in Sources */ = {isa = PBXBuildFile; fileRef = 075CAF711A5D338F005CF4B6 /* NSString+Value.m */; };
@@ -268,6 +273,14 @@
 		07508E991A51346300873B45 /* XiaoerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XiaoerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07508E9E1A51346300873B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07508E9F1A51346300873B45 /* XiaoerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XiaoerTests.m; sourceTree = "<group>"; };
+		075AA0371A68B85D000B6302 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
+		075AA0381A68B85D000B6302 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
+		075AA0391A68B85D000B6302 /* ActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityViewController.xib; sourceTree = "<group>"; };
+		075AA03C1A68D5EC000B6302 /* XEActivityInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEActivityInfo.h; sourceTree = "<group>"; };
+		075AA03D1A68D5EC000B6302 /* XEActivityInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEActivityInfo.m; sourceTree = "<group>"; };
+		075AA0401A68DEFA000B6302 /* ActivityViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewCell.h; sourceTree = "<group>"; };
+		075AA0411A68DEFA000B6302 /* ActivityViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewCell.m; sourceTree = "<group>"; };
+		075AA0421A68DEFA000B6302 /* ActivityViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityViewCell.xib; sourceTree = "<group>"; };
 		075CAF491A5D0E6A005CF4B6 /* SetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPwdViewController.h; sourceTree = "<group>"; };
 		075CAF4A1A5D0E6A005CF4B6 /* SetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPwdViewController.m; sourceTree = "<group>"; };
 		075CAF4B1A5D0E6A005CF4B6 /* SetPwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetPwdViewController.xib; sourceTree = "<group>"; };
@@ -672,6 +685,26 @@
 				07508E9E1A51346300873B45 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		075AA0361A68B7F3000B6302 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				075AA0371A68B85D000B6302 /* ActivityViewController.h */,
+				075AA0381A68B85D000B6302 /* ActivityViewController.m */,
+				075AA0391A68B85D000B6302 /* ActivityViewController.xib */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
+		075AA03F1A68DEDB000B6302 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				075AA0401A68DEFA000B6302 /* ActivityViewCell.h */,
+				075AA0411A68DEFA000B6302 /* ActivityViewCell.m */,
+				075AA0421A68DEFA000B6302 /* ActivityViewCell.xib */,
+			);
+			path = Activity;
 			sourceTree = "<group>";
 		};
 		075E40831A59386C0062F6AD /* AFNetworking */ = {
@@ -1089,6 +1122,8 @@
 				07B6505D1A67B88000DEDE4E /* XETopicInfo.m */,
 				073F9F151A68D0CB009D94E3 /* XERecipesInfo.h */,
 				073F9F161A68D0CB009D94E3 /* XERecipesInfo.m */,
+				075AA03C1A68D5EC000B6302 /* XEActivityInfo.h */,
+				075AA03D1A68D5EC000B6302 /* XEActivityInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1104,6 +1139,7 @@
 				07E536171A52828E005E1DA9 /* Mine */,
 				07C49F441A5E7C9800E1725C /* Common */,
 				07913F5B1A676F570083E8E5 /* Expert */,
+				075AA0361A68B7F3000B6302 /* Activity */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1114,6 +1150,7 @@
 				073F9F081A68B234009D94E3 /* Home */,
 				074DD0D61A5E33B80042B721 /* Main */,
 				07913F611A67805B0083E8E5 /* Expert */,
+				075AA03F1A68DEDB000B6302 /* Activity */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1301,6 +1338,7 @@
 				07E536231A528CBF005E1DA9 /* XETabBarView.xib in Resources */,
 				07C988121A63AAEA003A2B30 /* SelectBirthdayViewController.xib in Resources */,
 				077C98BD1A53CC0600E2985B /* XETitleNavBarView.xib in Resources */,
+				075AA03B1A68B85D000B6302 /* ActivityViewController.xib in Resources */,
 				07E536371A529210005E1DA9 /* ExpertChatViewController.xib in Resources */,
 				07FC6D2A1A67B317001F34D8 /* RecipesViewController.xib in Resources */,
 				07508E941A51346300873B45 /* LaunchScreen.xib in Resources */,
@@ -1314,6 +1352,7 @@
 				07E284791A5A8DFC005651EB /* UMSShareListController.xib in Resources */,
 				07E2847A1A5A8DFC005651EB /* UMSocialSDKResourcesNew.bundle in Resources */,
 				076F32591A5F806200346F44 /* XEInputViewController.xib in Resources */,
+				075AA0441A68DEFA000B6302 /* ActivityViewCell.xib in Resources */,
 				07B650581A67AC7E00DEDE4E /* XETopicViewCell.xib in Resources */,
 				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
 				07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */,
@@ -1350,6 +1389,7 @@
 				0703466F1A64F8E200EDE251 /* WelcomeViewController.m in Sources */,
 				0712B3B01A5BD853000A1A7F /* UIImage+MultiFormat.m in Sources */,
 				07B650521A67A1E500DEDE4E /* ExpertIntroViewController.m in Sources */,
+				075AA03E1A68D5EC000B6302 /* XEActivityInfo.m in Sources */,
 				077C98B81A53BEAE00E2985B /* XEBaseSuperViewController.m in Sources */,
 				0712B3B11A5BD853000A1A7F /* UIImage+WebP.m in Sources */,
 				0712B3A91A5BD853000A1A7F /* SDWebImageDecoder.m in Sources */,
@@ -1370,6 +1410,7 @@
 				075E40981A59386C0062F6AD /* AFHTTPRequestOperationManager.m in Sources */,
 				07508E8C1A51346300873B45 /* ViewController.m in Sources */,
 				07508E891A51346300873B45 /* AppDelegate.m in Sources */,
+				075AA03A1A68B85D000B6302 /* ActivityViewController.m in Sources */,
 				07C49F471A5E7C9800E1725C /* XECommonVcTransition.m in Sources */,
 				0774A8751A666EAB00336465 /* GMGridViewLayoutStrategies.m in Sources */,
 				077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */,
@@ -1422,6 +1463,7 @@
 				07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */,
 				07508E861A51346300873B45 /* main.m in Sources */,
 				073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */,
+				075AA0431A68DEFA000B6302 /* ActivityViewCell.m in Sources */,
 				0712B3B31A5BD853000A1A7F /* UIImageView+WebCache.m in Sources */,
 				074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */,
 				073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */,

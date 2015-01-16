@@ -19,6 +19,7 @@
 #import "GMGridViewLayoutStrategies.h"
 #import "RecipesViewController.h"
 #import "ExpertListViewController.h"
+#import "ActivityViewController.h"
 
 #define GROUP_GRID_PADDING_TOP  15
 #define GROUP_GRID_ITEM_WIDTH   70
@@ -209,8 +210,12 @@
         case 5:
             NSLog(@"============商城");
             break;
-        case 4:
+        case 4:{
             NSLog(@"============活动");
+            ActivityViewController *vc = [[ActivityViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+
             break;
         case 3:{
             NSLog(@"============专家");

@@ -31,8 +31,11 @@
 
 //年龄
 + (int)getAgeByDate:(NSDate*)date;
-+(NSDateFormatter *) dateFormatterOFUS;
-+(NSDateComponents *) dateComponentsFromDate:(NSDate *) date;
++ (NSString*)dateDiscriptionFromDate:(NSDate*)date;
+
++ (NSDateFormatter *) dateFormatterOFUS;
++ (NSDate*)dateFromUSDateString:(NSString*)string;
++ (NSDateComponents *) dateComponentsFromDate:(NSDate *) date;
 
 + (NSString*)documentOfCameraDenied;
 + (NSString*)documentOfAVCaptureDenied;

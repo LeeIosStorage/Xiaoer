@@ -95,11 +95,42 @@
 
 +(NSDateFormatter *) dateFormatterOFUS {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEE MMM d HH:mm:ss zzzz yyyy"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     [dateFormatter setLocale:usLocale];
     return dateFormatter;
 }
+
+static NSDateFormatter * s_dateFormatterOFUS = nil;
+static bool dateFormatterOFUSInvalid ;
++ (NSDate*)dateFromUSDateString:(NSString*)string{
+    if (![string isKindOfClass:[NSString class]]) {
+        return nil;
+    }
+    @synchronized(self) {
+        if (s_dateFormatterOFUS == nil || dateFormatterOFUSInvalid) {
+            s_dateFormatterOFUS = [[NSDateFormatter alloc] init];
+            [s_dateFormatterOFUS setDateFormat:@"yyyy-MM-dd HH:mm:ss"];//EEE MMM d HH:mm:ss zzzz yyyy
+            NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+            [s_dateFormatterOFUS setLocale:usLocale];
+            dateFormatterOFUSInvalid = NO;
+        }
+    }
+    
+    NSDateFormatter* dateFormatter = s_dateFormatterOFUS;
+    NSDate* date = nil;
+    @synchronized(dateFormatter){
+        @try {
+            date = [dateFormatter dateFromString:string];
+        }
+        @catch (NSException *exception) {
+            //异常了以后处理有些问题,有可能会crash
+            dateFormatterOFUSInvalid = YES;
+        }
+    }
+    return date;
+}
+
 +(NSDateComponents *) dateComponentsFromDate:(NSDate *) date{
     if (!date) {
         return nil;
@@ -108,6 +139,28 @@
     unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit ;
     return [calender components:unitFlags fromDate:date];
 }
+
++ (NSString*)dateDiscriptionFromDate:(NSDate*)date{
+    NSString *_timestamp = nil;
+    NSDate* nowDate = [NSDate date];
+    if (date == nil) {
+        return @"";
+    }
+    NSCalendar * calender = [NSCalendar currentCalendar];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit |
+    NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit | NSWeekdayCalendarUnit;
+    NSDateComponents *comps = [calender components:unitFlags fromDate:date];
+    NSDateComponents *compsNow = [calender components:unitFlags fromDate:nowDate];
+    
+    if (comps.year == compsNow.year){
+        _timestamp = [NSString stringWithFormat:@"%ld月%ld日 %02ld:%02ld", comps.month, comps.day, comps.hour, comps.minute];
+    } else {
+        _timestamp = [NSString stringWithFormat:@"%04ld-%02ld-%02ld %02ld:%02ld", comps.year, comps.month, comps.day, comps.hour, comps.minute];
+    }
+    
+    return _timestamp;
+}
+
 
 + (NSString*)documentOfCameraDenied
 {
