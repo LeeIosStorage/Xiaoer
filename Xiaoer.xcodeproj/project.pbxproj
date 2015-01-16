@@ -88,8 +88,18 @@
 		077C98BD1A53CC0600E2985B /* XETitleNavBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077C98BC1A53CC0600E2985B /* XETitleNavBarView.xib */; };
 		077C98C01A53D12700E2985B /* XECommonUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98BF1A53D12700E2985B /* XECommonUtils.m */; };
 		077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98C21A53D48800E2985B /* XEUIUtils.m */; };
+		07913F5F1A676F840083E8E5 /* ExpertListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07913F5D1A676F840083E8E5 /* ExpertListViewController.m */; };
+		07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07913F5E1A676F840083E8E5 /* ExpertListViewController.xib */; };
+		07913F651A67808F0083E8E5 /* ExpertListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07913F631A67808F0083E8E5 /* ExpertListViewCell.m */; };
+		07913F661A67808F0083E8E5 /* ExpertListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07913F641A67808F0083E8E5 /* ExpertListViewCell.xib */; };
 		0794259B1A5A59A7002BF56C /* QHQnetworkingTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 079425981A5A59A7002BF56C /* QHQnetworkingTool.m */; };
 		0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 0794259A1A5A59A7002BF56C /* UIImage+HQ.m */; };
+		07B650521A67A1E500DEDE4E /* ExpertIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B650501A67A1E500DEDE4E /* ExpertIntroViewController.m */; };
+		07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07B650511A67A1E500DEDE4E /* ExpertIntroViewController.xib */; };
+		07B650571A67AC7E00DEDE4E /* XETopicViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B650551A67AC7E00DEDE4E /* XETopicViewCell.m */; };
+		07B650581A67AC7E00DEDE4E /* XETopicViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07B650561A67AC7E00DEDE4E /* XETopicViewCell.xib */; };
+		07B6505B1A67B85200DEDE4E /* XEDoctorInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B6505A1A67B85200DEDE4E /* XEDoctorInfo.m */; };
+		07B6505E1A67B88000DEDE4E /* XETopicInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B6505D1A67B88000DEDE4E /* XETopicInfo.m */; };
 		07C49F471A5E7C9800E1725C /* XECommonVcTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C49F461A5E7C9800E1725C /* XECommonVcTransition.m */; };
 		07C49F4A1A5E7CD000E1725C /* XEImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C49F491A5E7CD000E1725C /* XEImagePickerController.m */; };
 		07C49F561A5E7E9900E1725C /* AVCamCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C49F4E1A5E7E9900E1725C /* AVCamCaptureManager.m */; };
@@ -320,10 +330,26 @@
 		077C98BF1A53D12700E2985B /* XECommonUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECommonUtils.m; sourceTree = "<group>"; };
 		077C98C11A53D48800E2985B /* XEUIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEUIUtils.h; sourceTree = "<group>"; };
 		077C98C21A53D48800E2985B /* XEUIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEUIUtils.m; sourceTree = "<group>"; };
+		07913F5C1A676F840083E8E5 /* ExpertListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertListViewController.h; sourceTree = "<group>"; };
+		07913F5D1A676F840083E8E5 /* ExpertListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertListViewController.m; sourceTree = "<group>"; };
+		07913F5E1A676F840083E8E5 /* ExpertListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpertListViewController.xib; sourceTree = "<group>"; };
+		07913F621A67808F0083E8E5 /* ExpertListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertListViewCell.h; sourceTree = "<group>"; };
+		07913F631A67808F0083E8E5 /* ExpertListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertListViewCell.m; sourceTree = "<group>"; };
+		07913F641A67808F0083E8E5 /* ExpertListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpertListViewCell.xib; sourceTree = "<group>"; };
 		079425971A5A59A7002BF56C /* QHQnetworkingTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHQnetworkingTool.h; sourceTree = "<group>"; };
 		079425981A5A59A7002BF56C /* QHQnetworkingTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QHQnetworkingTool.m; sourceTree = "<group>"; };
 		079425991A5A59A7002BF56C /* UIImage+HQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+HQ.h"; sourceTree = "<group>"; };
 		0794259A1A5A59A7002BF56C /* UIImage+HQ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+HQ.m"; sourceTree = "<group>"; };
+		07B6504F1A67A1E500DEDE4E /* ExpertIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertIntroViewController.h; sourceTree = "<group>"; };
+		07B650501A67A1E500DEDE4E /* ExpertIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertIntroViewController.m; sourceTree = "<group>"; };
+		07B650511A67A1E500DEDE4E /* ExpertIntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpertIntroViewController.xib; sourceTree = "<group>"; };
+		07B650541A67AC7E00DEDE4E /* XETopicViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XETopicViewCell.h; sourceTree = "<group>"; };
+		07B650551A67AC7E00DEDE4E /* XETopicViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XETopicViewCell.m; sourceTree = "<group>"; };
+		07B650561A67AC7E00DEDE4E /* XETopicViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XETopicViewCell.xib; sourceTree = "<group>"; };
+		07B650591A67B85200DEDE4E /* XEDoctorInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEDoctorInfo.h; sourceTree = "<group>"; };
+		07B6505A1A67B85200DEDE4E /* XEDoctorInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEDoctorInfo.m; sourceTree = "<group>"; };
+		07B6505C1A67B88000DEDE4E /* XETopicInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XETopicInfo.h; sourceTree = "<group>"; };
+		07B6505D1A67B88000DEDE4E /* XETopicInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XETopicInfo.m; sourceTree = "<group>"; };
 		07C49F451A5E7C9800E1725C /* XECommonVcTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECommonVcTransition.h; sourceTree = "<group>"; };
 		07C49F461A5E7C9800E1725C /* XECommonVcTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECommonVcTransition.m; sourceTree = "<group>"; };
 		07C49F481A5E7CD000E1725C /* XEImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEImagePickerController.h; sourceTree = "<group>"; };
@@ -749,6 +775,32 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		07913F5B1A676F570083E8E5 /* Expert */ = {
+			isa = PBXGroup;
+			children = (
+				07913F5C1A676F840083E8E5 /* ExpertListViewController.h */,
+				07913F5D1A676F840083E8E5 /* ExpertListViewController.m */,
+				07913F5E1A676F840083E8E5 /* ExpertListViewController.xib */,
+				07B6504F1A67A1E500DEDE4E /* ExpertIntroViewController.h */,
+				07B650501A67A1E500DEDE4E /* ExpertIntroViewController.m */,
+				07B650511A67A1E500DEDE4E /* ExpertIntroViewController.xib */,
+			);
+			path = Expert;
+			sourceTree = "<group>";
+		};
+		07913F611A67805B0083E8E5 /* Expert */ = {
+			isa = PBXGroup;
+			children = (
+				07913F621A67808F0083E8E5 /* ExpertListViewCell.h */,
+				07913F631A67808F0083E8E5 /* ExpertListViewCell.m */,
+				07913F641A67808F0083E8E5 /* ExpertListViewCell.xib */,
+				07B650541A67AC7E00DEDE4E /* XETopicViewCell.h */,
+				07B650551A67AC7E00DEDE4E /* XETopicViewCell.m */,
+				07B650561A67AC7E00DEDE4E /* XETopicViewCell.xib */,
+			);
+			path = Expert;
+			sourceTree = "<group>";
+		};
 		079425961A5A59A7002BF56C /* HQ */ = {
 			isa = PBXGroup;
 			children = (
@@ -1000,6 +1052,10 @@
 				077C98AE1A53A11000E2985B /* XEUserInfo.m */,
 				0774A8601A6663AD00336465 /* XEThemeInfo.h */,
 				0774A8611A6663AD00336465 /* XEThemeInfo.m */,
+				07B650591A67B85200DEDE4E /* XEDoctorInfo.h */,
+				07B6505A1A67B85200DEDE4E /* XEDoctorInfo.m */,
+				07B6505C1A67B88000DEDE4E /* XETopicInfo.h */,
+				07B6505D1A67B88000DEDE4E /* XETopicInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1014,6 +1070,7 @@
 				07FC6D251A67B161001F34D8 /* Home */,
 				07E536171A52828E005E1DA9 /* Mine */,
 				07C49F441A5E7C9800E1725C /* Common */,
+				07913F5B1A676F570083E8E5 /* Expert */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1022,6 +1079,7 @@
 			isa = PBXGroup;
 			children = (
 				074DD0D61A5E33B80042B721 /* Main */,
+				07913F611A67805B0083E8E5 /* Expert */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1189,6 +1247,9 @@
 				07E284751A5A8DFC005651EB /* UMShareEditViewController.xib in Resources */,
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
 				07E284771A5A8DFC005651EB /* UMSLoginViewController.xib in Resources */,
+				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
+				07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */,
+				07913F661A67808F0083E8E5 /* ExpertListViewCell.xib in Resources */,
 				07C988171A63B44B003A2B30 /* ChooseLocationViewController.xib in Resources */,
 				07E536321A5290C9005E1DA9 /* EvaluationViewController.xib in Resources */,
 				07E284721A5A8DFC005651EB /* UMSCommentDetailController.xib in Resources */,
@@ -1217,6 +1278,7 @@
 				07E284791A5A8DFC005651EB /* UMSShareListController.xib in Resources */,
 				07E2847A1A5A8DFC005651EB /* UMSocialSDKResourcesNew.bundle in Resources */,
 				076F32591A5F806200346F44 /* XEInputViewController.xib in Resources */,
+				07B650581A67AC7E00DEDE4E /* XETopicViewCell.xib in Resources */,
 				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
 				07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */,
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
@@ -1250,6 +1312,7 @@
 				075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */,
 				0703466F1A64F8E200EDE251 /* WelcomeViewController.m in Sources */,
 				0712B3B01A5BD853000A1A7F /* UIImage+MultiFormat.m in Sources */,
+				07B650521A67A1E500DEDE4E /* ExpertIntroViewController.m in Sources */,
 				077C98B81A53BEAE00E2985B /* XEBaseSuperViewController.m in Sources */,
 				0712B3B11A5BD853000A1A7F /* UIImage+WebP.m in Sources */,
 				0712B3A91A5BD853000A1A7F /* SDWebImageDecoder.m in Sources */,
@@ -1263,6 +1326,7 @@
 				0774A8871A66705D00336465 /* XEProgressHUD.m in Sources */,
 				07702D011A5901AF00168E2E /* XESuperViewController.m in Sources */,
 				075E409C1A59386C0062F6AD /* AFURLConnectionOperation.m in Sources */,
+				07B6505B1A67B85200DEDE4E /* XEDoctorInfo.m in Sources */,
 				07C49F4A1A5E7CD000E1725C /* XEImagePickerController.m in Sources */,
 				0712B3B21A5BD853000A1A7F /* UIImageView+HighlightedWebCache.m in Sources */,
 				075E40981A59386C0062F6AD /* AFHTTPRequestOperationManager.m in Sources */,
@@ -1275,12 +1339,14 @@
 				0712B3AA1A5BD853000A1A7F /* SDWebImageDownloader.m in Sources */,
 				0712B3AE1A5BD853000A1A7F /* UIButton+WebCache.m in Sources */,
 				0712B3A41A5BD853000A1A7F /* MKAnnotationView+WebCache.m in Sources */,
+				07913F5F1A676F840083E8E5 /* ExpertListViewController.m in Sources */,
 				077C98B51A53A6B300E2985B /* XENavigationController.m in Sources */,
 				07E536311A5290C9005E1DA9 /* EvaluationViewController.m in Sources */,
 				077C98C01A53D12700E2985B /* XECommonUtils.m in Sources */,
 				075E40AB1A593A820062F6AD /* ProgressHUD.m in Sources */,
 				076F32581A5F806200346F44 /* XEInputViewController.m in Sources */,
 				0774A8621A6663AD00336465 /* XEThemeInfo.m in Sources */,
+				07B6505E1A67B88000DEDE4E /* XETopicInfo.m in Sources */,
 				075E409F1A59386C0062F6AD /* AFURLSessionManager.m in Sources */,
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
 				07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */,
@@ -1288,6 +1354,7 @@
 				077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */,
 				0712B3AB1A5BD853000A1A7F /* SDWebImageDownloaderOperation.m in Sources */,
 				073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */,
+				07913F651A67808F0083E8E5 /* ExpertListViewCell.m in Sources */,
 				0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */,
 				073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */,
 				075E409A1A59386C0062F6AD /* AFNetworkReachabilityManager.m in Sources */,
@@ -1328,6 +1395,7 @@
 				07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */,
 				0712B37E1A5BC0DE000A1A7F /* RetrievePwdViewController.m in Sources */,
 				07C49F591A5E7E9900E1725C /* DDExpandableButton.m in Sources */,
+				07B650571A67AC7E00DEDE4E /* XETopicViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

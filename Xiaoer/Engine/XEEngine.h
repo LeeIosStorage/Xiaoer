@@ -97,7 +97,11 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getBannerWithTag:(int)tag;
 //获取资讯(食谱,养育,评测)标签页数据
 - (BOOL)getInfoWithBabyId:(NSString *)bbId tag:(int)tag;
+
 //获取资讯(食谱,养育,评测)列表数据
 - (BOOL)getListInfoWithNum:(NSString *)pagenum stage:(NSString *)stage cat:(NSString *)cat tag:(int)tag;
+
+//专家列表
+- (BOOL)getExpertListWithPage:(int)page tag:(int)tag;
 
 @end

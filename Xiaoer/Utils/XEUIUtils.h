@@ -12,6 +12,9 @@
 
 @interface XEUIUtils : NSObject
 
++ (UIColor *)colorWithHex:(long)hexColor alpha:(float)opacity;
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
+
 #pragma mark -- adapter ios7
 /*! @brief 改变view的大小, 主要是适配ios7的stautar 如果是addHeight的就添加高度，把y为-statusBar.frame.size.height,不为add时就往下移
  *
