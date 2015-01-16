@@ -101,7 +101,8 @@
 //    if (indexPath.row == 1) {
 //        return 110;
 //    }
-    return 145;
+    XEDoctorInfo *doctorInfo = _expertList[indexPath.row];
+    return [ExpertListViewCell heightForDoctorInfo:doctorInfo];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -113,7 +114,9 @@
         cell = [cells objectAtIndex:0];
         cell.backgroundColor = [UIColor clearColor];
     }
-    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:@"http://f.hiphotos.baidu.com/image/pic/item/0823dd54564e9258a4909fe99f82d158ccbf4e14.jpg"] placeholderImage:[UIImage imageNamed:@""]];
+//    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:@"http://f.hiphotos.baidu.com/image/pic/item/0823dd54564e9258a4909fe99f82d158ccbf4e14.jpg"] placeholderImage:[UIImage imageNamed:@""]];
+    XEDoctorInfo *doctorInfo = _expertList[indexPath.row];
+    cell.doctorInfo = doctorInfo;
     return cell;
 }
 
