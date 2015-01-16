@@ -273,6 +273,13 @@
                             @"intro": intro!=nil?intro:@"2-16个字",
                             };
     intro = _userInfo.title;
+    if ([_userInfo.title isEqualToString:@"f"]) {
+        intro = @"妈妈";
+    }else if ([_userInfo.title isEqualToString:@"m"]){
+        intro = @"爸爸";
+    }else if ([_userInfo.title isEqualToString:@"o"]){
+        intro = @"其他";
+    }
     NSDictionary *dict11 = @{@"titleLabel": @"我的身份",
                              @"intro": intro!=nil?intro:@"",
                              };
@@ -452,16 +459,18 @@
             _editTag = TAG_USER_IDENTITY;
             __weak PerfectInfoViewController *weakSelf = self;
             XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:@"身份" actionBlock:^(NSInteger buttonIndex) {
-                if (2 == buttonIndex) {
+                if (3 == buttonIndex) {
                     return;
                 }
                 if (buttonIndex == 0) {
-                    _userInfo.title = @"妈妈";
+                    _userInfo.title = @"f";
                 }else if (buttonIndex == 1){
-                    _userInfo.title = @"爸爸";
+                    _userInfo.title = @"m";
+                }else if (buttonIndex == 2){
+                    _userInfo.title = @"o";
                 }
                 [weakSelf.tableView reloadData];
-            } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"我是妈妈", @"我是爸爸", nil];
+            } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"我是妈妈", @"我是爸爸",@"其他", nil];
             [sheet showInView:self.view];
         }else if (indexPath.row == 2){
             _editTag = TAG_USER_REGION;

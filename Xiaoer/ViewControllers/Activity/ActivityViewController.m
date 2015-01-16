@@ -13,6 +13,7 @@
 #import "ActivityViewCell.h"
 #import "XERecipesInfo.h"
 #import "CategoryItemCell.h"
+#import "ActivityDetailsViewController.h"
 
 #define ACTIVITY_TYPE_APPLY     0
 #define ACTIVITY_TYPE_HISTORY   1
@@ -238,7 +239,10 @@
     if (tableView == self.historyTableView) {
         
     }else if (tableView == self.tableView){
-        
+        XEActivityInfo *activityInfo = _activityList[indexPath.row];
+        ActivityDetailsViewController *vc = [[ActivityDetailsViewController alloc] init];
+        vc.activityInfo = activityInfo;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
