@@ -107,6 +107,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 
 //专家列表
 - (BOOL)getExpertListWithPage:(int)page tag:(int)tag;
+- (BOOL)getExpertDetailWithUid:(NSString *)uid tag:(int)tag;
 //报名活动列表
 - (BOOL)getApplyActivityListWithPage:(int)page uid:(NSString *)uid tag:(int)tag;
 //历史活动

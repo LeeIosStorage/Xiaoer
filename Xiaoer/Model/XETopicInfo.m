@@ -12,10 +12,14 @@
 @implementation XETopicInfo
 
 - (void)doSetTopicInfoByJsonDic:(NSDictionary*)dic {
-    
+    if ([dic objectForKey:@"title"]) {
+        _title = [dic objectForKey:@"title"];
+    }
+    _clicknum = [[dic objectForKey:@"clicknum"] intValue];
+    _favnum = [[dic objectForKey:@"favnum"] intValue];
 }
 
--(void)setDopicInfoByJsonDic:(NSDictionary *)dic{
+-(void)setTopicInfoByJsonDic:(NSDictionary *)dic{
     
     if (![dic isKindOfClass:[NSDictionary class]]) {
         return;

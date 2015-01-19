@@ -371,13 +371,13 @@
     if (indexPath.section == 0) {
         return 61;
     }else if (indexPath.section == 1){
-        return 35;
+        return 44;
     }else if (indexPath.section == 2){
         if (indexPath.row == 0) {
             return 61;
         }
     }
-    return 35;
+    return 44;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [self newSectionPolicy:section];

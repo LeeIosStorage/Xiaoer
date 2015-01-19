@@ -17,6 +17,8 @@
 @property(nonatomic, strong) NSString* des;
 @property(nonatomic, strong) NSString* avatar;
 @property(nonatomic, assign) int age;
+@property(nonatomic, assign) int topicnum;
+@property(nonatomic, assign) int favnum;
 
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* doctorInfoByJsonDic;

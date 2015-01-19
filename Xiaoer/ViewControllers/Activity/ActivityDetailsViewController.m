@@ -10,6 +10,7 @@
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
 #import "UIImageView+WebCache.h"
+#import "ApplyActivityViewController.h"
 
 @interface ActivityDetailsViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -17,7 +18,12 @@
 
 @property (nonatomic, strong) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
-
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UIView *activityContainerView;
+@property (strong, nonatomic) IBOutlet UILabel *addressAndTimeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (strong, nonatomic) IBOutlet UILabel *activityIntroLabel;
+- (IBAction)applyActivityAction:(id)sender;
 @end
 
 @implementation ActivityDetailsViewController
@@ -25,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self refreshDoctorInfoShow];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,13 +77,22 @@
 #pragma mark - custom
 -(void)refreshDoctorInfoShow{
     
-    self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width/2;
-    self.avatarImageView.layer.masksToBounds = YES;
     self.avatarImageView.clipsToBounds = YES;
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:@"http://f.hiphotos.baidu.com/image/pic/item/0823dd54564e9258a4909fe99f82d158ccbf4e14.jpg"] placeholderImage:[UIImage imageNamed:@""]];
     
+    self.titleLabel.text = _activityInfo.title;
+    self.addressAndTimeLabel.text = [NSString stringWithFormat:@"%@\n%@",_activityInfo.address,[XEUIUtils dateDiscriptionFromDate:_activityInfo.begintime]];
+    self.phoneLabel.text = [NSString stringWithFormat:@"%@ %@\n最多%d人",@"李小姐",@"13888888888",_activityInfo.totalnum];
+    self.activityIntroLabel.text = _activityInfo.title;
+    
     self.tableView.tableHeaderView = self.headView;
+}
+
+- (IBAction)applyActivityAction:(id)sender {
+    ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
+    applyVc.activityInfo = _activityInfo;
+    [self.navigationController pushViewController:applyVc animated:YES];
 }
 
 #pragma mark - tableViewDataSource
