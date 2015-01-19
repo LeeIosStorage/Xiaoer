@@ -61,6 +61,8 @@
 		075AA03E1A68D5EC000B6302 /* XEActivityInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 075AA03D1A68D5EC000B6302 /* XEActivityInfo.m */; };
 		075AA0431A68DEFA000B6302 /* ActivityViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075AA0411A68DEFA000B6302 /* ActivityViewCell.m */; };
 		075AA0441A68DEFA000B6302 /* ActivityViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075AA0421A68DEFA000B6302 /* ActivityViewCell.xib */; };
+		075AA0481A690C58000B6302 /* ActivityDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075AA0461A690C58000B6302 /* ActivityDetailsViewController.m */; };
+		075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075AA0471A690C58000B6302 /* ActivityDetailsViewController.xib */; };
 		075CAF4C1A5D0E6A005CF4B6 /* SetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075CAF4A1A5D0E6A005CF4B6 /* SetPwdViewController.m */; };
 		075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075CAF4B1A5D0E6A005CF4B6 /* SetPwdViewController.xib */; };
 		075CAF721A5D338F005CF4B6 /* NSString+Value.m in Sources */ = {isa = PBXBuildFile; fileRef = 075CAF711A5D338F005CF4B6 /* NSString+Value.m */; };
@@ -284,6 +286,9 @@
 		075AA0401A68DEFA000B6302 /* ActivityViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewCell.h; sourceTree = "<group>"; };
 		075AA0411A68DEFA000B6302 /* ActivityViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewCell.m; sourceTree = "<group>"; };
 		075AA0421A68DEFA000B6302 /* ActivityViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityViewCell.xib; sourceTree = "<group>"; };
+		075AA0451A690C58000B6302 /* ActivityDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailsViewController.h; sourceTree = "<group>"; };
+		075AA0461A690C58000B6302 /* ActivityDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailsViewController.m; sourceTree = "<group>"; };
+		075AA0471A690C58000B6302 /* ActivityDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityDetailsViewController.xib; sourceTree = "<group>"; };
 		075CAF491A5D0E6A005CF4B6 /* SetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPwdViewController.h; sourceTree = "<group>"; };
 		075CAF4A1A5D0E6A005CF4B6 /* SetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPwdViewController.m; sourceTree = "<group>"; };
 		075CAF4B1A5D0E6A005CF4B6 /* SetPwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetPwdViewController.xib; sourceTree = "<group>"; };
@@ -696,6 +701,9 @@
 				075AA0371A68B85D000B6302 /* ActivityViewController.h */,
 				075AA0381A68B85D000B6302 /* ActivityViewController.m */,
 				075AA0391A68B85D000B6302 /* ActivityViewController.xib */,
+				075AA0451A690C58000B6302 /* ActivityDetailsViewController.h */,
+				075AA0461A690C58000B6302 /* ActivityDetailsViewController.m */,
+				075AA0471A690C58000B6302 /* ActivityDetailsViewController.xib */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -1327,6 +1335,7 @@
 				07E284751A5A8DFC005651EB /* UMShareEditViewController.xib in Resources */,
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
 				07E284771A5A8DFC005651EB /* UMSLoginViewController.xib in Resources */,
+				075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */,
 				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
 				073F9F0F1A68B31D009D94E3 /* XECategoryView.xib in Resources */,
 				07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */,
@@ -1474,6 +1483,7 @@
 				07508E861A51346300873B45 /* main.m in Sources */,
 				073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */,
 				075AA0431A68DEFA000B6302 /* ActivityViewCell.m in Sources */,
+				075AA0481A690C58000B6302 /* ActivityDetailsViewController.m in Sources */,
 				0712B3B31A5BD853000A1A7F /* UIImageView+WebCache.m in Sources */,
 				074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */,
 				073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */,
