@@ -35,4 +35,6 @@ dispatch_sync(dispatch_get_main_queue(), block);\
 + (UInt32)getHanziTextNum:(NSString*)text;
 + (NSString*)getHanziTextWithText:(NSString*)text maxLength:(UInt32)maxLength;
 
++ (NSDictionary *)getParamDictFrom:(NSString *)query;
+
 @end

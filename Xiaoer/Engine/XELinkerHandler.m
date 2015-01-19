@@ -7,6 +7,8 @@
 //
 
 #import "XELinkerHandler.h"
+#import "XECommonWebVc.h"
+//#import "SVModalWebViewController+Back.h"
 
 @implementation XELinkerHandler
 
@@ -18,7 +20,7 @@
     NSString* scheme = [realUrl.scheme lowercaseString];
     if ([scheme isEqualToString:@"XXX"]) {
         NSString *lastCompment = [[realUrl path] lastPathComponent];
-        //NSDictionary *paramDic = [LSCommonUtils getParamDictFrom:realUrl.query];
+        NSDictionary *paramDic = [XECommonUtils getParamDictFrom:realUrl.query];
         if ([[realUrl host] isEqualToString:@"AAA"]) {
             return nil;
         }
@@ -26,15 +28,16 @@
         
     }else if([scheme hasPrefix:@"http"]){
         NSString *lastCompment = [[realUrl path] lastPathComponent];
-        //NSDictionary *paramDic = [LSCommonUtils getParamDictFrom:realUrl.query];
+        NSDictionary *paramDic = [XECommonUtils getParamDictFrom:realUrl.query];
         //if...else
         
         if (nav) {
             NSString *url = [realUrl description];
-//            LSCommonWebVc *webvc = [[LSCommonWebVc alloc] initWithAddress:url];
-            //...
+            XECommonWebVc *webvc = [[XECommonWebVc alloc] initWithAddress:url];
+//            webvc.availableActions = SVWebViewControllerAvailableActionsOpenInSafari | SVWebViewControllerAvailableActionsOpenInChrome | SVWebViewControllerAvailableActionsCopyLink | SVWebViewControllerAvailableActionsMailLink;
+            [nav pushViewController:webvc animated:YES];
         }
-
+        return nil;
     }
     
     return nil;

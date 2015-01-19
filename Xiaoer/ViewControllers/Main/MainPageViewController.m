@@ -20,6 +20,7 @@
 #import "RecipesViewController.h"
 #import "ExpertListViewController.h"
 #import "ActivityViewController.h"
+#import "XELinkerHandler.h"
 
 #define GROUP_GRID_PADDING_TOP  15
 #define GROUP_GRID_ITEM_WIDTH   70
@@ -28,6 +29,7 @@
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,GMGridViewActionDelegate,GMGridViewDataSource>{
     XEScrollPage *scrollPageView;
     BOOL _isScrollViewDrag;
+    NSString *_mallurl;
 }
 
 @property (nonatomic, strong) NSMutableArray *adsThemeArray;
@@ -36,6 +38,8 @@
 @property (strong, nonatomic) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet GMGridView *setGridview;
+@property (strong, nonatomic) IBOutlet UILabel *unreadLabel;
+- (IBAction)mineMsgAction:(id)sender;
 
 @end
 
@@ -47,11 +51,37 @@
     [self setTitle:@"首页"];
     
     [self initGridView];
+    //获取首页信息
+    [self getHomePageInfo];
     //获取广告位信息
     [self getThemeInfo];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+- (void)getHomePageInfo{
+    [XEProgressHUD AlertLoading];
+    __weak MainPageViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] getHomepageInfosWithUid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        NSLog(@"jsonRet===============%@",jsonRet);
+        weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%@条新消息",[[jsonRet objectForKey:@"object"] objectForKey:@"msgnum"]];
+        _mallurl = [[jsonRet objectForKey:@"object"] objectForKey:@"mallurl"];
+        //_mallurl = @"http://www.baidu.com";
+        NSLog(@"mallurl===============%@",_mallurl);
+        [XEProgressHUD AlertSuccess:@"获取成功."];
+    }tag:tag];
 }
 
 - (void)getThemeInfo{
@@ -207,9 +237,14 @@
 #pragma mark -- GMGridViewActionDelegate
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position{
     switch (position) {
-        case 5:
+        case 5:{
             NSLog(@"============商城");
+            id vc = [XELinkerHandler handleDealWithHref:_mallurl From:self.navigationController];
+            if (vc) {
+                [self.navigationController pushViewController:vc animated:YES];
+            }
             break;
+        }
         case 4:{
             NSLog(@"============活动");
             ActivityViewController *vc = [[ActivityViewController alloc] init];
@@ -340,4 +375,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
 }
 
+- (IBAction)mineMsgAction:(id)sender {
+    NSLog(@"============我的消息");
+}
 @end

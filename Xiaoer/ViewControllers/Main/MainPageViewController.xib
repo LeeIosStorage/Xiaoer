@@ -11,6 +11,7 @@
                 <outlet property="headView" destination="LUx-H4-FQq" id="iIl-rR-uIK"/>
                 <outlet property="setGridview" destination="dEr-AB-H7m" id="Lny-UL-iFc"/>
                 <outlet property="tableView" destination="Umj-bA-0xR" id="zs2-zZ-wKr"/>
+                <outlet property="unreadLabel" destination="kBT-se-MxL" id="pUj-op-SzS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -99,7 +100,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12条新消息" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kBT-se-MxL">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="条新消息" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kBT-se-MxL">
                             <rect key="frame" x="66" y="36" width="73" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -111,6 +112,9 @@
                             <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="mineMsgAction:" destination="-1" eventType="touchUpInside" id="haa-xY-9OM"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

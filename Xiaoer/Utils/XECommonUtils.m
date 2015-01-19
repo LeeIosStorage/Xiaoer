@@ -92,4 +92,22 @@
     return text;
 }
 
++(NSDictionary *)getParamDictFrom:(NSString *)query{
+    NSArray *qitems = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *qdic = [NSMutableDictionary dictionaryWithCapacity:qitems.count];
+    for (NSString *item in qitems) {
+        NSArray *params = [item componentsSeparatedByString:@"="];
+        //确保有两个
+        if (params.count == 2) {
+            NSString *paramdata = [params objectAtIndex:1];
+            NSString *data = [[paramdata stringByReplacingOccurrencesOfString:@"+" withString:@" "] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            if (data) {
+                [qdic setObject:data forKey:[params objectAtIndex:0]];
+            }
+        }
+        
+    }
+    return qdic;
+}
+
 @end

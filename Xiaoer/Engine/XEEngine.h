@@ -95,6 +95,10 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 #pragma mark - home
 //获取轮播信息
 - (BOOL)getBannerWithTag:(int)tag;
+
+//首页用户信息(获取商城地址+未读消息+外接设备(待讨论)+宝宝信息)
+- (BOOL)getHomepageInfosWithUid:(NSString *)uid tag:(int)tag;
+
 //获取资讯(食谱,养育,评测)标签页数据
 - (BOOL)getInfoWithBabyId:(NSString *)bbId tag:(int)tag;
 

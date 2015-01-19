@@ -13,6 +13,7 @@
 #import "XECategoryView.h"
 #import "XERecipesInfo.h"
 #import "UIColor+bit.h"
+#import "XELinkerHandler.h"
 
 #define Selected_Color [UIColor colorWithRed:(1.0 * 58 / 255) green:(1.0 * 161 / 255) blue:(1.0 * 248 / 255) alpha:1]
 #define UnSelected_Color [UIColor colorWithRed:(1.0 * 172 / 255) green:(1.0 * 177 / 255) blue:(1.0 * 183 / 255) alpha:1]
@@ -74,7 +75,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     }else if (self.infoType == TYPE_EVALUATION) {
         [self setTitle:@"测评"];
     }
-    [self setRightButtonWithTitle:@"我收藏" selector:@selector(settingAction)];
+    [self setRightButtonWithTitle:@"我的收藏" selector:@selector(settingAction)];
 }
 
 - (void)getCategoryInfo{
@@ -214,13 +215,13 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 
 - (void)recordCategoryRefreshTimeWith:(NSUInteger)index{
     NSTimeInterval categoryRefreshTime = [[NSDate date] timeIntervalSince1970];
-    NSString *key = [NSString stringWithFormat:@"%@_%@_%ld", kCategoryRefreshTime, [XEEngine shareInstance].uid,index];
+    NSString *key = [NSString stringWithFormat:@"%@_%@_%d_%ld", kCategoryRefreshTime, [XEEngine shareInstance].uid,self.infoType,index];
     [[NSUserDefaults standardUserDefaults] setDouble:categoryRefreshTime forKey:key];
 }
 
 - (BOOL)categoryNecessaryRefreshWith:(NSUInteger)index{
     //获取分类最近刷新时间
-    NSString *key = [NSString stringWithFormat:@"%@_%@_%ld", kCategoryRefreshTime, [XEEngine shareInstance].uid,index];
+    NSString *key = [NSString stringWithFormat:@"%@_%@_%d_%ld", kCategoryRefreshTime, [XEEngine shareInstance].uid,self.infoType,index];
     double categoryRefreshTime = [[NSUserDefaults standardUserDefaults] integerForKey:key];
     NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970];
     if (nowtime - categoryRefreshTime > XERefreshInterval) {
@@ -406,6 +407,14 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 - (void)didTouchCellWithRecipesInfo:(XERecipesInfo *)recipesInfo{
 
     NSLog(@"==================%@",recipesInfo.title);
+    id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
+    if (vc) {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+-(void)dealloc {
+    
 }
 
 @end

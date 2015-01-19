@@ -45,6 +45,7 @@
 		074593FC1A5B782B008F4665 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 074593FB1A5B782B008F4665 /* SystemConfiguration.framework */; };
 		074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074594021A5BB4FD008F4665 /* NewIntroViewController.m */; };
 		074594061A5BB52C008F4665 /* NewIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 074594051A5BB52C008F4665 /* NewIntroView.m */; };
+		0746446D1A6C9F7200CE2935 /* XECommonWebVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 0746446C1A6C9F7200CE2935 /* XECommonWebVc.m */; };
 		074DD0DA1A5E33B80042B721 /* MineTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 074DD0D81A5E33B80042B721 /* MineTabCell.m */; };
 		074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074DD0D91A5E33B80042B721 /* MineTabCell.xib */; };
 		074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 074DD0DD1A5E6A740042B721 /* XESettingConfig.m */; };
@@ -255,6 +256,8 @@
 		074594021A5BB4FD008F4665 /* NewIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewIntroViewController.m; sourceTree = "<group>"; };
 		074594041A5BB52C008F4665 /* NewIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewIntroView.h; sourceTree = "<group>"; };
 		074594051A5BB52C008F4665 /* NewIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewIntroView.m; sourceTree = "<group>"; };
+		0746446B1A6C9F7200CE2935 /* XECommonWebVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECommonWebVc.h; sourceTree = "<group>"; };
+		0746446C1A6C9F7200CE2935 /* XECommonWebVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECommonWebVc.m; sourceTree = "<group>"; };
 		074DD0D71A5E33B80042B721 /* MineTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTabCell.h; sourceTree = "<group>"; };
 		074DD0D81A5E33B80042B721 /* MineTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTabCell.m; sourceTree = "<group>"; };
 		074DD0D91A5E33B80042B721 /* MineTabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineTabCell.xib; sourceTree = "<group>"; };
@@ -886,6 +889,8 @@
 				076F32551A5F806200346F44 /* XEInputViewController.h */,
 				076F32561A5F806200346F44 /* XEInputViewController.m */,
 				076F32571A5F806200346F44 /* XEInputViewController.xib */,
+				0746446B1A6C9F7200CE2935 /* XECommonWebVc.h */,
+				0746446C1A6C9F7200CE2935 /* XECommonWebVc.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1298,6 +1303,10 @@
 				en,
 				Base,
 				"zh-Hans",
+				da,
+				"es-ES",
+				es,
+				"zh-Hant",
 			);
 			mainGroup = 07508E771A51346300873B45;
 			productRefGroup = 07508E811A51346300873B45 /* Products */;
@@ -1447,6 +1456,7 @@
 				074594061A5BB52C008F4665 /* NewIntroView.m in Sources */,
 				0712B3B41A5BD853000A1A7F /* UIView+WebCacheOperation.m in Sources */,
 				075CAF721A5D338F005CF4B6 /* NSString+Value.m in Sources */,
+				0746446D1A6C9F7200CE2935 /* XECommonWebVc.m in Sources */,
 				071D51961A674FC6003D6752 /* MainTabCell.m in Sources */,
 				0712B3A71A5BD853000A1A7F /* SDImageCache.m in Sources */,
 				076F32681A5FA67700346F44 /* UIImage+ProportionalFill.m in Sources */,
