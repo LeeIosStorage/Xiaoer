@@ -8,8 +8,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainPageViewController">
             <connections>
                 <outlet property="adsViewContainer" destination="6TQ-SH-oBU" id="9Jc-a1-sVN"/>
+                <outlet property="collectionView" destination="jt8-B3-dM0" id="u5I-m7-Ook"/>
                 <outlet property="headView" destination="LUx-H4-FQq" id="iIl-rR-uIK"/>
-                <outlet property="setGridview" destination="dEr-AB-H7m" id="Lny-UL-iFc"/>
                 <outlet property="tableView" destination="Umj-bA-0xR" id="zs2-zZ-wKr"/>
                 <outlet property="unreadLabel" destination="kBT-se-MxL" id="pUj-op-SzS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -47,11 +47,21 @@
                     <rect key="frame" x="0.0" y="100" width="320" height="1"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <view contentMode="scaleToFill" id="dEr-AB-H7m" customClass="GMGridView">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" id="jt8-B3-dM0">
                     <rect key="frame" x="0.0" y="101" width="320" height="214"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="V9r-sp-uAD">
+                        <size key="itemSize" width="63" height="63"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="37" minY="30" maxX="37" maxY="20"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="fEo-vO-Mev"/>
+                        <outlet property="delegate" destination="-1" id="VQY-CV-1gf"/>
+                    </connections>
+                </collectionView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="2jK-3m-TlP">
                     <rect key="frame" x="0.0" y="314" width="320" height="1"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -60,7 +70,7 @@
                     <rect key="frame" x="0.0" y="315" width="160" height="75"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tmp_avatar_icon" id="8L4-TT-XVO">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_task_icon" id="8L4-TT-XVO">
                             <rect key="frame" x="15" y="13" width="50" height="50"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </imageView>
@@ -90,7 +100,7 @@
                     <rect key="frame" x="160" y="315" width="160" height="75"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tmp_avatar_icon" id="kdm-qt-ILT">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_msg_icon" id="kdm-qt-ILT">
                             <rect key="frame" x="8" y="11" width="50" height="50"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
@@ -131,8 +141,9 @@
         </view>
     </objects>
     <resources>
+        <image name="home_msg_icon" width="45" height="45"/>
+        <image name="home_task_icon" width="45" height="45"/>
         <image name="s_n_set_line" width="300" height="1"/>
-        <image name="tmp_avatar_icon" width="150" height="150"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

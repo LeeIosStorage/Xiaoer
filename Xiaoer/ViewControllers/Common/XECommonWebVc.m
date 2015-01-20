@@ -11,7 +11,7 @@
 NSInteger const SGProgresstagId = 222122323;
 CGFloat const SGProgressBarHeight = 2.5;
 
-@interface XECommonWebVc ()
+@interface XECommonWebVc ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSURL *URL;
 
@@ -28,14 +28,45 @@ CGFloat const SGProgressBarHeight = 2.5;
     [super viewWillAppear:animated];
     
     CGRect frame = [UIScreen mainScreen].bounds;
-    if (!self.isPortrait) {
-        float temp = frame.size.height;
-        frame.size.height = frame.size.width;
-        frame.size.width = temp;
-    }
+//    if (!self.isPortrait) {
+//        float temp = frame.size.height;
+//        frame.size.height = frame.size.width;
+//        frame.size.width = temp;
+//    }
     frame.origin.y = [self titleNavBar].frame.size.height;
     frame.size.height -=  frame.origin.y;
     self.mainWebView.frame = frame;
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    //    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    //        [self.navigationController setToolbarHidden:YES animated:animated];
+    //    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [super viewDidDisappear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    //判断设备当前的方向，然后重新布局不同方向的操作。
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        return YES;
+    
+    return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+}
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+
 }
 
 - (void)viewDidLoad {
@@ -48,10 +79,10 @@ CGFloat const SGProgressBarHeight = 2.5;
     [self loadURL:self.URL];
     [self.view insertSubview:self.mainWebView atIndex:0];
     
-    UIView *leftEdge = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, [UIScreen mainScreen].bounds.size.height)];
-    //    leftEdge.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleHeight;
-    leftEdge.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:leftEdge];
+//    UIView *leftEdge = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, [UIScreen mainScreen].bounds.size.height)];
+//    //    leftEdge.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleHeight;
+//    leftEdge.backgroundColor = [UIColor clearColor];
+//    [self.view addSubview:leftEdge];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -326,7 +357,9 @@ CGFloat const SGProgressBarHeight = 2.5;
 
 - (void)dealloc
 {
-    self.mainWebView = nil;
+    [self.mainWebView stopLoading];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    self.mainWebView.delegate = nil;
 }
 
 @end

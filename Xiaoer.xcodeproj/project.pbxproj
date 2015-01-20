@@ -46,6 +46,8 @@
 		074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074594021A5BB4FD008F4665 /* NewIntroViewController.m */; };
 		074594061A5BB52C008F4665 /* NewIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 074594051A5BB52C008F4665 /* NewIntroView.m */; };
 		0746446D1A6C9F7200CE2935 /* XECommonWebVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 0746446C1A6C9F7200CE2935 /* XECommonWebVc.m */; };
+		074644851A6CFFDA00CE2935 /* XECollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 074644831A6CFFDA00CE2935 /* XECollectionViewCell.m */; };
+		074644861A6CFFDA00CE2935 /* XECollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074644841A6CFFDA00CE2935 /* XECollectionViewCell.xib */; };
 		074DD0DA1A5E33B80042B721 /* MineTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 074DD0D81A5E33B80042B721 /* MineTabCell.m */; };
 		074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074DD0D91A5E33B80042B721 /* MineTabCell.xib */; };
 		074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 074DD0DD1A5E6A740042B721 /* XESettingConfig.m */; };
@@ -260,6 +262,9 @@
 		074594051A5BB52C008F4665 /* NewIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewIntroView.m; sourceTree = "<group>"; };
 		0746446B1A6C9F7200CE2935 /* XECommonWebVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECommonWebVc.h; sourceTree = "<group>"; };
 		0746446C1A6C9F7200CE2935 /* XECommonWebVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECommonWebVc.m; sourceTree = "<group>"; };
+		074644821A6CFFDA00CE2935 /* XECollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECollectionViewCell.h; sourceTree = "<group>"; };
+		074644831A6CFFDA00CE2935 /* XECollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECollectionViewCell.m; sourceTree = "<group>"; };
+		074644841A6CFFDA00CE2935 /* XECollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XECollectionViewCell.xib; sourceTree = "<group>"; };
 		074DD0D71A5E33B80042B721 /* MineTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTabCell.h; sourceTree = "<group>"; };
 		074DD0D81A5E33B80042B721 /* MineTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTabCell.m; sourceTree = "<group>"; };
 		074DD0D91A5E33B80042B721 /* MineTabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineTabCell.xib; sourceTree = "<group>"; };
@@ -623,6 +628,9 @@
 				07FC6D1E1A679D22001F34D8 /* XEGridView.h */,
 				07FC6D1F1A679D22001F34D8 /* XEGridView.m */,
 				07FC6D231A679D4C001F34D8 /* XEGridView.xib */,
+				074644821A6CFFDA00CE2935 /* XECollectionViewCell.h */,
+				074644831A6CFFDA00CE2935 /* XECollectionViewCell.m */,
+				074644841A6CFFDA00CE2935 /* XECollectionViewCell.xib */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1339,6 +1347,7 @@
 				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
 				073F9F0F1A68B31D009D94E3 /* XECategoryView.xib in Resources */,
 				07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */,
+				074644861A6CFFDA00CE2935 /* XECollectionViewCell.xib in Resources */,
 				07913F661A67808F0083E8E5 /* ExpertListViewCell.xib in Resources */,
 				07C988171A63B44B003A2B30 /* ChooseLocationViewController.xib in Resources */,
 				07E536321A5290C9005E1DA9 /* EvaluationViewController.xib in Resources */,
@@ -1495,6 +1504,7 @@
 				07E536211A528C4B005E1DA9 /* XETabBarItemView.m in Sources */,
 				0712B3AF1A5BD853000A1A7F /* UIImage+GIF.m in Sources */,
 				07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */,
+				074644851A6CFFDA00CE2935 /* XECollectionViewCell.m in Sources */,
 				0712B37E1A5BC0DE000A1A7F /* RetrievePwdViewController.m in Sources */,
 				07C49F591A5E7E9900E1725C /* DDExpandableButton.m in Sources */,
 				07B650571A67AC7E00DEDE4E /* XETopicViewCell.m in Sources */,

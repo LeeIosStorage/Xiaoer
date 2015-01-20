@@ -14,19 +14,13 @@
 #import "MainTabCell.h"
 #import "XEScrollPage.h"
 #import "XELinkerHandler.h"
-#import "XEGridView.h"
-#import "GMGridView.h"
-#import "GMGridViewLayoutStrategies.h"
 #import "RecipesViewController.h"
 #import "ExpertListViewController.h"
 #import "ActivityViewController.h"
 #import "XELinkerHandler.h"
+#import "XECollectionViewCell.h"
 
-#define GROUP_GRID_PADDING_TOP  15
-#define GROUP_GRID_ITEM_WIDTH   70
-#define GROUP_GRID_ITEM_HEIGHT  90
-
-@interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,GMGridViewActionDelegate,GMGridViewDataSource>{
+@interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     XEScrollPage *scrollPageView;
     BOOL _isScrollViewDrag;
     NSString *_mallurl;
@@ -37,8 +31,9 @@
 @property (nonatomic, strong) IBOutlet UIView *adsViewContainer;
 @property (strong, nonatomic) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet GMGridView *setGridview;
 @property (strong, nonatomic) IBOutlet UILabel *unreadLabel;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+
 - (IBAction)mineMsgAction:(id)sender;
 
 @end
@@ -50,7 +45,9 @@
     // Do any additional setup after loading the view from its nib.
     [self setTitle:@"首页"];
     
-    [self initGridView];
+    //此句不加程序崩
+    [self.collectionView registerClass:[XECollectionViewCell class] forCellWithReuseIdentifier:@"XECollectionViewCell"];
+    //[self initGridView];
     //获取首页信息
     [self getHomePageInfo];
     //获取广告位信息
@@ -146,29 +143,6 @@
     [self.tableView reloadData];
 }
 
-- (void)initGridView{
-    
-//    NSInteger spacing = GROUP_GRID_PADDING_TOP;
-    
-//    float gaps = (_setGridview.frame.size.width - GROUP_GRID_ITEM_WIDTH*3);
-//    
-//    float edge = (gaps - spacing*2)/2.f;
-    
-    _setGridview.minEdgeInsets = UIEdgeInsetsMake(GROUP_GRID_PADDING_TOP, 30, 8, 30);
-    
-    _setGridview.style = GMGridViewStyleSwap;
-    _setGridview.itemSpacing = 20;
-    _setGridview.centerGrid = NO;
-    _setGridview.layoutStrategy = [GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutVertical];
-    _setGridview.actionDelegate = self;
-    _setGridview.showsHorizontalScrollIndicator = NO;
-    _setGridview.showsVerticalScrollIndicator = NO;
-    _setGridview.dataSource = self;
-    _setGridview.scrollEnabled = NO;
-    
-    [_setGridview reloadData];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -194,49 +168,155 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-#pragma mark -- GMGridViewDataSource
-- (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView{
+//#pragma mark -- GMGridViewDataSource
+//- (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView{
+//    return 6;
+//}
+//
+//- (CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation{
+//    return CGSizeMake(GROUP_GRID_ITEM_WIDTH, GROUP_GRID_ITEM_HEIGHT);
+//}
+//
+//- (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index{
+//    
+//    GMGridViewCell *cell = [[GMGridViewCell alloc] init];
+//    XEGridView *chatSetv;
+//    chatSetv = [[[NSBundle mainBundle] loadNibNamed:@"XEGridView" owner:nil options:nil] objectAtIndex:0];
+//    cell.contentView = chatSetv;
+//    chatSetv.nameLabel.textColor = [UIColor darkGrayColor];
+//    if(index == 0){
+//        cell.deleteButtonIcon = nil;
+//        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"home_recipes_icon"]];
+//        [chatSetv.nameLabel setText:@"食谱"];
+//    }else if(index == 1){
+//        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"home_nourish_icon"]];
+//        chatSetv.nameLabel.text = @"养育";
+//    }else if(index == 2){
+//        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"home_evaluation_icon"]];
+//        chatSetv.nameLabel.text = @"测评";
+//    }else if(index == 3){
+//        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"home_expert_icon"]];
+//        chatSetv.nameLabel.text = @"专家";
+//    }else if(index == 4){
+//        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"home_activity_icon"]];
+//        chatSetv.nameLabel.text = @"活动";
+//    }else if(index == 5){
+//        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"home_mall_icon"]];
+//        chatSetv.nameLabel.text = @"商城";
+//    }
+//    
+//    return cell;
+//}
+//
+//#pragma mark -- GMGridViewActionDelegate
+//- (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position{
+//    switch (position) {
+//        case 5:{
+//            NSLog(@"============商城");
+//            id vc = [XELinkerHandler handleDealWithHref:_mallurl From:self.navigationController];
+//            if (vc) {
+//                [self.navigationController pushViewController:vc animated:YES];
+//            }
+//            break;
+//        }
+//        case 4:{
+//            NSLog(@"============活动");
+//            ActivityViewController *vc = [[ActivityViewController alloc] init];
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
+//
+//            break;
+//        case 3:{
+//            NSLog(@"============专家");
+//            ExpertListViewController *vc = [[ExpertListViewController alloc] init];
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
+//            break;
+//        case 2:{
+//            NSLog(@"============测评");
+//            RecipesViewController *rVc = [[RecipesViewController alloc] init];
+//            rVc.infoType = TYPE_EVALUATION;
+//            [self.navigationController pushViewController:rVc animated:YES];
+//            break;
+//        }
+//        case 1:{
+//            NSLog(@"============养育");
+//            RecipesViewController *rVc = [[RecipesViewController alloc] init];
+//            rVc.infoType = TYPE_NOURISH;
+//            [self.navigationController pushViewController:rVc animated:YES];
+//            break;
+//        }
+//        case 0:
+//        {
+//            NSLog(@"============食谱");
+//            RecipesViewController *rVc = [[RecipesViewController alloc] init];
+//            rVc.infoType = TYPE_RECIPES;
+//            [self.navigationController pushViewController:rVc animated:YES];
+//            break;
+//        }
+//        default:
+//            break;
+//    }
+//    //NSInteger count = [self numberOfItemsInGMGridView:gridView];
+//}
+
+#pragma mark -- UICollectionViewDataSource
+//定义展示的UICollectionViewCell的个数
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return 6;
 }
-
-- (CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation{
-    return CGSizeMake(GROUP_GRID_ITEM_WIDTH, GROUP_GRID_ITEM_HEIGHT);
+//定义展示的Section的个数
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
 }
+//每个UICollectionView展示的内容
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
 
-- (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index{
-    
-    GMGridViewCell *cell = [[GMGridViewCell alloc] init];
-    XEGridView *chatSetv;
-    chatSetv = [[[NSBundle mainBundle] loadNibNamed:@"XEGridView" owner:nil options:nil] objectAtIndex:0];
-    cell.contentView = chatSetv;
-    chatSetv.nameLabel.textColor = [UIColor darkGrayColor];
-    if(index == 0){
-        cell.deleteButtonIcon = nil;
-        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
-        [chatSetv.nameLabel setText:@"食谱"];
-    }else if(index == 1){
-        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
-        chatSetv.nameLabel.text = @"养育";
-    }else if(index == 2){
-        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
-        chatSetv.nameLabel.text = @"测评";
-    }else if(index == 3){
-        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
-        chatSetv.nameLabel.text = @"专家";
-    }else if(index == 4){
-        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
-        chatSetv.nameLabel.text = @"活动";
-    }else if(index == 5){
-        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
-        chatSetv.nameLabel.text = @"商城";
+    XECollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XECollectionViewCell" forIndexPath:indexPath];
+    if(indexPath.row == 0){
+        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_recipes_icon"]];
+        [cell.nameLabel setText:@"食谱"];
+    }else if(indexPath.row == 1){
+        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_nourish_icon"]];
+        cell.nameLabel.text = @"养育";
+    }else if(indexPath.row == 2){
+        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_evaluation_icon"]];
+        cell.nameLabel.text = @"测评";
+    }else if(indexPath.row == 3){
+        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_expert_icon"]];
+        cell.nameLabel.text = @"专家";
+    }else if(indexPath.row == 4){
+        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_activity_icon"]];
+        cell.nameLabel.text = @"活动";
+    }else if(indexPath.row == 5){
+        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_mall_icon"]];
+        cell.nameLabel.text = @"商城";
     }
     
     return cell;
 }
 
-#pragma mark -- GMGridViewActionDelegate
-- (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position{
-    switch (position) {
+#pragma mark --UICollectionViewDelegateFlowLayout
+//定义每个UICollectionView 的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake((SCREEN_WIDTH - 110) / 3, 89);
+}
+
+//定义每个UICollectionView 的 margin
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(20, 25, 15, 15);
+}
+                       
+#pragma mark --UICollectionViewDelegate
+//UICollectionView被选中时调用的方法
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
         case 5:{
             NSLog(@"============商城");
             id vc = [XELinkerHandler handleDealWithHref:_mallurl From:self.navigationController];
@@ -250,7 +330,6 @@
             ActivityViewController *vc = [[ActivityViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
-
             break;
         case 3:{
             NSLog(@"============专家");
@@ -263,8 +342,8 @@
             RecipesViewController *rVc = [[RecipesViewController alloc] init];
             rVc.infoType = TYPE_EVALUATION;
             [self.navigationController pushViewController:rVc animated:YES];
-            break;
         }
+            break;
         case 1:{
             NSLog(@"============养育");
             RecipesViewController *rVc = [[RecipesViewController alloc] init];
@@ -272,8 +351,7 @@
             [self.navigationController pushViewController:rVc animated:YES];
             break;
         }
-        case 0:
-        {
+        case 0:{
             NSLog(@"============食谱");
             RecipesViewController *rVc = [[RecipesViewController alloc] init];
             rVc.infoType = TYPE_RECIPES;
@@ -283,7 +361,12 @@
         default:
             break;
     }
-    //NSInteger count = [self numberOfItemsInGMGridView:gridView];
+}
+
+//返回这个UICollectionView是否可以被选择
+-(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
 }
 
 #pragma mark - Table view data source
@@ -321,10 +404,10 @@
     
     if (indexPath.row == 0) {
         cell.titleLabel.text = @"智能垫";
-        cell.itemImageView.image = [UIImage imageNamed:@"tmp_avatar_icon"];
+        cell.itemImageView.image = [UIImage imageNamed:@"home_intelligent_icon"];
     }else if (indexPath.row == 1) {
         cell.titleLabel.text = @"爬行毯";
-        cell.itemImageView.image = [UIImage imageNamed:@"tmp_avatar_icon"];
+        cell.itemImageView.image = [UIImage imageNamed:@"home_parklon_icon"];
     }
     
     return cell;
@@ -353,7 +436,9 @@
         return;
     }
     
-    id vc = [XELinkerHandler handleDealWithHref:theme.themeImageUrl From:self.navigationController];
+    //id vc = [XELinkerHandler handleDealWithHref:theme.themeImageUrl From:self.navigationController];
+    NSString *url = [NSString stringWithFormat:@"http://192.168.16.29/info/detail?id=%@",theme.tid];
+    id vc = [XELinkerHandler handleDealWithHref:url From:self.navigationController];
     if (vc) {
         [self.navigationController pushViewController:vc animated:YES];
     }
