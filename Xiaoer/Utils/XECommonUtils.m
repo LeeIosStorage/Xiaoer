@@ -7,6 +7,7 @@
 //
 
 #import "XECommonUtils.h"
+#import "XEAlertView.h"
 
 @implementation XECommonUtils
 
@@ -108,6 +109,17 @@
         
     }
     return qdic;
+}
+
++ (void)usePhoneNumAction:(NSString *)phone{
+    if (phone.length == 0 || !phone) {
+        return;
+    }
+    XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:phone cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"呼叫" okBlock:^{
+        NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", phone]];
+        [[UIApplication sharedApplication] openURL:URL];
+    }];
+    [alertView show];
 }
 
 @end

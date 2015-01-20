@@ -10,6 +10,7 @@
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
 #import "UIImageView+WebCache.h"
+#import "ApplyActivityViewController.h"
 
 @interface ActivityDetailsViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -17,7 +18,14 @@
 
 @property (nonatomic, strong) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
-
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UIView *activityContainerView;
+@property (strong, nonatomic) IBOutlet UILabel *addressAndTimeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (strong, nonatomic) IBOutlet UILabel *activityIntroLabel;
+- (IBAction)applyActivityAction:(id)sender;
+- (IBAction)phoneAction:(id)sender;
+- (IBAction)addressAction:(id)sender;
 @end
 
 @implementation ActivityDetailsViewController
@@ -25,6 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self refreshActivityInfo];
+    [self refreshActivityHeadShow];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,35 +58,64 @@
 
 - (void)refreshActivityInfo{
     
-//    __weak ActivityDetailsViewController *weakSelf = self;
-//    int tag = [[XEEngine shareInstance] getConnectTag];
-//    [[XEEngine shareInstance] getApplyActivityListWithPage:1 uid:[XEEngine shareInstance].uid tag:tag];
-//    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-//        [XEProgressHUD AlertLoadDone];
-//        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-//        if (!jsonRet || errorMsg) {
-//            if (!errorMsg.length) {
-//                errorMsg = @"请求失败";
-//            }
-//            [XEProgressHUD AlertError:errorMsg];
-//            return;
-//        }
-//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
-//        [weakSelf.tableView reloadData];
-//        
-//    }tag:tag];
+    __weak ActivityDetailsViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] getApplyActivityDetailWithActivityId:_activityInfo.aId tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        
+        NSDictionary *dic = [jsonRet objectForKey:@"object"];
+        [weakSelf.activityInfo setActivityInfoByJsonDic:dic];
+        
+        [weakSelf refreshActivityHeadShow];
+        [weakSelf.tableView reloadData];
+        
+    }tag:tag];
 }
 
 #pragma mark - custom
--(void)refreshDoctorInfoShow{
+-(void)refreshActivityHeadShow{
     
-    self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width/2;
-    self.avatarImageView.layer.masksToBounds = YES;
     self.avatarImageView.clipsToBounds = YES;
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:@"http://f.hiphotos.baidu.com/image/pic/item/0823dd54564e9258a4909fe99f82d158ccbf4e14.jpg"] placeholderImage:[UIImage imageNamed:@""]];
+    [self.avatarImageView sd_setImageWithURL:_activityInfo.picUrl placeholderImage:[UIImage imageNamed:@""]];
+    
+    self.titleLabel.text = _activityInfo.title;
+    self.addressAndTimeLabel.text = [NSString stringWithFormat:@"%@\n%@到%@",_activityInfo.address,[XEUIUtils dateDiscriptionFromDate:_activityInfo.begintime],[XEUIUtils dateDiscriptionFromDate:_activityInfo.endtime]];
+    self.phoneLabel.text = [NSString stringWithFormat:@"%@ %@\n%d人已报名 至少%d人 最多%d人",_activityInfo.contact,_activityInfo.phone,_activityInfo.regnum,_activityInfo.minnum,_activityInfo.totalnum];
+    self.activityIntroLabel.text = _activityInfo.des;
+    
+    CGRect frame = self.activityIntroLabel.frame;
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    NSDictionary *attributes = @{NSFontAttributeName:self.activityIntroLabel.font, NSParagraphStyleAttributeName:paragraphStyle.copy};
+    CGSize topicTextSize = [self.activityIntroLabel.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-12-86, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+    frame.size.height = topicTextSize.height;
+    self.activityIntroLabel.frame = frame;
     
     self.tableView.tableHeaderView = self.headView;
+}
+
+- (IBAction)applyActivityAction:(id)sender {
+    ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
+    applyVc.activityInfo = _activityInfo;
+    [self.navigationController pushViewController:applyVc animated:YES];
+}
+
+- (IBAction)phoneAction:(id)sender {
+    [XECommonUtils usePhoneNumAction:_activityInfo.phone];
+}
+
+- (IBAction)addressAction:(id)sender {
 }
 
 #pragma mark - tableViewDataSource

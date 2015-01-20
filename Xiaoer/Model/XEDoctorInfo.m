@@ -28,6 +28,8 @@
         _avatar = [dic objectForKey:@"avatar"];
     }
     _age = [[dic objectForKey:@"age"] intValue];
+    _topicnum = [[dic objectForKey:@"topicnum"] intValue];
+    _favnum = [[dic objectForKey:@"favnum"] intValue];
 }
 
 -(void)setDoctorInfoByJsonDic:(NSDictionary *)dic{

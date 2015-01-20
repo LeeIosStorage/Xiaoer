@@ -31,7 +31,7 @@
     [_activityImageView sd_setImageWithURL:[NSURL URLWithString:@"http://f.hiphotos.baidu.com/image/pic/item/0823dd54564e9258a4909fe99f82d158ccbf4e14.jpg"] placeholderImage:[UIImage imageNamed:@""]];
     
     _titleLabel.text = activityInfo.title;
-    XELog(@"_activityInfo.begintime%@",_activityInfo.begintime);
+//    XELog(@"_activityInfo.begintime%@",_activityInfo.begintime);
     _dateAndAddressLabel.text = [NSString stringWithFormat:@"%@ %@",[XEUIUtils dateDiscriptionFromDate:_activityInfo.begintime],activityInfo.address];
     _totalnumLabel.text = [NSString stringWithFormat:@"%d人",activityInfo.totalnum];
     

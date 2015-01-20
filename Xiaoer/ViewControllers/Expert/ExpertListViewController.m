@@ -126,7 +126,9 @@
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
     
+    XEDoctorInfo *doctorInfo = _expertList[indexPath.row];
     ExpertIntroViewController *vc = [[ExpertIntroViewController alloc] init];
+    vc.doctorInfo = doctorInfo;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

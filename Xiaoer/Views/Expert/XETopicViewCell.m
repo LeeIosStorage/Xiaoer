@@ -12,8 +12,8 @@
 
 @implementation XETopicViewCell
 
-+ (float)heightForTopicInfo{
-    NSString* topicText = testText;
++ (float)heightForTopicInfo:(XETopicInfo *)topicInfo{
+    NSString* topicText = topicInfo.title;
     //[topicText sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(320, MAXFLOAT) lineBreakMode:NSLineBreakByCharWrapping];
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
@@ -32,13 +32,20 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    _topicNameLabel.text = testText;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+-(void)setTopicInfo:(XETopicInfo *)topicInfo{
+    _topicInfo = topicInfo;
+    self.topicNameLabel.text = topicInfo.title;
+    [self.commentLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.favnum] forState:0];
+    [self.collectLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.clicknum] forState:0];
+    
 }
 
 @end

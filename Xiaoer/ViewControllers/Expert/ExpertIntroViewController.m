@@ -9,6 +9,9 @@
 #import "ExpertIntroViewController.h"
 #import "XETopicViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "XEEngine.h"
+#import "XEProgressHUD.h"
+#import "XETopicInfo.h"
 
 @interface ExpertIntroViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -27,7 +30,7 @@
 @property (nonatomic, strong) IBOutlet UIView *sectionView;
 @property (strong, nonatomic) IBOutlet UILabel *topicLabel;
 
-
+- (IBAction)consultAction:(id)sender;
 - (IBAction)topicAction:(id)sender;
 - (IBAction)fansAction:(id)sender;
 @end
@@ -64,21 +67,34 @@
 - (void)refreshExpertInfo{
     
     __weak ExpertIntroViewController *weakSelf = self;
-    weakSelf.doctorTopics = [[NSMutableArray alloc] init];
-    [weakSelf.doctorTopics addObject:@""];
-    [weakSelf.doctorTopics addObject:@""];
-    [weakSelf.doctorTopics addObject:@""];
-    [weakSelf.doctorTopics addObject:@""];
-    [weakSelf.doctorTopics addObject:@""];
-    [weakSelf.doctorTopics addObject:@""];
-    [weakSelf.doctorTopics addObject:@""];
-    [weakSelf.doctorTopics addObject:@""];
-    [weakSelf.doctorTopics addObject:@""];
-    [weakSelf.doctorTopics addObject:@""];
-    [weakSelf.doctorTopics addObject:@""];
-    [weakSelf.doctorTopics addObject:@""];
-    
-    [weakSelf.tableView reloadData];
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] getExpertDetailWithUid:@"1" tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        
+        NSDictionary *expertDic = [[jsonRet objectForKey:@"object"] objectForKey:@"expert"];
+        [_doctorInfo setDoctorInfoByJsonDic:expertDic];
+        
+        
+        weakSelf.doctorTopics = [[NSMutableArray alloc] init];
+        NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"topics"];
+        for (NSDictionary *dic in object) {
+            XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
+            [topicInfo setTopicInfoByJsonDic:dic];
+            [weakSelf.doctorTopics addObject:topicInfo];
+        }
+        [weakSelf refreshDoctorInfoShow];
+        [weakSelf.tableView reloadData];
+        
+    }tag:tag];
 }
 
 #pragma mark - custom
@@ -89,8 +105,30 @@
     self.avatarImageView.clipsToBounds = YES;
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:@"http://f.hiphotos.baidu.com/image/pic/item/0823dd54564e9258a4909fe99f82d158ccbf4e14.jpg"] placeholderImage:[UIImage imageNamed:@""]];
+    self.doctorNameLabel.text = _doctorInfo.doctorName;
+    self.doctorCollegeLabel.text = _doctorInfo.hospital;
+    self.doctorIntroLabel.text = _doctorInfo.des;
+    
+    [self.topicButton setTitle:[NSString stringWithFormat:@"话题 %d",_doctorInfo.topicnum] forState:0];
+    [self.fansButton setTitle:[NSString stringWithFormat:@"粉丝 %d",_doctorInfo.favnum] forState:0];
+    
+    CGRect frame = _doctorIntroLabel.frame;
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    NSDictionary *attributes = @{NSFontAttributeName:_doctorIntroLabel.font, NSParagraphStyleAttributeName:paragraphStyle.copy};
+    CGSize topicTextSize = [_doctorIntroLabel.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-12-86, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+    frame.size.height = topicTextSize.height;
+    _doctorIntroLabel.frame = frame;
+    
+    frame = self.headView.frame;
+    frame.size.height = self.doctorIntroLabel.frame.origin.y + self.doctorIntroLabel.frame.size.height + 41;
+    self.headView.frame = frame;
     
     self.tableView.tableHeaderView = self.headView;
+}
+
+- (IBAction)consultAction:(id)sender {
+    
 }
 
 - (IBAction)topicAction:(id)sender {
@@ -123,7 +161,8 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return [XETopicViewCell heightForTopicInfo];
+    XETopicInfo *topicInfo = _doctorTopics[indexPath.row];
+    return [XETopicViewCell heightForTopicInfo:topicInfo];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -135,6 +174,8 @@
         cell = [cells objectAtIndex:0];
         cell.backgroundColor = [UIColor clearColor];
     }
+    XETopicInfo *topicInfo = _doctorTopics[indexPath.row];
+    cell.topicInfo = topicInfo;
     return cell;
 }
 

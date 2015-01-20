@@ -11,6 +11,9 @@
 @interface XETopicInfo : NSObject
 
 @property(nonatomic, strong) NSString* tId;
+@property(nonatomic, strong) NSString* title;
+@property(nonatomic, assign) int clicknum;
+@property(nonatomic, assign) int favnum;
 
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* topicInfoByJsonDic;
