@@ -8,8 +8,6 @@
 
 #import "XETopicViewCell.h"
 
-#define testText @"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"
-
 @implementation XETopicViewCell
 
 + (float)heightForTopicInfo:(XETopicInfo *)topicInfo{
@@ -26,7 +24,7 @@
         topicTextSize.height = 16;
     }
     float height = topicTextSize.height;
-    height += 31;
+    height += 35;
     return height;
 }
 

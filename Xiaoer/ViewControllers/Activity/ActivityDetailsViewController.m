@@ -45,6 +45,10 @@
 -(void)initNormalTitleNavBarSubviews{
 
     [self setTitle:@"活动详情"];
+    [self setRightButtonWithImageName:@"nav_collect_un_icon" selector:@selector(collectAction:)];
+    [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateHighlighted];
+    
+    [self setRight2ButtonWithImageName:@"share_icon" selector:@selector(shareAction:)];
 }
 /*
 #pragma mark - Navigation
@@ -103,6 +107,48 @@
     self.activityIntroLabel.frame = frame;
     
     self.tableView.tableHeaderView = self.headView;
+}
+
+-(void)collectAction:(id)sender{
+    
+    __weak ActivityDetailsViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] collectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        self.titleNavBarRightBtn.highlighted = !self.titleNavBarRightBtn.highlighted;
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [weakSelf.tableView reloadData];
+        
+    }tag:tag];
+}
+
+-(void)shareAction:(id)sender{
+    
+    __weak ActivityDetailsViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] shareActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [weakSelf.tableView reloadData];
+        
+    }tag:tag];
 }
 
 - (IBAction)applyActivityAction:(id)sender {

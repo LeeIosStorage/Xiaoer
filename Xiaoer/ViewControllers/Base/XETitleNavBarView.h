@@ -14,6 +14,7 @@
 @property (nonatomic, readonly) NSString * title;
 @property (weak, nonatomic) IBOutlet UIButton *toolBarLeftButton;
 @property (weak, nonatomic) IBOutlet UIButton *toolBarRightButton;
+@property (strong, nonatomic) IBOutlet UIButton *toolBarRightButton2;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 -(id)init:(id)owner;

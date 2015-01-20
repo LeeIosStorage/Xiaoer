@@ -20,6 +20,7 @@
 
 @property (nonatomic, strong) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (strong, nonatomic) IBOutlet UILabel *hotLabel;
 @property (strong, nonatomic) IBOutlet UILabel *doctorNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *doctorCollegeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *doctorIntroLabel;
@@ -52,6 +53,10 @@
 
 -(void)initNormalTitleNavBarSubviews{
     [self setTitle:@"专家介绍"];
+    [self setRightButtonWithImageName:@"nav_collect_un_icon" selector:@selector(collectAction:)];
+    [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateHighlighted];
+    
+    [self setRight2ButtonWithImageName:@"share_icon" selector:@selector(shareAction:)];
 }
 
 /*
@@ -104,13 +109,14 @@
     self.avatarImageView.layer.masksToBounds = YES;
     self.avatarImageView.clipsToBounds = YES;
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:@"http://f.hiphotos.baidu.com/image/pic/item/0823dd54564e9258a4909fe99f82d158ccbf4e14.jpg"] placeholderImage:[UIImage imageNamed:@""]];
-    self.doctorNameLabel.text = _doctorInfo.doctorName;
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:@"http://f.hiphotos.baidu.com/image/pic/item/0823dd54564e9258a4909fe99f82d158ccbf4e14.jpg"] placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
+    self.doctorNameLabel.text = [NSString stringWithFormat:@"%@ %d岁",_doctorInfo.doctorName,_doctorInfo.age];
     self.doctorCollegeLabel.text = _doctorInfo.hospital;
     self.doctorIntroLabel.text = _doctorInfo.des;
     
     [self.topicButton setTitle:[NSString stringWithFormat:@"话题 %d",_doctorInfo.topicnum] forState:0];
     [self.fansButton setTitle:[NSString stringWithFormat:@"粉丝 %d",_doctorInfo.favnum] forState:0];
+    self.hotLabel.text = [NSString stringWithFormat:@"%d",_doctorInfo.favnum];
     
     CGRect frame = _doctorIntroLabel.frame;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
@@ -125,6 +131,47 @@
     self.headView.frame = frame;
     
     self.tableView.tableHeaderView = self.headView;
+}
+
+-(void)collectAction:(id)sender{
+    
+    __weak ExpertIntroViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] collectExpertWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        self.titleNavBarRightBtn.highlighted = !self.titleNavBarRightBtn.highlighted;
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [weakSelf.tableView reloadData];
+        
+    }tag:tag];
+    
+}
+
+-(void)shareAction:(id)sender{
+    __weak ExpertIntroViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] shareExpertWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [weakSelf.tableView reloadData];
+        
+    }tag:tag];
 }
 
 - (IBAction)consultAction:(id)sender {
