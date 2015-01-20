@@ -127,6 +127,12 @@ enum TABLEVIEW_SECTION_INDEX {
         self.address.text  = _userInfo.address;
         self.tableView.tableHeaderView = self.headView;
     }
+    
+    ///底部加点间隙
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 19)];
+    footer.userInteractionEnabled = NO;
+    footer.backgroundColor = [UIColor clearColor];
+    _tableView.tableFooterView = footer;
 //    [self.ownerHeadImageView sd_setImageWithURL:_userInfo.mediumAvatarUrl placeholderImage:[UIImage imageNamed:@"placeholder_avatar_icon"]];
 //    if (_userInfo.backgroudImageUrl) {
 //        [self.ownerbkImageView sd_setImageWithURL:_userInfo.largeAvatarUrl placeholderImage:[UIImage imageNamed:@"placeholder_avatar_bg"]];

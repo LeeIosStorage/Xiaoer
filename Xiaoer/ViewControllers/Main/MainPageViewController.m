@@ -64,7 +64,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
--(XEUserInfo *)getOldBabyUserInfo:(NSInteger)index{
+-(XEUserInfo *)getBabyUserInfo:(NSInteger)index{
     _userInfo = [XEEngine shareInstance].userInfo;
     if (_userInfo.babys.count > index) {
         XEUserInfo *babyUserInfo = [_userInfo.babys objectAtIndex:index];
@@ -74,11 +74,17 @@
 }
 
 - (void)refreshUserInfoShow{
-    XEUserInfo *userInfo = [self getOldBabyUserInfo:0];
+    XEUserInfo *userInfo = [self getBabyUserInfo:0];
     [self.avatarImageView sd_setImageWithURL:userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"home_placeholder_avatar"]];
     self.avatarImageView.layer.CornerRadius = 8;
     self.nickName.text = _userInfo.nickName;
     self.birthday.text = userInfo.birthdayString;
+    
+    ///底部加点间隙
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 19)];
+    footer.userInteractionEnabled = NO;
+    footer.backgroundColor = [UIColor clearColor];
+    _tableView.tableFooterView = footer;
 }
 
 - (void)getHomePageInfo{
@@ -96,11 +102,9 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        NSLog(@"jsonRet===============%@",jsonRet);
+        //NSLog(@"jsonRet===============%@",jsonRet);
         weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%@条新消息",[[jsonRet objectForKey:@"object"] objectForKey:@"msgnum"]];
         _mallurl = [[jsonRet objectForKey:@"object"] objectForKey:@"mallurl"];
-        //_mallurl = @"http://www.baidu.com";
-        NSLog(@"mallurl===============%@",_mallurl);
         [XEProgressHUD AlertSuccess:@"获取成功."];
     }tag:tag];
 }
@@ -174,9 +178,7 @@
 
 -(void)initNormalTitleNavBarSubviews{
     
-//    [self setLeftButtonWithSelector:@selector(settingAction:)];
-    [self setRightButtonWithTitle:@"按钮" selector:@selector(settingAction:)];
-    
+    //...
 }
 
 - (UINavigationController *)navigationController{
@@ -184,12 +186,6 @@
         return [super navigationController];
     }
     return self.tabController.navigationController;
-}
-
-#pragma mark - IBAction
--(void)settingAction:(id)sender{
-    ExpertListViewController *vc = [[ExpertListViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -- UICollectionViewDataSource

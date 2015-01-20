@@ -36,6 +36,10 @@ CGFloat const SGProgressBarHeight = 2.5;
     frame.origin.y = [self titleNavBar].frame.size.height;
     frame.size.height -=  frame.origin.y;
     self.mainWebView.frame = frame;
+    
+    frame = self.titleNavBar.frame;
+    frame.size.width = SCREEN_WIDTH;
+    self.titleNavBar.frame = frame;
 }
 
 
@@ -232,7 +236,7 @@ CGFloat const SGProgressBarHeight = 2.5;
     
     UIView *progressView = [self setupSGProgressSubview];
     
-    float maxWidth = self.titleNavBar.frame.size.width;
+    float maxWidth = SCREEN_WIDTH;
     float progressWidth = maxWidth * (percentage / 100);
     
     
@@ -302,7 +306,7 @@ CGFloat const SGProgressBarHeight = 2.5;
     {
         [UIView animateWithDuration:0.5 animations:^{
             CGRect progressFrame = progressView.frame;
-            progressFrame.size.width = self.titleNavBar.frame.size.width;
+            progressFrame.size.width = SCREEN_WIDTH;
             progressView.frame = progressFrame;
         }];
     }
