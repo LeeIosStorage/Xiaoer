@@ -20,8 +20,10 @@
 #import "XELinkerHandler.h"
 #import "XECollectionViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "ODRefreshControl.h"
 
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
+    ODRefreshControl *_themeControl;
     XEScrollPage *scrollPageView;
     BOOL _isScrollViewDrag;
     NSString *_mallurl;
@@ -59,6 +61,9 @@
     
     //此句不加程序崩
     [self.collectionView registerClass:[XECollectionViewCell class] forCellWithReuseIdentifier:@"XECollectionViewCell"];
+    
+    _themeControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
+    [_themeControl addTarget:self action:@selector(themeBeginPull:) forControlEvents:UIControlEventValueChanged];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -110,12 +115,12 @@
 }
 
 - (void)getThemeInfo{
-    [XEProgressHUD AlertLoading];
+
     __weak MainPageViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getBannerWithTag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+        [_themeControl endRefreshing:err==nil];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
@@ -145,7 +150,7 @@
             [weakSelf refreshAdsScrollView];
         }
         
-        [XEProgressHUD AlertSuccess:@"获取成功."];
+//        [XEProgressHUD AlertSuccess:@"获取成功."];
     }tag:tag];
 }
 
@@ -358,6 +363,14 @@
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     _isScrollViewDrag = YES;
+}
+
+#pragma mark - ODRefreshControl
+- (void)themeBeginPull:(ODRefreshControl *)refreshControl
+{
+    if (_isScrollViewDrag) {
+        [self performSelector:@selector(getThemeInfo) withObject:self afterDelay:1.0];
+    }
 }
 
 //#pragma LSScrollPage delegate

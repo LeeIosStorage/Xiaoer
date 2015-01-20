@@ -122,7 +122,7 @@
                     <rect key="frame" x="266" y="148" width="46" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="编辑" backgroundImage="edit_mine_icon">
-                        <color key="titleColor" red="0.43921571970000001" green="0.76862752440000004" blue="0.90588241820000004" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="titleColor" red="0.10588235294117647" green="0.72549019607843135" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>

@@ -15,7 +15,7 @@
 #import "UIColor+bit.h"
 #import "XELinkerHandler.h"
 
-#define Selected_Color [UIColor colorWithRed:(1.0 * 58 / 255) green:(1.0 * 161 / 255) blue:(1.0 * 248 / 255) alpha:1]
+//#define Selected_Color [UIColor colorWithRed:(1.0 * 58 / 255) green:(1.0 * 161 / 255) blue:(1.0 * 248 / 255) alpha:1]
 #define UnSelected_Color [UIColor colorWithRed:(1.0 * 172 / 255) green:(1.0 * 177 / 255) blue:(1.0 * 183 / 255) alpha:1]
 #define XEDisplayMotionHeight 47
 #define XERefreshInterval     60 
@@ -58,7 +58,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     
     
     _unselectedLabelColor = UnSelected_Color;
-    _selectedLabelColor = Selected_Color;
+    _selectedLabelColor = SKIN_COLOR;
     _selectedIndex = 1;
     
     _hotUnionDic = [[NSMutableDictionary alloc] init];

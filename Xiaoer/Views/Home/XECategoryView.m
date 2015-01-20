@@ -58,7 +58,7 @@
 //        [cell.infoImageView sd_setImageWithURL:[NSURL URLWithString:info.recipesImageUrl] placeholderImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
 //    }else{
 //        [cell.infoImageView sd_setImageWithURL:nil];
-        [cell.infoImageView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
+        [cell.infoImageView setImage:[UIImage imageNamed:@"information_placeholder_icon"]];
 //    }
 //    
     cell.titleLabel.text = info.title;

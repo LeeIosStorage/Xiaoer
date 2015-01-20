@@ -34,6 +34,7 @@
     if (self) {
         //load view
         _owner = owner;
+        self.backgroundImageView.backgroundColor = SKIN_COLOR;
     }
     return self;
 }

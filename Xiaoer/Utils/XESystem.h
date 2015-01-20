@@ -25,7 +25,7 @@
 
 #define XE_IMAGE_COMPRESSION_QUALITY 0.4
 
-#define SKIN_COLOR [UIColor colorWithRed:(1.0*0x1b/0xff) green:(1.0*0xa7/0xff) blue:(1.0*0xd8/0xff) alpha:1]
+#define SKIN_COLOR [UIColor colorWithRed:(1.0*0x1b/0xff) green:(1.0*0xb9/0xff) blue:(1.0*0xe8/0xff) alpha:1]
 
 //获取屏幕 宽度、高度
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)

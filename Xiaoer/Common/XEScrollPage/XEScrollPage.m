@@ -12,7 +12,7 @@
 #import "MainPageViewController.h"
 
 #define XE_ADS_BASE_TAG 10010
-#define Selected_Color [UIColor colorWithRed:(1.0 * 58 / 255) green:(1.0 * 161 / 255) blue:(1.0 * 248 / 255) alpha:1]
+#define Selected_Color SKIN_COLOR
 #define UnSelected_Color [UIColor colorWithRed:(1.0 * 172 / 255) green:(1.0 * 177 / 255) blue:(1.0 * 183 / 255) alpha:1]
 
 @interface XEScrollPage ()<UIScrollViewDelegate>{
@@ -57,10 +57,10 @@
     _adsPageControl.currentPageIndicatorTintColor = Selected_Color;
     _adsPageControl.pageIndicatorTintColor = UnSelected_Color;
 //    [_adsPageControl setDotImage:[UIImage imageNamed:@"found_pagecontrol_unselected@2x.png"] selectedImage:[UIImage imageNamed:@"found_pagecontrol_selected@2x.png"]];
-    //这两行要加 防止再刷新的时候不更新画面
-//    _adsPageControl.currentPage = 0;
+//    这两行要加 防止再刷新的时候不更新画面
+    _adsPageControl.currentPage = 0;
     
-//    _adsScrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height);
+    _adsScrollView.contentSize = CGSizeMake(frame.size.width, frame.size.height);
     [self refreshWithFrame:frame];
     
     if (_dataArray.count > 1) {
