@@ -50,6 +50,38 @@
         _istop = [objectForKey boolValue];
     }
     
+    
+    
+    
+    objectForKey = [dic objectForKey:@"regnum"];
+    if (objectForKey) {
+        _regnum = [objectForKey intValue];
+    }
+    
+    objectForKey = [dic objectForKey:@"minnum"];
+    if (objectForKey) {
+        _minnum = [objectForKey intValue];
+    }
+    
+    objectForKey = [dic objectForKey:@"des"];
+    if (objectForKey) {
+        _des = objectForKey;
+    }
+    
+    objectForKey = [dic objectForKey:@"phone"];
+    if (objectForKey) {
+        _phone = objectForKey;
+    }
+    
+    objectForKey = [dic objectForKey:@"contact"];
+    if (objectForKey) {
+        _contact = objectForKey;
+    }
+    
+    objectForKey = [dic objectForKey:@"url"];
+    if (objectForKey && [objectForKey isKindOfClass:[NSString class]]) {
+        _picUrl = [NSURL URLWithString:objectForKey];
+    }
 }
 
 -(void)setActivityInfoByJsonDic:(NSDictionary *)dic{

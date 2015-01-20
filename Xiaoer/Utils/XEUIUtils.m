@@ -161,6 +161,49 @@ static bool dateFormatterOFUSInvalid ;
     return _timestamp;
 }
 
++ (NSString*)dateDiscriptionFromNowBk:(NSDate*)date{
+    NSString *_timestamp = nil;
+    NSDate* nowDate = [NSDate date];
+    if (date == nil) {
+        return @"";
+    }
+    int distance = [nowDate timeIntervalSinceDate:date];
+    if (distance < 0) distance = 0;
+    NSCalendar * calender = [NSCalendar currentCalendar];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit |
+    NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit | NSWeekdayCalendarUnit;
+    NSDateComponents *comps = [calender components:unitFlags fromDate:date];
+    NSDateComponents *compsNow = [calender components:unitFlags fromDate:nowDate];
+    
+    if (distance < 0) {
+        distance = 0;
+    }
+    if (distance < 60) {
+        _timestamp = [NSString stringWithFormat:@"%d%@", distance, @"刚刚"];
+    } else if (distance < 60*60) {
+        _timestamp = [NSString stringWithFormat:@"%d%@", distance/60, @"分钟前"];
+    }else if (distance < 60*60*24) {
+        if (comps.day == compsNow.day)
+        {
+            _timestamp = [NSString stringWithFormat:@"今天 %02ld:%02ld", comps.hour,comps.minute];
+        }
+        else
+            _timestamp = [NSString stringWithFormat:@"昨天 %02ld:%02ld", comps.hour,comps.minute];
+    }else if (distance < 60*60*24*2) {
+        _timestamp = [NSString stringWithFormat:@"昨天 %02ld:%02ld", comps.hour,comps.minute];
+    }else if (distance < 60*60*24*3) {
+        _timestamp = [NSString stringWithFormat:@"前天 %02ld:%02ld", comps.hour,comps.minute];
+    }else {
+        if (comps.year == compsNow.year){
+            _timestamp = [NSString stringWithFormat:@"%ld月%ld日 %02ld:%02ld", comps.month, comps.day, comps.hour, comps.minute];
+        } else {
+            _timestamp = [NSString stringWithFormat:@"%04ld年%02ld月%02ld日 %02ld:%02ld", comps.year, comps.month, comps.day, comps.hour, comps.minute];
+        }
+    }
+    
+    return _timestamp;
+}
+
 
 + (NSString*)documentOfCameraDenied
 {

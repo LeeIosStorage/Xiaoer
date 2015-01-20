@@ -43,6 +43,7 @@
 @property(nonatomic, readonly) NSURL* babySmallAvatarUrl;
 @property(nonatomic, strong) NSString* babyGender;
 @property(nonatomic, assign) int babyMonth;
+@property(nonatomic, assign) int stage;
 @property(nonatomic, strong) NSDate* birthdayDate;
 @property(nonatomic, strong) NSString* birthdayString;
 

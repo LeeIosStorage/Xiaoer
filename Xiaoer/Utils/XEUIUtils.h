@@ -32,6 +32,7 @@
 //年龄
 + (int)getAgeByDate:(NSDate*)date;
 + (NSString*)dateDiscriptionFromDate:(NSDate*)date;
++ (NSString*)dateDiscriptionFromNowBk:(NSDate*)date;
 
 + (NSDateFormatter *) dateFormatterOFUS;
 + (NSDate*)dateFromUSDateString:(NSString*)string;

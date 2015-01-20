@@ -37,4 +37,7 @@ dispatch_sync(dispatch_get_main_queue(), block);\
 
 + (NSDictionary *)getParamDictFrom:(NSString *)query;
 
+//拨打电话
++ (void)usePhoneNumAction:(NSString *)phone;
+
 @end

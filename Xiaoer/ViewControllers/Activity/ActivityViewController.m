@@ -38,7 +38,7 @@
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = UIColorRGB(240, 240, 240);
     
-    [self refreshActivityList];
+    [self feedsTypeSwitch:ACTIVITY_TYPE_APPLY needRefreshFeeds:YES];
 }
 
 - (void)didReceiveMemoryWarning {
