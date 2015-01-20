@@ -427,7 +427,7 @@ static XEEngine* s_ShareInstance = nil;
 - (void)onResponse:(id)jsonRet withTag:(int)tag withError:(NSError *)errPtr
 {
     if (!jsonRet) {
-        NSLog(@"========================%@",[jsonRet objectForKey:@"code"]);
+        //NSLog(@"========================%@",[jsonRet objectForKey:@"code"]);
     }
     
     dispatch_async(dispatch_get_main_queue(), ^(){

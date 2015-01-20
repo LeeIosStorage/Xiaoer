@@ -254,6 +254,4 @@
     return [NSString stringWithFormat:@"%ld-%ld-%ld", comps.year, comps.month, comps.day];
 }
 
-
-
 @end

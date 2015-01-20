@@ -19,6 +19,7 @@
 #import "ActivityViewController.h"
 #import "XELinkerHandler.h"
 #import "XECollectionViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     XEScrollPage *scrollPageView;
@@ -27,14 +28,19 @@
 }
 
 @property (nonatomic, strong) NSMutableArray *adsThemeArray;
+@property (nonatomic, strong) XEUserInfo *userInfo;
 
 @property (nonatomic, strong) IBOutlet UIView *adsViewContainer;
 @property (strong, nonatomic) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UILabel *unreadLabel;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet UILabel *nickName;
+@property (strong, nonatomic) IBOutlet UILabel *birthday;
+@property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
 
 - (IBAction)mineMsgAction:(id)sender;
+- (IBAction)historyAction:(id)sender;
 
 @end
 
@@ -44,17 +50,35 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:@"首页"];
+    [self refreshUserInfoShow];
     
-    //此句不加程序崩
-    [self.collectionView registerClass:[XECollectionViewCell class] forCellWithReuseIdentifier:@"XECollectionViewCell"];
-    //[self initGridView];
     //获取首页信息
     [self getHomePageInfo];
     //获取广告位信息
     [self getThemeInfo];
     
+    //此句不加程序崩
+    [self.collectionView registerClass:[XECollectionViewCell class] forCellWithReuseIdentifier:@"XECollectionViewCell"];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+-(XEUserInfo *)getOldBabyUserInfo:(NSInteger)index{
+    _userInfo = [XEEngine shareInstance].userInfo;
+    if (_userInfo.babys.count > index) {
+        XEUserInfo *babyUserInfo = [_userInfo.babys objectAtIndex:index];
+        return babyUserInfo;
+    }
+    return nil;
+}
+
+- (void)refreshUserInfoShow{
+    XEUserInfo *userInfo = [self getOldBabyUserInfo:0];
+    [self.avatarImageView sd_setImageWithURL:userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"home_placeholder_avatar"]];
+    self.avatarImageView.layer.CornerRadius = 8;
+    self.nickName.text = _userInfo.nickName;
+    self.birthday.text = userInfo.birthdayString;
 }
 
 - (void)getHomePageInfo{
@@ -167,98 +191,6 @@
     ExpertListViewController *vc = [[ExpertListViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
-
-//#pragma mark -- GMGridViewDataSource
-//- (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView{
-//    return 6;
-//}
-//
-//- (CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation{
-//    return CGSizeMake(GROUP_GRID_ITEM_WIDTH, GROUP_GRID_ITEM_HEIGHT);
-//}
-//
-//- (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index{
-//    
-//    GMGridViewCell *cell = [[GMGridViewCell alloc] init];
-//    XEGridView *chatSetv;
-//    chatSetv = [[[NSBundle mainBundle] loadNibNamed:@"XEGridView" owner:nil options:nil] objectAtIndex:0];
-//    cell.contentView = chatSetv;
-//    chatSetv.nameLabel.textColor = [UIColor darkGrayColor];
-//    if(index == 0){
-//        cell.deleteButtonIcon = nil;
-//        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"home_recipes_icon"]];
-//        [chatSetv.nameLabel setText:@"食谱"];
-//    }else if(index == 1){
-//        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"home_nourish_icon"]];
-//        chatSetv.nameLabel.text = @"养育";
-//    }else if(index == 2){
-//        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"home_evaluation_icon"]];
-//        chatSetv.nameLabel.text = @"测评";
-//    }else if(index == 3){
-//        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"home_expert_icon"]];
-//        chatSetv.nameLabel.text = @"专家";
-//    }else if(index == 4){
-//        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"home_activity_icon"]];
-//        chatSetv.nameLabel.text = @"活动";
-//    }else if(index == 5){
-//        [chatSetv.avatarImgView setImage:[UIImage imageNamed:@"home_mall_icon"]];
-//        chatSetv.nameLabel.text = @"商城";
-//    }
-//    
-//    return cell;
-//}
-//
-//#pragma mark -- GMGridViewActionDelegate
-//- (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position{
-//    switch (position) {
-//        case 5:{
-//            NSLog(@"============商城");
-//            id vc = [XELinkerHandler handleDealWithHref:_mallurl From:self.navigationController];
-//            if (vc) {
-//                [self.navigationController pushViewController:vc animated:YES];
-//            }
-//            break;
-//        }
-//        case 4:{
-//            NSLog(@"============活动");
-//            ActivityViewController *vc = [[ActivityViewController alloc] init];
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
-//
-//            break;
-//        case 3:{
-//            NSLog(@"============专家");
-//            ExpertListViewController *vc = [[ExpertListViewController alloc] init];
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
-//            break;
-//        case 2:{
-//            NSLog(@"============测评");
-//            RecipesViewController *rVc = [[RecipesViewController alloc] init];
-//            rVc.infoType = TYPE_EVALUATION;
-//            [self.navigationController pushViewController:rVc animated:YES];
-//            break;
-//        }
-//        case 1:{
-//            NSLog(@"============养育");
-//            RecipesViewController *rVc = [[RecipesViewController alloc] init];
-//            rVc.infoType = TYPE_NOURISH;
-//            [self.navigationController pushViewController:rVc animated:YES];
-//            break;
-//        }
-//        case 0:
-//        {
-//            NSLog(@"============食谱");
-//            RecipesViewController *rVc = [[RecipesViewController alloc] init];
-//            rVc.infoType = TYPE_RECIPES;
-//            [self.navigationController pushViewController:rVc animated:YES];
-//            break;
-//        }
-//        default:
-//            break;
-//    }
-//    //NSInteger count = [self numberOfItemsInGMGridView:gridView];
-//}
 
 #pragma mark -- UICollectionViewDataSource
 //定义展示的UICollectionViewCell的个数
@@ -382,12 +314,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return SINGLE_HEADER_HEADER;
+    return 10;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, SINGLE_HEADER_HEADER)];
-    view.backgroundColor = [UIColor clearColor];
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 10)];
+    view.backgroundColor = UIColorRGB(234,234,234);
     return view;
 }
 
@@ -416,6 +349,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section is %ld",(long)indexPath.row);
+    
+    id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
+    if (vc) {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
 }
@@ -463,4 +402,13 @@
 - (IBAction)mineMsgAction:(id)sender {
     NSLog(@"============我的消息");
 }
+
+- (IBAction)historyAction:(id)sender {
+    id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
+    if (vc) {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+
+}
+
 @end
