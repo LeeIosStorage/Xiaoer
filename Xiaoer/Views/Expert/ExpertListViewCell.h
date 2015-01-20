@@ -19,6 +19,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *doctorAgeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *doctorCollegeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *doctorIntroLabel;
+@property (strong, nonatomic) IBOutlet UIButton *consultButton;
 
 + (float)heightForDoctorInfo:(XEDoctorInfo *)doctorInfo;
 

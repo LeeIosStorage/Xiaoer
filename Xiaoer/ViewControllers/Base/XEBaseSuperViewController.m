@@ -114,6 +114,7 @@
     if ([_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
         _titleNavBarLeftButton = ((XETitleNavBarView *) _titleNavBar).toolBarLeftButton;
         _titleNavBarRightBtn = ((XETitleNavBarView *) _titleNavBar).toolBarRightButton;
+        _titleNavBarRightBtn2 = ((XETitleNavBarView *) _titleNavBar).toolBarRightButton2;
         _segmentedControl = ((XETitleNavBarView *) _titleNavBar).segmentedControl;
         _segmentedControl.hidden = YES;
     }
@@ -278,6 +279,24 @@
     }
 }
 
+-(void) setRight2ButtonWithTitle:(NSString *) buttonTitle selector:(SEL) selector{
+    if (![_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
+        return;
+    }
+    
+    if (_titleNavBarRightBtn2) {
+        _titleNavBarRightBtn2.hidden = NO;
+        [_titleNavBarRightBtn2 setTitle:buttonTitle forState:UIControlStateNormal];
+        [_titleNavBarRightBtn2 addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+-(void) setRight2ButtonWithImageName:(NSString *) butonImageName selector:(SEL) selector{
+    if ([_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
+        _titleNavBarRightBtn2.hidden = NO;
+        [_titleNavBarRightBtn2 setImage:[UIImage imageNamed:butonImageName] forState:UIControlStateNormal];
+        [_titleNavBarRightBtn2 addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
+    }
+}
 
 #pragma mark - ScrollViewContentInset
 -(void) setContentInsetForScrollView:(UIScrollView *) scrollview

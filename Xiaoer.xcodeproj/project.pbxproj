@@ -67,6 +67,8 @@
 		075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075AA0471A690C58000B6302 /* ActivityDetailsViewController.xib */; };
 		075B031E1A6CAC28002B577D /* ApplyActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B031C1A6CAC28002B577D /* ApplyActivityViewController.m */; };
 		075B031F1A6CAC28002B577D /* ApplyActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075B031D1A6CAC28002B577D /* ApplyActivityViewController.xib */; };
+		075B03231A6DECE2002B577D /* XEPublicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075B03211A6DECE2002B577D /* XEPublicViewController.m */; };
+		075B03241A6DECE2002B577D /* XEPublicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075B03221A6DECE2002B577D /* XEPublicViewController.xib */; };
 		075CAF4C1A5D0E6A005CF4B6 /* SetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075CAF4A1A5D0E6A005CF4B6 /* SetPwdViewController.m */; };
 		075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075CAF4B1A5D0E6A005CF4B6 /* SetPwdViewController.xib */; };
 		075CAF721A5D338F005CF4B6 /* NSString+Value.m in Sources */ = {isa = PBXBuildFile; fileRef = 075CAF711A5D338F005CF4B6 /* NSString+Value.m */; };
@@ -299,6 +301,9 @@
 		075B031B1A6CAC28002B577D /* ApplyActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyActivityViewController.h; sourceTree = "<group>"; };
 		075B031C1A6CAC28002B577D /* ApplyActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyActivityViewController.m; sourceTree = "<group>"; };
 		075B031D1A6CAC28002B577D /* ApplyActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ApplyActivityViewController.xib; sourceTree = "<group>"; };
+		075B03201A6DECE2002B577D /* XEPublicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEPublicViewController.h; sourceTree = "<group>"; };
+		075B03211A6DECE2002B577D /* XEPublicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEPublicViewController.m; sourceTree = "<group>"; };
+		075B03221A6DECE2002B577D /* XEPublicViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEPublicViewController.xib; sourceTree = "<group>"; };
 		075CAF491A5D0E6A005CF4B6 /* SetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPwdViewController.h; sourceTree = "<group>"; };
 		075CAF4A1A5D0E6A005CF4B6 /* SetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPwdViewController.m; sourceTree = "<group>"; };
 		075CAF4B1A5D0E6A005CF4B6 /* SetPwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetPwdViewController.xib; sourceTree = "<group>"; };
@@ -915,6 +920,9 @@
 				076F32571A5F806200346F44 /* XEInputViewController.xib */,
 				0746446B1A6C9F7200CE2935 /* XECommonWebVc.h */,
 				0746446C1A6C9F7200CE2935 /* XECommonWebVc.m */,
+				075B03201A6DECE2002B577D /* XEPublicViewController.h */,
+				075B03211A6DECE2002B577D /* XEPublicViewController.m */,
+				075B03221A6DECE2002B577D /* XEPublicViewController.xib */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1362,6 +1370,7 @@
 				07E536321A5290C9005E1DA9 /* EvaluationViewController.xib in Resources */,
 				07E284721A5A8DFC005651EB /* UMSCommentDetailController.xib in Resources */,
 				077916711A5E64BA0047C17C /* PerfectInfoViewController.xib in Resources */,
+				075B03241A6DECE2002B577D /* XEPublicViewController.xib in Resources */,
 				071D51971A674FC6003D6752 /* MainTabCell.xib in Resources */,
 				07E284781A5A8DFC005651EB /* UMSnsAccountViewController.xib in Resources */,
 				07E284731A5A8DFC005651EB /* UMSCommentInputController.xib in Resources */,
@@ -1468,6 +1477,7 @@
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
 				07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */,
 				075E409B1A59386C0062F6AD /* AFSecurityPolicy.m in Sources */,
+				075B03231A6DECE2002B577D /* XEPublicViewController.m in Sources */,
 				073F9F171A68D0CB009D94E3 /* XERecipesInfo.m in Sources */,
 				077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */,
 				0712B3AB1A5BD853000A1A7F /* SDWebImageDownloaderOperation.m in Sources */,

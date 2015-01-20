@@ -234,20 +234,17 @@
 }
 
 #pragma mark - UITextViewDelegate
-
+static int _maxTextLength = 200;
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if (text.length == 0) {
         return YES;
     }
-//    int newLength = [XECommonUtils getHanziTextNum:[textView.text stringByAppendingString:text]];
-//    if(newLength >= _maxTextLength && textView.markedTextRange == nil) {
-//        _remainTextNum = 0;
-//        _inputTextView.text = [XECommonUtils getHanziTextWithText:[textView.text stringByReplacingCharactersInRange:range withString:text] maxLength:_maxTextLength];
-//        [self updateRemainNumLabel];
-//        return NO;
-//    }
+    int newLength = [XECommonUtils getHanziTextNum:[textView.text stringByAppendingString:text]];
+    if(newLength >= _maxTextLength && textView.markedTextRange == nil) {
+        _textView.text = [XECommonUtils getHanziTextWithText:[textView.text stringByReplacingCharactersInRange:range withString:text] maxLength:_maxTextLength];
+        return NO;
+    }
     
-    //bug fix输入表情后，连续输入回车后，光标在textview下边，输入文字后，光标也未上升一行，导致输入文字看不到
     [textView scrollRangeToVisible:range];
     return YES;
 }
@@ -259,9 +256,9 @@
 //        return;
 //    }
     
-//    if ([XECommonUtils getHanziTextNum:textView.text] > _maxTextLength && textView.markedTextRange == nil) {
-//        textView.text = [XECommonUtils getHanziTextWithText:textView.text maxLength:_maxTextLength];
-//    }
+    if ([XECommonUtils getHanziTextNum:textView.text] > _maxTextLength && textView.markedTextRange == nil) {
+        textView.text = [XECommonUtils getHanziTextWithText:textView.text maxLength:_maxTextLength];
+    }
     [self updateRemainNumLabel];
 }
 

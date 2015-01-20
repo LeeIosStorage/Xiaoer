@@ -18,15 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="139"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PTg-55-jgi">
-                                <rect key="frame" x="258" y="85" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PTg-55-jgi">
+                                <rect key="frame" x="250" y="79" width="54" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                <state key="normal" title="咨询">
+                                <state key="normal" image="consult_button">
                                     <color key="titleColor" red="0.1058823529" green="0.65490196079999996" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="segment_arrows" id="bk5-ls-cDX">
+                                <rect key="frame" x="239" y="77" width="3" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -35,7 +38,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="张培元 主任医生" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bg2-Am-M8y">
-                        <rect key="frame" x="66" y="20" width="122" height="21"/>
+                        <rect key="frame" x="66" y="20" width="119" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -50,7 +53,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上海复旦儿科医院" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ifb-u1-JFe">
-                        <rect key="frame" x="187" y="20" width="126" height="21"/>
+                        <rect key="frame" x="184" y="20" width="125" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -58,10 +61,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="硕士生导师，毕业于某某医学部硕士生导师，毕业于某某医学部硕士生导师，毕业于某某医学部硕士生导师，毕业于某某医学部硕士生导师，毕业于某某医学部" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TnE-cB-7Rq">
-                        <rect key="frame" x="12" y="66" width="222" height="54"/>
+                        <rect key="frame" x="12" y="66" width="222" height="51"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -69,6 +72,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="avatarImageView" destination="qB7-g4-hlI" id="JAv-V3-Lfj"/>
+                <outlet property="consultButton" destination="PTg-55-jgi" id="TvC-zT-1Us"/>
                 <outlet property="doctorAgeLabel" destination="q9Z-Za-eBI" id="eOe-9t-Kc2"/>
                 <outlet property="doctorCollegeLabel" destination="ifb-u1-JFe" id="H9s-MN-ZWX"/>
                 <outlet property="doctorIntroLabel" destination="TnE-cB-7Rq" id="Tbo-77-Fws"/>
@@ -78,6 +82,10 @@
             <point key="canvasLocation" x="271" y="506.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="consult_button" width="47" height="23"/>
+        <image name="segment_arrows" width="2" height="40"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) IBOutlet UIView *titleNavBar;
 @property (nonatomic, strong) IBOutlet UIButton *titleNavBarRightBtn;
+@property (nonatomic, strong) IBOutlet UIButton *titleNavBarRightBtn2;
 @property (nonatomic, strong) IBOutlet UISegmentedControl *segmentedControl;
 
 //title
@@ -48,9 +49,10 @@
 //right button
 -(void) setRightButtonWithTitle:(NSString *) buttonTitle;
 -(void) setRightButtonWithTitle:(NSString *) buttonTitle selector:(SEL) selector;
-
 -(void) setRightButtonWithImageName:(NSString *) butonImageName selector:(SEL) selector;
 
+-(void) setRight2ButtonWithTitle:(NSString *) buttonTitle selector:(SEL) selector;
+-(void) setRight2ButtonWithImageName:(NSString *) butonImageName selector:(SEL) selector;
 
 /*! @brief 设置tableview的contentInset
  *

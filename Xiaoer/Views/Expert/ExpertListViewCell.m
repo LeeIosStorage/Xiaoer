@@ -46,7 +46,7 @@
 
 -(void)setDoctorInfo:(XEDoctorInfo *)doctorInfo{
     
-    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:doctorInfo.avatar] placeholderImage:[UIImage imageNamed:@""]];
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:doctorInfo.avatar] placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
     _doctorNameLabel.text = doctorInfo.doctorName;
     _doctorCollegeLabel.text = doctorInfo.hospital;
     _doctorIntroLabel.text = doctorInfo.des;

@@ -13,6 +13,7 @@
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
 #import "XEDoctorInfo.h"
+#import "XEPublicViewController.h"
 
 @interface ExpertListViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -114,8 +115,8 @@
         NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
         cell = [cells objectAtIndex:0];
         cell.backgroundColor = [UIColor clearColor];
+        [cell.consultButton addTarget:self action:@selector(handleClickAt:event:) forControlEvents:UIControlEventTouchUpInside];
     }
-//    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:@"http://f.hiphotos.baidu.com/image/pic/item/0823dd54564e9258a4909fe99f82d158ccbf4e14.jpg"] placeholderImage:[UIImage imageNamed:@""]];
     XEDoctorInfo *doctorInfo = _expertList[indexPath.row];
     cell.doctorInfo = doctorInfo;
     return cell;
@@ -130,6 +131,23 @@
     ExpertIntroViewController *vc = [[ExpertIntroViewController alloc] init];
     vc.doctorInfo = doctorInfo;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)handleClickAt:(id)sender event:(id)event{
+    NSSet *touches = [event allTouches];
+    UITouch *touch = [touches anyObject];
+    CGPoint currentTouchPosition = [touch locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
+    if (indexPath != nil){
+        NSLog(@"indexPath: row:%ld", indexPath.row);
+//        [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+        XEDoctorInfo *doctorInfo = _expertList[indexPath.row];
+        XEPublicViewController *vc = [[XEPublicViewController alloc] init];
+        vc.publicType = Public_Type_Expert;
+        vc.doctorInfo = doctorInfo;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
 }
 
 @end
