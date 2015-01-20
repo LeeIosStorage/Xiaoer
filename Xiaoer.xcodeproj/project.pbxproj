@@ -59,6 +59,14 @@
 		07508E941A51346300873B45 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07508E921A51346300873B45 /* LaunchScreen.xib */; };
 		07508EA01A51346300873B45 /* XiaoerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07508E9F1A51346300873B45 /* XiaoerTests.m */; };
 		07582CF71A6E37F200CDCA13 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582CF61A6E37F200CDCA13 /* ODRefreshControl.m */; };
+		07582D0D1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D0A1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m */; };
+		07582D0E1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D0C1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m */; };
+		07582D181A6E5B6200CDCA13 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D101A6E5B6200CDCA13 /* CollectionViewController.m */; };
+		07582D191A6E5B6200CDCA13 /* CollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07582D111A6E5B6200CDCA13 /* CollectionViewController.xib */; };
+		07582D1A1A6E5B6200CDCA13 /* MineMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D131A6E5B6200CDCA13 /* MineMsgViewController.m */; };
+		07582D1B1A6E5B6200CDCA13 /* MineMsgViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07582D141A6E5B6200CDCA13 /* MineMsgViewController.xib */; };
+		07582D1C1A6E5B6200CDCA13 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D161A6E5B6200CDCA13 /* SettingViewController.m */; };
+		07582D1D1A6E5B6200CDCA13 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07582D171A6E5B6200CDCA13 /* SettingViewController.xib */; };
 		075AA03A1A68B85D000B6302 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075AA0381A68B85D000B6302 /* ActivityViewController.m */; };
 		075AA03B1A68B85D000B6302 /* ActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075AA0391A68B85D000B6302 /* ActivityViewController.xib */; };
 		075AA03E1A68D5EC000B6302 /* XEActivityInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 075AA03D1A68D5EC000B6302 /* XEActivityInfo.m */; };
@@ -290,6 +298,20 @@
 		07508E9F1A51346300873B45 /* XiaoerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XiaoerTests.m; sourceTree = "<group>"; };
 		07582CF51A6E37F200CDCA13 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
 		07582CF61A6E37F200CDCA13 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
+		07582D081A6E566100CDCA13 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
+		07582D091A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
+		07582D0A1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
+		07582D0B1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
+		07582D0C1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		07582D0F1A6E5B6200CDCA13 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionViewController.h; path = Xiaoer/Mine/CollectionViewController.h; sourceTree = SOURCE_ROOT; };
+		07582D101A6E5B6200CDCA13 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CollectionViewController.m; path = Xiaoer/Mine/CollectionViewController.m; sourceTree = SOURCE_ROOT; };
+		07582D111A6E5B6200CDCA13 /* CollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CollectionViewController.xib; path = Xiaoer/Mine/CollectionViewController.xib; sourceTree = SOURCE_ROOT; };
+		07582D121A6E5B6200CDCA13 /* MineMsgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineMsgViewController.h; path = Xiaoer/Mine/MineMsgViewController.h; sourceTree = SOURCE_ROOT; };
+		07582D131A6E5B6200CDCA13 /* MineMsgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MineMsgViewController.m; path = Xiaoer/Mine/MineMsgViewController.m; sourceTree = SOURCE_ROOT; };
+		07582D141A6E5B6200CDCA13 /* MineMsgViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MineMsgViewController.xib; path = Xiaoer/Mine/MineMsgViewController.xib; sourceTree = SOURCE_ROOT; };
+		07582D151A6E5B6200CDCA13 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewController.h; path = Xiaoer/Mine/SettingViewController.h; sourceTree = SOURCE_ROOT; };
+		07582D161A6E5B6200CDCA13 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewController.m; path = Xiaoer/Mine/SettingViewController.m; sourceTree = SOURCE_ROOT; };
+		07582D171A6E5B6200CDCA13 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingViewController.xib; path = Xiaoer/Mine/SettingViewController.xib; sourceTree = SOURCE_ROOT; };
 		075AA0371A68B85D000B6302 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
 		075AA0381A68B85D000B6302 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
 		075AA0391A68B85D000B6302 /* ActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityViewController.xib; sourceTree = "<group>"; };
@@ -725,6 +747,18 @@
 			path = ODRefreshControl;
 			sourceTree = "<group>";
 		};
+		07582D071A6E566100CDCA13 /* SVPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				07582D081A6E566100CDCA13 /* SVPullToRefresh.h */,
+				07582D091A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.h */,
+				07582D0A1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m */,
+				07582D0B1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.h */,
+				07582D0C1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m */,
+			);
+			path = SVPullToRefresh;
+			sourceTree = "<group>";
+		};
 		075AA0361A68B7F3000B6302 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
@@ -1131,17 +1165,18 @@
 		07E5360F1A528203005E1DA9 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				07582CF41A6E37F200CDCA13 /* ODRefreshControl */,
+				075E40831A59386C0062F6AD /* AFNetworking */,
+				073FD9821A53C3A000FF0EFD /* EGOCache */,
 				0774A8631A666EAB00336465 /* GMGridView */,
 				07C49F4B1A5E7E9900E1725C /* MyAVCameraView */,
-				07E284391A5A8DFC005651EB /* UMeng */,
 				079425961A5A59A7002BF56C /* HQ */,
 				075E40AD1A593AAB0062F6AD /* MBProgressHUD */,
 				075E40A41A593A820062F6AD /* ProgressHUD */,
-				075E40831A59386C0062F6AD /* AFNetworking */,
 				073FD98D1A53D5C300FF0EFD /* JSONKit */,
-				073FD9821A53C3A000FF0EFD /* EGOCache */,
+				07582CF41A6E37F200CDCA13 /* ODRefreshControl */,
+				07582D071A6E566100CDCA13 /* SVPullToRefresh */,
 				0712B3801A5BD853000A1A7F /* SDWebImage */,
+				07E284391A5A8DFC005651EB /* UMeng */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -1245,6 +1280,15 @@
 		07E536171A52828E005E1DA9 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				07582D0F1A6E5B6200CDCA13 /* CollectionViewController.h */,
+				07582D101A6E5B6200CDCA13 /* CollectionViewController.m */,
+				07582D111A6E5B6200CDCA13 /* CollectionViewController.xib */,
+				07582D121A6E5B6200CDCA13 /* MineMsgViewController.h */,
+				07582D131A6E5B6200CDCA13 /* MineMsgViewController.m */,
+				07582D141A6E5B6200CDCA13 /* MineMsgViewController.xib */,
+				07582D151A6E5B6200CDCA13 /* SettingViewController.h */,
+				07582D161A6E5B6200CDCA13 /* SettingViewController.m */,
+				07582D171A6E5B6200CDCA13 /* SettingViewController.xib */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1371,12 +1415,14 @@
 			files = (
 				07E284751A5A8DFC005651EB /* UMShareEditViewController.xib in Resources */,
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
+				07582D191A6E5B6200CDCA13 /* CollectionViewController.xib in Resources */,
 				075B031F1A6CAC28002B577D /* ApplyActivityViewController.xib in Resources */,
 				07E284771A5A8DFC005651EB /* UMSLoginViewController.xib in Resources */,
 				075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */,
 				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
 				073F9F0F1A68B31D009D94E3 /* XECategoryView.xib in Resources */,
 				07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */,
+				07582D1B1A6E5B6200CDCA13 /* MineMsgViewController.xib in Resources */,
 				074644861A6CFFDA00CE2935 /* XECollectionViewCell.xib in Resources */,
 				07913F661A67808F0083E8E5 /* ExpertListViewCell.xib in Resources */,
 				07C988171A63B44B003A2B30 /* ChooseLocationViewController.xib in Resources */,
@@ -1404,6 +1450,7 @@
 				07E2846F1A5A8DFC005651EB /* umFeedback.bundle in Resources */,
 				070346701A64F8E200EDE251 /* WelcomeViewController.xib in Resources */,
 				07E284701A5A8DFC005651EB /* UMSocialLocalizable.strings in Resources */,
+				07582D1D1A6E5B6200CDCA13 /* SettingViewController.xib in Resources */,
 				073F9F141A68B38F009D94E3 /* CategoryItemCell.xib in Resources */,
 				07E284761A5A8DFC005651EB /* UMShareEditViewControlleriPad.xib in Resources */,
 				075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */,
@@ -1444,12 +1491,14 @@
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
 				07FC6D1B1A675D3E001F34D8 /* XEScrollPage.m in Sources */,
 				075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */,
+				07582D0D1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				075B031E1A6CAC28002B577D /* ApplyActivityViewController.m in Sources */,
 				0703466F1A64F8E200EDE251 /* WelcomeViewController.m in Sources */,
 				0712B3B01A5BD853000A1A7F /* UIImage+MultiFormat.m in Sources */,
 				07B650521A67A1E500DEDE4E /* ExpertIntroViewController.m in Sources */,
 				075AA03E1A68D5EC000B6302 /* XEActivityInfo.m in Sources */,
 				077C98B81A53BEAE00E2985B /* XEBaseSuperViewController.m in Sources */,
+				07582D181A6E5B6200CDCA13 /* CollectionViewController.m in Sources */,
 				0712B3B11A5BD853000A1A7F /* UIImage+WebP.m in Sources */,
 				0712B3A91A5BD853000A1A7F /* SDWebImageDecoder.m in Sources */,
 				0712B3A81A5BD853000A1A7F /* SDWebImageCompat.m in Sources */,
@@ -1514,6 +1563,7 @@
 				0712B3AC1A5BD853000A1A7F /* SDWebImageManager.m in Sources */,
 				075E409D1A59386C0062F6AD /* AFURLRequestSerialization.m in Sources */,
 				0712B3AD1A5BD853000A1A7F /* SDWebImagePrefetcher.m in Sources */,
+				07582D0E1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				07C988161A63B44B003A2B30 /* ChooseLocationViewController.m in Sources */,
 				0794259B1A5A59A7002BF56C /* QHQnetworkingTool.m in Sources */,
 				07E284951A5A8F26005651EB /* LoginViewController.m in Sources */,
@@ -1528,6 +1578,7 @@
 				075AA0481A690C58000B6302 /* ActivityDetailsViewController.m in Sources */,
 				0712B3B31A5BD853000A1A7F /* UIImageView+WebCache.m in Sources */,
 				074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */,
+				07582D1A1A6E5B6200CDCA13 /* MineMsgViewController.m in Sources */,
 				073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */,
 				07C49F561A5E7E9900E1725C /* AVCamCaptureManager.m in Sources */,
 				075E40B31A5940920062F6AD /* URLHelper.m in Sources */,
@@ -1539,6 +1590,7 @@
 				0712B3AF1A5BD853000A1A7F /* UIImage+GIF.m in Sources */,
 				07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */,
 				074644851A6CFFDA00CE2935 /* XECollectionViewCell.m in Sources */,
+				07582D1C1A6E5B6200CDCA13 /* SettingViewController.m in Sources */,
 				0712B37E1A5BC0DE000A1A7F /* RetrievePwdViewController.m in Sources */,
 				07C49F591A5E7E9900E1725C /* DDExpandableButton.m in Sources */,
 				07B650571A67AC7E00DEDE4E /* XETopicViewCell.m in Sources */,

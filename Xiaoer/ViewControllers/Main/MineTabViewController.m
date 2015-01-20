@@ -14,6 +14,9 @@
 #import "XETabBarViewController.h"
 #import "WelcomeViewController.h"
 #import "AppDelegate.h"
+#import "SettingViewController.h"
+#import "CollectionViewController.h"
+#import "MineMsgViewController.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
@@ -85,12 +88,8 @@ enum TABLEVIEW_SECTION_INDEX {
 
 - (void)settingAction
 {
-    UIAlertView *Alert = [[UIAlertView alloc] initWithTitle:@"还没好还没好！！！"
-                                                    message:nil
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"知道了", nil];
-    [Alert show];
+    SettingViewController *sVc = [[SettingViewController alloc] init];
+    [self.navigationController pushViewController:sVc animated:YES];
 }
 
 - (void)handleUserInfoChanged:(NSNotification *)notification{
@@ -154,7 +153,7 @@ enum TABLEVIEW_SECTION_INDEX {
     // Return the number of rows in the section.
     if (section == kMyProfile) {
         return 4;
-    }else if (section == kMyCard){
+    }else if (section == kMyCard || section == kSetting){
         return 2;
     }else {
         return 1;
@@ -209,8 +208,13 @@ enum TABLEVIEW_SECTION_INDEX {
             }
         }
         case kSetting:{
-            cell.titleLabel.text = @"用户退出";
-            break;
+            if (indexPath.row == 0) {
+                cell.titleLabel.text = @"用户退出";
+                break;
+            }else if (indexPath.row == 1){
+                cell.titleLabel.text = @"切换网络";
+                break;
+            }
         }
         default:
             break;
@@ -228,13 +232,15 @@ enum TABLEVIEW_SECTION_INDEX {
     switch (indexPath.section) {
         case kMyProfile:{
             if (indexPath.row == 0) {
-                NSLog(@"============我的消息");
+                MineMsgViewController *mVc = [[MineMsgViewController alloc] init];
+                [self.navigationController pushViewController:mVc animated:YES];
                 break;
             }else if (indexPath.row == 1){
                 NSLog(@"============我的活动");
                 break;
             }else if (indexPath.row == 2){
-                NSLog(@"============我的收藏");
+                CollectionViewController *cVc = [[CollectionViewController alloc] init];
+                [self.navigationController pushViewController:cVc animated:YES];
                 break;
             }else if (indexPath.row == 3){
                 NSLog(@"============我的话题");
@@ -251,11 +257,16 @@ enum TABLEVIEW_SECTION_INDEX {
             }
         }
         case kSetting:{
+            if (indexPath.row == 0) {
+                [[XEEngine shareInstance] logout];
+                WelcomeViewController *weVc = [[WelcomeViewController alloc] init];
+                [self.navigationController pushViewController:weVc animated:YES];
+                break;
+            }else if (indexPath.row == 1){
+                
+                break;
+            }
             //暂时放下
-            [[XEEngine shareInstance] logout];
-            WelcomeViewController *weVc = [[WelcomeViewController alloc] init];
-            [self.navigationController pushViewController:weVc animated:YES];
-            break;
         }
         default:
             break;

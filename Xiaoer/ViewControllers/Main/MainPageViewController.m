@@ -21,6 +21,7 @@
 #import "XECollectionViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "ODRefreshControl.h"
+#import "MineMsgViewController.h"
 
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     ODRefreshControl *_themeControl;
@@ -43,6 +44,7 @@
 
 - (IBAction)mineMsgAction:(id)sender;
 - (IBAction)historyAction:(id)sender;
+- (IBAction)taskAction:(id)sender;
 
 @end
 
@@ -409,7 +411,8 @@
 }
 
 - (IBAction)mineMsgAction:(id)sender {
-    NSLog(@"============我的消息");
+    MineMsgViewController *mmVc = [[MineMsgViewController alloc] init];
+    [self.navigationController pushViewController:mmVc animated:YES];
 }
 
 - (IBAction)historyAction:(id)sender {
@@ -417,7 +420,13 @@
     if (vc) {
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
 
+- (IBAction)taskAction:(id)sender {
+    id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
+    if (vc) {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end

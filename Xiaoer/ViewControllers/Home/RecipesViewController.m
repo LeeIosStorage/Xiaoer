@@ -14,6 +14,7 @@
 #import "XERecipesInfo.h"
 #import "UIColor+bit.h"
 #import "XELinkerHandler.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 
 //#define Selected_Color [UIColor colorWithRed:(1.0 * 58 / 255) green:(1.0 * 161 / 255) blue:(1.0 * 248 / 255) alpha:1]
 #define UnSelected_Color [UIColor colorWithRed:(1.0 * 172 / 255) green:(1.0 * 177 / 255) blue:(1.0 * 183 / 255) alpha:1]
