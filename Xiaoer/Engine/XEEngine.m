@@ -20,8 +20,8 @@
 
 #define CONNECT_TIMEOUT 20
 
-#define API_URL @"http://192.168.16.29"
-//#define API_URL @"http://58.30.245.58:8080"
+//#define API_URL @"http://192.168.16.29"
+#define API_URL @"http://58.30.245.58:8080"
 
 static XEEngine* s_ShareInstance = nil;
 

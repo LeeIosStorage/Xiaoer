@@ -16,12 +16,17 @@
 #import "ActivityDetailsViewController.h"
 #import "UIImageView+WebCache.h"
 #import "CollectionViewController.h"
+#import "ODRefreshControl.h"
 
 #define ACTIVITY_TYPE_APPLY     0
 #define ACTIVITY_TYPE_HISTORY   1
 
 @interface ActivityViewController ()<UITableViewDataSource,UITableViewDelegate>
-
+{
+    ODRefreshControl *_applyRefreshControl;
+    ODRefreshControl *_historyRefreshControl;
+    BOOL _isScrollViewDrag;
+}
 @property (strong, nonatomic) NSMutableArray *activityList;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *historyActivityList;
@@ -39,6 +44,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = UIColorRGB(240, 240, 240);
+    
+    _applyRefreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
+    [_applyRefreshControl addTarget:self action:@selector(applyRefreshControlBeginPull:) forControlEvents:UIControlEventValueChanged];
+    _historyRefreshControl = [[ODRefreshControl alloc] initInScrollView:self.historyTableView];
+    [_historyRefreshControl addTarget:self action:@selector(historyRefreshControlBeginPull:) forControlEvents:UIControlEventValueChanged];
     
     [self feedsTypeSwitch:ACTIVITY_TYPE_APPLY needRefreshFeeds:YES];
 }
@@ -64,11 +74,11 @@
         self.tableView.hidden = NO;
         
         if (!_activityList) {
-            [self refreshActivityList];
+            [self refreshActivityList:YES];
             return;
         }
         if (needRefresh) {
-            [self refreshActivityList];
+            [self refreshActivityList:YES];
         }
     }else if (tag == ACTIVITY_TYPE_HISTORY){
         
@@ -77,11 +87,11 @@
         self.tableView.hidden = YES;
         self.historyTableView.hidden = NO;
         if (!_historyActivityList) {
-            [self refreshHistoryActivityList];
+            [self refreshHistoryActivityList:YES];
             return;
         }
         if (needRefresh) {
-            [self refreshHistoryActivityList];
+            [self refreshHistoryActivityList:YES];
         }
     }
 }
@@ -96,9 +106,11 @@
 }
 */
 
-- (void)refreshActivityList{
+- (void)refreshActivityList:(BOOL)isAlert{
     
-    [XEProgressHUD AlertLoading:@"努力加载中..."];
+    if (isAlert) {
+        [XEProgressHUD AlertLoading:@"努力加载中..."];
+    }
     __weak ActivityViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getApplyActivityListWithPage:1 uid:[XEEngine shareInstance].uid tag:tag];
@@ -109,9 +121,11 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
+            [_applyRefreshControl endRefreshing:NO];
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
+        [_applyRefreshControl endRefreshing:YES];
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         weakSelf.activityList = [[NSMutableArray alloc] init];
         
@@ -126,9 +140,11 @@
     }tag:tag];
 }
 
-- (void)refreshHistoryActivityList{
+- (void)refreshHistoryActivityList:(BOOL)isAlert{
     
-    [XEProgressHUD AlertLoading:@"努力加载中..."];
+    if (isAlert) {
+        [XEProgressHUD AlertLoading:@"努力加载中..."];
+    }
     __weak ActivityViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getHistoryActivityListWithPage:1 tag:tag];
@@ -139,9 +155,11 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
+            [_historyRefreshControl endRefreshing:NO];
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
+        [_historyRefreshControl endRefreshing:YES];
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         weakSelf.historyActivityList = [[NSMutableArray alloc] init];
@@ -181,6 +199,24 @@
         default:
             break;
     }
+}
+
+#pragma mark - ODRefreshControl
+- (void)applyRefreshControlBeginPull:(ODRefreshControl *)refreshControl
+{
+    if (_isScrollViewDrag) {
+        [self refreshActivityList:NO];
+    }
+}
+- (void)historyRefreshControlBeginPull:(ODRefreshControl *)refreshControl
+{
+    if (_isScrollViewDrag) {
+        [self refreshHistoryActivityList:NO];
+    }
+}
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    _isScrollViewDrag = YES;
 }
 
 #pragma mark - tableViewDataSource

@@ -111,7 +111,7 @@
 //    [self.mapView addSubview:_hud];
 //    [_hud show:YES];
     
-//    [XEProgressHUD AlertLoading:@"正在获取位置信息..."];
+    [XEProgressHUD AlertLoading:@"正在获取位置信息..."];
 //    _backCurrentBtn = [[UIButton alloc] init];
 //    CGRect aframe = CGRectMake(11, self.mapView.bounds.size.height - 100, 40, 40);
 //    _backCurrentBtn.frame = aframe;
@@ -180,6 +180,28 @@
 }
 */
 
+#pragma mark - custom
+-(void) addCustomMark:(CLLocationCoordinate2D)location
+{
+    MapChooseAnnotationView *annotation = [[MapChooseAnnotationView alloc] init];
+    [annotation setCoordinate:location];
+    annotation.title = @" ";
+    NSString *detail = [NSString stringWithFormat:@"%f,%f",location.latitude,location.longitude];;
+    annotation.subtitle = detail;
+    [self.mapView addAnnotation:annotation];
+    
+//    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location, 250, 250);
+//    [self.mapView setRegion:region animated:YES];
+    
+//    MKCoordinateRegion region = self.mapView.region;
+//    region.center = location;
+//    [self.mapView setRegion:region animated:YES];
+    
+//    [self.mapView setCenterCoordinate:location animated:YES];
+    [self.mapView selectAnnotation:annotation animated:YES];
+}
+
+#pragma mark - old
 -(void)backTOCurrentLocation{
     [self.backCurrentBtn setBackgroundImage:[UIImage imageNamed:@"s_location_back@2x.png"] forState:UIControlStateNormal];
     if (_currentLocation.longitude != 0 && _currentLocation.latitude != 0) {
@@ -475,10 +497,11 @@
         CLLocation *clocation = [[CLLocation alloc] initWithCoordinate:location altitude:0 horizontalAccuracy:kCLLocationAccuracyNearestTenMeters verticalAccuracy:kCLLocationAccuracyNearestTenMeters timestamp:nil];
         __weak MapChooseViewController *weakSelf = self;
         [_mRgeo reverseGeocodeLocation:clocation completionHandler:^(NSArray *placemarks, NSError *error) {
+            [XEProgressHUD AlertLoadDone];
             if (placemarks.count && !error) {
                 //                NSLog(@"didFindPlacemark: placemarks.count = %d, %@", placemarks.count, placemarks);
             }else {
-//                [weakSelf addLoadingEmptyMark:location];//test
+//                [weakSelf addCustomMark:location];//test
                 _reseverLocation = CLLocationCoordinate2DMake(-180, -180);
                 NSLog(@"did not FindPlacemark, error = %@",error);
                 [XEProgressHUD AlertError:@"位置获取失败"];

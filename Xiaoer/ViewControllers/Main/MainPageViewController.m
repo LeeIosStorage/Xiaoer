@@ -54,6 +54,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:@"首页"];
+    [self refreshAdsScrollView];
     [self refreshUserInfoShow];
     
     //获取首页信息
@@ -159,10 +160,10 @@
 
 ///刷新广告位
 - (void)refreshAdsScrollView {
-    if (!_adsThemeArray.count) {
-        self.tableView.tableHeaderView = nil;
-        return;
-    }
+//    if (!_adsThemeArray.count) {
+//        self.tableView.tableHeaderView = nil;
+//        return;
+//    }
     //移除老view
     for (UIView *view in _adsViewContainer.subviews) {
         [view removeFromSuperview];
