@@ -231,30 +231,30 @@
 {
     _showMode = YES;
     CLLocationCoordinate2D location;
-//    location.latitude = 30.189734;
-//    location.longitude = 120.154937;
-    location.latitude = 119.119119;
-    location.longitude = 110.110110;
+    location.latitude = 30.189734;
+    location.longitude = 120.154937;
+//    location.latitude = 119.119119;
+//    location.longitude = 110.110110;
 //    location.latitude = lat;
 //    location.longitude = log;
     
     //要保证小数点八位以上的精度，不然有可能会解析不到位置信息
-//    NSMutableString* strLat = [NSMutableString stringWithString:[[NSNumber numberWithDouble:location.latitude] description]];
-//    NSMutableString* strLon = [NSMutableString stringWithString:[[NSNumber numberWithDouble:location.longitude] description]];
-//    if ([strLat rangeOfString:@"."].location != NSNotFound) {
-//        NSString* temp = [[strLat componentsSeparatedByString:@"."] objectAtIndex:1];
-//        for(int i = (int)temp.length; i < 8; ++i) {
-//            [strLat appendString:@"0"];
-//        }
-//        location.latitude = [strLat doubleValue];
-//    }
-//    if ([strLon rangeOfString:@"."].location != NSNotFound) {
-//        NSString* temp = [[strLon componentsSeparatedByString:@"."] objectAtIndex:1];
-//        for(int i = (int)temp.length; i < 8; ++i) {
-//            [strLon appendString:@"0"];
-//        }
-//        location.longitude = [strLon doubleValue];
-//    }
+    NSMutableString* strLat = [NSMutableString stringWithString:[[NSNumber numberWithDouble:location.latitude] description]];
+    NSMutableString* strLon = [NSMutableString stringWithString:[[NSNumber numberWithDouble:location.longitude] description]];
+    if ([strLat rangeOfString:@"."].location != NSNotFound) {
+        NSString* temp = [[strLat componentsSeparatedByString:@"."] objectAtIndex:1];
+        for(int i = (int)temp.length; i < 8; ++i) {
+            [strLat appendString:@"0"];
+        }
+        location.latitude = [strLat doubleValue];
+    }
+    if ([strLon rangeOfString:@"."].location != NSNotFound) {
+        NSString* temp = [[strLon componentsSeparatedByString:@"."] objectAtIndex:1];
+        for(int i = (int)temp.length; i < 8; ++i) {
+            [strLon appendString:@"0"];
+        }
+        location.longitude = [strLon doubleValue];
+    }
     
     
     _iloadfirst = 1;
@@ -478,7 +478,7 @@
             if (placemarks.count && !error) {
                 //                NSLog(@"didFindPlacemark: placemarks.count = %d, %@", placemarks.count, placemarks);
             }else {
-                [weakSelf addLoadingEmptyMark:location];//test
+//                [weakSelf addLoadingEmptyMark:location];//test
                 _reseverLocation = CLLocationCoordinate2DMake(-180, -180);
                 NSLog(@"did not FindPlacemark, error = %@",error);
                 [XEProgressHUD AlertError:@"位置获取失败"];
