@@ -19,6 +19,7 @@
 @property(nonatomic, assign) int age;
 @property(nonatomic, assign) int topicnum;
 @property(nonatomic, assign) int favnum;
+@property(nonatomic, assign) int faved;//0为收藏 1已收藏
 
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* doctorInfoByJsonDic;

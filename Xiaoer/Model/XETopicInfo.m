@@ -12,11 +12,11 @@
 @implementation XETopicInfo
 
 - (void)doSetTopicInfoByJsonDic:(NSDictionary*)dic {
-    if ([dic objectForKey:@"title"]) {
-        _title = [dic objectForKey:@"title"];
+    if ([dic stringObjectForKey:@"title"]) {
+        _title = [dic stringObjectForKey:@"title"];
     }
-    _clicknum = [[dic objectForKey:@"clicknum"] intValue];
-    _favnum = [[dic objectForKey:@"favnum"] intValue];
+    _clicknum = [dic intValueForKey:@"clicknum"];
+    _favnum = [dic intValueForKey:@"favnum"];
 }
 
 -(void)setTopicInfoByJsonDic:(NSDictionary *)dic{

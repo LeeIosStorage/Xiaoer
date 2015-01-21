@@ -13,7 +13,9 @@
 + (float)heightForTopicInfo:(XETopicInfo *)topicInfo{
     NSString* topicText = topicInfo.title;
     //[topicText sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(320, MAXFLOAT) lineBreakMode:NSLineBreakByCharWrapping];
-    
+    if (!topicText) {
+        topicText = @"";
+    }
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
     NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:15], NSParagraphStyleAttributeName:paragraphStyle.copy};

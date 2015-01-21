@@ -72,7 +72,7 @@
     
     __weak ExpertIntroViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getExpertDetailWithUid:@"1" tag:tag];
+    [[XEEngine shareInstance] getExpertDetailWithUid:[XEEngine shareInstance].uid expertId:_doctorInfo.doctorId tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -103,6 +103,12 @@
 
 #pragma mark - custom
 -(void)refreshDoctorInfoShow{
+    
+    if (_doctorInfo.faved == 0) {
+        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_un_icon"] forState:UIControlStateNormal];
+    }else{
+        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
+    }
     
     self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width/2;
     self.avatarImageView.layer.masksToBounds = YES;

@@ -61,6 +61,11 @@
     
     
     
+    objectForKey = [dic objectForKey:@"faved"];
+    if (objectForKey) {
+        _faved = [objectForKey intValue];
+    }
+    
     objectForKey = [dic objectForKey:@"regnum"];
     if (objectForKey) {
         _regnum = [objectForKey intValue];
