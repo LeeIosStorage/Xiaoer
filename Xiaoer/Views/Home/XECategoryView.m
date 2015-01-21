@@ -41,7 +41,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 84;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -54,23 +54,23 @@
         cell = [cells objectAtIndex:0];
     }
     XERecipesInfo *info = [_dateArray objectAtIndex:indexPath.row];
-//    if (info.recipesImageUrl) {
-//        [cell.infoImageView sd_setImageWithURL:[NSURL URLWithString:info.recipesImageUrl] placeholderImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
-//    }else{
-//        [cell.infoImageView sd_setImageWithURL:nil];
+    if (![info.recipesImageUrl isEqual:[NSNull null]]) {
+        [cell.infoImageView sd_setImageWithURL:[NSURL URLWithString:info.recipesImageUrl] placeholderImage:[UIImage imageNamed:@"information_placeholder_icon"]];
+    }else{
+        [cell.infoImageView sd_setImageWithURL:nil];
         [cell.infoImageView setImage:[UIImage imageNamed:@"information_placeholder_icon"]];
-//    }
-//    
-    cell.titleLabel.text = info.title;
-//    cell.readLabel.text  = info.readNum;
-//    cell.collectLabel.text = info.favNum;
-//    if ([info.isTop isEqual:@"1"]) {
-//        cell.topImageView.hidden = NO;
-//    }else{
-//        cell.topImageView.hidden = YES;
-//    }
+    }
     
-//    //cell.delegate = self;
+    cell.titleLabel.text = info.title;
+    cell.readLabel.text = [NSString stringWithFormat:@"%d",info.readNum];
+    cell.collectLabel.text = [NSString stringWithFormat:@"%d",info.favNum];
+    if (info.isTop == 1) {
+        cell.topImageView.hidden = NO;
+    }else{
+        cell.topImageView.hidden = YES;
+    }
+    
+//    cell.delegate = self;
     if (indexPath.row == 0) {
         cell.topline.hidden = NO;
     }
@@ -80,9 +80,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     XERecipesInfo *recipesInfo = [_dateArray objectAtIndex:indexPath.row];
-    
-    
-    
     if (_delegate && [_delegate respondsToSelector:@selector(didTouchCellWithRecipesInfo:)]) {
         [_delegate didTouchCellWithRecipesInfo:recipesInfo];
     }
@@ -91,6 +88,5 @@
 - (void)refreshAdsScrollView{
     
 }
-
 
 @end

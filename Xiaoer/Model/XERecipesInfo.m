@@ -34,16 +34,16 @@
         _title = [dic objectForKey:@"title"];
     }
     if ([dic objectForKey:@"favnum"]) {
-        _favNum = [dic objectForKey:@"favnum"];
+        _favNum = [dic intValueForKey:@"favnum"];
     }
     if ([dic objectForKey:@"clicknum"]) {
-        _readNum = [dic objectForKey:@"clicknum"];
+        _readNum = [dic intValueForKey:@"clicknum"];
     }
     if ([dic objectForKey:@"imgurl"]) {
         _recipesImageUrl = [dic objectForKey:@"imgurl"];
     }
     if ([dic objectForKey:@"istop"]) {
-        _isTop = [dic objectForKey:@"istop"];
+        _isTop = [dic boolValueForKey:@"istop"];
     }
     
 }

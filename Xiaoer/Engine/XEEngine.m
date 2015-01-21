@@ -406,7 +406,7 @@ static XEEngine* s_ShareInstance = nil;
             
         }else{
             [QHQnetworkingTool postWithURL:fullUrl params:params success:^(id response) {
-                //NSLog(@"postFullUrl===========%@ response%@",fullUrl,response);
+                NSLog(@"postFullUrl===========%@ response%@",fullUrl,response);
                 [self onResponse:response withTag:tag withError:errPtr];
             } failure:^(NSError *error) {
                 [self onResponse:nil withTag:tag withError:error];
@@ -434,7 +434,6 @@ static XEEngine* s_ShareInstance = nil;
         if (!jsonRet) {
             timeout = YES;
         }
-//        NSLog(@"========================%@",[jsonRet objectForKey:@"result"]);
         if (jsonRet && !errPtr) {
             NSString* fullUrl = [_urlTagMap objectForKey:[NSNumber numberWithInt:tag]];
             if (fullUrl) {

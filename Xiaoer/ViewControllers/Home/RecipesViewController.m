@@ -219,7 +219,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 //设置导航
 - (void)initNavigationBarView{
     
-    CGFloat itemMargin = 20;
+    CGFloat itemMargin = SCREEN_WIDTH == 320?20:32;
     CGFloat itemMarginLeft = 15;
     scrollBarWidth = itemMarginLeft;
     
@@ -232,10 +232,13 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
         [button.titleLabel setFont:[UIFont systemFontOfSize:15]];
         [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [button setTitle:self.titles[i] forState:UIControlStateNormal];
-        
+        //暂时不要
         CGSize titleSize = [button.titleLabel.text sizeWithFont:button.titleLabel.font];
         [button setFrame:CGRectMake(scrollBarWidth, 12, titleSize.width, 20)];
         scrollBarWidth += itemMargin + titleSize.width;
+//        CGFloat titleWidth = (SCREEN_WIDTH - (self.titles.count - 1)*20)/self.titles.count;
+//        [button setFrame:CGRectMake(scrollBarWidth, 12, titleWidth, 20)];
+//        scrollBarWidth += itemMargin + titleWidth;
         
         [button setTitleColor:self.unselectedLabelColor forState:UIControlStateNormal];
         [button setTitleColor:self.selectedLabelColor forState:UIControlStateSelected];
@@ -251,7 +254,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
         }
     }
     
-    _categoryScrollView.contentSize = CGSizeMake(scrollBarWidth, _categoryScrollView.frame.size.height);
+    //_categoryScrollView.contentSize = CGSizeMake(scrollBarWidth, _categoryScrollView.frame.size.height);
     //滚动动态计算
     //[self needScrollIndex];
 }

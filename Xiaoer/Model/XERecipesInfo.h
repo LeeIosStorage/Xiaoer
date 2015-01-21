@@ -12,10 +12,10 @@
 
 @property(nonatomic, strong) NSString* rid;
 @property(nonatomic, strong) NSString* title;
-@property(nonatomic, strong) NSString* readNum;
-@property(nonatomic, strong) NSString* favNum;
+@property(nonatomic, assign) int readNum;
+@property(nonatomic, assign) int favNum;
 @property(nonatomic, strong) NSString* recipesImageUrl;
-@property(nonatomic, strong) NSString* isTop;
+@property(nonatomic, assign) BOOL isTop;
 
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* recipesInfoByJsonDic;
