@@ -54,7 +54,6 @@
 -(void)initNormalTitleNavBarSubviews{
     [self setTitle:@"专家介绍"];
     [self setRightButtonWithImageName:@"nav_collect_un_icon" selector:@selector(collectAction:)];
-    [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateHighlighted];
     
     [self setRight2ButtonWithImageName:@"share_icon" selector:@selector(shareAction:)];
 }
@@ -109,7 +108,7 @@
     self.avatarImageView.layer.masksToBounds = YES;
     self.avatarImageView.clipsToBounds = YES;
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:@"http://f.hiphotos.baidu.com/image/pic/item/0823dd54564e9258a4909fe99f82d158ccbf4e14.jpg"] placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:_doctorInfo.avatar] placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
     self.doctorNameLabel.text = [NSString stringWithFormat:@"%@ %d岁",_doctorInfo.doctorName,_doctorInfo.age];
     self.doctorCollegeLabel.text = _doctorInfo.hospital;
     self.doctorIntroLabel.text = _doctorInfo.des;
@@ -147,7 +146,7 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        self.titleNavBarRightBtn.highlighted = !self.titleNavBarRightBtn.highlighted;
+        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         [weakSelf.tableView reloadData];
         

@@ -23,6 +23,14 @@
     if (objectForKey) {
         _address = objectForKey;
     }
+    objectForKey = [dic objectForKey:@"latitude"];
+    if (objectForKey) {
+        _latitude = [objectForKey floatValue];
+    }
+    objectForKey = [dic objectForKey:@"longitude"];
+    if (objectForKey) {
+        _longitude = [objectForKey floatValue];
+    }
     
     NSDateFormatter *dateFormatter = [XEUIUtils dateFormatterOFUS];
     objectForKey = [dic objectForKey:@"begintime"];

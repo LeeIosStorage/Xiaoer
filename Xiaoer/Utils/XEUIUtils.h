@@ -41,4 +41,5 @@
 + (NSString*)documentOfCameraDenied;
 + (NSString*)documentOfAVCaptureDenied;
 
++ (NSString*)documentOfLocationDenied;
 @end

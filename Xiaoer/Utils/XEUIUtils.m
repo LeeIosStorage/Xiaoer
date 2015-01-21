@@ -214,4 +214,7 @@ static bool dateFormatterOFUSInvalid ;
     return @"无法访问你的相机。\n请到手机系统的[设置]->[隐私]->[相机]允许微米使用相机";
 }
 
++ (NSString*)documentOfLocationDenied {
+    return @"无法获取你的位置信息。\n请到手机系统的[设置]->[隐私]->[定位服务]中打开定位服务，并允许微米使用定位服务";
+}
 @end

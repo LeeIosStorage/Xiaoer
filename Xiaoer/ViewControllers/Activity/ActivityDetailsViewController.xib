@@ -35,7 +35,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dgp-j0-iTW">
                     <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <color key="backgroundColor" red="0.1058823529" green="0.65490196079999996" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.1058823529" green="0.72549019609999998" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" title="在线报名">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -149,8 +149,8 @@
         </view>
     </objects>
     <resources>
-        <image name="activity_ego_icon" width="72" height="88"/>
-        <image name="activity_phone_icon" width="72" height="88"/>
+        <image name="activity_ego_icon" width="24" height="29"/>
+        <image name="activity_phone_icon" width="24" height="29"/>
         <image name="s_n_set_line" width="300" height="1"/>
         <image name="segment_arrows" width="2" height="40"/>
     </resources>

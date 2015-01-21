@@ -37,7 +37,7 @@
     application.statusBarHidden = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-//    [XEUIUtils colorWithHex:0x6cc5e9 alpha:1.0];//108 197 233
+//    [XEUIUtils colorWithHex:0x1bb9e8 alpha:1.0];//27 185 232
     
     //友盟组件
     [UMSocialData setAppKey:UMS_APP];

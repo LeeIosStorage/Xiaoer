@@ -11,6 +11,7 @@
 #import "XEProgressHUD.h"
 #import "UIImageView+WebCache.h"
 #import "ApplyActivityViewController.h"
+#import "MapChooseViewController.h"
 
 @interface ActivityDetailsViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -91,7 +92,7 @@
     
     self.avatarImageView.clipsToBounds = YES;
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.avatarImageView sd_setImageWithURL:_activityInfo.picUrl placeholderImage:[UIImage imageNamed:@""]];
+    [self.avatarImageView sd_setImageWithURL:_activityInfo.picUrl placeholderImage:[UIImage imageNamed:@"activity_pic_default"]];
     
     self.titleLabel.text = _activityInfo.title;
     self.addressAndTimeLabel.text = [NSString stringWithFormat:@"%@\n%@到%@",_activityInfo.address,[XEUIUtils dateDiscriptionFromDate:_activityInfo.begintime],[XEUIUtils dateDiscriptionFromDate:_activityInfo.endtime]];
@@ -124,7 +125,7 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        self.titleNavBarRightBtn.highlighted = !self.titleNavBarRightBtn.highlighted;
+        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         [weakSelf.tableView reloadData];
         
@@ -162,6 +163,11 @@
 }
 
 - (IBAction)addressAction:(id)sender {
+    MapChooseViewController *showmap = [[MapChooseViewController alloc] init];
+    [showmap showCurrentLocation:YES];
+    [showmap setCurrentLocation:_activityInfo.latitude longitute:_activityInfo.longitude];
+    
+    [self.navigationController pushViewController:showmap animated:YES];
 }
 
 #pragma mark - tableViewDataSource

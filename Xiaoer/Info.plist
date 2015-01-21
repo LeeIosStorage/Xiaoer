@@ -110,5 +110,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSLocationWhenInUseDescription</key>
+	<string>请点击“允许”以允许访问。 </string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>YES</string>
 </dict>
 </plist>

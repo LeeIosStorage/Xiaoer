@@ -28,7 +28,7 @@
     _activityInfo = activityInfo;
     
     
-    [_activityImageView sd_setImageWithURL:[NSURL URLWithString:@"http://f.hiphotos.baidu.com/image/pic/item/0823dd54564e9258a4909fe99f82d158ccbf4e14.jpg"] placeholderImage:[UIImage imageNamed:@""]];
+    [self.activityImageView sd_setImageWithURL:activityInfo.picUrl placeholderImage:[UIImage imageNamed:@"activity_pic_default"]];
     
     _titleLabel.text = activityInfo.title;
 //    XELog(@"_activityInfo.begintime%@",_activityInfo.begintime);
