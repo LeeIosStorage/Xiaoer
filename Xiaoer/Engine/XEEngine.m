@@ -406,7 +406,7 @@ static XEEngine* s_ShareInstance = nil;
             
         }else{
             [QHQnetworkingTool postWithURL:fullUrl params:params success:^(id response) {
-                NSLog(@"postFullUrl===========%@ response%@",fullUrl,response);
+                //NSLog(@"postFullUrl===========%@ response%@",fullUrl,response);
                 [self onResponse:response withTag:tag withError:errPtr];
             } failure:^(NSError *error) {
                 [self onResponse:nil withTag:tag withError:error];
@@ -667,11 +667,11 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)getListInfoWithNum:(NSString *)pagenum stage:(NSUInteger)stage cat:(int)cat tag:(int)tag{
+- (BOOL)getListInfoWithNum:(NSUInteger)pagenum stage:(NSUInteger)stage cat:(int)cat tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/info/list",API_URL] type:0 parameters:params];
     if (pagenum) {
-        [params setObject:pagenum forKey:@"pagenum"];
+        [params setObject:[NSNumber numberWithInteger:pagenum] forKey:@"pagenum"];
     }
     [params setObject:[NSNumber numberWithInteger:stage] forKey:@"stage"];
     [params setObject:[NSNumber numberWithInteger:cat] forKey:@"cat"];

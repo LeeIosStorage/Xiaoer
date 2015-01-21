@@ -103,7 +103,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getInfoWithBabyId:(NSString *)bbId tag:(int)tag;
 
 //获取资讯(食谱,养育,评测)列表数据
-- (BOOL)getListInfoWithNum:(NSString *)pagenum stage:(NSUInteger)stage cat:(int)cat tag:(int)tag;
+- (BOOL)getListInfoWithNum:(NSUInteger)pagenum stage:(NSUInteger)stage cat:(int)cat tag:(int)tag;
 
 //专家列表
 - (BOOL)getExpertListWithPage:(int)page tag:(int)tag;

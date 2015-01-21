@@ -15,6 +15,7 @@
 #import "UIColor+bit.h"
 #import "XELinkerHandler.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "CollectionViewController.h"
 
 //#define Selected_Color [UIColor colorWithRed:(1.0 * 58 / 255) green:(1.0 * 161 / 255) blue:(1.0 * 248 / 255) alpha:1]
 #define UnSelected_Color [UIColor colorWithRed:(1.0 * 172 / 255) green:(1.0 * 177 / 255) blue:(1.0 * 183 / 255) alpha:1]
@@ -44,6 +45,8 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 @property (nonatomic,strong) UIColor *unselectedLabelColor;
 
 @property (nonatomic, strong) NSMutableArray *hotGroups;
+@property (nonatomic, strong) NSMutableDictionary *endDic;
+@property (nonatomic, strong) NSMutableDictionary *pageNumDic;
 @property (nonatomic, strong) NSMutableDictionary *hotUnionDic;
 
 @property (assign, nonatomic) BOOL bScroll;
@@ -57,11 +60,12 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    
     _unselectedLabelColor = UnSelected_Color;
     _selectedLabelColor = SKIN_COLOR;
     _selectedIndex = 1;
     
+    _pageNumDic = [[NSMutableDictionary alloc] init];
+    _endDic = [[NSMutableDictionary alloc] init];
     _hotUnionDic = [[NSMutableDictionary alloc] init];
     _hotGroups = [[NSMutableArray alloc] init];
     
@@ -129,19 +133,85 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
         XECategoryView *cv = _categoryViews[index];
         cv.delegate = self;
         NSMutableArray *hotGroups = [[NSMutableArray alloc] init];
+        
         for (NSDictionary *groupDic in [[jsonRet objectForKey:@"object"] objectForKey:@"infos"]) {
             XERecipesInfo *recipesInfo = [[XERecipesInfo alloc] init];
             [recipesInfo setRecipesInfoByDic:groupDic];
             [hotGroups addObject:recipesInfo];
         }
-        [_hotUnionDic setValue:hotGroups forKey:_titles[index]];
-        _hotGroups = [_hotUnionDic mutableArrayValueForKey:_titles[index]];
-        cv.dateArray = _hotGroups;
-//        cv.dateArray = hotGroups;
+        [weakSelf.hotUnionDic setValue:hotGroups forKey:weakSelf.titles[index]];
+        weakSelf.hotGroups = [weakSelf.hotUnionDic mutableArrayValueForKey:weakSelf.titles[index]];
+        cv.dateArray = weakSelf.hotGroups;
         [cv.tableView reloadData];
         
         [weakSelf recordCategoryRefreshTimeWith:index];
         
+        NSLog(@"==========%@",[[jsonRet objectForKey:@"object"] objectForKey:@"end"]);
+        [weakSelf.endDic setValue:[[jsonRet objectForKey:@"object"] objectForKey:@"end"] forKey:weakSelf.titles[index]];
+        [weakSelf.pageNumDic setValue:@"1" forKey:weakSelf.titles[index]];
+
+        int cursor = [weakSelf.endDic intValueForKey:weakSelf.titles[index]];
+        if (cursor == 0) {
+            cv.tableView.showsInfiniteScrolling = NO;
+//            [cv.tableView.infiniteScrollingView stopAnimating];
+        }else{
+            cv.tableView.showsInfiniteScrolling = YES;
+        }
+  
+        [cv.tableView addInfiniteScrollingWithActionHandler:^{
+            if (!weakSelf) {
+                return;
+            }
+            
+            int cursor = [weakSelf.endDic intValueForKey:weakSelf.titles[index]];
+            if (cursor == 0) {
+                [cv.tableView.infiniteScrollingView stopAnimating];
+                cv.tableView.showsInfiniteScrolling = NO;
+                return;
+            }
+            
+            __block NSInteger pageNum = [weakSelf.pageNumDic intValueForKey:weakSelf.titles[index]] + 1;
+            [weakSelf.pageNumDic setValue:[NSNumber numberWithInteger:pageNum] forKey:weakSelf.titles[index]];
+            
+            int tag = [[XEEngine shareInstance] getConnectTag];
+            [[XEEngine shareInstance] getListInfoWithNum:pageNum stage:index+1 cat:self.infoType tag:tag];
+            [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+                if (!weakSelf) {
+                    return;
+                }
+                [cv.tableView.infiniteScrollingView stopAnimating];
+                NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+                if (!jsonRet || errorMsg) {
+                    return;
+                }
+                NSMutableArray *hotGroups = [NSMutableArray arrayWithArray:[weakSelf.hotUnionDic arrayObjectForKey:weakSelf.titles[index]]];
+                
+//                NSInteger countIndex = hotGroups.count;
+                for (NSDictionary *groupDic in [[jsonRet objectForKey:@"object"] objectForKey:@"infos"]) {
+                    XERecipesInfo *recipesInfo = [[XERecipesInfo alloc] init];
+                    [recipesInfo setRecipesInfoByDic:groupDic];
+                    [hotGroups addObject:recipesInfo];
+                }
+                
+                [weakSelf.hotUnionDic setValue:hotGroups forKey:weakSelf.titles[index]];
+                [weakSelf.endDic setValue:[[jsonRet objectForKey:@"object"] objectForKey:@"end"] forKey:weakSelf.titles[index]];
+                weakSelf.hotGroups = [weakSelf.hotUnionDic mutableArrayValueForKey:weakSelf.titles[index]];
+                //数据变化以后要及时刷新tableview
+                [cv.tableView reloadData];
+            
+//                NSIndexPath *ip = [NSIndexPath indexPathForRow:countIndex inSection:0];
+//                [cv.tableView scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                
+                int cursor = [weakSelf.endDic intValueForKey:weakSelf.titles[index]];
+                if (cursor == 0) {
+                    cv.tableView.showsInfiniteScrolling = NO;
+                }else{
+                    cv.tableView.showsInfiniteScrolling = YES;
+                    pageNum = [weakSelf.pageNumDic intValueForKey:weakSelf.titles[index]] + 1;
+                    [weakSelf.pageNumDic setValue:[NSNumber numberWithInteger:pageNum] forKey:weakSelf.titles[index]];
+                }
+            } tag:tag];
+        }];
     } tag:tag];
 }
 
@@ -401,8 +471,8 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 }
 
 - (void)settingAction{
-    
-    NSLog(@"=================我的收藏");
+    CollectionViewController *cVc = [[CollectionViewController alloc] init];
+    [self.navigationController pushViewController:cVc animated:YES];
 }
 
 - (void)didTouchCellWithRecipesInfo:(XERecipesInfo *)recipesInfo{
