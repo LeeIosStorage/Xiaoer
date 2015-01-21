@@ -14,6 +14,8 @@
 #import "XERecipesInfo.h"
 #import "CategoryItemCell.h"
 #import "ActivityDetailsViewController.h"
+#import "UIImageView+WebCache.h"
+#import "CollectionViewController.h"
 
 #define ACTIVITY_TYPE_APPLY     0
 #define ACTIVITY_TYPE_HISTORY   1
@@ -157,7 +159,8 @@
 
 #pragma mark - custom
 -(void)mineCollectAction:(id)sender{
-    
+    CollectionViewController *cVc = [[CollectionViewController alloc] init];
+    [self.navigationController pushViewController:cVc animated:YES];
 }
 
 -(void)segmentedControlAction:(UISegmentedControl *)sender{
@@ -196,7 +199,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.historyTableView) {
-        return 100;
+        return 84;
     }
     return 220;
 }
@@ -213,10 +216,18 @@
         }
         
         XERecipesInfo *recipesInfo = _historyActivityList[indexPath.row];
-        [cell.infoImageView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
+        if (![recipesInfo.recipesImageUrl isEqual:[NSNull null]]) {
+            [cell.infoImageView sd_setImageWithURL:[NSURL URLWithString:recipesInfo.recipesImageUrl] placeholderImage:[UIImage imageNamed:@"information_placeholder_icon"]];
+        }else{
+            [cell.infoImageView sd_setImageWithURL:nil];
+            [cell.infoImageView setImage:[UIImage imageNamed:@"information_placeholder_icon"]];
+        }
         cell.titleLabel.text = recipesInfo.title;
-        return cell;
         
+        if (indexPath.row == 0) {
+            cell.topline.hidden = NO;
+        }
+        return cell;
     }
     static NSString *CellIdentifier = @"ActivityViewCell";
     ActivityViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
