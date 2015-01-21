@@ -71,6 +71,10 @@
 //    }
     
 //    //cell.delegate = self;
+    if (indexPath.row == 0) {
+        cell.topline.hidden = NO;
+    }
+    
     return cell;
 }
 

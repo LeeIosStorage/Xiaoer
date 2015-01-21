@@ -121,7 +121,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 //    [XEProgressHUD AlertLoading];
     __weak RecipesViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getListInfoWithNum:nil stage:index+1 cat:self.infoType tag:tag];
+    [[XEEngine shareInstance] getListInfoWithNum:0 stage:index+1 cat:self.infoType tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -143,10 +143,11 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
         weakSelf.hotGroups = [weakSelf.hotUnionDic mutableArrayValueForKey:weakSelf.titles[index]];
         cv.dateArray = weakSelf.hotGroups;
         [cv.tableView reloadData];
+        [cv.maskView setHidden:YES];
         
         [weakSelf recordCategoryRefreshTimeWith:index];
         
-        NSLog(@"==========%@",[[jsonRet objectForKey:@"object"] objectForKey:@"end"]);
+//        NSLog(@"==========%@",[[jsonRet objectForKey:@"object"] objectForKey:@"end"]);
         [weakSelf.endDic setValue:[[jsonRet objectForKey:@"object"] objectForKey:@"end"] forKey:weakSelf.titles[index]];
         [weakSelf.pageNumDic setValue:@"1" forKey:weakSelf.titles[index]];
 
@@ -252,7 +253,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     
     _categoryScrollView.contentSize = CGSizeMake(scrollBarWidth, _categoryScrollView.frame.size.height);
     //滚动动态计算
-    [self needScrollIndex];
+    //[self needScrollIndex];
 }
 
 - (void)needScrollIndex{
@@ -374,7 +375,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 //                [cv.pullUpView onlyLoading];
                 [self getCategoryInfoWithTag:_titles[_selectedIndex-1] andIndex:_selectedIndex-1];
             }
-            [self categoryScrollToVisible:_selectedIndex-1];
+            //[self categoryScrollToVisible:_selectedIndex-1];
         }
         _bScroll = NO;
     }
@@ -460,7 +461,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 
 
 - (void)transitionToViewAtIndex:(NSUInteger)index{
-    [self categoryScrollToVisible:index];
+    //[self categoryScrollToVisible:index];
     [_contentView setContentOffset:CGPointMake(index * _contentView.frame.size.width, 0)];
 }
 

@@ -18,4 +18,6 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *topImageView;
 
+@property (nonatomic, strong) IBOutlet UIImageView *topline;
+
 @end

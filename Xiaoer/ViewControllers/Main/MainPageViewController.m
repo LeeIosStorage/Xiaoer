@@ -86,7 +86,7 @@
     self.avatarImageView.layer.CornerRadius = 8;
     self.nickName.text = _userInfo.nickName;
     self.birthday.text = userInfo.birthdayString;
-    
+    self.tableView.tableHeaderView = self.headView;
     ///底部加点间隙
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 19)];
     footer.userInteractionEnabled = NO;
@@ -175,7 +175,6 @@
     scrollPageView.delegate = self;
     [self.adsViewContainer addSubview:scrollPageView];
     
-    self.tableView.tableHeaderView = self.headView;
     [self.tableView reloadData];
 }
 

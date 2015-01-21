@@ -12,7 +12,6 @@
 
 @optional
 - (void)didTouchCellWithRecipesInfo:(XERecipesInfo *)recipesInfo;
-//- (void)didTouchCellWithJoinGroup:(XERecipesInfo *)recipesInfo;
 - (void)didRefreshRecipesInfos;
 - (void)didChangeLayoutWithOffset:(CGFloat)offset;
 
@@ -20,7 +19,9 @@
 @end
 
 @interface XECategoryView : UIView
-//@property (strong, nonatomic) IBOutlet UIImageView *bgImageView;
+
+@property (strong, nonatomic) IBOutlet UIView *maskView;
+
 @property (strong, nonatomic) NSMutableArray *dateArray;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
