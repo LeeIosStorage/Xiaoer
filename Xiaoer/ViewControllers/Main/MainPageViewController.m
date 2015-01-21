@@ -22,6 +22,8 @@
 #import "UIImageView+WebCache.h"
 #import "ODRefreshControl.h"
 #import "MineMsgViewController.h"
+#import "WelcomeViewController.h"
+#import "XEAlertView.h"
 
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     ODRefreshControl *_themeControl;
@@ -69,6 +71,13 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+- (BOOL)isVisitor{
+    if ([XEEngine shareInstance].bVisitor) {
+        return YES;
+    }
+    return NO;
 }
 
 -(XEUserInfo *)getBabyUserInfo:(NSInteger)index{
@@ -411,22 +420,46 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
 }
 
+//提示错误
+-(void) showAlter
+{
+    __weak MainPageViewController *weakSelf = self;
+    XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"注册或登录后可查看宝宝训练计划，我的信箱，宝宝历史评测成绩" cancelButtonTitle:@"取消" cancelBlock:^{
+    } okButtonTitle:@"确认" okBlock:^{
+        WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
+        [weakSelf.navigationController pushViewController:welcomeVc animated:YES];
+    }];
+    [alertView show];
+}
+
 - (IBAction)mineMsgAction:(id)sender {
-    MineMsgViewController *mmVc = [[MineMsgViewController alloc] init];
-    [self.navigationController pushViewController:mmVc animated:YES];
+    if ([self isVisitor]) {
+        [self showAlter];
+    }else{
+        MineMsgViewController *mmVc = [[MineMsgViewController alloc] init];
+        [self.navigationController pushViewController:mmVc animated:YES];
+    }
 }
 
 - (IBAction)historyAction:(id)sender {
-    id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
-    if (vc) {
-        [self.navigationController pushViewController:vc animated:YES];
+    if ([self isVisitor]) {
+        [self showAlter];
+    }else {
+        id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
+        if (vc) {
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 
 - (IBAction)taskAction:(id)sender {
-    id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
-    if (vc) {
-        [self.navigationController pushViewController:vc animated:YES];
+    if ([self isVisitor]) {
+        [self showAlter];
+    }else{
+        id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
+        if (vc) {
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 
