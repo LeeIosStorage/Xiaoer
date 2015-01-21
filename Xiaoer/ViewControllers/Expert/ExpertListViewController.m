@@ -14,12 +14,18 @@
 #import "XEProgressHUD.h"
 #import "XEDoctorInfo.h"
 #import "XEPublicViewController.h"
+#import "ODRefreshControl.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 
 @interface ExpertListViewController ()<UITableViewDataSource,UITableViewDelegate>
-
+{
+    ODRefreshControl *_refreshControl;
+    BOOL _isScrollViewDrag;
+}
 @property (nonatomic, strong) NSMutableArray *expertList;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (assign, nonatomic) SInt64  nextCursor;
+@property (assign, nonatomic) BOOL canLoadMore;
 
 @end
 
@@ -28,8 +34,59 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
     self.view.backgroundColor = UIColorRGB(240, 240, 240);
-    [self refreshExpertList];
+    _refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
+    [_refreshControl addTarget:self action:@selector(refreshControlBeginPull:) forControlEvents:UIControlEventValueChanged];
+    
+    __weak ExpertListViewController *weakSelf = self;
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        if (!weakSelf) {
+            return;
+        }
+        if (!weakSelf.canLoadMore) {
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            weakSelf.tableView.showsInfiniteScrolling = NO;
+            return ;
+        }
+        
+        int tag = [[XEEngine shareInstance] getConnectTag];
+        [[XEEngine shareInstance] getExpertListWithPage:(int)weakSelf.nextCursor tag:tag];
+        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+            if (!weakSelf) {
+                return;
+            }
+            
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+            if (!jsonRet || errorMsg) {
+                if (!errorMsg.length) {
+                    errorMsg = @"请求失败";
+                }
+                [XEProgressHUD AlertError:errorMsg];
+                return;
+            }
+            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+            
+            NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"experts"];
+            for (NSDictionary *dic in object) {
+                XEDoctorInfo *doctorInfo = [[XEDoctorInfo alloc] init];
+                [doctorInfo setDoctorInfoByJsonDic:dic];
+                [weakSelf.expertList addObject:doctorInfo];
+            }
+            weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+            if (!weakSelf.canLoadMore) {
+                weakSelf.tableView.showsInfiniteScrolling = NO;
+            }else{
+                weakSelf.tableView.showsInfiniteScrolling = YES;
+                weakSelf.nextCursor ++;
+            }
+            [weakSelf.tableView reloadData];
+            
+        } tag:tag];
+    }];
+    
+    [self refreshExpertList:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,12 +108,15 @@
 }
 */
 
-- (void)refreshExpertList{
+- (void)refreshExpertList:(BOOL)isAlert{
     
-    [XEProgressHUD AlertLoading:@"数据加载中..."];
+    if (isAlert) {
+        [XEProgressHUD AlertLoading:@"数据加载中..."];
+    }
+    self.nextCursor = 1;
     __weak ExpertListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getExpertListWithPage:1 tag:tag];
+    [[XEEngine shareInstance] getExpertListWithPage:(int)self.nextCursor tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -64,9 +124,11 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
+            [_refreshControl endRefreshing:NO];
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
+        [_refreshControl endRefreshing:YES];
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         weakSelf.expertList = [[NSMutableArray alloc] init];
@@ -76,6 +138,18 @@
             [doctorInfo setDoctorInfoByJsonDic:dic];
             [weakSelf.expertList addObject:doctorInfo];
         }
+        
+//        weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+//        if (!weakSelf.canLoadMore) {
+//            weakSelf.tableView.showsInfiniteScrolling = NO;
+//        }else{
+//            weakSelf.tableView.showsInfiniteScrolling = YES;
+//            weakSelf.nextCursor ++;
+//        }
+        weakSelf.canLoadMore = YES;
+        weakSelf.tableView.showsInfiniteScrolling = YES;
+        weakSelf.nextCursor ++;
+        
         [weakSelf.tableView reloadData];
         
     }tag:tag];
@@ -85,6 +159,17 @@
 
 #pragma mark - custom
 
+#pragma mark - ODRefreshControl
+- (void)refreshControlBeginPull:(ODRefreshControl *)refreshControl
+{
+    if (_isScrollViewDrag) {
+        [self refreshExpertList:NO];
+    }
+}
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    _isScrollViewDrag = YES;
+}
 
 #pragma mark - tableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
