@@ -117,21 +117,22 @@
 }
 
 - (void)getThemeInfo{
-
     __weak MainPageViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getBannerWithTag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [_themeControl endRefreshing:err==nil];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
             [XEProgressHUD AlertError:errorMsg];
+            [_themeControl endRefreshing:NO];
             return;
         }
-        NSLog(@"jsonRet===============%@",jsonRet);
+        [_themeControl endRefreshing:YES];
+        
+        //NSLog(@"jsonRet===============%@",jsonRet);
         [weakSelf.adsThemeArray removeAllObjects];
         //解析数据
         weakSelf.adsThemeArray = [NSMutableArray array];
@@ -371,7 +372,8 @@
 - (void)themeBeginPull:(ODRefreshControl *)refreshControl
 {
     if (_isScrollViewDrag) {
-        [self performSelector:@selector(getThemeInfo) withObject:self afterDelay:1.0];
+//        [self performSelector:@selector(getThemeInfo) withObject:self afterDelay:1.0];
+        [self getThemeInfo];
     }
 }
 

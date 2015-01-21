@@ -20,8 +20,8 @@
 
 #define CONNECT_TIMEOUT 20
 
-//#define API_URL @"http://192.168.16.29"
-#define API_URL @"http://58.30.245.58:8080"
+#define API_URL @"http://192.168.16.29"
+//#define API_URL @"http://58.30.245.58:8080"
 
 static XEEngine* s_ShareInstance = nil;
 
@@ -383,6 +383,7 @@ static XEEngine* s_ShareInstance = nil;
             NSLog(@"getFullUrl===========%@ response%@",fullUrl,response);
             [self onResponse:response withTag:tag withError:errPtr];
         } failure:^(NSError *error) {
+            [self onResponse:nil withTag:tag withError:error];
             [XEProgressHUD lightAlert:@"请检查网络状况"];
         }];
         return YES;
@@ -399,6 +400,7 @@ static XEEngine* s_ShareInstance = nil;
                 NSLog(@"postFullUrl===========%@ response%@",fullUrl,response);
                 [self onResponse:response withTag:tag withError:errPtr];
             } failure:^(NSError *error) {
+                [self onResponse:nil withTag:tag withError:error];
                 [XEProgressHUD lightAlert:@"请检查网络状况"];
             }];
             
@@ -407,8 +409,8 @@ static XEEngine* s_ShareInstance = nil;
                 NSLog(@"postFullUrl===========%@ response%@",fullUrl,response);
                 [self onResponse:response withTag:tag withError:errPtr];
             } failure:^(NSError *error) {
+                [self onResponse:nil withTag:tag withError:error];
                 [XEProgressHUD lightAlert:@"请检查网络状况"];
-                
             }];
         }
         return YES;
@@ -427,15 +429,11 @@ static XEEngine* s_ShareInstance = nil;
 
 - (void)onResponse:(id)jsonRet withTag:(int)tag withError:(NSError *)errPtr
 {
-    if (!jsonRet) {
-        //NSLog(@"========================%@",[jsonRet objectForKey:@"code"]);
-    }
-    
     dispatch_async(dispatch_get_main_queue(), ^(){
         BOOL timeout = NO;
-//        if ([jsonRet integerForKey:@"code"] == 2) {
-//            timeout = YES;
-//        }
+        if (!jsonRet) {
+            timeout = YES;
+        }
 //        NSLog(@"========================%@",[jsonRet objectForKey:@"result"]);
         if (jsonRet && !errPtr) {
             NSString* fullUrl = [_urlTagMap objectForKey:[NSNumber numberWithInt:tag]];
