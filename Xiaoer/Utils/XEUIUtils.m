@@ -204,6 +204,51 @@ static bool dateFormatterOFUSInvalid ;
     return _timestamp;
 }
 
++ (NSString*)dateDiscription1FromNowBk:(NSDate*)date{
+    NSString *_timestamp = nil;
+    NSDate* nowDate = [NSDate date];
+    if (date == nil) {
+        return @"";
+    }
+    int distance = [nowDate timeIntervalSinceDate:date];
+    if (distance < 0) distance = 0;
+//    NSCalendar * calender = [NSCalendar currentCalendar];
+//    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit |
+//    NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit | NSWeekdayCalendarUnit;
+//    NSDateComponents *comps = [calender components:unitFlags fromDate:date];
+//    NSDateComponents *compsNow = [calender components:unitFlags fromDate:nowDate];
+    
+    if (distance < 0) {
+        distance = 0;
+    }
+    if (distance < 60*60*24*30) {
+        _timestamp = [NSString stringWithFormat:@"%d%@", distance/60/60/24, @"天"];
+    } else if (distance < 60*60*24*365) {
+        _timestamp = [NSString stringWithFormat:@"%d%@%d%@",distance/60/60/24/30,@"个月",distance/60/60/24%30,@"天"];
+    } else if (distance < 60*60*24*365*6){
+        _timestamp = [NSString stringWithFormat:@"%d%@%d%@",distance/60/60/24/365,@"岁",distance/60/60/24%365/30,@"个月"];
+    } else {
+        _timestamp = [NSString stringWithFormat:@"%d%@",distance/60/60/24/365,@"岁"];
+    }
+    
+//    if (distance < 60) {
+//        _timestamp = [NSString stringWithFormat:@"%d%@", distance, @"秒前"];
+//    } else if (distance < 60*60) {
+//        _timestamp = [NSString stringWithFormat:@"%d%@", distance/60, @"分钟前"];
+//    }else if (distance < 60*60*24) {
+//        _timestamp = [NSString stringWithFormat:@"%d%@", distance/60/60, @"小时前"];
+//    }else if (distance < 60*60*24*7) {
+//        _timestamp = [NSString stringWithFormat:@"%d%@", distance/60/60/24, @"天前"];
+//    }else {
+//        if (comps.year == compsNow.year){
+//            _timestamp = [NSString stringWithFormat:@"%02d-%02d", comps.month,comps.day];
+//        } else {
+//            _timestamp = [NSString stringWithFormat:@"%04d-%02d-%02d", comps.year,comps.month,comps.day];
+//        }
+//    }
+    
+    return _timestamp;
+}
 
 + (NSString*)documentOfCameraDenied
 {

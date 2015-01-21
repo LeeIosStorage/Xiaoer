@@ -57,7 +57,7 @@ enum TABLEVIEW_SECTION_INDEX {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    _userInfo = [XEEngine shareInstance].userInfo;
+    //_userInfo = [XEEngine shareInstance].userInfo;
     [self refreshUserInfoShow];
 }
 
@@ -103,15 +103,24 @@ enum TABLEVIEW_SECTION_INDEX {
     return NO;
 }
 
+-(XEUserInfo *)getBabyUserInfo:(NSInteger)index{
+    _userInfo = [XEEngine shareInstance].userInfo;
+    if (_userInfo.babys.count > index) {
+        XEUserInfo *babyUserInfo = [_userInfo.babys objectAtIndex:index];
+        return babyUserInfo;
+    }
+    return nil;
+}
+
 - (void)refreshUserInfoShow
 {
-
     if ([self isVisitor]) {
         [self setTitle:@"未登录"];
         [self.visitorImageView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
         self.visitorImageView.layer.CornerRadius = 8;
         self.tableView.tableHeaderView = self.visitorHeadView;
     }else{
+        XEUserInfo *userInfo = [self getBabyUserInfo:0];
         if (_userInfo.nickName.length > 0) {
             [self setTitle:_userInfo.nickName];
         }else{
@@ -122,7 +131,7 @@ enum TABLEVIEW_SECTION_INDEX {
         [self.ownerHeadImageView sd_setImageWithURL:_userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"placeholder_avatar_icon"]];
         self.ownerHeadImageView.layer.CornerRadius = 8;
         self.nickName.text = _userInfo.nickName;
-        self.birthday.text = _userInfo.birthdayString;
+        self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
         self.address.text  = _userInfo.address;
         self.tableView.tableHeaderView = self.headView;
     }

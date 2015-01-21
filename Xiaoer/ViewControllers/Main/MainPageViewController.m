@@ -95,7 +95,7 @@
     [self.avatarImageView sd_setImageWithURL:userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"home_placeholder_avatar"]];
     self.avatarImageView.layer.CornerRadius = 8;
     self.nickName.text = _userInfo.nickName;
-    self.birthday.text = userInfo.birthdayString;
+    self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
     self.tableView.tableHeaderView = self.headView;
     ///底部加点间隙
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 19)];

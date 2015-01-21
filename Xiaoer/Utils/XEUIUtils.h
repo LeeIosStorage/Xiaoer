@@ -33,6 +33,7 @@
 + (int)getAgeByDate:(NSDate*)date;
 + (NSString*)dateDiscriptionFromDate:(NSDate*)date;
 + (NSString*)dateDiscriptionFromNowBk:(NSDate*)date;
++ (NSString*)dateDiscription1FromNowBk:(NSDate*)date;
 
 + (NSDateFormatter *) dateFormatterOFUS;
 + (NSDate*)dateFromUSDateString:(NSString*)string;
