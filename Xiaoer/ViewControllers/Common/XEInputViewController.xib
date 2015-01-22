@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="inputTextView" destination="ufR-6f-e3d" id="hmu-yO-Qif"/>
                 <outlet property="inputView" destination="JOT-ZE-mbK" id="Zpy-dc-JoH"/>
+                <outlet property="placeHolderLabel" destination="8Co-af-CoW" id="bsv-iP-M3T"/>
                 <outlet property="remainNumLabel" destination="rF6-S0-pvk" id="bVy-0d-jGG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -36,6 +37,13 @@
                                 <outlet property="delegate" destination="-1" id="S3i-qd-b8Q"/>
                             </connections>
                         </textView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Co-af-CoW">
+                            <rect key="frame" x="11" y="6" width="161" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.70588235290000001" green="0.70980392160000005" blue="0.70980392160000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="40" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rF6-S0-pvk">
                             <rect key="frame" x="252" y="88" width="42" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>

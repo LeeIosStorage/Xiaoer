@@ -19,6 +19,22 @@
     return NO;
 }
 
++ (float)widthWithText:(NSString *)text font:(UIFont *)font lineBreakMode:(NSLineBreakMode)lineBreakMode{
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    paragraphStyle.lineBreakMode = lineBreakMode;
+    NSDictionary *attributes = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:paragraphStyle.copy};
+    float titleLabelWidth = [text sizeWithAttributes:attributes].width;
+    return titleLabelWidth;
+}
+
++ (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font width:(float)width{
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    NSDictionary *attributes = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:paragraphStyle.copy};
+    CGSize textSize = [text boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+    return textSize;
+}
+
 + (NSString *)fileNameEncodedString:(NSString *)string
 {
     if (![string length])

@@ -153,6 +153,34 @@
 }
 -(void)submitAction:(id)sender{
     
+    if ([XEEngine shareInstance].uid.length == 0) {
+        return;
+    }
+    if (_oldUserInfo.nickName.length == 0) {
+        [XEProgressHUD lightAlert:@"昵称必填哦"];
+        return;
+    }
+    if (_oldUserInfo.title.length == 0) {
+        [XEProgressHUD lightAlert:@"身份必填哦"];
+        return;
+    }
+    if (_oldUserInfo.stage == 0) {
+        [XEProgressHUD lightAlert:@"宝宝月龄必填哦"];
+        return;
+    }
+    if (_oldUserInfo.phone.length == 0) {
+        [XEProgressHUD lightAlert:@"常用电话必填哦"];
+        return;
+    }
+    if (_oldUserInfo.region.length == 0) {
+        [XEProgressHUD lightAlert:@"所在地区必填哦"];
+        return;
+    }
+    if (_oldUserInfo.address.length == 0) {
+        [XEProgressHUD lightAlert:@"详细街道必填哦"];
+        return;
+    }
+    
     __weak ApplyActivityViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] applyActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid nickname:_oldUserInfo.nickName title:_oldUserInfo.title phone:_oldUserInfo.phone district:_oldUserInfo.region address:_oldUserInfo.address remark:_textView.text stage:_oldUserInfo.stage tag:tag];
@@ -274,7 +302,7 @@ static int _maxTextLength = 200;
     NSDictionary *rowContentDic = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%ld", section]];
     return [rowContentDic count];
 }
-
+static int redIconImageView_tag = 201;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"MineTabCell";
     MineTabCell *cell;
@@ -283,6 +311,10 @@ static int _maxTextLength = 200;
     if (cell == nil) {
         NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
         cell = [cells objectAtIndex:0];
+        UIImageView *redIconImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"s_n_round_red"]];
+        redIconImgView.frame = CGRectMake(0, 0, 6, 6);
+        redIconImgView.tag = redIconImageView_tag;
+        [cell addSubview:redIconImgView];
     }
     CGRect frame = cell.titleLabel.frame;
     frame.origin.x = 13;
@@ -298,6 +330,13 @@ static int _maxTextLength = 200;
     if (!cell.introLabel.hidden) {
         cell.introLabel.text = [rowDicts objectForKey:@"intro"];
     }
+    
+    UIImageView *redIconImgView = (UIImageView *)[cell viewWithTag:redIconImageView_tag];
+    float titleLabelWidth = [XECommonUtils widthWithText:[rowDicts objectForKey:@"titleLabel"] font:self.titleLabel.font lineBreakMode:self.titleLabel.lineBreakMode];
+    frame = redIconImgView.frame;
+    frame.origin.x = self.titleLabel.frame.origin.x + titleLabelWidth;
+    frame.origin.y = (cell.frame.size.height-frame.size.height)/2;
+    redIconImgView.frame = frame;
     
     return cell;
 }
@@ -381,7 +420,10 @@ static int _maxTextLength = 200;
     }
     if (Tag == TAG_USER_PHONE) {
         lvc.oldText = _oldUserInfo.phone;
+        lvc.minTextLength = 1;
+        lvc.maxTextLength = 6;
         lvc.maxTextViewHight = 50.0f;
+        lvc.keyboardType = UIKeyboardTypeNumberPad;
     }
     if (Tag == TAG_USER_ADDRESS) {
         lvc.maxTextLength = 100;

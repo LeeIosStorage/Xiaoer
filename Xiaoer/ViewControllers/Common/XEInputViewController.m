@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UIView *inputView;
 @property (strong, nonatomic) IBOutlet UIImageView *inputBgImageView;
 @property (strong, nonatomic) IBOutlet UILabel *remainNumLabel;
+@property (strong, nonatomic) IBOutlet UILabel *placeHolderLabel;
 
 @end
 
@@ -34,15 +35,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    if ([_titleText isEqualToString:@"常用手机"]) {
-        _inputTextView.keyboardType = UIKeyboardTypeNumberPad;
-    }
+    _inputTextView.keyboardType = _keyboardType;
     
     self.view.backgroundColor = UIColorRGB(240, 240, 240);
 //    _inputBgImageView.image = [[UIImage imageNamed:@"verify_commit_bg"] stretchableImageWithLeftCapWidth:124 topCapHeight:20];
     
     if (_titleText != nil) {
         [self setTitle:_titleText];
+        self.placeHolderLabel.text = [NSString stringWithFormat:@"请输入%@",_titleText];
     }
     
     if ([_toolRightType isEqualToString:@"Finish"]) {
@@ -72,7 +72,9 @@
     _inputTextView.frame = textViewRect;
     
     [self updateRemainNumLabel];
+    [self updatePlaceHolderLabel];
     
+    [self.inputTextView becomeFirstResponder];
 }
 
 -(void)initNormalTitleNavBarSubviews
@@ -102,6 +104,14 @@
 }
 */
 
+- (void)updatePlaceHolderLabel{
+    if (_inputTextView.text.length > 0) {
+        _placeHolderLabel.hidden = YES;
+    }else{
+        _placeHolderLabel.hidden = NO;
+    }
+}
+
 - (void)updateRemainNumLabel{
     int existTextNum = [XECommonUtils getHanziTextNum:_inputTextView.text];
     _remainTextNum = _maxTextLength - existTextNum;
@@ -109,6 +119,7 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    [self updatePlaceHolderLabel];
     if (text.length == 0) {
         return YES;
     }
@@ -128,6 +139,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
+    [self updatePlaceHolderLabel];
     if (textView.markedTextRange != nil) {
         return;
     }

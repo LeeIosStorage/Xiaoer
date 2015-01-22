@@ -117,7 +117,9 @@
 }
 
 -(void)collectAction:(id)sender{
-    
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
     __weak ActivityDetailsViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] collectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
@@ -139,7 +141,9 @@
 }
 
 -(void)shareAction:(id)sender{
-    
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
     __weak ActivityDetailsViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] shareActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
