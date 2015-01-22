@@ -19,10 +19,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t6p-Mo-SQg">
-                        <rect key="frame" x="62" y="11" width="94" height="21"/>
+                        <rect key="frame" x="62" y="8" width="94" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xwu-Kt-tCS">
+                        <rect key="frame" x="62" y="26" width="189" height="12"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="Z8L-M0-RpV">
@@ -30,7 +37,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_indicator_icon" id="sLl-nG-Jyb">
-                        <rect key="frame" x="289" y="11" width="11" height="20"/>
+                        <rect key="frame" x="289" y="15" width="6" height="13"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </imageView>
@@ -42,13 +49,14 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="itemImageView" destination="aXi-wS-S0V" id="ECT-xa-yvN"/>
+                <outlet property="subTitleLabel" destination="Xwu-Kt-tCS" id="h3p-oA-jK9"/>
                 <outlet property="titleLabel" destination="t6p-Mo-SQg" id="jm7-9F-a3P"/>
             </connections>
-            <point key="canvasLocation" x="460.5" y="287"/>
+            <point key="canvasLocation" x="460" y="287"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="home_indicator_icon" width="7" height="14"/>
+        <image name="home_indicator_icon" width="6" height="12"/>
         <image name="s_n_set_line" width="300" height="1"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

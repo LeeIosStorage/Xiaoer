@@ -56,7 +56,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [self setTitle:@"首页"];
+    [self setTitle:@"晓儿"];
     [self refreshAdsScrollView];
     [self refreshUserInfoShow];
     
@@ -329,13 +329,21 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 10;
+    return 23;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 10)];
-    view.backgroundColor = UIColorRGB(234,234,234);
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 23)];
+    view.backgroundColor = [UIColor clearColor];
+    
+    UILabel *indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, view.frame.size.height)];
+    indexLabel.backgroundColor = [UIColor clearColor];
+    indexLabel.textColor = [UIColor lightGrayColor];
+    indexLabel.font = [UIFont boldSystemFontOfSize:13];
+    indexLabel.text = @"智能硬件";
+    [view addSubview:indexLabel];
+    
     return view;
 }
 
@@ -352,9 +360,11 @@
     
     if (indexPath.row == 0) {
         cell.titleLabel.text = @"智能垫";
+        cell.subTitleLabel.text = @"给宝宝一个科学的睡眠环境";
         cell.itemImageView.image = [UIImage imageNamed:@"home_intelligent_icon"];
     }else if (indexPath.row == 1) {
         cell.titleLabel.text = @"爬行毯";
+        cell.subTitleLabel.text = @"训练“大动作”的首创智能产品";
         cell.itemImageView.image = [UIImage imageNamed:@"home_parklon_icon"];
     }
     
