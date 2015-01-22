@@ -19,6 +19,7 @@
 @property(nonatomic, assign) int minTextLength;
 @property(nonatomic, assign) float maxTextViewHight;
 @property(nonatomic, strong) NSString* toolRightType;
+@property(nonatomic, assign) UIKeyboardType keyboardType;
 @end
 @protocol XEInputViewControllerDelegate <NSObject>
 

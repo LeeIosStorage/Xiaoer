@@ -272,7 +272,7 @@ enum TABLEVIEW_SECTION_INDEX {
                 [self.navigationController pushViewController:weVc animated:YES];
                 break;
             }else if (indexPath.row == 1){
-                
+                [self onLogoutWithError:nil];
                 break;
             }
             //暂时放下
@@ -306,6 +306,19 @@ enum TABLEVIEW_SECTION_INDEX {
 - (IBAction)loginAction:(id)sender {
     WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
     [self.navigationController pushViewController:welcomeVc animated:YES];
+}
+
+- (void)onLogoutWithError:(NSError *)error {
+    if ([XEEngine shareInstance].serverPlatform == TestPlatform) {
+        [XEEngine shareInstance].serverPlatform = OnlinePlatform;
+    } else {
+        [XEEngine shareInstance].serverPlatform = TestPlatform;
+    }
+    
+    AppDelegate * appDelgate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSLog(@"signOut for user logout");
+    [appDelgate signOut];
+    
 }
 
 @end

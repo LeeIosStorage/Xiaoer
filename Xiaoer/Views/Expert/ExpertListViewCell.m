@@ -8,16 +8,14 @@
 
 #import "ExpertListViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "XECommonUtils.h"
 
 @implementation ExpertListViewCell
 
 + (float)heightForDoctorInfo:(XEDoctorInfo *)doctorInfo{
     NSString* topicText = doctorInfo.des;
     
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
-    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:15], NSParagraphStyleAttributeName:paragraphStyle.copy};
-    CGSize topicTextSize = [topicText boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-12-86, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+    CGSize topicTextSize = [XECommonUtils sizeWithText:topicText font:[UIFont systemFontOfSize:15] width:SCREEN_WIDTH-12-86];
     
     
     if (topicTextSize.height < 16) {
@@ -53,10 +51,7 @@
     _doctorAgeLabel.text = [NSString stringWithFormat:@"%d岁",doctorInfo.age];
     
     CGRect frame = _doctorIntroLabel.frame;
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
-    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    NSDictionary *attributes = @{NSFontAttributeName:_doctorIntroLabel.font, NSParagraphStyleAttributeName:paragraphStyle.copy};
-    CGSize topicTextSize = [_doctorIntroLabel.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-12-86, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+    CGSize topicTextSize = [XECommonUtils sizeWithText:doctorInfo.des font:_doctorIntroLabel.font width:SCREEN_WIDTH-12-86];
     frame.size.height = topicTextSize.height;
     _doctorIntroLabel.frame = frame;
     

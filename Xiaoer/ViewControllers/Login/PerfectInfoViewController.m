@@ -518,10 +518,11 @@
             
             SelectBirthdayViewController* selectBirthdayViewController = [[SelectBirthdayViewController alloc] init];
             selectBirthdayViewController.delegate = self;
-            if (_userInfo.birthdayDate) {
-                selectBirthdayViewController.oldDate = _userInfo.birthdayDate;
+            XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
+            if (babyUserInfo.birthdayDate) {
+                selectBirthdayViewController.oldDate = babyUserInfo.birthdayDate;
             }else{
-                selectBirthdayViewController.oldDate = _userInfo.birthdayDate;
+                selectBirthdayViewController.oldDate = babyUserInfo.birthdayDate;
             }
             [self.navigationController pushViewController:selectBirthdayViewController animated:YES];
             
@@ -551,9 +552,10 @@
     }
     if (Tag == TAG_USER_PHONE) {
         lvc.oldText = _userInfo.phone;
-//        lvc.minTextLength = 1;
-//        lvc.maxTextLength = 6;
+        lvc.minTextLength = 1;
+        lvc.maxTextLength = 6;
         lvc.maxTextViewHight = 50.0f;
+        lvc.keyboardType = UIKeyboardTypeNumberPad;
     }
     lvc.titleText = [rowDicts objectForKey:@"titleLabel"];
     [self.navigationController pushViewController:lvc animated:YES];

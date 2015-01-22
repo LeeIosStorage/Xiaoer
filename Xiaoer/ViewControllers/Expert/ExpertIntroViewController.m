@@ -140,6 +140,9 @@
 
 -(void)collectAction:(id)sender{
     
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
     __weak ExpertIntroViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] collectExpertWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
@@ -161,6 +164,9 @@
 }
 
 -(void)shareAction:(id)sender{
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
     __weak ExpertIntroViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] shareExpertWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];

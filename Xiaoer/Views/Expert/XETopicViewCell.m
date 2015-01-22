@@ -7,20 +7,16 @@
 //
 
 #import "XETopicViewCell.h"
+#import "XECommonUtils.h"
 
 @implementation XETopicViewCell
 
 + (float)heightForTopicInfo:(XETopicInfo *)topicInfo{
     NSString* topicText = topicInfo.title;
-    //[topicText sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(320, MAXFLOAT) lineBreakMode:NSLineBreakByCharWrapping];
     if (!topicText) {
         topicText = @"";
     }
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
-    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:15], NSParagraphStyleAttributeName:paragraphStyle.copy};
-    CGSize topicTextSize = [topicText boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-11-26, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
-    
+    CGSize topicTextSize = [XECommonUtils sizeWithText:topicText font:[UIFont systemFontOfSize:15] width:SCREEN_WIDTH-11-26];
     
     if (topicTextSize.height < 16) {
         topicTextSize.height = 16;

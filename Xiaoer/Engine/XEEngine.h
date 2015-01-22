@@ -11,6 +11,12 @@
 
 #define XE_USERINFO_CHANGED_NOTIFICATION @"XE_USERINFO_CHANGED_NOTIFICATION"
 
+//平台切换宏
+typedef enum {
+    OnlinePlatform  = 1,    //线上平台
+    TestPlatform    = 2,    //测试平台
+}ServerPlatform;
+
 typedef void(^onAppServiceBlock)(NSInteger tag, NSDictionary* jsonRet, NSError* err);
 typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expectedSize);
 
@@ -27,6 +33,8 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 @property (nonatomic, readonly) BOOL isFirstLoginInThisDevice;
 @property (assign, nonatomic) BOOL bVisitor;
 
+@property (nonatomic,assign) ServerPlatform serverPlatform;
+
 + (XEEngine *)shareInstance;
 + (NSDictionary*)getReponseDicByContent:(NSData*)content err:(NSError*)err;
 + (NSString*)getErrorMsgWithReponseDic:(NSDictionary*)dic;
@@ -35,6 +43,14 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 
 - (void)saveAccount;
 - (NSString*)getCurrentAccoutDocDirectory;
+
+- (BOOL)hasAccoutLoggedin;
+- (void)logout;
+- (void)logout:(BOOL)removeAccout;
+
+#pragma mark - Visitor
+- (void)visitorLogin;
+- (BOOL)needUserLogin:(NSString *)message;
 
 //////////////////
 - (int)getConnectTag;
@@ -62,10 +78,6 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)loginWithEmail:(NSString*)email password:(NSString*)password error:(NSError **)errPtr;
 
 - (BOOL)loginWithUid:(NSString *)uid password:(NSString*)password tag:(int)tag error:(NSError **)errPtr;
-
-- (BOOL)hasAccoutLoggedin;
-- (void)logout;
-- (void)logout:(BOOL)removeAccout;
 
 //获取验证码
 - (BOOL)getCodeWithPhone:(NSString*)phone type:(NSString*)type tag:(int)tag;

@@ -10,4 +10,6 @@
 
 @interface WelcomeViewController : SuperMainViewController
 
+@property (nonatomic, assign) BOOL showBackButton;
+
 @end

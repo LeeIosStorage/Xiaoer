@@ -15,12 +15,16 @@
 #import "ExpertChatViewController.h"
 #import "MineTabViewController.h"
 #import "XENavigationController.h"
+#import "XEEngine.h"
 
 @interface WelcomeViewController ()
+
+@property (nonatomic,strong) IBOutlet UIButton *backButton;
 
 - (IBAction)loginAction:(id)sender;
 - (IBAction)registerAction:(id)sender;
 - (IBAction)visitorAction:(id)sender;
+- (IBAction)backAction:(id)sender;
 
 @end
 
@@ -30,6 +34,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.titleNavBar setHidden:YES];
+    self.backButton.hidden = !_showBackButton;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,6 +42,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)backAction:(id)sender{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
 - (IBAction)loginAction:(id)sender {
     LoginViewController *mpVc = [[LoginViewController alloc] init];
     mpVc.vcType = VcType_Login;
@@ -50,6 +60,8 @@
 }
 
 - (IBAction)visitorAction:(id)sender {
+    
+    [[XEEngine shareInstance] visitorLogin];
     XETabBarViewController* tabViewController = [[XETabBarViewController alloc] init];
     tabViewController.viewControllers = [NSArray arrayWithObjects:
                                          [[MainPageViewController alloc] init],

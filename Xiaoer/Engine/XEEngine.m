@@ -17,11 +17,15 @@
 #import "NSDictionary+objectForKey.h"
 #import "QHQnetworkingTool.h"
 #import "XESettingConfig.h"
+#import "XEAlertView.h"
+#import "WelcomeViewController.h"
+#import "AppDelegate.h"
+#import "XENavigationController.h"
 
 #define CONNECT_TIMEOUT 20
 
-#define API_URL @"http://192.168.16.29"
-//#define API_URL @"http://58.30.245.58:8080"
+//static NSString* API_URL = @"http://192.168.16.29";
+static NSString* API_URL = @"http://58.30.245.58:8080";
 
 static XEEngine* s_ShareInstance = nil;
 
@@ -134,10 +138,27 @@ static XEEngine* s_ShareInstance = nil;
     _userInfo.uid = _uid;
     [self loadUserInfo];
     
+    _serverPlatform = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"serverPlatform"];
+    if (_serverPlatform == 0)
+    {
+        _serverPlatform = OnlinePlatform;//默认线上平台
+    }
+    
     //设置访问
     [self setDebugMode:[[NSUserDefaults standardUserDefaults] boolForKey:@"clientDebugMode2"]];
     
+    [self serverInit];
+    
     return self;
+}
+
+- (void)serverInit{
+//    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
+    if (self.serverPlatform == TestPlatform) {
+        API_URL = @"http://192.168.16.29";
+    } else {
+        API_URL = @"http://58.30.245.58:8080";
+    }
 }
 
 - (void)logout{
@@ -266,6 +287,41 @@ static XEEngine* s_ShareInstance = nil;
     return API_URL;
 }
 
+- (void)setServerPlatform:(ServerPlatform)serverPlatform {
+    _serverPlatform = serverPlatform;
+    [[NSUserDefaults standardUserDefaults] setInteger:_serverPlatform forKey:@"serverPlatform"];
+    [self serverInit];
+}
+
+#pragma mark - Visitor 
+- (void)visitorLogin{
+    _uid = nil;
+    _userPassword = nil;
+    _userInfo = [[XEUserInfo alloc] init];
+}
+- (BOOL)needUserLogin:(NSString *)message{
+    if (![self hasAccoutLoggedin]) {
+        if (message == nil) {
+            message = @"请登录";
+        }
+        XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:message cancelButtonTitle:@"取消" cancelBlock:^{
+        } okButtonTitle:@"登录" okBlock:^{
+            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
+            welcomeVc.showBackButton = YES;
+            XENavigationController* navigationController = [[XENavigationController alloc] initWithRootViewController:welcomeVc];
+            navigationController.navigationBarHidden = YES;
+            [appDelegate.mainTabViewController.navigationController presentViewController:navigationController animated:YES completion:^{
+                
+            }];
+        }];
+        [alertView show];
+        return YES;
+    }
+    return NO;
+}
+
+#pragma mark - request
 //////////////////////
 - (int)getConnectTag{
     return _connectTag++;
