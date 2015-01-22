@@ -55,6 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
     [self setTitle:@"首页"];
     [self refreshAdsScrollView];
     [self refreshUserInfoShow];
@@ -72,6 +73,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
 }
 
 - (BOOL)isVisitor{
@@ -421,6 +423,10 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 //提示错误
 -(void) showAlter
 {
@@ -462,6 +468,11 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
+}
+
+- (void)handleUserInfoChanged:(NSNotification *)notification{
+    [self refreshUserInfoShow];
+    [self.tableView reloadData];
 }
 
 @end
