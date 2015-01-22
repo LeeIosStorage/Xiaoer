@@ -299,13 +299,13 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 
 - (void)recordCategoryRefreshTimeWith:(NSUInteger)index{
     NSTimeInterval categoryRefreshTime = [[NSDate date] timeIntervalSince1970];
-    NSString *key = [NSString stringWithFormat:@"%@_%@_%d_%ld", kCategoryRefreshTime, [XEEngine shareInstance].uid,self.infoType,index];
+    NSString *key = [NSString stringWithFormat:@"%@_%@_%d_%lu", kCategoryRefreshTime, [XEEngine shareInstance].uid,self.infoType,(unsigned long)index];
     [[NSUserDefaults standardUserDefaults] setDouble:categoryRefreshTime forKey:key];
 }
 
 - (BOOL)categoryNecessaryRefreshWith:(NSUInteger)index{
     //获取分类最近刷新时间
-    NSString *key = [NSString stringWithFormat:@"%@_%@_%d_%ld", kCategoryRefreshTime, [XEEngine shareInstance].uid,self.infoType,index];
+    NSString *key = [NSString stringWithFormat:@"%@_%@_%d_%lu", kCategoryRefreshTime, [XEEngine shareInstance].uid,self.infoType,(unsigned long)index];
     double categoryRefreshTime = [[NSUserDefaults standardUserDefaults] integerForKey:key];
     NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970];
     if (nowtime - categoryRefreshTime > XERefreshInterval) {
@@ -338,9 +338,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
         if ([self categoryNecessaryRefreshWith:index-1]) {
             XECategoryView *cv = _categoryViews[index-1];
             cv.delegate = self;
-            //            [cv.tableView setContentOffset:CGPointMake(0, 0) animated:NO];
-            //[cv.pullUpView onlyLoading];
-            
+            [cv.pullRefreshView triggerPullToRefresh];
             [self getCategoryInfoWithTag:_titles[_selectedIndex-1] andIndex:_selectedIndex-1];
         }
     }
@@ -383,8 +381,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
             if ([self categoryNecessaryRefreshWith:_selectedIndex-1]) {
                 XECategoryView *cv = _categoryViews[_selectedIndex-1];
                 cv.delegate = self;
-                //                [cv.tableView setContentOffset:CGPointMake(0, 0) animated:NO];
-//                [cv.pullUpView onlyLoading];
+                [cv.pullRefreshView triggerPullToRefresh];
                 [self getCategoryInfoWithTag:_titles[_selectedIndex-1] andIndex:_selectedIndex-1];
             }
             //[self categoryScrollToVisible:_selectedIndex-1];
