@@ -80,7 +80,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     }else if (self.infoType == TYPE_EVALUATION) {
         [self setTitle:@"测评"];
     }
-    [self setRightButtonWithTitle:@"我的收藏" selector:@selector(settingAction)];
+    [self setRightButtonWithImageName:@"common_collect_icon" selector:@selector(settingAction)];
 }
 
 - (void)getCategoryInfo{
@@ -124,14 +124,18 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     [[XEEngine shareInstance] getListInfoWithNum:0 stage:index+1 cat:self.infoType tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         
+        XECategoryView *cv = _categoryViews[index];
+        cv.delegate = self;
+        
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
-    
+            if (cv.bRefresh) {
+                [cv.pullRefreshView finishedLoading];
+                cv.bRefresh = NO;
+            }
             return;
         }
         
-        XECategoryView *cv = _categoryViews[index];
-        cv.delegate = self;
         NSMutableArray *hotGroups = [[NSMutableArray alloc] init];
         
         for (NSDictionary *groupDic in [[jsonRet objectForKey:@"object"] objectForKey:@"infos"]) {
@@ -142,14 +146,19 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
         [weakSelf.hotUnionDic setValue:hotGroups forKey:weakSelf.titles[index]];
         weakSelf.hotGroups = [weakSelf.hotUnionDic mutableArrayValueForKey:weakSelf.titles[index]];
         cv.dateArray = weakSelf.hotGroups;
+        
         [cv.tableView reloadData];
         [cv.maskView setHidden:YES];
         
         [weakSelf recordCategoryRefreshTimeWith:index];
         
-//        NSLog(@"==========%@",[[jsonRet objectForKey:@"object"] objectForKey:@"end"]);
         [weakSelf.endDic setValue:[[jsonRet objectForKey:@"object"] objectForKey:@"end"] forKey:weakSelf.titles[index]];
         [weakSelf.pageNumDic setValue:@"1" forKey:weakSelf.titles[index]];
+        if (cv.bRefresh) {
+            [cv.pullRefreshView finishedLoading];
+            //            cv.pullRefreshView.enabled = NO;
+            cv.bRefresh = NO;
+        }
 
         int cursor = [weakSelf.endDic intValueForKey:weakSelf.titles[index]];
         if (cursor == 0) {
@@ -486,6 +495,11 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     if (vc) {
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+- (void)didRefreshRecipesInfos {
+    NSLog(@"==================didRefreshRecipesInfos");
+    [self getCategoryInfoWithTag:_titles[_selectedIndex-1] andIndex:_selectedIndex-1];
 }
 
 -(void)dealloc {

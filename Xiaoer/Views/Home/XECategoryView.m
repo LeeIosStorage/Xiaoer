@@ -10,7 +10,7 @@
 #import "CategoryItemCell.h"
 #import "UIImageView+WebCache.h"
 
-@interface XECategoryView()<UITableViewDataSource,UITableViewDelegate>
+@interface XECategoryView()<UITableViewDataSource,UITableViewDelegate,PullToRefreshViewDelegate>
 
 @end
 
@@ -22,6 +22,9 @@
     self = [[[NSBundle mainBundle] loadNibNamed:@"XECategoryView" owner:self options:nil] objectAtIndex:0];
     if (self) {
         //..
+        self.pullRefreshView = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
+        self.pullRefreshView.delegate = self;
+        [self.tableView addSubview:self.pullRefreshView];
     }
     return self;
 }
@@ -87,6 +90,18 @@
 
 - (void)refreshAdsScrollView{
     
+}
+
+#pragma mark PullToRefreshViewDelegate
+- (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view {
+    self.bRefresh = YES;
+    if (_delegate && [_delegate respondsToSelector:@selector(didRefreshRecipesInfos)]) {
+        [_delegate didRefreshRecipesInfos];
+    }
+}
+
+- (NSDate *)pullToRefreshViewLastUpdated:(PullToRefreshView *)view {
+    return [NSDate date];
 }
 
 @end

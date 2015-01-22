@@ -7,6 +7,7 @@
 //
 
 #import "XERecipesInfo.h"
+#import "PullToRefreshView.h"
 
 @protocol XECategoryDelegate<NSObject>
 
@@ -14,7 +15,6 @@
 - (void)didTouchCellWithRecipesInfo:(XERecipesInfo *)recipesInfo;
 - (void)didRefreshRecipesInfos;
 - (void)didChangeLayoutWithOffset:(CGFloat)offset;
-
 
 @end
 
@@ -29,6 +29,8 @@
 @property (assign, nonatomic) id <XECategoryDelegate> delegate;
 
 @property (assign, nonatomic) BOOL bRefresh;
+
+@property (strong, nonatomic) PullToRefreshView *pullRefreshView;
 
 - (void)refreshAdsScrollView;
 

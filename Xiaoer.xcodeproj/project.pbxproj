@@ -142,6 +142,9 @@
 		07C49F571A5E7E9900E1725C /* AVCamRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C49F501A5E7E9900E1725C /* AVCamRecorder.m */; };
 		07C49F581A5E7E9900E1725C /* AVCamUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C49F521A5E7E9900E1725C /* AVCamUtilities.m */; };
 		07C49F591A5E7E9900E1725C /* DDExpandableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C49F551A5E7E9900E1725C /* DDExpandableButton.m */; };
+		07C7C5111A70E336003E1272 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C7C50B1A70E336003E1272 /* arrow.png */; };
+		07C7C5121A70E336003E1272 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C7C50C1A70E336003E1272 /* arrow@2x.png */; };
+		07C7C5141A70E336003E1272 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C7C50F1A70E336003E1272 /* PullToRefreshView.m */; };
 		07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C9880F1A63AAEA003A2B30 /* SelectBirthdayViewController.m */; };
 		07C988121A63AAEA003A2B30 /* SelectBirthdayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07C988101A63AAEA003A2B30 /* SelectBirthdayViewController.xib */; };
 		07C988161A63B44B003A2B30 /* ChooseLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C988141A63B44B003A2B30 /* ChooseLocationViewController.m */; };
@@ -457,6 +460,10 @@
 		07C49F521A5E7E9900E1725C /* AVCamUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamUtilities.m; sourceTree = "<group>"; };
 		07C49F541A5E7E9900E1725C /* DDExpandableButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDExpandableButton.h; sourceTree = "<group>"; };
 		07C49F551A5E7E9900E1725C /* DDExpandableButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDExpandableButton.m; sourceTree = "<group>"; };
+		07C7C50B1A70E336003E1272 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		07C7C50C1A70E336003E1272 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
+		07C7C50E1A70E336003E1272 /* PullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshView.h; sourceTree = "<group>"; };
+		07C7C50F1A70E336003E1272 /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
 		07C9880E1A63AAEA003A2B30 /* SelectBirthdayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectBirthdayViewController.h; sourceTree = "<group>"; };
 		07C9880F1A63AAEA003A2B30 /* SelectBirthdayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectBirthdayViewController.m; sourceTree = "<group>"; };
 		07C988101A63AAEA003A2B30 /* SelectBirthdayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectBirthdayViewController.xib; sourceTree = "<group>"; };
@@ -1040,6 +1047,17 @@
 			path = DDExpandable;
 			sourceTree = "<group>";
 		};
+		07C7C50A1A70E336003E1272 /* PullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				07C7C50B1A70E336003E1272 /* arrow.png */,
+				07C7C50C1A70E336003E1272 /* arrow@2x.png */,
+				07C7C50E1A70E336003E1272 /* PullToRefreshView.h */,
+				07C7C50F1A70E336003E1272 /* PullToRefreshView.m */,
+			);
+			path = PullToRefresh;
+			sourceTree = "<group>";
+		};
 		07E284391A5A8DFC005651EB /* UMeng */ = {
 			isa = PBXGroup;
 			children = (
@@ -1211,6 +1229,7 @@
 				075E40A41A593A820062F6AD /* ProgressHUD */,
 				073FD98D1A53D5C300FF0EFD /* JSONKit */,
 				07582CF41A6E37F200CDCA13 /* ODRefreshControl */,
+				07C7C50A1A70E336003E1272 /* PullToRefresh */,
 				07582D071A6E566100CDCA13 /* SVPullToRefresh */,
 				0712B3801A5BD853000A1A7F /* SDWebImage */,
 				07E284391A5A8DFC005651EB /* UMeng */,
@@ -1463,6 +1482,7 @@
 				07582D1B1A6E5B6200CDCA13 /* MineMsgViewController.xib in Resources */,
 				074644861A6CFFDA00CE2935 /* XECollectionViewCell.xib in Resources */,
 				07913F661A67808F0083E8E5 /* ExpertListViewCell.xib in Resources */,
+				07C7C5111A70E336003E1272 /* arrow.png in Resources */,
 				07C988171A63B44B003A2B30 /* ChooseLocationViewController.xib in Resources */,
 				075B032C1A6E3BB7002B577D /* Pin.png in Resources */,
 				07E536321A5290C9005E1DA9 /* EvaluationViewController.xib in Resources */,
@@ -1501,6 +1521,7 @@
 				07B650581A67AC7E00DEDE4E /* XETopicViewCell.xib in Resources */,
 				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
 				07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */,
+				07C7C5121A70E336003E1272 /* arrow@2x.png in Resources */,
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
 				07FC6D1D1A675D66001F34D8 /* XEScrollPage.xib in Resources */,
 				0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */,
@@ -1577,6 +1598,7 @@
 				076F32581A5F806200346F44 /* XEInputViewController.m in Sources */,
 				0774A8621A6663AD00336465 /* XEThemeInfo.m in Sources */,
 				07B6505E1A67B88000DEDE4E /* XETopicInfo.m in Sources */,
+				07C7C5141A70E336003E1272 /* PullToRefreshView.m in Sources */,
 				075E409F1A59386C0062F6AD /* AFURLSessionManager.m in Sources */,
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
 				07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */,
@@ -1771,8 +1793,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lei Xu (3972L95X5K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lei Xu (3972L95X5K)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -1801,8 +1823,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lei Xu (3972L95X5K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lei Xu (3972L95X5K)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
