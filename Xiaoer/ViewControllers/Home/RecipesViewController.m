@@ -339,7 +339,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
             XECategoryView *cv = _categoryViews[index-1];
             cv.delegate = self;
             [cv.pullRefreshView triggerPullToRefresh];
-            [self getCategoryInfoWithTag:_titles[_selectedIndex-1] andIndex:_selectedIndex-1];
+            //[self getCategoryInfoWithTag:_titles[_selectedIndex-1] andIndex:_selectedIndex-1];
         }
     }
 }
@@ -382,7 +382,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
                 XECategoryView *cv = _categoryViews[_selectedIndex-1];
                 cv.delegate = self;
                 [cv.pullRefreshView triggerPullToRefresh];
-                [self getCategoryInfoWithTag:_titles[_selectedIndex-1] andIndex:_selectedIndex-1];
+                //[self getCategoryInfoWithTag:_titles[_selectedIndex-1] andIndex:_selectedIndex-1];
             }
             //[self categoryScrollToVisible:_selectedIndex-1];
         }

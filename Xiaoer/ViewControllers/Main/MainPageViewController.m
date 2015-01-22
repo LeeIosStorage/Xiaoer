@@ -63,6 +63,7 @@
     //获取首页信息
     [self getHomePageInfo];
     //获取广告位信息
+    [self getCacheThemeInfo];
     [self getThemeInfo];
     
     //此句不加程序崩
@@ -126,6 +127,20 @@
         _mallurl = [[jsonRet objectForKey:@"object"] objectForKey:@"mallurl"];
         [XEProgressHUD AlertSuccess:@"获取成功."];
     }tag:tag];
+}
+
+-(void)getCacheThemeInfo {
+    __weak MainPageViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getBannerWithTag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            NSLog(@"=========================拿到缓存");
+        }
+    }];
 }
 
 - (void)getThemeInfo{

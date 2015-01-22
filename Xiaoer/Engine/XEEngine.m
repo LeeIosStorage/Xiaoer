@@ -473,7 +473,9 @@ static XEEngine* s_ShareInstance = nil;
     }
     
     NSError* err = nil;
-    
+    if (errPtr) {
+        err = errPtr;
+    }
     onAppServiceBlock block = [self getonAppServiceBlockByTag:tag];
     if (block) {
         [self removeOnAppServiceBlockForTag:tag];
@@ -495,7 +497,9 @@ static XEEngine* s_ShareInstance = nil;
             if (fullUrl) {
                 //有错误的内容不缓存
                 if ([_needCacheUrls containsObject:fullUrl] && ![XEEngine getErrorMsgWithReponseDic:jsonRet]) {
-                 //   [[self getCacheInstance] setString:response forKey:[XECommonUtils fileNameEncodedString:fullUrl]];
+                    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonRet options:NSJSONWritingPrettyPrinted error:nil];
+                    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                    [[self getCacheInstance] setString:jsonString forKey:[XECommonUtils fileNameEncodedString:fullUrl]];
                  //   NSLog(@"=======================%@",jsonRet);
                 }
             }
@@ -700,7 +704,7 @@ static XEEngine* s_ShareInstance = nil;
 
 - (BOOL)getBannerWithTag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/banner",API_URL] type:0 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/banner",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
@@ -709,13 +713,13 @@ static XEEngine* s_ShareInstance = nil;
     if (uid) {
         [params setObject:uid forKey:@"uid"];
     }
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/userinfos",API_URL] type:0 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/userinfos",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
 - (BOOL)getInfoWithBabyId:(NSString *)bbId tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/info/tab",API_URL] type:0 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/info/tab",API_URL] type:1 parameters:params];
     if (bbId) {
         [params setObject:bbId forKey:@"babyid"];
     }
@@ -724,7 +728,7 @@ static XEEngine* s_ShareInstance = nil;
 
 - (BOOL)getListInfoWithNum:(NSUInteger)pagenum stage:(NSUInteger)stage cat:(int)cat tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/info/list",API_URL] type:0 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/info/list",API_URL] type:1 parameters:params];
     if (pagenum) {
         [params setObject:[NSNumber numberWithInteger:pagenum] forKey:@"pagenum"];
     }
@@ -739,7 +743,7 @@ static XEEngine* s_ShareInstance = nil;
     if (page > 0 ) {
         [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
     }
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/expert",API_URL] type:0 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/expert",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
@@ -751,7 +755,7 @@ static XEEngine* s_ShareInstance = nil;
     if (uid) {
         [params setObject:uid forKey:@"userid"];
     }
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/expert/detail",API_URL] type:0 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/expert/detail",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
@@ -797,7 +801,7 @@ static XEEngine* s_ShareInstance = nil;
     if (uid) {
         [params setObject:uid forKey:@"userid"];
     }
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/activity/all",API_URL] type:0 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/activity/all",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
@@ -809,7 +813,7 @@ static XEEngine* s_ShareInstance = nil;
     if (uid) {
         [params setObject:uid forKey:@"userid"];
     }
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/activity/detail",API_URL] type:0 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/activity/detail",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
@@ -885,7 +889,7 @@ static XEEngine* s_ShareInstance = nil;
     if (page > 0 ) {
         [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
     }
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/activity/his",API_URL] type:0 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/activity/his",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
