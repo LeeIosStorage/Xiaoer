@@ -26,6 +26,7 @@
 @property(nonatomic, assign) int minnum;//最少报名人数
 @property(nonatomic, assign) int status;//活动状态
 @property(nonatomic, assign) BOOL istop;//是否置顶
+@property(nonatomic, assign) int faved;//0为收藏 1已收藏
 
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* activityInfoByJsonDic;

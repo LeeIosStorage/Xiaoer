@@ -15,8 +15,8 @@
     if ([dic objectForKey:@"name"]) {
         _doctorName = [dic objectForKey:@"name"];
     }
-    if ([dic objectForKey:@"hospital"]) {
-        _hospital = [dic objectForKey:@"hospital"];
+    if ([dic stringObjectForKey:@"hospital"]) {
+        _hospital = [dic stringObjectForKey:@"hospital"];
     }
     if ([dic objectForKey:@"title"]) {
         _title = [dic objectForKey:@"title"];
@@ -30,6 +30,7 @@
     _age = [[dic objectForKey:@"age"] intValue];
     _topicnum = [[dic objectForKey:@"topicnum"] intValue];
     _favnum = [[dic objectForKey:@"favnum"] intValue];
+    _faved = [[dic objectForKey:@"faved"] intValue];
 }
 
 -(void)setDoctorInfoByJsonDic:(NSDictionary *)dic{

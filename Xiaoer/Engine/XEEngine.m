@@ -687,8 +687,11 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)getExpertDetailWithUid:(NSString *)uid tag:(int)tag{
+- (BOOL)getExpertDetailWithUid:(NSString *)uid expertId:(NSString *)expertId tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (expertId) {
+        [params setObject:expertId forKey:@"expertid"];
+    }
     if (uid) {
         [params setObject:uid forKey:@"userid"];
     }
@@ -742,10 +745,13 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)getApplyActivityDetailWithActivityId:(NSString *)activityId tag:(int)tag{
+- (BOOL)getApplyActivityDetailWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (activityId) {
         [params setObject:activityId forKey:@"id"];
+    }
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/activity/detail",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
