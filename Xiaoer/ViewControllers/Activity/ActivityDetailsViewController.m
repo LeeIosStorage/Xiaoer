@@ -12,9 +12,14 @@
 #import "UIImageView+WebCache.h"
 #import "ApplyActivityViewController.h"
 #import "MapChooseViewController.h"
+#import "XEScrollPage.h"
+#import "XEThemeInfo.h"
 
-@interface ActivityDetailsViewController () <UITableViewDataSource,UITableViewDelegate>
-
+@interface ActivityDetailsViewController () <UITableViewDataSource,UITableViewDelegate,XEScrollPageDelegate>
+{
+    XEScrollPage *_scrollPageView;
+    BOOL _servicerInfoSucceed;
+}
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) IBOutlet UIView *headView;
@@ -76,11 +81,13 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
+        _servicerInfoSucceed = YES;
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         NSDictionary *dic = [jsonRet objectForKey:@"object"];
         [weakSelf.activityInfo setActivityInfoByJsonDic:dic];
         
+        [weakSelf refreshAdsScrollView];
         [weakSelf refreshActivityHeadShow];
         [weakSelf.tableView reloadData];
         
@@ -96,6 +103,29 @@
 }
 
 #pragma mark - custom
+///刷新广告位
+- (void)refreshAdsScrollView {
+    for (UIView *view in _avatarImageView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    NSMutableArray *adsThemeArray = [NSMutableArray array];
+    for (NSString *url in _activityInfo.picIds) {
+        XEThemeInfo *info = [[XEThemeInfo alloc] init];
+        info.themeImageUrl = url;
+        [adsThemeArray addObject:info];
+    }
+    
+    _scrollPageView = [[XEScrollPage alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_avatarImageView.frame), CGRectGetHeight(_avatarImageView.frame))];
+    _scrollPageView.duration = 4;
+    _scrollPageView.adsType = AdsType_Theme;
+    _scrollPageView.dataArray = adsThemeArray;
+    _scrollPageView.delegate = self;
+    [self.avatarImageView addSubview:_scrollPageView];
+    
+    [self.tableView reloadData];
+}
+
 -(void)refreshActivityHeadShow{
     
     if (![self isCollect]) {
@@ -106,7 +136,12 @@
     
     self.avatarImageView.clipsToBounds = YES;
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.avatarImageView sd_setImageWithURL:_activityInfo.picUrl placeholderImage:[UIImage imageNamed:@"activity_pic_default"]];
+    if (_servicerInfoSucceed && _activityInfo.picIds.count > 0) {
+        [self.avatarImageView sd_setImageWithURL:nil];
+        [self.avatarImageView setImage:nil];
+    }else{
+        [self.avatarImageView sd_setImageWithURL:_activityInfo.picUrl placeholderImage:[UIImage imageNamed:@"activity_pic_default"]];
+    }
     
     self.titleLabel.text = _activityInfo.title;
     self.addressAndTimeLabel.text = [NSString stringWithFormat:@"%@\n%@到%@",_activityInfo.address,[XEUIUtils dateDiscriptionFromDate:_activityInfo.begintime],[XEUIUtils dateDiscriptionFromDate:_activityInfo.endtime]];
@@ -114,12 +149,13 @@
     self.activityIntroLabel.text = _activityInfo.des;
     
     CGRect frame = self.activityIntroLabel.frame;
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
-    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    NSDictionary *attributes = @{NSFontAttributeName:self.activityIntroLabel.font, NSParagraphStyleAttributeName:paragraphStyle.copy};
-    CGSize topicTextSize = [self.activityIntroLabel.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-12-86, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+    CGSize topicTextSize = [XECommonUtils sizeWithText:_activityInfo.des font:self.activityIntroLabel.font width:SCREEN_WIDTH-13*2];
     frame.size.height = topicTextSize.height;
     self.activityIntroLabel.frame = frame;
+    
+    frame = self.headView.frame;
+    frame.size.height = self.activityIntroLabel.frame.origin.y + self.activityIntroLabel.frame.size.height + 10;
+    self.headView.frame = frame;
     
     self.tableView.tableHeaderView = self.headView;
 }
@@ -198,6 +234,23 @@
     [showmap setCurrentLocation:_activityInfo.latitude longitute:_activityInfo.longitude];
     
     [self.navigationController pushViewController:showmap animated:YES];
+}
+
+#pragma mark - XEScrollPageDelegate
+- (void)didTouchPageView:(NSInteger)index{
+    if (index < 0) {
+        return;
+    }
+//    
+//    XEThemeInfo *theme = [_adsThemeArray objectAtIndex:index];
+//    if (!theme) {
+//        return;
+//    }
+//    
+//    id vc = [XELinkerHandler handleDealWithHref:theme.themeActionUrl From:self.navigationController];
+//    if (vc) {
+//        [self.navigationController pushViewController:vc animated:YES];
+//    }
 }
 
 #pragma mark - tableViewDataSource
