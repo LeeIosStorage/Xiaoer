@@ -17,6 +17,19 @@
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* themeInfoByJsonDic;
 
+@property(nonatomic, readonly) NSString* themeActionUrl;
+
+@property(nonatomic, readonly) NSString* smallThemeImageUrl;
+@property(nonatomic, readonly) NSString* mediumThemeImageUrl;
+@property(nonatomic, readonly) NSString* largeThemeImageUrl;
+@property(nonatomic, readonly) NSString* originalThemeImageUrl;
+
 - (void)setThemeInfoByDic:(NSDictionary*)dic;
+
++ (NSString*)getThemeImageUrlWithUrl:(NSString*)url size:(int)size;
+
+- (NSString*)getSmallThemeImageUrl;
+- (NSString*)getMediumThemeImageUrl;
+- (NSString*)getLargeThemeImageUrl;
 
 @end

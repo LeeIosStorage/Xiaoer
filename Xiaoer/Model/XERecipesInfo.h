@@ -17,6 +17,8 @@
 @property(nonatomic, strong) NSString* recipesImageUrl;
 @property(nonatomic, assign) BOOL isTop;
 
+@property(nonatomic, readonly) NSString* recipesActionUrl;
+
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* recipesInfoByJsonDic;
 

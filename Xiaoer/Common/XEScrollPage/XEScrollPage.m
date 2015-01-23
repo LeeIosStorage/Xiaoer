@@ -79,15 +79,16 @@
 
     XEThemeInfo *theme;
     theme = [_dataArray lastObject];
-    [self addSubviewToScrollView:_adsScrollView withURL:theme.themeImageUrl withTag:-1];
-    
+    [self addSubviewToScrollView:_adsScrollView withURL:theme.originalThemeImageUrl withTag:-1];
+    //http://58.30.245.58:8080/upload/00000000000000000000000000000013.jpg
+        //http://192.168.16.29/upload/00000000000000000000000000000013.jpg
     for (int i = 0; i < [_dataArray count]; i++) {
         theme = [_dataArray objectAtIndex:i];
-        [self addSubviewToScrollView:_adsScrollView withURL:theme.themeImageUrl withTag:i];
+        [self addSubviewToScrollView:_adsScrollView withURL:theme.originalThemeImageUrl withTag:i];
     }
     
     theme = [_dataArray firstObject];
-    [self addSubviewToScrollView:_adsScrollView withURL:theme.themeImageUrl withTag:_dataArray.count];
+    [self addSubviewToScrollView:_adsScrollView withURL:theme.originalThemeImageUrl withTag:_dataArray.count];
     
     //多算两屏,默认第二屏
     _adsScrollView.ContentSize = CGSizeMake((_dataArray.count + 2)*frame.size.width,frame.size.height);
@@ -98,7 +99,7 @@
 
 - (void)addSubviewToScrollView:(UIScrollView *)scrollView withURL:(NSString *)url withTag:(NSInteger)tag{
     
-    UIImage *holderImage = [UIImage imageNamed:@"s_n_feed_img_middle.png"];
+    UIImage *holderImage = [UIImage imageNamed:@""];
     CGRect frame = scrollView.bounds;
     
     CGRect vFrame = frame;
