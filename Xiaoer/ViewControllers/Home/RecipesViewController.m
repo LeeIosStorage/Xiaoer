@@ -98,7 +98,6 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-       // NSLog(@"jsonRet===============%@",jsonRet);
         
         NSArray *childs = [jsonRet objectForKey:@"object"];
         if (childs) {

@@ -56,11 +56,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [self setTitle:@"晓儿"];
     [self refreshAdsScrollView];
     [self refreshUserInfoShow];
     
     //获取首页信息
+    [self getCacheHomePageInfo];
     [self getHomePageInfo];
     //获取广告位信息
     [self getCacheThemeInfo];
@@ -107,6 +107,21 @@
     _tableView.tableFooterView = footer;
 }
 
+- (void)getCacheHomePageInfo{
+    __weak MainPageViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getHomepageInfosWithUid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%@条新消息",[[jsonRet objectForKey:@"object"] objectForKey:@"msgnum"]];
+            _mallurl = [[jsonRet objectForKey:@"object"] objectForKey:@"mallurl"];
+        }
+    }];
+}
+
 - (void)getHomePageInfo{
     [XEProgressHUD AlertLoading];
     __weak MainPageViewController *weakSelf = self;
@@ -122,7 +137,6 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        //NSLog(@"jsonRet===============%@",jsonRet);
         weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%@条新消息",[[jsonRet objectForKey:@"object"] objectForKey:@"msgnum"]];
         _mallurl = [[jsonRet objectForKey:@"object"] objectForKey:@"mallurl"];
         [XEProgressHUD AlertSuccess:@"获取成功."];
@@ -138,7 +152,20 @@
         if (jsonRet == nil) {
             //...
         }else{
-            NSLog(@"=========================拿到缓存");
+            //解析数据
+            weakSelf.adsThemeArray = [NSMutableArray array];
+            NSArray *themeDicArray = [jsonRet arrayObjectForKey:@"object"];
+            for (NSDictionary *dic  in themeDicArray) {
+                if (![dic isKindOfClass:[NSDictionary class]]) {
+                    continue;
+                }
+                XEThemeInfo *theme = [[XEThemeInfo alloc] init];
+                [theme setThemeInfoByDic:dic];
+                [weakSelf.adsThemeArray addObject:theme];
+            }
+            if (weakSelf.adsThemeArray.count) {
+                [weakSelf refreshAdsScrollView];
+            }
         }
     }];
 }
@@ -159,7 +186,6 @@
         }
         [_themeControl endRefreshing:YES];
         
-        //NSLog(@"jsonRet===============%@",jsonRet);
         [weakSelf.adsThemeArray removeAllObjects];
         //解析数据
         weakSelf.adsThemeArray = [NSMutableArray array];
@@ -179,17 +205,15 @@
         if (weakSelf.adsThemeArray.count) {
             [weakSelf refreshAdsScrollView];
         }
-        
-//        [XEProgressHUD AlertSuccess:@"获取成功."];
     }tag:tag];
 }
 
 ///刷新广告位
 - (void)refreshAdsScrollView {
-//    if (!_adsThemeArray.count) {
-//        self.tableView.tableHeaderView = nil;
-//        return;
-//    }
+    if (!_adsThemeArray.count) {
+        self.tableView.tableHeaderView = nil;
+        return;
+    }
     //移除老view
     for (UIView *view in _adsViewContainer.subviews) {
         [view removeFromSuperview];
@@ -212,7 +236,7 @@
 
 -(void)initNormalTitleNavBarSubviews{
     
-    //...
+    [self setTitle:@"晓儿"];
 }
 
 - (UINavigationController *)navigationController{
@@ -410,6 +434,7 @@
     if (_isScrollViewDrag) {
 //        [self performSelector:@selector(getThemeInfo) withObject:self afterDelay:1.0];
         [self getThemeInfo];
+        [self getHomePageInfo];
     }
 }
 

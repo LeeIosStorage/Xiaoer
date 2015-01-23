@@ -221,7 +221,11 @@ enum TABLEVIEW_SECTION_INDEX {
                 cell.titleLabel.text = @"用户退出";
                 break;
             }else if (indexPath.row == 1){
-                cell.titleLabel.text = @"切换网络";
+                if ([XEEngine shareInstance].serverPlatform == OnlinePlatform) {
+                    cell.titleLabel.text = @"测试环境";
+                }else{
+                    cell.titleLabel.text = @"线上环境";
+                }
                 break;
             }
         }
@@ -314,7 +318,6 @@ enum TABLEVIEW_SECTION_INDEX {
     } else {
         [XEEngine shareInstance].serverPlatform = TestPlatform;
     }
-    
     AppDelegate * appDelgate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSLog(@"signOut for user logout");
     [appDelgate signOut];
