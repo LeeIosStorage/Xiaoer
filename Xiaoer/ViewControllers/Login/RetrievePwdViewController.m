@@ -13,7 +13,10 @@
 #import "NSString+Value.h"
 
 @interface RetrievePwdViewController ()
-
+{
+    CGRect _oldRect;
+}
+@property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) IBOutlet UIImageView *retrieveImageView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *noticeLabel;
@@ -22,6 +25,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *commitButton;
 @property (strong, nonatomic) IBOutlet UITextField *phoneTextField;
 @property (strong, nonatomic) IBOutlet UITextField *commitTextField;
+
+@property (nonatomic, assign) BOOL bViewDisappear;
 
 - (IBAction)getCodeAction:(id)sender;
 - (IBAction)sendAction:(id)sender;
@@ -33,17 +38,37 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkTextChaneg:) name:UITextFieldTextDidChangeNotification object:nil];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
+    [self TextFieldResignFirstResponder];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    _bViewDisappear = NO;
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    _bViewDisappear = YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
     
 }
 
@@ -76,9 +101,15 @@
     [self loginButtonEnabled];
 }
 
+- (void)TextFieldResignFirstResponder{
+    [self.phoneTextField resignFirstResponder];
+    [self.commitTextField resignFirstResponder];
+}
+
 - (IBAction)getCodeAction:(id)sender {
+    [self TextFieldResignFirstResponder];
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getCodeWithPhone:@"13888888888" type:@"1" tag:tag];
+    [[XEEngine shareInstance] getCodeWithPhone:self.phoneTextField.text type:@"1" tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -93,9 +124,10 @@
 
 - (IBAction)sendAction:(id)sender {
     //test
+    [self TextFieldResignFirstResponder];
     int tag = [[XEEngine shareInstance] getConnectTag];
 //    [[XEEngine shareInstance] loginWithUid:@"t1" password:@"123456" tag:tag error:nil];
-    [[XEEngine shareInstance] checkCodeWithPhone:@"13888888888" code:@"835576" codeType:@"1" tag:tag];
+    [[XEEngine shareInstance] checkCodeWithPhone:self.phoneTextField.text code:self.commitTextField.text codeType:@"1" tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -177,6 +209,69 @@
         
     }
     return YES;
+}
+
+#pragma mark - KeyboardNotification
+-(void) keyboardWillShow:(NSNotification *)note{
+    
+    if (_bViewDisappear) {
+        return;
+    }
+    UIView *supView = self.containerView;
+    _oldRect = supView.frame;
+    
+    // get keyboard size and loctaion
+    CGRect keyboardBounds;
+    [[note.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
+    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    // Need to translate the bounds to account for rotation.
+    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
+    
+    // get a rect for the textView frame
+    CGRect supViewFrame = supView.frame;
+    float gapHeight = keyboardBounds.size.height - (self.view.bounds.size.height - supViewFrame.origin.y - supViewFrame.size.height);
+    BOOL isMove = (gapHeight > 0);
+    
+    
+    // animations settings
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:[duration doubleValue]];
+    [UIView setAnimationCurve:[curve intValue]];
+    
+    if (isMove) {
+        supViewFrame.origin.y -= gapHeight;
+        supView.frame = supViewFrame;
+    }
+    
+    // commit animations
+    [UIView commitAnimations];
+}
+
+-(void) keyboardWillHide:(NSNotification *)note{
+    
+    if (_bViewDisappear) {
+        return;
+    }
+    
+    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    // animations settings
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:[duration doubleValue]];
+    [UIView setAnimationCurve:[curve intValue]];
+    
+    // set views with new info
+    if (_oldRect.size.height != 0 && _oldRect.size.width != 0) {
+        UIView *supView = self.containerView;
+        supView.frame = _oldRect;
+    }
+    // commit animations
+    [UIView commitAnimations];
 }
 
 @end

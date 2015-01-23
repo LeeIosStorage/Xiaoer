@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="commitButton" destination="yYr-fV-g8K" id="r1I-x2-Ekj"/>
                 <outlet property="commitTextField" destination="rz5-0U-Ol2" id="pfC-8b-wfu"/>
+                <outlet property="containerView" destination="Ucs-1a-tNP" id="gqa-wb-Ll1"/>
                 <outlet property="noticeLabel" destination="4qT-gQ-c8r" id="HA5-FD-IUa"/>
                 <outlet property="phoneNumView" destination="NKX-q6-JHP" id="Fz1-ho-bMT"/>
                 <outlet property="phoneTextField" destination="3Fk-Ju-Pnw" id="HsN-pN-vCM"/>

@@ -20,8 +20,12 @@
 {
     NSString *_loginType;
     NSString *_registerPhoneTextFieldText;
+    NSString *_registerEmailTextFieldText;
+    NSString *_registerCodeTextFieldText;
     NSString *_loginPhoneTextFieldText;
+    NSString *_loginEmailTextFieldText;
     NSString *_loginPasswordTextFieldText;
+    CGRect _oldRect;
 }
 //@property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @property (assign, nonatomic) NSInteger selectedSegmentIndex;
@@ -44,6 +48,8 @@
 
 @property (strong, nonatomic) IBOutlet UIView *socialContainerView;
 
+@property (nonatomic, assign) BOOL bViewDisappear;
+
 - (IBAction)getCodeAction:(id)sender;
 - (IBAction)loginAction:(id)sender;
 - (IBAction)retrieveAction:(id)sender;
@@ -58,16 +64,39 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkTextChaneg:) name:UITextFieldTextDidChangeNotification object:nil];
+//    _bViewDisappear = NO;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
+    [self TextFieldResignFirstResponder];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    _bViewDisappear = NO;
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    _bViewDisappear = YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
     _selectedSegmentIndex = 0;
     //[self setVcType:VcType_Login];
     [self refreshUIControl];
@@ -125,9 +154,13 @@
         if (_selectedSegmentIndex == 0) {
             _accountTextField.placeholder = @"请输入手机号";
             _accountTextField.keyboardType = UIKeyboardTypeNumberPad;
+            _loginEmailTextFieldText = self.accountTextField.text;
+            self.accountTextField.text = _loginPhoneTextFieldText;
         }else if (_selectedSegmentIndex == 1){
             _accountTextField.placeholder = @"请输入邮箱";
             _accountTextField.keyboardType = UIKeyboardTypeEmailAddress;
+            _loginPhoneTextFieldText = self.accountTextField.text;
+            self.accountTextField.text = _loginEmailTextFieldText;
         }
         
         _loginContainerView.hidden = NO;
@@ -148,10 +181,10 @@
         [self.accountTextField resignFirstResponder];
         [self.passwordTextField resignFirstResponder];
         
-        self.verifyAndemailTextField.text = nil;
-        
         CGRect frame = self.registerAffirmView.frame;
         if (_selectedSegmentIndex == 0) {
+            _registerEmailTextFieldText = self.verifyAndemailTextField.text;
+            self.verifyAndemailTextField.text = _registerCodeTextFieldText;
             self.registerPhoneTextField.placeholder = @"请输入手机号";
             self.registerPhoneTextField.keyboardType = UIKeyboardTypeNumberPad;
             self.verifyAndemailTextField.placeholder = @"请输入收到的验证码";
@@ -161,7 +194,9 @@
             self.registerPhoneView.hidden = NO;
             frame.origin.y = self.registerPhoneView.frame.origin.y + self.registerPhoneView.frame.size.height;
         }else if (_selectedSegmentIndex == 1){
-            self.verifyAndemailTextField.placeholder = nil;
+            _registerCodeTextFieldText = self.verifyAndemailTextField.text;
+            self.verifyAndemailTextField.text = _registerEmailTextFieldText;
+            self.verifyAndemailTextField.placeholder = @"请输入您的邮箱";
             self.verifyAndemailTextField.keyboardType = UIKeyboardTypeEmailAddress;
             self.registerTipLabel.text = @"请输入您的邮箱账号";
             self.registerTipImageView.image = [UIImage imageNamed:@"verify_eamil_icon"];
@@ -175,6 +210,9 @@
         frame.size.height = textHeight;
         self.registerTipLabel.frame = frame;
         
+        frame = _registerContainerView.frame;
+        frame.size.height = self.registerAffirmView.frame.origin.y + self.registerAffirmView.frame.size.height;
+        _registerContainerView.frame = frame;
         
         _loginContainerView.hidden = YES;
         _socialContainerView.hidden = YES;
@@ -240,6 +278,87 @@
         [self loginButtonEnabled];
     }
 }
+
+- (void)TextFieldResignFirstResponder{
+    [self.registerPhoneTextField resignFirstResponder];
+    [self.verifyAndemailTextField resignFirstResponder];
+    [self.accountTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+}
+
+#pragma mark - KeyboardNotification
+-(void) keyboardWillShow:(NSNotification *)note{
+    
+    if (_bViewDisappear) {
+        return;
+    }
+    UIView *supView;
+    if (_vcType == VcType_Login) {
+        supView = self.loginContainerView;
+    }else if (_vcType == VcType_Register){
+        supView = self.registerContainerView;
+    }
+    _oldRect = supView.frame;
+    
+    // get keyboard size and loctaion
+    CGRect keyboardBounds;
+    [[note.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
+    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    // Need to translate the bounds to account for rotation.
+    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
+    
+    // get a rect for the textView frame
+    CGRect supViewFrame = supView.frame;
+    float gapHeight = keyboardBounds.size.height - (self.view.bounds.size.height - supViewFrame.origin.y - supViewFrame.size.height);
+    BOOL isMove = (gapHeight > 0);
+    
+    
+    // animations settings
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:[duration doubleValue]];
+    [UIView setAnimationCurve:[curve intValue]];
+    
+    if (isMove) {
+        supViewFrame.origin.y -= gapHeight;
+        supView.frame = supViewFrame;
+    }
+    
+    // commit animations
+    [UIView commitAnimations];
+}
+
+-(void) keyboardWillHide:(NSNotification *)note{
+    
+    if (_bViewDisappear) {
+        return;
+    }
+    
+    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    // animations settings
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:[duration doubleValue]];
+    [UIView setAnimationCurve:[curve intValue]];
+    
+    // set views with new info
+    UIView *supView;
+    if (_vcType == VcType_Login) {
+        supView = self.loginContainerView;
+    }else if (_vcType == VcType_Register){
+        supView = self.registerContainerView;
+    }
+    if (_oldRect.size.height != 0 && _oldRect.size.width != 0) {
+        supView.frame = _oldRect;
+    }
+    // commit animations
+    [UIView commitAnimations];
+}
+
 #pragma mark - UITextFieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
@@ -454,7 +573,7 @@
 
 - (IBAction)getCodeAction:(id)sender {
     
-    [self checkPhone];
+    [self sendCode];
 }
 
 - (IBAction)loginAction:(id)sender {
@@ -474,14 +593,14 @@
     [self refreshUIControl];
     
     [self.registerPhoneTextField resignFirstResponder];
-    self.registerPhoneTextField.text = nil;
+//    self.registerPhoneTextField.text = nil;
     [self.verifyAndemailTextField resignFirstResponder];
-    self.verifyAndemailTextField.text = nil;
+//    self.verifyAndemailTextField.text = nil;
     
     [self.accountTextField resignFirstResponder];
-    self.accountTextField.text = nil;
+//    self.accountTextField.text = nil;
     [self.passwordTextField resignFirstResponder];
-    self.passwordTextField.text = nil;
+//    self.passwordTextField.text = nil;
     
     switch (_selectedSegmentIndex) {
         case 0:
@@ -504,8 +623,8 @@
 
 -(void)loginWithPhone{
     
-    _loginPhoneTextFieldText = [_accountTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (_loginPhoneTextFieldText.length == 0) {
+    _accountTextField.text = [_accountTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (_accountTextField.text.length == 0) {
         [XEProgressHUD lightAlert:@"请输入手机号"];
         return;
     }
@@ -514,10 +633,11 @@
         [XEProgressHUD lightAlert:@"请输入密码"];
         return;
     }
+    [self TextFieldResignFirstResponder];
     [XEProgressHUD AlertLoading:@"正在登录..."];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] loginWithUid:_loginPhoneTextFieldText password:_loginPasswordTextFieldText tag:tag error:nil];
+    [[XEEngine shareInstance] loginWithUid:_accountTextField.text password:_loginPasswordTextFieldText tag:tag error:nil];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -567,7 +687,7 @@
         [XEProgressHUD lightAlert:@"请输入验证码"];
         return;
     }
-    
+    [self TextFieldResignFirstResponder];
     [XEProgressHUD AlertLoading:@"正在验证,请稍等"];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
@@ -597,10 +717,12 @@
         [XEProgressHUD lightAlert:@"请输入手机号"];
         return;
     }
-    
+    [self TextFieldResignFirstResponder];
+    [XEProgressHUD AlertLoading:@"正在验证手机号"];
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getCodeWithPhone:_registerPhoneTextFieldText type:@"0" tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
@@ -622,7 +744,7 @@
         [XEProgressHUD lightAlert:@"请输入手机号"];
         return;
     }
-    
+    [self TextFieldResignFirstResponder];
     [XEProgressHUD AlertLoading:@"正在验证手机号"];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
@@ -651,7 +773,7 @@
         [XEProgressHUD lightAlert:@"请输入邮箱"];
         return;
     }
-    
+    [self TextFieldResignFirstResponder];
     [XEProgressHUD AlertLoading:@"正在验证邮箱"];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];

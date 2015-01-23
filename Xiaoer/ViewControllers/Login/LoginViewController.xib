@@ -81,7 +81,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="lFL-M0-5N4" userLabel="View - register">
-                    <rect key="frame" x="0.0" y="84" width="320" height="323"/>
+                    <rect key="frame" x="0.0" y="84" width="320" height="284"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="lQf-Mg-eZE">
@@ -118,7 +118,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="B4r-eD-IbS">
-                            <rect key="frame" x="48" y="170" width="224" height="145"/>
+                            <rect key="frame" x="48" y="170" width="224" height="116"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入收到的验证码" textAlignment="center" minimumFontSize="17" background="verify_commit_bg" id="9xu-mr-hfC">
@@ -175,7 +175,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="cVc-ma-d7x" userLabel="View - social">
-                    <rect key="frame" x="0.0" y="495" width="319.9999993429285" height="67"/>
+                    <rect key="frame" x="0.0" y="495" width="320" height="67"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="wsN-YD-jZv">
@@ -184,7 +184,7 @@
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="d6x-25-Cm1">
-                            <rect key="frame" x="227" y="10" width="82.999999824074393" height="1"/>
+                            <rect key="frame" x="227.00000045995006" y="10" width="83" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
