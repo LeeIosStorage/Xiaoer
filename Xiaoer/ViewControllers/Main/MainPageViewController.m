@@ -56,7 +56,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [self refreshAdsScrollView];
     [self refreshUserInfoShow];
     
     //获取首页信息
@@ -449,9 +448,7 @@
         return;
     }
     
-    //id vc = [XELinkerHandler handleDealWithHref:theme.themeImageUrl From:self.navigationController];
-    NSString *url = [NSString stringWithFormat:@"http://192.168.16.29/info/detail?id=%@",theme.tid];
-    id vc = [XELinkerHandler handleDealWithHref:url From:self.navigationController];
+    id vc = [XELinkerHandler handleDealWithHref:theme.themeActionUrl From:self.navigationController];
     if (vc) {
         [self.navigationController pushViewController:vc animated:YES];
     }

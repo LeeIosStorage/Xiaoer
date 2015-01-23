@@ -8,6 +8,7 @@
 
 #import "XERecipesInfo.h"
 #import "JSONKit.h"
+#import "XEEngine.h"
 
 @implementation XERecipesInfo
 
@@ -46,6 +47,14 @@
         _isTop = [dic boolValueForKey:@"istop"];
     }
     
+}
+
+- (NSString *)recipesActionUrl{
+    if (_rid == nil) {
+        return nil;
+    }
+    
+    return [NSString stringWithFormat:@"%@/info/detail?id=%@", [[XEEngine shareInstance] baseUrl], _rid];
 }
 
 

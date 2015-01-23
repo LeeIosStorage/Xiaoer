@@ -69,6 +69,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     _hotUnionDic = [[NSMutableDictionary alloc] init];
     _hotGroups = [[NSMutableArray alloc] init];
     
+    [self getCacheCategoryInfo];
     [self getCategoryInfo];
 }
 
@@ -83,8 +84,33 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     [self setRightButtonWithImageName:@"common_collect_icon" selector:@selector(settingAction)];
 }
 
+- (void)getCacheCategoryInfo{
+    __weak RecipesViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getInfoWithBabyId:nil tag:tag];
+    
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            NSArray *childs = [jsonRet objectForKey:@"object"];
+            if (childs) {
+                weakSelf.titles = [[NSMutableArray alloc] initWithCapacity:childs.count];
+                weakSelf.categoryViews = [[NSMutableArray alloc] initWithCapacity:childs.count];
+                for (NSDictionary* child in childs) {
+                    XECategoryView *cv = [[XECategoryView alloc] init];
+                    [weakSelf addTableWithTitle:[child objectForKey:@"title"] andView:cv];
+                }
+                [weakSelf initNavigationBarView];
+                [weakSelf initContentScrollView];
+                [weakSelf getCacheCategoryInfoWithTag:weakSelf.titles[0] andIndex:0];
+            }
+        }
+    }];
+}
+
 - (void)getCategoryInfo{
-    [XEProgressHUD AlertLoading];
     __weak RecipesViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getInfoWithBabyId:nil tag:tag];
@@ -114,6 +140,32 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 
         [XEProgressHUD AlertSuccess:@"获取成功."];
     }tag:tag];
+}
+
+- (void)getCacheCategoryInfoWithTag:(NSString *)tagString andIndex:(NSUInteger)index{
+    __weak RecipesViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getListInfoWithNum:0 stage:index+1 cat:self.infoType tag:tag];
+    
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            NSMutableArray *hotGroups = [[NSMutableArray alloc] init];
+            for (NSDictionary *groupDic in [[jsonRet objectForKey:@"object"] objectForKey:@"infos"]) {
+                XERecipesInfo *recipesInfo = [[XERecipesInfo alloc] init];
+                [recipesInfo setRecipesInfoByDic:groupDic];
+                [hotGroups addObject:recipesInfo];
+            }
+            
+            XECategoryView *cv = weakSelf.categoryViews[index];
+            cv.dateArray = hotGroups;
+            cv.delegate = self;
+            [cv.tableView reloadData];
+            [cv.maskView setHidden:YES];
+        }
+    }];
 }
 
 - (void)getCategoryInfoWithTag:(NSString *)tagString andIndex:(NSUInteger)index{
@@ -485,9 +537,8 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 }
 
 - (void)didTouchCellWithRecipesInfo:(XERecipesInfo *)recipesInfo{
-
-    NSLog(@"==================%@",recipesInfo.title);
-    id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
+    
+    id vc = [XELinkerHandler handleDealWithHref:recipesInfo.recipesActionUrl From:self.navigationController];
     if (vc) {
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -495,11 +546,15 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 
 - (void)didRefreshRecipesInfos {
     NSLog(@"==================didRefreshRecipesInfos");
+    [self getCacheCategoryInfoWithTag:_titles[_selectedIndex-1] andIndex:_selectedIndex-1];
     [self getCategoryInfoWithTag:_titles[_selectedIndex-1] andIndex:_selectedIndex-1];
 }
 
 -(void)dealloc {
-    
+    self.pageNumDic = nil;
+    self.endDic = nil;
+    self.hotUnionDic = nil;
+    self.hotGroups = nil;
 }
 
 @end
