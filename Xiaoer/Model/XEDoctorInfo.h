@@ -21,6 +21,10 @@
 @property(nonatomic, assign) int favnum;
 @property(nonatomic, assign) int faved;//0为收藏 1已收藏
 
+@property(nonatomic, readonly) NSURL* smallAvatarUrl;
+@property(nonatomic, readonly) NSURL* mediumAvatarUrl;
+@property(nonatomic, readonly) NSURL* largeAvatarUrl;
+
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* doctorInfoByJsonDic;
 

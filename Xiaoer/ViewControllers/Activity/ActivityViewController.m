@@ -24,9 +24,9 @@
 
 @interface ActivityViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
-    ODRefreshControl *_applyRefreshControl;
-    ODRefreshControl *_historyRefreshControl;
-    BOOL _isScrollViewDrag;
+//    ODRefreshControl *_applyRefreshControl;
+//    ODRefreshControl *_historyRefreshControl;
+//    BOOL _isScrollViewDrag;
 }
 @property (strong, nonatomic) NSMutableArray *activityList;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -48,10 +48,18 @@
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = UIColorRGB(240, 240, 240);
     
-    _applyRefreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
-    [_applyRefreshControl addTarget:self action:@selector(applyRefreshControlBeginPull:) forControlEvents:UIControlEventValueChanged];
-    _historyRefreshControl = [[ODRefreshControl alloc] initInScrollView:self.historyTableView];
-    [_historyRefreshControl addTarget:self action:@selector(historyRefreshControlBeginPull:) forControlEvents:UIControlEventValueChanged];
+//    _applyRefreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
+//    [_applyRefreshControl addTarget:self action:@selector(applyRefreshControlBeginPull:) forControlEvents:UIControlEventValueChanged];
+//    _historyRefreshControl = [[ODRefreshControl alloc] initInScrollView:self.historyTableView];
+//    [_historyRefreshControl addTarget:self action:@selector(historyRefreshControlBeginPull:) forControlEvents:UIControlEventValueChanged];
+    
+    self.pullRefreshView = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
+    self.pullRefreshView.delegate = self;
+    [self.tableView addSubview:self.pullRefreshView];
+    
+    self.pullRefreshView2 = [[PullToRefreshView alloc] initWithScrollView:self.historyTableView];
+    self.pullRefreshView2.delegate = self;
+    [self.historyTableView addSubview:self.pullRefreshView2];
     
     [self feedsTypeSwitch:ACTIVITY_TYPE_APPLY needRefreshFeeds:YES];
     
@@ -155,8 +163,8 @@
 }
 
 -(void)initNormalTitleNavBarSubviews{
-    [self setRightButtonWithTitle:@"我的收藏" selector:@selector(mineCollectAction:)];
-    
+//    [self setRightButtonWithTitle:@"我的收藏" selector:@selector(mineCollectAction:)];
+    [self setRightButtonWithImageName:@"common_collect_icon" selector:@selector(mineCollectAction:)];
     [self setSegmentedControlWithSelector:@selector(segmentedControlAction:) items:@[@"活动报名",@"历史活动"]];
 }
 
@@ -213,16 +221,15 @@
     [[XEEngine shareInstance] getApplyActivityListWithPage:(int)_applyNextCursor uid:[XEEngine shareInstance].uid tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [XEProgressHUD AlertLoadDone];
+        [self.pullRefreshView finishedLoading];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [_applyRefreshControl endRefreshing:NO];
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [_applyRefreshControl endRefreshing:YES];
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         weakSelf.activityList = [[NSMutableArray alloc] init];
         
@@ -257,16 +264,15 @@
     [[XEEngine shareInstance] getHistoryActivityListWithPage:(int)_historyNextCursor tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [XEProgressHUD AlertLoadDone];
+        [self.pullRefreshView2 finishedLoading];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [_historyRefreshControl endRefreshing:NO];
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [_historyRefreshControl endRefreshing:YES];
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         weakSelf.historyActivityList = [[NSMutableArray alloc] init];
@@ -316,22 +322,35 @@
     }
 }
 
-#pragma mark - ODRefreshControl
-- (void)applyRefreshControlBeginPull:(ODRefreshControl *)refreshControl
-{
-    if (_isScrollViewDrag) {
+//#pragma mark - ODRefreshControl
+//- (void)applyRefreshControlBeginPull:(ODRefreshControl *)refreshControl
+//{
+//    if (_isScrollViewDrag) {
+//        [self refreshActivityList:NO];
+//    }
+//}
+//- (void)historyRefreshControlBeginPull:(ODRefreshControl *)refreshControl
+//{
+//    if (_isScrollViewDrag) {
+//        [self refreshHistoryActivityList:NO];
+//    }
+//}
+//-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+//{
+//    _isScrollViewDrag = YES;
+//}
+
+#pragma mark PullToRefreshViewDelegate
+- (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view {
+    if (view == self.pullRefreshView) {
         [self refreshActivityList:NO];
-    }
-}
-- (void)historyRefreshControlBeginPull:(ODRefreshControl *)refreshControl
-{
-    if (_isScrollViewDrag) {
+    }else if (view == self.pullRefreshView2){
         [self refreshHistoryActivityList:NO];
     }
 }
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    _isScrollViewDrag = YES;
+
+- (NSDate *)pullToRefreshViewLastUpdated:(PullToRefreshView *)view {
+    return [NSDate date];
 }
 
 #pragma mark - tableViewDataSource
