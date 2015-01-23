@@ -9,6 +9,7 @@
 #import "XEActivityInfo.h"
 #import "JSONKit.h"
 #import "XEUIUtils.h"
+#import "XEEngine.h"
 
 @implementation XEActivityInfo
 
@@ -93,7 +94,14 @@
     
     objectForKey = [dic objectForKey:@"url"];
     if (objectForKey && [objectForKey isKindOfClass:[NSString class]]) {
-        _picUrl = [NSURL URLWithString:objectForKey];
+        _picUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl], objectForKey]];
+    }
+    objectForKey = [dic arrayObjectForKey:@"imgs"];
+    if (objectForKey) {
+        _picIds = [NSMutableArray array];
+        for (NSString *urlStr in objectForKey) {
+            [_picIds addObject:urlStr];
+        }
     }
 }
 
@@ -113,6 +121,14 @@
     }
     
     self.jsonString = [_activityInfoByJsonDic JSONString];
+}
+
+- (NSArray *)picURLs{
+    NSMutableArray* urls = [[NSMutableArray alloc] init];
+    for (NSString* picID in _picIds) {
+        [urls addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl], picID]]];
+    }
+    return urls;
 }
 
 @end

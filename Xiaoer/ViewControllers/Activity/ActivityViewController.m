@@ -419,7 +419,8 @@
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
     if (tableView == self.historyTableView) {
-        id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
+        XERecipesInfo *recipesInfo = _historyActivityList[indexPath.row];
+        id vc = [XELinkerHandler handleDealWithHref:recipesInfo.recipesActionUrl From:self.navigationController];
         if (vc) {
             [self.navigationController pushViewController:vc animated:YES];
         }
