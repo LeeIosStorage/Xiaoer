@@ -80,8 +80,6 @@
     XEThemeInfo *theme;
     theme = [_dataArray lastObject];
     [self addSubviewToScrollView:_adsScrollView withURL:theme.originalThemeImageUrl withTag:-1];
-    //http://58.30.245.58:8080/upload/00000000000000000000000000000013.jpg
-        //http://192.168.16.29/upload/00000000000000000000000000000013.jpg
     for (int i = 0; i < [_dataArray count]; i++) {
         theme = [_dataArray objectAtIndex:i];
         [self addSubviewToScrollView:_adsScrollView withURL:theme.originalThemeImageUrl withTag:i];

@@ -57,5 +57,56 @@
     return [NSString stringWithFormat:@"%@/info/detail?id=%@", [[XEEngine shareInstance] baseUrl], _rid];
 }
 
++ (NSString*)getRecipesUrlWithRecipes:(NSString*)recipes size:(int)size{
+    
+    return [NSString stringWithFormat:@"%@/upload/%d/%@", [[XEEngine shareInstance] baseUrl], size, recipes];
+}
+
+- (NSString*)getRecipesUrlWithType:(NSString*)type{
+    if (_recipesImageUrl == nil) {
+        return nil;
+    }
+    return [NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], type, _recipesImageUrl];
+}
+
+- (NSURL *)smallRecipesImageUrl {
+    if (_recipesImageUrl == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small", _recipesImageUrl]];
+}
+
+- (NSURL *)mediumRecipesImageUrl{
+    if (_recipesImageUrl == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"middle", _recipesImageUrl]];
+}
+
+- (NSURL *)largeRecipesImageUrl{
+    if (_recipesImageUrl == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"large", _recipesImageUrl]];
+}
+
+- (NSURL *)originalRecipesImageUrl {
+    if (_recipesImageUrl == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl], _recipesImageUrl]];
+}
+
+- (NSString*)getSmallRecipesImageUrl{
+    return [self getRecipesUrlWithType:@"small"];
+}
+
+- (NSString*)getMediumRecipesImageUrl{
+    return [self getRecipesUrlWithType:@"middle"];
+}
+
+- (NSString*)getLargeRecipesImageUrl{
+    return [self getRecipesUrlWithType:@"large"];
+}
 
 @end

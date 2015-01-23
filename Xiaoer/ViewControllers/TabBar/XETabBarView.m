@@ -64,7 +64,7 @@
             continue;
         }
         tab.selected = NO;
-        [tab.bkImageView setBackgroundColor:[UIColor whiteColor]];
+        //[tab.bkImageView setBackgroundColor:[UIColor whiteColor]];
         tab.itemLabel.textColor = [UIColor lightGrayColor];
     }
     if (!sender.selected) {

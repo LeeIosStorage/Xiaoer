@@ -440,7 +440,6 @@ static XEEngine* s_ShareInstance = nil;
             [self onResponse:response withTag:tag withError:errPtr];
         } failure:^(NSError *error) {
             [self onResponse:nil withTag:tag withError:error];
-            [XEProgressHUD lightAlert:@"请检查网络状况"];
         }];
         return YES;
     }else {
@@ -457,7 +456,6 @@ static XEEngine* s_ShareInstance = nil;
                 [self onResponse:response withTag:tag withError:errPtr];
             } failure:^(NSError *error) {
                 [self onResponse:nil withTag:tag withError:error];
-                [XEProgressHUD lightAlert:@"请检查网络状况"];
             }];
             
         }else{
@@ -466,7 +464,6 @@ static XEEngine* s_ShareInstance = nil;
                 [self onResponse:response withTag:tag withError:errPtr];
             } failure:^(NSError *error) {
                 [self onResponse:nil withTag:tag withError:error];
-                [XEProgressHUD lightAlert:@"请检查网络状况"];
             }];
         }
         return YES;
