@@ -124,7 +124,10 @@ static XESettingConfig *s_instance = nil;
     if (!sd) {
         sd = [NSMutableDictionary dictionary];
     }
-    [sd setObject:@"1" forKey:[XEEngine shareInstance].uid];
+    if ([XEEngine shareInstance].uid) {
+        [sd setObject:@"1" forKey:[XEEngine shareInstance].uid];
+    }
+    //[sd setObject:@"1" forKey:[XEEngine shareInstance].uid];
     [sd writeToFile:[self getSkipSavePath] atomically:YES];
 }
 

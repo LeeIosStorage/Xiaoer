@@ -49,7 +49,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor clearColor];
     
-    if ([[XEEngine shareInstance] hasAccoutLoggedin]) {
+    if ([[XEEngine shareInstance] hasAccoutLoggedin] || ![XEEngine shareInstance].firstLogin) {
         if ([XESettingConfig isFirstEnterVersion]) {
             [self showNewIntro];
         } else {
@@ -73,7 +73,11 @@
 
 - (void)signIn{
     NSLog(@"signIn");
-    [XEEngine shareInstance].bVisitor = NO;
+    if ([[XEEngine shareInstance] hasAccoutLoggedin]) {
+        [XEEngine shareInstance].bVisitor = NO;
+    }else {
+        [XEEngine shareInstance].bVisitor = YES;
+    }
     
     if([XESettingConfig isFirstEnterVersion]){
         [self showNewIntro];
@@ -95,7 +99,7 @@
     XENavigationController* tabNavVc = [[XENavigationController alloc] initWithRootViewController:tabViewController];
     tabNavVc.navigationBarHidden = YES;
     
-    if (self.firstLogin) {
+    if (![XEEngine shareInstance].firstLogin) {
         _mainTabViewController.initialIndex = 0;
     }
     
@@ -121,7 +125,7 @@
     _mainTabViewController = nil;
     
     [[XEEngine shareInstance] logout];
-    self.firstLogin = NO;
+//    [XEEngine shareInstance].firstLogin = YES;
 }
 
 - (void)checkVersion{

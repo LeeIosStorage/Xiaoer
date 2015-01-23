@@ -14,8 +14,6 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (readwrite, nonatomic) XETabBarViewController* mainTabViewController;
 
-@property (assign, nonatomic) BOOL firstLogin;
-
 - (void)signIn;
 - (void)signOut;
 

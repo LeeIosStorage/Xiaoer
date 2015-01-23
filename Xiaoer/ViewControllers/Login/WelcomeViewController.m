@@ -48,19 +48,21 @@
     }];
 }
 - (IBAction)loginAction:(id)sender {
+    [XEEngine shareInstance].firstLogin = NO;
     LoginViewController *mpVc = [[LoginViewController alloc] init];
     mpVc.vcType = VcType_Login;
     [self.navigationController pushViewController:mpVc animated:YES];
 }
 
 - (IBAction)registerAction:(id)sender {
+    [XEEngine shareInstance].firstLogin = NO;
     LoginViewController *mpVc = [[LoginViewController alloc] init];
     mpVc.vcType = VcType_Register;
     [self.navigationController pushViewController:mpVc animated:YES];
 }
 
 - (IBAction)visitorAction:(id)sender {
-    
+    [XEEngine shareInstance].firstLogin = NO;
     [[XEEngine shareInstance] visitorLogin];
     XETabBarViewController* tabViewController = [[XETabBarViewController alloc] init];
     tabViewController.viewControllers = [NSArray arrayWithObjects:

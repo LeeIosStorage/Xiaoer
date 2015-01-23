@@ -481,7 +481,10 @@
     XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"注册或登录后可查看宝宝训练计划，我的信箱，宝宝历史评测成绩" cancelButtonTitle:@"取消" cancelBlock:^{
     } okButtonTitle:@"确认" okBlock:^{
         WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
-        [weakSelf.navigationController pushViewController:welcomeVc animated:YES];
+        welcomeVc.showBackButton = YES;
+        [weakSelf.navigationController presentViewController:welcomeVc animated:YES completion:^{
+            
+        }];
     }];
     [alertView show];
 }

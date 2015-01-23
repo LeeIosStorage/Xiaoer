@@ -162,7 +162,7 @@ static XEEngine* s_ShareInstance = nil;
 }
 
 - (void)logout{
-    
+    _firstLogin = YES;
     _isFirstLoginInThisDevice = NO;
     [self logout:NO];
 }
