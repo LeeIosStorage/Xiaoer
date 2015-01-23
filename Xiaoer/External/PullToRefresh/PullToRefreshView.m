@@ -190,7 +190,7 @@
 }
 - (void)triggerPullToRefresh{
     self.state = PullToRefreshViewStateReady;
-    [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -65.0f) animated:NO];
+    [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -(65.0f+_oldOriginalTopInset)) animated:NO];
     //self.state = PullToRefreshViewStateLoading;
 }
 #pragma mark -
@@ -201,10 +201,10 @@
     if ([keyPath isEqualToString:@"contentOffset"] && self.isEnabled) {
         if (scrollView.isDragging) {
             if (state == PullToRefreshViewStateReady) {
-                if (scrollView.contentOffset.y > -65.0f && scrollView.contentOffset.y < 0.0f) 
+                if (scrollView.contentOffset.y > -(65.0f+_oldOriginalTopInset) && scrollView.contentOffset.y < 0.0f)
                     [self setState:PullToRefreshViewStateNormal];
             } else if (state == PullToRefreshViewStateNormal) {
-                if (scrollView.contentOffset.y < -65.0f)
+                if (scrollView.contentOffset.y < -(65.0f+_oldOriginalTopInset))
                     [self setState:PullToRefreshViewStateReady];
             } else if (state == PullToRefreshViewStateLoading) {
                 UIEdgeInsets contentInset = scrollView.contentInset;

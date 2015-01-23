@@ -19,8 +19,9 @@
 
 @interface ExpertListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
-    ODRefreshControl *_refreshControl;
-    BOOL _isScrollViewDrag;
+    
+//    ODRefreshControl *_refreshControl;
+//    BOOL _isScrollViewDrag;
 }
 @property (nonatomic, strong) NSMutableArray *expertList;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -36,8 +37,12 @@
     // Do any additional setup after loading the view from its nib.
     
     self.view.backgroundColor = UIColorRGB(240, 240, 240);
-    _refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
-    [_refreshControl addTarget:self action:@selector(refreshControlBeginPull:) forControlEvents:UIControlEventValueChanged];
+//    _refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
+//    [_refreshControl addTarget:self action:@selector(refreshControlBeginPull:) forControlEvents:UIControlEventValueChanged];
+    
+    self.pullRefreshView = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
+    self.pullRefreshView.delegate = self;
+    [self.tableView addSubview:self.pullRefreshView];
     
     __weak ExpertListViewController *weakSelf = self;
     [self.tableView addInfiniteScrollingWithActionHandler:^{
@@ -119,16 +124,15 @@
     [[XEEngine shareInstance] getExpertListWithPage:(int)self.nextCursor tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [XEProgressHUD AlertLoadDone];
+        [self.pullRefreshView finishedLoading];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [_refreshControl endRefreshing:NO];
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [_refreshControl endRefreshing:YES];
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         weakSelf.expertList = [[NSMutableArray alloc] init];
@@ -159,16 +163,25 @@
 
 #pragma mark - custom
 
-#pragma mark - ODRefreshControl
-- (void)refreshControlBeginPull:(ODRefreshControl *)refreshControl
-{
-    if (_isScrollViewDrag) {
-        [self refreshExpertList:NO];
-    }
+//#pragma mark - ODRefreshControl
+//- (void)refreshControlBeginPull:(ODRefreshControl *)refreshControl
+//{
+//    if (_isScrollViewDrag) {
+//        [self refreshExpertList:NO];
+//    }
+//}
+//-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+//{
+//    _isScrollViewDrag = YES;
+//}
+
+#pragma mark PullToRefreshViewDelegate
+- (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view {
+    [self refreshExpertList:NO];
 }
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    _isScrollViewDrag = YES;
+
+- (NSDate *)pullToRefreshViewLastUpdated:(PullToRefreshView *)view {
+    return [NSDate date];
 }
 
 #pragma mark - tableViewDataSource

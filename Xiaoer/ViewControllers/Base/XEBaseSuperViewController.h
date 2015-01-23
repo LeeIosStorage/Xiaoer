@@ -9,13 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "XECommonUtils.h"
 #import "XEUIUtils.h"
+#import "PullToRefreshView.h"
 
-@interface XEBaseSuperViewController : UIViewController
+@interface XEBaseSuperViewController : UIViewController <PullToRefreshViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *titleNavBar;
 @property (nonatomic, strong) IBOutlet UIButton *titleNavBarRightBtn;
 @property (nonatomic, strong) IBOutlet UIButton *titleNavBarRightBtn2;
 @property (nonatomic, strong) IBOutlet UISegmentedControl *segmentedControl;
+
+/*! @brief Pull View
+ *
+ */
+@property (nonatomic, strong) PullToRefreshView *pullRefreshView;
+@property (nonatomic, strong) PullToRefreshView *pullRefreshView2;
 
 //title
 -(void) setTitle:(NSString *) title;

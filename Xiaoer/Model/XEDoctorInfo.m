@@ -8,6 +8,7 @@
 
 #import "XEDoctorInfo.h"
 #import "JSONKit.h"
+#import "XEEngine.h"
 
 @implementation XEDoctorInfo
 
@@ -50,6 +51,27 @@
     
     self.jsonString = [_doctorInfoByJsonDic JSONString];
     
+}
+
+- (NSURL *)smallAvatarUrl {
+    if (_avatar == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small", _avatar]];
+}
+
+- (NSURL *)mediumAvatarUrl{
+    if (_avatar == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"middle", _avatar]];
+}
+
+- (NSURL *)largeAvatarUrl{
+    if (_avatar == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"large", _avatar]];
 }
 
 @end

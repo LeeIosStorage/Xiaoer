@@ -89,7 +89,7 @@
         
         
         weakSelf.doctorTopics = [[NSMutableArray alloc] init];
-        NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"topics"];
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
         for (NSDictionary *dic in object) {
             XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
             [topicInfo setTopicInfoByJsonDic:dic];
@@ -114,7 +114,7 @@
     self.avatarImageView.layer.masksToBounds = YES;
     self.avatarImageView.clipsToBounds = YES;
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:_doctorInfo.avatar] placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
+    [self.avatarImageView sd_setImageWithURL:_doctorInfo.mediumAvatarUrl placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
     self.doctorNameLabel.text = [NSString stringWithFormat:@"%@ %d岁",_doctorInfo.doctorName,_doctorInfo.age];
     self.doctorCollegeLabel.text = _doctorInfo.hospital;
     self.doctorIntroLabel.text = _doctorInfo.des;
