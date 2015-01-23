@@ -134,5 +134,6 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 
 //历史活动
 - (BOOL)getHistoryActivityListWithPage:(int)page tag:(int)tag;
+- (BOOL)getTopicListWithExpertId:(NSString *)expertId page:(int)page tag:(int)tag;
 
 @end

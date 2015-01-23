@@ -19,7 +19,7 @@
 @property(nonatomic, assign) int age;
 @property(nonatomic, assign) int topicnum;
 @property(nonatomic, assign) int favnum;
-@property(nonatomic, assign) int faved;//0为收藏 1已收藏
+@property(nonatomic, assign) int faved;//0未收藏 1已收藏
 
 @property(nonatomic, readonly) NSURL* smallAvatarUrl;
 @property(nonatomic, readonly) NSURL* mediumAvatarUrl;

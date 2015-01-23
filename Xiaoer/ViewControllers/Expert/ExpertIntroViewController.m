@@ -12,9 +12,12 @@
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
 #import "XETopicInfo.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 
 @interface ExpertIntroViewController () <UITableViewDelegate,UITableViewDataSource>
 
+@property (assign, nonatomic) int  nextCursor;
+@property (assign, nonatomic) BOOL canLoadMore;
 @property (nonatomic, strong) NSMutableArray *doctorTopics;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
@@ -44,6 +47,56 @@
     
     [self refreshDoctorInfoShow];
     [self refreshExpertInfo];
+    [self getExpertTopicList];
+    
+    
+    __weak ExpertIntroViewController *weakSelf = self;
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        if (!weakSelf) {
+            return;
+        }
+        if (!weakSelf.canLoadMore) {
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            weakSelf.tableView.showsInfiniteScrolling = NO;
+            return ;
+        }
+        
+        int tag = [[XEEngine shareInstance] getConnectTag];
+        [[XEEngine shareInstance] getTopicListWithExpertId:weakSelf.doctorInfo.doctorId page:weakSelf.nextCursor tag:tag];
+        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+            if (!weakSelf) {
+                return;
+            }
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+            if (!jsonRet || errorMsg) {
+                if (!errorMsg.length) {
+                    errorMsg = @"请求失败";
+                }
+                [XEProgressHUD AlertError:errorMsg];
+                return;
+            }
+            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+            
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+            for (NSDictionary *dic in object) {
+                XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
+                [topicInfo setTopicInfoByJsonDic:dic];
+                [weakSelf.doctorTopics addObject:topicInfo];
+            }
+            
+            weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+            if (!weakSelf.canLoadMore) {
+                weakSelf.tableView.showsInfiniteScrolling = NO;
+            }else{
+                weakSelf.tableView.showsInfiniteScrolling = YES;
+                weakSelf.nextCursor ++;
+            }
+            [weakSelf.tableView reloadData];
+            
+        } tag:tag];
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,9 +137,39 @@
         }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
-        NSDictionary *expertDic = [[jsonRet objectForKey:@"object"] objectForKey:@"expert"];
+        NSDictionary *expertDic = [jsonRet objectForKey:@"object"];
         [_doctorInfo setDoctorInfoByJsonDic:expertDic];
         
+        
+//        weakSelf.doctorTopics = [[NSMutableArray alloc] init];
+//        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+//        for (NSDictionary *dic in object) {
+//            XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
+//            [topicInfo setTopicInfoByJsonDic:dic];
+//            [weakSelf.doctorTopics addObject:topicInfo];
+//        }
+        [weakSelf refreshDoctorInfoShow];
+        [weakSelf.tableView reloadData];
+        
+    }tag:tag];
+}
+
+-(void)getExpertTopicList{
+    
+    _nextCursor = 1;
+    __weak ExpertIntroViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] getTopicListWithExpertId:_doctorInfo.doctorId page:_nextCursor tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         weakSelf.doctorTopics = [[NSMutableArray alloc] init];
         NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
@@ -95,16 +178,33 @@
             [topicInfo setTopicInfoByJsonDic:dic];
             [weakSelf.doctorTopics addObject:topicInfo];
         }
+        
+        weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+        if (!weakSelf.canLoadMore) {
+            weakSelf.tableView.showsInfiniteScrolling = NO;
+        }else{
+            weakSelf.tableView.showsInfiniteScrolling = YES;
+            weakSelf.nextCursor ++;
+        }
+        
         [weakSelf refreshDoctorInfoShow];
         [weakSelf.tableView reloadData];
         
     }tag:tag];
 }
 
+#pragma mark - Judge
+-(BOOL)isCollect{
+    if (_doctorInfo.faved != 0) {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - custom
 -(void)refreshDoctorInfoShow{
     
-    if (_doctorInfo.faved == 0) {
+    if (![self isCollect]) {
         [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_un_icon"] forState:UIControlStateNormal];
     }else{
         [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
@@ -145,7 +245,11 @@
     }
     __weak ExpertIntroViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] collectExpertWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
+    if ([self isCollect]) {
+        [[XEEngine shareInstance] unCollectExpertWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
+    }else{
+        [[XEEngine shareInstance] collectExpertWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
+    }
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -155,8 +259,14 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
+        if ([self isCollect]) {
+            _doctorInfo.faved = 0;
+        }else{
+            _doctorInfo.faved = 1;
+        }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        
+        [weakSelf refreshDoctorInfoShow];
         [weakSelf.tableView reloadData];
         
     }tag:tag];

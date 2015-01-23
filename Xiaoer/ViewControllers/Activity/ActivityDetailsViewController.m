@@ -87,10 +87,18 @@
     }tag:tag];
 }
 
+#pragma mark - Judge
+-(BOOL)isCollect{
+    if (_activityInfo.faved != 0) {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - custom
 -(void)refreshActivityHeadShow{
     
-    if (_activityInfo.faved == 0) {
+    if (![self isCollect]) {
         [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_un_icon"] forState:UIControlStateNormal];
     }else{
         [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
@@ -122,7 +130,11 @@
     }
     __weak ActivityDetailsViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] collectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    if ([self isCollect]) {
+        [[XEEngine shareInstance] unCollectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    }else{
+        [[XEEngine shareInstance] collectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    }
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -133,8 +145,13 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
+        if ([self isCollect]) {
+            _activityInfo.faved = 0;
+        }else{
+            _activityInfo.faved = 1;
+        }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [weakSelf refreshActivityHeadShow];
         [weakSelf.tableView reloadData];
         
     }tag:tag];

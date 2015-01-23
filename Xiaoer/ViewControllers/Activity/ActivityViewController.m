@@ -18,6 +18,7 @@
 #import "CollectionViewController.h"
 #import "ODRefreshControl.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "XELinkerHandler.h"
 
 #define ACTIVITY_TYPE_APPLY     0
 #define ACTIVITY_TYPE_HISTORY   1
@@ -418,7 +419,10 @@
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
     if (tableView == self.historyTableView) {
-        
+        id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
+        if (vc) {
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }else if (tableView == self.tableView){
         XEActivityInfo *activityInfo = _activityList[indexPath.row];
         ActivityDetailsViewController *vc = [[ActivityDetailsViewController alloc] init];
