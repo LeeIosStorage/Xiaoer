@@ -17,6 +17,7 @@
 #import "UIImageView+WebCache.h"
 #import "CollectionViewController.h"
 #import "ODRefreshControl.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 
 #define ACTIVITY_TYPE_APPLY     0
 #define ACTIVITY_TYPE_HISTORY   1
@@ -34,7 +35,9 @@
 
 @property (assign, nonatomic) NSInteger selectedSegmentIndex;
 @property (assign, nonatomic) SInt64  applyNextCursor;
+@property (assign, nonatomic) BOOL applyCanLoadMore;
 @property (assign, nonatomic) SInt64  historyNextCursor;
+@property (assign, nonatomic) BOOL historyCanLoadMore;
 
 @end
 
@@ -51,6 +54,99 @@
     [_historyRefreshControl addTarget:self action:@selector(historyRefreshControlBeginPull:) forControlEvents:UIControlEventValueChanged];
     
     [self feedsTypeSwitch:ACTIVITY_TYPE_APPLY needRefreshFeeds:YES];
+    
+    __weak ActivityViewController *weakSelf = self;
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        if (!weakSelf) {
+            return;
+        }
+        if (!weakSelf.applyCanLoadMore) {
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            weakSelf.tableView.showsInfiniteScrolling = NO;
+            return ;
+        }
+        
+        int tag = [[XEEngine shareInstance] getConnectTag];
+        [[XEEngine shareInstance] getApplyActivityListWithPage:(int)weakSelf.applyNextCursor uid:[XEEngine shareInstance].uid tag:tag];
+        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+            if (!weakSelf) {
+                return;
+            }
+            
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+            if (!jsonRet || errorMsg) {
+                if (!errorMsg.length) {
+                    errorMsg = @"请求失败";
+                }
+                [XEProgressHUD AlertError:errorMsg];
+                return;
+            }
+            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+            
+            NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
+            for (NSDictionary *dic in object) {
+                XEActivityInfo *activityInfo = [[XEActivityInfo alloc] init];
+                [activityInfo setActivityInfoByJsonDic:dic];
+                [weakSelf.activityList addObject:activityInfo];
+            }
+            weakSelf.applyCanLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+            if (!weakSelf.applyCanLoadMore) {
+                weakSelf.tableView.showsInfiniteScrolling = NO;
+            }else{
+                weakSelf.tableView.showsInfiniteScrolling = YES;
+                weakSelf.applyNextCursor ++;
+            }
+            [weakSelf.tableView reloadData];
+            
+        } tag:tag];
+    }];
+    
+    [self.historyTableView addInfiniteScrollingWithActionHandler:^{
+        if (!weakSelf) {
+            return;
+        }
+        if (!weakSelf.historyCanLoadMore) {
+            [weakSelf.historyTableView.infiniteScrollingView stopAnimating];
+            weakSelf.historyTableView.showsInfiniteScrolling = NO;
+            return ;
+        }
+        
+        int tag = [[XEEngine shareInstance] getConnectTag];
+        [[XEEngine shareInstance] getHistoryActivityListWithPage:(int)weakSelf.historyNextCursor tag:tag];
+        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+            if (!weakSelf) {
+                return;
+            }
+            
+            [weakSelf.historyTableView.infiniteScrollingView stopAnimating];
+            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+            if (!jsonRet || errorMsg) {
+                if (!errorMsg.length) {
+                    errorMsg = @"请求失败";
+                }
+                [XEProgressHUD AlertError:errorMsg];
+                return;
+            }
+            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+            
+            NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
+            for (NSDictionary *dic in object) {
+                XERecipesInfo *recipesInfo = [[XERecipesInfo alloc] init];
+                [recipesInfo setRecipesInfoByDic:dic];
+                [weakSelf.historyActivityList addObject:recipesInfo];
+            }
+            weakSelf.historyCanLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+            if (!weakSelf.historyCanLoadMore) {
+                weakSelf.historyTableView.showsInfiniteScrolling = NO;
+            }else{
+                weakSelf.historyTableView.showsInfiniteScrolling = YES;
+                weakSelf.historyNextCursor ++;
+            }
+            [weakSelf.historyTableView reloadData];
+            
+        } tag:tag];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -111,9 +207,10 @@
     if (isAlert) {
         [XEProgressHUD AlertLoading:@"努力加载中..."];
     }
+    _applyNextCursor = 1;
     __weak ActivityViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getApplyActivityListWithPage:1 uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getApplyActivityListWithPage:(int)_applyNextCursor uid:[XEEngine shareInstance].uid tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -135,6 +232,15 @@
             [activityInfo setActivityInfoByJsonDic:dic];
             [weakSelf.activityList addObject:activityInfo];
         }
+        
+        weakSelf.applyCanLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+        if (!weakSelf.applyCanLoadMore) {
+            weakSelf.tableView.showsInfiniteScrolling = NO;
+        }else{
+            weakSelf.tableView.showsInfiniteScrolling = YES;
+            weakSelf.applyNextCursor ++;
+        }
+        
         [weakSelf.tableView reloadData];
         
     }tag:tag];
@@ -145,9 +251,10 @@
     if (isAlert) {
         [XEProgressHUD AlertLoading:@"努力加载中..."];
     }
+    _historyNextCursor = 1;
     __weak ActivityViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getHistoryActivityListWithPage:1 tag:tag];
+    [[XEEngine shareInstance] getHistoryActivityListWithPage:(int)_historyNextCursor tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -168,6 +275,14 @@
             XERecipesInfo *recipesInfo = [[XERecipesInfo alloc] init];
             [recipesInfo setRecipesInfoByDic:dic];
             [weakSelf.historyActivityList addObject:recipesInfo];
+        }
+        
+        weakSelf.historyCanLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+        if (!weakSelf.historyCanLoadMore) {
+            weakSelf.historyTableView.showsInfiniteScrolling = NO;
+        }else{
+            weakSelf.historyTableView.showsInfiniteScrolling = YES;
+            weakSelf.historyNextCursor ++;
         }
         
         [weakSelf.historyTableView reloadData];

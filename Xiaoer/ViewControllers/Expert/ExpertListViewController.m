@@ -139,16 +139,16 @@
             [weakSelf.expertList addObject:doctorInfo];
         }
         
-//        weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
-//        if (!weakSelf.canLoadMore) {
-//            weakSelf.tableView.showsInfiniteScrolling = NO;
-//        }else{
-//            weakSelf.tableView.showsInfiniteScrolling = YES;
-//            weakSelf.nextCursor ++;
-//        }
-        weakSelf.canLoadMore = YES;
-        weakSelf.tableView.showsInfiniteScrolling = YES;
-        weakSelf.nextCursor ++;
+        weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+        if (!weakSelf.canLoadMore) {
+            weakSelf.tableView.showsInfiniteScrolling = NO;
+        }else{
+            weakSelf.tableView.showsInfiniteScrolling = YES;
+            weakSelf.nextCursor ++;
+        }
+//        weakSelf.canLoadMore = YES;
+//        weakSelf.tableView.showsInfiniteScrolling = YES;
+//        weakSelf.nextCursor ++;
         
         [weakSelf.tableView reloadData];
         

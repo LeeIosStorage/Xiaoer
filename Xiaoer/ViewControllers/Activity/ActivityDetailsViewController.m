@@ -163,6 +163,9 @@
 }
 
 - (IBAction)applyActivityAction:(id)sender {
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
     ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
     applyVc.activityInfo = _activityInfo;
     [self.navigationController pushViewController:applyVc animated:YES];

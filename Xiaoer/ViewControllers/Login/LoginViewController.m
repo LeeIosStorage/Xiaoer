@@ -26,6 +26,9 @@
     NSString *_loginEmailTextFieldText;
     NSString *_loginPasswordTextFieldText;
     CGRect _oldRect;
+    
+    int _waitSmsSecond;
+    NSTimer *_waitTimer;
 }
 //@property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @property (assign, nonatomic) NSInteger selectedSegmentIndex;
@@ -71,6 +74,10 @@
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
     [self TextFieldResignFirstResponder];
+    if (_waitTimer) {
+        [_waitTimer invalidate];
+        _waitTimer = nil;
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -137,6 +144,25 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)waitTimerInterval:(NSTimer *)aTimer{
+    XELog(@"a Timer waitSmsSecond = %d",_waitSmsSecond);
+    if (_waitSmsSecond <= 0) {
+        [aTimer invalidate];
+        _waitTimer = nil;
+        if ([[_registerPhoneTextField text] isPhone]) {
+            _registerVerifyButton.enabled = YES;
+            [_registerVerifyButton setBackgroundColor:UIColorToRGB(0x6cc5e9)];
+        }
+        [_registerVerifyButton setTitle:@"重新获取验证码" forState:UIControlStateNormal];
+        return;
+    }
+    
+    [_registerVerifyButton setTitle:[NSString stringWithFormat:@"正在获取(%d秒)",_waitSmsSecond] forState:UIControlStateNormal];
+    
+    _waitSmsSecond--;
+    
+}
 
 -(void)refreshUIControl{
     
@@ -243,8 +269,10 @@
     }else if (_vcType == VcType_Register){
         if (_selectedSegmentIndex == 0) {
             if ([[_registerPhoneTextField text] isPhone]) {
-                _registerVerifyButton.enabled = YES;
-                [_registerVerifyButton setBackgroundColor:UIColorToRGB(0x6cc5e9)];
+                if (_waitSmsSecond <= 0) {
+                    _registerVerifyButton.enabled = YES;
+                    [_registerVerifyButton setBackgroundColor:UIColorToRGB(0x6cc5e9)];
+                }
                 if (_verifyAndemailTextField.text.length > 0) {
                     _registerAffirmButton.enabled = YES;
                     return YES;
@@ -717,6 +745,18 @@
         [XEProgressHUD lightAlert:@"请输入手机号"];
         return;
     }
+    
+    if(_waitTimer){
+        [_waitTimer invalidate];
+        _waitTimer = nil;
+    }
+    
+    _waitTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(waitTimerInterval:) userInfo:nil repeats:YES];
+    _waitSmsSecond = 60;
+    _registerVerifyButton.enabled = NO;
+    [_registerVerifyButton setBackgroundColor:UIColorToRGB(0x699db2)];
+    [self waitTimerInterval:_waitTimer];
+    
     [self TextFieldResignFirstResponder];
     [XEProgressHUD AlertLoading:@"正在验证手机号"];
     int tag = [[XEEngine shareInstance] getConnectTag];
@@ -729,6 +769,8 @@
                 errorMsg = @"请求失败!";
             }
             [XEProgressHUD AlertError:errorMsg];
+            _waitSmsSecond = 0;
+            [self waitTimerInterval:_waitTimer];
             return;
         }
         

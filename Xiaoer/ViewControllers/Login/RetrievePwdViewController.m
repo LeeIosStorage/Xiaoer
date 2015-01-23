@@ -11,10 +11,13 @@
 #import "XEUserInfo.h"
 #import "SetPwdViewController.h"
 #import "NSString+Value.h"
+#import "XEProgressHUD.h"
 
 @interface RetrievePwdViewController ()
 {
     CGRect _oldRect;
+    int _waitSmsSecond;
+    NSTimer *_waitTimer;
 }
 @property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) IBOutlet UIImageView *retrieveImageView;
@@ -45,6 +48,10 @@
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
     [self TextFieldResignFirstResponder];
+    if (_waitTimer) {
+        [_waitTimer invalidate];
+        _waitTimer = nil;
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -106,16 +113,52 @@
     [self.commitTextField resignFirstResponder];
 }
 
+- (void)waitTimerInterval:(NSTimer *)aTimer{
+    XELog(@"a Timer waitTimerInterval = %d",_waitSmsSecond);
+    if (_waitSmsSecond <= 0) {
+        [aTimer invalidate];
+        _waitTimer = nil;
+        if ([[_phoneTextField text] isPhone]) {
+            _verifyButton.enabled = YES;
+            [_verifyButton setBackgroundColor:UIColorToRGB(0x6cc5e9)];
+        }
+        [_verifyButton setTitle:@"重新获取验证码" forState:UIControlStateNormal];
+        return;
+    }
+    
+    [_verifyButton setTitle:[NSString stringWithFormat:@"正在获取(%d秒)",_waitSmsSecond] forState:UIControlStateNormal];
+    
+    _waitSmsSecond--;
+    
+}
+
 - (IBAction)getCodeAction:(id)sender {
+    
+    if(_waitTimer){
+        [_waitTimer invalidate];
+        _waitTimer = nil;
+    }
+    
+    _waitTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(waitTimerInterval:) userInfo:nil repeats:YES];
+    _waitSmsSecond = 60;
+    _verifyButton.enabled = NO;
+    [_verifyButton setBackgroundColor:UIColorToRGB(0x699db2)];
+    [self waitTimerInterval:_waitTimer];
+    
+    [XEProgressHUD AlertLoading:@"正在验证手机号"];
     [self TextFieldResignFirstResponder];
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getCodeWithPhone:self.phoneTextField.text type:@"1" tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
                 errorMsg = @"获取失败";
             }
+            [XEProgressHUD AlertError:errorMsg];
+            _waitSmsSecond = 0;
+            [self waitTimerInterval:_waitTimer];
             return;
         }
         NSLog(@"=====%@",[jsonRet objectForKey:@"obj"]);
