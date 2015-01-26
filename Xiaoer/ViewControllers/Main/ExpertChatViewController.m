@@ -134,11 +134,11 @@
             }
             [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
             
-            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"qas"];
             for (NSDictionary *dic in object) {
-                XEQuestionInfo *topicInfo = [[XEQuestionInfo alloc] init];
-                [topicInfo setQuestionInfoByJsonDic:dic];
-                [weakSelf.topicArray addObject:topicInfo];
+                XEQuestionInfo *questionInfo = [[XEQuestionInfo alloc] init];
+                [questionInfo setQuestionInfoByJsonDic:dic];
+                [weakSelf.topicArray addObject:questionInfo];
             }
             
             weakSelf.questionLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
@@ -265,11 +265,11 @@
         }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         weakSelf.questionArray = [[NSMutableArray alloc] init];
-        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"qas"];
         for (NSDictionary *dic in object) {
-            XEQuestionInfo *topicInfo = [[XEQuestionInfo alloc] init];
-            [topicInfo setQuestionInfoByJsonDic:dic];
-            [weakSelf.questionArray addObject:topicInfo];
+            XEQuestionInfo *questionInfo = [[XEQuestionInfo alloc] init];
+            [questionInfo setQuestionInfoByJsonDic:dic];
+            [weakSelf.questionArray addObject:questionInfo];
         }
         
         weakSelf.questionLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];

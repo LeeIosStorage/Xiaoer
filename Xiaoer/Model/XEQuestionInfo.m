@@ -20,7 +20,7 @@
     _status = [dic intValueForKey:@"status"];
 }
 
--(void)setTopicInfoByJsonDic:(NSDictionary *)dic{
+-(void)setQuestionInfoByJsonDic:(NSDictionary *)dic{
     
     if (![dic isKindOfClass:[NSDictionary class]]) {
         return;

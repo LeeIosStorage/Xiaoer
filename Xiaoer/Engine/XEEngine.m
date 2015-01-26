@@ -918,7 +918,7 @@ static XEEngine* s_ShareInstance = nil;
     if (page > 0 ) {
         [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
     }
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/qa/hot",API_URL] type:1 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/qa/publist",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 

@@ -36,7 +36,7 @@
     // Configure the view for the selected state
 }
 
--(void)setTopicInfo:(XEQuestionInfo *)questionInfo{
+-(void)setQuestionInfo:(XEQuestionInfo *)questionInfo{
     _questionInfo = questionInfo;
     self.questionLabel.text = questionInfo.title;
     [self.commentLabel setTitle:[NSString stringWithFormat:@" %d",questionInfo.favnum] forState:0];
