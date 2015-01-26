@@ -10,4 +10,6 @@
 
 @interface ExpertListViewController : XESuperViewController
 
+@property (nonatomic, assign) BOOL isNeedSelect;
+
 @end

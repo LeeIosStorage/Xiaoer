@@ -143,7 +143,8 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 //获取专家问答list
 - (BOOL)getQuestionListWithPagenum:(int)page tag:(int)tag;
 
-
-
+//问专家
+- (BOOL)publishQuestionWithExpertId:(NSString *)expertId uid:(NSString *)uid title:(NSString *)title content:(NSString *)content overt:(NSString *)overt imgs:(NSString *)imgs tag:(int)tag;
+- (BOOL)updateExpertQuestionWithImgs:(NSArray *)imgs tag:(int)tag;
 
 @end

@@ -13,9 +13,13 @@
 #import "XEProgressHUD.h"
 #import "XETopicInfo.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "XEPublicViewController.h"
+#import "XEShareActionSheet.h"
 
-@interface ExpertIntroViewController () <UITableViewDelegate,UITableViewDataSource>
-
+@interface ExpertIntroViewController () <UITableViewDelegate,UITableViewDataSource,XEShareActionSheetDelegate>
+{
+    XEShareActionSheet *_shareAction;
+}
 @property (assign, nonatomic) int  nextCursor;
 @property (assign, nonatomic) BOOL canLoadMore;
 @property (nonatomic, strong) NSMutableArray *doctorTopics;
@@ -240,6 +244,11 @@
 
 -(void)collectAction:(id)sender{
     
+    _shareAction = [[XEShareActionSheet alloc] init];
+    _shareAction.owner = self;
+    [_shareAction showShareAction];
+    return;
+    
     if ([[XEEngine shareInstance] needUserLogin:nil]) {
         return;
     }
@@ -296,7 +305,10 @@
 }
 
 - (IBAction)consultAction:(id)sender {
-    
+    XEPublicViewController *vc = [[XEPublicViewController alloc] init];
+    vc.publicType = Public_Type_Expert;
+    vc.doctorInfo = _doctorInfo;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)topicAction:(id)sender {

@@ -921,5 +921,35 @@ static XEEngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/qa/publist",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
+- (BOOL)publishQuestionWithExpertId:(NSString *)expertId uid:(NSString *)uid title:(NSString *)title content:(NSString *)content overt:(NSString *)overt imgs:(NSString *)imgs tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (expertId) {
+        [params setObject:expertId forKey:@"expertid"];
+    }
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    if (title) {
+        [params setObject:title forKey:@"title"];
+    }
+    if (content) {
+        [params setObject:content forKey:@"content"];
+    }
+    if (overt) {
+        [params setObject:overt forKey:@"overt"];
+    }
+    if (imgs) {
+        [params setObject:imgs forKey:@"imgs"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/qa/ask",API_URL] type:2 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)updateExpertQuestionWithImgs:(NSArray *)imgs tag:(int)tag{
+    
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/qa/img",API_URL] type:2 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:imgs withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
 
 @end

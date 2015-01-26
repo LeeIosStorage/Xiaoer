@@ -41,6 +41,10 @@
 
 + (NSString*)documentOfCameraDenied;
 + (NSString*)documentOfAVCaptureDenied;
++ (NSString*)documentOfAssetsLibraryDenied;
 
 + (NSString*)documentOfLocationDenied;
+
+//+ (UIImage*)scaleImage:(UIImage*)image toSize:(CGSize)size;
+
 @end

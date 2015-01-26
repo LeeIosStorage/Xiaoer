@@ -59,4 +59,5 @@ dispatch_sync(dispatch_get_main_queue(), block);\
 //拨打电话
 + (void)usePhoneNumAction:(NSString *)phone;
 
++(UIImage *)getImageFromSDImageCache:(NSString *) imageUrl;
 @end

@@ -88,6 +88,10 @@
 		075CAF4C1A5D0E6A005CF4B6 /* SetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075CAF4A1A5D0E6A005CF4B6 /* SetPwdViewController.m */; };
 		075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075CAF4B1A5D0E6A005CF4B6 /* SetPwdViewController.xib */; };
 		075CAF721A5D338F005CF4B6 /* NSString+Value.m in Sources */ = {isa = PBXBuildFile; fileRef = 075CAF711A5D338F005CF4B6 /* NSString+Value.m */; };
+		075E31E51A7613C5006037B3 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 075E31E41A7613C5006037B3 /* AssetsLibrary.framework */; };
+		075E32191A762C49006037B3 /* XEShareActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E32181A762C49006037B3 /* XEShareActionSheet.m */; };
+		075E321C1A762E7C006037B3 /* XECustomerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E321B1A762E7C006037B3 /* XECustomerWindow.m */; };
+		075E321E1A762F4A006037B3 /* XECustomerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075E321D1A762F4A006037B3 /* XECustomerWindow.xib */; };
 		075E40971A59386C0062F6AD /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40851A59386C0062F6AD /* AFHTTPRequestOperation.m */; };
 		075E40981A59386C0062F6AD /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40871A59386C0062F6AD /* AFHTTPRequestOperationManager.m */; };
 		075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40891A59386C0062F6AD /* AFHTTPSessionManager.m */; };
@@ -358,6 +362,12 @@
 		075CAF4B1A5D0E6A005CF4B6 /* SetPwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetPwdViewController.xib; sourceTree = "<group>"; };
 		075CAF701A5D338F005CF4B6 /* NSString+Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Value.h"; sourceTree = "<group>"; };
 		075CAF711A5D338F005CF4B6 /* NSString+Value.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Value.m"; sourceTree = "<group>"; };
+		075E31E41A7613C5006037B3 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		075E32171A762C49006037B3 /* XEShareActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEShareActionSheet.h; sourceTree = "<group>"; };
+		075E32181A762C49006037B3 /* XEShareActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEShareActionSheet.m; sourceTree = "<group>"; };
+		075E321A1A762E7C006037B3 /* XECustomerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECustomerWindow.h; sourceTree = "<group>"; };
+		075E321B1A762E7C006037B3 /* XECustomerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECustomerWindow.m; sourceTree = "<group>"; };
+		075E321D1A762F4A006037B3 /* XECustomerWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XECustomerWindow.xib; sourceTree = "<group>"; };
 		075E40841A59386C0062F6AD /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		075E40851A59386C0062F6AD /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		075E40861A59386C0062F6AD /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -566,6 +576,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				075E31E51A7613C5006037B3 /* AssetsLibrary.framework in Frameworks */,
 				074593FC1A5B782B008F4665 /* SystemConfiguration.framework in Frameworks */,
 				07E2848E1A5A8EAE005651EB /* CoreTelephony.framework in Frameworks */,
 				07E2848C1A5A8EA2005651EB /* CoreGraphics.framework in Frameworks */,
@@ -671,6 +682,7 @@
 		074594001A5B8BBE008F4665 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				075E31E41A7613C5006037B3 /* AssetsLibrary.framework */,
 				074593FB1A5B782B008F4665 /* SystemConfiguration.framework */,
 				07E2848D1A5A8EAE005651EB /* CoreTelephony.framework */,
 				07E2848B1A5A8EA2005651EB /* CoreGraphics.framework */,
@@ -832,6 +844,18 @@
 				075B03341A6E4350002B577D /* MapChooseAnnotationView.m */,
 			);
 			path = MapChoose;
+			sourceTree = "<group>";
+		};
+		075E32161A762C1C006037B3 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				075E32171A762C49006037B3 /* XEShareActionSheet.h */,
+				075E32181A762C49006037B3 /* XEShareActionSheet.m */,
+				075E321A1A762E7C006037B3 /* XECustomerWindow.h */,
+				075E321B1A762E7C006037B3 /* XECustomerWindow.m */,
+				075E321D1A762F4A006037B3 /* XECustomerWindow.xib */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		075E40831A59386C0062F6AD /* AFNetworking */ = {
@@ -1301,6 +1325,7 @@
 		07E536141A528239005E1DA9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				075E32161A762C1C006037B3 /* Common */,
 				073F9F081A68B234009D94E3 /* Home */,
 				074DD0D61A5E33B80042B721 /* Main */,
 				07913F611A67805B0083E8E5 /* Expert */,
@@ -1519,6 +1544,7 @@
 				07E536371A529210005E1DA9 /* ExpertChatViewController.xib in Resources */,
 				07FC6D2A1A67B317001F34D8 /* RecipesViewController.xib in Resources */,
 				07508E941A51346300873B45 /* LaunchScreen.xib in Resources */,
+				075E321E1A762F4A006037B3 /* XECustomerWindow.xib in Resources */,
 				07E2847E1A5A8DFC005651EB /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				07E2846F1A5A8DFC005651EB /* umFeedback.bundle in Resources */,
 				070346701A64F8E200EDE251 /* WelcomeViewController.xib in Resources */,
@@ -1634,6 +1660,7 @@
 				074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */,
 				0774A8731A666EAB00336465 /* GMGridView.m in Sources */,
 				0712B3A51A5BD853000A1A7F /* NSData+GIF.m in Sources */,
+				075E321C1A762E7C006037B3 /* XECustomerWindow.m in Sources */,
 				075B03321A6E4090002B577D /* CLLocation+Sino.m in Sources */,
 				074594061A5BB52C008F4665 /* NewIntroView.m in Sources */,
 				0712B3B41A5BD853000A1A7F /* UIView+WebCacheOperation.m in Sources */,
@@ -1646,6 +1673,7 @@
 				075E409D1A59386C0062F6AD /* AFURLRequestSerialization.m in Sources */,
 				0712B3AD1A5BD853000A1A7F /* SDWebImagePrefetcher.m in Sources */,
 				07582D0E1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m in Sources */,
+				075E32191A762C49006037B3 /* XEShareActionSheet.m in Sources */,
 				07C988161A63B44B003A2B30 /* ChooseLocationViewController.m in Sources */,
 				0794259B1A5A59A7002BF56C /* QHQnetworkingTool.m in Sources */,
 				07E284951A5A8F26005651EB /* LoginViewController.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import "XECommonUtils.h"
 #import "XEAlertView.h"
+#import "SDImageCache.h"
 
 @implementation XECommonUtils
 
@@ -136,6 +137,18 @@
         [[UIApplication sharedApplication] openURL:URL];
     }];
     [alertView show];
+}
+
++(UIImage *)getImageFromSDImageCache:(NSString *) imageUrl
+{
+    if (!imageUrl) {
+        return nil;
+    }
+    
+    SDImageCache *imageCahe = [SDImageCache sharedImageCache];
+    UIImage *image = [imageCahe imageFromDiskCacheForKey:imageUrl];
+    
+    return image;
 }
 
 @end
