@@ -137,4 +137,13 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getHistoryActivityListWithPage:(int)page tag:(int)tag;
 - (BOOL)getTopicListWithExpertId:(NSString *)expertId page:(int)page tag:(int)tag;
 
+#pragma mark - expertChat
+//获取热门话题list
+- (BOOL)getHotTopicWithWithPagenum:(int)page tag:(int)tag;
+//获取专家问答list
+- (BOOL)getQuestionListWithPagenum:(int)page tag:(int)tag;
+
+
+
+
 @end

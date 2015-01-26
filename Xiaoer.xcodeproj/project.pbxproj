@@ -130,6 +130,9 @@
 		07913F661A67808F0083E8E5 /* ExpertListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07913F641A67808F0083E8E5 /* ExpertListViewCell.xib */; };
 		0794259B1A5A59A7002BF56C /* QHQnetworkingTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 079425981A5A59A7002BF56C /* QHQnetworkingTool.m */; };
 		0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 0794259A1A5A59A7002BF56C /* UIImage+HQ.m */; };
+		079E42181A7611240056968E /* XEQuestionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E42171A7611240056968E /* XEQuestionInfo.m */; };
+		079E421C1A762ABE0056968E /* XEQuestionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E421A1A762ABE0056968E /* XEQuestionViewCell.m */; };
+		079E421D1A762ABE0056968E /* XEQuestionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 079E421B1A762ABE0056968E /* XEQuestionViewCell.xib */; };
 		07B650521A67A1E500DEDE4E /* ExpertIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B650501A67A1E500DEDE4E /* ExpertIntroViewController.m */; };
 		07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07B650511A67A1E500DEDE4E /* ExpertIntroViewController.xib */; };
 		07B650571A67AC7E00DEDE4E /* XETopicViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B650551A67AC7E00DEDE4E /* XETopicViewCell.m */; };
@@ -438,6 +441,11 @@
 		079425981A5A59A7002BF56C /* QHQnetworkingTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QHQnetworkingTool.m; sourceTree = "<group>"; };
 		079425991A5A59A7002BF56C /* UIImage+HQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+HQ.h"; sourceTree = "<group>"; };
 		0794259A1A5A59A7002BF56C /* UIImage+HQ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+HQ.m"; sourceTree = "<group>"; };
+		079E42161A7611240056968E /* XEQuestionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEQuestionInfo.h; sourceTree = "<group>"; };
+		079E42171A7611240056968E /* XEQuestionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEQuestionInfo.m; sourceTree = "<group>"; };
+		079E42191A762ABE0056968E /* XEQuestionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEQuestionViewCell.h; sourceTree = "<group>"; };
+		079E421A1A762ABE0056968E /* XEQuestionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEQuestionViewCell.m; sourceTree = "<group>"; };
+		079E421B1A762ABE0056968E /* XEQuestionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEQuestionViewCell.xib; sourceTree = "<group>"; };
 		07B6504F1A67A1E500DEDE4E /* ExpertIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertIntroViewController.h; sourceTree = "<group>"; };
 		07B650501A67A1E500DEDE4E /* ExpertIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertIntroViewController.m; sourceTree = "<group>"; };
 		07B650511A67A1E500DEDE4E /* ExpertIntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpertIntroViewController.xib; sourceTree = "<group>"; };
@@ -982,6 +990,9 @@
 				07B650541A67AC7E00DEDE4E /* XETopicViewCell.h */,
 				07B650551A67AC7E00DEDE4E /* XETopicViewCell.m */,
 				07B650561A67AC7E00DEDE4E /* XETopicViewCell.xib */,
+				079E42191A762ABE0056968E /* XEQuestionViewCell.h */,
+				079E421A1A762ABE0056968E /* XEQuestionViewCell.m */,
+				079E421B1A762ABE0056968E /* XEQuestionViewCell.xib */,
 			);
 			path = Expert;
 			sourceTree = "<group>";
@@ -1265,6 +1276,8 @@
 				073F9F161A68D0CB009D94E3 /* XERecipesInfo.m */,
 				075AA03C1A68D5EC000B6302 /* XEActivityInfo.h */,
 				075AA03D1A68D5EC000B6302 /* XEActivityInfo.m */,
+				079E42161A7611240056968E /* XEQuestionInfo.h */,
+				079E42171A7611240056968E /* XEQuestionInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1478,6 +1491,7 @@
 				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
 				073F9F0F1A68B31D009D94E3 /* XECategoryView.xib in Resources */,
 				075B03371A6F71DF002B577D /* Pin_Ios7@2x.png in Resources */,
+				079E421D1A762ABE0056968E /* XEQuestionViewCell.xib in Resources */,
 				07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */,
 				07582D1B1A6E5B6200CDCA13 /* MineMsgViewController.xib in Resources */,
 				074644861A6CFFDA00CE2935 /* XECollectionViewCell.xib in Resources */,
@@ -1551,6 +1565,7 @@
 				07FC6D201A679D22001F34D8 /* XEGridView.m in Sources */,
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
 				07FC6D1B1A675D3E001F34D8 /* XEScrollPage.m in Sources */,
+				079E42181A7611240056968E /* XEQuestionInfo.m in Sources */,
 				075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */,
 				07582D0D1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				075B031E1A6CAC28002B577D /* ApplyActivityViewController.m in Sources */,
@@ -1612,6 +1627,7 @@
 				0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */,
 				073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */,
 				075E409A1A59386C0062F6AD /* AFNetworkReachabilityManager.m in Sources */,
+				079E421C1A762ABE0056968E /* XEQuestionViewCell.m in Sources */,
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
 				075B03351A6E4350002B577D /* MapChooseAnnotationView.m in Sources */,

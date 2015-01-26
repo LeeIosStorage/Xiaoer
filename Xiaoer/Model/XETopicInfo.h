@@ -14,6 +14,8 @@
 @property(nonatomic, strong) NSString* title;
 @property(nonatomic, assign) int clicknum;
 @property(nonatomic, assign) int favnum;
+@property(nonatomic, assign) BOOL isTop;
+@property(nonatomic, strong) NSString* dateString;
 
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* topicInfoByJsonDic;

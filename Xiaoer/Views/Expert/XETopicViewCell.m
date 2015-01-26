@@ -41,7 +41,16 @@
     self.topicNameLabel.text = topicInfo.title;
     [self.commentLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.favnum] forState:0];
     [self.collectLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.clicknum] forState:0];
-    
+    if (_isExpertChat) {
+        if (_topicInfo.isTop) {
+            self.topImageView.hidden = NO;
+            [self.topImageView setImage:[UIImage imageNamed:@"info_top_icon"]];
+        }else{
+            self.topImageView.hidden = YES;
+        }
+        self.topicDateLabel.hidden = NO;
+        self.topicDateLabel.text = @"刚刚";
+    }
 }
 
 @end

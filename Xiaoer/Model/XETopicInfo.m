@@ -8,6 +8,7 @@
 
 #import "XETopicInfo.h"
 #import "JSONKit.h"
+#import "XEEngine.h"
 
 @implementation XETopicInfo
 
@@ -17,6 +18,12 @@
     }
     _clicknum = [dic intValueForKey:@"clicknum"];
     _favnum = [dic intValueForKey:@"favnum"];
+    if ([dic objectForKey:@"istop"]) {
+        _isTop = [dic boolValueForKey:@"istop"];
+    }
+    if ([dic objectForKey:@"time"]) {
+        _dateString = [dic stringObjectForKey:@"time"];
+    }
 }
 
 -(void)setTopicInfoByJsonDic:(NSDictionary *)dic{
