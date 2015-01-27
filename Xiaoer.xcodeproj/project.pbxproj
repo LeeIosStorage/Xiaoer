@@ -92,11 +92,6 @@
 		075E32191A762C49006037B3 /* XEShareActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E32181A762C49006037B3 /* XEShareActionSheet.m */; };
 		075E321C1A762E7C006037B3 /* XECustomerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E321B1A762E7C006037B3 /* XECustomerWindow.m */; };
 		075E321E1A762F4A006037B3 /* XECustomerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075E321D1A762F4A006037B3 /* XECustomerWindow.xib */; };
-		075E32231A7726EC006037B3 /* TopicDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E32211A7726EC006037B3 /* TopicDetailsViewController.m */; };
-		075E32241A7726EC006037B3 /* TopicDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075E32221A7726EC006037B3 /* TopicDetailsViewController.xib */; };
-		075E32291A773D6E006037B3 /* TopicCommentViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E32271A773D6E006037B3 /* TopicCommentViewCell.m */; };
-		075E322A1A773D6E006037B3 /* TopicCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075E32281A773D6E006037B3 /* TopicCommentViewCell.xib */; };
-		075E322D1A777562006037B3 /* XECommentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E322C1A777562006037B3 /* XECommentInfo.m */; };
 		075E40971A59386C0062F6AD /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40851A59386C0062F6AD /* AFHTTPRequestOperation.m */; };
 		075E40981A59386C0062F6AD /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40871A59386C0062F6AD /* AFHTTPRequestOperationManager.m */; };
 		075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40891A59386C0062F6AD /* AFHTTPSessionManager.m */; };

@@ -91,11 +91,22 @@
     if ([dic objectForKey:@"gender"]) {
         _gender = [dic objectForKey:@"gender"];
     }
+    
+    
     if ([dic objectForKey:@"nickName"]) {
         _nickName = [dic objectForKey:@"nickName"];
     }
     if ([dic objectForKey:@"district"]) {
-        _regionName = [dic objectForKey:@"district"];
+        _region = [dic objectForKey:@"district"];
+    }
+    NSDictionary* area = [dic objectForKey:@"area"];
+    if (area) {
+        if ([area objectForKey:@"code"]) {
+            _region = [area objectForKey:@"code"];
+        }
+        if ([area objectForKey:@"name"]) {
+            _regionName = [area objectForKey:@"name"];
+        }
     }
     if ([dic objectForKey:@"address"]) {
         _address = [dic objectForKey:@"address"];

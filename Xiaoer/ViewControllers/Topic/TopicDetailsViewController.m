@@ -134,8 +134,8 @@
         [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
         
         weakSelf.topicComments = [[NSMutableArray alloc] init];
-//        NSArray *comments = [[jsonRet objectForKey:@"object"] objectForKey:@"comments"];
-        NSArray *comments = @[@{@"content": @"微博微博微博微博微博微博微", @"name":@"刘备"},@{@"content": @"微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博", @"name":@"刘备"},@{@"content": @"", @"name":@"刘备"}];
+        NSArray *comments = [[jsonRet objectForKey:@"object"] objectForKey:@"comments"];
+//        NSArray *comments = @[@{@"content": @"微博微博微博微博微博微博微", @"name":@"刘备"},@{@"content": @"微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博", @"name":@"刘备"},@{@"content": @"", @"name":@"刘备"}];
         for (NSDictionary *dic in comments) {
             XECommentInfo *commentInfo = [[XECommentInfo alloc] init];
             [commentInfo setCommentInfoByJsonDic:dic];
@@ -301,7 +301,6 @@
 }
 
 -(void)moreAction:(id)sender{
-    
     _shareAction = [[XEShareActionSheet alloc] init];
     _shareAction.owner = self;
     [_shareAction showShareAction];
@@ -322,6 +321,29 @@
     self.commentButton.selected = !self.commentButton.selected;
     self.collectButton.selected = !self.collectButton.selected;
 }
+
+-(void)commitComment{
+    __weak TopicDetailsViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] commitCommentTopicWithTopicId:_topicInfo.tId uid:[XEEngine shareInstance].uid content:@"123123" tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        
+        
+        
+        [weakSelf.tableView reloadData];
+    } tag:tag];
+    
+}
+
 #pragma mark - GMGridViewDataSource
 - (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
