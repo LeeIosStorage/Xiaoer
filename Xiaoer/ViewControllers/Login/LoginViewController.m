@@ -154,11 +154,11 @@
             _registerVerifyButton.enabled = YES;
             [_registerVerifyButton setBackgroundColor:UIColorToRGB(0x6cc5e9)];
         }
-        [_registerVerifyButton setTitle:@"重新获取验证码" forState:UIControlStateNormal];
+        [_registerVerifyButton setTitle:@"获取验证码" forState:UIControlStateNormal];
         return;
     }
     
-    [_registerVerifyButton setTitle:[NSString stringWithFormat:@"正在获取(%d秒)",_waitSmsSecond] forState:UIControlStateNormal];
+    [_registerVerifyButton setTitle:[NSString stringWithFormat:@"%d秒",_waitSmsSecond] forState:UIControlStateNormal];
     
     _waitSmsSecond--;
     
