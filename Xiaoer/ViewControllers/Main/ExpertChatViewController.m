@@ -35,6 +35,8 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *topicTableView;
 @property (strong, nonatomic) IBOutlet UITableView *questionTableView;
+@property (strong, nonatomic) IBOutlet UIButton *topicBtn;
+@property (strong, nonatomic) IBOutlet UIButton *questionBtn;
 
 @property (strong, nonatomic) IBOutlet UIView *sectionView;
 
@@ -56,7 +58,7 @@
     self.pullRefreshView2 = [[PullToRefreshView alloc] initWithScrollView:self.questionTableView];
     self.pullRefreshView2.delegate = self;
     [self.questionTableView addSubview:self.pullRefreshView2];
-    self.topicTableView.tableHeaderView = self.headView;
+//    self.topicTableView.tableHeaderView = self.headView;
     self.topicTableView.tableFooterView = self.footerView;
     [self feedsTypeSwitch:INFO_TYPE_TOPIC needRefreshFeeds:YES];
     
@@ -173,9 +175,9 @@
         self.questionTableView.decelerationRate = 0.0f;
         self.topicTableView.decelerationRate = 1.0f;
         self.questionTableView.hidden = YES;
-        self.questionTableView.tableHeaderView = nil;
+//        self.questionTableView.tableHeaderView = nil;
         self.topicTableView.hidden = NO;
-        self.topicTableView.tableHeaderView = self.headView;
+//        self.topicTableView.tableHeaderView = self.headView;
         
         if (!_topicArray) {
             [self refreshTopicList:YES];
@@ -184,15 +186,15 @@
         if (needRefresh) {
             [self refreshTopicList:YES];
         }
-        [self.topicTableView reloadData];
+//        [self.topicTableView reloadData];
     }else if (tag == INFO_TYPE_QUESTION){
         
         self.questionTableView.decelerationRate = 1.0f;
         self.topicTableView.decelerationRate = 0.0f;
         self.topicTableView.hidden = YES;
-        self.topicTableView.tableHeaderView = nil;
+//        self.topicTableView.tableHeaderView = nil;
         self.questionTableView.hidden = NO;
-        self.questionTableView.tableHeaderView = self.headView;
+//        self.questionTableView.tableHeaderView = self.headView;
         if (!_questionArray) {
             [self refreshQuestionList:YES];
             return;
@@ -200,7 +202,7 @@
         if (needRefresh) {
             [self refreshQuestionList:YES];
         }
-        [self.questionTableView reloadData];
+//        [self.questionTableView reloadData];
     }
 }
 
@@ -312,17 +314,17 @@
     return _topicArray.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
-    return 44;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-    [view addSubview:self.sectionView];
-    return view;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    
+//    return 44;
+//}
+//
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+//    [view addSubview:self.sectionView];
+//    return view;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -378,8 +380,16 @@
 - (IBAction)selectAction:(id)sender {
     UIButton *btn = sender;
     if (btn.tag == INFO_TYPE_TOPIC) {
+        [self.topicBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.topicBtn setBackgroundImage:[UIImage imageNamed:@"expert_selected_bg"] forState:UIControlStateNormal];
+        [self.questionBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [self.questionBtn setBackgroundImage:nil forState:UIControlStateNormal];
         [self feedsTypeSwitch:INFO_TYPE_TOPIC needRefreshFeeds:NO];
     }else if(btn.tag == INFO_TYPE_QUESTION){
+        [self.questionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.questionBtn setBackgroundImage:[UIImage imageNamed:@"expert_selected_bg"] forState:UIControlStateNormal];
+        [self.topicBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [self.topicBtn setBackgroundImage:nil forState:UIControlStateNormal];
         [self feedsTypeSwitch:INFO_TYPE_QUESTION needRefreshFeeds:NO];
     }
 }

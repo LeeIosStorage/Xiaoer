@@ -303,7 +303,6 @@
 {
     switch (indexPath.row) {
         case 5:{
-            NSLog(@"============商城");
             id vc = [XELinkerHandler handleDealWithHref:_mallurl From:self.navigationController];
             if (vc) {
                 [self.navigationController pushViewController:vc animated:YES];
@@ -311,33 +310,28 @@
             break;
         }
         case 4:{
-            NSLog(@"============活动");
             ActivityViewController *vc = [[ActivityViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 3:{
-            NSLog(@"============专家");
             ExpertListViewController *vc = [[ExpertListViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 2:{
-            NSLog(@"============测评");
             RecipesViewController *rVc = [[RecipesViewController alloc] init];
             rVc.infoType = TYPE_EVALUATION;
             [self.navigationController pushViewController:rVc animated:YES];
         }
             break;
         case 1:{
-            NSLog(@"============养育");
             RecipesViewController *rVc = [[RecipesViewController alloc] init];
             rVc.infoType = TYPE_NOURISH;
             [self.navigationController pushViewController:rVc animated:YES];
             break;
         }
         case 0:{
-            NSLog(@"============食谱");
             RecipesViewController *rVc = [[RecipesViewController alloc] init];
             rVc.infoType = TYPE_RECIPES;
             [self.navigationController pushViewController:rVc animated:YES];
