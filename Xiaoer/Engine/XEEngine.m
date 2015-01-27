@@ -24,8 +24,8 @@
 
 #define CONNECT_TIMEOUT 20
 
-//static NSString* API_URL = @"http://192.168.16.29";
-static NSString* API_URL = @"http://58.30.245.58:8080";
+//static NSString* API_URL = @"http://192.168.16.29/api";
+static NSString* API_URL = @"http://58.30.245.58:8080/api";
 
 static XEEngine* s_ShareInstance = nil;
 
@@ -155,9 +155,9 @@ static XEEngine* s_ShareInstance = nil;
 - (void)serverInit{
 //    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
     if (self.serverPlatform == TestPlatform) {
-        API_URL = @"http://192.168.16.29";
+        API_URL = @"http://192.168.16.29/api";
     } else {
-        API_URL = @"http://58.30.245.58:8080";
+        API_URL = @"http://58.30.245.58:8080/api";
     }
 }
 
