@@ -33,6 +33,39 @@
     if ([dic objectForKey:@"time"]) {
         _dateString = [dic stringObjectForKey:@"time"];
     }
+    
+    id objectForKey = [dic objectForKey:@"content"];
+    if (objectForKey) {
+        _content = [objectForKey description];
+    }
+    
+    objectForKey = [dic objectForKey:@"name"];
+    if (objectForKey) {
+        _userName = [objectForKey description];
+    }
+    
+    objectForKey = [dic objectForKey:@"avatar"];
+    if (objectForKey) {
+        _avatar = [objectForKey description];
+    }
+    
+    objectForKey = [dic objectForKey:@"utitle"];
+    if (objectForKey) {
+        _utitle = [objectForKey description];
+    }
+    
+    objectForKey = [dic objectForKey:@"faved"];
+    if (objectForKey) {
+        _faved = [objectForKey intValue];
+    }
+    
+    objectForKey = [dic arrayObjectForKey:@"imgs"];
+    if (objectForKey) {
+        _picIds = [NSMutableArray array];
+        for (NSString *urlStr in objectForKey) {
+            [_picIds addObject:urlStr];
+        }
+    }
 }
 
 -(void)setTopicInfoByJsonDic:(NSDictionary *)dic{
@@ -52,6 +85,29 @@
     
     self.jsonString = [_topicInfoByJsonDic JSONString];
     
+}
+
+- (NSURL *)smallAvatarUrl {
+    if (_avatar == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small", _avatar]];
+}
+
+- (NSArray *)picURLs{
+    NSMutableArray* urls = [[NSMutableArray alloc] init];
+    for (NSString* picID in _picIds) {
+        [urls addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small" ,picID]]];
+    }
+    return urls;
+}
+
+- (NSArray *)originalPicURLs{
+    NSMutableArray* urls = [[NSMutableArray alloc] init];
+    for (NSString* picID in _picIds) {
+        [urls addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl],picID]]];
+    }
+    return urls;
 }
 
 @end

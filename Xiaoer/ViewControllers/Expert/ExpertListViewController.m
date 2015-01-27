@@ -246,13 +246,13 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
     if (indexPath != nil){
         NSLog(@"indexPath: row:%ld", indexPath.row);
-        _isNeedSelect = YES;
-        [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
-//        XEDoctorInfo *doctorInfo = _expertList[indexPath.row];
-//        XEPublicViewController *vc = [[XEPublicViewController alloc] init];
-//        vc.publicType = Public_Type_Expert;
-//        vc.doctorInfo = doctorInfo;
-//        [self.navigationController pushViewController:vc animated:YES];
+//        _isNeedSelect = YES;
+//        [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+        XEDoctorInfo *doctorInfo = _expertList[indexPath.row];
+        XEPublicViewController *vc = [[XEPublicViewController alloc] init];
+        vc.publicType = Public_Type_Expert;
+        vc.doctorInfo = doctorInfo;
+        [self.navigationController pushViewController:vc animated:YES];
     }
     
 }

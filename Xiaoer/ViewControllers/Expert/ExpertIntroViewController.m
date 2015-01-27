@@ -15,6 +15,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "XEPublicViewController.h"
 #import "XEShareActionSheet.h"
+#import "TopicDetailsViewController.h"
 
 @interface ExpertIntroViewController () <UITableViewDelegate,UITableViewDataSource,XEShareActionSheetDelegate>
 {
@@ -244,11 +245,6 @@
 
 -(void)collectAction:(id)sender{
     
-    _shareAction = [[XEShareActionSheet alloc] init];
-    _shareAction.owner = self;
-    [_shareAction showShareAction];
-    return;
-    
     if ([[XEEngine shareInstance] needUserLogin:nil]) {
         return;
     }
@@ -363,6 +359,11 @@
 {
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
+    
+    XETopicInfo *topicInfo = _doctorTopics[indexPath.row];
+    TopicDetailsViewController *topicVc = [[TopicDetailsViewController alloc] init];
+    topicVc.topicInfo = topicInfo;
+    [self.navigationController pushViewController:topicVc animated:YES];
 }
 
 @end

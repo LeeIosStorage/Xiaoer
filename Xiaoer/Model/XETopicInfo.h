@@ -21,6 +21,14 @@
 @property(nonatomic, assign) BOOL isTop;
 @property(nonatomic, strong) NSString* dateString;
 
+@property(nonatomic, strong) NSString* content;
+@property(nonatomic, strong) NSString* userName;
+@property(nonatomic, readonly) NSURL* smallAvatarUrl;
+@property(nonatomic, assign) int faved;
+@property(nonatomic, strong) NSMutableArray *picIds;
+@property(nonatomic, readonly) NSArray* picURLs;
+@property(nonatomic, readonly) NSArray* originalPicURLs;
+
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* topicInfoByJsonDic;
 
