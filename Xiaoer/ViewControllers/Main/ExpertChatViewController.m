@@ -16,6 +16,7 @@
 #import "ODRefreshControl.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "TopicListViewController.h"
+#import "TopicDetailsViewController.h"
 
 #define TOPIC_TYPE_NOURISH   101
 #define TOPIC_TYPE_NUTRI     102
@@ -381,9 +382,9 @@
         NSLog(@"===============%@",info.sId);
     }else if (tableView == self.topicTableView){
         XETopicInfo *topicInfo = _topicArray[indexPath.row];
-//        ActivityDetailsViewController *vc = [[ActivityDetailsViewController alloc] init];
-//        vc.activityInfo = activityInfo;
-//        [self.navigationController pushViewController:vc animated:YES];
+        TopicDetailsViewController *vc = [[TopicDetailsViewController alloc] init];
+        vc.topicInfo = topicInfo;
+        [self.navigationController pushViewController:vc animated:YES];
         NSLog(@"===============%@",topicInfo.tId);
     }
     

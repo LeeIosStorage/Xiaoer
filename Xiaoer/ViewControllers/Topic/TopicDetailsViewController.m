@@ -16,13 +16,20 @@
 #import "UIImageView+WebCache.h"
 #import "XECommentInfo.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "HPGrowingTextView.h"
+#import "XEAlertView.h"
 
 #define ONE_IMAGE_HEIGHT  93
 #define item_spacing  4
+#define growingTextViewMaxNumberOfLines 3
 
-@interface TopicDetailsViewController ()<XEShareActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,GMGridViewDataSource, GMGridViewActionDelegate>
+@interface TopicDetailsViewController ()<XEShareActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,GMGridViewDataSource, GMGridViewActionDelegate,HPGrowingTextViewDelegate>
 {
     XEShareActionSheet *_shareAction;
+    NSRange _textRange;
+    
+    int _maxReplyTextLength;
+//    int _minReplyTextLength;
 }
 
 @property (nonatomic, strong) XECommentInfo *expertComment;
@@ -48,20 +55,49 @@
 @property (strong, nonatomic) IBOutlet UILabel *expertNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *expertHospitalLabel;
 
+@property (strong, nonatomic) IBOutlet UIView *toolbarContainerView;
+@property (strong, nonatomic) IBOutlet HPGrowingTextView *growingTextView;
+@property (strong, nonatomic) IBOutlet UILabel *placeHolderLabel;
+@property (strong, nonatomic) IBOutlet UIButton *expressionBtn;
+@property (strong, nonatomic) IBOutlet UIButton *sendButton;
+
 @property (nonatomic, strong) IBOutlet UIView *sectionView;
 @property (nonatomic, strong) IBOutlet UIButton *commentButton;
 @property (nonatomic, strong) IBOutlet UIButton *collectButton;
 
 - (IBAction)commentAction:(id)sender;
 - (IBAction)collectAction:(id)sender;
+- (IBAction)expressionAction:(id)sender;
+- (IBAction)sendAction:(id)sender;
+
 @end
 
 @implementation TopicDetailsViewController
 
+- (void)dealloc{
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    _growingTextView.delegate = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
     _topicComments = [[NSMutableArray alloc] init];
+    
+    self.sendButton.layer.cornerRadius = 5;
+    self.sendButton.layer.masksToBounds = YES;
     
     NSInteger spacing = item_spacing;
     _imageGridView.style = GMGridViewStyleSwap;
@@ -75,6 +111,19 @@
     _imageGridView.dataSource = self;
     _imageGridView.scrollsToTop = NO;
     _imageGridView.delegate = self;
+    
+    _maxReplyTextLength = 1000;
+    _growingTextView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _growingTextView.minNumberOfLines = 1;
+    _growingTextView.maxNumberOfLines = growingTextViewMaxNumberOfLines;
+    _growingTextView.returnKeyType = UIReturnKeySend; //just as an example
+    _growingTextView.font = [UIFont systemFontOfSize:15.0f];
+    _growingTextView.contentInset = UIEdgeInsetsMake(4, 0, 4, 0);
+    _growingTextView.delegate = self;
+    _growingTextView.backgroundColor = [UIColor clearColor];
+    _growingTextView.internalTextView.backgroundColor = [UIColor clearColor];
+    self.placeHolderLabel.hidden = NO;
+    
     
     self.commentButton.selected = YES;
     self.collectButton.selected = NO;
@@ -322,10 +371,22 @@
     self.collectButton.selected = !self.collectButton.selected;
 }
 
+- (IBAction)expressionAction:(id)sender {
+}
+
+- (IBAction)sendAction:(id)sender {
+    [self commitComment];
+}
+
 -(void)commitComment{
+    
+    NSString *content = _growingTextView.text;
+    if (content.length == 0) {
+        return;
+    }
     __weak TopicDetailsViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] commitCommentTopicWithTopicId:_topicInfo.tId uid:[XEEngine shareInstance].uid content:@"123123" tag:tag];
+    [[XEEngine shareInstance] commitCommentTopicWithTopicId:_topicInfo.tId uid:[XEEngine shareInstance].uid content:content tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -342,6 +403,138 @@
         [weakSelf.tableView reloadData];
     } tag:tag];
     
+}
+
+#pragma mark - NSNotification
+-(void) keyboardWillShow:(NSNotification *)note{
+    
+    // get keyboard size and loctaion
+    CGRect keyboardBounds;
+    [[note.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
+    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    // Need to translate the bounds to account for rotation.
+    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
+    
+    // get a rect for the textView frame
+    CGRect toolbarFrame = _toolbarContainerView.frame;
+    
+    CGRect tableViewFrame = _tableView.frame;
+    tableViewFrame.size.height = self.view.bounds.size.height - keyboardBounds.size.height - toolbarFrame.size.height;
+    _tableView.frame = tableViewFrame;
+    
+    CGPoint offset = _tableView.contentOffset;
+    
+    // animations settings
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:[duration doubleValue]];
+    [UIView setAnimationCurve:[curve intValue]];
+    
+    toolbarFrame.origin.y = self.view.bounds.size.height - keyboardBounds.size.height - toolbarFrame.size.height;
+    _toolbarContainerView.frame = toolbarFrame;
+    
+    offset = CGPointMake(0, _tableView.contentSize.height -  _tableView.frame.size.height);
+    _tableView.contentOffset = offset;
+    
+    // commit animations
+    [UIView commitAnimations];
+}
+
+-(void) keyboardWillHide:(NSNotification *)note{
+    
+    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    // get a rect for the textView frame
+    
+    CGRect toolbarFrame = _toolbarContainerView.frame;
+    
+    CGRect tableViewFrame = _tableView.frame;
+    tableViewFrame.size.height = self.view.bounds.size.height - toolbarFrame.size.height;
+    
+    // animations settings
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:[duration doubleValue]];
+    [UIView setAnimationCurve:[curve intValue]];
+    
+    toolbarFrame.origin.y = self.view.bounds.size.height - toolbarFrame.size.height;
+    _toolbarContainerView.frame = toolbarFrame;
+    
+    _tableView.frame = tableViewFrame;
+    
+    // commit animations
+    [UIView commitAnimations];
+}
+
+#pragma mark -HPGrowingTextViewDelegate
+#define MAX_REPLY_TEXT_LENGTH 256
+- (BOOL)growingTextViewShouldBeginEditing:(HPGrowingTextView *)growingTextView{
+    
+    if (growingTextView.text.length == 0) {
+        self.placeHolderLabel.hidden = NO;
+    }else{
+        self.placeHolderLabel.hidden = YES;
+    }
+    return YES;
+}
+- (void)growingTextViewDidEndEditing:(HPGrowingTextView *)growingTextView{
+    
+    if (_growingTextView.text.length == 0) {
+        self.placeHolderLabel.hidden = NO;
+    }else{
+        self.placeHolderLabel.hidden = YES;
+    }
+    _textRange = growingTextView.selectedRange;
+}
+
+- (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height{
+    float diff = (growingTextView.frame.size.height - height);
+    CGRect r = _toolbarContainerView.frame;
+    r.size.height -= diff;
+    r.origin.y += diff;
+    _toolbarContainerView.frame = r;
+}
+- (void)growingTextViewDidChange:(HPGrowingTextView *)growingTextView{
+    _textRange = growingTextView.selectedRange;
+    if (growingTextView.text.length > 0) {
+        self.placeHolderLabel.hidden = YES;
+    } else {
+        self.placeHolderLabel.hidden = NO;
+    }
+    if ([XECommonUtils getHanziTextNum:growingTextView.text] > _maxReplyTextLength && growingTextView.internalTextView.markedTextRange == nil) {
+        growingTextView.text = [XECommonUtils getHanziTextWithText:growingTextView.text maxLength:_maxReplyTextLength];
+        XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"评论文字不可以超过%d个字符,已截断", _maxReplyTextLength] cancelButtonTitle:@"确定"];
+        
+        [alertView show];
+    }
+}
+
+
+- (BOOL)growingTextView:(HPGrowingTextView *)growingTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if([XECommonUtils getHanziTextNum:growingTextView.text] > _maxReplyTextLength) {
+        
+        XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"评论文字不可以超过%d个字符", _maxReplyTextLength] cancelButtonTitle:@"确定"];
+        [alertView show];
+        
+        return NO;
+    }
+    if ([text isEqualToString:@"\n"]) {
+        [self sendAction:nil];
+        return NO;
+        
+    }
+    return YES;
+}
+
+- (void)growingTextViewDidChangeSelection:(HPGrowingTextView *)growingTextView{
+    _textRange = growingTextView.selectedRange;
+}
+- (BOOL)growingTextViewShouldReturn:(HPGrowingTextView *)growingTextView{
+    [self sendAction:nil];
+    return YES;
 }
 
 #pragma mark - GMGridViewDataSource

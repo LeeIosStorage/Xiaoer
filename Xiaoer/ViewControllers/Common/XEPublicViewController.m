@@ -143,8 +143,8 @@
 #pragma mark - custom
 -(void)refreshViewUI{
     
-    self.openStateButton.layer.cornerRadius = 12;
-    self.openStateButton.layer.masksToBounds = YES;
+//    self.openStateButton.layer.cornerRadius = 12;
+//    self.openStateButton.layer.masksToBounds = YES;
     if (self.openStateButton.selected) {
         [self.openStateButton setTitle:@"私密" forState:0];
     }else{

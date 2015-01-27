@@ -279,4 +279,40 @@ static bool dateFormatterOFUSInvalid ;
 //    //return [self scaleImage:image toSize:size opaque:YES];
 //}
 
+//计算textview的高度
++(CGFloat) calculateTextViewMaxHeight:(UITextView *) textview
+{
+    return [self calculateTextViewHeight:textview];
+}
++(CGFloat) calculateTextViewHeight:(UITextView *) textView
+{
+    if ([NSString instancesRespondToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
+        CGRect txtFrame = textView.frame;
+        //@"%@\n "
+        return [[NSString stringWithFormat:@"%@\n ",textView.text]                boundingRectWithSize:CGSizeMake(txtFrame.size.width - textView.contentInset.left - textView.contentInset.right, CGFLOAT_MAX)
+                                                                                               options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                                                                            attributes:[NSDictionary dictionaryWithObjectsAndKeys:textView.font,NSFontAttributeName, nil] context:nil].size.height;
+    }
+    return textView.contentSize.height ;
+}
++(CGSize) reSizeTextViewContentSize:(UITextView *) textview
+{
+    if ([textview respondsToSelector:@selector(textContainerInset)]) {
+        NSRange oringalRange = textview.selectedRange;
+        textview.selectedRange = NSMakeRange(textview.text.length, 0);
+        CGRect line = [textview caretRectForPosition:
+                       textview.selectedTextRange.start];
+        
+        UIEdgeInsets inset = textview.textContainerInset;
+        CGSize newSize = CGSizeMake(ceil(line.size.width)  + inset.left + inset.right,
+                                    ceil(line.size.height + line.origin.y) + inset.top);
+        textview.contentSize = newSize;
+        
+        //还原原始光标
+        textview.selectedRange = oringalRange;
+    }
+    
+    return textview.contentSize;
+}
+
 @end
