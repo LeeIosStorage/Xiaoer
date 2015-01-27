@@ -6,13 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "new-iphone5.png"
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "置顶icon.png"
+      "filename" : "白色箭头.png"
     }
   ],
   "info" : {

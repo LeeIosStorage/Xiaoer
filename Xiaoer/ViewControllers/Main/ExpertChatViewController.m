@@ -15,17 +15,25 @@
 #import "XEProgressHUD.h"
 #import "ODRefreshControl.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "TopicListViewController.h"
 
-#define INFO_TYPE_TOPIC      101
-#define INFO_TYPE_QUESTION   102
+#define TOPIC_TYPE_NOURISH   101
+#define TOPIC_TYPE_NUTRI     102
+#define TOPIC_TYPE_KINDER    103
+#define TOPIC_TYPE_MIND      104
 
-@interface ExpertChatViewController ()<UITableViewDataSource, UITableViewDelegate>
+#define INFO_TYPE_TOPIC      105
+#define INFO_TYPE_QUESTION   106
+
+@interface ExpertChatViewController ()<UITableViewDataSource, UITableViewDelegate>{
+    int _topicType;
+}
 
 @property (assign, nonatomic) int  tNextCursor;
 @property (assign, nonatomic) int  qNextCursor;
 @property (assign, nonatomic) BOOL topicLoadMore;
 @property (assign, nonatomic) BOOL questionLoadMore;
-@property (assign, nonatomic) NSInteger selectedTag;
+
 
 @property (nonatomic, strong) NSMutableArray *topicArray;
 @property (nonatomic, strong) NSMutableArray *questionArray;
@@ -42,6 +50,9 @@
 
 - (IBAction)selectAction:(id)sender;
 
+- (IBAction)topicAction:(id)sender;
+
+
 @end
 
 @implementation ExpertChatViewController
@@ -50,7 +61,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:@"专家聊"];
-    
+
     self.pullRefreshView = [[PullToRefreshView alloc] initWithScrollView:self.topicTableView];
     self.pullRefreshView.delegate = self;
     [self.topicTableView addSubview:self.pullRefreshView];
@@ -59,12 +70,12 @@
     self.pullRefreshView2.delegate = self;
     [self.questionTableView addSubview:self.pullRefreshView2];
 //    self.topicTableView.tableHeaderView = self.headView;
-    self.topicTableView.tableFooterView = self.footerView;
+//    self.topicTableView.tableFooterView = self.footerView;
     [self feedsTypeSwitch:INFO_TYPE_TOPIC needRefreshFeeds:YES];
     
     __weak ExpertChatViewController *weakSelf = self;
     [self.topicTableView addInfiniteScrollingWithActionHandler:^{
-        weakSelf.topicTableView.tableFooterView = nil;
+        [weakSelf.footerView setHidden:YES];
         if (!weakSelf) {
             return;
         }
@@ -89,8 +100,7 @@
                 [XEProgressHUD AlertError:errorMsg];
                 return;
             }
-            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
-            
+
             NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
             for (NSDictionary *dic in object) {
                 XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
@@ -134,8 +144,7 @@
                 [XEProgressHUD AlertError:errorMsg];
                 return;
             }
-            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
-            
+
             NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"qas"];
             for (NSDictionary *dic in object) {
                 XEQuestionInfo *questionInfo = [[XEQuestionInfo alloc] init];
@@ -154,6 +163,13 @@
             
         } tag:tag];
     }];
+}
+
+- (void)initNormalTitleNavBarSubviews{
+
+    [self setLeftButtonWithTitle:@"我的问答" selector:@selector(mineAction)];
+
+    [self setRightButtonWithImageName:@"common_collect_icon" selector:@selector(publicAction)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -175,9 +191,7 @@
         self.questionTableView.decelerationRate = 0.0f;
         self.topicTableView.decelerationRate = 1.0f;
         self.questionTableView.hidden = YES;
-//        self.questionTableView.tableHeaderView = nil;
         self.topicTableView.hidden = NO;
-//        self.topicTableView.tableHeaderView = self.headView;
         
         if (!_topicArray) {
             [self refreshTopicList:YES];
@@ -186,15 +200,14 @@
         if (needRefresh) {
             [self refreshTopicList:YES];
         }
-//        [self.topicTableView reloadData];
+
     }else if (tag == INFO_TYPE_QUESTION){
         
         self.questionTableView.decelerationRate = 1.0f;
         self.topicTableView.decelerationRate = 0.0f;
         self.topicTableView.hidden = YES;
-//        self.topicTableView.tableHeaderView = nil;
         self.questionTableView.hidden = NO;
-//        self.questionTableView.tableHeaderView = self.headView;
+
         if (!_questionArray) {
             [self refreshQuestionList:YES];
             return;
@@ -202,7 +215,6 @@
         if (needRefresh) {
             [self refreshQuestionList:YES];
         }
-//        [self.questionTableView reloadData];
     }
 }
 
@@ -241,7 +253,7 @@
             weakSelf.topicTableView.showsInfiniteScrolling = YES;
             weakSelf.tNextCursor ++;
         }
-        
+        [weakSelf.footerView setHidden:NO];
         [weakSelf.topicTableView reloadData];
     }tag:tag];
 }
@@ -392,6 +404,32 @@
         [self.topicBtn setBackgroundImage:nil forState:UIControlStateNormal];
         [self feedsTypeSwitch:INFO_TYPE_QUESTION needRefreshFeeds:NO];
     }
+}
+
+- (IBAction)topicAction:(id)sender {
+    UIButton *btn = sender;
+    TopicListViewController *tlVc = [[TopicListViewController alloc] init];
+    tlVc.topicType = (int)btn.tag - 100;
+    [self.navigationController pushViewController:tlVc animated:YES];
+}
+
+- (void)mineAction {
+    TopicListViewController *tlVc = [[TopicListViewController alloc] init];
+    tlVc.bQuestion = YES;
+    [self.navigationController pushViewController:tlVc animated:YES];
+}
+
+- (void)publicAction {
+    
+}
+
+- (void)dealloc{
+    self.topicTableView.delegate = nil;
+    self.topicTableView.dataSource = nil;
+    self.topicTableView.showsInfiniteScrolling = NO;
+    self.questionTableView.delegate = nil;
+    self.questionTableView.dataSource = nil;
+    self.questionTableView.showsInfiniteScrolling = NO;
 }
 
 @end

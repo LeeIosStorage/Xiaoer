@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton  *titleNavBarLeftButton;
+@property (nonatomic, strong) UIButton  *titleNavBarLeftButton2;
 @property (nonatomic, strong) UIView  *titleNavBarLeftCustomView;
 
 @end
@@ -113,6 +114,7 @@
     
     if ([_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
         _titleNavBarLeftButton = ((XETitleNavBarView *) _titleNavBar).toolBarLeftButton;
+        _titleNavBarLeftButton2 = ((XETitleNavBarView *) _titleNavBar).toolBarLeftButton2;
         _titleNavBarRightBtn = ((XETitleNavBarView *) _titleNavBar).toolBarRightButton;
         _titleNavBarRightBtn2 = ((XETitleNavBarView *) _titleNavBar).toolBarRightButton2;
         _segmentedControl = ((XETitleNavBarView *) _titleNavBar).segmentedControl;
@@ -205,6 +207,19 @@
     if (_titleNavBarLeftButton) {
         _titleNavBarLeftButton.hidden = NO;
         [_titleNavBarLeftButton addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+-(void) setLeftButtonWithTitle:(NSString *) buttonTitle selector:(SEL) selector
+{
+    if (![_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
+        return;
+    }
+    
+    if (_titleNavBarLeftButton2) {
+        _titleNavBarLeftButton2.hidden = NO;
+        [_titleNavBarLeftButton2 setTitle:buttonTitle forState:UIControlStateNormal];
+        [_titleNavBarLeftButton2 addTarget:self action:selector forControlEvents:UIControlEventTouchDragInside];
     }
 }
 

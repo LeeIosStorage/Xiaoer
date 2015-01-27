@@ -106,6 +106,8 @@
 		075E40AC1A593A820062F6AD /* ProgressHUDJF.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40A91A593A820062F6AD /* ProgressHUDJF.m */; };
 		075E40B01A593AAC0062F6AD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40AF1A593AAB0062F6AD /* MBProgressHUD.m */; };
 		075E40B31A5940920062F6AD /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40B21A5940920062F6AD /* URLHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		076971AE1A77564E00FEA571 /* TopicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076971AC1A77564E00FEA571 /* TopicListViewController.m */; };
+		076971AF1A77564E00FEA571 /* TopicListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076971AD1A77564E00FEA571 /* TopicListViewController.xib */; };
 		076F32581A5F806200346F44 /* XEInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32561A5F806200346F44 /* XEInputViewController.m */; };
 		076F32591A5F806200346F44 /* XEInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076F32571A5F806200346F44 /* XEInputViewController.xib */; };
 		076F32681A5FA67700346F44 /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32671A5FA67700346F44 /* UIImage+ProportionalFill.m */; };
@@ -396,6 +398,9 @@
 		075E40AF1A593AAB0062F6AD /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		075E40B11A5940920062F6AD /* URLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHelper.h; sourceTree = "<group>"; };
 		075E40B21A5940920062F6AD /* URLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHelper.m; sourceTree = "<group>"; };
+		076971AB1A77564E00FEA571 /* TopicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicListViewController.h; sourceTree = "<group>"; };
+		076971AC1A77564E00FEA571 /* TopicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicListViewController.m; sourceTree = "<group>"; };
+		076971AD1A77564E00FEA571 /* TopicListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicListViewController.xib; sourceTree = "<group>"; };
 		076F32551A5F806200346F44 /* XEInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEInputViewController.h; sourceTree = "<group>"; };
 		076F32561A5F806200346F44 /* XEInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEInputViewController.m; sourceTree = "<group>"; };
 		076F32571A5F806200346F44 /* XEInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEInputViewController.xib; sourceTree = "<group>"; };
@@ -1001,6 +1006,9 @@
 				07B6504F1A67A1E500DEDE4E /* ExpertIntroViewController.h */,
 				07B650501A67A1E500DEDE4E /* ExpertIntroViewController.m */,
 				07B650511A67A1E500DEDE4E /* ExpertIntroViewController.xib */,
+				076971AB1A77564E00FEA571 /* TopicListViewController.h */,
+				076971AC1A77564E00FEA571 /* TopicListViewController.m */,
+				076971AD1A77564E00FEA571 /* TopicListViewController.xib */,
 			);
 			path = Expert;
 			sourceTree = "<group>";
@@ -1548,6 +1556,7 @@
 				07E2847E1A5A8DFC005651EB /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				07E2846F1A5A8DFC005651EB /* umFeedback.bundle in Resources */,
 				070346701A64F8E200EDE251 /* WelcomeViewController.xib in Resources */,
+				076971AF1A77564E00FEA571 /* TopicListViewController.xib in Resources */,
 				075B032A1A6E3892002B577D /* MapChooseViewController.xib in Resources */,
 				07E284701A5A8DFC005651EB /* UMSocialLocalizable.strings in Resources */,
 				07582D1D1A6E5B6200CDCA13 /* SettingViewController.xib in Resources */,
@@ -1660,6 +1669,7 @@
 				074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */,
 				0774A8731A666EAB00336465 /* GMGridView.m in Sources */,
 				0712B3A51A5BD853000A1A7F /* NSData+GIF.m in Sources */,
+				076971AE1A77564E00FEA571 /* TopicListViewController.m in Sources */,
 				075E321C1A762E7C006037B3 /* XECustomerWindow.m in Sources */,
 				075B03321A6E4090002B577D /* CLLocation+Sino.m in Sources */,
 				074594061A5BB52C008F4665 /* NewIntroView.m in Sources */,

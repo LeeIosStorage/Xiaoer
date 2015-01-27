@@ -142,6 +142,10 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getHotTopicWithWithPagenum:(int)page tag:(int)tag;
 //获取专家问答list
 - (BOOL)getQuestionListWithPagenum:(int)page tag:(int)tag;
+//获取类别话题list
+- (BOOL)getHotTopicListWithCat:(int)cat pagenum:(int)page tag:(int)tag;
+//用户问答列表list
+- (BOOL)getQuestionListWithUid:(NSString *)uid pagenum:(int)page tag:(int)tag;
 
 //问专家
 - (BOOL)publishQuestionWithExpertId:(NSString *)expertId uid:(NSString *)uid title:(NSString *)title content:(NSString *)content overt:(NSString *)overt imgs:(NSString *)imgs tag:(int)tag;

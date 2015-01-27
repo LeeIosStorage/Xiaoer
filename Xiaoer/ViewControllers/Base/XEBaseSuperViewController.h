@@ -48,6 +48,7 @@
 //返回按钮, 前面默认是back
 -(void) setLeftButtonTitle:(NSString *) buttonTitle;
 -(void) setLeftButtonWithSelector:(SEL) selector;
+-(void) setLeftButtonWithTitle:(NSString *) buttonTitle selector:(SEL) selector;
 
 -(void) setLeftButtonWithImageName:(NSString *) butonImageName;
 -(void) setLeftButtonWithImageName:(NSString *) butonImageName selector:(SEL) selector;

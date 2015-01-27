@@ -18,6 +18,15 @@
     }
     _clicknum = [dic intValueForKey:@"clicknum"];
     _favnum = [dic intValueForKey:@"favnum"];
+    if ([dic objectForKey:@"commentnum"]) {
+        _commentnum = [dic intValueForKey:@"commentnum"];
+    }
+    if ([dic objectForKey:@"uname"]) {
+        _uname = [dic stringObjectForKey:@"uname"];
+    }
+    if ([dic objectForKey:@"utitle"]) {
+        _utitle = [dic stringObjectForKey:@"utitle"];
+    }
     if ([dic objectForKey:@"istop"]) {
         _isTop = [dic boolValueForKey:@"istop"];
     }
