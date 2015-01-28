@@ -257,19 +257,19 @@ static bool dateFormatterOFUSInvalid ;
 }
 + (NSString*)documentOfAVCaptureDenied
 {
-    return @"无法访问你的相机。\n请到手机系统的[设置]->[隐私]->[相机]允许微米使用相机";
+    return @"无法访问你的相机。\n请到手机系统的[设置]->[隐私]->[相机]允许晓儿使用相机";
 }
 
 + (NSString*)documentOfLocationDenied {
-    return @"无法获取你的位置信息。\n请到手机系统的[设置]->[隐私]->[定位服务]中打开定位服务，并允许微米使用定位服务";
+    return @"无法获取你的位置信息。\n请到手机系统的[设置]->[隐私]->[定位服务]中打开定位服务，并允许晓儿使用定位服务";
 }
 + (NSString*)documentOfAssetsLibraryDenied {
     NSString *errorString = nil;
     double version = [[[UIDevice currentDevice] systemVersion] doubleValue];
     if (version > 6.0) {
-        errorString = @"微米没有权限访问您的相册,请在【隐私】【照片】中允许【微米】访问";
+        errorString = @"晓儿没有权限访问您的相册,请在【隐私】【照片】中允许【晓儿】访问";
     }else{
-        errorString = @"微米没有权限访问您的相册,请打开您的【定位服务】";
+        errorString = @"晓儿没有权限访问您的相册,请打开您的【定位服务】";
     }
     return errorString;
 }

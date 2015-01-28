@@ -9,6 +9,7 @@
 #import "XETopicInfo.h"
 #import "JSONKit.h"
 #import "XEEngine.h"
+#import "XEUIUtils.h"
 
 @implementation XETopicInfo
 
@@ -30,8 +31,10 @@
     if ([dic objectForKey:@"istop"]) {
         _isTop = [dic boolValueForKey:@"istop"];
     }
-    if ([dic objectForKey:@"time"]) {
-        _dateString = [dic stringObjectForKey:@"time"];
+    
+    NSDateFormatter *dateFormatter = [XEUIUtils dateFormatterOFUS];
+    if ([dic objectForKey:@"time"] && [[dic objectForKey:@"time"] isKindOfClass:[NSString class]]) {
+        _time = [dateFormatter dateFromString:[dic objectForKey:@"time"]];
     }
     
     id objectForKey = [dic objectForKey:@"content"];

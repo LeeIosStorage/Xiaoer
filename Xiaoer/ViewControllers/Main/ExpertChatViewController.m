@@ -17,6 +17,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "TopicListViewController.h"
 #import "TopicDetailsViewController.h"
+#import "XEPublishMenu.h"
 
 #define TOPIC_TYPE_NOURISH   101
 #define TOPIC_TYPE_NUTRI     102
@@ -28,6 +29,7 @@
 
 @interface ExpertChatViewController ()<UITableViewDataSource, UITableViewDelegate>{
     int _topicType;
+    XEPublishMenu *_menuView;
 }
 
 @property (assign, nonatomic) int  tNextCursor;
@@ -170,7 +172,7 @@
 
     [self setLeftButtonWithTitle:@"我的问答" selector:@selector(mineAction)];
 
-    [self setRightButtonWithImageName:@"common_collect_icon" selector:@selector(publicAction)];
+    [self setRightButtonWithImageName:@"expert_public_icon" selector:@selector(showAction)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -428,8 +430,17 @@
     [self.navigationController pushViewController:tlVc animated:YES];
 }
 
-- (void)publicAction {
-    
+- (void)showAction {
+
+    _menuView = [[XEPublishMenu alloc] init];
+    __weak ExpertChatViewController *weakSelf = self;
+    [_menuView addMenuItemWithTitle:@"发话题" andIcon:[UIImage imageNamed:@"expert_public_topic_icon"] andSelectedBlock:^{
+        
+    }];
+    [_menuView addMenuItemWithTitle:@"问专家" andIcon:[UIImage imageNamed:@"expert_public_ask_icon"] andSelectedBlock:^{
+     
+    }];
+    [_menuView show];
 }
 
 - (void)dealloc{

@@ -108,6 +108,9 @@
 		075E40B31A5940920062F6AD /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40B21A5940920062F6AD /* URLHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		076971AE1A77564E00FEA571 /* TopicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076971AC1A77564E00FEA571 /* TopicListViewController.m */; };
 		076971AF1A77564E00FEA571 /* TopicListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076971AD1A77564E00FEA571 /* TopicListViewController.xib */; };
+		076CF5711A78AD8C00CDE21D /* XECateTopicViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 076CF56F1A78AD8C00CDE21D /* XECateTopicViewCell.m */; };
+		076CF5721A78AD8C00CDE21D /* XECateTopicViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076CF5701A78AD8C00CDE21D /* XECateTopicViewCell.xib */; };
+		076CF5791A78CFE300CDE21D /* XEPublishMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 076CF5781A78CFE300CDE21D /* XEPublishMenu.m */; };
 		076F32581A5F806200346F44 /* XEInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32561A5F806200346F44 /* XEInputViewController.m */; };
 		076F32591A5F806200346F44 /* XEInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076F32571A5F806200346F44 /* XEInputViewController.xib */; };
 		076F32681A5FA67700346F44 /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32671A5FA67700346F44 /* UIImage+ProportionalFill.m */; };
@@ -408,6 +411,11 @@
 		076971AB1A77564E00FEA571 /* TopicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicListViewController.h; sourceTree = "<group>"; };
 		076971AC1A77564E00FEA571 /* TopicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicListViewController.m; sourceTree = "<group>"; };
 		076971AD1A77564E00FEA571 /* TopicListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicListViewController.xib; sourceTree = "<group>"; };
+		076CF56E1A78AD8C00CDE21D /* XECateTopicViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECateTopicViewCell.h; sourceTree = "<group>"; };
+		076CF56F1A78AD8C00CDE21D /* XECateTopicViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECateTopicViewCell.m; sourceTree = "<group>"; };
+		076CF5701A78AD8C00CDE21D /* XECateTopicViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XECateTopicViewCell.xib; sourceTree = "<group>"; };
+		076CF5771A78CFE300CDE21D /* XEPublishMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XEPublishMenu.h; path = Common/XEPublishMenu/XEPublishMenu.h; sourceTree = "<group>"; };
+		076CF5781A78CFE300CDE21D /* XEPublishMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEPublishMenu.m; path = Common/XEPublishMenu/XEPublishMenu.m; sourceTree = "<group>"; };
 		076F32551A5F806200346F44 /* XEInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEInputViewController.h; sourceTree = "<group>"; };
 		076F32561A5F806200346F44 /* XEInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEInputViewController.m; sourceTree = "<group>"; };
 		076F32571A5F806200346F44 /* XEInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEInputViewController.xib; sourceTree = "<group>"; };
@@ -911,6 +919,7 @@
 		075E40A01A5939580062F6AD /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				076CF5731A78CF0A00CDE21D /* XEPublishMenu */,
 				07FC6D181A675CEE001F34D8 /* XEScrollPage */,
 				0774A87C1A66705D00336465 /* XEActionSheetWithBlock */,
 				0774A87F1A66705D00336465 /* XEAlertViewWithBlock */,
@@ -938,6 +947,15 @@
 				075E40AF1A593AAB0062F6AD /* MBProgressHUD.m */,
 			);
 			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		076CF5731A78CF0A00CDE21D /* XEPublishMenu */ = {
+			isa = PBXGroup;
+			children = (
+				076CF5771A78CFE300CDE21D /* XEPublishMenu.h */,
+				076CF5781A78CFE300CDE21D /* XEPublishMenu.m */,
+			);
+			name = XEPublishMenu;
 			sourceTree = "<group>";
 		};
 		0774A8631A666EAB00336465 /* GMGridView */ = {
@@ -1044,6 +1062,9 @@
 				079E42191A762ABE0056968E /* XEQuestionViewCell.h */,
 				079E421A1A762ABE0056968E /* XEQuestionViewCell.m */,
 				079E421B1A762ABE0056968E /* XEQuestionViewCell.xib */,
+				076CF56E1A78AD8C00CDE21D /* XECateTopicViewCell.h */,
+				076CF56F1A78AD8C00CDE21D /* XECateTopicViewCell.m */,
+				076CF5701A78AD8C00CDE21D /* XECateTopicViewCell.xib */,
 			);
 			path = Expert;
 			sourceTree = "<group>";
@@ -1572,6 +1593,7 @@
 			files = (
 				07E284751A5A8DFC005651EB /* UMShareEditViewController.xib in Resources */,
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
+				076CF5721A78AD8C00CDE21D /* XECateTopicViewCell.xib in Resources */,
 				07582D191A6E5B6200CDCA13 /* CollectionViewController.xib in Resources */,
 				075B031F1A6CAC28002B577D /* ApplyActivityViewController.xib in Resources */,
 				07E284771A5A8DFC005651EB /* UMSLoginViewController.xib in Resources */,
@@ -1714,6 +1736,7 @@
 				073F9F171A68D0CB009D94E3 /* XERecipesInfo.m in Sources */,
 				077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */,
 				0712B3AB1A5BD853000A1A7F /* SDWebImageDownloaderOperation.m in Sources */,
+				076CF5711A78AD8C00CDE21D /* XECateTopicViewCell.m in Sources */,
 				073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */,
 				07913F651A67808F0083E8E5 /* ExpertListViewCell.m in Sources */,
 				7E72412C1A77D2F8001E1F69 /* HPTextViewInternal.m in Sources */,
@@ -1772,6 +1795,7 @@
 				0712B3AF1A5BD853000A1A7F /* UIImage+GIF.m in Sources */,
 				07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */,
 				074644851A6CFFDA00CE2935 /* XECollectionViewCell.m in Sources */,
+				076CF5791A78CFE300CDE21D /* XEPublishMenu.m in Sources */,
 				07582D1C1A6E5B6200CDCA13 /* SettingViewController.m in Sources */,
 				0712B37E1A5BC0DE000A1A7F /* RetrievePwdViewController.m in Sources */,
 				07C49F591A5E7E9900E1725C /* DDExpandableButton.m in Sources */,

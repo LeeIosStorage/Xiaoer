@@ -7,7 +7,7 @@
 //
 
 #import "TopicListViewController.h"
-#import "XETopicViewCell.h"
+#import "XECateTopicViewCell.h"
 #import "XEQuestionViewCell.h"
 #import "XETopicInfo.h"
 #import "XEQuestionInfo.h"
@@ -30,6 +30,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.pullRefreshView = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
+    self.pullRefreshView.delegate = self;
+    [self.tableView addSubview:self.pullRefreshView];
     
     __weak TopicListViewController *weakSelf = self;
     if (_bQuestion) {
@@ -137,7 +141,7 @@
 - (void)initNormalTitleNavBarSubviews{
     if (_bQuestion) {
         [self setTitle:@"我的问答"];
-        [self setRightButtonWithImageName:@"common_collect_icon" selector:@selector(askAction)];
+        [self setRightButtonWithImageName:@"expert_public_icon" selector:@selector(askAction)];
     }else {
         if (self.topicType == TopicType_Nutri) {
             [self setTitle:@"营养话题"];
@@ -247,14 +251,14 @@
         return [XEQuestionViewCell heightForQuestionInfo:questionInfo];
     }
     XETopicInfo *topicInfo = _dateArray[indexPath.row];
-    return [XETopicViewCell heightForTopicInfo:topicInfo];
+    return [XECateTopicViewCell heightForTopicInfo:topicInfo];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!self.bQuestion) {
-        static NSString *CellIdentifier = @"XETopicViewCell";
-        XETopicViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        static NSString *CellIdentifier = @"XECateTopicViewCell";
+        XECateTopicViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
             cell = [cells objectAtIndex:0];
@@ -263,7 +267,6 @@
         XETopicInfo *topicInfo = _dateArray[indexPath.row];
         cell.isExpertChat = YES;
         cell.topicInfo = topicInfo;
-        
         return cell;
     }
     
@@ -289,7 +292,21 @@
     TopicDetailsViewController *vc = [[TopicDetailsViewController alloc] init];
     vc.topicInfo = topicInfo;
     [self.navigationController pushViewController:vc animated:YES];
-    
+}
+
+#pragma mark PullToRefreshViewDelegate
+- (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view {
+    if (view == self.pullRefreshView) {
+        if (_bQuestion) {
+            [self refreshQuestionList];
+        }else{
+            [self refreshTopicList];
+        }
+    }
+}
+
+- (NSDate *)pullToRefreshViewLastUpdated:(PullToRefreshView *)view {
+    return [NSDate date];
 }
 
 - (void)askAction{

@@ -19,7 +19,7 @@
 @property(nonatomic, strong) NSString* uname;
 @property(nonatomic, strong) NSString* utitle;
 @property(nonatomic, assign) BOOL isTop;
-@property(nonatomic, strong) NSString* dateString;
+@property(nonatomic, strong) NSDate* time;
 
 @property(nonatomic, strong) NSString* content;
 @property(nonatomic, strong) NSString* userName;
