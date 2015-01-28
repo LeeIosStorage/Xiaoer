@@ -45,7 +45,7 @@
 
 + (NSString*)documentOfLocationDenied;
 
-//+ (UIImage*)scaleImage:(UIImage*)image toSize:(CGSize)size;
++ (UIImage*)scaleImage:(UIImage*)image toSize:(CGSize)size;
 
 //计算textview的高度
 +(CGFloat) calculateTextViewMaxHeight:(UITextView *) textview;

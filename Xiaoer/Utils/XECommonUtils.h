@@ -60,4 +60,6 @@ dispatch_sync(dispatch_get_main_queue(), block);\
 + (void)usePhoneNumAction:(NSString *)phone;
 
 +(UIImage *)getImageFromSDImageCache:(NSString *) imageUrl;
+
++ (NSString*)stringSplitWithCommaForIds:(NSArray*)ids;
 @end

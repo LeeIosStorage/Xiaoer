@@ -8,7 +8,7 @@
 
 #import "XEUIUtils.h"
 #import "XEAlertView.h"
-//#import "UIImage+Resize.h"
+#import "UIImage+Resize.h"
 
 @implementation XEUIUtils
 
@@ -274,10 +274,9 @@ static bool dateFormatterOFUSInvalid ;
     return errorString;
 }
 
-//+ (UIImage*)scaleImage:(UIImage*)image toSize:(CGSize)size {
-//    return [image resizedImage:size interpolationQuality:0];
-//    //return [self scaleImage:image toSize:size opaque:YES];
-//}
++ (UIImage*)scaleImage:(UIImage*)image toSize:(CGSize)size {
+    return [image resizedImage:size interpolationQuality:0];
+}
 
 //计算textview的高度
 +(CGFloat) calculateTextViewMaxHeight:(UITextView *) textview

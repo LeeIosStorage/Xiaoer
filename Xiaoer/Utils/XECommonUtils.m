@@ -151,4 +151,15 @@
     return image;
 }
 
++ (NSString*)stringSplitWithCommaForIds:(NSArray*)ids {
+    NSMutableString * idsString = [[NSMutableString alloc] init];
+    for (NSString* uid in ids) {
+        if (idsString.length > 0) {
+            [idsString appendString:@","];
+        }
+        [idsString appendString:uid.description];
+    }
+    return idsString;
+}
+
 @end

@@ -174,14 +174,14 @@
         NSDictionary *topicDic = [[jsonRet objectForKey:@"object"] objectForKey:@"topic"];
         [weakSelf.topicInfo setTopicInfoByJsonDic:topicDic];
         
-        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
+//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
+//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
+//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
+//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
+//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
+//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
+//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
+//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
         
         weakSelf.topicComments = [[NSMutableArray alloc] init];
         NSArray *comments = [[jsonRet objectForKey:@"object"] objectForKey:@"comments"];
@@ -195,7 +195,6 @@
         if (exComment) {
             weakSelf.expertComment = [[XECommentInfo alloc] init];
             [weakSelf.expertComment setCommentInfoByJsonDic:exComment];
-//            weakSelf.expertComment.content = @"微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博";
         }
         
         weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
@@ -422,7 +421,6 @@
         }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
-        [weakSelf growingTextViewResignFirstResponder];
         NSDictionary *dic = [jsonRet objectForKey:@"object"];
         XECommentInfo *commentInfo = [[XECommentInfo alloc] init];
         [commentInfo setCommentInfoByJsonDic:dic];
@@ -439,6 +437,9 @@
         [weakSelf.topicComments addObject:commentInfo];
         
         [weakSelf.tableView reloadData];
+        
+        [weakSelf growingTextViewResignFirstResponder];
+        
     } tag:tag];
     
 }

@@ -88,6 +88,20 @@
 		075CAF4C1A5D0E6A005CF4B6 /* SetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075CAF4A1A5D0E6A005CF4B6 /* SetPwdViewController.m */; };
 		075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075CAF4B1A5D0E6A005CF4B6 /* SetPwdViewController.xib */; };
 		075CAF721A5D338F005CF4B6 /* NSString+Value.m in Sources */ = {isa = PBXBuildFile; fileRef = 075CAF711A5D338F005CF4B6 /* NSString+Value.m */; };
+		075DD0321A78AC0C009A64B4 /* WSAlbumTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD0231A78AC0C009A64B4 /* WSAlbumTableViewController.m */; };
+		075DD0331A78AC0C009A64B4 /* WSAssetPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD0271A78AC0C009A64B4 /* WSAssetPickerController.m */; };
+		075DD0341A78AC0C009A64B4 /* WSAssetPickerState.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD0291A78AC0C009A64B4 /* WSAssetPickerState.m */; };
+		075DD0351A78AC0C009A64B4 /* WSAssetsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD02B1A78AC0C009A64B4 /* WSAssetsTableViewCell.m */; };
+		075DD0361A78AC0C009A64B4 /* WSAssetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD02D1A78AC0C009A64B4 /* WSAssetTableViewController.m */; };
+		075DD0371A78AC0C009A64B4 /* WSAssetViewColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD02F1A78AC0C009A64B4 /* WSAssetViewColumn.m */; };
+		075DD0381A78AC0C009A64B4 /* WSAssetWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD0311A78AC0C009A64B4 /* WSAssetWrapper.m */; };
+		075DD03B1A78B42E009A64B4 /* WSAssetViewSelectionIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 075DD0391A78B42E009A64B4 /* WSAssetViewSelectionIndicator.png */; };
+		075DD03C1A78B42E009A64B4 /* WSAssetViewSelectionIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 075DD03A1A78B42E009A64B4 /* WSAssetViewSelectionIndicator@2x.png */; };
+		075DD0471A78BA3F009A64B4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 075DD03E1A78BA3F009A64B4 /* README.md */; };
+		075DD0481A78BA3F009A64B4 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD0401A78BA3F009A64B4 /* UIImage+Alpha.m */; };
+		075DD0491A78BA3F009A64B4 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD0421A78BA3F009A64B4 /* UIImage+Resize.m */; };
+		075DD04A1A78BA3F009A64B4 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD0441A78BA3F009A64B4 /* UIImage+RoundedCorner.m */; };
+		075DD04B1A78BA3F009A64B4 /* UIImageExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD0461A78BA3F009A64B4 /* UIImageExtras.m */; };
 		075E31E51A7613C5006037B3 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 075E31E41A7613C5006037B3 /* AssetsLibrary.framework */; };
 		075E32191A762C49006037B3 /* XEShareActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E32181A762C49006037B3 /* XEShareActionSheet.m */; };
 		075E321C1A762E7C006037B3 /* XECustomerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E321B1A762E7C006037B3 /* XECustomerWindow.m */; };
@@ -374,6 +388,33 @@
 		075CAF4B1A5D0E6A005CF4B6 /* SetPwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetPwdViewController.xib; sourceTree = "<group>"; };
 		075CAF701A5D338F005CF4B6 /* NSString+Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Value.h"; sourceTree = "<group>"; };
 		075CAF711A5D338F005CF4B6 /* NSString+Value.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Value.m"; sourceTree = "<group>"; };
+		075DD0221A78AC0C009A64B4 /* WSAlbumTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAlbumTableViewController.h; sourceTree = "<group>"; };
+		075DD0231A78AC0C009A64B4 /* WSAlbumTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSAlbumTableViewController.m; sourceTree = "<group>"; };
+		075DD0241A78AC0C009A64B4 /* WSAssetPicker-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WSAssetPicker-Prefix.pch"; sourceTree = "<group>"; };
+		075DD0251A78AC0C009A64B4 /* WSAssetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAssetPicker.h; sourceTree = "<group>"; };
+		075DD0261A78AC0C009A64B4 /* WSAssetPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAssetPickerController.h; sourceTree = "<group>"; };
+		075DD0271A78AC0C009A64B4 /* WSAssetPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSAssetPickerController.m; sourceTree = "<group>"; };
+		075DD0281A78AC0C009A64B4 /* WSAssetPickerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAssetPickerState.h; sourceTree = "<group>"; };
+		075DD0291A78AC0C009A64B4 /* WSAssetPickerState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSAssetPickerState.m; sourceTree = "<group>"; };
+		075DD02A1A78AC0C009A64B4 /* WSAssetsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAssetsTableViewCell.h; sourceTree = "<group>"; };
+		075DD02B1A78AC0C009A64B4 /* WSAssetsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSAssetsTableViewCell.m; sourceTree = "<group>"; };
+		075DD02C1A78AC0C009A64B4 /* WSAssetTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAssetTableViewController.h; sourceTree = "<group>"; };
+		075DD02D1A78AC0C009A64B4 /* WSAssetTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSAssetTableViewController.m; sourceTree = "<group>"; };
+		075DD02E1A78AC0C009A64B4 /* WSAssetViewColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAssetViewColumn.h; sourceTree = "<group>"; };
+		075DD02F1A78AC0C009A64B4 /* WSAssetViewColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSAssetViewColumn.m; sourceTree = "<group>"; };
+		075DD0301A78AC0C009A64B4 /* WSAssetWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSAssetWrapper.h; sourceTree = "<group>"; };
+		075DD0311A78AC0C009A64B4 /* WSAssetWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSAssetWrapper.m; sourceTree = "<group>"; };
+		075DD0391A78B42E009A64B4 /* WSAssetViewSelectionIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WSAssetViewSelectionIndicator.png; sourceTree = "<group>"; };
+		075DD03A1A78B42E009A64B4 /* WSAssetViewSelectionIndicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WSAssetViewSelectionIndicator@2x.png"; sourceTree = "<group>"; };
+		075DD03E1A78BA3F009A64B4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		075DD03F1A78BA3F009A64B4 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
+		075DD0401A78BA3F009A64B4 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
+		075DD0411A78BA3F009A64B4 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		075DD0421A78BA3F009A64B4 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		075DD0431A78BA3F009A64B4 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		075DD0441A78BA3F009A64B4 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
+		075DD0451A78BA3F009A64B4 /* UIImageExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageExtras.h; sourceTree = "<group>"; };
+		075DD0461A78BA3F009A64B4 /* UIImageExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageExtras.m; sourceTree = "<group>"; };
 		075E31E41A7613C5006037B3 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		075E32171A762C49006037B3 /* XEShareActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEShareActionSheet.h; sourceTree = "<group>"; };
 		075E32181A762C49006037B3 /* XEShareActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEShareActionSheet.m; sourceTree = "<group>"; };
@@ -878,6 +919,47 @@
 			path = MapChoose;
 			sourceTree = "<group>";
 		};
+		075DD0211A78AC0C009A64B4 /* WSAssetWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				075DD0391A78B42E009A64B4 /* WSAssetViewSelectionIndicator.png */,
+				075DD03A1A78B42E009A64B4 /* WSAssetViewSelectionIndicator@2x.png */,
+				075DD0221A78AC0C009A64B4 /* WSAlbumTableViewController.h */,
+				075DD0231A78AC0C009A64B4 /* WSAlbumTableViewController.m */,
+				075DD0241A78AC0C009A64B4 /* WSAssetPicker-Prefix.pch */,
+				075DD0251A78AC0C009A64B4 /* WSAssetPicker.h */,
+				075DD0261A78AC0C009A64B4 /* WSAssetPickerController.h */,
+				075DD0271A78AC0C009A64B4 /* WSAssetPickerController.m */,
+				075DD0281A78AC0C009A64B4 /* WSAssetPickerState.h */,
+				075DD0291A78AC0C009A64B4 /* WSAssetPickerState.m */,
+				075DD02A1A78AC0C009A64B4 /* WSAssetsTableViewCell.h */,
+				075DD02B1A78AC0C009A64B4 /* WSAssetsTableViewCell.m */,
+				075DD02C1A78AC0C009A64B4 /* WSAssetTableViewController.h */,
+				075DD02D1A78AC0C009A64B4 /* WSAssetTableViewController.m */,
+				075DD02E1A78AC0C009A64B4 /* WSAssetViewColumn.h */,
+				075DD02F1A78AC0C009A64B4 /* WSAssetViewColumn.m */,
+				075DD0301A78AC0C009A64B4 /* WSAssetWrapper.h */,
+				075DD0311A78AC0C009A64B4 /* WSAssetWrapper.m */,
+			);
+			path = WSAssetWrapper;
+			sourceTree = "<group>";
+		};
+		075DD03D1A78BA3F009A64B4 /* UIImage-Categories-master */ = {
+			isa = PBXGroup;
+			children = (
+				075DD03E1A78BA3F009A64B4 /* README.md */,
+				075DD03F1A78BA3F009A64B4 /* UIImage+Alpha.h */,
+				075DD0401A78BA3F009A64B4 /* UIImage+Alpha.m */,
+				075DD0411A78BA3F009A64B4 /* UIImage+Resize.h */,
+				075DD0421A78BA3F009A64B4 /* UIImage+Resize.m */,
+				075DD0431A78BA3F009A64B4 /* UIImage+RoundedCorner.h */,
+				075DD0441A78BA3F009A64B4 /* UIImage+RoundedCorner.m */,
+				075DD0451A78BA3F009A64B4 /* UIImageExtras.h */,
+				075DD0461A78BA3F009A64B4 /* UIImageExtras.m */,
+			);
+			path = "UIImage-Categories-master";
+			sourceTree = "<group>";
+		};
 		075E32161A762C1C006037B3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1302,6 +1384,8 @@
 		07E5360F1A528203005E1DA9 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				075DD03D1A78BA3F009A64B4 /* UIImage-Categories-master */,
+				075DD0211A78AC0C009A64B4 /* WSAssetWrapper */,
 				7E7241261A77D2F8001E1F69 /* HPGrowingTextView */,
 				075E40831A59386C0062F6AD /* AFNetworking */,
 				073FD9821A53C3A000FF0EFD /* EGOCache */,
@@ -1610,6 +1694,7 @@
 				07C7C5111A70E336003E1272 /* arrow.png in Resources */,
 				07C988171A63B44B003A2B30 /* ChooseLocationViewController.xib in Resources */,
 				075B032C1A6E3BB7002B577D /* Pin.png in Resources */,
+				075DD03B1A78B42E009A64B4 /* WSAssetViewSelectionIndicator.png in Resources */,
 				07E536321A5290C9005E1DA9 /* EvaluationViewController.xib in Resources */,
 				07E284721A5A8DFC005651EB /* UMSCommentDetailController.xib in Resources */,
 				077916711A5E64BA0047C17C /* PerfectInfoViewController.xib in Resources */,
@@ -1617,6 +1702,7 @@
 				071D51971A674FC6003D6752 /* MainTabCell.xib in Resources */,
 				07E284781A5A8DFC005651EB /* UMSnsAccountViewController.xib in Resources */,
 				07E284731A5A8DFC005651EB /* UMSCommentInputController.xib in Resources */,
+				075DD03C1A78B42E009A64B4 /* WSAssetViewSelectionIndicator@2x.png in Resources */,
 				074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */,
 				07FC6D241A679D4C001F34D8 /* XEGridView.xib in Resources */,
 				07E284741A5A8DFC005651EB /* UMSCommentInputControlleriPad.xib in Resources */,
@@ -1670,12 +1756,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				075DD0381A78AC0C009A64B4 /* WSAssetWrapper.m in Sources */,
 				075E40971A59386C0062F6AD /* AFHTTPRequestOperation.m in Sources */,
+				075DD04B1A78BA3F009A64B4 /* UIImageExtras.m in Sources */,
 				073F9F0B1A68B2B8009D94E3 /* XECategoryView.m in Sources */,
 				074DD0DA1A5E33B80042B721 /* MineTabCell.m in Sources */,
 				0774A8771A666EAB00336465 /* UIView+GMGridViewAdditions.m in Sources */,
 				073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */,
 				077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */,
+				075DD0351A78AC0C009A64B4 /* WSAssetsTableViewCell.m in Sources */,
 				07FC6D201A679D22001F34D8 /* XEGridView.m in Sources */,
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
 				07FC6D1B1A675D3E001F34D8 /* XEScrollPage.m in Sources */,
@@ -1691,10 +1780,13 @@
 				07582D181A6E5B6200CDCA13 /* CollectionViewController.m in Sources */,
 				0712B3B11A5BD853000A1A7F /* UIImage+WebP.m in Sources */,
 				0712B3A91A5BD853000A1A7F /* SDWebImageDecoder.m in Sources */,
+				075DD0491A78BA3F009A64B4 /* UIImage+Resize.m in Sources */,
 				0712B3A81A5BD853000A1A7F /* SDWebImageCompat.m in Sources */,
 				07C49F581A5E7E9900E1725C /* AVCamUtilities.m in Sources */,
 				075E40B01A593AAC0062F6AD /* MBProgressHUD.m in Sources */,
 				077C98BB1A53C85C00E2985B /* XETitleNavBarView.m in Sources */,
+				075DD04A1A78BA3F009A64B4 /* UIImage+RoundedCorner.m in Sources */,
+				075DD0341A78AC0C009A64B4 /* WSAssetPickerState.m in Sources */,
 				0774A8861A66705D00336465 /* XEAlertView.m in Sources */,
 				0712B3A61A5BD853000A1A7F /* NSData+ImageContentType.m in Sources */,
 				073F9F131A68B38F009D94E3 /* CategoryItemCell.m in Sources */,
@@ -1729,6 +1821,7 @@
 				07B6505E1A67B88000DEDE4E /* XETopicInfo.m in Sources */,
 				07C7C5141A70E336003E1272 /* PullToRefreshView.m in Sources */,
 				075E409F1A59386C0062F6AD /* AFURLSessionManager.m in Sources */,
+				075DD0471A78BA3F009A64B4 /* README.md in Sources */,
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
 				07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */,
 				075E409B1A59386C0062F6AD /* AFSecurityPolicy.m in Sources */,
@@ -1739,6 +1832,7 @@
 				076CF5711A78AD8C00CDE21D /* XECateTopicViewCell.m in Sources */,
 				073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */,
 				07913F651A67808F0083E8E5 /* ExpertListViewCell.m in Sources */,
+				075DD0331A78AC0C009A64B4 /* WSAssetPickerController.m in Sources */,
 				7E72412C1A77D2F8001E1F69 /* HPTextViewInternal.m in Sources */,
 				0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */,
 				073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */,
@@ -1763,6 +1857,7 @@
 				0712B3A71A5BD853000A1A7F /* SDImageCache.m in Sources */,
 				076F32681A5FA67700346F44 /* UIImage+ProportionalFill.m in Sources */,
 				7E72411F1A77C0E1001E1F69 /* XECommentInfo.m in Sources */,
+				075DD0371A78AC0C009A64B4 /* WSAssetViewColumn.m in Sources */,
 				0712B3AC1A5BD853000A1A7F /* SDWebImageManager.m in Sources */,
 				075E409D1A59386C0062F6AD /* AFURLRequestSerialization.m in Sources */,
 				0712B3AD1A5BD853000A1A7F /* SDWebImagePrefetcher.m in Sources */,
@@ -1778,6 +1873,7 @@
 				07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */,
 				07508E861A51346300873B45 /* main.m in Sources */,
 				073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */,
+				075DD0481A78BA3F009A64B4 /* UIImage+Alpha.m in Sources */,
 				075AA0431A68DEFA000B6302 /* ActivityViewCell.m in Sources */,
 				7E7241241A77C12A001E1F69 /* TopicCommentViewCell.m in Sources */,
 				075AA0481A690C58000B6302 /* ActivityDetailsViewController.m in Sources */,
@@ -1792,12 +1888,14 @@
 				073FD96E1A53A2E000FF0EFD /* XEEngine.m in Sources */,
 				07582CF71A6E37F200CDCA13 /* ODRefreshControl.m in Sources */,
 				07E536211A528C4B005E1DA9 /* XETabBarItemView.m in Sources */,
+				075DD0361A78AC0C009A64B4 /* WSAssetTableViewController.m in Sources */,
 				0712B3AF1A5BD853000A1A7F /* UIImage+GIF.m in Sources */,
 				07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */,
 				074644851A6CFFDA00CE2935 /* XECollectionViewCell.m in Sources */,
 				076CF5791A78CFE300CDE21D /* XEPublishMenu.m in Sources */,
 				07582D1C1A6E5B6200CDCA13 /* SettingViewController.m in Sources */,
 				0712B37E1A5BC0DE000A1A7F /* RetrievePwdViewController.m in Sources */,
+				075DD0321A78AC0C009A64B4 /* WSAlbumTableViewController.m in Sources */,
 				07C49F591A5E7E9900E1725C /* DDExpandableButton.m in Sources */,
 				07B650571A67AC7E00DEDE4E /* XETopicViewCell.m in Sources */,
 			);

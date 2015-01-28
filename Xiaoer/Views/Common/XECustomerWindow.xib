@@ -28,7 +28,7 @@
                     <rect key="frame" x="0.0" y="36" width="320" height="83"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                 </scrollView>
-                <imageView userInteractionEnabled="NO" tag="602" contentMode="scaleToFill" image="s_n_sheet_line.png" id="dEL-ow-ILg">
+                <imageView userInteractionEnabled="NO" tag="602" contentMode="scaleToFill" image="s_n_set_line" id="dEL-ow-ILg">
                     <rect key="frame" x="23" y="119" width="274" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </imageView>
@@ -74,7 +74,7 @@
         </view>
     </objects>
     <resources>
-        <image name="s_n_sheet_line.png" width="25" height="1"/>
+        <image name="s_n_set_line" width="300" height="1"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XEPublicViewController">
             <connections>
                 <outlet property="descriptionTextView" destination="1Ko-yk-Wxc" id="BGo-Oj-Zew"/>
+                <outlet property="imageGridView" destination="awv-0V-t5e" id="yQ9-Iq-Qrp"/>
                 <outlet property="inputContainerView" destination="5Dw-kb-zsy" id="8dw-yQ-WjM"/>
                 <outlet property="openStateButton" destination="x6E-uA-ooM" id="cel-NX-MVq"/>
                 <outlet property="placeHolderLabel" destination="7mv-dU-pFi" id="BhZ-Y4-9P1"/>
                 <outlet property="titleTextField" destination="PUI-y4-93z" id="viR-N4-zJp"/>
                 <outlet property="toolbarContainerView" destination="alJ-YV-36q" id="2d3-Y3-Zo5"/>
+                <outlet property="topicTypeBtn" destination="EoW-Rj-Qvc" id="Mxo-Bx-9B2"/>
+                <outlet property="topicTypeContainerView" destination="muE-gU-YLO" id="5Jg-i7-699"/>
+                <outlet property="topicTypeSelectContainerView" destination="ttD-qe-tXx" id="cHp-NG-Ya0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,11 +25,34 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" id="muE-gU-YLO">
+                    <rect key="frame" x="0.0" y="44" width="320" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="EoW-Rj-Qvc">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="请选择话题分类（必选）">
+                                <color key="titleColor" white="0.66666666669999997" alpha="0.64000000000000001" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="topicTypeAction:" destination="-1" eventType="touchUpInside" id="QSN-1u-5X6"/>
+                            </connections>
+                        </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="BjI-ko-3CH">
+                            <rect key="frame" x="0.0" y="33" width="320" height="1"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <view contentMode="scaleToFill" id="5Dw-kb-zsy">
                     <rect key="frame" x="0.0" y="44" width="320" height="200"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入标题" minimumFontSize="17" id="PUI-y4-93z">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入标题（必填）" minimumFontSize="17" id="PUI-y4-93z">
                             <rect key="frame" x="13" y="0.0" width="294" height="33"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -64,6 +91,15 @@
                     <rect key="frame" x="0.0" y="468" width="320" height="100"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>
+                        <view contentMode="scaleToFill" id="awv-0V-t5e" customClass="GMGridView">
+                            <rect key="frame" x="15" y="0.0" width="223" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="5ge-Zo-8Ye"/>
+                                <outlet property="delegate" destination="-1" id="CI9-no-Gpv"/>
+                            </connections>
+                        </view>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="VuH-sv-R4d">
                             <rect key="frame" x="0.0" y="56" width="320" height="1"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -72,6 +108,9 @@
                             <rect key="frame" x="57" y="56" width="42" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="public_bottom_btn_face"/>
+                            <connections>
+                                <action selector="expressionAction:" destination="-1" eventType="touchUpInside" id="nke-21-tBT"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="x6E-uA-ooM">
                             <rect key="frame" x="254" y="19" width="53" height="26"/>
@@ -90,11 +129,14 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KJ6-mA-FfZ">
-                            <rect key="frame" x="8" y="56" width="47" height="44.5"/>
+                            <rect key="frame" x="8" y="56" width="47" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="public_bottom_btn_photo">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="photoAction:" destination="-1" eventType="touchUpInside" id="0qm-hd-Qqq"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -102,6 +144,13 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="276" y="307"/>
+        </view>
+        <view contentMode="scaleToFill" id="ttD-qe-tXx">
+            <rect key="frame" x="0.0" y="0.0" width="140" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="114" y="-326"/>
         </view>
     </objects>
     <resources>
