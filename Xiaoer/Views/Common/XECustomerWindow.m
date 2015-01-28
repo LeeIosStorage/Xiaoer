@@ -17,8 +17,9 @@
 @interface XECustomerWindow ()
 @property (strong, nonatomic) IBOutlet UIView *sheetShareView;
 @property (strong, nonatomic) IBOutlet UIView *sheetOperateView;
-//@property (strong, nonatomic) IBOutlet UIButton *sheetCancelBtn;
 @property (strong, nonatomic) IBOutlet UIScrollView *sheetScrollOP;
+@property (strong, nonatomic) IBOutlet UIButton *collectBtn;
+@property (strong, nonatomic) IBOutlet UIButton *deleteBtn;
 //@property (strong, nonatomic) IBOutlet UIScrollView *sheetShareScrollOP;
 
 @property (strong, nonatomic) NSMutableArray *shareToItemArray;
@@ -27,7 +28,7 @@
 @implementation XECustomerWindow
 
 float gap = 18, width = 54;
-float labelColor = (1.0*0x50)/0xff;
+float labelColor = 170/255.0;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -55,14 +56,15 @@ float labelColor = (1.0*0x50)/0xff;
 ///添加item
 -(void)addItem:(UIView *)superView index:(int) index tagBase:(int)tagBase contentWidth:(float *) contentWidth params:(NSDictionary *) params
 {
+    gap = ([UIScreen mainScreen].bounds.size.width - 23*2 -width*4)/3;
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(11+(gap+width)*index, 0, width, width);//top-35
+    btn.frame = CGRectMake(23+(gap+width)*index, 0, width, width);//top-35
     btn.tag = tagBase+index;
     [btn setImage:[UIImage imageNamed:[params stringObjectForKey:Share_To_Item_Icon]] forState:UIControlStateNormal];
     if ([params stringObjectForKey:Share_To_Item_Icon_Hilight]) {
         [btn setImage:[UIImage imageNamed:[params stringObjectForKey:Share_To_Item_Icon_Hilight]] forState:UIControlStateHighlighted];
     }
-    labelColor = (1.0*0x50)/0xff;
+//    labelColor = (1.0*0x50)/0xff;
     if ([params stringObjectForKey:Share_To_Item_Disabed] && [[params stringObjectForKey:Share_To_Item_Disabed] boolValue]) {
         btn.enabled = NO;
         labelColor = 187.0/255;
@@ -77,7 +79,7 @@ float labelColor = (1.0*0x50)/0xff;
     label.text = [params stringObjectForKey:Share_To_Item_Name];
     label.textAlignment = NSTextAlignmentCenter;
     label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont systemFontOfSize:12];
+    label.font = [UIFont systemFontOfSize:13];
     label.textColor = [UIColor colorWithRed:labelColor green:labelColor blue:labelColor alpha:1];
     label.shadowOffset = CGSizeMake(0, -1);
     [btn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -104,10 +106,10 @@ float labelColor = (1.0*0x50)/0xff;
     //分享item
     _shareToItemArray = [NSMutableArray array];
     
-    [_shareToItemArray addObject:@{Share_To_Item_Name: @"微博", Share_To_Item_Icon:@"s_n_sheet_share_wb"}];
-    [_shareToItemArray addObject:@{Share_To_Item_Name: @"微信好友", Share_To_Item_Icon:@"s_n_sheet_share_wx"}];
-    [_shareToItemArray addObject:@{Share_To_Item_Name: @"朋友圈", Share_To_Item_Icon:@"s_n_sheet_share_circle"}];
-    [_shareToItemArray addObject:@{Share_To_Item_Name: @"QQ", Share_To_Item_Icon:@"17_barcode_share_to_weimi"}];
+    [_shareToItemArray addObject:@{Share_To_Item_Name: @"微博", Share_To_Item_Icon:@"share_sina_icon"}];
+    [_shareToItemArray addObject:@{Share_To_Item_Name: @"微信好友", Share_To_Item_Icon:@"share_wx_friend_icon"}];
+    [_shareToItemArray addObject:@{Share_To_Item_Name: @"朋友圈", Share_To_Item_Icon:@"share_wx_circle_icon"}];
+    [_shareToItemArray addObject:@{Share_To_Item_Name: @"QQ", Share_To_Item_Icon:@"share_qq_icon"}];
     
     CGRect oframe = _sheetShareView.frame;
     oframe.size.width = cview.frame.size.width;
@@ -131,6 +133,11 @@ float labelColor = (1.0*0x50)/0xff;
     }else{
         [_sheetScrollOP setScrollEnabled:NO];
     }
+    
+    
+    [_collectBtn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_deleteBtn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     oframe = _sheetOperateView.frame;
     oframe.origin.y = marignTop;
@@ -157,6 +164,13 @@ float labelColor = (1.0*0x50)/0xff;
     indexP = [NSIndexPath indexPathForRow:btn.tag%10 inSection:btn.tag/10];
     if (_sheetDelg && [_sheetDelg respondsToSelector:@selector(customerWindowClickAt:action:)]) {
         NSString *action = nil;
+        if (indexP.section == 2) {
+            if (indexP.row == 0) {
+                action = @"collectButtonAction";
+            }else if (indexP.row == 1){
+                action = @"deleteButtonAction";
+            }
+        }
         [_sheetDelg customerWindowClickAt:indexP action:action];
     }
     

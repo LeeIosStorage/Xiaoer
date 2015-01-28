@@ -180,7 +180,7 @@ static bool dateFormatterOFUSInvalid ;
         distance = 0;
     }
     if (distance < 60) {
-        _timestamp = [NSString stringWithFormat:@"%d%@", distance, @"刚刚"];
+        _timestamp = [NSString stringWithFormat:@"%@", @"刚刚"];
     } else if (distance < 60*60) {
         _timestamp = [NSString stringWithFormat:@"%d%@", distance/60, @"分钟前"];
     }else if (distance < 60*60*24) {
