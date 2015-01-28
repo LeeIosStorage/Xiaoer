@@ -1056,9 +1056,9 @@ static XEEngine* s_ShareInstance = nil;
         [params setObject:[NSNumber numberWithInt:cat] forKey:@"cat"];
     }
     if (imgs) {
-        [params setObject:imgs forKey:@"imgs"];
+        [params setObject:imgs forKey:@"img"];
     }
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/qa/send",API_URL] type:2 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/topic/send",API_URL] type:2 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 - (BOOL)updateTopicWithImgs:(NSArray *)imgs index:(int)index tag:(int)tag{

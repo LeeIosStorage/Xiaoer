@@ -88,7 +88,7 @@
     frame.size.height = textSize.height;
     self.placeHolderLabel.frame = frame;
     
-    _topicType = 0;
+    _topicType = 1;
     self.openStateButton.selected = NO;
     
     [self refreshViewUI];
@@ -269,6 +269,7 @@
 -(void)sendAction:(id)sender{
     
     if (_publicType == Public_Type_Topic) {
+        
         if (_topicType == 0) {
             [XEProgressHUD lightAlert:@"请选择话题分类"];
             return;
