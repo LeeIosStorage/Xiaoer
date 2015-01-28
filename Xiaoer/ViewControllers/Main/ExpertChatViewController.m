@@ -339,6 +339,15 @@
 //    return view;
 //}
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == self.questionTableView) {
+        XEQuestionInfo *questionInfo = _questionArray[indexPath.row];
+        return [XEQuestionViewCell heightForQuestionInfo:questionInfo];
+    }
+    XETopicInfo *topicInfo = _topicArray[indexPath.row];
+    return [XETopicViewCell heightForTopicInfo:topicInfo];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.topicTableView) {
@@ -350,8 +359,8 @@
             cell.backgroundColor = [UIColor clearColor];
         }
         XETopicInfo *topicInfo = _topicArray[indexPath.row];
-        cell.topicInfo = topicInfo;
         cell.isExpertChat = YES;
+        cell.topicInfo = topicInfo;
         return cell;
     }
     
@@ -385,7 +394,6 @@
         TopicDetailsViewController *vc = [[TopicDetailsViewController alloc] init];
         vc.topicInfo = topicInfo;
         [self.navigationController pushViewController:vc animated:YES];
-        NSLog(@"===============%@",topicInfo.tId);
     }
     
 }

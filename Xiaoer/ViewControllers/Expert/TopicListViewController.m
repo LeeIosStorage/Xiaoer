@@ -10,15 +10,17 @@
 #import "XETopicViewCell.h"
 #import "XEQuestionViewCell.h"
 #import "XETopicInfo.h"
+#import "XEQuestionInfo.h"
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "TopicDetailsViewController.h"
 
 @interface TopicListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (assign, nonatomic) int nextCursor;
 @property (assign, nonatomic) BOOL loadMore;
-@property (strong, nonatomic) NSMutableArray *topicArray;
+@property (strong, nonatomic) NSMutableArray *dateArray;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -58,11 +60,11 @@
                     return;
                 }
                 
-                NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+                NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"questions"];
                 for (NSDictionary *dic in object) {
-                    XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
-                    [topicInfo setTopicInfoByJsonDic:dic];
-                    [weakSelf.topicArray addObject:topicInfo];
+                    XEQuestionInfo *questionInfo = [[XEQuestionInfo alloc] init];
+                    [questionInfo setQuestionInfoByJsonDic:dic];
+                    [weakSelf.dateArray addObject:questionInfo];
                 }
                 
                 weakSelf.loadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
@@ -110,7 +112,7 @@
                 for (NSDictionary *dic in object) {
                     XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
                     [topicInfo setTopicInfoByJsonDic:dic];
-                    [weakSelf.topicArray addObject:topicInfo];
+                    [weakSelf.dateArray addObject:topicInfo];
                 }
                 
                 weakSelf.loadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
@@ -166,19 +168,17 @@
             return;
         }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
-        weakSelf.topicArray = [[NSMutableArray alloc] init];
+        weakSelf.dateArray = [[NSMutableArray alloc] init];
         //先放下
-        
-        NSLog(@"asdasdsa==========%@",[jsonRet objectForKey:@"object"]);
         if ([jsonRet stringObjectForKey:@"object"].length < 10) {
             return;
         }
-        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"questions"];
         
         for (NSDictionary *dic in object) {
-            XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
-            [topicInfo setTopicInfoByJsonDic:dic];
-            [weakSelf.topicArray addObject:topicInfo];
+            XEQuestionInfo *questionInfo = [[XEQuestionInfo alloc] init];
+            [questionInfo setQuestionInfoByJsonDic:dic];
+            [weakSelf.dateArray addObject:questionInfo];
         }
         
         weakSelf.loadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
@@ -210,12 +210,12 @@
             return;
         }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
-        weakSelf.topicArray = [[NSMutableArray alloc] init];
+        weakSelf.dateArray = [[NSMutableArray alloc] init];
         NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
         for (NSDictionary *dic in object) {
             XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
             [topicInfo setTopicInfoByJsonDic:dic];
-            [weakSelf.topicArray addObject:topicInfo];
+            [weakSelf.dateArray addObject:topicInfo];
         }
         
         weakSelf.loadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
@@ -238,7 +238,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _topicArray.count;
+    return _dateArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.bQuestion) {
+        XEQuestionInfo *questionInfo = _dateArray[indexPath.row];
+        return [XEQuestionViewCell heightForQuestionInfo:questionInfo];
+    }
+    XETopicInfo *topicInfo = _dateArray[indexPath.row];
+    return [XETopicViewCell heightForTopicInfo:topicInfo];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -251,9 +260,9 @@
             cell = [cells objectAtIndex:0];
             cell.backgroundColor = [UIColor clearColor];
         }
-        XETopicInfo *topicInfo = _topicArray[indexPath.row];
-        cell.topicInfo = topicInfo;
+        XETopicInfo *topicInfo = _dateArray[indexPath.row];
         cell.isExpertChat = YES;
+        cell.topicInfo = topicInfo;
         
         return cell;
     }
@@ -266,7 +275,7 @@
         cell.backgroundColor = [UIColor clearColor];
     }
     
-    XEQuestionInfo *info = _topicArray[indexPath.row];
+    XEQuestionInfo *info = _dateArray[indexPath.row];
     cell.questionInfo = info;
     return cell;
 }
@@ -274,12 +283,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
-
-    XETopicInfo *topicInfo = _topicArray[indexPath.row];
-    //        ActivityDetailsViewController *vc = [[ActivityDetailsViewController alloc] init];
-    //        vc.activityInfo = activityInfo;
-    //        [self.navigationController pushViewController:vc animated:YES];
-    NSLog(@"===============%@",topicInfo.tId);
+    [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
+    
+    XETopicInfo *topicInfo = _dateArray[indexPath.row];
+    TopicDetailsViewController *vc = [[TopicDetailsViewController alloc] init];
+    vc.topicInfo = topicInfo;
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 - (void)askAction{

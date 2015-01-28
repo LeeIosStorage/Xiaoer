@@ -937,7 +937,7 @@ static XEEngine* s_ShareInstance = nil;
 //用户问答列表list
 - (BOOL)getQuestionListWithUid:(NSString *)uid pagenum:(int)page tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:uid forKey:@"uid"];
+    [params setObject:uid forKey:@"userid"];
     if (page > 0 ) {
         [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
     }

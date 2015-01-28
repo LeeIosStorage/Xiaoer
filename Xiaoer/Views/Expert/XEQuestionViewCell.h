@@ -21,6 +21,6 @@
 
 @property (assign, nonatomic) BOOL isExpertChat;
 
-+ (float)heightForTopicInfo:(XEQuestionInfo *)topicInfo;
++ (float)heightForQuestionInfo:(XEQuestionInfo *)topicInfo;
 
 @end

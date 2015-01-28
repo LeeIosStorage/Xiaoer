@@ -11,7 +11,7 @@
 
 @implementation XEQuestionViewCell
 
-+ (float)heightForTopicInfo:(XEQuestionInfo *)questionInfo{
++ (float)heightForQuestionInfo:(XEQuestionInfo *)questionInfo{
     NSString* topicText = questionInfo.title;
     if (!topicText) {
         topicText = @"";
