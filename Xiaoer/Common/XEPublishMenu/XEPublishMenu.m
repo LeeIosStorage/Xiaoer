@@ -33,7 +33,7 @@
     XEPublishMenuItemButton *button = [XEPublishMenuItemButton buttonWithType:UIButtonTypeCustom];
     [button setImage:icon forState:UIControlStateNormal];
     [button setTitle:title forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor colorWithHex:0xFFFFFF alpha:0.5] forState:0];
+    [button setTitleColor:[UIColor colorWithHex:0xFFFFFF alpha:0.9] forState:0];
     button.titleLabel.textAlignment = NSTextAlignmentCenter;
     button.titleLabel.font = [UIFont systemFontOfSize:15];
     button.selectedBlock = block;

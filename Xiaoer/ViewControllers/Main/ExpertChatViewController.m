@@ -18,6 +18,8 @@
 #import "TopicListViewController.h"
 #import "TopicDetailsViewController.h"
 #import "XEPublishMenu.h"
+#import "XEPublicViewController.h"
+#import "ExpertListViewController.h"
 
 #define TOPIC_TYPE_NOURISH   101
 #define TOPIC_TYPE_NUTRI     102
@@ -431,14 +433,18 @@
 }
 
 - (void)showAction {
-
+    
     _menuView = [[XEPublishMenu alloc] init];
     __weak ExpertChatViewController *weakSelf = self;
     [_menuView addMenuItemWithTitle:@"发话题" andIcon:[UIImage imageNamed:@"expert_public_topic_icon"] andSelectedBlock:^{
-        
+        XEPublicViewController *pVc = [[XEPublicViewController alloc] init];
+        pVc.publicType = Public_Type_Topic;
+        [weakSelf.navigationController pushViewController:pVc animated:YES];
     }];
     [_menuView addMenuItemWithTitle:@"问专家" andIcon:[UIImage imageNamed:@"expert_public_ask_icon"] andSelectedBlock:^{
-     
+        ExpertListViewController *elVc = [[ExpertListViewController alloc] init];
+        elVc.isNeedSelect = YES;
+        [weakSelf.navigationController pushViewController:elVc animated:YES];
     }];
     [_menuView show];
 }
