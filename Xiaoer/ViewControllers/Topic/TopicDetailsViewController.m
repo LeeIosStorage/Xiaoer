@@ -50,6 +50,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *contentLabel;
 @property (strong, nonatomic) IBOutlet GMGridView *imageGridView;
 @property (strong, nonatomic) IBOutlet UIView *expertCommentContainerView;
+@property (strong, nonatomic) IBOutlet UIImageView *expertCommentBgImgView;
 @property (strong, nonatomic) IBOutlet UILabel *comContentLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *expertAvatarImgView;
 @property (strong, nonatomic) IBOutlet UILabel *expertNameLabel;
@@ -184,7 +185,6 @@
         
         weakSelf.topicComments = [[NSMutableArray alloc] init];
         NSArray *comments = [[jsonRet objectForKey:@"object"] objectForKey:@"comments"];
-//        NSArray *comments = @[@{@"content": @"微博微博微博微博微博微博微", @"name":@"刘备"},@{@"content": @"微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博", @"name":@"刘备"},@{@"content": @"", @"name":@"刘备"}];
         for (NSDictionary *dic in comments) {
             XECommentInfo *commentInfo = [[XECommentInfo alloc] init];
             [commentInfo setCommentInfoByJsonDic:dic];
@@ -195,6 +195,7 @@
         if (exComment) {
             weakSelf.expertComment = [[XECommentInfo alloc] init];
             [weakSelf.expertComment setCommentInfoByJsonDic:exComment];
+//            weakSelf.expertComment.content = @"微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博微博";
         }
         
         weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
@@ -276,6 +277,8 @@
     self.expertAvatarImgView.clipsToBounds = YES;
     self.expertAvatarImgView.contentMode = UIViewContentModeScaleAspectFill;
     
+    self.expertCommentBgImgView.image = [[UIImage imageNamed:@"expert_comment_background"] stretchableImageWithLeftCapWidth:2 topCapHeight:1];
+    
     [self.authorAvatarImgView sd_setImageWithURL:_topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
     self.authorNameLabel.text = _topicInfo.userName;
     self.authorHospitalLabel.text = _topicInfo.utitle;
@@ -290,6 +293,10 @@
     self.titleContainerView.frame = frame;
     
     self.contentLabel.text = _topicInfo.content;
+    self.contentLabel.hidden = NO;
+    if (_topicInfo.content.length == 0) {
+        self.contentLabel.hidden = YES;
+    }
     textSize = [XECommonUtils sizeWithText:_topicInfo.content font:self.contentLabel.font width:SCREEN_WIDTH-13*2];
     frame = self.contentLabel.frame;
     frame.size.height = textSize.height;
@@ -301,6 +308,9 @@
         self.imageGridView.hidden = NO;
         CGRect gridFrame = self.imageGridView.frame;
         gridFrame.origin.y = self.contentLabel.frame.origin.y + self.contentLabel.frame.size.height + 6;
+        if (self.contentLabel.hidden) {
+            gridFrame.origin.y = self.contentLabel.frame.origin.y;
+        }
         int lines = (int)((imagesCount/3) + (imagesCount%3?1:0));
         CGFloat gvHeight = ONE_IMAGE_HEIGHT*lines + item_spacing*(lines - 1);
         gridFrame.size.height = gvHeight;
@@ -329,12 +339,26 @@
     //expertComment
     if (_expertComment.content) {
         
+        [self.expertAvatarImgView sd_setImageWithURL:_expertComment.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
+        self.expertNameLabel.text = _expertComment.userName;
+        self.expertHospitalLabel.text = _expertComment.title;
+        
+        self.comContentLabel.text = _expertComment.content;
+        textSize = [XECommonUtils sizeWithText:_expertComment.content font:self.comContentLabel.font width:SCREEN_WIDTH-100];
+        frame = self.comContentLabel.frame;
+        frame.size.height = textSize.height;
+        self.comContentLabel.frame = frame;
+        
         self.expertCommentContainerView.hidden = NO;
         frame = self.expertCommentContainerView.frame;
         frame.origin.y = self.contentContainerView.frame.origin.y + self.contentContainerView.frame.size.height + 10;
+        frame.size.height = self.comContentLabel.frame.origin.y + self.comContentLabel.frame.size.height + 8;
+        if (frame.size.height < 90) {
+            frame.size.height = 90;
+        }
         self.expertCommentContainerView.frame = frame;
         
-        headHeight += self.expertCommentContainerView.frame.origin.y + self.expertCommentContainerView.frame.size.height;
+        headHeight += (self.expertCommentContainerView.frame.size.height + 10);
     }else{
         self.expertCommentContainerView.hidden = YES;
         headHeight +=10;
@@ -398,11 +422,32 @@
         }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
+        [weakSelf growingTextViewResignFirstResponder];
+        NSDictionary *dic = [jsonRet objectForKey:@"object"];
+        XECommentInfo *commentInfo = [[XECommentInfo alloc] init];
+        [commentInfo setCommentInfoByJsonDic:dic];
+        commentInfo.cId = [dic stringObjectForKey:@"id"];
+        commentInfo.uId = [dic stringObjectForKey:@"userId"];
+        commentInfo.userName = [XEEngine shareInstance].userInfo.nickName;
+        commentInfo.avatar = [XEEngine shareInstance].userInfo.avatar;
         
+        id objectForKey = [dic objectForKey:@"time"];
+        if (objectForKey && [objectForKey isKindOfClass:[NSString class]]) {
+            NSDateFormatter *dateFormatter = [XEUIUtils dateFormatterOFUS];
+            commentInfo.time = [dateFormatter dateFromString:objectForKey];
+        }
+        [weakSelf.topicComments addObject:commentInfo];
         
         [weakSelf.tableView reloadData];
     } tag:tag];
     
+}
+
+-(void)growingTextViewResignFirstResponder{
+    if ([_growingTextView isFirstResponder]) {
+        [_growingTextView resignFirstResponder];
+    }
+    _growingTextView.text = nil;
 }
 
 #pragma mark - NSNotification
@@ -562,7 +607,7 @@
         
     }
     UIImageView* imageView = (UIImageView* )cell.contentView;
-    NSString *imgName = @"user_avatar_default";
+    NSString *imgName = @"content_pic_default";
     [imageView sd_setImageWithURL:[self.topicInfo.picURLs objectAtIndex:index] placeholderImage:[UIImage imageNamed:imgName]];
     return cell;
 }
@@ -575,6 +620,13 @@
 - (void)GMGridViewDidTapOnEmptySpace:(GMGridView *)gridView
 {
     
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    if ([_growingTextView isFirstResponder]) {
+        [_growingTextView resignFirstResponder];
+    }
 }
 
 #pragma mark - tableViewDataSource

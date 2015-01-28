@@ -9,6 +9,7 @@
 #import "XECommentInfo.h"
 #import "JSONKit.h"
 #import "XEEngine.h"
+#import "XEUIUtils.h"
 
 @implementation XECommentInfo
 
@@ -32,6 +33,12 @@
     objectForKey = [dic objectForKey:@"title"];
     if (objectForKey) {
         _title = [objectForKey description];
+    }
+    
+    NSDateFormatter *dateFormatter = [XEUIUtils dateFormatterOFUS];
+    objectForKey = [dic objectForKey:@"time"];
+    if (objectForKey && [objectForKey isKindOfClass:[NSString class]]) {
+        _time = [dateFormatter dateFromString:objectForKey];
     }
 }
 

@@ -13,6 +13,8 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="collectBtn" destination="MeN-gV-UQj" id="rGN-zb-kfZ"/>
+                <outlet property="deleteBtn" destination="ape-O4-s2A" id="eDh-Ug-2ox"/>
                 <outlet property="sheetOperateView" destination="a8e-3J-OV9" id="HHU-ob-pF0"/>
                 <outlet property="sheetScrollOP" destination="kLr-3D-Jlx" id="eA1-pf-zq8"/>
                 <outlet property="sheetShareView" destination="1zS-Tc-cAX" id="6qH-8u-Ijm"/>
@@ -27,11 +29,11 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                 </scrollView>
                 <imageView userInteractionEnabled="NO" tag="602" contentMode="scaleToFill" image="s_n_sheet_line.png" id="dEL-ow-ILg">
-                    <rect key="frame" x="23" y="120" width="274" height="1"/>
+                    <rect key="frame" x="23" y="119" width="274" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="601" contentMode="left" text="分享到" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LoM-Or-TaW">
-                    <rect key="frame" x="104" y="8" width="112" height="15"/>
+                    <rect key="frame" x="104" y="10" width="112" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -46,7 +48,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="106"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MeN-gV-UQj">
+                <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MeN-gV-UQj">
                     <rect key="frame" x="34" y="12" width="252" height="33"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.42352941179999998" green="0.7725490196" blue="0.91372549020000005" alpha="1" colorSpace="deviceRGB"/>
@@ -55,7 +57,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ape-O4-s2A">
+                <button opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ape-O4-s2A">
                     <rect key="frame" x="34" y="53" width="252" height="33"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.89154565334320068" green="0.39095441805228059" blue="0.36275936128715747" alpha="1" colorSpace="calibratedRGB"/>

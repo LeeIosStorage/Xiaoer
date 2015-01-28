@@ -34,15 +34,27 @@
 
 #pragma mark -- LSCustomerSheetDelg
 -(void)customerWindowClickAt:(NSIndexPath *)indexPath action:(NSString *)action{
-//    int row = (int)indexPath.row;
-//    if (indexPath.section == 2) {
-//        if (action) {
+    int row = (int)indexPath.row;
+    if (indexPath.section == 2) {
+        if (action) {
 //            SEL opAction = NSSelectorFromString(action);
 //            if ([self respondsToSelector:opAction]) {
 //                objc_msgSend(self, opAction);
 //                return;
 //            }
-//        }
-//    }
+            if (row == 0) {
+                [self collectButtonAction];
+            }else if (row == 1){
+                [self deleteButtonAction];
+            }
+        }
+    }
+}
+
+-(void)collectButtonAction{
+    
+}
+-(void)deleteButtonAction{
+    
 }
 @end

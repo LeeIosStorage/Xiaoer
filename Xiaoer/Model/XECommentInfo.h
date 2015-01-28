@@ -16,6 +16,7 @@
 @property(nonatomic, strong) NSString* userName;
 @property(nonatomic, strong) NSString* title;
 @property(nonatomic, strong) NSString* avatar;
+@property(nonatomic, strong) NSDate* time;
 @property(nonatomic, readonly) NSURL* smallAvatarUrl;
 
 @property(nonatomic, strong) NSString* jsonString;

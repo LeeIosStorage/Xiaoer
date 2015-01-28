@@ -9,6 +9,7 @@
 #import "TopicCommentViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "XECommonUtils.h"
+#import "XEUIUtils.h"
 
 @implementation TopicCommentViewCell
 
@@ -47,8 +48,9 @@
     self.nameLabel.text = commentInfo.userName;
     self.monthLabel.text = commentInfo.title;
     
-    self.contentLabel.text = commentInfo.content;
+    self.timeLabel.text = [XEUIUtils dateDiscriptionFromNowBk:commentInfo.time];
     
+    self.contentLabel.text = commentInfo.content;
     NSString* content = commentInfo.content;
     if (!content) {
         content = @"";
