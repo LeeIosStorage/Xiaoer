@@ -13,25 +13,33 @@
 #import "XEActionSheet.h"
 #import "AVCamUtilities.h"
 #import "XEImagePickerController.h"
-//#import "WSAssetPickerController.h"
 #import "WSAssetPicker.h"
 #import "UIImage+ProportionalFill.h"
 #import "GMGridViewLayoutStrategies.h"
 #import "GMGridViewCell+Extended.h"
+#import "UIImage+Resize.h"
 
 #define MAX_IMAGES_NUM 9
 #define ONE_IMAGE_HEIGHT  44
 #define item_spacing  4
 
-@interface XEPublicViewController ()<UITextFieldDelegate,UITextViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,WSAssetPickerControllerDelegate,GMGridViewDataSource, GMGridViewActionDelegate>
+#define TopicType_Pic @"pic"
+#define TopicType_Title @"title"
+#define TopicType_Cat @"cat"
+
+@interface XEPublicViewController ()<UITextFieldDelegate,UITextViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,WSAssetPickerControllerDelegate,GMGridViewDataSource, GMGridViewActionDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *imgIds;
 @property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, assign) int maxTitleTextLength;
 @property (nonatomic, assign) int maxDescriptionLength;
 
-@property (nonatomic, assign) int topicType;
+@property (nonatomic, strong) NSDictionary *selectTopicTypeDic;
+@property (nonatomic, strong) NSMutableArray *topicTypeArray;
 @property (strong, nonatomic) IBOutlet UIView *topicTypeSelectContainerView;
+@property (strong, nonatomic) IBOutlet UITableView *topicTypeTableView;
+@property (strong, nonatomic) IBOutlet UIButton *topicTypeHideBtn;
+
 @property (strong, nonatomic) IBOutlet UIView *topicTypeContainerView;
 @property (strong, nonatomic) IBOutlet UIButton *topicTypeBtn;
 @property (strong, nonatomic) IBOutlet UIView *inputContainerView;
@@ -43,6 +51,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *openStateButton;
 @property (strong, nonatomic) IBOutlet GMGridView *imageGridView;
 
+- (IBAction)cancelAction:(id)sender;
 -(IBAction)topicTypeAction:(id)sender;
 -(IBAction)openStateAction:(id)sender;
 -(IBAction)photoAction:(id)sender;
@@ -84,12 +93,21 @@
     _maxTitleTextLength = 28;
     _maxDescriptionLength = 1000;
     CGRect frame = self.placeHolderLabel.frame;
-    CGSize textSize = [XECommonUtils sizeWithText:self.placeHolderLabel.text font:self.placeHolderLabel.font width:SCREEN_WIDTH-15*2];
+    CGSize textSize = [XECommonUtils sizeWithText:self.placeHolderLabel.text font:self.placeHolderLabel.font width:SCREEN_WIDTH-13*2];
     frame.size.height = textSize.height;
     self.placeHolderLabel.frame = frame;
     
-    _topicType = 1;
+    self.selectTopicTypeDic = [NSMutableDictionary dictionary];
     self.openStateButton.selected = NO;
+    
+    if (_publicType == Public_Type_Topic) {
+        self.topicTypeArray = [[NSMutableArray alloc] init];
+        [self.topicTypeArray addObject:@{TopicType_Title: @"营养", TopicType_Pic:@"expert_nutri_icon", TopicType_Cat:@"2"}];
+        [self.topicTypeArray addObject:@{TopicType_Title: @"养育", TopicType_Pic:@"expert_nourish_icon", TopicType_Cat:@"1"}];
+        [self.topicTypeArray addObject:@{TopicType_Title: @"心理", TopicType_Pic:@"expert_mind_icon", TopicType_Cat:@"4"}];
+        [self.topicTypeArray addObject:@{TopicType_Title: @"入园", TopicType_Pic:@"expert_kinder_icon", TopicType_Cat:@"3"}];
+//        [self.topicTypeTableView reloadData];
+    }
     
     [self refreshViewUI];
 }
@@ -156,7 +174,7 @@
     [XEProgressHUD AlertLoading:@"发送中..."];
         __weak XEPublicViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] publishTopicWithUserId:[XEEngine shareInstance].uid title:_titleTextField.text content:_descriptionTextView.text cat:1 imgs:imgs tag:tag];
+    [[XEEngine shareInstance] publishTopicWithUserId:[XEEngine shareInstance].uid title:_titleTextField.text content:_descriptionTextView.text cat:[_selectTopicTypeDic intValueForKey:TopicType_Cat] imgs:imgs tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -194,16 +212,16 @@
         QHQFormData* pData = [[QHQFormData alloc] init];
         pData.data = imgData;
         pData.name = @"img";
-        pData.filename = @"img";
+        pData.filename = [NSString stringWithFormat:@"%d",index];
         pData.mimeType = @"image/png";
         
         NSMutableArray *dataArray = [NSMutableArray array];
         [dataArray addObject:pData];
         int tag = [[XEEngine shareInstance] getConnectTag];
         if (_publicType == Public_Type_Topic) {
-            [[XEEngine shareInstance] updateTopicWithImgs:dataArray index:index tag:tag];
+            [[XEEngine shareInstance] updateTopicWithImgs:dataArray index:-1 tag:tag];
         }else if (_publicType == Public_Type_Expert){
-            [[XEEngine shareInstance] updateExpertQuestionWithImgs:dataArray index:index tag:tag];
+            [[XEEngine shareInstance] updateExpertQuestionWithImgs:dataArray index:-1 tag:tag];
         }
         [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
             [XEProgressHUD AlertLoadDone];
@@ -261,16 +279,56 @@
         self.inputContainerView.frame = frame;
         self.titleTextField.placeholder = @"请输入标题（必填）";
         self.placeHolderLabel.text = @"请输入您要发布的内容";
+//        [self refreshTypeButton];
     }
     
     [self.imageGridView reloadData];
+}
+
+-(void)refreshTypeButton{
+    if ([_selectTopicTypeDic objectForKey:TopicType_Cat]) {
+        [self.topicTypeBtn setTitle:[NSString stringWithFormat:@"%@ 分类",[_selectTopicTypeDic objectForKey:TopicType_Title]] forState:0];
+    }else{
+        [self.topicTypeBtn setTitle:@"请选择话题分类（必选）" forState:0];
+    }
+}
+
+-(void)showTopicTypeView{
+    [self textViewResignFirstResponder];
+    if (!self.topicTypeSelectContainerView.superview) {
+        CGRect frame = self.topicTypeSelectContainerView.frame;
+        frame.origin.x = 0;
+        frame.origin.y = self.topicTypeContainerView.frame.origin.y;
+        frame.size.height = self.view.frame.size.height;
+        frame.size.width = self.view.frame.size.width;
+        self.topicTypeSelectContainerView.frame = frame;
+        [self.view addSubview:self.topicTypeSelectContainerView];
+        self.topicTypeSelectContainerView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+        
+        frame = self.topicTypeTableView.frame;
+        frame.origin.x = -self.topicTypeTableView.frame.size.width;
+        self.topicTypeTableView.frame = frame;
+        [UIView animateWithDuration:.2 animations:^{
+            CGRect frame1 = self.topicTypeTableView.frame;
+            frame1.origin.x = 0;
+            self.topicTypeTableView.frame = frame1;
+            self.topicTypeSelectContainerView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+        } completion:^(BOOL finished) {
+            [self.topicTypeTableView reloadData];
+        }];
+    }
+}
+-(void)hideTopicTypeView{
+    if (self.topicTypeSelectContainerView.superview) {
+        [self.topicTypeSelectContainerView removeFromSuperview];
+    }
 }
 
 -(void)sendAction:(id)sender{
     
     if (_publicType == Public_Type_Topic) {
         
-        if (_topicType == 0) {
+        if (![_selectTopicTypeDic objectForKey:TopicType_Cat]) {
             [XEProgressHUD lightAlert:@"请选择话题分类"];
             return;
         }
@@ -291,6 +349,7 @@
             return;
         }
         
+        [self textViewResignFirstResponder];
         if (_images.count > 0) {
             [self updateImage:_images];
         }else{
@@ -314,7 +373,7 @@
             [XEProgressHUD lightAlert:@"内容太短了"];
             return;
         }
-        
+        [self textViewResignFirstResponder];
         if (_images.count > 0) {
             [self updateImage:_images];
         }else{
@@ -323,8 +382,12 @@
     }
 }
 
+- (IBAction)cancelAction:(id)sender {
+    [self hideTopicTypeView];
+}
+
 -(IBAction)topicTypeAction:(id)sender{
-    
+    [self showTopicTypeView];
 }
 
 -(IBAction)openStateAction:(id)sender{
@@ -381,7 +444,14 @@
         _placeHolderLabel.hidden = NO;
     }
 }
-
+-(void)textViewResignFirstResponder{
+    if ([_titleTextField isFirstResponder]) {
+        [_titleTextField resignFirstResponder];
+    }
+    if ([_descriptionTextView isFirstResponder]) {
+        [_descriptionTextView resignFirstResponder];
+    }
+}
 #pragma mark - GMGridViewDataSource
 - (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
@@ -420,15 +490,16 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
     
     {
-        UIImage* imageAfterScale = image;
-        if (image.size.width != image.size.height) {
-            CGSize cropSize = image.size;
-            cropSize.height = MIN(image.size.width, image.size.height);
-            cropSize.width = MIN(image.size.width, image.size.height);
-            imageAfterScale = [image imageCroppedToFitSize:cropSize];
+        CGSize size = image.size;
+        UIImage * originalImage = image;
+        if (originalImage.size.width > 640) {
+            CGFloat factor = 640.0/originalImage.size.width;
+            originalImage = [XEUIUtils scaleImage:image toSize:CGSizeMake(640, roundf(originalImage.size.height*factor))];
+        } else {
+            originalImage = [originalImage resizedImage:size interpolationQuality:0];
         }
 //        NSData* imageData = UIImageJPEGRepresentation(imageAfterScale, XE_IMAGE_COMPRESSION_QUALITY);
-        [self.images addObject:imageAfterScale];
+        [self.images addObject:originalImage];
         
     }
     [self refreshViewUI];
@@ -614,6 +685,107 @@
     
     // commit animations
     [UIView commitAnimations];
+}
+
+#pragma mark - tableViewDataSource
+static int image_tag = 201,label_tag = 202;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _topicTypeArray.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"cellIdentifierCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        UIImageView *i_imageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 9, 26, 26)];
+        i_imageView.tag = image_tag;
+        [cell addSubview:i_imageView];
+        i_imageView.hidden = YES;
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i_imageView.frame.origin.x + i_imageView.frame.size.width + 9, 0, 70, 44)];
+        label.font = [UIFont systemFontOfSize:14];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = UIColorRGB(51, 51, 51);
+        label.tag = label_tag;
+        [cell addSubview:label];
+        
+        UIImageView *lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0 , 43, cell.frame.size.width, 1)];
+        lineImageView.image = [UIImage imageNamed:@"s_n_set_line"];
+        [cell addSubview:lineImageView];
+    }
+    
+    UIImageView *i_imageView = (UIImageView *)[cell viewWithTag:image_tag];
+    UILabel *label = (UILabel *)[cell viewWithTag:label_tag];
+    NSDictionary *infoDic = _topicTypeArray[indexPath.row];
+    i_imageView.image = [UIImage imageNamed:[infoDic objectForKey:TopicType_Pic]];
+    label.text = [infoDic objectForKey:TopicType_Title];
+    
+    i_imageView.hidden = NO;
+//    CGPoint center = i_imageView.center;
+//    [UIView animateWithDuration:0.15 animations:^{
+//        CGRect frame = i_imageView.frame;
+//        frame.size.width = 30;
+//        frame.size.height = 30;
+//        i_imageView.frame = frame;
+//        i_imageView.center = center;
+//    } completion:^(BOOL finished) {
+//        [UIView animateWithDuration:0.15 animations:^{
+//            CGRect frame = i_imageView.frame;
+//            frame.size.width = 22;
+//            frame.size.height = 22;
+//            i_imageView.frame = frame;
+//            i_imageView.center = center;
+//        } completion:^(BOOL finished) {
+//            [UIView animateWithDuration:.08 animations:^{
+//                CGRect frame = i_imageView.frame;
+//                frame.size.width = 28;
+//                frame.size.height = 28;
+//                i_imageView.frame = frame;
+//                i_imageView.center = center;
+//            } completion:^(BOOL finished) {
+//                [UIView animateWithDuration:.04 animations:^{
+//                    CGRect frame = i_imageView.frame;
+//                    frame.size.width = 24;
+//                    frame.size.height = 24;
+//                    i_imageView.frame = frame;
+//                    i_imageView.center = center;
+//                } completion:^(BOOL finished) {
+//                    [UIView animateWithDuration:.03 animations:^{
+//                        CGRect frame = i_imageView.frame;
+//                        frame.size.width = 26;
+//                        frame.size.height = 26;
+//                        i_imageView.frame = frame;
+//                        i_imageView.center = center;
+//                    } completion:^(BOOL finished) {
+//                        
+//                    }];
+//                }];
+//            }];
+//        }];
+//    }];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
+    [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
+    NSDictionary *infoDic = _topicTypeArray[indexPath.row];
+    _selectTopicTypeDic = infoDic;
+    [self refreshTypeButton];
+    [self hideTopicTypeView];
 }
 
 @end

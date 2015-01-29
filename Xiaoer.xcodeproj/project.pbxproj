@@ -120,6 +120,8 @@
 		075E40AC1A593A820062F6AD /* ProgressHUDJF.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40A91A593A820062F6AD /* ProgressHUDJF.m */; };
 		075E40B01A593AAC0062F6AD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40AF1A593AAB0062F6AD /* MBProgressHUD.m */; };
 		075E40B31A5940920062F6AD /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40B21A5940920062F6AD /* URLHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0760FC461A79D4DD00A0E5D8 /* QuestionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760FC441A79D4DD00A0E5D8 /* QuestionDetailsViewController.m */; };
+		0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760FC451A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib */; };
 		076971AE1A77564E00FEA571 /* TopicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076971AC1A77564E00FEA571 /* TopicListViewController.m */; };
 		076971AF1A77564E00FEA571 /* TopicListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076971AD1A77564E00FEA571 /* TopicListViewController.xib */; };
 		076CF5711A78AD8C00CDE21D /* XECateTopicViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 076CF56F1A78AD8C00CDE21D /* XECateTopicViewCell.m */; };
@@ -450,6 +452,9 @@
 		075E40AF1A593AAB0062F6AD /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		075E40B11A5940920062F6AD /* URLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHelper.h; sourceTree = "<group>"; };
 		075E40B21A5940920062F6AD /* URLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHelper.m; sourceTree = "<group>"; };
+		0760FC431A79D4DD00A0E5D8 /* QuestionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionDetailsViewController.h; sourceTree = "<group>"; };
+		0760FC441A79D4DD00A0E5D8 /* QuestionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionDetailsViewController.m; sourceTree = "<group>"; };
+		0760FC451A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionDetailsViewController.xib; sourceTree = "<group>"; };
 		076971AB1A77564E00FEA571 /* TopicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicListViewController.h; sourceTree = "<group>"; };
 		076971AC1A77564E00FEA571 /* TopicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicListViewController.m; sourceTree = "<group>"; };
 		076971AD1A77564E00FEA571 /* TopicListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicListViewController.xib; sourceTree = "<group>"; };
@@ -1578,6 +1583,9 @@
 				7E7241181A77BFA2001E1F69 /* TopicDetailsViewController.h */,
 				7E7241191A77BFA2001E1F69 /* TopicDetailsViewController.m */,
 				7E72411A1A77BFA2001E1F69 /* TopicDetailsViewController.xib */,
+				0760FC431A79D4DD00A0E5D8 /* QuestionDetailsViewController.h */,
+				0760FC441A79D4DD00A0E5D8 /* QuestionDetailsViewController.m */,
+				0760FC451A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib */,
 			);
 			path = Topic;
 			sourceTree = "<group>";
@@ -1692,6 +1700,7 @@
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
 				076CF5721A78AD8C00CDE21D /* XECateTopicViewCell.xib in Resources */,
 				07582D191A6E5B6200CDCA13 /* CollectionViewController.xib in Resources */,
+				0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */,
 				075B031F1A6CAC28002B577D /* ApplyActivityViewController.xib in Resources */,
 				07E284771A5A8DFC005651EB /* UMSLoginViewController.xib in Resources */,
 				075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */,
@@ -1808,6 +1817,7 @@
 				0774A8871A66705D00336465 /* XEProgressHUD.m in Sources */,
 				07702D011A5901AF00168E2E /* XESuperViewController.m in Sources */,
 				075E409C1A59386C0062F6AD /* AFURLConnectionOperation.m in Sources */,
+				0760FC461A79D4DD00A0E5D8 /* QuestionDetailsViewController.m in Sources */,
 				07B6505B1A67B85200DEDE4E /* XEDoctorInfo.m in Sources */,
 				07C49F4A1A5E7CD000E1725C /* XEImagePickerController.m in Sources */,
 				0712B3B21A5BD853000A1A7F /* UIImageView+HighlightedWebCache.m in Sources */,

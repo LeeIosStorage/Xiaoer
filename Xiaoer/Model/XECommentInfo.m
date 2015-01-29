@@ -40,6 +40,14 @@
     if (objectForKey && [objectForKey isKindOfClass:[NSString class]]) {
         _time = [dateFormatter dateFromString:objectForKey];
     }
+    
+    objectForKey = [dic arrayObjectForKey:@"imgs"];
+    if (objectForKey) {
+        _picIds = [NSMutableArray array];
+        for (NSString *urlStr in objectForKey) {
+            [_picIds addObject:urlStr];
+        }
+    }
 }
 
 -(void)setCommentInfoByJsonDic:(NSDictionary *)dic{
@@ -67,6 +75,22 @@
         return nil;
     }
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small", _avatar]];
+}
+
+- (NSArray *)picURLs{
+    NSMutableArray* urls = [[NSMutableArray alloc] init];
+    for (NSString* picID in _picIds) {
+        [urls addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small" ,picID]]];
+    }
+    return urls;
+}
+
+- (NSArray *)originalPicURLs{
+    NSMutableArray* urls = [[NSMutableArray alloc] init];
+    for (NSString* picID in _picIds) {
+        [urls addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl],picID]]];
+    }
+    return urls;
 }
 
 @end
