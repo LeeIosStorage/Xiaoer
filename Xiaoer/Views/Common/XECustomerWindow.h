@@ -18,7 +18,10 @@
 @interface XECustomerWindow : UIWindow
 
 @property (nonatomic, weak)id<XECustomerWindowDelg> sheetDelg;
+@property (nonatomic, assign) BOOL deleteBtnHidden;
+@property (nonatomic, assign) BOOL shareSectionHidden;
 
 -(void)setCustomerSheet;
 -(void)cancelActionSheet:(id)sender;
+
 @end

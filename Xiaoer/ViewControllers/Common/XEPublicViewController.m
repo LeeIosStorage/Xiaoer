@@ -232,9 +232,9 @@
                 }
                 return;
             }
-            [XEProgressHUD AlertSuccess:@"上传成功."];
             [imgIdDics setObject:[jsonRet stringObjectForKey:@"object"] forKey:[NSNumber numberWithInt:index]];
             if (imgIdDics.count == tmpDataArray.count) {
+                [XEProgressHUD AlertSuccess:@"上传成功."];
                 NSMutableArray* picIds = [[NSMutableArray alloc] init];
                 
                 for (int i = 0; i < tmpDataArray.count; ++i) {
@@ -435,7 +435,7 @@
     [sheet showInView:self.view];
 }
 -(IBAction)expressionAction:(id)sender{
-    
+    [self textViewResignFirstResponder];
 }
 - (void)updatePlaceHolderLabel{
     if (_descriptionTextView.text.length > 0) {
@@ -484,6 +484,20 @@
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
     NSLog(@"Did tap at index %ld", position);
+    __weak XEPublicViewController *weakSelf = self;
+    XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:nil actionBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            return;
+        }
+        if (buttonIndex == 0) {
+            [weakSelf.images removeObjectAtIndex:position];
+            [weakSelf.imageGridView reloadData];
+        }
+    }];
+    [sheet addButtonWithTitle:@"删除"];
+    [sheet addButtonWithTitle:@"取消"];
+    sheet.cancelButtonIndex = sheet.numberOfButtons -1;
+    [sheet showInView:self.view];
 }
 
 #pragma mark -UIImagePickerControllerDelegate

@@ -34,6 +34,18 @@
     self.avatarImgView.layer.masksToBounds = YES;
     self.avatarImgView.clipsToBounds = YES;
     self.avatarImgView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    UILongPressGestureRecognizer* longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(commentLongPressAction:)];
+    [self addGestureRecognizer:longPressGesture];
+}
+
+- (IBAction)commentLongPressAction:(id)sender {
+    UILongPressGestureRecognizer* longPressGesture = (UILongPressGestureRecognizer*)sender;
+    if (longPressGesture.state == UIGestureRecognizerStateBegan) {
+        if ([self.delegate respondsToSelector:@selector(topicCommentCellCommentLongPressWithCell:)]) {
+            [self.delegate topicCommentCellCommentLongPressWithCell:self];
+        }
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -18,24 +18,29 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "HPGrowingTextView.h"
 #import "XEAlertView.h"
+#import "AppDelegate.h"
+#import "XEActionSheet.h"
+#import <objc/message.h>
 
 #define ONE_IMAGE_HEIGHT  93
 #define item_spacing  4
 #define growingTextViewMaxNumberOfLines 3
 
-@interface TopicDetailsViewController ()<XEShareActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,GMGridViewDataSource, GMGridViewActionDelegate,HPGrowingTextViewDelegate>
+@interface TopicDetailsViewController ()<XEShareActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,GMGridViewDataSource, GMGridViewActionDelegate,HPGrowingTextViewDelegate,TopicCommentViewCellDelegate>
 {
     XEShareActionSheet *_shareAction;
     NSRange _textRange;
     
     int _maxReplyTextLength;
 //    int _minReplyTextLength;
+    XECommentInfo *_selCommentInfo;
 }
 
 @property (nonatomic, strong) XECommentInfo *expertComment;
 @property (nonatomic, strong) NSMutableArray *topicComments;
 @property (assign, nonatomic) int  nextCursor;
 @property (assign, nonatomic) BOOL canLoadMore;
+@property (strong, nonatomic) NSMutableDictionary* actionSheetIndexSelDic;
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
@@ -131,8 +136,10 @@
     
     self.nextCursor = 1;
     
+    [self getCommentInfos];
     [self refreshTopicInfoShow];
     [self refreshTopicInfo];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -169,7 +176,7 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         NSDictionary *topicDic = [[jsonRet objectForKey:@"object"] objectForKey:@"topic"];
         [weakSelf.topicInfo setTopicInfoByJsonDic:topicDic];
@@ -240,7 +247,7 @@
                 [XEProgressHUD AlertError:errorMsg];
                 return;
             }
-            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+//            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
             
             NSArray *comments = [[jsonRet objectForKey:@"object"] objectForKey:@"comments"];
             for (NSDictionary *dic in comments) {
@@ -276,11 +283,12 @@
     self.expertAvatarImgView.clipsToBounds = YES;
     self.expertAvatarImgView.contentMode = UIViewContentModeScaleAspectFill;
     
-    self.expertCommentBgImgView.image = [[UIImage imageNamed:@"expert_comment_background"] stretchableImageWithLeftCapWidth:2 topCapHeight:1];
+    self.expertCommentBgImgView.image = [[UIImage imageNamed:@"expert_comment_background"] stretchableImageWithLeftCapWidth:20 topCapHeight:30];
     
     [self.authorAvatarImgView sd_setImageWithURL:_topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
     self.authorNameLabel.text = _topicInfo.userName;
     self.authorHospitalLabel.text = _topicInfo.utitle;
+    self.timeLabel.text = [XEUIUtils dateDiscriptionFromNowBk:_topicInfo.time];
     
     [self.commentButton setTitle:[NSString stringWithFormat:@"评论%d",_topicInfo.clicknum] forState:0];
     [self.collectButton setTitle:[NSString stringWithFormat:@"收藏%d",_topicInfo.favnum] forState:0];
@@ -373,8 +381,12 @@
 }
 
 -(void)moreAction:(id)sender{
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
     _shareAction = [[XEShareActionSheet alloc] init];
     _shareAction.owner = self;
+    _shareAction.selectShareType = XEFeedShareType_Topic;
     [_shareAction showShareAction];
     
 }
@@ -402,7 +414,9 @@
 }
 
 -(void)commitComment{
-    
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
     NSString *content = _growingTextView.text;
     if (content.length == 0) {
         return;
@@ -444,11 +458,54 @@
     
 }
 
+-(void)doDeleteCommentSheetAction{
+    
+    __weak TopicDetailsViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] deleteCommentTopicWithCommentId:_selCommentInfo.cId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        
+        weakSelf.topicInfo.clicknum --;
+        [weakSelf.topicComments removeObject:_selCommentInfo];
+        [weakSelf refreshTopicInfoShow];
+        [weakSelf.tableView reloadData];
+        
+    } tag:tag];
+    
+}
+
 -(void)growingTextViewResignFirstResponder{
     if ([_growingTextView isFirstResponder]) {
         [_growingTextView resignFirstResponder];
     }
     _growingTextView.text = nil;
+}
+
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+-(BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    UIMenuController * menuCtl = ((AppDelegate *)[UIApplication sharedApplication].delegate).appMenu;
+    BOOL bSameMenuInst = menuCtl == sender;
+    
+    if (action == @selector(doDeleteCommentSheetAction))
+    {
+        if (bSameMenuInst) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 #pragma mark - NSNotification
@@ -663,6 +720,7 @@
     if (cell == nil) {
         NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
         cell = [cells objectAtIndex:0];
+        cell.delegate = self;
 //        cell.backgroundColor = [UIColor clearColor];
     }
     XECommentInfo *commentInfo = _topicComments[indexPath.row];
@@ -674,6 +732,64 @@
 {
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
+    
+    XECommentInfo* commentInfo = [_topicComments objectAtIndex:indexPath.row];
+    _selCommentInfo = commentInfo;
+    
+    NSString* myUid = [[XEEngine shareInstance] userInfo].uid;
+    
+    if ([commentInfo.uId isEqualToString:myUid]) {
+        _actionSheetIndexSelDic = [[NSMutableDictionary alloc] init];
+        
+        __weak TopicDetailsViewController *weakSelf = self;
+        XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:nil actionBlock:^(NSInteger buttonIndex) {
+            SEL sel = NSSelectorFromString([weakSelf.actionSheetIndexSelDic objectForKey:[NSNumber numberWithInt:(int)buttonIndex]]);
+            if ([weakSelf respondsToSelector:sel]) {
+                objc_msgSend(self, sel);
+            }
+        }];
+        [_actionSheetIndexSelDic setObject:@"doDeleteCommentSheetAction" forKey:[NSNumber numberWithInt:(int)sheet.numberOfButtons]];
+        [sheet addButtonWithTitle:@"删除"];
+        sheet.destructiveButtonIndex = sheet.numberOfButtons - 1;
+        
+        [sheet addButtonWithTitle:@"取消"];
+        sheet.cancelButtonIndex = sheet.numberOfButtons -1;
+        [sheet showInView:self.view];
+    }
+}
+
+#pragma mark -TopicCommentViewCellDelegate
+- (void)topicCommentCellCommentLongPressWithCell:(TopicCommentViewCell*)cell;{
+    
+    if ([_growingTextView isFirstResponder]) {
+        [_growingTextView resignFirstResponder];
+    }
+    
+    [self becomeFirstResponder];
+    
+    NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
+    XECommentInfo *commentInfo = _topicComments[indexPath.row];
+    
+    UIMenuController * menuCtl = ((AppDelegate *)[UIApplication sharedApplication].delegate).appMenu;
+    NSArray *popMenuItems = nil;
+    
+    NSString* myUid = [[XEEngine shareInstance] userInfo].uid;
+    if ([commentInfo.uId isEqualToString:myUid]) {
+        popMenuItems = [NSArray arrayWithObjects:[[UIMenuItem alloc]initWithTitle:@"删除" action:@selector(doDeleteCommentSheetAction)], nil];
+    }
+//    else{
+//        popMenuItems = [NSArray arrayWithObjects:[[UIMenuItem alloc]initWithTitle:@"复制" action:@selector(copyReplyTextAction:)], nil];
+//    }
+    _selCommentInfo = commentInfo;
+    
+    [menuCtl setMenuVisible:NO];
+    [menuCtl setMenuItems:popMenuItems];
+    [menuCtl setArrowDirection:UIMenuControllerArrowDown];
+    
+    CGRect showRect = cell.frame;
+    showRect.origin.y += 30;
+    [menuCtl setTargetRect:showRect inView:self.tableView];
+    [menuCtl setMenuVisible:YES animated:YES];
 }
 
 @end

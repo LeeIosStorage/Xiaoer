@@ -28,6 +28,10 @@
 -(void) showShareAction
 {
     _csheet = [[[NSBundle mainBundle] loadNibNamed:@"XECustomerWindow" owner:nil options:nil] objectAtIndex:0];
+    if (_selectShareType != XEFeedShareType_Topic) {
+        _csheet.deleteBtnHidden = YES;
+    }
+    _csheet.shareSectionHidden = YES;
     _csheet.sheetDelg = self;
     [_csheet setCustomerSheet];
 }

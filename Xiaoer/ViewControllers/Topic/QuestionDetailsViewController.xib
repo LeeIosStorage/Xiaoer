@@ -15,6 +15,7 @@
                 <outlet property="answerNameLabel" destination="rc5-pi-qxs" id="dOK-ui-6JK"/>
                 <outlet property="answerTimeLabel" destination="hYr-Vd-58z" id="ORu-YO-8Vy"/>
                 <outlet property="answerTitleLabel" destination="dIQ-En-Jrd" id="Ta8-EP-RUd"/>
+                <outlet property="expertCommentBgImgView" destination="OzT-yB-E3b" id="egX-cM-YVd"/>
                 <outlet property="headView" destination="BQp-Rr-Bda" id="Ze1-qE-nIh"/>
                 <outlet property="questionContentContainerView" destination="UUy-Ea-F23" id="W3Y-3A-WxM"/>
                 <outlet property="questionContentLabel" destination="O4P-az-Srj" id="CB1-Ha-2fL"/>
@@ -115,16 +116,16 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="UUy-Ea-F23">
-                    <rect key="frame" x="0.0" y="242" width="320" height="144"/>
+                    <rect key="frame" x="0.0" y="242" width="320" height="149"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="OzT-yB-E3b">
-                            <rect key="frame" x="13" y="0.0" width="294" height="144"/>
+                            <rect key="frame" x="13" y="0.0" width="294" height="149"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <color key="backgroundColor" white="0.66666666669999997" alpha="0.34000000000000002" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="张培元" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="O4P-az-Srj">
-                            <rect key="frame" x="28" y="32" width="264" height="12"/>
+                            <rect key="frame" x="28" y="37" width="264" height="12"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -132,7 +133,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="问题标题" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5xb-7Z-iN6">
-                            <rect key="frame" x="95" y="8" width="199" height="21"/>
+                            <rect key="frame" x="95" y="13" width="199" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -140,7 +141,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的提问：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f9y-g6-58Y">
-                            <rect key="frame" x="28" y="8" width="72" height="21"/>
+                            <rect key="frame" x="28" y="13" width="72" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -148,12 +149,12 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" id="aYA-MK-s9C" customClass="GMGridView">
-                            <rect key="frame" x="28" y="52" width="186" height="65"/>
+                            <rect key="frame" x="28" y="57" width="186" height="65"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17分钟前" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cii-UC-2oC">
-                            <rect key="frame" x="28" y="121" width="81" height="21"/>
+                            <rect key="frame" x="28" y="126" width="81" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>

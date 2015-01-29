@@ -1031,7 +1031,7 @@ static XEEngine* s_ShareInstance = nil;
 - (BOOL)getTopicCommentListWithWithTopicId:(NSString *)tid pagenum:(int)page tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (tid) {
-        [params setObject:tid forKey:@"id"];
+        [params setObject:tid forKey:@"topicid"];
     }
     if (page > 0 ) {
         [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];

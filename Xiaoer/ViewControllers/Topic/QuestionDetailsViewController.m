@@ -39,6 +39,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *questionContentLabel;
 @property (strong, nonatomic) IBOutlet GMGridView *questionImageGridView;
 @property (strong, nonatomic) IBOutlet UILabel *questionTimeLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *expertCommentBgImgView;
 
 @end
 
@@ -123,11 +124,6 @@
         if (exComment) {
             weakSelf.expertComment = [[XECommentInfo alloc] init];
             [weakSelf.expertComment setCommentInfoByJsonDic:exComment];
-            [weakSelf.expertComment.picIds addObject:@"00000000000000000000000000000032.jpg"];
-            [weakSelf.expertComment.picIds addObject:@"00000000000000000000000000000032.jpg"];
-            [weakSelf.expertComment.picIds addObject:@"00000000000000000000000000000032.jpg"];
-            [weakSelf.expertComment.picIds addObject:@"00000000000000000000000000000032.jpg"];
-            [weakSelf.expertComment.picIds addObject:@"00000000000000000000000000000032.jpg"];
         }
         
         [weakSelf refreshQuestionInfoShow];
@@ -144,6 +140,7 @@
     self.answerAvatarImgView.clipsToBounds = YES;
     self.answerAvatarImgView.contentMode = UIViewContentModeScaleAspectFill;
     
+    self.expertCommentBgImgView.image = [[UIImage imageNamed:@"ask_question_background"] stretchableImageWithLeftCapWidth:60 topCapHeight:30];
     
     [self.answerAvatarImgView sd_setImageWithURL:_expertComment.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
     self.answerNameLabel.text = _expertComment.userName;

@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum LSUrlShareType_{
+typedef enum XEUrlShareType_{
     XEShareType_Expert,
-    LSFeedShareType_Activity,
-    LSFeedShareType_Topic
+    XEFeedShareType_Activity,
+    XEFeedShareType_Topic
 }XEShareType;
 
 @protocol XEShareActionSheetDelegate <NSObject>

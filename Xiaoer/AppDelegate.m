@@ -36,6 +36,7 @@
     
     application.statusBarHidden = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    _appMenu = [[UIMenuController alloc] init];
     
 //    [XEUIUtils colorWithHex:0x1bb9e8 alpha:1.0];//27 185 232
     

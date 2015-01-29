@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (readwrite, nonatomic) XETabBarViewController* mainTabViewController;
+@property (strong, nonatomic) UIMenuController *appMenu;
 
 - (void)signIn;
 - (void)signOut;

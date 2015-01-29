@@ -45,6 +45,14 @@ float labelColor = 170/255.0;
     _sheetDelg = nil;
 //    _operateArray = nil;
 }
+
+-(void)setDeleteBtnHidden:(BOOL)deleteBtnHidden{
+    _deleteBtnHidden = deleteBtnHidden;
+}
+-(void)setShareSectionHidden:(BOOL)shareSectionHidden{
+    _shareSectionHidden = shareSectionHidden;
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -97,54 +105,64 @@ float labelColor = 170/255.0;
     float color = (1.0*0xf8)/0xff;
     cview.backgroundColor = [UIColor colorWithRed:color green:color blue:color alpha:1];
     
-    sframe.origin.y = self.frame.size.height;
-    sframe.size.height = _sheetShareView.frame.size.height + _sheetOperateView.frame.size.height;
-    cview.frame = sframe;
-    [self addSubview:cview];
     
     float marignTop = 0;
-    //分享item
-    _shareToItemArray = [NSMutableArray array];
-    
-    [_shareToItemArray addObject:@{Share_To_Item_Name: @"微博", Share_To_Item_Icon:@"share_sina_icon"}];
-    [_shareToItemArray addObject:@{Share_To_Item_Name: @"微信好友", Share_To_Item_Icon:@"share_wx_friend_icon"}];
-    [_shareToItemArray addObject:@{Share_To_Item_Name: @"朋友圈", Share_To_Item_Icon:@"share_wx_circle_icon"}];
-    [_shareToItemArray addObject:@{Share_To_Item_Name: @"QQ", Share_To_Item_Icon:@"share_qq_icon"}];
-    
     CGRect oframe = _sheetShareView.frame;
-    oframe.size.width = cview.frame.size.width;
-    _sheetShareView.frame = oframe;
-    [cview addSubview:_sheetShareView];
-    marignTop = _sheetShareView.frame.size.height;
-//    sframe.size.height += marignTop;
-//    cview.frame = sframe;
-    
-    int i=0;
-    float contentWidth= 0;
-    for (NSDictionary *dic in _shareToItemArray) {
-        [self addItem:_sheetScrollOP index:i tagBase:Share_To_Item_Base_Tag contentWidth:&contentWidth params:dic];
-        i++;
+    if (!_shareSectionHidden){
+        //分享item
+        _shareToItemArray = [NSMutableArray array];
+        
+        [_shareToItemArray addObject:@{Share_To_Item_Name: @"微博", Share_To_Item_Icon:@"share_sina_icon"}];
+        [_shareToItemArray addObject:@{Share_To_Item_Name: @"微信好友", Share_To_Item_Icon:@"share_wx_friend_icon"}];
+        [_shareToItemArray addObject:@{Share_To_Item_Name: @"朋友圈", Share_To_Item_Icon:@"share_wx_circle_icon"}];
+        [_shareToItemArray addObject:@{Share_To_Item_Name: @"QQ", Share_To_Item_Icon:@"share_qq_icon"}];
+        
+        oframe.size.width = cview.frame.size.width;
+        _sheetShareView.frame = oframe;
+        [cview addSubview:_sheetShareView];
+        marignTop = _sheetShareView.frame.size.height;
+        sframe.size.height += marignTop;
+        cview.frame = sframe;
+        
+        int i=0;
+        float contentWidth= 0;
+        for (NSDictionary *dic in _shareToItemArray) {
+            [self addItem:_sheetScrollOP index:i tagBase:Share_To_Item_Base_Tag contentWidth:&contentWidth params:dic];
+            i++;
+        }
+        
+        [_sheetScrollOP setContentSize:CGSizeMake(contentWidth, _sheetScrollOP.frame.size.height)];
+        if (_shareToItemArray.count > 4) {
+            [_sheetScrollOP setShowsHorizontalScrollIndicator:YES];
+            [_sheetScrollOP setScrollEnabled:YES];
+        }else{
+            [_sheetScrollOP setScrollEnabled:NO];
+        }
     }
     
-    [_sheetScrollOP setContentSize:CGSizeMake(contentWidth, _sheetScrollOP.frame.size.height)];
-    if (_shareToItemArray.count > 4) {
-        [_sheetScrollOP setShowsHorizontalScrollIndicator:YES];
-        [_sheetScrollOP setScrollEnabled:YES];
+    CGFloat sheetOperateViewHeight = 106;
+    _deleteBtn.hidden = YES;
+    if (!_deleteBtnHidden) {
+        _deleteBtn.hidden = NO;
+        [_deleteBtn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
     }else{
-        [_sheetScrollOP setScrollEnabled:NO];
+        sheetOperateViewHeight = 65;
     }
-    
-    
     [_collectBtn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_deleteBtn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     
     oframe = _sheetOperateView.frame;
     oframe.origin.y = marignTop;
     oframe.size.width = cview.frame.size.width;
+    oframe.size.height = sheetOperateViewHeight;
     _sheetOperateView.frame = oframe;
     [cview addSubview:_sheetOperateView];
-//    marignTop += oframe.size.height;
+    marignTop += oframe.size.height;
+    
+    sframe.origin.y = self.frame.size.height;
+    sframe.size.height = marignTop;
+    cview.frame = sframe;
+    [self addSubview:cview];
     
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
     [UIView animateWithDuration:.2 animations:^{
@@ -178,7 +196,7 @@ float labelColor = 170/255.0;
 }
 
 -(void)cancelActionSheet:(id)sender{
-    UIView *sheet = [_sheetShareView superview];
+    UIView *sheet = [_sheetOperateView superview];
     
     [UIView animateWithDuration:.2 animations:^{
         [sheet superview].backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
@@ -200,7 +218,7 @@ float labelColor = 170/255.0;
 {
     UITouch *touch = [touches anyObject];
     CGPoint currentLocation = [touch locationInView:self];
-    UIView *sheet = [_sheetShareView superview];
+    UIView *sheet = [_sheetOperateView superview];
     float blank_max_y = [[UIScreen mainScreen] bounds].size.height-sheet.frame.size.height;
     if (currentLocation.y<blank_max_y) {
         [self cancelActionSheet:nil];
