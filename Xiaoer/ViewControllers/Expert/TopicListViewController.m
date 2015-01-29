@@ -16,6 +16,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "TopicDetailsViewController.h"
 #import "QuestionDetailsViewController.h"
+#import "ExpertListViewController.h"
 
 @interface TopicListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -111,7 +112,6 @@
                     [XEProgressHUD AlertError:errorMsg];
                     return;
                 }
-                [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
                 
                 NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
                 for (NSDictionary *dic in object) {
@@ -172,7 +172,6 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         weakSelf.dateArray = [[NSMutableArray alloc] init];
         //先放下
         if ([jsonRet stringObjectForKey:@"object"].length < 10) {
@@ -204,7 +203,6 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getHotTopicListWithCat:self.topicType pagenum:_nextCursor tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-  
         [self.pullRefreshView finishedLoading];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -214,7 +212,6 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         weakSelf.dateArray = [[NSMutableArray alloc] init];
         NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
         for (NSDictionary *dic in object) {
@@ -318,7 +315,9 @@
 }
 
 - (void)askAction{
-    
+    ExpertListViewController *elVc = [[ExpertListViewController alloc] init];
+    elVc.isNeedSelect = YES;
+    [self.navigationController pushViewController:elVc animated:YES];
 }
 
 - (void)dealloc{

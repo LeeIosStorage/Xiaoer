@@ -113,7 +113,7 @@
     
     CGFloat offsetY = self.bounds.size.height;
     CGFloat verticalPadding = (self.bounds.size.width - XEPublishMenuHorizontalMargin - XEPublishMenuImageHeight * 3) / 2.0;
-    CGFloat offsetX = XEPublishMenuHorizontalMargin + 50;
+    CGFloat offsetX = XEPublishMenuHorizontalMargin + (SCREEN_WIDTH==320?50:60);
     offsetX += (XEPublishMenuImageHeight + verticalPadding) * columnIndex;
     offsetY += (XEPublishMenuImageHeight + XEPublishMenuTitleHeight + XEPublishMenuVerticalPadding) * rowIndex;
     

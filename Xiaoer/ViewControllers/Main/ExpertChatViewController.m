@@ -35,14 +35,13 @@
 @interface ExpertChatViewController ()<UITableViewDataSource, UITableViewDelegate,UIGestureRecognizerDelegate>{
     int _topicType;
     XEPublishMenu *_menuView;
-    float _lastOffSet;
 }
 
 @property (assign, nonatomic) int  tNextCursor;
 @property (assign, nonatomic) int  qNextCursor;
 @property (assign, nonatomic) BOOL topicLoadMore;
 @property (assign, nonatomic) BOOL questionLoadMore;
-
+@property (assign, nonatomic) BOOL bClick;
 
 @property (nonatomic, strong) NSMutableArray *topicArray;
 @property (nonatomic, strong) NSMutableArray *questionArray;
@@ -55,12 +54,15 @@
 @property (strong, nonatomic) IBOutlet UITableView *questionTableView;
 @property (strong, nonatomic) IBOutlet UIButton *topicBtn;
 @property (strong, nonatomic) IBOutlet UIButton *questionBtn;
+@property (weak, nonatomic) IBOutlet UILabel *loadmoreLabel;
 
 @property (strong, nonatomic) IBOutlet UIView *sectionView;
 
 - (IBAction)selectAction:(id)sender;
 
 - (IBAction)topicAction:(id)sender;
+
+- (IBAction)loadMoreAction:(id)sender;
 
 
 @end
@@ -118,7 +120,8 @@
                 [XEProgressHUD AlertError:errorMsg];
                 return;
             }
-
+            
+            weakSelf.bClick = YES;
             NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
             for (NSDictionary *dic in object) {
                 XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
@@ -184,9 +187,9 @@
 }
 
 - (void)initNormalTitleNavBarSubviews{
-
-    [self setLeftButtonWithTitle:@"我的问答" selector:@selector(mineAction)];
-
+    if (![XEEngine shareInstance].bVisitor) {
+        [self setLeftButtonWithTitle:@"我的问答" selector:@selector(mineAction)];
+    }
     [self setRightButtonWithImageName:@"expert_public_icon" selector:@selector(showAction)];
 }
 
@@ -210,7 +213,9 @@
         self.topicTableView.decelerationRate = 1.0f;
         self.questionTableView.hidden = YES;
         self.topicTableView.hidden = NO;
-        
+        if (!_bClick) {
+            self.footerView.hidden = NO;
+        }
         if (!_topicArray) {
             [self refreshTopicList:YES];
             return;
@@ -225,7 +230,7 @@
         self.topicTableView.decelerationRate = 0.0f;
         self.topicTableView.hidden = YES;
         self.questionTableView.hidden = NO;
-
+        self.footerView.hidden = YES;
         if (!_questionArray) {
             [self refreshQuestionList:YES];
             return;
@@ -255,7 +260,6 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         weakSelf.topicArray = [[NSMutableArray alloc] init];
         NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
         for (NSDictionary *dic in object) {
@@ -271,7 +275,11 @@
             weakSelf.topicTableView.showsInfiniteScrolling = YES;
             weakSelf.tNextCursor ++;
         }
-        [weakSelf.footerView setHidden:NO];
+        int count = [[[jsonRet objectForKey:@"object"] objectForKey:@"count"] intValue];
+        if (count > 20) {
+            [weakSelf.footerView setHidden:NO];
+            weakSelf.loadmoreLabel.text = [NSString stringWithFormat:@"展开全部%d条热门话题",count];
+        }
         [weakSelf.topicTableView reloadData];
     }tag:tag];
 }
@@ -295,7 +303,6 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         weakSelf.questionArray = [[NSMutableArray alloc] init];
         NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"qas"];
         for (NSDictionary *dic in object) {
@@ -363,11 +370,11 @@
                 frame2 = self.questionTableView.frame;
             }
             frame2.origin.y = frame.origin.y + frame.size.height;
-            frame2.size.height = SCREEN_HEIGHT - frame2.origin.y;
+            frame2.size.height = SCREEN_HEIGHT - 49 - frame2.origin.y;
             self.topicTableView.frame = frame2;
             self.questionTableView.frame = frame2;
         }];
-    }else if (offset < 0) {
+    }else if (offset < -60) {
         [UIView animateWithDuration:0.5 animations:^{
             CGRect frame = self.containerView.frame;
             frame.origin.y = 64;
@@ -379,7 +386,7 @@
                 frame2 = self.questionTableView.frame;
             }
             frame2.origin.y = frame.origin.y + frame.size.height;
-            frame2.size.height = SCREEN_HEIGHT - frame2.origin.y;
+            frame2.size.height = SCREEN_HEIGHT - 49 - frame2.origin.y;
             self.topicTableView.frame = frame2;
             self.questionTableView.frame = frame2;
         }];
@@ -460,14 +467,12 @@
         QuestionDetailsViewController *vc = [[QuestionDetailsViewController alloc] init];
         vc.questionInfo = info;
         [self.navigationController pushViewController:vc animated:YES];
-//        NSLog(@"===============%@",info.sId);
     }else if (tableView == self.topicTableView){
         XETopicInfo *topicInfo = _topicArray[indexPath.row];
         TopicDetailsViewController *vc = [[TopicDetailsViewController alloc] init];
         vc.topicInfo = topicInfo;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    
 }
 
 - (IBAction)selectAction:(id)sender {
@@ -492,6 +497,46 @@
     TopicListViewController *tlVc = [[TopicListViewController alloc] init];
     tlVc.topicType = (int)btn.tag - 100;
     [self.navigationController pushViewController:tlVc animated:YES];
+}
+
+- (IBAction)loadMoreAction:(id)sender {
+    _bClick = YES;
+    self.footerView.hidden = YES;
+    __weak ExpertChatViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] getHotTopicWithWithPagenum:weakSelf.tNextCursor tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        if (!weakSelf) {
+            return;
+        }
+        [weakSelf.topicTableView.infiniteScrollingView stopAnimating];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        
+        weakSelf.bClick = YES;
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+        for (NSDictionary *dic in object) {
+            XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
+            [topicInfo setTopicInfoByJsonDic:dic];
+            [weakSelf.topicArray addObject:topicInfo];
+        }
+        
+        weakSelf.topicLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+        if (!weakSelf.topicLoadMore) {
+            weakSelf.topicTableView.showsInfiniteScrolling = NO;
+        }else{
+            weakSelf.topicTableView.showsInfiniteScrolling = YES;
+            weakSelf.tNextCursor ++;
+        }
+        [weakSelf.topicTableView reloadData];
+        
+    } tag:tag];
 }
 
 - (void)mineAction {
