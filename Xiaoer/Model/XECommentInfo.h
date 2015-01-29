@@ -19,6 +19,11 @@
 @property(nonatomic, strong) NSDate* time;
 @property(nonatomic, readonly) NSURL* smallAvatarUrl;
 
+@property(nonatomic, strong) NSMutableArray *picIds;
+@property(nonatomic, readonly) NSArray* picURLs;
+@property(nonatomic, readonly) NSArray* originalPicURLs;
+
+
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* commentInfoByJsonDic;
 

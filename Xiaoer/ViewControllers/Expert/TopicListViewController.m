@@ -15,6 +15,7 @@
 #import "XEProgressHUD.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "TopicDetailsViewController.h"
+#import "QuestionDetailsViewController.h"
 
 @interface TopicListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -288,10 +289,17 @@
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
     
-    XETopicInfo *topicInfo = _dateArray[indexPath.row];
-    TopicDetailsViewController *vc = [[TopicDetailsViewController alloc] init];
-    vc.topicInfo = topicInfo;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (!self.bQuestion) {
+        XETopicInfo *topicInfo = _dateArray[indexPath.row];
+        TopicDetailsViewController *vc = [[TopicDetailsViewController alloc] init];
+        vc.topicInfo = topicInfo;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        XEQuestionInfo *info = _dateArray[indexPath.row];
+        QuestionDetailsViewController *vc = [[QuestionDetailsViewController alloc] init];
+        vc.questionInfo = info;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark PullToRefreshViewDelegate

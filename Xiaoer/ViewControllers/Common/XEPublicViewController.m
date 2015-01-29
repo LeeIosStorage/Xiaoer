@@ -13,11 +13,11 @@
 #import "XEActionSheet.h"
 #import "AVCamUtilities.h"
 #import "XEImagePickerController.h"
-//#import "WSAssetPickerController.h"
 #import "WSAssetPicker.h"
 #import "UIImage+ProportionalFill.h"
 #import "GMGridViewLayoutStrategies.h"
 #import "GMGridViewCell+Extended.h"
+#import "UIImage+Resize.h"
 
 #define MAX_IMAGES_NUM 9
 #define ONE_IMAGE_HEIGHT  44
@@ -212,16 +212,16 @@
         QHQFormData* pData = [[QHQFormData alloc] init];
         pData.data = imgData;
         pData.name = @"img";
-        pData.filename = @"img";
+        pData.filename = [NSString stringWithFormat:@"%d",index];
         pData.mimeType = @"image/png";
         
         NSMutableArray *dataArray = [NSMutableArray array];
         [dataArray addObject:pData];
         int tag = [[XEEngine shareInstance] getConnectTag];
         if (_publicType == Public_Type_Topic) {
-            [[XEEngine shareInstance] updateTopicWithImgs:dataArray index:index tag:tag];
+            [[XEEngine shareInstance] updateTopicWithImgs:dataArray index:-1 tag:tag];
         }else if (_publicType == Public_Type_Expert){
-            [[XEEngine shareInstance] updateExpertQuestionWithImgs:dataArray index:index tag:tag];
+            [[XEEngine shareInstance] updateExpertQuestionWithImgs:dataArray index:-1 tag:tag];
         }
         [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
             [XEProgressHUD AlertLoadDone];
@@ -294,6 +294,7 @@
 }
 
 -(void)showTopicTypeView{
+    [self textViewResignFirstResponder];
     if (!self.topicTypeSelectContainerView.superview) {
         CGRect frame = self.topicTypeSelectContainerView.frame;
         frame.origin.x = 0;
@@ -348,6 +349,7 @@
             return;
         }
         
+        [self textViewResignFirstResponder];
         if (_images.count > 0) {
             [self updateImage:_images];
         }else{
@@ -371,7 +373,7 @@
             [XEProgressHUD lightAlert:@"内容太短了"];
             return;
         }
-        
+        [self textViewResignFirstResponder];
         if (_images.count > 0) {
             [self updateImage:_images];
         }else{
@@ -442,7 +444,14 @@
         _placeHolderLabel.hidden = NO;
     }
 }
-
+-(void)textViewResignFirstResponder{
+    if ([_titleTextField isFirstResponder]) {
+        [_titleTextField resignFirstResponder];
+    }
+    if ([_descriptionTextView isFirstResponder]) {
+        [_descriptionTextView resignFirstResponder];
+    }
+}
 #pragma mark - GMGridViewDataSource
 - (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
@@ -481,15 +490,16 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
     
     {
-        UIImage* imageAfterScale = image;
-        if (image.size.width != image.size.height) {
-            CGSize cropSize = image.size;
-            cropSize.height = MIN(image.size.width, image.size.height);
-            cropSize.width = MIN(image.size.width, image.size.height);
-            imageAfterScale = [image imageCroppedToFitSize:cropSize];
+        CGSize size = image.size;
+        UIImage * originalImage = image;
+        if (originalImage.size.width > 640) {
+            CGFloat factor = 640.0/originalImage.size.width;
+            originalImage = [XEUIUtils scaleImage:image toSize:CGSizeMake(640, roundf(originalImage.size.height*factor))];
+        } else {
+            originalImage = [originalImage resizedImage:size interpolationQuality:0];
         }
 //        NSData* imageData = UIImageJPEGRepresentation(imageAfterScale, XE_IMAGE_COMPRESSION_QUALITY);
-        [self.images addObject:imageAfterScale];
+        [self.images addObject:originalImage];
         
     }
     [self refreshViewUI];

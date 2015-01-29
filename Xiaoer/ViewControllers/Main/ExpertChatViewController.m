@@ -20,6 +20,7 @@
 #import "XEPublishMenu.h"
 #import "XEPublicViewController.h"
 #import "ExpertListViewController.h"
+#import "QuestionDetailsViewController.h"
 
 #define TOPIC_TYPE_NOURISH   101
 #define TOPIC_TYPE_NUTRI     102
@@ -388,11 +389,10 @@
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
     if (tableView == self.questionTableView) {
         XEQuestionInfo *info = _questionArray[indexPath.row];
-//        id vc = [XELinkerHandler handleDealWithHref:info.recipesActionUrl From:self.navigationController];
-//        if (vc) {
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
-        NSLog(@"===============%@",info.sId);
+        QuestionDetailsViewController *vc = [[QuestionDetailsViewController alloc] init];
+        vc.questionInfo = info;
+        [self.navigationController pushViewController:vc animated:YES];
+//        NSLog(@"===============%@",info.sId);
     }else if (tableView == self.topicTableView){
         XETopicInfo *topicInfo = _topicArray[indexPath.row];
         TopicDetailsViewController *vc = [[TopicDetailsViewController alloc] init];

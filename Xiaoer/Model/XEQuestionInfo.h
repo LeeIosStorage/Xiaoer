@@ -16,6 +16,13 @@
 @property(nonatomic, assign) int favnum;
 @property(nonatomic, assign) int status;
 
+@property(nonatomic, strong) NSString* content;
+@property(nonatomic, strong) NSDate* beginTime;
+@property(nonatomic, assign) int faved;
+@property(nonatomic, strong) NSMutableArray *picIds;
+@property(nonatomic, readonly) NSArray* picURLs;
+@property(nonatomic, readonly) NSArray* originalPicURLs;
+
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* questionInfoByJsonDic;
 

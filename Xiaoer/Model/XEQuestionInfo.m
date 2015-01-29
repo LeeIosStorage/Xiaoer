@@ -8,6 +8,8 @@
 
 #import "XEQuestionInfo.h"
 #import "JSONKit.h"
+#import "XEUIUtils.h"
+#import "XEEngine.h"
 
 @implementation XEQuestionInfo
 
@@ -18,6 +20,25 @@
     _clicknum = [dic intValueForKey:@"clicknum"];
     _favnum = [dic intValueForKey:@"favnum"];
     _status = [dic intValueForKey:@"status"];
+    
+    id objectForKey = [dic objectForKey:@"content"];
+    if (objectForKey) {
+        _content = [objectForKey description];
+    }
+    NSDateFormatter *dateFormatter = [XEUIUtils dateFormatterOFUS];
+    objectForKey = [dic objectForKey:@"begin_time"];
+    if (objectForKey && [objectForKey isKindOfClass:[NSString class]]) {
+        _beginTime = [dateFormatter dateFromString:objectForKey];
+    }
+    _faved = [dic intValueForKey:@"faved"];
+    
+    objectForKey = [dic arrayObjectForKey:@"imgs"];
+    if (objectForKey) {
+        _picIds = [NSMutableArray array];
+        for (NSString *urlStr in objectForKey) {
+            [_picIds addObject:urlStr];
+        }
+    }
 }
 
 -(void)setQuestionInfoByJsonDic:(NSDictionary *)dic{
@@ -36,6 +57,22 @@
     }
     
     self.jsonString = [_questionInfoByJsonDic JSONString];
+}
+
+- (NSArray *)picURLs{
+    NSMutableArray* urls = [[NSMutableArray alloc] init];
+    for (NSString* picID in _picIds) {
+        [urls addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small" ,picID]]];
+    }
+    return urls;
+}
+
+- (NSArray *)originalPicURLs{
+    NSMutableArray* urls = [[NSMutableArray alloc] init];
+    for (NSString* picID in _picIds) {
+        [urls addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl],picID]]];
+    }
+    return urls;
 }
 
 @end

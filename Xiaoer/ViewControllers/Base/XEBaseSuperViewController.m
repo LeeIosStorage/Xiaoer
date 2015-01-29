@@ -219,7 +219,7 @@
     if (_titleNavBarLeftButton2) {
         _titleNavBarLeftButton2.hidden = NO;
         [_titleNavBarLeftButton2 setTitle:buttonTitle forState:UIControlStateNormal];
-        [_titleNavBarLeftButton2 addTarget:self action:selector forControlEvents:UIControlEventTouchDragInside];
+        [_titleNavBarLeftButton2 addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
