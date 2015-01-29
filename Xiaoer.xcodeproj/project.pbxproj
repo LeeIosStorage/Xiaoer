@@ -218,6 +218,7 @@
 		07E536371A529210005E1DA9 /* ExpertChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E536351A529210005E1DA9 /* ExpertChatViewController.xib */; };
 		07E5363B1A529259005E1DA9 /* MineTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E536391A529259005E1DA9 /* MineTabViewController.m */; };
 		07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E5363A1A529259005E1DA9 /* MineTabViewController.xib */; };
+		07EBF07B1A7A01080050B256 /* XEAMBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EBF07A1A7A01070050B256 /* XEAMBlurView.m */; };
 		07FC6D1B1A675D3E001F34D8 /* XEScrollPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC6D1A1A675D3E001F34D8 /* XEScrollPage.m */; };
 		07FC6D1D1A675D66001F34D8 /* XEScrollPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07FC6D1C1A675D66001F34D8 /* XEScrollPage.xib */; };
 		07FC6D201A679D22001F34D8 /* XEGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FC6D1F1A679D22001F34D8 /* XEGridView.m */; };
@@ -621,6 +622,8 @@
 		07E536381A529259005E1DA9 /* MineTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTabViewController.h; sourceTree = "<group>"; };
 		07E536391A529259005E1DA9 /* MineTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTabViewController.m; sourceTree = "<group>"; };
 		07E5363A1A529259005E1DA9 /* MineTabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineTabViewController.xib; sourceTree = "<group>"; };
+		07EBF0791A7A01070050B256 /* XEAMBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAMBlurView.h; sourceTree = "<group>"; };
+		07EBF07A1A7A01070050B256 /* XEAMBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAMBlurView.m; sourceTree = "<group>"; };
 		07FC6D191A675D3E001F34D8 /* XEScrollPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XEScrollPage.h; path = Common/XEScrollPage/XEScrollPage.h; sourceTree = "<group>"; };
 		07FC6D1A1A675D3E001F34D8 /* XEScrollPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEScrollPage.m; path = Common/XEScrollPage/XEScrollPage.m; sourceTree = "<group>"; };
 		07FC6D1C1A675D66001F34D8 /* XEScrollPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEScrollPage.xib; sourceTree = "<group>"; };
@@ -1384,6 +1387,7 @@
 		07E5360F1A528203005E1DA9 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				07EBF0781A7A01070050B256 /* AMBlurView */,
 				075DD03D1A78BA3F009A64B4 /* UIImage-Categories-master */,
 				075DD0211A78AC0C009A64B4 /* WSAssetWrapper */,
 				7E7241261A77D2F8001E1F69 /* HPGrowingTextView */,
@@ -1537,6 +1541,15 @@
 				07E536241A528CF8005E1DA9 /* XETabBarItemView.xib */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		07EBF0781A7A01070050B256 /* AMBlurView */ = {
+			isa = PBXGroup;
+			children = (
+				07EBF0791A7A01070050B256 /* XEAMBlurView.h */,
+				07EBF07A1A7A01070050B256 /* XEAMBlurView.m */,
+			);
+			path = AMBlurView;
 			sourceTree = "<group>";
 		};
 		07FC6D181A675CEE001F34D8 /* XEScrollPage */ = {
@@ -1842,6 +1855,7 @@
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
 				7E72412B1A77D2F8001E1F69 /* HPGrowingTextView.m in Sources */,
 				075B03351A6E4350002B577D /* MapChooseAnnotationView.m in Sources */,
+				07EBF07B1A7A01080050B256 /* XEAMBlurView.m in Sources */,
 				7E72411B1A77BFA2001E1F69 /* TopicDetailsViewController.m in Sources */,
 				074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */,
 				0774A8731A666EAB00336465 /* GMGridView.m in Sources */,

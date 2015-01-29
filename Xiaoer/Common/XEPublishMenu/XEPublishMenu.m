@@ -8,6 +8,7 @@
 
 #import "XEPublishMenu.h"
 #import "UIColor+bit.h"
+#import "XEAMBlurView.h"
 
 #define XEPublishMenuTag 1999
 #define XEPublishMenuImageHeight 70
@@ -33,7 +34,7 @@
     XEPublishMenuItemButton *button = [XEPublishMenuItemButton buttonWithType:UIButtonTypeCustom];
     [button setImage:icon forState:UIControlStateNormal];
     [button setTitle:title forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor colorWithHex:0xFFFFFF alpha:0.9] forState:0];
+    [button setTitleColor:[UIColor lightGrayColor] forState:0];
     button.titleLabel.textAlignment = NSTextAlignmentCenter;
     button.titleLabel.font = [UIFont systemFontOfSize:15];
     button.selectedBlock = block;
@@ -48,10 +49,16 @@
 }
 @end
 
+@interface XEPublishMenu ()
+
+@property (nonatomic,strong) XEAMBlurView *blurView;
+
+@end
+
 @implementation XEPublishMenu {
     UIImageView *_backgroundView;
     NSMutableArray *_buttonArray;
-    UIButton *_closeButton;
+//    UIButton *_closeButton;
     
     NSArray *_delayArray;
     NSArray *_delayDisappearArray;
@@ -66,9 +73,15 @@
         ges.delegate = self;
         [self addGestureRecognizer:ges];
         _backgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
-        _backgroundView.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.6];
+        _backgroundView.backgroundColor = [UIColor clearColor];
         _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         [self addSubview:_backgroundView];
+        [self setBlurView:[XEAMBlurView new]];
+        [[self blurView] setFrame:CGRectMake(0,64,SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [[self blurView] setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+        
+//        [[self blurView] setBlurTintColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:0.00]];
+        [_backgroundView addSubview:[self blurView]];
 //        _closeButton = [[UIButton alloc] initWithFrame:CGRectMake(268, 23, 44, 44)];
 //        [_closeButton setImage:[UIImage imageNamed:@"public_menu_close_normal.png"] forState:UIControlStateNormal];
 //        [_closeButton setImage:[UIImage imageNamed:@"public_menu_close_hover.png"] forState:UIControlStateHighlighted];
@@ -99,7 +112,7 @@
     NSUInteger rowIndex = index / columnCount;
     
     CGFloat offsetY = self.bounds.size.height;
-    CGFloat verticalPadding = (self.bounds.size.width - XEPublishMenuHorizontalMargin * 2 - XEPublishMenuImageHeight * 3) / 2.0;
+    CGFloat verticalPadding = (self.bounds.size.width - XEPublishMenuHorizontalMargin - XEPublishMenuImageHeight * 3) / 2.0;
     CGFloat offsetX = XEPublishMenuHorizontalMargin + 50;
     offsetX += (XEPublishMenuImageHeight + verticalPadding) * columnIndex;
     offsetY += (XEPublishMenuImageHeight + XEPublishMenuTitleHeight + XEPublishMenuVerticalPadding) * rowIndex;

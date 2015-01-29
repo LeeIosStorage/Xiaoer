@@ -29,9 +29,12 @@
 #define INFO_TYPE_TOPIC      105
 #define INFO_TYPE_QUESTION   106
 
-@interface ExpertChatViewController ()<UITableViewDataSource, UITableViewDelegate>{
+#define XEDisplayMotionHeight 160
+
+@interface ExpertChatViewController ()<UITableViewDataSource, UITableViewDelegate,UIGestureRecognizerDelegate>{
     int _topicType;
     XEPublishMenu *_menuView;
+    float _lastOffSet;
 }
 
 @property (assign, nonatomic) int  tNextCursor;
@@ -45,6 +48,7 @@
 
 @property (strong, nonatomic) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UIView *footerView;
+@property (strong, nonatomic) IBOutlet UIView *containerView;
 
 @property (strong, nonatomic) IBOutlet UITableView *topicTableView;
 @property (strong, nonatomic) IBOutlet UITableView *questionTableView;
@@ -74,8 +78,16 @@
     self.pullRefreshView2 = [[PullToRefreshView alloc] initWithScrollView:self.questionTableView];
     self.pullRefreshView2.delegate = self;
     [self.questionTableView addSubview:self.pullRefreshView2];
-//    self.topicTableView.tableHeaderView = self.headView;
-//    self.topicTableView.tableFooterView = self.footerView;
+    
+    UIPanGestureRecognizer *panRecognizer1 = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom1:)];
+    [panRecognizer1 setMaximumNumberOfTouches:1];
+    panRecognizer1.delegate = self;
+    [_topicTableView addGestureRecognizer:panRecognizer1];
+    UIPanGestureRecognizer *panRecognizer2 = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom2:)];
+    [panRecognizer2 setMaximumNumberOfTouches:1];
+    panRecognizer2.delegate = self;
+    [_questionTableView addGestureRecognizer:panRecognizer2];
+    
     [self feedsTypeSwitch:INFO_TYPE_TOPIC needRefreshFeeds:YES];
     
     __weak ExpertChatViewController *weakSelf = self;
@@ -315,6 +327,62 @@
 
 - (NSDate *)pullToRefreshViewLastUpdated:(PullToRefreshView *)view {
     return [NSDate date];
+}
+
+- (void)handlePanFrom1:(UIPanGestureRecognizer*)recognizer
+{
+    CGPoint translation = [recognizer translationInView:_topicTableView];
+    CGFloat offsetY = 0.0;
+    offsetY = -translation.y;
+    [self didChangeLayoutWithOffset:offsetY andTableView:_topicTableView];
+}
+
+- (void)handlePanFrom2:(UIPanGestureRecognizer*)recognizer
+{
+    CGPoint translation = [recognizer translationInView:_questionTableView];
+    CGFloat offsetY = 0.0;
+    offsetY = -translation.y;
+    [self didChangeLayoutWithOffset:offsetY andTableView:_questionTableView];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
+}
+
+- (void)didChangeLayoutWithOffset:(CGFloat)offset andTableView:(UITableView *)tableview{
+    if (offset > 60) {
+        [UIView animateWithDuration:0.5 animations:^{
+            CGRect frame = self.containerView.frame;
+            frame.origin.y = 64 - XEDisplayMotionHeight;
+            self.containerView.frame = frame;
+            CGRect frame2;
+            if (tableview == self.topicTableView) {
+                frame2 = self.topicTableView.frame;
+            }else if (tableview == self.questionTableView) {
+                frame2 = self.questionTableView.frame;
+            }
+            frame2.origin.y = frame.origin.y + frame.size.height;
+            frame2.size.height = SCREEN_HEIGHT - frame2.origin.y;
+            self.topicTableView.frame = frame2;
+            self.questionTableView.frame = frame2;
+        }];
+    }else if (offset < 0) {
+        [UIView animateWithDuration:0.5 animations:^{
+            CGRect frame = self.containerView.frame;
+            frame.origin.y = 64;
+            self.containerView.frame = frame;
+            CGRect frame2;
+            if (tableview == self.topicTableView) {
+                frame2 = self.topicTableView.frame;
+            }else if (tableview == self.questionTableView) {
+                frame2 = self.questionTableView.frame;
+            }
+            frame2.origin.y = frame.origin.y + frame.size.height;
+            frame2.size.height = SCREEN_HEIGHT - frame2.origin.y;
+            self.topicTableView.frame = frame2;
+            self.questionTableView.frame = frame2;
+        }];
+    }
 }
 
 #pragma mark - Table view data source
