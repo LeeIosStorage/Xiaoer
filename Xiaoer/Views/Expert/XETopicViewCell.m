@@ -8,6 +8,7 @@
 
 #import "XETopicViewCell.h"
 #import "XECommonUtils.h"
+#import "XEUIUtils.h"
 
 @implementation XETopicViewCell
 
@@ -42,6 +43,8 @@
     [self.commentLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.favnum] forState:0];
     [self.collectLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.clicknum] forState:0];
     if (_isExpertChat) {
+        [self.collectLabel setImage:[UIImage imageNamed:@"topic_collect_icon"] forState:UIControlStateNormal];
+        [self.commentLabel setImage:[UIImage imageNamed:@"topic_comment_icon"] forState:UIControlStateNormal];
         if (_topicInfo.isTop) {
             self.topImageView.hidden = NO;
             [self.topImageView setImage:[UIImage imageNamed:@"info_top_icon"]];
@@ -49,7 +52,7 @@
             self.topImageView.hidden = YES;
         }
         self.topicDateLabel.hidden = NO;
-        self.topicDateLabel.text = @"刚刚";
+        self.topicDateLabel.text = [XEUIUtils dateDiscriptionFromNowBk:topicInfo.time];
     }
 }
 

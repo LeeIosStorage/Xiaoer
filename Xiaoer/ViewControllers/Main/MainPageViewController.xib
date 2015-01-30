@@ -35,7 +35,7 @@
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="deviceRGB"/>
-            <point key="canvasLocation" x="443" y="110"/>
+            <point key="canvasLocation" x="217" y="105"/>
         </view>
         <view contentMode="scaleToFill" id="LUx-H4-FQq">
             <rect key="frame" x="0.0" y="0.0" width="320" height="485"/>
