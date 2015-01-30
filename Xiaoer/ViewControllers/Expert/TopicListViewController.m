@@ -245,8 +245,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.bQuestion) {
-        XEQuestionInfo *questionInfo = _dateArray[indexPath.row];
-        return [XEQuestionViewCell heightForQuestionInfo:questionInfo];
+//        XEQuestionInfo *questionInfo = _dateArray[indexPath.row];
+//        return [XEQuestionViewCell heightForQuestionInfo:questionInfo];
+        return 70;
     }
     XETopicInfo *topicInfo = _dateArray[indexPath.row];
     return [XECateTopicViewCell heightForTopicInfo:topicInfo];
@@ -277,6 +278,7 @@
     }
     
     XEQuestionInfo *info = _dateArray[indexPath.row];
+    cell.isExpertChat = NO;
     cell.questionInfo = info;
     return cell;
 }
