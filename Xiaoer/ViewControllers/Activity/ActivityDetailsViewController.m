@@ -82,7 +82,7 @@
             return;
         }
         _servicerInfoSucceed = YES;
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         NSDictionary *dic = [jsonRet objectForKey:@"object"];
         [weakSelf.activityInfo setActivityInfoByJsonDic:dic];

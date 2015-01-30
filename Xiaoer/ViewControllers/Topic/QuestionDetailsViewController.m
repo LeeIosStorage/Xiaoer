@@ -13,12 +13,16 @@
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
 #import "XECommentInfo.h"
+#import "MWPhotoBrowser.h"
 
 #define ANSWER_ONE_IMAGE_HEIGHT  93
 #define QUESTION_ONE_IMAGE_HEIGHT  66
 #define item_spacing  4
 
-@interface QuestionDetailsViewController ()<UITableViewDataSource,UITableViewDelegate,GMGridViewDataSource, GMGridViewActionDelegate>
+@interface QuestionDetailsViewController ()<UITableViewDataSource,UITableViewDelegate,GMGridViewDataSource, GMGridViewActionDelegate,MWPhotoBrowserDelegate>
+{
+    BOOL _isLookExpertPhotoBrowser;
+}
 
 @property (nonatomic, strong) XECommentInfo *expertComment;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -302,11 +306,60 @@
     NSLog(@"Did tap at index %ld", position);
     NSString *url = nil;
     if (gridView == _answerImageGridView) {
+        _isLookExpertPhotoBrowser = YES;
         url = [self.expertComment.picURLs objectAtIndex:position];
     }else if (gridView == _questionImageGridView){
+        _isLookExpertPhotoBrowser = NO;
         url = [self.questionInfo.picURLs objectAtIndex:position];
     }
     XELog(@"url===%@",url);
+    
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    browser.displayActionButton = NO;
+    browser.displayNavArrows = NO;
+    browser.displaySelectionButtons = NO;
+    browser.alwaysShowControls = NO;
+    browser.zoomPhotosToFill = YES;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
+    browser.wantsFullScreenLayout = YES;
+#endif
+    browser.enableGrid = YES;
+    browser.startOnGrid = NO;
+    browser.enableSwipeToDismiss = YES;
+    [browser setCurrentPhotoIndex:position];
+    [self.navigationController pushViewController:browser animated:YES];
+}
+
+#pragma mark - MWPhotoBrowserDelegate
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    if (_isLookExpertPhotoBrowser) {
+        return self.expertComment.picIds.count;
+    }else {
+        return self.questionInfo.picIds.count;
+    }
+    return 0;
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    NSArray* picUrls = self.questionInfo.originalPicURLs;
+    if (_isLookExpertPhotoBrowser) {
+        picUrls = self.expertComment.originalPicURLs;
+    }
+    if (index < picUrls.count){
+        MWPhoto* mwPhoto = [[MWPhoto alloc] initWithURL:[picUrls objectAtIndex:index]];
+        return mwPhoto;
+    }
+    return nil;
+}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
+    NSLog(@"Did start viewing photo at index %lu", (unsigned long)index);
+}
+
+- (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser {
+    // If we subscribe to this method we must dismiss the view controller ourselves
+    NSLog(@"Did finish modal presentation");
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UIScrollViewDelegate

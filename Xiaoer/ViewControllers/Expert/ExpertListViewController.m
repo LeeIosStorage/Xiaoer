@@ -71,7 +71,7 @@
                 [XEProgressHUD AlertError:errorMsg];
                 return;
             }
-            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+//            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
             
             NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"experts"];
             for (NSDictionary *dic in object) {
@@ -115,9 +115,9 @@
 
 - (void)refreshExpertList:(BOOL)isAlert{
     
-    if (isAlert) {
-        [XEProgressHUD AlertLoading:@"数据加载中..."];
-    }
+//    if (isAlert) {
+//        [XEProgressHUD AlertLoading:@"数据加载中..."];
+//    }
     self.nextCursor = 1;
     __weak ExpertListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
@@ -133,7 +133,7 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         weakSelf.expertList = [[NSMutableArray alloc] init];
         NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"experts"];
