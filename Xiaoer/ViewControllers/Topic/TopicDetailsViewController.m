@@ -464,7 +464,7 @@
     
     __weak TopicDetailsViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] deleteCommentTopicWithCommentId:_selCommentInfo.cId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] deleteCommentTopicWithCommentId:_selCommentInfo.cId uid:[XEEngine shareInstance].uid topicId:_topicInfo.tId tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {

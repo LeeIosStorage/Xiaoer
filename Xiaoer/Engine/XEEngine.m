@@ -1015,10 +1015,13 @@ static XEEngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/comment/commit",API_URL] type:2 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
-- (BOOL)deleteCommentTopicWithCommentId:(NSString *)cid uid:(NSString *)uid tag:(int)tag{
+- (BOOL)deleteCommentTopicWithCommentId:(NSString *)cid uid:(NSString *)uid topicId:(NSString *)topicId tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (cid) {
         [params setObject:cid forKey:@"id"];
+    }
+    if (topicId) {
+        [params setObject:topicId forKey:@"topicid"];
     }
     if (uid) {
         [params setObject:uid forKey:@"userid"];

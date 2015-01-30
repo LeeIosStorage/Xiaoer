@@ -153,7 +153,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)shareTopicWithTopicId:(NSString *)tid uid:(NSString *)uid tag:(int)tag;
 - (BOOL)deleteTopicWithTopicId:(NSString *)tid uid:(NSString *)uid tag:(int)tag;
 - (BOOL)commitCommentTopicWithTopicId:(NSString *)tid uid:(NSString *)uid content:(NSString *)content tag:(int)tag;
-- (BOOL)deleteCommentTopicWithCommentId:(NSString *)cid uid:(NSString *)uid tag:(int)tag;
+- (BOOL)deleteCommentTopicWithCommentId:(NSString *)cid uid:(NSString *)uid topicId:(NSString *)topicId tag:(int)tag;
 //话题评论list
 - (BOOL)getTopicCommentListWithWithTopicId:(NSString *)tid pagenum:(int)page tag:(int)tag;
 
