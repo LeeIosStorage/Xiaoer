@@ -151,7 +151,7 @@
 -(void)initNormalTitleNavBarSubviews{
     
     [self setTitle:@"话题详情"];
-    [self setRightButtonWithImageName:@"nav_collect_un_icon" selector:@selector(moreAction:)];
+    [self setRightButtonWithImageName:@"more_icon" selector:@selector(moreAction:)];
 }
 /*
 #pragma mark - Navigation
@@ -182,10 +182,10 @@
         NSDictionary *topicDic = [[jsonRet objectForKey:@"object"] objectForKey:@"topic"];
         [weakSelf.topicInfo setTopicInfoByJsonDic:topicDic];
         
-        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000013.jpg"];
-        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000014.jpg"];
-        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000033.jpg"];
+//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000013.jpg"];
+//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000014.jpg"];
+//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
+//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000033.jpg"];
 //        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
 //        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
 //        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
@@ -388,7 +388,8 @@
     }
     _shareAction = [[XEShareActionSheet alloc] init];
     _shareAction.owner = self;
-    _shareAction.selectShareType = XEFeedShareType_Topic;
+    _shareAction.selectShareType = XEShareType_Topic;
+    _shareAction.topicInfo = _topicInfo;
     [_shareAction showShareAction];
     
 }
@@ -540,8 +541,10 @@
     toolbarFrame.origin.y = self.view.bounds.size.height - keyboardBounds.size.height - toolbarFrame.size.height;
     _toolbarContainerView.frame = toolbarFrame;
     
-    offset = CGPointMake(0, _tableView.contentSize.height -  _tableView.frame.size.height);
-    _tableView.contentOffset = offset;
+    if (_tableView.contentSize.height > _tableView.frame.size.height) {
+        offset = CGPointMake(0, _tableView.contentSize.height -  _tableView.frame.size.height);
+        _tableView.contentOffset = offset;
+    }
     
     // commit animations
     [UIView commitAnimations];
@@ -864,6 +867,11 @@
     showRect.origin.y += 30;
     [menuCtl setTargetRect:showRect inView:self.tableView];
     [menuCtl setMenuVisible:YES animated:YES];
+}
+
+#pragma mark - XEShareActionSheetDelegate
+-(void) deleteTopicAction:(XETopicInfo *) feedInfo{
+    [super backAction:nil];
 }
 
 @end

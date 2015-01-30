@@ -149,6 +149,7 @@ float labelColor = 170/255.0;
         sheetOperateViewHeight = 65;
     }
     [_collectBtn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_collectBtn setTitle:_collectBtnTitle forState:0];
     
     
     oframe = _sheetOperateView.frame;

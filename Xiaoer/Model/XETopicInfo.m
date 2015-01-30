@@ -78,6 +78,7 @@
     }
     _topicInfoByJsonDic = [[NSMutableDictionary alloc] initWithDictionary:dic];
     _tId = [[dic objectForKey:@"id"] description];
+    _uId = [[dic objectForKey:@"uid"] description];
     
     @try {
         [self doSetTopicInfoByJsonDic:dic];

@@ -11,6 +11,7 @@
 @interface XETopicInfo : NSObject
 
 @property(nonatomic, strong) NSString* tId;
+@property(nonatomic, strong) NSString* uId;
 @property(nonatomic, strong) NSString* title;
 @property(nonatomic, strong) NSString* avatar;
 @property(nonatomic, assign) int clicknum;

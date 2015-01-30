@@ -113,7 +113,7 @@
     [self setTitle:@"专家介绍"];
     [self setRightButtonWithImageName:@"nav_collect_un_icon" selector:@selector(collectAction:)];
     
-    [self setRight2ButtonWithImageName:@"share_icon" selector:@selector(shareAction:)];
+//    [self setRight2ButtonWithImageName:@"share_icon" selector:@selector(shareAction:)];
 }
 
 /*

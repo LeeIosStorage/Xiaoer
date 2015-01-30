@@ -54,7 +54,7 @@
     [self setRightButtonWithImageName:@"nav_collect_un_icon" selector:@selector(collectAction:)];
     [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateHighlighted];
     
-    [self setRight2ButtonWithImageName:@"share_icon" selector:@selector(shareAction:)];
+//    [self setRight2ButtonWithImageName:@"share_icon" selector:@selector(shareAction:)];
 }
 /*
 #pragma mark - Navigation
