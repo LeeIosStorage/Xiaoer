@@ -45,8 +45,12 @@
     }else if(questionInfo.status == 1) {
         self.questionLabel.text = [NSString stringWithFormat:@"【未答】%@",questionInfo.title];
     }
-    
-    self.expertLabel.text = [NSString stringWithFormat:@"向%@教授提问",questionInfo.expertName];
+    if (self.isExpertChat) {
+        self.expertLabel.hidden = YES;
+    }else{
+        self.expertLabel.hidden = NO;
+        self.expertLabel.text = [NSString stringWithFormat:@"向%@教授提问",questionInfo.expertName];
+    }
     
     self.topicDateLabel.text = [XEUIUtils dateDiscriptionFromNowBk:questionInfo.beginTime];
 }

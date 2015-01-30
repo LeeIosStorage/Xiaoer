@@ -438,10 +438,10 @@
         NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
         cell = [cells objectAtIndex:0];
         cell.backgroundColor = [UIColor clearColor];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     XEQuestionInfo *info = _questionArray[indexPath.row];
+    cell.isExpertChat = YES;
     cell.questionInfo = info;
     return cell;
 }
