@@ -81,7 +81,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="吃喝拉撒睡，成长中的大学问" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DRA-Fb-AaH">
-                                            <rect key="frame" x="169.999998533412" y="37" width="95" height="30"/>
+                                            <rect key="frame" x="169.99999676243775" y="37" width="95" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -137,7 +137,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择适合宝宝的理想幼儿园" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="j8Y-vq-5BG">
-                                            <rect key="frame" x="169.999998533412" y="106" width="95" height="30"/>
+                                            <rect key="frame" x="169.99999676243772" y="106" width="95" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -225,7 +225,7 @@
                         <outlet property="delegate" destination="-1" id="8uZ-6x-5mm"/>
                     </connections>
                 </tableView>
-                <view contentMode="scaleToFill" id="Mw6-8s-Sq3">
+                <view hidden="YES" contentMode="scaleToFill" id="Mw6-8s-Sq3">
                     <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <subviews>

@@ -276,7 +276,7 @@
             weakSelf.tNextCursor ++;
         }
         int count = [[[jsonRet objectForKey:@"object"] objectForKey:@"count"] intValue];
-        if (count > 20) {
+        if (count > 20 && !weakSelf.bClick) {
             [weakSelf.footerView setHidden:NO];
             weakSelf.loadmoreLabel.text = [NSString stringWithFormat:@"展开全部%d条热门话题",count];
         }
@@ -358,7 +358,7 @@
 }
 
 - (void)didChangeLayoutWithOffset:(CGFloat)offset andTableView:(UITableView *)tableview{
-    if (offset > 60) {
+    if (offset > 0) {
         [UIView animateWithDuration:0.5 animations:^{
             CGRect frame = self.containerView.frame;
             frame.origin.y = 64 - XEDisplayMotionHeight;
@@ -370,11 +370,11 @@
                 frame2 = self.questionTableView.frame;
             }
             frame2.origin.y = frame.origin.y + frame.size.height;
-            frame2.size.height = SCREEN_HEIGHT - 49 - frame2.origin.y;
+            frame2.size.height = SCREEN_HEIGHT - 44 - frame2.origin.y;
             self.topicTableView.frame = frame2;
             self.questionTableView.frame = frame2;
         }];
-    }else if (offset < -60) {
+    }else if (offset < -100) {
         [UIView animateWithDuration:0.5 animations:^{
             CGRect frame = self.containerView.frame;
             frame.origin.y = 64;
@@ -386,7 +386,7 @@
                 frame2 = self.questionTableView.frame;
             }
             frame2.origin.y = frame.origin.y + frame.size.height;
-            frame2.size.height = SCREEN_HEIGHT - 49 - frame2.origin.y;
+            frame2.size.height = SCREEN_HEIGHT - 44 - frame2.origin.y;
             self.topicTableView.frame = frame2;
             self.questionTableView.frame = frame2;
         }];
@@ -406,18 +406,6 @@
     }
     return _topicArray.count;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    
-//    return 44;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
-//    [view addSubview:self.sectionView];
-//    return view;
-//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.questionTableView) {

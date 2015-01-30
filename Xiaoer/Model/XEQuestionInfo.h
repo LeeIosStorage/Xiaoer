@@ -16,6 +16,7 @@
 @property(nonatomic, assign) int favnum;
 @property(nonatomic, assign) int status;
 
+@property(nonatomic, strong) NSString* expertName;
 @property(nonatomic, strong) NSString* content;
 @property(nonatomic, strong) NSDate* beginTime;
 @property(nonatomic, assign) int faved;

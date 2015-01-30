@@ -25,8 +25,9 @@
     if (objectForKey) {
         _content = [objectForKey description];
     }
+    _expertName = [dic stringObjectForKey:@"name"];
     NSDateFormatter *dateFormatter = [XEUIUtils dateFormatterOFUS];
-    objectForKey = [dic objectForKey:@"begin_time"];
+    objectForKey = [dic objectForKey:@"time"];
     if (objectForKey && [objectForKey isKindOfClass:[NSString class]]) {
         _beginTime = [dateFormatter dateFromString:objectForKey];
     }
