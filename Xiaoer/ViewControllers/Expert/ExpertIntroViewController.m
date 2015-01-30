@@ -81,7 +81,7 @@
                 [XEProgressHUD AlertError:errorMsg];
                 return;
             }
-            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+//            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
             
             NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
             for (NSDictionary *dic in object) {
@@ -140,7 +140,7 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         NSDictionary *expertDic = [jsonRet objectForKey:@"object"];
         [_doctorInfo setDoctorInfoByJsonDic:expertDic];

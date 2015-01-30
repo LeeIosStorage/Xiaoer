@@ -91,7 +91,7 @@
                 [XEProgressHUD AlertError:errorMsg];
                 return;
             }
-            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+//            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
             
             NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
             for (NSDictionary *dic in object) {
@@ -137,7 +137,7 @@
                 [XEProgressHUD AlertError:errorMsg];
                 return;
             }
-            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+//            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
             
             NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
             for (NSDictionary *dic in object) {
@@ -213,9 +213,9 @@
 
 - (void)refreshActivityList:(BOOL)isAlert{
     
-    if (isAlert) {
-        [XEProgressHUD AlertLoading:@"努力加载中..."];
-    }
+//    if (isAlert) {
+//        [XEProgressHUD AlertLoading:@"努力加载中..."];
+//    }
     _applyNextCursor = 1;
     __weak ActivityViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
@@ -231,7 +231,7 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         weakSelf.activityList = [[NSMutableArray alloc] init];
         
         NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
@@ -256,9 +256,9 @@
 
 - (void)refreshHistoryActivityList:(BOOL)isAlert{
     
-    if (isAlert) {
-        [XEProgressHUD AlertLoading:@"努力加载中..."];
-    }
+//    if (isAlert) {
+//        [XEProgressHUD AlertLoading:@"努力加载中..."];
+//    }
     _historyNextCursor = 1;
     __weak ActivityViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
@@ -274,7 +274,7 @@
             [XEProgressHUD AlertError:errorMsg];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         weakSelf.historyActivityList = [[NSMutableArray alloc] init];
         NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];

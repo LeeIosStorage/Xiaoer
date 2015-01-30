@@ -21,12 +21,13 @@
 #import "AppDelegate.h"
 #import "XEActionSheet.h"
 #import <objc/message.h>
+#import "MWPhotoBrowser.h"
 
 #define ONE_IMAGE_HEIGHT  93
 #define item_spacing  4
 #define growingTextViewMaxNumberOfLines 3
 
-@interface TopicDetailsViewController ()<XEShareActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,GMGridViewDataSource, GMGridViewActionDelegate,HPGrowingTextViewDelegate,TopicCommentViewCellDelegate>
+@interface TopicDetailsViewController ()<XEShareActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,GMGridViewDataSource, GMGridViewActionDelegate,HPGrowingTextViewDelegate,TopicCommentViewCellDelegate,MWPhotoBrowserDelegate>
 {
     XEShareActionSheet *_shareAction;
     NSRange _textRange;
@@ -181,9 +182,10 @@
         NSDictionary *topicDic = [[jsonRet objectForKey:@"object"] objectForKey:@"topic"];
         [weakSelf.topicInfo setTopicInfoByJsonDic:topicDic];
         
-//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
+        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000013.jpg"];
+        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000014.jpg"];
+        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
+        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000033.jpg"];
 //        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
 //        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
 //        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
@@ -675,11 +677,83 @@
     NSLog(@"Did tap at index %ld", position);
     NSString *url = [self.topicInfo.picURLs objectAtIndex:position];
     XELog(@"url===%@",url);
+    
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    browser.displayActionButton = NO;
+    browser.displayNavArrows = NO;
+    browser.displaySelectionButtons = NO;
+    browser.alwaysShowControls = NO;
+    browser.zoomPhotosToFill = YES;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
+    browser.wantsFullScreenLayout = YES;
+#endif
+    browser.enableGrid = YES;
+    browser.startOnGrid = NO;
+    browser.enableSwipeToDismiss = YES;
+    [browser setCurrentPhotoIndex:position];
+    [self.navigationController pushViewController:browser animated:YES];
+//    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+//    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    [self presentViewController:nc animated:YES completion:nil];
 }
 
 - (void)GMGridViewDidTapOnEmptySpace:(GMGridView *)gridView
 {
     
+}
+
+#pragma mark - MWPhotoBrowserDelegate
+
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return self.topicInfo.picIds.count;
+}
+
+- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    NSArray* picUrls = self.topicInfo.originalPicURLs;
+    if (index < picUrls.count){
+        MWPhoto* mwPhoto = [[MWPhoto alloc] initWithURL:[picUrls objectAtIndex:index]];
+        return mwPhoto;
+    }
+    return nil;
+}
+
+//- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index {
+//    if (index < _thumbs.count)
+//        return [_thumbs objectAtIndex:index];
+//    return nil;
+//}
+
+//- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
+//    MWPhoto *photo = [self.photos objectAtIndex:index];
+//    MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
+//    return [captionView autorelease];
+//}
+
+//- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index {
+//    NSLog(@"ACTION!");
+//}
+
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
+    NSLog(@"Did start viewing photo at index %lu", (unsigned long)index);
+}
+
+//- (BOOL)photoBrowser:(MWPhotoBrowser *)photoBrowser isPhotoSelectedAtIndex:(NSUInteger)index {
+//    return [[_selections objectAtIndex:index] boolValue];
+//}
+
+//- (NSString *)photoBrowser:(MWPhotoBrowser *)photoBrowser titleForPhotoAtIndex:(NSUInteger)index {
+//    return [NSString stringWithFormat:@"Photo %lu", (unsigned long)index+1];
+//}
+
+//- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected {
+//    [_selections replaceObjectAtIndex:index withObject:[NSNumber numberWithBool:selected]];
+//    NSLog(@"Photo at index %lu selected %@", (unsigned long)index, selected ? @"YES" : @"NO");
+//}
+
+- (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser {
+    // If we subscribe to this method we must dismiss the view controller ourselves
+    NSLog(@"Did finish modal presentation");
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UIScrollViewDelegate
