@@ -14,7 +14,7 @@
 @property(nonatomic, strong) NSString* title;
 @property(nonatomic, assign) int clicknum;
 @property(nonatomic, assign) int favnum;
-@property(nonatomic, assign) int status;
+@property(nonatomic, assign) int status;//1:未回答2:已回答3:被驳回
 
 @property(nonatomic, strong) NSString* expertName;
 @property(nonatomic, strong) NSString* content;

@@ -17,7 +17,7 @@
 #import "XEShareActionSheet.h"
 #import "TopicDetailsViewController.h"
 
-@interface ExpertIntroViewController () <UITableViewDelegate,UITableViewDataSource,XEShareActionSheetDelegate>
+@interface ExpertIntroViewController () <UITableViewDelegate,UITableViewDataSource>
 {
     XEShareActionSheet *_shareAction;
 }
@@ -51,7 +51,11 @@
     // Do any additional setup after loading the view from its nib.
     
     [self refreshDoctorInfoShow];
+    
+    [self getCacheExpertInfo];//cache
     [self refreshExpertInfo];
+    
+    [self getCacheTopicList];
     [self getExpertTopicList];
     
     
@@ -125,6 +129,45 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)getCacheExpertInfo{
+    __weak ExpertIntroViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getExpertDetailWithUid:[XEEngine shareInstance].uid expertId:_doctorInfo.doctorId tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            NSDictionary *expertDic = [jsonRet dictionaryObjectForKey:@"object"];
+            [_doctorInfo setDoctorInfoByJsonDic:expertDic];
+            [weakSelf refreshDoctorInfoShow];
+            [weakSelf.tableView reloadData];
+        }
+    }];
+}
+
+- (void)getCacheTopicList{
+    __weak ExpertIntroViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getTopicListWithExpertId:_doctorInfo.doctorId page:1 tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            weakSelf.doctorTopics = [[NSMutableArray alloc] init];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+            for (NSDictionary *dic in object) {
+                XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
+                [topicInfo setTopicInfoByJsonDic:dic];
+                [weakSelf.doctorTopics addObject:topicInfo];
+            }
+            [weakSelf refreshDoctorInfoShow];
+            [weakSelf.tableView reloadData];
+        }
+    }];
+}
 
 - (void)refreshExpertInfo{
     

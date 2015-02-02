@@ -37,7 +37,36 @@
     UIView *view = [UIView new];
     view.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = view;
+    
+    [self getCacheRegion];
     [self getRegion];
+}
+
+- (void)getCacheRegion{
+    __weak ChooseLocationViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    if (_locationType == ChooseLoactionTypeProvince){
+        [[XEEngine shareInstance] getCommonAreaRoot:tag];
+    }else{
+        [[XEEngine shareInstance] getCommonAreaNodeWithCode:_searchLocationCode tag:tag];
+    }
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            weakSelf.dataArray = [NSArray array];
+            if (_locationType ==ChooseLoactionTypeProvince) {
+                weakSelf.dataArray = [jsonRet objectForKey:@"object"];
+            }else{
+                weakSelf.dataArray = [jsonRet objectForKey:@"object"];
+            }
+            if (![weakSelf.dataArray isKindOfClass:[NSArray class]]) {
+                weakSelf.dataArray = nil;
+            }
+            [weakSelf.tableView reloadData];
+        }
+    }];
 }
 
 -(void)getRegion{
