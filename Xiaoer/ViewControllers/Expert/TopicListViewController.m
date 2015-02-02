@@ -39,6 +39,7 @@
     
     __weak TopicListViewController *weakSelf = self;
     if (_bQuestion) {
+        [self getCacheQuestionList];
         [self refreshQuestionList];
         [self.tableView addInfiniteScrollingWithActionHandler:^{
             if (!weakSelf) {
@@ -85,6 +86,7 @@
             } tag:tag];
         }];
     }else {
+        [self getCacheTopicList];
         [self refreshTopicList];
         [self.tableView addInfiniteScrollingWithActionHandler:^{
             
@@ -156,6 +158,31 @@
     }
 }
 
+- (void)getCacheQuestionList{
+    __weak TopicListViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getQuestionListWithUid:[XEEngine shareInstance].uid pagenum:1 tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            weakSelf.dateArray = [[NSMutableArray alloc] init];
+            //先放下
+            if ([jsonRet stringObjectForKey:@"object"].length < 10) {
+                return;
+            }
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"questions"];
+            for (NSDictionary *dic in object) {
+                XEQuestionInfo *questionInfo = [[XEQuestionInfo alloc] init];
+                [questionInfo setQuestionInfoByJsonDic:dic];
+                [weakSelf.dateArray addObject:questionInfo];
+            }
+            [weakSelf.tableView reloadData];
+        }
+    }];
+}
+
 - (void)refreshQuestionList{
     _nextCursor = 1;
     __weak TopicListViewController *weakSelf = self;
@@ -195,6 +222,27 @@
         
         [weakSelf.tableView reloadData];
     }tag:tag];
+}
+
+- (void)getCacheTopicList{
+    __weak TopicListViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getHotTopicListWithCat:self.topicType pagenum:1 tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            weakSelf.dateArray = [[NSMutableArray alloc] init];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+            for (NSDictionary *dic in object) {
+                XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
+                [topicInfo setTopicInfoByJsonDic:dic];
+                [weakSelf.dateArray addObject:topicInfo];
+            }
+            [weakSelf.tableView reloadData];
+        }
+    }];
 }
 
 - (void)refreshTopicList{
