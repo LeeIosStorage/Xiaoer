@@ -97,7 +97,7 @@
 
 - (void)addSubviewToScrollView:(UIScrollView *)scrollView withURL:(NSString *)url withTag:(NSInteger)tag{
     
-    UIImage *holderImage = [UIImage imageNamed:@""];
+    UIImage *holderImage = [UIImage imageNamed:@"banner_load_icon"];
     CGRect frame = scrollView.bounds;
     
     CGRect vFrame = frame;

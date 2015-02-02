@@ -44,7 +44,7 @@
     self.nickNameLabel.text = topicInfo.uname;
     self.titleLabel.text = topicInfo.utitle;
     [self.commentLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.favnum] forState:0];
-    [self.collectLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.clicknum] forState:0];
+    [self.collectLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.commentnum] forState:0];
     if (![topicInfo.smallAvatarUrl isEqual:[NSNull null]]) {
         [self.avatarImageView sd_setImageWithURL:topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
     }else{
