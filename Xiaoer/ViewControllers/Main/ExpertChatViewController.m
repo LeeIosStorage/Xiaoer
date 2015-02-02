@@ -429,11 +429,17 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (tableView == self.questionTableView) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+        CGRect frame = self.sectionView.frame;
+        frame.size.width = SCREEN_WIDTH;
+        self.sectionView.frame = frame;
         [view addSubview:self.sectionView];
         return view;
     }else{
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+        CGRect frame = self.sectionView2.frame;
+        frame.size.width = SCREEN_WIDTH;
+        self.sectionView2.frame = frame;
         [view addSubview:self.sectionView2];
         return view;
     }
