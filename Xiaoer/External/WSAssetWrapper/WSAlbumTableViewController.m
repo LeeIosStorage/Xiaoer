@@ -74,7 +74,7 @@
         if (group == nil) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.navigationItem.title = @"Albums";
+                self.navigationItem.title = @"照片";
             });
             return;
         }

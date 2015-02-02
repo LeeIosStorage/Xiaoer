@@ -40,13 +40,16 @@
             _csheet.collectBtnTitle = @"取消收藏";
         else
             _csheet.collectBtnTitle = @"收藏";
-        if (!_topicInfo.uId || (_topicInfo.uId && [_topicInfo.uId isEqualToString:[XEEngine shareInstance].uid])) {
+        if (!_topicInfo.uId || (_topicInfo.uId && ![_topicInfo.uId isEqualToString:[XEEngine shareInstance].uid])) {
             _csheet.deleteBtnHidden = YES;
         }
     }else if (_selectShareType == XEShareType_Expert){
         
     }else if (_selectShareType == XEShareType_Activity){
         
+    }else if (_selectShareType == XEShareType_Qusetion){
+        _csheet.deleteBtnHidden = NO;
+        _csheet.collectBtnHidden = YES;
     }else{
         _csheet.collectBtnTitle = @"收藏";
     }
@@ -86,11 +89,18 @@
     }
 }
 -(void)deleteButtonAction{
+    __weak XEShareActionSheet *weakSelf = self;
     if (_selectShareType == XEShareType_Topic) {
-        __weak XEShareActionSheet *weakSelf = self;
+        
         XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"您确定要删除此话题吗？" cancelButtonTitle:@"取消" cancelBlock:^{
         } okButtonTitle:@"删除" okBlock:^{
             [weakSelf topicDeleteAction];
+        }];
+        [alertView show];
+    }else if (_selectShareType == XEShareType_Qusetion){
+        XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"您确定要删除此问题吗？" cancelButtonTitle:@"取消" cancelBlock:^{
+        } okButtonTitle:@"删除" okBlock:^{
+            [weakSelf questionDeleteAction];
         }];
         [alertView show];
     }
@@ -149,6 +159,30 @@
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         if ([weakSelf.owner respondsToSelector:@selector(deleteTopicAction:)]) {
             [weakSelf.owner deleteTopicAction:weakSelf.topicInfo];
+        }
+    }tag:tag];
+}
+
+#pragma mark -question custom
+-(void)questionDeleteAction{
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
+    __weak XEShareActionSheet *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] deleteQuestionWithQuestionId:_questionInfo.sId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        if ([weakSelf.owner respondsToSelector:@selector(deleteTopicAction:)]) {
+            [weakSelf.owner deleteTopicAction:weakSelf.questionInfo];
         }
     }tag:tag];
 }

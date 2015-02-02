@@ -14,14 +14,16 @@
 #import "XEProgressHUD.h"
 #import "XECommentInfo.h"
 #import "MWPhotoBrowser.h"
+#import "XEShareActionSheet.h"
 
 #define ANSWER_ONE_IMAGE_HEIGHT  93
 #define QUESTION_ONE_IMAGE_HEIGHT  66
 #define item_spacing  4
 
-@interface QuestionDetailsViewController ()<UITableViewDataSource,UITableViewDelegate,GMGridViewDataSource, GMGridViewActionDelegate,MWPhotoBrowserDelegate>
+@interface QuestionDetailsViewController ()<UITableViewDataSource,UITableViewDelegate,GMGridViewDataSource, GMGridViewActionDelegate,MWPhotoBrowserDelegate,XEShareActionSheetDelegate>
 {
     BOOL _isLookExpertPhotoBrowser;
+    XEShareActionSheet *_shareAction;
 }
 
 @property (nonatomic, strong) XECommentInfo *expertComment;
@@ -93,6 +95,8 @@
 -(void)initNormalTitleNavBarSubviews{
     
     [self setTitle:@"问答详情"];
+    [self setRightButtonWithImageName:@"more_icon" selector:@selector(moreAction:)];
+    [self.titleNavBarRightBtn setHidden:YES];
 }
 /*
 #pragma mark - Navigation
@@ -165,6 +169,12 @@
 
 #pragma mark - custom
 -(void)refreshQuestionInfoShow{
+    
+    if (!_questionInfo.uId || (_questionInfo.uId && ![_questionInfo.uId isEqualToString:[XEEngine shareInstance].uid])) {
+        [self.titleNavBarRightBtn setHidden:YES];
+    }else{
+        [self.titleNavBarRightBtn setHidden:NO];
+    }
     
     self.answerAvatarImgView.layer.cornerRadius = self.answerAvatarImgView.frame.size.width/2;
     self.answerAvatarImgView.layer.masksToBounds = YES;
@@ -289,6 +299,23 @@
     self.headView.frame = frame;
     
     self.tableView.tableHeaderView = self.headView;
+}
+
+-(void)moreAction:(id)sender{
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
+    _shareAction = [[XEShareActionSheet alloc] init];
+    _shareAction.owner = self;
+    _shareAction.selectShareType = XEShareType_Qusetion;
+    _shareAction.questionInfo = _questionInfo;
+    [_shareAction showShareAction];
+    
+}
+
+#pragma mark - XEShareActionSheetDelegate
+-(void) deleteTopicAction:(id)info{
+    [super backAction:nil];
 }
 
 #pragma mark - GMGridViewDataSource
