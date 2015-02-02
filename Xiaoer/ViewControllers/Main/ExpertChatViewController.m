@@ -47,6 +47,8 @@
 @property (nonatomic, strong) NSMutableArray *questionArray;
 
 @property (strong, nonatomic) IBOutlet UIView *headView;
+@property (strong, nonatomic) IBOutlet UIView *headView2;
+
 @property (strong, nonatomic) IBOutlet UIView *footerView;
 @property (strong, nonatomic) IBOutlet UIView *containerView;
 
@@ -57,13 +59,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *loadmoreLabel;
 
 @property (strong, nonatomic) IBOutlet UIView *sectionView;
+@property (strong, nonatomic) IBOutlet UIView *sectionView2;
 
 - (IBAction)selectAction:(id)sender;
 
 - (IBAction)topicAction:(id)sender;
 
 - (IBAction)loadMoreAction:(id)sender;
-
 
 @end
 
@@ -77,25 +79,26 @@
     self.pullRefreshView = [[PullToRefreshView alloc] initWithScrollView:self.topicTableView];
     self.pullRefreshView.delegate = self;
     [self.topicTableView addSubview:self.pullRefreshView];
+    self.topicTableView.tableHeaderView = self.headView;
     
     self.pullRefreshView2 = [[PullToRefreshView alloc] initWithScrollView:self.questionTableView];
     self.pullRefreshView2.delegate = self;
     [self.questionTableView addSubview:self.pullRefreshView2];
+    self.questionTableView.tableHeaderView = self.headView2;
     
-    UIPanGestureRecognizer *panRecognizer1 = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom1:)];
-    [panRecognizer1 setMaximumNumberOfTouches:1];
-    panRecognizer1.delegate = self;
-    [_topicTableView addGestureRecognizer:panRecognizer1];
-    UIPanGestureRecognizer *panRecognizer2 = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom2:)];
-    [panRecognizer2 setMaximumNumberOfTouches:1];
-    panRecognizer2.delegate = self;
-    [_questionTableView addGestureRecognizer:panRecognizer2];
+//    UIPanGestureRecognizer *panRecognizer1 = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom1:)];
+//    [panRecognizer1 setMaximumNumberOfTouches:1];
+//    panRecognizer1.delegate = self;
+//    [_topicTableView addGestureRecognizer:panRecognizer1];
+//    UIPanGestureRecognizer *panRecognizer2 = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom2:)];
+//    [panRecognizer2 setMaximumNumberOfTouches:1];
+//    panRecognizer2.delegate = self;
+//    [_questionTableView addGestureRecognizer:panRecognizer2];
     
     [self feedsTypeSwitch:INFO_TYPE_TOPIC needRefreshFeeds:YES];
     
     __weak ExpertChatViewController *weakSelf = self;
     [self.topicTableView addInfiniteScrollingWithActionHandler:^{
-        [weakSelf.footerView setHidden:YES];
         if (!weakSelf) {
             return;
         }
@@ -214,7 +217,7 @@
         self.questionTableView.hidden = YES;
         self.topicTableView.hidden = NO;
         if (!_bClick) {
-            self.footerView.hidden = NO;
+            self.topicTableView.tableFooterView = self.footerView;
         }
         if (!_topicArray) {
             [self refreshTopicList:YES];
@@ -230,7 +233,6 @@
         self.topicTableView.decelerationRate = 0.0f;
         self.topicTableView.hidden = YES;
         self.questionTableView.hidden = NO;
-        self.footerView.hidden = YES;
         if (!_questionArray) {
             [self refreshQuestionList:YES];
             return;
@@ -269,7 +271,7 @@
         }
         
         weakSelf.topicLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
-        if (!weakSelf.topicLoadMore) {
+        if (!weakSelf.topicLoadMore || !weakSelf.bClick) {
             weakSelf.topicTableView.showsInfiniteScrolling = NO;
         }else{
             weakSelf.topicTableView.showsInfiniteScrolling = YES;
@@ -337,61 +339,74 @@
     return [NSDate date];
 }
 
-- (void)handlePanFrom1:(UIPanGestureRecognizer*)recognizer
-{
-    CGPoint translation = [recognizer translationInView:_topicTableView];
-    CGFloat offsetY = 0.0;
-    offsetY = -translation.y;
-    [self didChangeLayoutWithOffset:offsetY andTableView:_topicTableView];
-}
-
-- (void)handlePanFrom2:(UIPanGestureRecognizer*)recognizer
-{
-    CGPoint translation = [recognizer translationInView:_questionTableView];
-    CGFloat offsetY = 0.0;
-    offsetY = -translation.y;
-    [self didChangeLayoutWithOffset:offsetY andTableView:_questionTableView];
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
-    return YES;
-}
-
-- (void)didChangeLayoutWithOffset:(CGFloat)offset andTableView:(UITableView *)tableview{
-    if (offset > 0) {
-        [UIView animateWithDuration:0.5 animations:^{
-            CGRect frame = self.containerView.frame;
-            frame.origin.y = 64 - XEDisplayMotionHeight;
-            self.containerView.frame = frame;
-            CGRect frame2;
-            if (tableview == self.topicTableView) {
-                frame2 = self.topicTableView.frame;
-            }else if (tableview == self.questionTableView) {
-                frame2 = self.questionTableView.frame;
-            }
-            frame2.origin.y = frame.origin.y + frame.size.height;
-            frame2.size.height = SCREEN_HEIGHT - 44 - frame2.origin.y;
-            self.topicTableView.frame = frame2;
-            self.questionTableView.frame = frame2;
-        }];
-    }else if (offset < -100) {
-        [UIView animateWithDuration:0.5 animations:^{
-            CGRect frame = self.containerView.frame;
-            frame.origin.y = 64;
-            self.containerView.frame = frame;
-            CGRect frame2;
-            if (tableview == self.topicTableView) {
-                frame2 = self.topicTableView.frame;
-            }else if (tableview == self.questionTableView) {
-                frame2 = self.questionTableView.frame;
-            }
-            frame2.origin.y = frame.origin.y + frame.size.height;
-            frame2.size.height = SCREEN_HEIGHT - 44 - frame2.origin.y;
-            self.topicTableView.frame = frame2;
-            self.questionTableView.frame = frame2;
-        }];
+#pragma mark - UIScrollViewDelegate methods
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    NSLog(@"============%f",scrollView.contentOffset.y);
+    CGFloat offset = scrollView.contentOffset.y;
+    if (offset <= 100) {
+        if (self.questionTableView.hidden) {
+            self.questionTableView.contentOffset = CGPointMake(0, offset);
+        }else{
+            self.topicTableView.contentOffset = CGPointMake(0, offset);
+        }
     }
 }
+
+//- (void)handlePanFrom1:(UIPanGestureRecognizer*)recognizer
+//{
+//    CGPoint translation = [recognizer translationInView:_topicTableView];
+//    CGFloat offsetY = 0.0;
+//    offsetY = -translation.y;
+//    [self didChangeLayoutWithOffset:offsetY andTableView:_topicTableView];
+//}
+//
+//- (void)handlePanFrom2:(UIPanGestureRecognizer*)recognizer
+//{
+//    CGPoint translation = [recognizer translationInView:_questionTableView];
+//    CGFloat offsetY = 0.0;
+//    offsetY = -translation.y;
+//    [self didChangeLayoutWithOffset:offsetY andTableView:_questionTableView];
+//}
+//
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+//    return YES;
+//}
+
+//- (void)didChangeLayoutWithOffset:(CGFloat)offset andTableView:(UITableView *)tableview{
+//    if (offset > 0) {
+//        [UIView animateWithDuration:0.5 animations:^{
+//            CGRect frame = self.containerView.frame;
+//            frame.origin.y = 64 - XEDisplayMotionHeight;
+//            self.containerView.frame = frame;
+//            CGRect frame2;
+//            if (tableview == self.topicTableView) {
+//                frame2 = self.topicTableView.frame;
+//            }else if (tableview == self.questionTableView) {
+//                frame2 = self.questionTableView.frame;
+//            }
+//            frame2.origin.y = frame.origin.y + frame.size.height;
+//            frame2.size.height = SCREEN_HEIGHT - 44 - frame2.origin.y;
+//            self.topicTableView.frame = frame2;
+//            self.questionTableView.frame = frame2;
+//        }];
+//    }else if (offset < -100) {
+//        [UIView animateWithDuration:0.5 animations:^{
+//            CGRect frame = self.containerView.frame;
+//            frame.origin.y = 64;
+//            self.containerView.frame = frame;
+//            CGRect frame2;
+//            if (tableview == self.topicTableView) {
+//                frame2 = self.topicTableView.frame;
+//            }else if (tableview == self.questionTableView) {
+//                frame2 = self.questionTableView.frame;
+//            }
+//            frame2.origin.y = frame.origin.y + frame.size.height;
+//            frame2.size.height = SCREEN_HEIGHT - 44 - frame2.origin.y;
+//            self.topicTableView.frame = frame2;
+//            self.questionTableView.frame = frame2;
+//        }];
+//    }
+//}
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -405,6 +420,23 @@
         return _questionArray.count;
     }
     return _topicArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+
+    return 44;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (tableView == self.questionTableView) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+        [view addSubview:self.sectionView];
+        return view;
+    }else{
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+        [view addSubview:self.sectionView2];
+        return view;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -489,7 +521,6 @@
 
 - (IBAction)loadMoreAction:(id)sender {
     _bClick = YES;
-    self.footerView.hidden = YES;
     __weak ExpertChatViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getHotTopicWithWithPagenum:weakSelf.tNextCursor tag:tag];
@@ -522,6 +553,7 @@
             weakSelf.topicTableView.showsInfiniteScrolling = YES;
             weakSelf.tNextCursor ++;
         }
+        weakSelf.topicTableView.tableFooterView = nil;
         [weakSelf.topicTableView reloadData];
         
     } tag:tag];
