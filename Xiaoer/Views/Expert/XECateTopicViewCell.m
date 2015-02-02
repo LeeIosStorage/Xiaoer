@@ -51,7 +51,10 @@
         [self.avatarImageView sd_setImageWithURL:nil];
         [self.avatarImageView setImage:[UIImage imageNamed:@"topic_load_icon"]];
     }
-    [self.avatarImageView.layer setCornerRadius:35];
+    self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width/2;
+    self.avatarImageView.layer.masksToBounds = YES;
+    self.avatarImageView.clipsToBounds = YES;
+    self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     if (_topicInfo.isTop) {
         self.topImageView.hidden = NO;
         [self.topImageView setImage:[UIImage imageNamed:@"info_top_icon"]];

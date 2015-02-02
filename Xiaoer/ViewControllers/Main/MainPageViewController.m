@@ -519,4 +519,11 @@
     [self.tableView reloadData];
 }
 
+#pragma mark -XETabBarControllerSubVcProtocol
+- (void)tabBarController:(XETabBarViewController *)tabBarController reSelectVc:(UIViewController *)viewController {
+    if (viewController == self) {
+        [self.tableView setContentOffset:CGPointMake(0, 0 - self.tableView.contentInset.top) animated:NO];
+    }
+}
+
 @end

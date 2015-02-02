@@ -127,8 +127,8 @@ enum TABLEVIEW_SECTION_INDEX {
             [self setTitle:@"我的"];
         }
         self.loginBtn.hidden = YES;
-        [self.ownerbkImageView sd_setImageWithURL:_userInfo.originalAvatarUrl placeholderImage:[UIImage imageNamed:@"placeholder_avatar_bg"]];
-        [self.ownerHeadImageView sd_setImageWithURL:_userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"placeholder_avatar_icon"]];
+        [self.ownerbkImageView sd_setImageWithURL:_userInfo.originalAvatarUrl placeholderImage:[UIImage imageNamed:@"activity_load_icon"]];
+        [self.ownerHeadImageView sd_setImageWithURL:_userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
         self.ownerHeadImageView.layer.CornerRadius = 8;
         self.nickName.text = _userInfo.nickName;
         self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];

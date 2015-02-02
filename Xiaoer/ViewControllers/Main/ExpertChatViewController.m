@@ -52,8 +52,8 @@
 @property (strong, nonatomic) IBOutlet UIView *footerView;
 @property (strong, nonatomic) IBOutlet UIView *containerView;
 
-@property (strong, nonatomic) IBOutlet UITableView *topicTableView;
-@property (strong, nonatomic) IBOutlet UITableView *questionTableView;
+@property (weak, nonatomic) IBOutlet UITableView *topicTableView;
+@property (weak, nonatomic) IBOutlet UITableView *questionTableView;
 @property (strong, nonatomic) IBOutlet UIButton *topicBtn;
 @property (strong, nonatomic) IBOutlet UIButton *questionBtn;
 @property (weak, nonatomic) IBOutlet UILabel *loadmoreLabel;
@@ -173,7 +173,7 @@
             for (NSDictionary *dic in object) {
                 XEQuestionInfo *questionInfo = [[XEQuestionInfo alloc] init];
                 [questionInfo setQuestionInfoByJsonDic:dic];
-                [weakSelf.topicArray addObject:questionInfo];
+                [weakSelf.questionArray addObject:questionInfo];
             }
             
             weakSelf.questionLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
@@ -468,20 +468,20 @@
         cell.isExpertChat = YES;
         cell.topicInfo = topicInfo;
         return cell;
+    }else{
+        static NSString *CellIdentifier = @"XEQuestionViewCell";
+        XEQuestionViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
+            cell = [cells objectAtIndex:0];
+            cell.backgroundColor = [UIColor clearColor];
+        }
+        
+        XEQuestionInfo *info = _questionArray[indexPath.row];
+        cell.isExpertChat = YES;
+        cell.questionInfo = info;
+        return cell;
     }
-    
-    static NSString *CellIdentifier = @"XEQuestionViewCell";
-    XEQuestionViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
-        cell = [cells objectAtIndex:0];
-        cell.backgroundColor = [UIColor clearColor];
-    }
-    
-    XEQuestionInfo *info = _questionArray[indexPath.row];
-    cell.isExpertChat = YES;
-    cell.questionInfo = info;
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -586,6 +586,14 @@
         [weakSelf.navigationController pushViewController:elVc animated:YES];
     }];
     [_menuView show];
+}
+
+#pragma mark -XETabBarControllerSubVcProtocol
+- (void)tabBarController:(XETabBarViewController *)tabBarController reSelectVc:(UIViewController *)viewController {
+    if (viewController == self) {
+        [self.topicTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+        [self.questionTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    }
 }
 
 - (void)dealloc{
