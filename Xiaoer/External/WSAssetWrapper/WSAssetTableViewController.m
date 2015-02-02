@@ -172,10 +172,15 @@
     
     WSAssetWrapper *assetWrapper = [self.fetchedAssets objectAtIndex:assetIndex];
     
-    if ((shouldSelectAsset == NO) && (assetWrapper.isSelected == NO))
+    if ((shouldSelectAsset == NO) && (assetWrapper.isSelected == NO)){
         self.assetPickerState.state = WSAssetPickerStateSelectionLimitReached;
-    else
+        NSString* alertMsg = [NSString stringWithFormat:@"您一次最多只能选择%ld张图片哦", self.assetPickerState.selectionLimit];
+        UIAlertView *noticeAlert = [[UIAlertView alloc] initWithTitle:nil message:alertMsg delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [noticeAlert show];
+    }
+    else{
         self.assetPickerState.state = WSAssetPickerStatePickingAssets;
+    }
     
     return shouldSelectAsset;
 }

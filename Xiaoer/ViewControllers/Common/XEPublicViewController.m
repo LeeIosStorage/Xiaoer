@@ -288,6 +288,7 @@
 
 -(void)refreshTypeButton{
     if ([_selectTopicTypeDic objectForKey:TopicType_Cat]) {
+//        [self.topicTypeBtn setImage:[UIImage imageNamed:[_selectTopicTypeDic objectForKey:TopicType_Pic]] forState:0];
         [self.topicTypeBtn setTitle:[NSString stringWithFormat:@"%@ 分类",[_selectTopicTypeDic objectForKey:TopicType_Title]] forState:0];
     }else{
         [self.topicTypeBtn setTitle:@"请选择话题分类（必选）" forState:0];
