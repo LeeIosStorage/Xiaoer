@@ -46,10 +46,10 @@
     [self.commentLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.favnum] forState:0];
     [self.collectLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.clicknum] forState:0];
     if (![topicInfo.smallAvatarUrl isEqual:[NSNull null]]) {
-        [self.avatarImageView sd_setImageWithURL:topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"user_avatar_samll_dafault"]];
+        [self.avatarImageView sd_setImageWithURL:topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
     }else{
         [self.avatarImageView sd_setImageWithURL:nil];
-        [self.avatarImageView setImage:[UIImage imageNamed:@"user_avatar_samll_dafault"]];
+        [self.avatarImageView setImage:[UIImage imageNamed:@"topic_load_icon"]];
     }
     [self.avatarImageView.layer setCornerRadius:35];
     if (_topicInfo.isTop) {

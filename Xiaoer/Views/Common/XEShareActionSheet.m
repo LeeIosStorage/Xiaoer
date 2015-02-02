@@ -37,7 +37,7 @@
     _csheet.shareSectionHidden = YES;
     if (_selectShareType == XEShareType_Topic) {
         if ([self topicIsCollect])
-            _csheet.collectBtnTitle = @"已收藏";
+            _csheet.collectBtnTitle = @"取消收藏";
         else
             _csheet.collectBtnTitle = @"收藏";
         if (!_topicInfo.uId || (_topicInfo.uId && [_topicInfo.uId isEqualToString:[XEEngine shareInstance].uid])) {

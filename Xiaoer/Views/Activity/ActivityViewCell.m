@@ -28,7 +28,7 @@
     _activityInfo = activityInfo;
     
     
-    [self.activityImageView sd_setImageWithURL:activityInfo.picUrl placeholderImage:[UIImage imageNamed:@"activity_pic_default"]];
+    [self.activityImageView sd_setImageWithURL:activityInfo.picUrl placeholderImage:[UIImage imageNamed:@"activity_load_icon"]];
     
     _titleLabel.text = activityInfo.title;
 //    XELog(@"_activityInfo.begintime%@",_activityInfo.begintime);

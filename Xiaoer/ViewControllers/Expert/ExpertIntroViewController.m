@@ -219,7 +219,7 @@
     self.avatarImageView.layer.masksToBounds = YES;
     self.avatarImageView.clipsToBounds = YES;
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.avatarImageView sd_setImageWithURL:_doctorInfo.mediumAvatarUrl placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
+    [self.avatarImageView sd_setImageWithURL:_doctorInfo.mediumAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
     self.doctorNameLabel.text = [NSString stringWithFormat:@"%@ %d岁",_doctorInfo.doctorName,_doctorInfo.age];
     self.doctorCollegeLabel.text = _doctorInfo.hospital;
     self.doctorIntroLabel.text = _doctorInfo.des;

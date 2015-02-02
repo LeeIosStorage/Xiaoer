@@ -424,7 +424,7 @@
             [cell.leftAvater setImage:_babyAvatar];
         }else{
             [cell.leftAvater sd_setImageWithURL:nil];
-            [cell.leftAvater sd_setImageWithURL:[NSURL URLWithString:[rowDicts objectForKey:@"intro"]] placeholderImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
+            [cell.leftAvater sd_setImageWithURL:[NSURL URLWithString:[rowDicts objectForKey:@"intro"]] placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
         }
     }
     

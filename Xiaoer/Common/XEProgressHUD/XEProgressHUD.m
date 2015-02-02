@@ -10,6 +10,7 @@
 #import "ProgressHUD.h"
 #import "ProgressHUDJF.h"
 #import "MBProgressHUD.h"
+#import "AppDelegate.h"
 
 @implementation XEProgressHUD
 
@@ -63,7 +64,8 @@
 + (void) lightAlert:(NSString *)Info
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+        UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
+        MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:window animated:YES];
         HUD.mode = MBProgressHUDModeText;
         HUD.labelText = Info;
         HUD.margin = 10.f;
