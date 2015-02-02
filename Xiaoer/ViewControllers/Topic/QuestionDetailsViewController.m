@@ -79,6 +79,8 @@
     _questionImageGridView.delegate = self;
     
     [self refreshQuestionInfoShow];
+    
+    [self getCacheQuestionInfo];//cache
     [self refreshQuestionInfo];
     
 }
@@ -101,6 +103,31 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)getCacheQuestionInfo{
+    __weak QuestionDetailsViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getQuestionDetailsWithQuestionId:_questionInfo.sId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            NSDictionary *questionDic = [jsonRet dictionaryObjectForKey:@"question"];
+            weakSelf.questionInfo = [[XEQuestionInfo alloc] init];
+            [weakSelf.questionInfo setQuestionInfoByJsonDic:questionDic];
+            
+            NSDictionary *exComment = [jsonRet dictionaryObjectForKey:@"answer"];
+            if (exComment) {
+                weakSelf.expertComment = [[XECommentInfo alloc] init];
+                [weakSelf.expertComment setCommentInfoByJsonDic:exComment];
+            }
+            
+            [weakSelf refreshQuestionInfoShow];
+            [weakSelf.tableView reloadData];
+        }
+    }];
+}
 
 -(void)refreshQuestionInfo{
     
@@ -158,12 +185,18 @@
 //    self.titleContainerView.frame = frame;
     
     //expertAnswer view
-    self.answerTitleLabel.text = @"专家答复：";
+    self.answerTitleLabel.text = @"专家未答复：";
+    if (_questionInfo.status == 1) {
+        self.answerTitleLabel.text = @"专家未答复";
+    }else if (_questionInfo.status == 2){
+        self.answerTitleLabel.text = @"专家答复：";
+    }else if (_questionInfo.status == 3){
+        self.answerTitleLabel.text = @"问题被驳回";
+    }
     self.answerContentLabel.text = _expertComment.content;
     self.answerContentLabel.hidden = NO;
-    if (_expertComment.content.length == 0) {
+    if (_expertComment.content.length == 0 || _questionInfo.status != 2) {
         self.answerContentLabel.hidden = YES;
-        self.answerTitleLabel.text = @"专家未答复";
     }
     CGSize textSize = [XECommonUtils sizeWithText:_expertComment.content font:self.answerContentLabel.font width:SCREEN_WIDTH-13*2];
     CGRect frame = self.answerContentLabel.frame;

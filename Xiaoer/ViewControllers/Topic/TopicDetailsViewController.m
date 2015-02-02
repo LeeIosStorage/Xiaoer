@@ -63,6 +63,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *expertHospitalLabel;
 
 @property (strong, nonatomic) IBOutlet UIView *toolbarContainerView;
+@property (strong, nonatomic) IBOutlet UIImageView *inputViewBgImageView;
 @property (strong, nonatomic) IBOutlet HPGrowingTextView *growingTextView;
 @property (strong, nonatomic) IBOutlet UILabel *placeHolderLabel;
 @property (strong, nonatomic) IBOutlet UIButton *expressionBtn;
@@ -139,6 +140,8 @@
     
     [self getCommentInfos];
     [self refreshTopicInfoShow];
+    
+    [self getCacheTopicInfo];//cache
     [self refreshTopicInfo];
     
 }
@@ -162,6 +165,38 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)getCacheTopicInfo{
+    __weak TopicDetailsViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getTopicDetailsInfoWithTopicId:_topicInfo.tId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            NSDictionary *topicDic = [[jsonRet objectForKey:@"object"] dictionaryObjectForKey:@"topic"];
+            [weakSelf.topicInfo setTopicInfoByJsonDic:topicDic];
+            
+            weakSelf.topicComments = [[NSMutableArray alloc] init];
+            NSArray *comments = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"comments"];
+            for (NSDictionary *dic in comments) {
+                XECommentInfo *commentInfo = [[XECommentInfo alloc] init];
+                [commentInfo setCommentInfoByJsonDic:dic];
+                [weakSelf.topicComments addObject:commentInfo];
+            }
+            
+            NSDictionary *exComment = [[jsonRet objectForKey:@"object"] dictionaryObjectForKey:@"expertcomment"];
+            if (exComment) {
+                weakSelf.expertComment = [[XECommentInfo alloc] init];
+                [weakSelf.expertComment setCommentInfoByJsonDic:exComment];
+            }
+            
+            [weakSelf refreshTopicInfoShow];
+            [weakSelf.tableView reloadData];
+        }
+    }];
+}
 
 -(void)refreshTopicInfo{
     
@@ -286,6 +321,7 @@
     self.expertAvatarImgView.contentMode = UIViewContentModeScaleAspectFill;
     
     self.expertCommentBgImgView.image = [[UIImage imageNamed:@"expert_comment_background"] stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+    _inputViewBgImageView.image = [[UIImage imageNamed:@"verify_commit_bg"] stretchableImageWithLeftCapWidth:20 topCapHeight:15];
     
     [self.authorAvatarImgView sd_setImageWithURL:_topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
     self.authorNameLabel.text = _topicInfo.userName;

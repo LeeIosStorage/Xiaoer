@@ -91,6 +91,7 @@
         } tag:tag];
     }];
     
+    [self getCacheExpertInfo];
     [self refreshExpertList:YES];
 }
 
@@ -112,6 +113,27 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)getCacheExpertInfo{
+    __weak ExpertListViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getExpertListWithPage:1 tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            weakSelf.expertList = [[NSMutableArray alloc] init];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"experts"];
+            for (NSDictionary *dic in object) {
+                XEDoctorInfo *doctorInfo = [[XEDoctorInfo alloc] init];
+                [doctorInfo setDoctorInfoByJsonDic:dic];
+                [weakSelf.expertList addObject:doctorInfo];
+            }
+            [weakSelf.tableView reloadData];
+        }
+    }];
+}
 
 - (void)refreshExpertList:(BOOL)isAlert{
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -32,11 +32,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="ruC-H9-927" userLabel="View - login">
-                    <rect key="frame" x="0.0" y="104" width="320" height="150"/>
+                    <rect key="frame" x="0.0" y="104" width="320" height="155"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入邮箱" textAlignment="center" minimumFontSize="17" background="verify_commit_bg" id="WQA-D2-6tS">
-                            <rect key="frame" x="48" y="0.0" width="224" height="30"/>
+                            <rect key="frame" x="48" y="0.0" width="224" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -45,7 +45,7 @@
                             </connections>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" textAlignment="center" minimumFontSize="17" background="verify_commit_bg" id="0Hj-W7-Vsp">
-                            <rect key="frame" x="48" y="40" width="224" height="30"/>
+                            <rect key="frame" x="48" y="45" width="224" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -54,7 +54,7 @@
                             </connections>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UhH-BP-czn">
-                            <rect key="frame" x="48" y="85" width="224" height="30"/>
+                            <rect key="frame" x="48" y="90" width="224" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.43921571970000001" green="0.76862752440000004" blue="0.90588241820000004" alpha="1" colorSpace="deviceRGB"/>
                             <state key="normal" title="登录" backgroundImage="login_btn_enabled">
@@ -67,7 +67,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="EYd-yn-S6o">
-                            <rect key="frame" x="113" y="120" width="94" height="30"/>
+                            <rect key="frame" x="113" y="125" width="94" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" title=" 忘记密码？">
@@ -81,7 +81,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="lFL-M0-5N4" userLabel="View - register">
-                    <rect key="frame" x="0.0" y="84" width="320" height="284"/>
+                    <rect key="frame" x="0.0" y="84" width="320" height="288"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="lQf-Mg-eZE">
@@ -93,7 +93,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="center" minimumFontSize="16" background="verify_commit_bg" id="rnA-pf-TuY">
-                                    <rect key="frame" x="0.0" y="8" width="153" height="30"/>
+                                    <rect key="frame" x="0.0" y="6" width="153" height="35"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
@@ -102,7 +102,7 @@
                                     </connections>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ef2-xz-gDu">
-                                    <rect key="frame" x="152" y="8" width="72" height="30"/>
+                                    <rect key="frame" x="152" y="6" width="72" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.43921571970000001" green="0.76862752440000004" blue="0.90588241820000004" alpha="1" colorSpace="deviceRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -118,11 +118,11 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="B4r-eD-IbS">
-                            <rect key="frame" x="48" y="170" width="224" height="116"/>
+                            <rect key="frame" x="48" y="170" width="224" height="118"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入收到的验证码" textAlignment="center" minimumFontSize="17" background="verify_commit_bg" id="9xu-mr-hfC">
-                                    <rect key="frame" x="0.0" y="0.0" width="224" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="224" height="35"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -131,7 +131,7 @@
                                     </connections>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JHi-D6-s0G">
-                                    <rect key="frame" x="0.0" y="42" width="224" height="30"/>
+                                    <rect key="frame" x="0.0" y="46" width="224" height="30"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.43921571970000001" green="0.76862752440000004" blue="0.90588241820000004" alpha="1" colorSpace="deviceRGB"/>
                                     <state key="normal" title="同意并确认" backgroundImage="login_btn_enabled">
@@ -144,14 +144,14 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击按钮，代表您已阅读并同意" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ij1-fD-iBN">
-                                    <rect key="frame" x="22" y="80" width="180" height="12"/>
+                                    <rect key="frame" x="22" y="83" width="180" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kiZ-HB-fMe">
-                                    <rect key="frame" x="22" y="86" width="180" height="30"/>
+                                    <rect key="frame" x="22" y="88" width="180" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <state key="normal" title="晓儿客户端协议">

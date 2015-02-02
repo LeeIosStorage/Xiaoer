@@ -122,11 +122,11 @@
             _verifyButton.enabled = YES;
             [_verifyButton setBackgroundColor:UIColorToRGB(0x6cc5e9)];
         }
-        [_verifyButton setTitle:@"重新获取验证码" forState:UIControlStateNormal];
+        [_verifyButton setTitle:@"获取验证码" forState:UIControlStateNormal];
         return;
     }
     
-    [_verifyButton setTitle:[NSString stringWithFormat:@"正在获取(%d秒)",_waitSmsSecond] forState:UIControlStateNormal];
+    [_verifyButton setTitle:[NSString stringWithFormat:@"%d秒",_waitSmsSecond] forState:UIControlStateNormal];
     
     _waitSmsSecond--;
     

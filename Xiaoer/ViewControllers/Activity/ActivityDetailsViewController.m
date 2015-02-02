@@ -39,6 +39,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self getCacheActivityInfo];//cache
     [self refreshActivityInfo];
     [self refreshActivityHeadShow];
 }
@@ -65,6 +67,26 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)getCacheActivityInfo{
+    __weak ActivityDetailsViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getApplyActivityDetailWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            _servicerInfoSucceed = YES;
+            NSDictionary *dic = [jsonRet dictionaryObjectForKey:@"object"];
+            [weakSelf.activityInfo setActivityInfoByJsonDic:dic];
+            
+            [weakSelf refreshAdsScrollView];
+            [weakSelf refreshActivityHeadShow];
+            [weakSelf.tableView reloadData];
+        }
+    }];
+}
 
 - (void)refreshActivityInfo{
     

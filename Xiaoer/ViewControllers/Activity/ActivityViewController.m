@@ -179,6 +179,7 @@
         self.tableView.hidden = NO;
         
         if (!_activityList) {
+            [self getCacheApplyActivity];
             [self refreshActivityList:YES];
             return;
         }
@@ -192,6 +193,7 @@
         self.tableView.hidden = YES;
         self.historyTableView.hidden = NO;
         if (!_historyActivityList) {
+            [self getCacheHistoryActivity];
             [self refreshHistoryActivityList:YES];
             return;
         }
@@ -211,6 +213,28 @@
 }
 */
 
+#pragma mark - 活动报名
+- (void)getCacheApplyActivity{
+    __weak ActivityViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getApplyActivityListWithPage:1 uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            weakSelf.activityList = [[NSMutableArray alloc] init];
+            
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"activity"];
+            for (NSDictionary *dic in object) {
+                XEActivityInfo *activityInfo = [[XEActivityInfo alloc] init];
+                [activityInfo setActivityInfoByJsonDic:dic];
+                [weakSelf.activityList addObject:activityInfo];
+            }
+            [weakSelf.tableView reloadData];
+        }
+    }];
+}
 - (void)refreshActivityList:(BOOL)isAlert{
     
 //    if (isAlert) {
@@ -254,6 +278,27 @@
     }tag:tag];
 }
 
+#pragma mark - 历史活动
+- (void)getCacheHistoryActivity{
+    __weak ActivityViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getHistoryActivityListWithPage:1 tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            weakSelf.historyActivityList = [[NSMutableArray alloc] init];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"activity"];
+            for (NSDictionary *dic in object) {
+                XERecipesInfo *recipesInfo = [[XERecipesInfo alloc] init];
+                [recipesInfo setRecipesInfoByDic:dic];
+                [weakSelf.historyActivityList addObject:recipesInfo];
+            }
+            [weakSelf.historyTableView reloadData];
+        }
+    }];
+}
 - (void)refreshHistoryActivityList:(BOOL)isAlert{
     
 //    if (isAlert) {
