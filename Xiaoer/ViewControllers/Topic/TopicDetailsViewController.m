@@ -906,7 +906,7 @@
 }
 
 #pragma mark - XEShareActionSheetDelegate
--(void) deleteTopicAction:(XETopicInfo *) feedInfo{
+-(void) deleteTopicAction:(id)info{
     [super backAction:nil];
 }
 

@@ -11,6 +11,7 @@
 @interface XEQuestionInfo : NSObject
 
 @property(nonatomic, strong) NSString* sId;
+@property(nonatomic, strong) NSString* uId;
 @property(nonatomic, strong) NSString* title;
 @property(nonatomic, assign) int clicknum;
 @property(nonatomic, assign) int favnum;

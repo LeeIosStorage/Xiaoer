@@ -8,15 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "XETopicInfo.h"
+#import "XEQuestionInfo.h"
 
 typedef enum XEUrlShareType_{
     XEShareType_Expert,
     XEShareType_Activity,
-    XEShareType_Topic
+    XEShareType_Topic,
+    XEShareType_Qusetion
 }XEShareType;
 
 @protocol XEShareActionSheetDelegate <NSObject>
--(void) deleteTopicAction:(XETopicInfo *) feedInfo;
+-(void) deleteTopicAction:(id)info;
 @end
 
 @interface XEShareActionSheet : NSObject
@@ -25,6 +27,8 @@ typedef enum XEUrlShareType_{
 @property (nonatomic, weak) UIViewController<XEShareActionSheetDelegate> *owner;
 
 @property (nonatomic, strong) XETopicInfo *topicInfo;
+
+@property (nonatomic, strong) XEQuestionInfo *questionInfo;
 
 -(void) showShareAction;
 

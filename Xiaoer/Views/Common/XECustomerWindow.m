@@ -52,6 +52,9 @@ float labelColor = 170/255.0;
 -(void)setShareSectionHidden:(BOOL)shareSectionHidden{
     _shareSectionHidden = shareSectionHidden;
 }
+-(void)setCollectBtnHidden:(BOOL)collectBtnHidden{
+    _collectBtnHidden = collectBtnHidden;
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -141,6 +144,7 @@ float labelColor = 170/255.0;
     }
     
     CGFloat sheetOperateViewHeight = 106;
+    _collectBtn.hidden = NO;
     _deleteBtn.hidden = YES;
     if (!_deleteBtnHidden) {
         _deleteBtn.hidden = NO;
@@ -148,8 +152,13 @@ float labelColor = 170/255.0;
     }else{
         sheetOperateViewHeight = 65;
     }
-    [_collectBtn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [_collectBtn setTitle:_collectBtnTitle forState:0];
+    if (!_collectBtnHidden) {
+        [_collectBtn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_collectBtn setTitle:_collectBtnTitle forState:0];
+    }else{
+        _collectBtn.hidden = YES;
+        sheetOperateViewHeight = 65;
+    }
     
     
     oframe = _sheetOperateView.frame;

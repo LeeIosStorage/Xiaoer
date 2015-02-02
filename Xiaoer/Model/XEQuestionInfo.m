@@ -49,6 +49,7 @@
     }
     _questionInfoByJsonDic = [[NSMutableDictionary alloc] initWithDictionary:dic];
     _sId = [[dic objectForKey:@"id"] description];
+    _uId = [[dic objectForKey:@"uid"] description];
     
     @try {
         [self doSetQuestionInfoByJsonDic:dic];

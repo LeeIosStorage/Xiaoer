@@ -63,7 +63,14 @@
     WSAlbumTableViewController *albumTableViewController = [[WSAlbumTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [self setViewControllers:@[albumTableViewController] animated:NO];
     self.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-    self.toolbar.barStyle = UIBarStyleBlackTranslucent;
+//    self.toolbar.barStyle = UIBarStyleBlackTranslucent;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
+        [[UINavigationBar appearance] setBarTintColor:SKIN_COLOR];
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    } else {
+        [[UINavigationBar appearance] setTintColor:SKIN_COLOR];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
     albumTableViewController.assetPickerState = self.assetPickerState;
 }
 
@@ -116,7 +123,7 @@
     
     self.originalStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     
     // Start observing state changes and selectedCount changes.
     [_assetPickerState addObserver:self forKeyPath:STATE_KEY options:NSKeyValueObservingOptionNew context:NULL];
