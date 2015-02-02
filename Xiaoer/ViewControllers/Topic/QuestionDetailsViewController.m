@@ -146,7 +146,7 @@
     
     self.expertCommentBgImgView.image = [[UIImage imageNamed:@"ask_question_background"] stretchableImageWithLeftCapWidth:60 topCapHeight:30];
     
-    [self.answerAvatarImgView sd_setImageWithURL:_expertComment.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
+    [self.answerAvatarImgView sd_setImageWithURL:_expertComment.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
     self.answerNameLabel.text = _expertComment.userName;
     self.answerHospitalLabel.text = _expertComment.title;
     self.answerTimeLabel.text = [XEUIUtils dateDiscriptionFromNowBk:_expertComment.time];
@@ -292,7 +292,7 @@
         
     }
     UIImageView* imageView = (UIImageView* )cell.contentView;
-    NSString *imgName = @"content_pic_default";
+    NSString *imgName = @"topic_load_icon";
     if (gridView == _answerImageGridView) {
         [imageView sd_setImageWithURL:[self.expertComment.picURLs objectAtIndex:index] placeholderImage:[UIImage imageNamed:imgName]];
     }else if (gridView == _questionImageGridView){

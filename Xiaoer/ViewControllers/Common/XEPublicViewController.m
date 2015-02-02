@@ -230,6 +230,7 @@
                 if (!errorMsg.length) {
                     errorMsg = @"上传失败";
                 }
+                [XEProgressHUD AlertError:errorMsg];
                 return;
             }
             [imgIdDics setObject:[jsonRet stringObjectForKey:@"object"] forKey:[NSNumber numberWithInt:index]];

@@ -140,7 +140,7 @@
         [self.avatarImageView sd_setImageWithURL:nil];
         [self.avatarImageView setImage:nil];
     }else{
-        [self.avatarImageView sd_setImageWithURL:_activityInfo.picUrl placeholderImage:[UIImage imageNamed:@"activity_pic_default"]];
+        [self.avatarImageView sd_setImageWithURL:_activityInfo.picUrl placeholderImage:[UIImage imageNamed:@"activity_load_icon"]];
     }
     
     self.titleLabel.text = _activityInfo.title;

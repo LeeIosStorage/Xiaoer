@@ -287,12 +287,12 @@
     
     self.expertCommentBgImgView.image = [[UIImage imageNamed:@"expert_comment_background"] stretchableImageWithLeftCapWidth:20 topCapHeight:30];
     
-    [self.authorAvatarImgView sd_setImageWithURL:_topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
+    [self.authorAvatarImgView sd_setImageWithURL:_topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
     self.authorNameLabel.text = _topicInfo.userName;
     self.authorHospitalLabel.text = _topicInfo.utitle;
     self.timeLabel.text = [XEUIUtils dateDiscriptionFromNowBk:_topicInfo.time];
     
-    [self.commentButton setTitle:[NSString stringWithFormat:@"评论%d",_topicInfo.clicknum] forState:0];
+    [self.commentButton setTitle:[NSString stringWithFormat:@"评论%d",_topicInfo.commentnum] forState:0];
     [self.collectButton setTitle:[NSString stringWithFormat:@"收藏%d",_topicInfo.favnum] forState:0];
     
     self.titleLabel.text = _topicInfo.title;
@@ -348,7 +348,7 @@
     //expertComment
     if (_expertComment.content) {
         
-        [self.expertAvatarImgView sd_setImageWithURL:_expertComment.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"user_avatar_default"]];
+        [self.expertAvatarImgView sd_setImageWithURL:_expertComment.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
         self.expertNameLabel.text = _expertComment.userName;
         self.expertHospitalLabel.text = _expertComment.title;
         
@@ -670,7 +670,7 @@
         
     }
     UIImageView* imageView = (UIImageView* )cell.contentView;
-    NSString *imgName = @"content_pic_default";
+    NSString *imgName = @"topic_load_icon";
     [imageView sd_setImageWithURL:[self.topicInfo.picURLs objectAtIndex:index] placeholderImage:[UIImage imageNamed:imgName]];
     return cell;
 }
