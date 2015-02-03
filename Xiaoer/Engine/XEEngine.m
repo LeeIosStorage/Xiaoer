@@ -1128,6 +1128,7 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
+#pragma mark - mine
 //我的卡包list
 - (BOOL)getCardListWithUid:(NSString *)uid pagenum:(int)page tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
@@ -1140,4 +1141,26 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
+- (BOOL)getMyApplyActivityListWithUid:(NSString *)uid page:(int)page tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (page > 0) {
+        [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
+    }
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/activity/myreg",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)getMyCollectActivityListWithUid:(NSString *)uid page:(int)page tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (page > 0) {
+        [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
+    }
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/activity/myfav",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
 @end

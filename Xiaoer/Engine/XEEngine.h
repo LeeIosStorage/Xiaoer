@@ -171,5 +171,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 #pragma mark - mine
 //我的卡包list
 - (BOOL)getCardListWithUid:(NSString *)uid pagenum:(int)page tag:(int)tag;
+- (BOOL)getMyApplyActivityListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
+- (BOOL)getMyCollectActivityListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
 
 @end

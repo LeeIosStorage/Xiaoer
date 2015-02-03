@@ -18,6 +18,7 @@
 #import "CollectionViewController.h"
 #import "MineMsgViewController.h"
 #import "CardPackViewController.h"
+#import "MineActivityListViewController.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
@@ -250,7 +251,8 @@ enum TABLEVIEW_SECTION_INDEX {
                 [self.navigationController pushViewController:mVc animated:YES];
                 break;
             }else if (indexPath.row == 1){
-                NSLog(@"============我的活动");
+                MineActivityListViewController *mVc = [[MineActivityListViewController alloc] init];
+                [self.navigationController pushViewController:mVc animated:YES];
                 break;
             }else if (indexPath.row == 2){
                 CollectionViewController *cVc = [[CollectionViewController alloc] init];
