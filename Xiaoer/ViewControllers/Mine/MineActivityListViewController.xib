@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CollectionViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MineActivityListViewController">
             <connections>
-                <outlet property="expertTableView" destination="7Hm-9M-MXU" id="PNx-jG-xb9"/>
-                <outlet property="informationTableView" destination="9O0-vK-rCl" id="ZWi-4v-4lF"/>
+                <outlet property="applyTableView" destination="aa0-HH-6kQ" id="7j3-g0-Oib"/>
+                <outlet property="collectTableView" destination="GuQ-ZL-D6n" id="fI7-lP-XHs"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -17,27 +17,27 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="7Hm-9M-MXU">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="GuQ-ZL-D6n">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="v21-Q1-qE4"/>
-                        <outlet property="delegate" destination="-1" id="5Su-GM-DZG"/>
+                        <outlet property="dataSource" destination="-1" id="g3Q-gZ-gG4"/>
+                        <outlet property="delegate" destination="-1" id="3fl-Te-rHm"/>
                     </connections>
                 </tableView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9O0-vK-rCl">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="aa0-HH-6kQ">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="mss-Fe-1ka"/>
-                        <outlet property="delegate" destination="-1" id="RcX-Yw-sjy"/>
+                        <outlet property="dataSource" destination="-1" id="qlZ-N6-QaJ"/>
+                        <outlet property="delegate" destination="-1" id="8zF-5Z-8fg"/>
                     </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="477" y="260"/>
+            <point key="canvasLocation" x="261" y="245"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

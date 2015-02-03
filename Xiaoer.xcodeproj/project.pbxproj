@@ -163,6 +163,14 @@
 		0774A8851A66705D00336465 /* XEActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774A87E1A66705D00336465 /* XEActionSheet.m */; };
 		0774A8861A66705D00336465 /* XEAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774A8811A66705D00336465 /* XEAlertView.m */; };
 		0774A8871A66705D00336465 /* XEProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0774A8841A66705D00336465 /* XEProgressHUD.m */; };
+		077663961A80674E004C885B /* MineActivityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077663941A80674E004C885B /* MineActivityListViewController.m */; };
+		077663971A80674E004C885B /* MineActivityListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077663951A80674E004C885B /* MineActivityListViewController.xib */; };
+		0776639B1A80779A004C885B /* ActivityApplyViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 077663991A80779A004C885B /* ActivityApplyViewCell.m */; };
+		0776639C1A80779A004C885B /* ActivityApplyViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0776639A1A80779A004C885B /* ActivityApplyViewCell.xib */; };
+		077663A01A809C01004C885B /* MineTopicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0776639E1A809C01004C885B /* MineTopicListViewController.m */; };
+		077663A11A809C01004C885B /* MineTopicListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0776639F1A809C01004C885B /* MineTopicListViewController.xib */; };
+		077663A51A80C0DB004C885B /* CollectActivityViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 077663A31A80C0DB004C885B /* CollectActivityViewCell.m */; };
+		077663A61A80C0DB004C885B /* CollectActivityViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077663A41A80C0DB004C885B /* CollectActivityViewCell.xib */; };
 		077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0779166E1A5E64BA0047C17C /* PerfectInfoViewController.m */; };
 		077916711A5E64BA0047C17C /* PerfectInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0779166F1A5E64BA0047C17C /* PerfectInfoViewController.xib */; };
 		077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98AE1A53A11000E2985B /* XEUserInfo.m */; };
@@ -570,6 +578,18 @@
 		0774A8811A66705D00336465 /* XEAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAlertView.m; sourceTree = "<group>"; };
 		0774A8831A66705D00336465 /* XEProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEProgressHUD.h; sourceTree = "<group>"; };
 		0774A8841A66705D00336465 /* XEProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEProgressHUD.m; sourceTree = "<group>"; };
+		077663931A80674E004C885B /* MineActivityListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineActivityListViewController.h; sourceTree = "<group>"; };
+		077663941A80674E004C885B /* MineActivityListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineActivityListViewController.m; sourceTree = "<group>"; };
+		077663951A80674E004C885B /* MineActivityListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineActivityListViewController.xib; sourceTree = "<group>"; };
+		077663981A80779A004C885B /* ActivityApplyViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityApplyViewCell.h; sourceTree = "<group>"; };
+		077663991A80779A004C885B /* ActivityApplyViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityApplyViewCell.m; sourceTree = "<group>"; };
+		0776639A1A80779A004C885B /* ActivityApplyViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityApplyViewCell.xib; sourceTree = "<group>"; };
+		0776639D1A809C01004C885B /* MineTopicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTopicListViewController.h; sourceTree = "<group>"; };
+		0776639E1A809C01004C885B /* MineTopicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTopicListViewController.m; sourceTree = "<group>"; };
+		0776639F1A809C01004C885B /* MineTopicListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineTopicListViewController.xib; sourceTree = "<group>"; };
+		077663A21A80C0DB004C885B /* CollectActivityViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectActivityViewCell.h; sourceTree = "<group>"; };
+		077663A31A80C0DB004C885B /* CollectActivityViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectActivityViewCell.m; sourceTree = "<group>"; };
+		077663A41A80C0DB004C885B /* CollectActivityViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectActivityViewCell.xib; sourceTree = "<group>"; };
 		0779166D1A5E64BA0047C17C /* PerfectInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerfectInfoViewController.h; sourceTree = "<group>"; };
 		0779166E1A5E64BA0047C17C /* PerfectInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerfectInfoViewController.m; sourceTree = "<group>"; };
 		0779166F1A5E64BA0047C17C /* PerfectInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PerfectInfoViewController.xib; sourceTree = "<group>"; };
@@ -1087,6 +1107,9 @@
 				075AA0401A68DEFA000B6302 /* ActivityViewCell.h */,
 				075AA0411A68DEFA000B6302 /* ActivityViewCell.m */,
 				075AA0421A68DEFA000B6302 /* ActivityViewCell.xib */,
+				077663981A80779A004C885B /* ActivityApplyViewCell.h */,
+				077663991A80779A004C885B /* ActivityApplyViewCell.m */,
+				0776639A1A80779A004C885B /* ActivityApplyViewCell.xib */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -1310,6 +1333,9 @@
 				07882C201A80675D003874FA /* CardViewCell.h */,
 				07882C211A80675D003874FA /* CardViewCell.m */,
 				07882C221A80675D003874FA /* CardViewCell.xib */,
+				077663A21A80C0DB004C885B /* CollectActivityViewCell.h */,
+				077663A31A80C0DB004C885B /* CollectActivityViewCell.m */,
+				077663A41A80C0DB004C885B /* CollectActivityViewCell.xib */,
 			);
 			name = Mine;
 			sourceTree = "<group>";
@@ -1729,6 +1755,12 @@
 				07882C281A809B33003874FA /* CardDetailViewController.h */,
 				07882C291A809B33003874FA /* CardDetailViewController.m */,
 				07882C2A1A809B33003874FA /* CardDetailViewController.xib */,
+				077663931A80674E004C885B /* MineActivityListViewController.h */,
+				077663941A80674E004C885B /* MineActivityListViewController.m */,
+				077663951A80674E004C885B /* MineActivityListViewController.xib */,
+				0776639D1A809C01004C885B /* MineTopicListViewController.h */,
+				0776639E1A809C01004C885B /* MineTopicListViewController.m */,
+				0776639F1A809C01004C885B /* MineTopicListViewController.xib */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1906,6 +1938,7 @@
 				075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */,
 				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
 				7E7241251A77C12A001E1F69 /* TopicCommentViewCell.xib in Resources */,
+				077663A61A80C0DB004C885B /* CollectActivityViewCell.xib in Resources */,
 				073F9F0F1A68B31D009D94E3 /* XECategoryView.xib in Resources */,
 				075B03371A6F71DF002B577D /* Pin_Ios7@2x.png in Resources */,
 				079E421D1A762ABE0056968E /* XEQuestionViewCell.xib in Resources */,
@@ -1933,11 +1966,13 @@
 				07E284961A5A8F26005651EB /* LoginViewController.xib in Resources */,
 				07E536251A528CF8005E1DA9 /* XETabBarItemView.xib in Resources */,
 				07508E8F1A51346300873B45 /* Main.storyboard in Resources */,
+				077663A11A809C01004C885B /* MineTopicListViewController.xib in Resources */,
 				07E536231A528CBF005E1DA9 /* XETabBarView.xib in Resources */,
 				07882C241A80675D003874FA /* CardViewCell.xib in Resources */,
 				07C988121A63AAEA003A2B30 /* SelectBirthdayViewController.xib in Resources */,
 				077C98BD1A53CC0600E2985B /* XETitleNavBarView.xib in Resources */,
 				0752F7E01A7B267A008C0E0A /* MWPhotoBrowser.bundle in Resources */,
+				077663971A80674E004C885B /* MineActivityListViewController.xib in Resources */,
 				075AA03B1A68B85D000B6302 /* ActivityViewController.xib in Resources */,
 				07E536371A529210005E1DA9 /* ExpertChatViewController.xib in Resources */,
 				07FC6D2A1A67B317001F34D8 /* RecipesViewController.xib in Resources */,
@@ -1962,6 +1997,7 @@
 				0797A32A1A7F106C00D5650A /* XEScrollPage.xib in Resources */,
 				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
 				07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */,
+				0776639C1A80779A004C885B /* ActivityApplyViewCell.xib in Resources */,
 				07C7C5121A70E336003E1272 /* arrow@2x.png in Resources */,
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
 				0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */,
@@ -1990,6 +2026,7 @@
 				073F9F0B1A68B2B8009D94E3 /* XECategoryView.m in Sources */,
 				074DD0DA1A5E33B80042B721 /* MineTabCell.m in Sources */,
 				0774A8771A666EAB00336465 /* UIView+GMGridViewAdditions.m in Sources */,
+				0776639B1A80779A004C885B /* ActivityApplyViewCell.m in Sources */,
 				073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */,
 				077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */,
 				075DD0351A78AC0C009A64B4 /* WSAssetsTableViewCell.m in Sources */,
@@ -2008,6 +2045,7 @@
 				077C98B81A53BEAE00E2985B /* XEBaseSuperViewController.m in Sources */,
 				07582D181A6E5B6200CDCA13 /* CollectionViewController.m in Sources */,
 				0712B3B11A5BD853000A1A7F /* UIImage+WebP.m in Sources */,
+				077663A01A809C01004C885B /* MineTopicListViewController.m in Sources */,
 				0712B3A91A5BD853000A1A7F /* SDWebImageDecoder.m in Sources */,
 				075DD0491A78BA3F009A64B4 /* UIImage+Resize.m in Sources */,
 				0712B3A81A5BD853000A1A7F /* SDWebImageCompat.m in Sources */,
@@ -2042,6 +2080,7 @@
 				0774A8751A666EAB00336465 /* GMGridViewLayoutStrategies.m in Sources */,
 				077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */,
 				0774A8741A666EAB00336465 /* GMGridViewCell.m in Sources */,
+				077663961A80674E004C885B /* MineActivityListViewController.m in Sources */,
 				0752F7D21A7B2638008C0E0A /* PSTCollectionView.m in Sources */,
 				0712B3AA1A5BD853000A1A7F /* SDWebImageDownloader.m in Sources */,
 				0712B3AE1A5BD853000A1A7F /* UIButton+WebCache.m in Sources */,
@@ -2121,6 +2160,7 @@
 				073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */,
 				0752F7D11A7B2638008C0E0A /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				075DD0481A78BA3F009A64B4 /* UIImage+Alpha.m in Sources */,
+				077663A51A80C0DB004C885B /* CollectActivityViewCell.m in Sources */,
 				075AA0431A68DEFA000B6302 /* ActivityViewCell.m in Sources */,
 				7E7241241A77C12A001E1F69 /* TopicCommentViewCell.m in Sources */,
 				075AA0481A690C58000B6302 /* ActivityDetailsViewController.m in Sources */,

@@ -175,5 +175,14 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getCardDetailInfoWithUid:(NSString *)uid cid:(NSString *)cid tag:(int)tag;
 //领取卡包
 - (BOOL)receiveCardWithUid:(NSString *)uid cid:(NSString *)cid tag:(int)tag;
+//我的活动
+- (BOOL)getMyApplyActivityListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
+- (BOOL)getMyCollectActivityListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
+//我的话题
+- (BOOL)getMyPublishTopicListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
+- (BOOL)getMyCollectTopicListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
+//我收藏的资讯专家
+- (BOOL)getMyCollectInfoListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
+- (BOOL)getMyCollectExpertListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
 
 @end
