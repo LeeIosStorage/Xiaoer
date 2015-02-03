@@ -1131,7 +1131,7 @@ static XEEngine* s_ShareInstance = nil;
 //我的卡包list
 - (BOOL)getCardListWithUid:(NSString *)uid pagenum:(int)page tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:uid forKey:@"topicid"];
+    [params setObject:uid forKey:@"userid"];
     if (page > 0 ) {
         [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
     }
@@ -1139,5 +1139,14 @@ static XEEngine* s_ShareInstance = nil;
     
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
+//卡包详情
+- (BOOL)getCardDetailInfoWithUid:(NSString *)uid cid:(NSString *)cid tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:uid forKey:@"userid"];
+    [params setObject:cid forKey:@"id"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/cp/info",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
 
 @end

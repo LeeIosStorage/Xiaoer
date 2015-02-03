@@ -12,6 +12,7 @@
 #import "XECardInfo.h"
 #import "XEProgressHUD.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "CardDetailViewController.h"
 
 @interface CardPackViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -152,7 +153,6 @@
         
         [weakSelf.cardTableView reloadData];
     }tag:tag];
-
 }
 
 #pragma mark - Table view data source
@@ -193,6 +193,10 @@
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
     
+    CardDetailViewController *cdVc = [[CardDetailViewController alloc] init];
+    XECardInfo *info = _dateArray[indexPath.row];
+    cdVc.cardInfo = info;
+    [self.navigationController pushViewController:cdVc animated:YES];
 }
 
 #pragma mark PullToRefreshViewDelegate

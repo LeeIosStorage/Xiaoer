@@ -177,6 +177,8 @@
 		07882C231A80675D003874FA /* CardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07882C211A80675D003874FA /* CardViewCell.m */; };
 		07882C241A80675D003874FA /* CardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07882C221A80675D003874FA /* CardViewCell.xib */; };
 		07882C271A80753D003874FA /* XECardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 07882C261A80753D003874FA /* XECardInfo.m */; };
+		07882C2B1A809B33003874FA /* CardDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07882C291A809B33003874FA /* CardDetailViewController.m */; };
+		07882C2C1A809B33003874FA /* CardDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07882C2A1A809B33003874FA /* CardDetailViewController.xib */; };
 		07913F5F1A676F840083E8E5 /* ExpertListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07913F5D1A676F840083E8E5 /* ExpertListViewController.m */; };
 		07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07913F5E1A676F840083E8E5 /* ExpertListViewController.xib */; };
 		07913F651A67808F0083E8E5 /* ExpertListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07913F631A67808F0083E8E5 /* ExpertListViewCell.m */; };
@@ -594,6 +596,9 @@
 		07882C221A80675D003874FA /* CardViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CardViewCell.xib; path = Mine/CardViewCell.xib; sourceTree = "<group>"; };
 		07882C251A80753D003874FA /* XECardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECardInfo.h; sourceTree = "<group>"; };
 		07882C261A80753D003874FA /* XECardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECardInfo.m; sourceTree = "<group>"; };
+		07882C281A809B33003874FA /* CardDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardDetailViewController.h; path = Xiaoer/Mine/CardDetailViewController.h; sourceTree = SOURCE_ROOT; };
+		07882C291A809B33003874FA /* CardDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardDetailViewController.m; path = Xiaoer/Mine/CardDetailViewController.m; sourceTree = SOURCE_ROOT; };
+		07882C2A1A809B33003874FA /* CardDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CardDetailViewController.xib; path = Xiaoer/Mine/CardDetailViewController.xib; sourceTree = SOURCE_ROOT; };
 		07913F5C1A676F840083E8E5 /* ExpertListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertListViewController.h; sourceTree = "<group>"; };
 		07913F5D1A676F840083E8E5 /* ExpertListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertListViewController.m; sourceTree = "<group>"; };
 		07913F5E1A676F840083E8E5 /* ExpertListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpertListViewController.xib; sourceTree = "<group>"; };
@@ -1721,6 +1726,9 @@
 				07882C1A1A8065C4003874FA /* CardPackViewController.h */,
 				07882C1B1A8065C4003874FA /* CardPackViewController.m */,
 				07882C1C1A8065C4003874FA /* CardPackViewController.xib */,
+				07882C281A809B33003874FA /* CardDetailViewController.h */,
+				07882C291A809B33003874FA /* CardDetailViewController.m */,
+				07882C2A1A809B33003874FA /* CardDetailViewController.xib */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1939,6 +1947,7 @@
 				07E2846F1A5A8DFC005651EB /* umFeedback.bundle in Resources */,
 				070346701A64F8E200EDE251 /* WelcomeViewController.xib in Resources */,
 				076971AF1A77564E00FEA571 /* TopicListViewController.xib in Resources */,
+				07882C2C1A809B33003874FA /* CardDetailViewController.xib in Resources */,
 				075B032A1A6E3892002B577D /* MapChooseViewController.xib in Resources */,
 				07E284701A5A8DFC005651EB /* UMSocialLocalizable.strings in Resources */,
 				07582D1D1A6E5B6200CDCA13 /* SettingViewController.xib in Resources */,
@@ -2002,6 +2011,7 @@
 				0712B3A91A5BD853000A1A7F /* SDWebImageDecoder.m in Sources */,
 				075DD0491A78BA3F009A64B4 /* UIImage+Resize.m in Sources */,
 				0712B3A81A5BD853000A1A7F /* SDWebImageCompat.m in Sources */,
+				07882C2B1A809B33003874FA /* CardDetailViewController.m in Sources */,
 				0752F7AA1A7B25C5008C0E0A /* MWPhoto.m in Sources */,
 				07C49F581A5E7E9900E1725C /* AVCamUtilities.m in Sources */,
 				075E40B01A593AAC0062F6AD /* MBProgressHUD.m in Sources */,

@@ -19,6 +19,11 @@
         _title = objectForKey;
     }
     
+    objectForKey = [dic objectForKey:@"id"];
+    if (objectForKey) {
+        _cid = objectForKey;
+    }
+    
     objectForKey = [dic objectForKey:@"price"];
     if (objectForKey) {
         _price = objectForKey;
@@ -38,6 +43,11 @@
     if (objectForKey) {
         _img = objectForKey;
     }
+    
+    objectForKey = [dic objectForKey:@"leftnum"];
+    if (objectForKey) {
+        _leftNum = [objectForKey intValue];
+    }
 }
 
 -(void)setCardInfoByJsonDic:(NSDictionary *)dic{
@@ -46,7 +56,7 @@
         return;
     }
     _cardInfoByJsonDic = [[NSMutableDictionary alloc] initWithDictionary:dic];
-    
+
     @try {
         [self doSetCardInfoByJsonDic:dic];
     }
@@ -55,6 +65,14 @@
     }
     
     self.jsonString = [_cardInfoByJsonDic JSONString];
+}
+
+- (NSString *)cardActionUrl{
+    if (_cid == nil) {
+        return nil;
+    }
+    
+    return [NSString stringWithFormat:@"%@/cp/detail?id=%@", [[XEEngine shareInstance] baseUrl], _cid];
 }
 
 @end
