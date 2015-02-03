@@ -19,6 +19,7 @@
 #import "MineMsgViewController.h"
 #import "CardPackViewController.h"
 #import "MineActivityListViewController.h"
+#import "MineTopicListViewController.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
@@ -260,6 +261,8 @@ enum TABLEVIEW_SECTION_INDEX {
                 break;
             }else if (indexPath.row == 3){
                 NSLog(@"============我的话题");
+                MineTopicListViewController *mVc = [[MineTopicListViewController alloc] init];
+                [self.navigationController pushViewController:mVc animated:YES];
                 break;
             }
         }

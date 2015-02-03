@@ -15,6 +15,8 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *collectLabel;
 @property (strong, nonatomic) IBOutlet UILabel *readLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *collectImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *readImageView;
 
 @property (strong, nonatomic) IBOutlet UIImageView *topImageView;
 

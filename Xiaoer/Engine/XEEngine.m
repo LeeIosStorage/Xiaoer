@@ -1163,4 +1163,50 @@ static XEEngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/activity/myfav",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
+
+- (BOOL)getMyPublishTopicListWithUid:(NSString *)uid page:(int)page tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (page > 0) {
+        [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
+    }
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/qa/mypub",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)getMyCollectTopicListWithUid:(NSString *)uid page:(int)page tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (page > 0) {
+        [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
+    }
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/qa/myfav",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)getMyCollectInfoListWithUid:(NSString *)uid page:(int)page tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (page > 0) {
+        [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
+    }
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/info/myfav",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)getMyCollectExpertListWithUid:(NSString *)uid page:(int)page tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (page > 0) {
+        [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
+    }
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/expert/myfav",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
 @end

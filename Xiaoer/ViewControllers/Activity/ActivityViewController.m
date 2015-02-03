@@ -19,6 +19,7 @@
 #import "ODRefreshControl.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "XELinkerHandler.h"
+#import "MineActivityListViewController.h"
 
 #define ACTIVITY_TYPE_APPLY     0
 #define ACTIVITY_TYPE_HISTORY   1
@@ -344,8 +345,8 @@
 
 #pragma mark - custom
 -(void)mineCollectAction:(id)sender{
-    CollectionViewController *cVc = [[CollectionViewController alloc] init];
-    [self.navigationController pushViewController:cVc animated:YES];
+    MineActivityListViewController *mVc = [[MineActivityListViewController alloc] init];
+    [self.navigationController pushViewController:mVc animated:YES];
 }
 
 -(void)segmentedControlAction:(UISegmentedControl *)sender{

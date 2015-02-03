@@ -14,6 +14,7 @@
 @property(nonatomic, strong) NSString* uId;
 @property(nonatomic, strong) NSString* title;
 @property(nonatomic, strong) NSString* avatar;
+@property(nonatomic, assign) int cat; //1教育2营养3入园4心理
 @property(nonatomic, assign) int clicknum;
 @property(nonatomic, assign) int favnum;
 @property(nonatomic, assign) int commentnum;

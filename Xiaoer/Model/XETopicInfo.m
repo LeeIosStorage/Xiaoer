@@ -19,6 +19,8 @@
     }
     _clicknum = [dic intValueForKey:@"clicknum"];
     _favnum = [dic intValueForKey:@"favnum"];
+    _cat = [dic intValueForKey:@"cat"];
+    
     if ([dic objectForKey:@"commentnum"]) {
         _commentnum = [dic intValueForKey:@"commentnum"];
     }
