@@ -168,4 +168,8 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getQuestionDetailsWithQuestionId:(NSString *)questionId uid:(NSString *)uid  tag:(int)tag;
 - (BOOL)deleteQuestionWithQuestionId:(NSString *)questionId uid:(NSString *)uid tag:(int)tag;
 
+#pragma mark - mine
+//我的卡包list
+- (BOOL)getCardListWithUid:(NSString *)uid pagenum:(int)page tag:(int)tag;
+
 @end

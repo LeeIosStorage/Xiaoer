@@ -17,6 +17,7 @@
 #import "SettingViewController.h"
 #import "CollectionViewController.h"
 #import "MineMsgViewController.h"
+#import "CardPackViewController.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
@@ -262,7 +263,8 @@ enum TABLEVIEW_SECTION_INDEX {
         }
         case kMyCard:{
             if (indexPath.row == 0) {
-                NSLog(@"============我的卡包");
+                CardPackViewController *cpVc = [[CardPackViewController alloc] init];
+                [self.navigationController pushViewController:cpVc animated:YES];
                 break;
             }else if (indexPath.row == 1){
                 NSLog(@"============历史测评");
