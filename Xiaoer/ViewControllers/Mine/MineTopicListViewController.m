@@ -278,19 +278,6 @@
             XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
             [topicInfo setTopicInfoByJsonDic:dic];
             
-            int cat = topicInfo.cat;
-            NSString *catName = @"";
-            if (cat == 1)
-                catName = @"教育";
-            else if (cat == 2)
-                catName = @"营养";
-            else if (cat == 3)
-                catName = @"入园";
-            else if (cat == 4)
-                catName = @"心理";
-            catName = [NSString stringWithFormat:@"【%@】%@",catName,topicInfo.title];
-            topicInfo.title = catName;
-            
             [weakSelf.publishTopicList addObject:topicInfo];
         }
         weakSelf.publishCanLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
@@ -495,6 +482,20 @@
     XETopicInfo *topicInfo = self.publishTopicList[indexPath.row];
     cell.isExpertChat = YES;
     cell.topicInfo = topicInfo;
+    
+    int cat = topicInfo.cat;
+    NSString *catName = @"";
+    if (cat == 1)
+        catName = @"教育";
+    else if (cat == 2)
+        catName = @"营养";
+    else if (cat == 3)
+        catName = @"入园";
+    else if (cat == 4)
+        catName = @"心理";
+    catName = [NSString stringWithFormat:@"【%@】%@",catName,topicInfo.title];
+    cell.topicNameLabel.text = catName;
+    
     return cell;
 }
 
