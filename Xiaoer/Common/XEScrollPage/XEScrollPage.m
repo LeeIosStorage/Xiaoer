@@ -79,14 +79,14 @@
 
     XEThemeInfo *theme;
     theme = [_dataArray lastObject];
-    [self addSubviewToScrollView:_adsScrollView withURL:theme.smallThemeImageUrl withTag:-1];
+    [self addSubviewToScrollView:_adsScrollView withURL:theme.originalThemeImageUrl withTag:-1];
     for (int i = 0; i < [_dataArray count]; i++) {
         theme = [_dataArray objectAtIndex:i];
-        [self addSubviewToScrollView:_adsScrollView withURL:theme.smallThemeImageUrl withTag:i];
+        [self addSubviewToScrollView:_adsScrollView withURL:theme.originalThemeImageUrl withTag:i];
     }
     
     theme = [_dataArray firstObject];
-    [self addSubviewToScrollView:_adsScrollView withURL:theme.smallThemeImageUrl withTag:_dataArray.count];
+    [self addSubviewToScrollView:_adsScrollView withURL:theme.originalThemeImageUrl withTag:_dataArray.count];
     
     //多算两屏,默认第二屏
     _adsScrollView.ContentSize = CGSizeMake((_dataArray.count + 2)*frame.size.width,frame.size.height);

@@ -130,6 +130,10 @@
         [babyInfo doSetBabyInfoByJsonDic:babyDic];
         [_babys addObject:babyInfo];
     }
+    
+    if ([dic objectForKey:@"profileStatus"]) {
+        _profileStatus = [dic intValueForKey:@"profileStatus"];
+    }
 }
 
 - (void)setUserInfoByJsonDic:(NSDictionary*)dic{

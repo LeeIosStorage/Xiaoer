@@ -83,7 +83,7 @@ typedef enum : NSInteger {
         if (AVAuthorizationStatusDenied_ == status || AVAuthorizationStatusRestricted_ == status) {
             isAuthor = NO;
         }
-        NSLog(@"status = %d" , status);
+        NSLog(@"status = %ld" , status);
     }
     
     return isAuthor;

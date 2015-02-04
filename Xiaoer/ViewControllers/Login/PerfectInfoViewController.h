@@ -13,5 +13,6 @@
 
 @property (nonatomic, strong) XEUserInfo *userInfo;
 @property (nonatomic, assign) BOOL isNeedSkip;
+@property (nonatomic, assign) BOOL isFromCard;
 
 @end
