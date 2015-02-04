@@ -33,6 +33,7 @@
 @property(nonatomic, strong) NSDate* registerTime;
 @property(nonatomic, strong) NSString* title;
 @property(nonatomic, assign) int topicNum;
+@property(nonatomic, assign) int profileStatus;
 
 @property(nonatomic, strong) NSMutableArray *babys;
 //baby

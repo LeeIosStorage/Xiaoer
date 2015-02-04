@@ -170,6 +170,10 @@
         [XEProgressHUD lightAlert:@"请输入您的地区"];
         return;
     }
+    if (_isFromCard && _userInfo.address.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入您的详细地址"];
+        return;
+    }
     XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
     if (babyUserInfo.babyAvatarId.length == 0) {
         [XEProgressHUD lightAlert:@"请上传宝宝头像"];
