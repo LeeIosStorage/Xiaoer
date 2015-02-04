@@ -28,7 +28,10 @@
 #define TopicType_Cat @"cat"
 
 @interface XEPublicViewController ()<UITextFieldDelegate,UITextViewDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,WSAssetPickerControllerDelegate,GMGridViewDataSource, GMGridViewActionDelegate,UITableViewDataSource,UITableViewDelegate>
-
+{
+    BOOL _titleTextFieldEditing;
+    CGRect _oldRect;
+}
 @property (nonatomic, strong) NSMutableArray *imgIds;
 @property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, assign) int maxTitleTextLength;
@@ -36,6 +39,7 @@
 
 @property (nonatomic, strong) NSDictionary *selectTopicTypeDic;
 @property (nonatomic, strong) NSMutableArray *topicTypeArray;
+@property (strong, nonatomic) IBOutlet UIView *contentContainerView;
 @property (strong, nonatomic) IBOutlet UIView *topicTypeSelectContainerView;
 @property (strong, nonatomic) IBOutlet UITableView *topicTypeTableView;
 @property (strong, nonatomic) IBOutlet UIButton *topicTypeHideBtn;
@@ -60,6 +64,11 @@
 @end
 
 @implementation XEPublicViewController
+
+- (void)dealloc{
+    XELog(@"XEPublicViewController dealloc !!!");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -270,7 +279,7 @@
             [self.openStateButton setTitle:@"公开" forState:0];
         }
         self.topicTypeContainerView.hidden = YES;
-        self.titleTextField.placeholder = @"请输入标题（必填）";
+//        self.titleTextField.placeholder = @"请输入标题（必填）";
         self.placeHolderLabel.text = @"请尽可能详细描述宝宝的状态，以便得到最好的解答";
     }else if (_publicType == Public_Type_Topic){
         self.openStateButton.hidden = YES;
@@ -278,12 +287,16 @@
         CGRect frame = self.inputContainerView.frame;
         frame.origin.y = self.topicTypeContainerView.frame.origin.y + self.topicTypeContainerView.frame.size.height;
         self.inputContainerView.frame = frame;
-        self.titleTextField.placeholder = @"请输入标题（必填）";
+//        self.titleTextField.placeholder = @"请输入标题（必填）";
         self.placeHolderLabel.text = @"请输入您要发布的内容";
 //        [self refreshTypeButton];
     }
     
     [self.imageGridView reloadData];
+    
+    CGRect frame = self.contentContainerView.frame;
+    frame.size.height = self.inputContainerView.frame.origin.y + self.inputContainerView.frame.size.height;
+    self.contentContainerView.frame = frame;
 }
 
 -(void)refreshTypeButton{
@@ -300,7 +313,7 @@
     if (!self.topicTypeSelectContainerView.superview) {
         CGRect frame = self.topicTypeSelectContainerView.frame;
         frame.origin.x = 0;
-        frame.origin.y = self.topicTypeContainerView.frame.origin.y;
+        frame.origin.y = self.contentContainerView.frame.origin.y;
         frame.size.height = self.view.frame.size.height;
         frame.size.width = self.view.frame.size.width;
         self.topicTypeSelectContainerView.frame = frame;
@@ -604,6 +617,14 @@
 }
 
 #pragma mark - UITextFieldDelegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    _titleTextFieldEditing = YES;
+    [self customKeyboardViewMove:NO];
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    _titleTextFieldEditing = NO;
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
     if ([string isEqualToString:@"\n"]) {
@@ -624,6 +645,9 @@
 }
 
 #pragma mark - UITextViewDelegate
+- (void)textViewDidBeginEditing:(UITextView *)textView{
+    [self customKeyboardViewMove:YES];
+}
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     [self updatePlaceHolderLabel];
     if (text.length == 0) {
@@ -669,12 +693,27 @@
     //    CGRect containerFrame = _toolbarContainerView.frame;
     //    containerFrame.origin.y = self.view.bounds.size.height - (keyboardBounds.size.height + containerFrame.size.height);
     
+    UIView *supView = self.contentContainerView;
+    CGRect supViewFrame = supView.frame;
+    float gapHeight = keyboardBounds.size.height + _toolbarContainerView.frame.size.height - (self.view.bounds.size.height - supViewFrame.origin.y - supViewFrame.size.height);
+    BOOL isMove = (gapHeight > 0 && !_titleTextFieldEditing);
+    if (gapHeight > 0 && _oldRect.size.height == 0 && _oldRect.size.width == 0) {
+        supViewFrame.origin.y -= gapHeight;
+        _oldRect = supViewFrame;
+    }
     
     // animations settings
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:[duration doubleValue]];
     [UIView setAnimationCurve:[curve intValue]];
+    
+    if (isMove) {
+        supViewFrame.origin.y -= gapHeight;
+        supView.frame = supViewFrame;
+        _oldRect = supViewFrame;
+    }
+    
     CGRect toolbarFrame = _toolbarContainerView.frame;
     toolbarFrame.origin.y = self.view.bounds.size.height - keyboardBounds.size.height - toolbarFrame.size.height;
     _toolbarContainerView.frame = toolbarFrame;
@@ -699,6 +738,31 @@
     toolbarFrame.origin.y = self.view.bounds.size.height - toolbarFrame.size.height;
     _toolbarContainerView.frame = toolbarFrame;
     
+    CGRect contentFrame = self.contentContainerView.frame;
+    contentFrame.origin.y = self.titleNavBar.frame.size.height;
+    self.contentContainerView.frame = contentFrame;
+    
+    // commit animations
+    [UIView commitAnimations];
+}
+
+-(void)customKeyboardViewMove:(BOOL)isMove{
+    
+    NSNumber *curve = 0;
+    // animations settings
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:0.25];
+    [UIView setAnimationCurve:[curve intValue]];
+    if (isMove) {
+        if (_oldRect.size.height != 0 && _oldRect.size.width != 0) {
+            self.contentContainerView.frame = _oldRect;
+        }
+    }else{
+        CGRect contentFrame = self.contentContainerView.frame;
+        contentFrame.origin.y = self.titleNavBar.frame.size.height;
+        self.contentContainerView.frame = contentFrame;
+    }
     // commit animations
     [UIView commitAnimations];
 }

@@ -336,6 +336,33 @@
     }
 }
 
+-(void)unCollectActivityWith:(XEActivityInfo*)activityInfo{
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
+    __weak MineActivityListViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] unCollectActivityWithActivityId:activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        NSInteger index = [weakSelf.collectActivityList indexOfObject:activityInfo];
+        if (index == NSNotFound || index < 0 || index >= weakSelf.collectActivityList.count) {
+            return;
+        }
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [weakSelf.collectActivityList removeObjectAtIndex:indexPath.row];
+        [weakSelf.collectTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+    }tag:tag];
+}
+
 #pragma mark PullToRefreshViewDelegate
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view {
     if (view == self.pullRefreshView) {
@@ -346,6 +373,28 @@
 }
 - (NSDate *)pullToRefreshViewLastUpdated:(PullToRefreshView *)view {
     return [NSDate date];
+}
+
+#pragma mark - TableView Delegate
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.collectTableView) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        if (tableView == self.collectTableView) {
+            XEActivityInfo *activityInfo = _collectActivityList[indexPath.row];
+            [self unCollectActivityWith:activityInfo];
+            
+        }
+    }
+}
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return @"取消收藏";
 }
 
 #pragma mark - tableViewDataSource

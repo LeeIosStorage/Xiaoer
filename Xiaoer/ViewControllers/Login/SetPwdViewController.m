@@ -30,6 +30,10 @@
 
 @implementation SetPwdViewController
 
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkTextChaneg:) name:UITextFieldTextDidChangeNotification object:nil];
@@ -186,6 +190,7 @@
     
     PerfectInfoViewController *pVc = [[PerfectInfoViewController alloc] init];
     pVc.userInfo = _userInfo;
+    pVc.isNeedSkip = YES;
     [self.navigationController pushViewController:pVc animated:YES];
 }
 
