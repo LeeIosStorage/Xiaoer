@@ -236,6 +236,7 @@
         } okButtonTitle:@"确定" okBlock:^{
             PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
             piVc.userInfo = [XEEngine shareInstance].userInfo;
+            piVc.isFromCard = YES;
             [self.navigationController pushViewController:piVc animated:YES];
         }];
         [alertView show];
