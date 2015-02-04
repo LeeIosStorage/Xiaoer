@@ -112,6 +112,7 @@
         [weakSelf.statusBtn setTitle:@"已领取" forState:UIControlStateNormal];
         weakSelf.statusBtn.enabled = NO;
         [weakSelf.statusBtn setBackgroundImage:[UIImage imageNamed:@"card_staus_hover_bg"] forState:UIControlStateNormal];
+        weakSelf.leftNum.text = [NSString stringWithFormat:@"%d",[jsonRet intValueForKey:@"object"]];
     }tag:tag];
 }
 
