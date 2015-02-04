@@ -84,12 +84,6 @@
 		07582CF71A6E37F200CDCA13 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582CF61A6E37F200CDCA13 /* ODRefreshControl.m */; };
 		07582D0D1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D0A1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m */; };
 		07582D0E1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D0C1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m */; };
-		07582D181A6E5B6200CDCA13 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D101A6E5B6200CDCA13 /* CollectionViewController.m */; };
-		07582D191A6E5B6200CDCA13 /* CollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07582D111A6E5B6200CDCA13 /* CollectionViewController.xib */; };
-		07582D1A1A6E5B6200CDCA13 /* MineMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D131A6E5B6200CDCA13 /* MineMsgViewController.m */; };
-		07582D1B1A6E5B6200CDCA13 /* MineMsgViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07582D141A6E5B6200CDCA13 /* MineMsgViewController.xib */; };
-		07582D1C1A6E5B6200CDCA13 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D161A6E5B6200CDCA13 /* SettingViewController.m */; };
-		07582D1D1A6E5B6200CDCA13 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07582D171A6E5B6200CDCA13 /* SettingViewController.xib */; };
 		075AA03A1A68B85D000B6302 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075AA0381A68B85D000B6302 /* ActivityViewController.m */; };
 		075AA03B1A68B85D000B6302 /* ActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075AA0391A68B85D000B6302 /* ActivityViewController.xib */; };
 		075AA03E1A68D5EC000B6302 /* XEActivityInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 075AA03D1A68D5EC000B6302 /* XEActivityInfo.m */; };
@@ -143,6 +137,16 @@
 		075E40AC1A593A820062F6AD /* ProgressHUDJF.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40A91A593A820062F6AD /* ProgressHUDJF.m */; };
 		075E40B01A593AAC0062F6AD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40AF1A593AAB0062F6AD /* MBProgressHUD.m */; };
 		075E40B31A5940920062F6AD /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 075E40B21A5940920062F6AD /* URLHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0760E92D1A81ACB300BBEA3D /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760E9281A81ACB300BBEA3D /* CollectionViewController.m */; };
+		0760E92E1A81ACB300BBEA3D /* CollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760E9291A81ACB300BBEA3D /* CollectionViewController.xib */; };
+		0760E92F1A81ACB300BBEA3D /* MineMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760E92B1A81ACB300BBEA3D /* MineMsgViewController.m */; };
+		0760E9301A81ACB300BBEA3D /* MineMsgViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760E92C1A81ACB300BBEA3D /* MineMsgViewController.xib */; };
+		0760E93A1A81ACCD00BBEA3D /* CardDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760E9321A81ACCD00BBEA3D /* CardDetailViewController.m */; };
+		0760E93B1A81ACCD00BBEA3D /* CardDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760E9331A81ACCD00BBEA3D /* CardDetailViewController.xib */; };
+		0760E93C1A81ACCD00BBEA3D /* CardPackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760E9351A81ACCD00BBEA3D /* CardPackViewController.m */; };
+		0760E93D1A81ACCD00BBEA3D /* CardPackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760E9361A81ACCD00BBEA3D /* CardPackViewController.xib */; };
+		0760E93E1A81ACCD00BBEA3D /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760E9381A81ACCD00BBEA3D /* SettingViewController.m */; };
+		0760E93F1A81ACCD00BBEA3D /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760E9391A81ACCD00BBEA3D /* SettingViewController.xib */; };
 		0760FC461A79D4DD00A0E5D8 /* QuestionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760FC441A79D4DD00A0E5D8 /* QuestionDetailsViewController.m */; };
 		0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760FC451A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib */; };
 		076971AE1A77564E00FEA571 /* TopicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076971AC1A77564E00FEA571 /* TopicListViewController.m */; };
@@ -180,13 +184,9 @@
 		077C98BD1A53CC0600E2985B /* XETitleNavBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077C98BC1A53CC0600E2985B /* XETitleNavBarView.xib */; };
 		077C98C01A53D12700E2985B /* XECommonUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98BF1A53D12700E2985B /* XECommonUtils.m */; };
 		077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98C21A53D48800E2985B /* XEUIUtils.m */; };
-		07882C1D1A8065C4003874FA /* CardPackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07882C1B1A8065C4003874FA /* CardPackViewController.m */; };
-		07882C1E1A8065C4003874FA /* CardPackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07882C1C1A8065C4003874FA /* CardPackViewController.xib */; };
 		07882C231A80675D003874FA /* CardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07882C211A80675D003874FA /* CardViewCell.m */; };
 		07882C241A80675D003874FA /* CardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07882C221A80675D003874FA /* CardViewCell.xib */; };
 		07882C271A80753D003874FA /* XECardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 07882C261A80753D003874FA /* XECardInfo.m */; };
-		07882C2B1A809B33003874FA /* CardDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07882C291A809B33003874FA /* CardDetailViewController.m */; };
-		07882C2C1A809B33003874FA /* CardDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07882C2A1A809B33003874FA /* CardDetailViewController.xib */; };
 		07913F5F1A676F840083E8E5 /* ExpertListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07913F5D1A676F840083E8E5 /* ExpertListViewController.m */; };
 		07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07913F5E1A676F840083E8E5 /* ExpertListViewController.xib */; };
 		07913F651A67808F0083E8E5 /* ExpertListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07913F631A67808F0083E8E5 /* ExpertListViewCell.m */; };
@@ -437,15 +437,6 @@
 		07582D0A1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		07582D0B1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		07582D0C1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
-		07582D0F1A6E5B6200CDCA13 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionViewController.h; path = Xiaoer/Mine/CollectionViewController.h; sourceTree = SOURCE_ROOT; };
-		07582D101A6E5B6200CDCA13 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CollectionViewController.m; path = Xiaoer/Mine/CollectionViewController.m; sourceTree = SOURCE_ROOT; };
-		07582D111A6E5B6200CDCA13 /* CollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CollectionViewController.xib; path = Xiaoer/Mine/CollectionViewController.xib; sourceTree = SOURCE_ROOT; };
-		07582D121A6E5B6200CDCA13 /* MineMsgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineMsgViewController.h; path = Xiaoer/Mine/MineMsgViewController.h; sourceTree = SOURCE_ROOT; };
-		07582D131A6E5B6200CDCA13 /* MineMsgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MineMsgViewController.m; path = Xiaoer/Mine/MineMsgViewController.m; sourceTree = SOURCE_ROOT; };
-		07582D141A6E5B6200CDCA13 /* MineMsgViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MineMsgViewController.xib; path = Xiaoer/Mine/MineMsgViewController.xib; sourceTree = SOURCE_ROOT; };
-		07582D151A6E5B6200CDCA13 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewController.h; path = Xiaoer/Mine/SettingViewController.h; sourceTree = SOURCE_ROOT; };
-		07582D161A6E5B6200CDCA13 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewController.m; path = Xiaoer/Mine/SettingViewController.m; sourceTree = SOURCE_ROOT; };
-		07582D171A6E5B6200CDCA13 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingViewController.xib; path = Xiaoer/Mine/SettingViewController.xib; sourceTree = SOURCE_ROOT; };
 		075AA0371A68B85D000B6302 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
 		075AA0381A68B85D000B6302 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
 		075AA0391A68B85D000B6302 /* ActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityViewController.xib; sourceTree = "<group>"; };
@@ -540,6 +531,21 @@
 		075E40AF1A593AAB0062F6AD /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		075E40B11A5940920062F6AD /* URLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHelper.h; sourceTree = "<group>"; };
 		075E40B21A5940920062F6AD /* URLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHelper.m; sourceTree = "<group>"; };
+		0760E9271A81ACB300BBEA3D /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
+		0760E9281A81ACB300BBEA3D /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
+		0760E9291A81ACB300BBEA3D /* CollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionViewController.xib; sourceTree = "<group>"; };
+		0760E92A1A81ACB300BBEA3D /* MineMsgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineMsgViewController.h; sourceTree = "<group>"; };
+		0760E92B1A81ACB300BBEA3D /* MineMsgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineMsgViewController.m; sourceTree = "<group>"; };
+		0760E92C1A81ACB300BBEA3D /* MineMsgViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineMsgViewController.xib; sourceTree = "<group>"; };
+		0760E9311A81ACCD00BBEA3D /* CardDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardDetailViewController.h; sourceTree = "<group>"; };
+		0760E9321A81ACCD00BBEA3D /* CardDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardDetailViewController.m; sourceTree = "<group>"; };
+		0760E9331A81ACCD00BBEA3D /* CardDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardDetailViewController.xib; sourceTree = "<group>"; };
+		0760E9341A81ACCD00BBEA3D /* CardPackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardPackViewController.h; sourceTree = "<group>"; };
+		0760E9351A81ACCD00BBEA3D /* CardPackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardPackViewController.m; sourceTree = "<group>"; };
+		0760E9361A81ACCD00BBEA3D /* CardPackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardPackViewController.xib; sourceTree = "<group>"; };
+		0760E9371A81ACCD00BBEA3D /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		0760E9381A81ACCD00BBEA3D /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		0760E9391A81ACCD00BBEA3D /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
 		0760FC431A79D4DD00A0E5D8 /* QuestionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionDetailsViewController.h; sourceTree = "<group>"; };
 		0760FC441A79D4DD00A0E5D8 /* QuestionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionDetailsViewController.m; sourceTree = "<group>"; };
 		0760FC451A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionDetailsViewController.xib; sourceTree = "<group>"; };
@@ -608,17 +614,11 @@
 		077C98BF1A53D12700E2985B /* XECommonUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECommonUtils.m; sourceTree = "<group>"; };
 		077C98C11A53D48800E2985B /* XEUIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEUIUtils.h; sourceTree = "<group>"; };
 		077C98C21A53D48800E2985B /* XEUIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEUIUtils.m; sourceTree = "<group>"; };
-		07882C1A1A8065C4003874FA /* CardPackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardPackViewController.h; path = Xiaoer/Mine/CardPackViewController.h; sourceTree = SOURCE_ROOT; };
-		07882C1B1A8065C4003874FA /* CardPackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardPackViewController.m; path = Xiaoer/Mine/CardPackViewController.m; sourceTree = SOURCE_ROOT; };
-		07882C1C1A8065C4003874FA /* CardPackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CardPackViewController.xib; path = Xiaoer/Mine/CardPackViewController.xib; sourceTree = SOURCE_ROOT; };
 		07882C201A80675D003874FA /* CardViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardViewCell.h; path = Mine/CardViewCell.h; sourceTree = "<group>"; };
 		07882C211A80675D003874FA /* CardViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardViewCell.m; path = Mine/CardViewCell.m; sourceTree = "<group>"; };
 		07882C221A80675D003874FA /* CardViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CardViewCell.xib; path = Mine/CardViewCell.xib; sourceTree = "<group>"; };
 		07882C251A80753D003874FA /* XECardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECardInfo.h; sourceTree = "<group>"; };
 		07882C261A80753D003874FA /* XECardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECardInfo.m; sourceTree = "<group>"; };
-		07882C281A809B33003874FA /* CardDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardDetailViewController.h; path = Xiaoer/Mine/CardDetailViewController.h; sourceTree = SOURCE_ROOT; };
-		07882C291A809B33003874FA /* CardDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardDetailViewController.m; path = Xiaoer/Mine/CardDetailViewController.m; sourceTree = SOURCE_ROOT; };
-		07882C2A1A809B33003874FA /* CardDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CardDetailViewController.xib; path = Xiaoer/Mine/CardDetailViewController.xib; sourceTree = SOURCE_ROOT; };
 		07913F5C1A676F840083E8E5 /* ExpertListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertListViewController.h; sourceTree = "<group>"; };
 		07913F5D1A676F840083E8E5 /* ExpertListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertListViewController.m; sourceTree = "<group>"; };
 		07913F5E1A676F840083E8E5 /* ExpertListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpertListViewController.xib; sourceTree = "<group>"; };
@@ -1740,21 +1740,21 @@
 		07E536171A52828E005E1DA9 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				07582D0F1A6E5B6200CDCA13 /* CollectionViewController.h */,
-				07582D101A6E5B6200CDCA13 /* CollectionViewController.m */,
-				07582D111A6E5B6200CDCA13 /* CollectionViewController.xib */,
-				07582D121A6E5B6200CDCA13 /* MineMsgViewController.h */,
-				07582D131A6E5B6200CDCA13 /* MineMsgViewController.m */,
-				07582D141A6E5B6200CDCA13 /* MineMsgViewController.xib */,
-				07582D151A6E5B6200CDCA13 /* SettingViewController.h */,
-				07582D161A6E5B6200CDCA13 /* SettingViewController.m */,
-				07582D171A6E5B6200CDCA13 /* SettingViewController.xib */,
-				07882C1A1A8065C4003874FA /* CardPackViewController.h */,
-				07882C1B1A8065C4003874FA /* CardPackViewController.m */,
-				07882C1C1A8065C4003874FA /* CardPackViewController.xib */,
-				07882C281A809B33003874FA /* CardDetailViewController.h */,
-				07882C291A809B33003874FA /* CardDetailViewController.m */,
-				07882C2A1A809B33003874FA /* CardDetailViewController.xib */,
+				0760E9271A81ACB300BBEA3D /* CollectionViewController.h */,
+				0760E9281A81ACB300BBEA3D /* CollectionViewController.m */,
+				0760E9291A81ACB300BBEA3D /* CollectionViewController.xib */,
+				0760E92A1A81ACB300BBEA3D /* MineMsgViewController.h */,
+				0760E92B1A81ACB300BBEA3D /* MineMsgViewController.m */,
+				0760E92C1A81ACB300BBEA3D /* MineMsgViewController.xib */,
+				0760E9311A81ACCD00BBEA3D /* CardDetailViewController.h */,
+				0760E9321A81ACCD00BBEA3D /* CardDetailViewController.m */,
+				0760E9331A81ACCD00BBEA3D /* CardDetailViewController.xib */,
+				0760E9341A81ACCD00BBEA3D /* CardPackViewController.h */,
+				0760E9351A81ACCD00BBEA3D /* CardPackViewController.m */,
+				0760E9361A81ACCD00BBEA3D /* CardPackViewController.xib */,
+				0760E9371A81ACCD00BBEA3D /* SettingViewController.h */,
+				0760E9381A81ACCD00BBEA3D /* SettingViewController.m */,
+				0760E9391A81ACCD00BBEA3D /* SettingViewController.xib */,
 				077663931A80674E004C885B /* MineActivityListViewController.h */,
 				077663941A80674E004C885B /* MineActivityListViewController.m */,
 				077663951A80674E004C885B /* MineActivityListViewController.xib */,
@@ -1931,19 +1931,20 @@
 				07E284751A5A8DFC005651EB /* UMShareEditViewController.xib in Resources */,
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
 				076CF5721A78AD8C00CDE21D /* XECateTopicViewCell.xib in Resources */,
-				07582D191A6E5B6200CDCA13 /* CollectionViewController.xib in Resources */,
+				0760E92E1A81ACB300BBEA3D /* CollectionViewController.xib in Resources */,
 				0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */,
 				075B031F1A6CAC28002B577D /* ApplyActivityViewController.xib in Resources */,
 				07E284771A5A8DFC005651EB /* UMSLoginViewController.xib in Resources */,
+				0760E93F1A81ACCD00BBEA3D /* SettingViewController.xib in Resources */,
 				075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */,
 				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
+				0760E9301A81ACB300BBEA3D /* MineMsgViewController.xib in Resources */,
 				7E7241251A77C12A001E1F69 /* TopicCommentViewCell.xib in Resources */,
 				077663A61A80C0DB004C885B /* CollectActivityViewCell.xib in Resources */,
 				073F9F0F1A68B31D009D94E3 /* XECategoryView.xib in Resources */,
 				075B03371A6F71DF002B577D /* Pin_Ios7@2x.png in Resources */,
 				079E421D1A762ABE0056968E /* XEQuestionViewCell.xib in Resources */,
 				07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */,
-				07582D1B1A6E5B6200CDCA13 /* MineMsgViewController.xib in Resources */,
 				074644861A6CFFDA00CE2935 /* XECollectionViewCell.xib in Resources */,
 				07913F661A67808F0083E8E5 /* ExpertListViewCell.xib in Resources */,
 				07C7C5111A70E336003E1272 /* arrow.png in Resources */,
@@ -1952,13 +1953,13 @@
 				075DD03B1A78B42E009A64B4 /* WSAssetViewSelectionIndicator.png in Resources */,
 				07E536321A5290C9005E1DA9 /* EvaluationViewController.xib in Resources */,
 				07E284721A5A8DFC005651EB /* UMSCommentDetailController.xib in Resources */,
+				0760E93B1A81ACCD00BBEA3D /* CardDetailViewController.xib in Resources */,
 				077916711A5E64BA0047C17C /* PerfectInfoViewController.xib in Resources */,
 				075B03241A6DECE2002B577D /* XEPublicViewController.xib in Resources */,
 				071D51971A674FC6003D6752 /* MainTabCell.xib in Resources */,
 				07E284781A5A8DFC005651EB /* UMSnsAccountViewController.xib in Resources */,
 				07E284731A5A8DFC005651EB /* UMSCommentInputController.xib in Resources */,
 				075DD03C1A78B42E009A64B4 /* WSAssetViewSelectionIndicator@2x.png in Resources */,
-				07882C1E1A8065C4003874FA /* CardPackViewController.xib in Resources */,
 				074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */,
 				07FC6D241A679D4C001F34D8 /* XEGridView.xib in Resources */,
 				07E284741A5A8DFC005651EB /* UMSCommentInputControlleriPad.xib in Resources */,
@@ -1982,10 +1983,8 @@
 				07E2846F1A5A8DFC005651EB /* umFeedback.bundle in Resources */,
 				070346701A64F8E200EDE251 /* WelcomeViewController.xib in Resources */,
 				076971AF1A77564E00FEA571 /* TopicListViewController.xib in Resources */,
-				07882C2C1A809B33003874FA /* CardDetailViewController.xib in Resources */,
 				075B032A1A6E3892002B577D /* MapChooseViewController.xib in Resources */,
 				07E284701A5A8DFC005651EB /* UMSocialLocalizable.strings in Resources */,
-				07582D1D1A6E5B6200CDCA13 /* SettingViewController.xib in Resources */,
 				073F9F141A68B38F009D94E3 /* CategoryItemCell.xib in Resources */,
 				07E284761A5A8DFC005651EB /* UMShareEditViewControlleriPad.xib in Resources */,
 				075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */,
@@ -1997,6 +1996,7 @@
 				0797A32A1A7F106C00D5650A /* XEScrollPage.xib in Resources */,
 				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
 				07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */,
+				0760E93D1A81ACCD00BBEA3D /* CardPackViewController.xib in Resources */,
 				0776639C1A80779A004C885B /* ActivityApplyViewCell.xib in Resources */,
 				07C7C5121A70E336003E1272 /* arrow@2x.png in Resources */,
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
@@ -2043,13 +2043,11 @@
 				07B650521A67A1E500DEDE4E /* ExpertIntroViewController.m in Sources */,
 				075AA03E1A68D5EC000B6302 /* XEActivityInfo.m in Sources */,
 				077C98B81A53BEAE00E2985B /* XEBaseSuperViewController.m in Sources */,
-				07582D181A6E5B6200CDCA13 /* CollectionViewController.m in Sources */,
 				0712B3B11A5BD853000A1A7F /* UIImage+WebP.m in Sources */,
 				077663A01A809C01004C885B /* MineTopicListViewController.m in Sources */,
 				0712B3A91A5BD853000A1A7F /* SDWebImageDecoder.m in Sources */,
 				075DD0491A78BA3F009A64B4 /* UIImage+Resize.m in Sources */,
 				0712B3A81A5BD853000A1A7F /* SDWebImageCompat.m in Sources */,
-				07882C2B1A809B33003874FA /* CardDetailViewController.m in Sources */,
 				0752F7AA1A7B25C5008C0E0A /* MWPhoto.m in Sources */,
 				07C49F581A5E7E9900E1725C /* AVCamUtilities.m in Sources */,
 				075E40B01A593AAC0062F6AD /* MBProgressHUD.m in Sources */,
@@ -2085,6 +2083,7 @@
 				0712B3AA1A5BD853000A1A7F /* SDWebImageDownloader.m in Sources */,
 				0712B3AE1A5BD853000A1A7F /* UIButton+WebCache.m in Sources */,
 				0712B3A41A5BD853000A1A7F /* MKAnnotationView+WebCache.m in Sources */,
+				0760E93E1A81ACCD00BBEA3D /* SettingViewController.m in Sources */,
 				0752F7DD1A7B2638008C0E0A /* PSTGridLayoutSection.m in Sources */,
 				073F9F1A1A68E1D5009D94E3 /* UIColor+bit.m in Sources */,
 				07913F5F1A676F840083E8E5 /* ExpertListViewController.m in Sources */,
@@ -2107,6 +2106,7 @@
 				075B03231A6DECE2002B577D /* XEPublicViewController.m in Sources */,
 				073F9F171A68D0CB009D94E3 /* XERecipesInfo.m in Sources */,
 				077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */,
+				0760E93C1A81ACCD00BBEA3D /* CardPackViewController.m in Sources */,
 				0712B3AB1A5BD853000A1A7F /* SDWebImageDownloaderOperation.m in Sources */,
 				076CF5711A78AD8C00CDE21D /* XECateTopicViewCell.m in Sources */,
 				073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */,
@@ -2117,7 +2117,6 @@
 				0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */,
 				073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */,
 				075E409A1A59386C0062F6AD /* AFNetworkReachabilityManager.m in Sources */,
-				07882C1D1A8065C4003874FA /* CardPackViewController.m in Sources */,
 				079E421C1A762ABE0056968E /* XEQuestionViewCell.m in Sources */,
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
@@ -2138,6 +2137,7 @@
 				075CAF721A5D338F005CF4B6 /* NSString+Value.m in Sources */,
 				0746446D1A6C9F7200CE2935 /* XECommonWebVc.m in Sources */,
 				071D51961A674FC6003D6752 /* MainTabCell.m in Sources */,
+				0760E93A1A81ACCD00BBEA3D /* CardDetailViewController.m in Sources */,
 				0712B3A71A5BD853000A1A7F /* SDImageCache.m in Sources */,
 				076F32681A5FA67700346F44 /* UIImage+ProportionalFill.m in Sources */,
 				7E72411F1A77C0E1001E1F69 /* XECommentInfo.m in Sources */,
@@ -2166,14 +2166,15 @@
 				075AA0481A690C58000B6302 /* ActivityDetailsViewController.m in Sources */,
 				0712B3B31A5BD853000A1A7F /* UIImageView+WebCache.m in Sources */,
 				074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */,
-				07582D1A1A6E5B6200CDCA13 /* MineMsgViewController.m in Sources */,
 				0752F7D51A7B2638008C0E0A /* PSTCollectionViewData.m in Sources */,
 				073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */,
 				0752F7A81A7B25C5008C0E0A /* MWGridCell.m in Sources */,
+				0760E92D1A81ACB300BBEA3D /* CollectionViewController.m in Sources */,
 				07C49F561A5E7E9900E1725C /* AVCamCaptureManager.m in Sources */,
 				075E40B31A5940920062F6AD /* URLHelper.m in Sources */,
 				075CAF4C1A5D0E6A005CF4B6 /* SetPwdViewController.m in Sources */,
 				07FC6D291A67B317001F34D8 /* RecipesViewController.m in Sources */,
+				0760E92F1A81ACB300BBEA3D /* MineMsgViewController.m in Sources */,
 				07882C231A80675D003874FA /* CardViewCell.m in Sources */,
 				073FD96E1A53A2E000FF0EFD /* XEEngine.m in Sources */,
 				07582CF71A6E37F200CDCA13 /* ODRefreshControl.m in Sources */,
@@ -2184,7 +2185,6 @@
 				07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */,
 				074644851A6CFFDA00CE2935 /* XECollectionViewCell.m in Sources */,
 				076CF5791A78CFE300CDE21D /* XEPublishMenu.m in Sources */,
-				07582D1C1A6E5B6200CDCA13 /* SettingViewController.m in Sources */,
 				0712B37E1A5BC0DE000A1A7F /* RetrievePwdViewController.m in Sources */,
 				075DD0321A78AC0C009A64B4 /* WSAlbumTableViewController.m in Sources */,
 				07C49F591A5E7E9900E1725C /* DDExpandableButton.m in Sources */,
