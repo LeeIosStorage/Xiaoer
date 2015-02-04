@@ -46,10 +46,10 @@
     [self.commentLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.favnum] forState:0];
     [self.collectLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.commentnum] forState:0];
     if (![topicInfo.smallAvatarUrl isEqual:[NSNull null]]) {
-        [self.avatarImageView sd_setImageWithURL:topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
+        [self.avatarImageView sd_setImageWithURL:topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
     }else{
         [self.avatarImageView sd_setImageWithURL:nil];
-        [self.avatarImageView setImage:[UIImage imageNamed:@"topic_load_icon"]];
+        [self.avatarImageView setImage:[UIImage imageNamed:@"topic_avatar_icon"]];
     }
     self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width/2;
     self.avatarImageView.layer.masksToBounds = YES;
