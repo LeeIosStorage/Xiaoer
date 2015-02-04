@@ -385,6 +385,33 @@
     }
 }
 
+-(void)unCollectTopicWith:(XETopicInfo*)topicInfo{
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
+    __weak MineTopicListViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] unCollectTopicWithTopicId:topicInfo.tId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        NSInteger index = [weakSelf.collectTopicList indexOfObject:topicInfo];
+        if (index == NSNotFound || index < 0 || index >= weakSelf.collectTopicList.count) {
+            return;
+        }
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [weakSelf.collectTopicList removeObjectAtIndex:indexPath.row];
+        [weakSelf.collectTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+    }tag:tag];
+}
+
 #pragma mark PullToRefreshViewDelegate
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view {
     if (view == self.pullRefreshView) {
@@ -395,6 +422,27 @@
 }
 - (NSDate *)pullToRefreshViewLastUpdated:(PullToRefreshView *)view {
     return [NSDate date];
+}
+
+#pragma mark - TableView Delegate
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.collectTableView) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        if (tableView == self.collectTableView) {
+            XETopicInfo *topicInfo = self.collectTopicList[indexPath.row];
+            [self unCollectTopicWith:topicInfo];
+        }
+    }
+}
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return @"取消收藏";
 }
 
 #pragma mark - Table view data source

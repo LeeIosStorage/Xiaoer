@@ -334,7 +334,7 @@
     self.titleLabel.text = _topicInfo.title;
     CGSize textSize = [XECommonUtils sizeWithText:_topicInfo.title font:self.titleLabel.font width:SCREEN_WIDTH-13*2];
     CGRect frame = self.titleContainerView.frame;
-    frame.size.height = (textSize.height + 5 + 5);
+    frame.size.height = (textSize.height + 10);
     self.titleContainerView.frame = frame;
     
     self.contentLabel.text = _topicInfo.content;

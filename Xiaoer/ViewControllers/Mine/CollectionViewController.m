@@ -331,6 +331,57 @@
     }
 }
 
+-(void)unCollectInformationWith:(XERecipesInfo*)info{
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
+    __weak CollectionViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] unCollectInfoWithInfoId:info.rid uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        NSInteger index = [weakSelf.informationList indexOfObject:info];
+        if (index == NSNotFound || index < 0 || index >= weakSelf.informationList.count) {
+            return;
+        }
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [weakSelf.informationList removeObjectAtIndex:indexPath.row];
+        [weakSelf.informationTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }tag:tag];
+}
+-(void)unCollectExpertWith:(XEDoctorInfo*)doctorInfo{
+    
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
+    __weak CollectionViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] unCollectExpertWithExpertId:doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        NSInteger index = [weakSelf.expertList indexOfObject:doctorInfo];
+        if (index == NSNotFound || index < 0 || index >= self.expertList.count) {
+            return;
+        }
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [weakSelf.expertList removeObjectAtIndex:indexPath.row];
+        [weakSelf.expertTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }tag:tag];
+}
 #pragma mark PullToRefreshViewDelegate
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view {
     if (view == self.pullRefreshView) {
@@ -341,6 +392,29 @@
 }
 - (NSDate *)pullToRefreshViewLastUpdated:(PullToRefreshView *)view {
     return [NSDate date];
+}
+
+#pragma mark - TableView Delegate
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        if (tableView == self.informationTableView) {
+            XERecipesInfo *info = [self.informationList objectAtIndex:indexPath.row];
+            [self unCollectInformationWith:info];
+            
+        }else if (tableView == self.expertTableView){
+            XEDoctorInfo *doctorInfo = self.expertList[indexPath.row];
+            [self unCollectExpertWith:doctorInfo];
+        }
+        
+    }
+}
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return @"取消收藏";
 }
 
 #pragma mark - Table view data source
