@@ -184,5 +184,8 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 //我收藏的资讯专家
 - (BOOL)getMyCollectInfoListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
 - (BOOL)getMyCollectExpertListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
+//公告,问答
+- (BOOL)getNoticeMessagesListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
+- (BOOL)getQuestionMessagesListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
 
 @end

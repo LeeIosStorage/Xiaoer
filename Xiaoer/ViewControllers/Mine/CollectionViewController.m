@@ -19,7 +19,7 @@
 #import "ExpertIntroViewController.h"
 
 #define INFORMATION_TYPE     0
-#define EXPERT_TYPE   1
+#define EXPERT_TYPE          1
 
 @interface CollectionViewController ()<UITableViewDataSource,UITableViewDelegate>
 

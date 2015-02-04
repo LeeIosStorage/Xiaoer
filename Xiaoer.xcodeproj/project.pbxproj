@@ -147,6 +147,7 @@
 		0760E93D1A81ACCD00BBEA3D /* CardPackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760E9361A81ACCD00BBEA3D /* CardPackViewController.xib */; };
 		0760E93E1A81ACCD00BBEA3D /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760E9381A81ACCD00BBEA3D /* SettingViewController.m */; };
 		0760E93F1A81ACCD00BBEA3D /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760E9391A81ACCD00BBEA3D /* SettingViewController.xib */; };
+		0760E9421A81D93100BBEA3D /* XEMsgInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760E9411A81D93100BBEA3D /* XEMsgInfo.m */; };
 		0760FC461A79D4DD00A0E5D8 /* QuestionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760FC441A79D4DD00A0E5D8 /* QuestionDetailsViewController.m */; };
 		0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760FC451A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib */; };
 		076971AE1A77564E00FEA571 /* TopicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076971AC1A77564E00FEA571 /* TopicListViewController.m */; };
@@ -546,6 +547,8 @@
 		0760E9371A81ACCD00BBEA3D /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		0760E9381A81ACCD00BBEA3D /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		0760E9391A81ACCD00BBEA3D /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		0760E9401A81D93100BBEA3D /* XEMsgInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEMsgInfo.h; sourceTree = "<group>"; };
+		0760E9411A81D93100BBEA3D /* XEMsgInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEMsgInfo.m; sourceTree = "<group>"; };
 		0760FC431A79D4DD00A0E5D8 /* QuestionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionDetailsViewController.h; sourceTree = "<group>"; };
 		0760FC441A79D4DD00A0E5D8 /* QuestionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionDetailsViewController.m; sourceTree = "<group>"; };
 		0760FC451A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionDetailsViewController.xib; sourceTree = "<group>"; };
@@ -1665,6 +1668,8 @@
 				7E72411E1A77C0E1001E1F69 /* XECommentInfo.m */,
 				07882C251A80753D003874FA /* XECardInfo.h */,
 				07882C261A80753D003874FA /* XECardInfo.m */,
+				0760E9401A81D93100BBEA3D /* XEMsgInfo.h */,
+				0760E9411A81D93100BBEA3D /* XEMsgInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2168,6 +2173,7 @@
 				074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */,
 				0752F7D51A7B2638008C0E0A /* PSTCollectionViewData.m in Sources */,
 				073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */,
+				0760E9421A81D93100BBEA3D /* XEMsgInfo.m in Sources */,
 				0752F7A81A7B25C5008C0E0A /* MWGridCell.m in Sources */,
 				0760E92D1A81ACB300BBEA3D /* CollectionViewController.m in Sources */,
 				07C49F561A5E7E9900E1725C /* AVCamCaptureManager.m in Sources */,
