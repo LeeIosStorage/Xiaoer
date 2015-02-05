@@ -269,7 +269,7 @@
     
     [self.topicButton setTitle:[NSString stringWithFormat:@"话题 %d",_doctorInfo.topicnum] forState:0];
     [self.fansButton setTitle:[NSString stringWithFormat:@"粉丝 %d",_doctorInfo.favnum] forState:0];
-    self.hotLabel.text = [NSString stringWithFormat:@"%d",_doctorInfo.favnum];
+    self.hotLabel.text = [NSString stringWithFormat:@"%d",_doctorInfo.popularscore];
     
     CGRect frame = _doctorIntroLabel.frame;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];

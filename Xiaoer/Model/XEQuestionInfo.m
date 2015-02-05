@@ -25,6 +25,7 @@
     if (objectForKey) {
         _content = [objectForKey description];
     }
+    _userName = [dic stringObjectForKey:@"uname"];
     _expertName = [dic stringObjectForKey:@"name"];
     NSDateFormatter *dateFormatter = [XEUIUtils dateFormatterOFUS];
     objectForKey = [dic objectForKey:@"time"];
