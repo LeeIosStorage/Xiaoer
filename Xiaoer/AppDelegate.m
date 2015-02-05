@@ -22,7 +22,8 @@
 #import "XEEngine.h"
 #import "XESettingConfig.h"
 #import "WelcomeViewController.h"
-
+#import "LSReachability.h"
+#import "XEAlertView.h"
 
 @interface AppDelegate () <NewIntroViewControllerDelegate>
 
@@ -106,7 +107,7 @@
     
     self.window.rootViewController = tabNavVc;
     
-    //[self checkVersion];
+    [self checkVersion];
     
 }
 
@@ -130,7 +131,37 @@
 }
 
 - (void)checkVersion{
-
+    if ([[LSReachability reachabilityForLocalWiFi] isReachableViaWiFi]) {
+//        int tag = [[XEEngine shareInstance] getConnectTag];
+        //去自己服务器取版本信息
+//        [[XEEngine shareInstance] getAppNewVersionWithtag:tag error:nil];
+//        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+//            if (!jsonRet || err){
+//                return ;
+//            }
+//            NSString *localVserion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
+//            NSString* version = nil;
+//            NSString* releaseNotes = nil;
+//            
+//            version = [jsonRet stringObjectForKey:@"version_name"];
+//            releaseNotes = [jsonRet stringObjectForKey:@"notes"];
+//            
+//            NSString* checkedVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"checkedVersion"];
+//            if ([checkedVersion isEqualToString:version]) {
+//                return;
+//            }
+//            [[NSUserDefaults standardUserDefaults] setObject:version forKey:@"checkedVersion"];
+//            if ([XECommonUtils isVersion:version greaterThanVersion:localVserion]) {
+//                
+//                XEAlertView *alert = [[XEAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@版本已上线", version] message:[NSString stringWithFormat:@"%@", releaseNotes] cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"立刻更新" okBlock:^{
+//                    NSURL *url = [[ NSURL alloc ] initWithString: @"http://itunes.apple.com/app/idxxxxxx"] ;
+//                    [[UIApplication sharedApplication] openURL:url];
+//                }];
+//                [alert show];
+//                return;
+//            }
+//        } tag:tag];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url

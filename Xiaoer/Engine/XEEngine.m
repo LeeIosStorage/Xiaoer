@@ -149,6 +149,9 @@ static XEEngine* s_ShareInstance = nil;
     
     [self serverInit];
     
+    _xeInstanceDocPath = [PathHelper documentDirectoryPathWithName:@"XE_Path"];
+    NSLog(@"cache file path: %@", _xeInstanceDocPath);
+    
     return self;
 }
 

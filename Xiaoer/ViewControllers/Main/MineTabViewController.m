@@ -24,7 +24,7 @@
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
     kMyCard,
-    kSetting,
+    //kSetting,
     kSectionNumber,
 };
 
@@ -165,9 +165,11 @@ enum TABLEVIEW_SECTION_INDEX {
     // Return the number of rows in the section.
     if (section == kMyProfile) {
         return 4;
-    }else if (section == kMyCard || section == kSetting){
-        return 2;
-    }else {
+    }
+//    else if (section == kMyCard){
+//        return 2;
+//    }
+    else {
         return 1;
     }
 }
@@ -198,40 +200,47 @@ enum TABLEVIEW_SECTION_INDEX {
         case kMyProfile:{
             if (indexPath.row == 0) {
                 cell.titleLabel.text = @"我的消息";
+                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_msg_icon"]];
                 break;
             }else if (indexPath.row == 1){
                 cell.titleLabel.text = @"我的活动";
+                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_activity_icon"]];
                 break;
             }else if (indexPath.row == 2){
                 cell.titleLabel.text = @"我的收藏";
+                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_collection_icon"]];
                 break;
             }else if (indexPath.row == 3){
                 cell.titleLabel.text = @"我的话题";
+                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_topic_icon"]];
                 break;
             }
         }
         case kMyCard:{
             if (indexPath.row == 0) {
                 cell.titleLabel.text = @"我的卡包";
-                break;
-            }else if (indexPath.row == 1){
-                cell.titleLabel.text = @"历史测评";
+                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_card_icon"]];
                 break;
             }
+//            else if (indexPath.row == 1){
+//                cell.titleLabel.text = @"历史测评";
+//                [cell.avatarImageView setImage:[UIImage imageNamed:@""]];
+//                break;
+//            }
         }
-        case kSetting:{
-            if (indexPath.row == 0) {
-                cell.titleLabel.text = @"用户退出";
-                break;
-            }else if (indexPath.row == 1){
-                if ([XEEngine shareInstance].serverPlatform == OnlinePlatform) {
-                    cell.titleLabel.text = @"测试环境";
-                }else{
-                    cell.titleLabel.text = @"线上环境";
-                }
-                break;
-            }
-        }
+//        case kSetting:{
+//            if (indexPath.row == 0) {
+//                cell.titleLabel.text = @"用户退出";
+//                break;
+//            }else if (indexPath.row == 1){
+//                if ([XEEngine shareInstance].serverPlatform == OnlinePlatform) {
+//                    cell.titleLabel.text = @"测试环境";
+//                }else{
+//                    cell.titleLabel.text = @"线上环境";
+//                }
+//                break;
+//            }
+//        }
         default:
             break;
     }
@@ -260,7 +269,6 @@ enum TABLEVIEW_SECTION_INDEX {
                 [self.navigationController pushViewController:cVc animated:YES];
                 break;
             }else if (indexPath.row == 3){
-                NSLog(@"============我的话题");
                 MineTopicListViewController *mVc = [[MineTopicListViewController alloc] init];
                 [self.navigationController pushViewController:mVc animated:YES];
                 break;
@@ -271,23 +279,24 @@ enum TABLEVIEW_SECTION_INDEX {
                 CardPackViewController *cpVc = [[CardPackViewController alloc] init];
                 [self.navigationController pushViewController:cpVc animated:YES];
                 break;
-            }else if (indexPath.row == 1){
-                NSLog(@"============历史测评");
-                break;
             }
+//            else if (indexPath.row == 1){
+//                NSLog(@"============历史测评");
+//                break;
+//            }
         }
-        case kSetting:{
-            if (indexPath.row == 0) {
-                [[XEEngine shareInstance] logout];
-                WelcomeViewController *weVc = [[WelcomeViewController alloc] init];
-                [self.navigationController pushViewController:weVc animated:YES];
-                break;
-            }else if (indexPath.row == 1){
-                [self onLogoutWithError:nil];
-                break;
-            }
-            //暂时放下
-        }
+//        case kSetting:{
+//            if (indexPath.row == 0) {
+//                [[XEEngine shareInstance] logout];
+//                WelcomeViewController *weVc = [[WelcomeViewController alloc] init];
+//                [self.navigationController pushViewController:weVc animated:YES];
+//                break;
+//            }else if (indexPath.row == 1){
+//                [self onLogoutWithError:nil];
+//                break;
+//            }
+//            //暂时放下
+//        }
         default:
             break;
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -18,8 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="YW1-TN-SIm">
+                        <rect key="frame" x="20" y="11" width="30" height="23"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2WJ-tt-TzM">
-                        <rect key="frame" x="21" y="0.0" width="97" height="44"/>
+                        <rect key="frame" x="60" y="0.0" width="97" height="44"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -44,6 +48,7 @@
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="avatarImageView" destination="YW1-TN-SIm" id="FmG-ji-Eig"/>
                 <outlet property="introLabel" destination="9w1-Ns-6Dt" id="cXo-5i-Ytd"/>
                 <outlet property="leftAvater" destination="fp9-c7-D8c" id="HlS-UB-Bsp"/>
                 <outlet property="sepline" destination="Yng-ON-Oxa" id="k5C-3o-RJb"/>

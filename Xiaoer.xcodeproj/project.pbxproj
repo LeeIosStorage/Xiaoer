@@ -145,8 +145,6 @@
 		0760E93B1A81ACCD00BBEA3D /* CardDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760E9331A81ACCD00BBEA3D /* CardDetailViewController.xib */; };
 		0760E93C1A81ACCD00BBEA3D /* CardPackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760E9351A81ACCD00BBEA3D /* CardPackViewController.m */; };
 		0760E93D1A81ACCD00BBEA3D /* CardPackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760E9361A81ACCD00BBEA3D /* CardPackViewController.xib */; };
-		0760E93E1A81ACCD00BBEA3D /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760E9381A81ACCD00BBEA3D /* SettingViewController.m */; };
-		0760E93F1A81ACCD00BBEA3D /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760E9391A81ACCD00BBEA3D /* SettingViewController.xib */; };
 		0760E9421A81D93100BBEA3D /* XEMsgInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760E9411A81D93100BBEA3D /* XEMsgInfo.m */; };
 		0760FC461A79D4DD00A0E5D8 /* QuestionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760FC441A79D4DD00A0E5D8 /* QuestionDetailsViewController.m */; };
 		0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760FC451A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib */; };
@@ -198,6 +196,13 @@
 		079E42181A7611240056968E /* XEQuestionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E42171A7611240056968E /* XEQuestionInfo.m */; };
 		079E421C1A762ABE0056968E /* XEQuestionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E421A1A762ABE0056968E /* XEQuestionViewCell.m */; };
 		079E421D1A762ABE0056968E /* XEQuestionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 079E421B1A762ABE0056968E /* XEQuestionViewCell.xib */; };
+		07AAB7F21A8306460030D306 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AAB7F01A8306460030D306 /* SettingViewController.m */; };
+		07AAB7F31A8306460030D306 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07AAB7F11A8306460030D306 /* SettingViewController.xib */; };
+		07AAB7F81A8330130030D306 /* SettingViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AAB7F61A8330130030D306 /* SettingViewCell.m */; };
+		07AAB7F91A8330130030D306 /* SettingViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07AAB7F71A8330130030D306 /* SettingViewCell.xib */; };
+		07AAB7FD1A8359CB0030D306 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AAB7FB1A8359CB0030D306 /* AboutViewController.m */; };
+		07AAB7FE1A8359CB0030D306 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07AAB7FC1A8359CB0030D306 /* AboutViewController.xib */; };
+		07AAB8021A8367420030D306 /* LSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AAB8011A8367420030D306 /* LSReachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		07B650521A67A1E500DEDE4E /* ExpertIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B650501A67A1E500DEDE4E /* ExpertIntroViewController.m */; };
 		07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07B650511A67A1E500DEDE4E /* ExpertIntroViewController.xib */; };
 		07B650571A67AC7E00DEDE4E /* XETopicViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B650551A67AC7E00DEDE4E /* XETopicViewCell.m */; };
@@ -544,9 +549,6 @@
 		0760E9341A81ACCD00BBEA3D /* CardPackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardPackViewController.h; sourceTree = "<group>"; };
 		0760E9351A81ACCD00BBEA3D /* CardPackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardPackViewController.m; sourceTree = "<group>"; };
 		0760E9361A81ACCD00BBEA3D /* CardPackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardPackViewController.xib; sourceTree = "<group>"; };
-		0760E9371A81ACCD00BBEA3D /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		0760E9381A81ACCD00BBEA3D /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
-		0760E9391A81ACCD00BBEA3D /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
 		0760E9401A81D93100BBEA3D /* XEMsgInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEMsgInfo.h; sourceTree = "<group>"; };
 		0760E9411A81D93100BBEA3D /* XEMsgInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEMsgInfo.m; sourceTree = "<group>"; };
 		0760FC431A79D4DD00A0E5D8 /* QuestionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionDetailsViewController.h; sourceTree = "<group>"; };
@@ -638,6 +640,17 @@
 		079E42191A762ABE0056968E /* XEQuestionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEQuestionViewCell.h; sourceTree = "<group>"; };
 		079E421A1A762ABE0056968E /* XEQuestionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEQuestionViewCell.m; sourceTree = "<group>"; };
 		079E421B1A762ABE0056968E /* XEQuestionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEQuestionViewCell.xib; sourceTree = "<group>"; };
+		07AAB7EF1A8306460030D306 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewController.h; path = Setting/SettingViewController.h; sourceTree = "<group>"; };
+		07AAB7F01A8306460030D306 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewController.m; path = Setting/SettingViewController.m; sourceTree = "<group>"; };
+		07AAB7F11A8306460030D306 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingViewController.xib; path = Setting/SettingViewController.xib; sourceTree = "<group>"; };
+		07AAB7F51A8330130030D306 /* SettingViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewCell.h; path = Setting/SettingViewCell.h; sourceTree = "<group>"; };
+		07AAB7F61A8330130030D306 /* SettingViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewCell.m; path = Setting/SettingViewCell.m; sourceTree = "<group>"; };
+		07AAB7F71A8330130030D306 /* SettingViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingViewCell.xib; path = Setting/SettingViewCell.xib; sourceTree = "<group>"; };
+		07AAB7FA1A8359CB0030D306 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = Setting/AboutViewController.h; sourceTree = "<group>"; };
+		07AAB7FB1A8359CB0030D306 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = Setting/AboutViewController.m; sourceTree = "<group>"; };
+		07AAB7FC1A8359CB0030D306 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AboutViewController.xib; path = Setting/AboutViewController.xib; sourceTree = "<group>"; };
+		07AAB8001A8367420030D306 /* LSReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSReachability.h; sourceTree = "<group>"; };
+		07AAB8011A8367420030D306 /* LSReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSReachability.m; sourceTree = "<group>"; };
 		07B6504F1A67A1E500DEDE4E /* ExpertIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertIntroViewController.h; sourceTree = "<group>"; };
 		07B650501A67A1E500DEDE4E /* ExpertIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertIntroViewController.m; sourceTree = "<group>"; };
 		07B650511A67A1E500DEDE4E /* ExpertIntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpertIntroViewController.xib; sourceTree = "<group>"; };
@@ -1389,6 +1402,38 @@
 			path = HQ;
 			sourceTree = "<group>";
 		};
+		07AAB7EE1A83060E0030D306 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				07AAB7EF1A8306460030D306 /* SettingViewController.h */,
+				07AAB7F01A8306460030D306 /* SettingViewController.m */,
+				07AAB7F11A8306460030D306 /* SettingViewController.xib */,
+				07AAB7FA1A8359CB0030D306 /* AboutViewController.h */,
+				07AAB7FB1A8359CB0030D306 /* AboutViewController.m */,
+				07AAB7FC1A8359CB0030D306 /* AboutViewController.xib */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
+		07AAB7F41A832FD00030D306 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				07AAB7F51A8330130030D306 /* SettingViewCell.h */,
+				07AAB7F61A8330130030D306 /* SettingViewCell.m */,
+				07AAB7F71A8330130030D306 /* SettingViewCell.xib */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
+		07AAB7FF1A8367420030D306 /* LSReachability */ = {
+			isa = PBXGroup;
+			children = (
+				07AAB8001A8367420030D306 /* LSReachability.h */,
+				07AAB8011A8367420030D306 /* LSReachability.m */,
+			);
+			path = LSReachability;
+			sourceTree = "<group>";
+		};
 		07C49F441A5E7C9800E1725C /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1611,6 +1656,7 @@
 		07E5360F1A528203005E1DA9 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				07AAB7FF1A8367420030D306 /* LSReachability */,
 				0752F7921A7B25C5008C0E0A /* MWPhotoBrowser */,
 				07EBF0781A7A01070050B256 /* AMBlurView */,
 				075DD03D1A78BA3F009A64B4 /* UIImage-Categories-master */,
@@ -1677,6 +1723,7 @@
 		07E536131A528239005E1DA9 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				07AAB7EE1A83060E0030D306 /* Setting */,
 				07E536181A528625005E1DA9 /* TabBar */,
 				07E536151A52828E005E1DA9 /* Base */,
 				07E284911A5A8F26005651EB /* Login */,
@@ -1694,6 +1741,7 @@
 		07E536141A528239005E1DA9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				07AAB7F41A832FD00030D306 /* Setting */,
 				07882C1F1A806728003874FA /* Mine */,
 				075E32161A762C1C006037B3 /* Common */,
 				073F9F081A68B234009D94E3 /* Home */,
@@ -1757,9 +1805,6 @@
 				0760E9341A81ACCD00BBEA3D /* CardPackViewController.h */,
 				0760E9351A81ACCD00BBEA3D /* CardPackViewController.m */,
 				0760E9361A81ACCD00BBEA3D /* CardPackViewController.xib */,
-				0760E9371A81ACCD00BBEA3D /* SettingViewController.h */,
-				0760E9381A81ACCD00BBEA3D /* SettingViewController.m */,
-				0760E9391A81ACCD00BBEA3D /* SettingViewController.xib */,
 				077663931A80674E004C885B /* MineActivityListViewController.h */,
 				077663941A80674E004C885B /* MineActivityListViewController.m */,
 				077663951A80674E004C885B /* MineActivityListViewController.xib */,
@@ -1936,11 +1981,11 @@
 				07E284751A5A8DFC005651EB /* UMShareEditViewController.xib in Resources */,
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
 				076CF5721A78AD8C00CDE21D /* XECateTopicViewCell.xib in Resources */,
+				07AAB7F31A8306460030D306 /* SettingViewController.xib in Resources */,
 				0760E92E1A81ACB300BBEA3D /* CollectionViewController.xib in Resources */,
 				0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */,
 				075B031F1A6CAC28002B577D /* ApplyActivityViewController.xib in Resources */,
 				07E284771A5A8DFC005651EB /* UMSLoginViewController.xib in Resources */,
-				0760E93F1A81ACCD00BBEA3D /* SettingViewController.xib in Resources */,
 				075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */,
 				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
 				0760E9301A81ACB300BBEA3D /* MineMsgViewController.xib in Resources */,
@@ -1966,6 +2011,7 @@
 				07E284731A5A8DFC005651EB /* UMSCommentInputController.xib in Resources */,
 				075DD03C1A78B42E009A64B4 /* WSAssetViewSelectionIndicator@2x.png in Resources */,
 				074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */,
+				07AAB7F91A8330130030D306 /* SettingViewCell.xib in Resources */,
 				07FC6D241A679D4C001F34D8 /* XEGridView.xib in Resources */,
 				07E284741A5A8DFC005651EB /* UMSCommentInputControlleriPad.xib in Resources */,
 				7E72411C1A77BFA2001E1F69 /* TopicDetailsViewController.xib in Resources */,
@@ -1981,6 +2027,7 @@
 				077663971A80674E004C885B /* MineActivityListViewController.xib in Resources */,
 				075AA03B1A68B85D000B6302 /* ActivityViewController.xib in Resources */,
 				07E536371A529210005E1DA9 /* ExpertChatViewController.xib in Resources */,
+				07AAB7FE1A8359CB0030D306 /* AboutViewController.xib in Resources */,
 				07FC6D2A1A67B317001F34D8 /* RecipesViewController.xib in Resources */,
 				07508E941A51346300873B45 /* LaunchScreen.xib in Resources */,
 				075E321E1A762F4A006037B3 /* XECustomerWindow.xib in Resources */,
@@ -2042,6 +2089,7 @@
 				079E42181A7611240056968E /* XEQuestionInfo.m in Sources */,
 				075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */,
 				07582D0D1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
+				07AAB8021A8367420030D306 /* LSReachability.m in Sources */,
 				075B031E1A6CAC28002B577D /* ApplyActivityViewController.m in Sources */,
 				0703466F1A64F8E200EDE251 /* WelcomeViewController.m in Sources */,
 				0712B3B01A5BD853000A1A7F /* UIImage+MultiFormat.m in Sources */,
@@ -2054,10 +2102,12 @@
 				075DD0491A78BA3F009A64B4 /* UIImage+Resize.m in Sources */,
 				0712B3A81A5BD853000A1A7F /* SDWebImageCompat.m in Sources */,
 				0752F7AA1A7B25C5008C0E0A /* MWPhoto.m in Sources */,
+				07AAB7F21A8306460030D306 /* SettingViewController.m in Sources */,
 				07C49F581A5E7E9900E1725C /* AVCamUtilities.m in Sources */,
 				075E40B01A593AAC0062F6AD /* MBProgressHUD.m in Sources */,
 				077C98BB1A53C85C00E2985B /* XETitleNavBarView.m in Sources */,
 				075DD04A1A78BA3F009A64B4 /* UIImage+RoundedCorner.m in Sources */,
+				07AAB7FD1A8359CB0030D306 /* AboutViewController.m in Sources */,
 				075DD0341A78AC0C009A64B4 /* WSAssetPickerState.m in Sources */,
 				0774A8861A66705D00336465 /* XEAlertView.m in Sources */,
 				0712B3A61A5BD853000A1A7F /* NSData+ImageContentType.m in Sources */,
@@ -2088,7 +2138,6 @@
 				0712B3AA1A5BD853000A1A7F /* SDWebImageDownloader.m in Sources */,
 				0712B3AE1A5BD853000A1A7F /* UIButton+WebCache.m in Sources */,
 				0712B3A41A5BD853000A1A7F /* MKAnnotationView+WebCache.m in Sources */,
-				0760E93E1A81ACCD00BBEA3D /* SettingViewController.m in Sources */,
 				0752F7DD1A7B2638008C0E0A /* PSTGridLayoutSection.m in Sources */,
 				073F9F1A1A68E1D5009D94E3 /* UIColor+bit.m in Sources */,
 				07913F5F1A676F840083E8E5 /* ExpertListViewController.m in Sources */,
@@ -2124,6 +2173,7 @@
 				075E409A1A59386C0062F6AD /* AFNetworkReachabilityManager.m in Sources */,
 				079E421C1A762ABE0056968E /* XEQuestionViewCell.m in Sources */,
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
+				07AAB7F81A8330130030D306 /* SettingViewCell.m in Sources */,
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
 				7E72412B1A77D2F8001E1F69 /* HPGrowingTextView.m in Sources */,
 				075B03351A6E4350002B577D /* MapChooseAnnotationView.m in Sources */,

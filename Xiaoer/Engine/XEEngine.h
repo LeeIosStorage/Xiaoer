@@ -35,6 +35,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 @property (assign, nonatomic) BOOL firstLogin;
 
 @property (nonatomic,assign) ServerPlatform serverPlatform;
+@property (nonatomic,readonly) NSString* xeInstanceDocPath;
 
 + (XEEngine *)shareInstance;
 + (NSDictionary*)getReponseDicByContent:(NSData*)content err:(NSError*)err;

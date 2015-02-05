@@ -162,4 +162,25 @@
     return idsString;
 }
 
++ (BOOL)isVersion:(NSString *)versionA greaterThanVersion:(NSString *)versionB {
+    NSArray *versionAArray = [versionA componentsSeparatedByString:@"."];
+    NSArray *versionBArray = [versionB componentsSeparatedByString:@"."];
+    
+    for (NSInteger i=0; i < versionAArray.count; i++) {
+        if (i >= versionBArray.count) {
+            if ([[versionAArray objectAtIndex:i] integerValue] > 0) {
+                return YES;
+            }else {
+                continue;
+            }
+        }
+        if ([[versionAArray objectAtIndex:i] integerValue]>[[versionBArray objectAtIndex:i] integerValue]) {
+            return TRUE;
+        } else if ([[versionAArray objectAtIndex:i] integerValue]<[[versionBArray objectAtIndex:i] integerValue]) {
+            return FALSE;
+        }
+    }
+    return FALSE;
+}
+
 @end

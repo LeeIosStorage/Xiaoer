@@ -1,18 +1,18 @@
 //
-//  SettingViewController.m
+//  AboutViewController.m
 //  Xiaoer
 //
-//  Created by KID on 15/1/20.
+//  Created by KID on 15/2/5.
 //
 //
 
-#import "SettingViewController.h"
+#import "AboutViewController.h"
 
-@interface SettingViewController ()
+@interface AboutViewController ()
 
 @end
 
-@implementation SettingViewController
+@implementation AboutViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,7 +24,8 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)initNormalTitleNavBarSubviews{
-    [self setTitle:@"设置"];
+- (void)initNormalTitleNavBarSubviews{
+    [self setTitle:@"关于"];
 }
+
 @end

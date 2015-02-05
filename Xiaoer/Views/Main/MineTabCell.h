@@ -11,6 +11,7 @@
 @interface MineTabCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
 
 @property (strong, nonatomic) IBOutlet UILabel *introLabel;
 
