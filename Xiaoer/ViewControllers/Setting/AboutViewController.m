@@ -7,6 +7,8 @@
 //
 
 #import "AboutViewController.h"
+#import "XELinkerHandler.h"
+#import "XEEngine.h"
 
 @interface AboutViewController ()
 
@@ -27,5 +29,14 @@
 - (void)initNormalTitleNavBarSubviews{
     [self setTitle:@"关于"];
 }
+
+- (IBAction)protocolAction:(id)sender {
+    NSString *url = [[NSString stringWithFormat:@"%@/%@",[XEEngine shareInstance].baseUrl,@"agreement"] description];
+    id vc = [XELinkerHandler handleDealWithHref:url From:self.navigationController];
+    if (vc) {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
 
 @end
