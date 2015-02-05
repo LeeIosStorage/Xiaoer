@@ -6,12 +6,13 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "back2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "back icon.png"
+      "filename" : "back3x.png"
     }
   ],
   "info" : {
