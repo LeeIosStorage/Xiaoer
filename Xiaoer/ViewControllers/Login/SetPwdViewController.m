@@ -187,6 +187,7 @@
     [XEEngine shareInstance].account = self.registerName;
     [XEEngine shareInstance].userPassword = self.setPwdTextField.text;
     [[XEEngine shareInstance] saveAccount];
+    [[XEEngine shareInstance] setUserInfo:_userInfo];
     
     PerfectInfoViewController *pVc = [[PerfectInfoViewController alloc] init];
     pVc.userInfo = _userInfo;

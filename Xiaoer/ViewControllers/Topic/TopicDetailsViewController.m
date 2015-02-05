@@ -477,21 +477,12 @@
         NSDictionary *dic = [jsonRet objectForKey:@"object"];
         XECommentInfo *commentInfo = [[XECommentInfo alloc] init];
         [commentInfo setCommentInfoByJsonDic:dic];
-        commentInfo.cId = [dic stringObjectForKey:@"id"];
-        commentInfo.uId = [dic stringObjectForKey:@"userId"];
-        commentInfo.userName = [XEEngine shareInstance].userInfo.nickName;
-        commentInfo.avatar = [XEEngine shareInstance].userInfo.avatar;
-        
-        id objectForKey = [dic objectForKey:@"time"];
-        if (objectForKey && [objectForKey isKindOfClass:[NSString class]]) {
-            NSDateFormatter *dateFormatter = [XEUIUtils dateFormatterOFUS];
-            commentInfo.time = [dateFormatter dateFromString:objectForKey];
-        }
-        [weakSelf.topicComments addObject:commentInfo];
+        [weakSelf.topicComments insertObject:commentInfo atIndex:0];
         
         [weakSelf.tableView reloadData];
-        
         [weakSelf growingTextViewResignFirstResponder];
+        
+        [self.tableView setContentOffset:CGPointMake(0, 0 - self.tableView.contentInset.top) animated:YES];
         
     } tag:tag];
     

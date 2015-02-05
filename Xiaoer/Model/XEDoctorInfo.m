@@ -32,6 +32,7 @@
     _topicnum = [[dic objectForKey:@"topicnum"] intValue];
     _favnum = [[dic objectForKey:@"favnum"] intValue];
     _faved = [[dic objectForKey:@"faved"] intValue];
+    _popularscore = [[dic objectForKey:@"popularscore"] intValue];
 }
 
 -(void)setDoctorInfoByJsonDic:(NSDictionary *)dic{

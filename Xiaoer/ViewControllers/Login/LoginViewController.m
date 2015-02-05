@@ -15,6 +15,8 @@
 #import "XEUserInfo.h"
 #import "AppDelegate.h"
 #import "NSString+Value.h"
+#import "XELinkerHandler.h"
+#import "XECommonWebVc.h"
 
 @interface LoginViewController () <UITextFieldDelegate>
 {
@@ -588,7 +590,14 @@
 }
 
 - (IBAction)protocolAction:(id)sender {
+    NSString *url = [[NSString stringWithFormat:@"%@/%@",[XEEngine shareInstance].baseUrl,@"agreement"] description];
     
+    XECommonWebVc *webvc = [[XECommonWebVc alloc] initWithAddress:url];
+    
+//    id vc = [XELinkerHandler handleDealWithHref:url From:self.navigationController];
+    if (webvc) {
+        [self presentViewController:webvc animated:YES completion:nil];
+    }
 }
 
 - (IBAction)registerAffimAction:(id)sender {

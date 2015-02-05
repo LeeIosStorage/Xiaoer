@@ -247,6 +247,14 @@
     
     
     //question view
+    NSString *userName = _questionInfo.userName;
+    if (!userName) {
+        userName = @"他";
+    }
+    self.questionNameLabel.text = [NSString stringWithFormat:@"%@的提问：",userName];
+    if ([_questionInfo.uId isEqualToString:[XEEngine shareInstance].uid]) {
+        self.questionNameLabel.text = @"我的提问：";
+    }
     self.questionTitleLabel.text = _questionInfo.title;
     self.questionTimeLabel.text = [XEUIUtils dateDiscriptionFromNowBk:_questionInfo.beginTime];
     

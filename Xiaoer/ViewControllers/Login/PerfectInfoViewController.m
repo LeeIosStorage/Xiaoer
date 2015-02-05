@@ -23,6 +23,7 @@
 #import "SelectBirthdayViewController.h"
 #import "ChooseLocationViewController.h"
 #import "JSONKit.h"
+#import "NSString+Value.h"
 
 #define TAG_USER_NAME      0
 #define TAG_USER_IDENTITY  1
@@ -71,7 +72,7 @@
     _userInfo = [[XEUserInfo alloc] init];
     [_userInfo setUserInfoByJsonDic:tmpUserInfo.userInfoByJsonDic];
     if (_userInfo.title.length == 0) {
-        _userInfo.title = @"妈妈";
+        _userInfo.title = @"f";
     }
     _userInfo.uid = tmpUserInfo.uid;
     
@@ -121,6 +122,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"保存失败";  
             }
+            [XEProgressHUD AlertError:errorMsg];
             return;
         }
         
@@ -136,6 +138,32 @@
             [self.navigationController popViewControllerAnimated:YES];
         }
         
+    }tag:tag];
+    
+}
+
+-(void)checkPhone:(NSString *)phone{
+    
+    if (![phone isPhone]) {
+        [XEProgressHUD lightAlert:@"请输入正确的手机号"];
+        return;
+    }
+    [XEProgressHUD AlertLoading:@"正在验证手机号"];
+    __weak PerfectInfoViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] checkPhoneWithPhone:phone uid:nil tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败!";
+            }
+            [XEProgressHUD AlertError:errorMsg];
+            return;
+        }
+        weakSelf.userInfo.phone = phone;
+        [weakSelf.tableView reloadData];
     }tag:tag];
     
 }
@@ -237,6 +265,9 @@
 
 -(XEUserInfo *)getBabyUserInfo:(NSInteger)index{
     
+    if (!_userInfo.babys) {
+        _userInfo.babys = [[NSMutableArray alloc] init];
+    }
     if (_userInfo.babys.count == 0) {
         XEUserInfo *babyInfo = [[XEUserInfo alloc] init];
         [_userInfo.babys addObject:babyInfo];
@@ -573,7 +604,7 @@
     }else if (_editTag == TAG_USER_ADDRESS){
         _userInfo.address = text;
     }else if (_editTag == TAG_USER_PHONE){
-        _userInfo.phone = text;
+        [self checkPhone:text];
     }else if (_editTag == TAG_BOBY_NAME){
         XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
         babyUserInfo.babyNick = text;
