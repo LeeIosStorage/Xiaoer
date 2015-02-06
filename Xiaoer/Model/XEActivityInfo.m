@@ -94,6 +94,10 @@
     if (objectForKey) {
         _contact = objectForKey;
     }
+    objectForKey = [dic objectForKey:@"regcode"];
+    if (objectForKey) {
+        _regcode = [objectForKey description];
+    }
     
     objectForKey = [dic objectForKey:@"url"];
     if (objectForKey && [objectForKey isKindOfClass:[NSString class]]) {

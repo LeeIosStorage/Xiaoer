@@ -183,6 +183,8 @@
 		077C98BD1A53CC0600E2985B /* XETitleNavBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077C98BC1A53CC0600E2985B /* XETitleNavBarView.xib */; };
 		077C98C01A53D12700E2985B /* XECommonUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98BF1A53D12700E2985B /* XECommonUtils.m */; };
 		077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98C21A53D48800E2985B /* XEUIUtils.m */; };
+		078623751A84529900B17230 /* BabyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078623731A84529900B17230 /* BabyProfileViewController.m */; };
+		078623761A84529900B17230 /* BabyProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 078623741A84529900B17230 /* BabyProfileViewController.xib */; };
 		07882C231A80675D003874FA /* CardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07882C211A80675D003874FA /* CardViewCell.m */; };
 		07882C241A80675D003874FA /* CardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07882C221A80675D003874FA /* CardViewCell.xib */; };
 		07882C271A80753D003874FA /* XECardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 07882C261A80753D003874FA /* XECardInfo.m */; };
@@ -619,6 +621,9 @@
 		077C98BF1A53D12700E2985B /* XECommonUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECommonUtils.m; sourceTree = "<group>"; };
 		077C98C11A53D48800E2985B /* XEUIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEUIUtils.h; sourceTree = "<group>"; };
 		077C98C21A53D48800E2985B /* XEUIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEUIUtils.m; sourceTree = "<group>"; };
+		078623721A84529900B17230 /* BabyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyProfileViewController.h; sourceTree = "<group>"; };
+		078623731A84529900B17230 /* BabyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyProfileViewController.m; sourceTree = "<group>"; };
+		078623741A84529900B17230 /* BabyProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyProfileViewController.xib; sourceTree = "<group>"; };
 		07882C201A80675D003874FA /* CardViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardViewCell.h; path = Mine/CardViewCell.h; sourceTree = "<group>"; };
 		07882C211A80675D003874FA /* CardViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardViewCell.m; path = Mine/CardViewCell.m; sourceTree = "<group>"; };
 		07882C221A80675D003874FA /* CardViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CardViewCell.xib; path = Mine/CardViewCell.xib; sourceTree = "<group>"; };
@@ -1811,6 +1816,9 @@
 				0776639D1A809C01004C885B /* MineTopicListViewController.h */,
 				0776639E1A809C01004C885B /* MineTopicListViewController.m */,
 				0776639F1A809C01004C885B /* MineTopicListViewController.xib */,
+				078623721A84529900B17230 /* BabyProfileViewController.h */,
+				078623731A84529900B17230 /* BabyProfileViewController.m */,
+				078623741A84529900B17230 /* BabyProfileViewController.xib */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1990,6 +1998,7 @@
 				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
 				0760E9301A81ACB300BBEA3D /* MineMsgViewController.xib in Resources */,
 				7E7241251A77C12A001E1F69 /* TopicCommentViewCell.xib in Resources */,
+				078623761A84529900B17230 /* BabyProfileViewController.xib in Resources */,
 				077663A61A80C0DB004C885B /* CollectActivityViewCell.xib in Resources */,
 				073F9F0F1A68B31D009D94E3 /* XECategoryView.xib in Resources */,
 				075B03371A6F71DF002B577D /* Pin_Ios7@2x.png in Resources */,
@@ -2183,6 +2192,7 @@
 				0774A8731A666EAB00336465 /* GMGridView.m in Sources */,
 				0712B3A51A5BD853000A1A7F /* NSData+GIF.m in Sources */,
 				076971AE1A77564E00FEA571 /* TopicListViewController.m in Sources */,
+				078623751A84529900B17230 /* BabyProfileViewController.m in Sources */,
 				075E321C1A762E7C006037B3 /* XECustomerWindow.m in Sources */,
 				075B03321A6E4090002B577D /* CLLocation+Sino.m in Sources */,
 				07882C271A80753D003874FA /* XECardInfo.m in Sources */,

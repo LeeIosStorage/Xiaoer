@@ -45,6 +45,7 @@
 @property(nonatomic, strong) NSString* babyGender;
 @property(nonatomic, assign) int babyMonth;
 @property(nonatomic, assign) int stage;
+@property(nonatomic, assign) int acquiesce;//是否默认宝宝
 @property(nonatomic, strong) NSDate* birthdayDate;
 @property(nonatomic, strong) NSString* birthdayString;
 

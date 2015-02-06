@@ -30,6 +30,11 @@
     [self.activityImageView sd_setImageWithURL:activityInfo.picUrl placeholderImage:[UIImage imageNamed:@"activity_load_icon"]];
     
     _titleLabel.text = activityInfo.title;
+    _codeLabel.text = [NSString stringWithFormat:@"抢票码：%@",activityInfo.regcode];
+    _codeLabel.hidden = NO;
+    if (activityInfo.regcode.length == 0) {
+        _codeLabel.hidden = YES;
+    }
     
     _stateButton.hidden = NO;
     [_stateButton setBackgroundImage:[UIImage imageNamed:@"card_staus_hover_bg"] forState:0];

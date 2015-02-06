@@ -215,12 +215,12 @@
         [XEProgressHUD lightAlert:@"宝宝昵称太短了"];
         return;
     }
-    if (babyUserInfo.birthdayString.length == 0) {
-        [XEProgressHUD lightAlert:@"请输入宝宝生日"];
-        return;
-    }
     if (babyUserInfo.babyGender.length == 0) {
         [XEProgressHUD lightAlert:@"请输入宝宝性别"];
+        return;
+    }
+    if (babyUserInfo.birthdayString.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入宝宝生日"];
         return;
     }
     
