@@ -17,8 +17,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *nickNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *topicTitleLabel;
-@property (strong, nonatomic) IBOutlet UIButton *collectLabel;
-@property (strong, nonatomic) IBOutlet UIButton *commentLabel;
+//@property (strong, nonatomic) IBOutlet UIButton *collectLabel;
+//@property (strong, nonatomic) IBOutlet UIButton *commentLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *topImageView;
 @property (strong, nonatomic) IBOutlet UILabel *topicDateLabel;
 

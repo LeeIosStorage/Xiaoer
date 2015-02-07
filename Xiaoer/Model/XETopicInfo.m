@@ -33,7 +33,9 @@
     if ([dic objectForKey:@"istop"]) {
         _isTop = [dic boolValueForKey:@"istop"];
     }
-    
+    if ([dic objectForKey:@"imgnum"]) {
+        _imgnum = [dic intValueForKey:@"imgnum"];
+    }
     NSDateFormatter *dateFormatter = [XEUIUtils dateFormatterOFUS];
     if ([dic objectForKey:@"time"] && [[dic objectForKey:@"time"] isKindOfClass:[NSString class]]) {
         _time = [dateFormatter dateFromString:[dic objectForKey:@"time"]];

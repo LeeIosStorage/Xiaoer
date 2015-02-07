@@ -9,7 +9,8 @@
 #import "XESuperViewController.h"
 
 typedef enum TopicType_{
-    TopicType_Nourish = 1, //养育
+    TopicType_Normal = 0,  //ALL
+    TopicType_Nourish,     //养育
     TopicType_Nutri,       //营养
     TopicType_Kinder,      //入园
     TopicType_Mind,        //心理

@@ -276,6 +276,9 @@ enum TABLEVIEW_SECTION_INDEX {
         }
         case kMyCard:{
             if (indexPath.row == 0) {
+                if ([[XEEngine shareInstance] needUserLogin:nil]) {
+                    return;
+                }
                 CardPackViewController *cpVc = [[CardPackViewController alloc] init];
                 [self.navigationController pushViewController:cpVc animated:YES];
                 break;

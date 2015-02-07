@@ -24,7 +24,7 @@
         topicTextSize.height = 16;
     }
     float height = topicTextSize.height;
-    height += 78;
+    height += 68;
     return height;
 }
 
@@ -43,8 +43,8 @@
     self.topicTitleLabel.text = topicInfo.title;
     self.nickNameLabel.text = topicInfo.uname;
     self.titleLabel.text = topicInfo.utitle;
-    [self.commentLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.favnum] forState:0];
-    [self.collectLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.commentnum] forState:0];
+//    [self.commentLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.favnum] forState:0];
+//    [self.collectLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.commentnum] forState:0];
     if (![topicInfo.smallAvatarUrl isEqual:[NSNull null]]) {
         [self.avatarImageView sd_setImageWithURL:topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
     }else{

@@ -10,7 +10,7 @@
 #import "XETabBarViewController.h"
 #import "XEEngine.h"
 #import "XELinkerHandler.h"
-#import "XETopicViewCell.h"
+#import "XECateTopicViewCell.h"
 #import "XEQuestionViewCell.h"
 #import "XEProgressHUD.h"
 #import "ODRefreshControl.h"
@@ -41,7 +41,8 @@
 @property (assign, nonatomic) int  qNextCursor;
 @property (assign, nonatomic) BOOL topicLoadMore;
 @property (assign, nonatomic) BOOL questionLoadMore;
-@property (assign, nonatomic) BOOL bClick;
+//@property (assign, nonatomic) BOOL bClick;
+@property (assign, nonatomic) BOOL bQuestion;
 
 @property (nonatomic, strong) NSMutableArray *topicArray;
 @property (nonatomic, strong) NSMutableArray *questionArray;
@@ -50,6 +51,8 @@
 @property (strong, nonatomic) IBOutlet UIView *headView2;
 
 @property (strong, nonatomic) IBOutlet UIView *footerView;
+@property (strong, nonatomic) IBOutlet UIView *footerView2;
+
 @property (strong, nonatomic) IBOutlet UIView *containerView;
 
 @property (weak, nonatomic) IBOutlet UITableView *topicTableView;
@@ -80,11 +83,13 @@
     self.pullRefreshView.delegate = self;
     [self.topicTableView addSubview:self.pullRefreshView];
     self.topicTableView.tableHeaderView = self.headView;
+    self.topicTableView.tableFooterView = self.footerView;
     
     self.pullRefreshView2 = [[PullToRefreshView alloc] initWithScrollView:self.questionTableView];
     self.pullRefreshView2.delegate = self;
     [self.questionTableView addSubview:self.pullRefreshView2];
     self.questionTableView.tableHeaderView = self.headView2;
+    self.questionTableView.tableFooterView = self.footerView2;
     
 //    UIPanGestureRecognizer *panRecognizer1 = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom1:)];
 //    [panRecognizer1 setMaximumNumberOfTouches:1];
@@ -96,97 +101,97 @@
 //    [_questionTableView addGestureRecognizer:panRecognizer2];
     
     [self feedsTypeSwitch:INFO_TYPE_TOPIC needRefreshFeeds:YES];
-    
-    __weak ExpertChatViewController *weakSelf = self;
-    [self.topicTableView addInfiniteScrollingWithActionHandler:^{
-        if (!weakSelf) {
-            return;
-        }
-        if (!weakSelf.topicLoadMore) {
-            [weakSelf.topicTableView.infiniteScrollingView stopAnimating];
-            weakSelf.topicTableView.showsInfiniteScrolling = NO;
-            return ;
-        }
-        
-        int tag = [[XEEngine shareInstance] getConnectTag];
-        [[XEEngine shareInstance] getHotTopicWithWithPagenum:weakSelf.tNextCursor tag:tag];
-        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-            if (!weakSelf) {
-                return;
-            }
-            [weakSelf.topicTableView.infiniteScrollingView stopAnimating];
-            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-            if (!jsonRet || errorMsg) {
-                if (!errorMsg.length) {
-                    errorMsg = @"请求失败";
-                }
-                [XEProgressHUD AlertError:errorMsg];
-                return;
-            }
-            
-            weakSelf.bClick = YES;
-            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
-            for (NSDictionary *dic in object) {
-                XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
-                [topicInfo setTopicInfoByJsonDic:dic];
-                [weakSelf.topicArray addObject:topicInfo];
-            }
-            
-            weakSelf.topicLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
-            if (!weakSelf.topicLoadMore) {
-                weakSelf.topicTableView.showsInfiniteScrolling = NO;
-            }else{
-                weakSelf.topicTableView.showsInfiniteScrolling = YES;
-                weakSelf.tNextCursor ++;
-            }
-            [weakSelf.topicTableView reloadData];
-            
-        } tag:tag];
-    }];
-    [self.questionTableView addInfiniteScrollingWithActionHandler:^{
-        if (!weakSelf) {
-            return;
-        }
-        if (!weakSelf.questionLoadMore) {
-            [weakSelf.questionTableView.infiniteScrollingView stopAnimating];
-            weakSelf.questionTableView.showsInfiniteScrolling = NO;
-            return ;
-        }
-        
-        int tag = [[XEEngine shareInstance] getConnectTag];
-        [[XEEngine shareInstance] getQuestionListWithPagenum:weakSelf.qNextCursor tag:tag];
-        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-            if (!weakSelf) {
-                return;
-            }
-            [weakSelf.questionTableView.infiniteScrollingView stopAnimating];
-            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-            if (!jsonRet || errorMsg) {
-                if (!errorMsg.length) {
-                    errorMsg = @"请求失败";
-                }
-                [XEProgressHUD AlertError:errorMsg];
-                return;
-            }
-
-            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"qas"];
-            for (NSDictionary *dic in object) {
-                XEQuestionInfo *questionInfo = [[XEQuestionInfo alloc] init];
-                [questionInfo setQuestionInfoByJsonDic:dic];
-                [weakSelf.questionArray addObject:questionInfo];
-            }
-            
-            weakSelf.questionLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
-            if (!weakSelf.questionLoadMore) {
-                weakSelf.questionTableView.showsInfiniteScrolling = NO;
-            }else{
-                weakSelf.questionTableView.showsInfiniteScrolling = YES;
-                weakSelf.qNextCursor ++;
-            }
-            [weakSelf.questionTableView reloadData];
-            
-        } tag:tag];
-    }];
+//    上拉先拿掉
+//    __weak ExpertChatViewController *weakSelf = self;
+//    [self.topicTableView addInfiniteScrollingWithActionHandler:^{
+//        if (!weakSelf) {
+//            return;
+//        }
+//        if (!weakSelf.topicLoadMore) {
+//            [weakSelf.topicTableView.infiniteScrollingView stopAnimating];
+//            weakSelf.topicTableView.showsInfiniteScrolling = NO;
+//            return ;
+//        }
+//        
+//        int tag = [[XEEngine shareInstance] getConnectTag];
+//        [[XEEngine shareInstance] getHotTopicWithWithPagenum:weakSelf.tNextCursor tag:tag];
+//        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+//            if (!weakSelf) {
+//                return;
+//            }
+//            [weakSelf.topicTableView.infiniteScrollingView stopAnimating];
+//            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+//            if (!jsonRet || errorMsg) {
+//                if (!errorMsg.length) {
+//                    errorMsg = @"请求失败";
+//                }
+//                [XEProgressHUD AlertError:errorMsg];
+//                return;
+//            }
+//            
+//            weakSelf.bClick = YES;
+//            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+//            for (NSDictionary *dic in object) {
+//                XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
+//                [topicInfo setTopicInfoByJsonDic:dic];
+//                [weakSelf.topicArray addObject:topicInfo];
+//            }
+//            
+//            weakSelf.topicLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+//            if (!weakSelf.topicLoadMore) {
+//                weakSelf.topicTableView.showsInfiniteScrolling = NO;
+//            }else{
+//                weakSelf.topicTableView.showsInfiniteScrolling = YES;
+//                weakSelf.tNextCursor ++;
+//            }
+//            [weakSelf.topicTableView reloadData];
+//            
+//        } tag:tag];
+//    }];
+//    [self.questionTableView addInfiniteScrollingWithActionHandler:^{
+//        if (!weakSelf) {
+//            return;
+//        }
+//        if (!weakSelf.questionLoadMore) {
+//            [weakSelf.questionTableView.infiniteScrollingView stopAnimating];
+//            weakSelf.questionTableView.showsInfiniteScrolling = NO;
+//            return ;
+//        }
+//        
+//        int tag = [[XEEngine shareInstance] getConnectTag];
+//        [[XEEngine shareInstance] getQuestionListWithPagenum:weakSelf.qNextCursor tag:tag];
+//        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+//            if (!weakSelf) {
+//                return;
+//            }
+//            [weakSelf.questionTableView.infiniteScrollingView stopAnimating];
+//            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+//            if (!jsonRet || errorMsg) {
+//                if (!errorMsg.length) {
+//                    errorMsg = @"请求失败";
+//                }
+//                [XEProgressHUD AlertError:errorMsg];
+//                return;
+//            }
+//
+//            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"qas"];
+//            for (NSDictionary *dic in object) {
+//                XEQuestionInfo *questionInfo = [[XEQuestionInfo alloc] init];
+//                [questionInfo setQuestionInfoByJsonDic:dic];
+//                [weakSelf.questionArray addObject:questionInfo];
+//            }
+//            
+//            weakSelf.questionLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+//            if (!weakSelf.questionLoadMore) {
+//                weakSelf.questionTableView.showsInfiniteScrolling = NO;
+//            }else{
+//                weakSelf.questionTableView.showsInfiniteScrolling = YES;
+//                weakSelf.qNextCursor ++;
+//            }
+//            [weakSelf.questionTableView reloadData];
+//            
+//        } tag:tag];
+//    }];
 }
 
 - (void)initNormalTitleNavBarSubviews{
@@ -216,9 +221,6 @@
         self.topicTableView.decelerationRate = 1.0f;
         self.questionTableView.hidden = YES;
         self.topicTableView.hidden = NO;
-        if (!_bClick) {
-            self.topicTableView.tableFooterView = self.footerView;
-        }
         if (!_topicArray) {
             [self refreshTopicList:YES];
             return;
@@ -226,9 +228,7 @@
         if (needRefresh) {
             [self refreshTopicList:YES];
         }
-
     }else if (tag == INFO_TYPE_QUESTION){
-        
         self.questionTableView.decelerationRate = 1.0f;
         self.topicTableView.decelerationRate = 0.0f;
         self.topicTableView.hidden = YES;
@@ -247,10 +247,11 @@
     if (isAlert) {
         [XEProgressHUD AlertLoading:@"努力加载中..."];
     }
-    _tNextCursor = 1;
+    //_tNextCursor = 1;
     __weak ExpertChatViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getHotTopicWithWithPagenum:_tNextCursor tag:tag];
+//    [[XEEngine shareInstance] getHotTopicWithWithPagenum:_tNextCursor tag:tag];
+    [[XEEngine shareInstance] getHotTopicWithWithTag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [XEProgressHUD AlertLoadDone];
         [self.pullRefreshView finishedLoading];
@@ -270,18 +271,18 @@
             [weakSelf.topicArray addObject:topicInfo];
         }
         
-        weakSelf.topicLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
-        if (!weakSelf.topicLoadMore || !weakSelf.bClick) {
-            weakSelf.topicTableView.showsInfiniteScrolling = NO;
-        }else{
-            weakSelf.topicTableView.showsInfiniteScrolling = YES;
-            weakSelf.tNextCursor ++;
-        }
-        int count = [[[jsonRet objectForKey:@"object"] objectForKey:@"count"] intValue];
-        if (count > 20 && !weakSelf.bClick) {
-            [weakSelf.footerView setHidden:NO];
-            weakSelf.loadmoreLabel.text = [NSString stringWithFormat:@"展开全部%d条热门话题",count];
-        }
+//        weakSelf.topicLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+//        if (!weakSelf.topicLoadMore || !weakSelf.bClick) {
+//            weakSelf.topicTableView.showsInfiniteScrolling = NO;
+//        }else{
+//            weakSelf.topicTableView.showsInfiniteScrolling = YES;
+//            weakSelf.tNextCursor ++;
+//        }
+//        int count = [[[jsonRet objectForKey:@"object"] objectForKey:@"count"] intValue];
+//        if (count > 20 && !weakSelf.bClick) {
+//        [weakSelf.footerView setHidden:NO];
+//        weakSelf.loadmoreLabel.text = @"点击查看全部话题";
+//        }
         [weakSelf.topicTableView reloadData];
     }tag:tag];
 }
@@ -290,10 +291,11 @@
     if (isAlert) {
         [XEProgressHUD AlertLoading:@"努力加载中..."];
     }
-    _qNextCursor = 1;
+    //_qNextCursor = 1;
     __weak ExpertChatViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getQuestionListWithPagenum:_qNextCursor tag:tag];
+    //[[XEEngine shareInstance] getQuestionListWithPagenum:_qNextCursor tag:tag];
+    [[XEEngine shareInstance] getHotQuestionWithTag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [XEProgressHUD AlertLoadDone];
         [self.pullRefreshView2 finishedLoading];
@@ -306,21 +308,21 @@
             return;
         }
         weakSelf.questionArray = [[NSMutableArray alloc] init];
-        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"qas"];
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"questions"];
         for (NSDictionary *dic in object) {
             XEQuestionInfo *questionInfo = [[XEQuestionInfo alloc] init];
             [questionInfo setQuestionInfoByJsonDic:dic];
             [weakSelf.questionArray addObject:questionInfo];
         }
         
-        weakSelf.questionLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
-        if (!weakSelf.questionLoadMore) {
-            weakSelf.questionTableView.showsInfiniteScrolling = NO;
-        }else{
-            weakSelf.questionTableView.showsInfiniteScrolling = YES;
-            weakSelf.qNextCursor ++;
-        }
-        
+//        weakSelf.questionLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+//        if (!weakSelf.questionLoadMore) {
+//            weakSelf.questionTableView.showsInfiniteScrolling = NO;
+//        }else{
+//            weakSelf.questionTableView.showsInfiniteScrolling = YES;
+//            weakSelf.qNextCursor ++;
+//        }
+
         [weakSelf.questionTableView reloadData];
         
     }tag:tag];
@@ -450,15 +452,16 @@
         XEQuestionInfo *questionInfo = _questionArray[indexPath.row];
         return [XEQuestionViewCell heightForQuestionInfo:questionInfo];
     }
-    XETopicInfo *topicInfo = _topicArray[indexPath.row];
-    return [XETopicViewCell heightForTopicInfo:topicInfo];
+//    XETopicInfo *topicInfo = _topicArray[indexPath.row];
+//    return [XECateTopicViewCell heightForTopicInfo:topicInfo];
+    return 80;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.topicTableView) {
-        static NSString *CellIdentifier = @"XETopicViewCell";
-        XETopicViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        static NSString *CellIdentifier = @"XECateTopicViewCell";
+        XECateTopicViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
             cell = [cells objectAtIndex:0];
@@ -504,12 +507,14 @@
 - (IBAction)selectAction:(id)sender {
     UIButton *btn = sender;
     if (btn.tag == INFO_TYPE_TOPIC) {
+        self.bQuestion = NO;
         [self.topicBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.topicBtn setBackgroundImage:[UIImage imageNamed:@"expert_selected_bg"] forState:UIControlStateNormal];
         [self.questionBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [self.questionBtn setBackgroundImage:nil forState:UIControlStateNormal];
         [self feedsTypeSwitch:INFO_TYPE_TOPIC needRefreshFeeds:NO];
     }else if(btn.tag == INFO_TYPE_QUESTION){
+        self.bQuestion = YES;
         [self.questionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.questionBtn setBackgroundImage:[UIImage imageNamed:@"expert_selected_bg"] forState:UIControlStateNormal];
         [self.topicBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
@@ -526,43 +531,46 @@
 }
 
 - (IBAction)loadMoreAction:(id)sender {
-    _bClick = YES;
-    __weak ExpertChatViewController *weakSelf = self;
-    int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getHotTopicWithWithPagenum:weakSelf.tNextCursor tag:tag];
-    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        if (!weakSelf) {
-            return;
-        }
-        [weakSelf.topicTableView.infiniteScrollingView stopAnimating];
-        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-        if (!jsonRet || errorMsg) {
-            if (!errorMsg.length) {
-                errorMsg = @"请求失败";
-            }
-            [XEProgressHUD AlertError:errorMsg];
-            return;
-        }
-        
-        weakSelf.bClick = YES;
-        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
-        for (NSDictionary *dic in object) {
-            XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
-            [topicInfo setTopicInfoByJsonDic:dic];
-            [weakSelf.topicArray addObject:topicInfo];
-        }
-        
-        weakSelf.topicLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
-        if (!weakSelf.topicLoadMore) {
-            weakSelf.topicTableView.showsInfiniteScrolling = NO;
-        }else{
-            weakSelf.topicTableView.showsInfiniteScrolling = YES;
-            weakSelf.tNextCursor ++;
-        }
-        weakSelf.topicTableView.tableFooterView = nil;
-        [weakSelf.topicTableView reloadData];
-        
-    } tag:tag];
+//    _bClick = YES;
+//    __weak ExpertChatViewController *weakSelf = self;
+//    int tag = [[XEEngine shareInstance] getConnectTag];
+//    [[XEEngine shareInstance] getHotTopicWithWithPagenum:weakSelf.tNextCursor tag:tag];
+//    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+//        if (!weakSelf) {
+//            return;
+//        }
+//        [weakSelf.topicTableView.infiniteScrollingView stopAnimating];
+//        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+//        if (!jsonRet || errorMsg) {
+//            if (!errorMsg.length) {
+//                errorMsg = @"请求失败";
+//            }
+//            [XEProgressHUD AlertError:errorMsg];
+//            return;
+//        }
+//        
+//        weakSelf.bClick = YES;
+//        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+//        for (NSDictionary *dic in object) {
+//            XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
+//            [topicInfo setTopicInfoByJsonDic:dic];
+//            [weakSelf.topicArray addObject:topicInfo];
+//        }
+//        
+//        weakSelf.topicLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+//        if (!weakSelf.topicLoadMore) {
+//            weakSelf.topicTableView.showsInfiniteScrolling = NO;
+//        }else{
+//            weakSelf.topicTableView.showsInfiniteScrolling = YES;
+//            weakSelf.tNextCursor ++;
+//        }
+//        weakSelf.topicTableView.tableFooterView = nil;
+//        [weakSelf.topicTableView reloadData];
+//        
+//    } tag:tag];
+    TopicListViewController *tlVc = [[TopicListViewController alloc] init];
+    tlVc.bQuestion = self.bQuestion;
+    [self.navigationController pushViewController:tlVc animated:YES];
 }
 
 - (void)mineAction {
@@ -599,10 +607,10 @@
 - (void)dealloc{
     self.topicTableView.delegate = nil;
     self.topicTableView.dataSource = nil;
-    self.topicTableView.showsInfiniteScrolling = NO;
+    //self.topicTableView.showsInfiniteScrolling = NO;
     self.questionTableView.delegate = nil;
     self.questionTableView.dataSource = nil;
-    self.questionTableView.showsInfiniteScrolling = NO;
+    //self.questionTableView.showsInfiniteScrolling = NO;
 }
 
 @end

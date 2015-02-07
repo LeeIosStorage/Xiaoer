@@ -100,7 +100,11 @@
             }
             
             int tag = [[XEEngine shareInstance] getConnectTag];
-            [[XEEngine shareInstance] getHotTopicListWithCat:weakSelf.topicType pagenum:weakSelf.nextCursor tag:tag];
+            if (weakSelf.topicType == TopicType_Normal) {
+                [[XEEngine shareInstance] getHotTopicWithWithPagenum:weakSelf.nextCursor tag:tag];
+            }else {
+                [[XEEngine shareInstance] getHotTopicListWithCat:weakSelf.topicType pagenum:weakSelf.nextCursor tag:tag];
+            }
             [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
                 if (!weakSelf) {
                     return;
@@ -154,6 +158,8 @@
             [self setTitle:@"心理话题"];
         }else if (self.topicType == TopicType_Kinder) {
             [self setTitle:@"入园话题"];
+        }else{
+            [self setTitle:@"全部话题"];
         }
     }
 }
@@ -228,7 +234,11 @@
     __weak TopicListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] addGetCacheTag:tag];
-    [[XEEngine shareInstance] getHotTopicListWithCat:self.topicType pagenum:1 tag:tag];
+    if (self.topicType == TopicType_Normal) {
+        [[XEEngine shareInstance] getHotTopicWithWithPagenum:1 tag:tag];
+    }else {
+        [[XEEngine shareInstance] getHotTopicListWithCat:self.topicType pagenum:1 tag:tag];
+    }
     [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
         if (jsonRet == nil) {
             //...
@@ -249,7 +259,11 @@
     _nextCursor = 1;
     __weak TopicListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getHotTopicListWithCat:self.topicType pagenum:_nextCursor tag:tag];
+    if (self.topicType == TopicType_Normal) {
+        [[XEEngine shareInstance] getHotTopicWithWithPagenum:_nextCursor tag:tag];
+    }else{
+        [[XEEngine shareInstance] getHotTopicListWithCat:self.topicType pagenum:_nextCursor tag:tag];
+    }
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [self.pullRefreshView finishedLoading];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];

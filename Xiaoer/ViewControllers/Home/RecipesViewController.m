@@ -280,7 +280,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 - (void)initNavigationBarView{
     
     CGFloat itemMargin = SCREEN_WIDTH == 320?20:32;
-    CGFloat itemMarginLeft = 15;
+    CGFloat itemMarginLeft = SCREEN_WIDTH == 320?15:20;
     scrollBarWidth = itemMarginLeft;
     
     for (UIButton *button in _categoryScrollView.subviews) {
@@ -314,9 +314,9 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
         }
     }
     
-    //_categoryScrollView.contentSize = CGSizeMake(scrollBarWidth, _categoryScrollView.frame.size.height);
+    _categoryScrollView.contentSize = CGSizeMake(scrollBarWidth, _categoryScrollView.frame.size.height);
     //滚动动态计算
-    //[self needScrollIndex];
+    [self needScrollIndex];
 }
 
 - (void)needScrollIndex{
@@ -435,7 +435,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
                 [cv.pullRefreshView triggerPullToRefresh];
                 //[self getCategoryInfoWithTag:_titles[_selectedIndex-1] andIndex:_selectedIndex-1];
             }
-            //[self categoryScrollToVisible:_selectedIndex-1];
+            [self categoryScrollToVisible:_selectedIndex-1];
         }
         _bScroll = NO;
     }
@@ -521,7 +521,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 
 
 - (void)transitionToViewAtIndex:(NSUInteger)index{
-    //[self categoryScrollToVisible:index];
+    [self categoryScrollToVisible:index];
     [_contentView setContentOffset:CGPointMake(index * _contentView.frame.size.width, 0)];
 }
 

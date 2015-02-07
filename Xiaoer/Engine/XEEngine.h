@@ -144,8 +144,12 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 #pragma mark - expertChat
 //获取热门话题list
 - (BOOL)getHotTopicWithWithPagenum:(int)page tag:(int)tag;
+//获取热门话题20条
+- (BOOL)getHotTopicWithWithTag:(int)tag;
 //获取专家问答list
 - (BOOL)getQuestionListWithPagenum:(int)page tag:(int)tag;
+//获取专家问答20条
+- (BOOL)getHotQuestionWithTag:(int)tag;
 //获取类别话题list
 - (BOOL)getHotTopicListWithCat:(int)cat pagenum:(int)page tag:(int)tag;
 //用户问答列表list

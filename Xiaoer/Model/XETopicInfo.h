@@ -22,6 +22,7 @@
 @property(nonatomic, strong) NSString* utitle;
 @property(nonatomic, assign) BOOL isTop;
 @property(nonatomic, strong) NSDate* time;
+@property(nonatomic, assign) int imgnum;//话题包含图片的数量
 
 @property(nonatomic, strong) NSString* content;
 @property(nonatomic, strong) NSString* userName;
