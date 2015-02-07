@@ -945,17 +945,17 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)getTopicListWithExpertId:(NSString *)expertId page:(int)page tag:(int)tag{
-    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    if (expertId) {
-        [params setObject:expertId forKey:@"id"];
-    }
-    if (page > 0) {
-        [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
-    }
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/topic/list",API_URL] type:1 parameters:params];
-    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
-}
+//- (BOOL)getTopicListWithExpertId:(NSString *)expertId page:(int)page tag:(int)tag{
+//    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+//    if (expertId) {
+//        [params setObject:expertId forKey:@"id"];
+//    }
+//    if (page > 0) {
+//        [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
+//    }
+//    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/topic/list",API_URL] type:1 parameters:params];
+//    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+//}
 
 #pragma mark - expertChat
 //获取热门话题
@@ -1258,7 +1258,7 @@ static XEEngine* s_ShareInstance = nil;
     if (uid) {
         [params setObject:uid forKey:@"userid"];
     }
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/qa/mypub",API_URL] type:1 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/topic/mypub",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 - (BOOL)getMyCollectTopicListWithUid:(NSString *)uid page:(int)page tag:(int)tag{
@@ -1269,7 +1269,7 @@ static XEEngine* s_ShareInstance = nil;
     if (uid) {
         [params setObject:uid forKey:@"userid"];
     }
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/qa/myfav",API_URL] type:1 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/topic/myfav",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 

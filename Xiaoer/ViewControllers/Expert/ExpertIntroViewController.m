@@ -7,7 +7,8 @@
 //
 
 #import "ExpertIntroViewController.h"
-#import "XETopicViewCell.h"
+//#import "XETopicViewCell.h"
+#import "XECateTopicViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
@@ -71,7 +72,7 @@
         }
         
         int tag = [[XEEngine shareInstance] getConnectTag];
-        [[XEEngine shareInstance] getTopicListWithExpertId:weakSelf.doctorInfo.doctorId page:weakSelf.nextCursor tag:tag];
+        [[XEEngine shareInstance] getMyPublishTopicListWithUid:weakSelf.doctorInfo.doctorId page:weakSelf.nextCursor tag:tag];
         [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
             if (!weakSelf) {
                 return;
@@ -87,7 +88,7 @@
             }
 //            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
             
-            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"pubs"];
             for (NSDictionary *dic in object) {
                 XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
                 [topicInfo setTopicInfoByJsonDic:dic];
@@ -151,13 +152,13 @@
     __weak ExpertIntroViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] addGetCacheTag:tag];
-    [[XEEngine shareInstance] getTopicListWithExpertId:_doctorInfo.doctorId page:1 tag:tag];
+    [[XEEngine shareInstance] getMyPublishTopicListWithUid:_doctorInfo.doctorId page:1 tag:tag];
     [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
         if (jsonRet == nil) {
             //...
         }else{
             weakSelf.doctorTopics = [[NSMutableArray alloc] init];
-            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"pubs"];
             for (NSDictionary *dic in object) {
                 XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
                 [topicInfo setTopicInfoByJsonDic:dic];
@@ -207,7 +208,7 @@
     _nextCursor = 1;
     __weak ExpertIntroViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getTopicListWithExpertId:_doctorInfo.doctorId page:_nextCursor tag:tag];
+    [[XEEngine shareInstance] getMyPublishTopicListWithUid:_doctorInfo.doctorId page:_nextCursor tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -220,7 +221,7 @@
 //        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         weakSelf.doctorTopics = [[NSMutableArray alloc] init];
-        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"pubs"];
         for (NSDictionary *dic in object) {
             XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
             [topicInfo setTopicInfoByJsonDic:dic];
@@ -381,13 +382,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     XETopicInfo *topicInfo = _doctorTopics[indexPath.row];
-    return [XETopicViewCell heightForTopicInfo:topicInfo];
+    return [XECateTopicViewCell heightForTopicInfo:topicInfo];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"XETopicViewCell";
-    XETopicViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"XECateTopicViewCell";
+    XECateTopicViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
         cell = [cells objectAtIndex:0];

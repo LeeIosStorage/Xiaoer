@@ -9,7 +9,7 @@
 #import "MineTopicListViewController.h"
 #import "XEEngine.h"
 #import "XETopicInfo.h"
-#import "XETopicViewCell.h"
+//#import "XETopicViewCell.h"
 #import "XECateTopicViewCell.h"
 #import "XEProgressHUD.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
@@ -235,7 +235,6 @@
                 XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
                 [topicInfo setTopicInfoByJsonDic:dic];
                 
-                [topicInfo setTopicInfoByJsonDic:dic];
                 int cat = topicInfo.cat;
                 NSString *catName = @"";
                 if (cat == 1)
@@ -277,6 +276,19 @@
         for (NSDictionary *dic in object) {
             XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
             [topicInfo setTopicInfoByJsonDic:dic];
+            
+            int cat = topicInfo.cat;
+            NSString *catName = @"";
+            if (cat == 1)
+                catName = @"教育";
+            else if (cat == 2)
+                catName = @"营养";
+            else if (cat == 3)
+                catName = @"入园";
+            else if (cat == 4)
+                catName = @"心理";
+            catName = [NSString stringWithFormat:@"【%@】%@",catName,topicInfo.title];
+            topicInfo.title = catName;
             
             [weakSelf.publishTopicList addObject:topicInfo];
         }
@@ -452,7 +464,7 @@
         return [XECateTopicViewCell heightForTopicInfo:topicInfo];
     }
     XETopicInfo *topicInfo = self.publishTopicList[indexPath.row];
-    return [XETopicViewCell heightForTopicInfo:topicInfo];
+    return [XECateTopicViewCell heightForTopicInfo:topicInfo];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -471,8 +483,8 @@
         return cell;
     }
     
-    static NSString *CellIdentifier2 = @"XETopicViewCell";
-    XETopicViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
+    static NSString *CellIdentifier2 = @"XECateTopicViewCell";
+    XECateTopicViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
     if (cell == nil) {
         NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier2 owner:nil options:nil];
         cell = [cells objectAtIndex:0];
@@ -482,19 +494,6 @@
     XETopicInfo *topicInfo = self.publishTopicList[indexPath.row];
     cell.isExpertChat = YES;
     cell.topicInfo = topicInfo;
-    
-    int cat = topicInfo.cat;
-    NSString *catName = @"";
-    if (cat == 1)
-        catName = @"教育";
-    else if (cat == 2)
-        catName = @"营养";
-    else if (cat == 3)
-        catName = @"入园";
-    else if (cat == 4)
-        catName = @"心理";
-    catName = [NSString stringWithFormat:@"【%@】%@",catName,topicInfo.title];
-    cell.topicNameLabel.text = catName;
     
     return cell;
 }
