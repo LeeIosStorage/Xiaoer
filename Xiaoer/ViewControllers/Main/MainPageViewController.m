@@ -24,6 +24,7 @@
 #import "MineMsgViewController.h"
 #import "WelcomeViewController.h"
 #import "XEAlertView.h"
+#import "BabyProfileViewController.h"
 
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     ODRefreshControl *_themeControl;
@@ -496,10 +497,12 @@
     if ([self isVisitor]) {
         [self showAlter];
     }else {
-        id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
-        if (vc) {
-            [self.navigationController pushViewController:vc animated:YES];
-        }
+        BabyProfileViewController *vc = [[BabyProfileViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+//        id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
+//        if (vc) {
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
     }
 }
 

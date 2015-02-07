@@ -21,7 +21,7 @@
 - (void)doSetBabyInfoByJsonDic:(NSDictionary*)dic{
 
     if ([dic objectForKey:@"id"]) {
-        _babyId = [dic objectForKey:@"id"];
+        _babyId = [[dic objectForKey:@"id"] description];
     }
     if ([dic objectForKey:@"name"]) {
         _babyNick = [dic objectForKey:@"name"];
@@ -43,6 +43,7 @@
 //        _region = [dic objectForKey:@"birthdayString"];
 //    }
     _babyMonth = [[dic objectForKey:@"month"] intValue];
+    _acquiesce = [[dic objectForKey:@"acquiesce"] intValue];
 }
 
 - (NSURL *)babySmallAvatarUrl {

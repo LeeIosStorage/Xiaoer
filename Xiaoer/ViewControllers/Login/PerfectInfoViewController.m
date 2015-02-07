@@ -215,12 +215,12 @@
         [XEProgressHUD lightAlert:@"宝宝昵称太短了"];
         return;
     }
-    if (babyUserInfo.birthdayString.length == 0) {
-        [XEProgressHUD lightAlert:@"请输入宝宝生日"];
-        return;
-    }
     if (babyUserInfo.babyGender.length == 0) {
         [XEProgressHUD lightAlert:@"请输入宝宝性别"];
+        return;
+    }
+    if (babyUserInfo.birthdayString.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入宝宝生日"];
         return;
     }
     
@@ -436,6 +436,10 @@
     cell.leftAvater.layer.cornerRadius = 5;
     cell.leftAvater.layer.masksToBounds = YES;
     
+    frame = cell.titleLabel.frame;
+    frame.origin.x = 13;
+    cell.titleLabel.frame = frame;
+    
     cell.introLabel.hidden = NO;
     cell.leftAvater.hidden = YES;
     if (indexPath.section == 0 || indexPath.section == 2) {
@@ -447,6 +451,7 @@
     
     NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%ld", indexPath.section]];
     NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%ld", indexPath.row]];
+    
     cell.titleLabel.text = [rowDicts objectForKey:@"titleLabel"];
     
     if (!cell.introLabel.hidden) {

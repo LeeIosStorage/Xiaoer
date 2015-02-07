@@ -688,6 +688,33 @@ static XEEngine* s_ShareInstance = nil;
     
 }
 
+- (BOOL)editBabyInfoWithUserId:(NSString *)uid bbId:(NSString *)bbId bbName:(NSString *)bbName bbGender:(NSString *)bbGender bbBirthday:(NSString *)bbBirthday bbAvatar:(NSString *)bbAvatar acquiesce:(NSString *)acquiesce tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    if (bbId) {
+        [params setObject:bbId forKey:@"bb_id"];
+    }
+    if (bbName) {
+        [params setObject:bbName forKey:@"bb_name"];
+    }
+    if (bbGender) {
+        [params setObject:bbGender forKey:@"bb_gender"];
+    }
+    if (bbBirthday) {
+        [params setObject:bbBirthday forKey:@"bb_born"];
+    }
+    if (bbAvatar) {
+        [params setObject:bbAvatar forKey:@"bb_icon"];
+    }
+    //是否默认宝宝
+    if (acquiesce) {
+        [params setObject:acquiesce forKey:@"acquiesce"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/baby/save",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
 - (BOOL)getCommonAreaRoot:(int)tag{
     
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/common/area/root",API_URL] type:1 parameters:nil];
