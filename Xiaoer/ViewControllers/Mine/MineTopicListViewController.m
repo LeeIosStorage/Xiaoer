@@ -89,20 +89,6 @@
                 XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
                 [topicInfo setTopicInfoByJsonDic:dic];
                 
-                [topicInfo setTopicInfoByJsonDic:dic];
-                int cat = topicInfo.cat;
-                NSString *catName = @"";
-                if (cat == 1)
-                    catName = @"教育";
-                else if (cat == 2)
-                    catName = @"营养";
-                else if (cat == 3)
-                    catName = @"入园";
-                else if (cat == 4)
-                    catName = @"心理";
-                catName = [NSString stringWithFormat:@"【%@】%@",catName,topicInfo.title];
-                topicInfo.title = catName;
-                
                 [weakSelf.publishTopicList addObject:topicInfo];
             }
             weakSelf.publishCanLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
@@ -235,19 +221,6 @@
                 XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
                 [topicInfo setTopicInfoByJsonDic:dic];
                 
-                int cat = topicInfo.cat;
-                NSString *catName = @"";
-                if (cat == 1)
-                    catName = @"教育";
-                else if (cat == 2)
-                    catName = @"营养";
-                else if (cat == 3)
-                    catName = @"入园";
-                else if (cat == 4)
-                    catName = @"心理";
-                catName = [NSString stringWithFormat:@"【%@】%@",catName,topicInfo.title];
-                topicInfo.title = catName;
-                
                 [weakSelf.publishTopicList addObject:topicInfo];
             }
             [weakSelf.publishTableView reloadData];
@@ -276,19 +249,6 @@
         for (NSDictionary *dic in object) {
             XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
             [topicInfo setTopicInfoByJsonDic:dic];
-            
-            int cat = topicInfo.cat;
-            NSString *catName = @"";
-            if (cat == 1)
-                catName = @"教育";
-            else if (cat == 2)
-                catName = @"营养";
-            else if (cat == 3)
-                catName = @"入园";
-            else if (cat == 4)
-                catName = @"心理";
-            catName = [NSString stringWithFormat:@"【%@】%@",catName,topicInfo.title];
-            topicInfo.title = catName;
             
             [weakSelf.publishTopicList addObject:topicInfo];
         }
