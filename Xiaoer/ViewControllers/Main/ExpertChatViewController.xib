@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExpertChatViewController">
@@ -359,7 +359,7 @@
                     <rect key="frame" x="33" y="9" width="90" height="26"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <state key="normal" title="热门话题" backgroundImage="expert_selected_bg">
+                    <state key="normal" title="热门话题" backgroundImage="public_type_open_icon">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
@@ -397,7 +397,7 @@
                     <rect key="frame" x="33" y="9" width="90" height="26"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                    <state key="normal" title="热门话题" backgroundImage="expert_selected_bg">
+                    <state key="normal" title="热门话题" backgroundImage="public_type_open_icon">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
@@ -495,8 +495,8 @@
         <image name="expert_mind_icon" width="45" height="45"/>
         <image name="expert_nourish_icon" width="45" height="45"/>
         <image name="expert_nutri_icon" width="45" height="45"/>
-        <image name="expert_selected_bg" width="90" height="26"/>
         <image name="expert_unfold_btn" width="316" height="33"/>
+        <image name="public_type_open_icon" width="54" height="26"/>
         <image name="s_n_set_line" width="300" height="1"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

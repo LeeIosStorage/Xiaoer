@@ -321,7 +321,9 @@
             break;
         case 1:
         {
-            
+            if ([[XEEngine shareInstance] needUserLogin:nil]) {
+                return;
+            }
         }
             break;
         default:

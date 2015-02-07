@@ -6,12 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "活动图渐变遮罩.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "活动图渐变遮罩.png"
+      "scale" : "3x"
     }
   ],
   "info" : {

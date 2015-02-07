@@ -43,6 +43,9 @@
 }
 
 - (IBAction)backAction:(id)sender{
+    if (_backActionCallBack) {
+        _backActionCallBack(YES);
+    }
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];

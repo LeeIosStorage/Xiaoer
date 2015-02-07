@@ -323,7 +323,7 @@
     self.expertCommentBgImgView.image = [[UIImage imageNamed:@"expert_comment_background"] stretchableImageWithLeftCapWidth:20 topCapHeight:30];
     _inputViewBgImageView.image = [[UIImage imageNamed:@"verify_commit_bg"] stretchableImageWithLeftCapWidth:20 topCapHeight:15];
     
-    [self.authorAvatarImgView sd_setImageWithURL:_topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
+    [self.authorAvatarImgView sd_setImageWithURL:_topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
     self.authorNameLabel.text = _topicInfo.userName;
     self.authorHospitalLabel.text = _topicInfo.utitle;
     self.timeLabel.text = [XEUIUtils dateDiscriptionFromNowBk:_topicInfo.time];
@@ -384,7 +384,7 @@
     //expertComment
     if (_expertComment.content) {
         
-        [self.expertAvatarImgView sd_setImageWithURL:_expertComment.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
+        [self.expertAvatarImgView sd_setImageWithURL:_expertComment.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
         self.expertNameLabel.text = _expertComment.userName;
         self.expertHospitalLabel.text = _expertComment.title;
         
