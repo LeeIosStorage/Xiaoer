@@ -21,9 +21,12 @@
 //@property (strong, nonatomic) IBOutlet UIButton *commentLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *topImageView;
 @property (strong, nonatomic) IBOutlet UILabel *topicDateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *hotLabel;
+@property (strong, nonatomic) IBOutlet UILabel *picLabel;
 
 @property (assign, nonatomic) BOOL isExpertChat;
+//@property (assign, nonatomic) BOOL isHot;
 
-+ (float)heightForTopicInfo:(XETopicInfo *)topicInfo;
+//+ (float)heightForTopicInfo:(XETopicInfo *)topicInfo;
 
 @end

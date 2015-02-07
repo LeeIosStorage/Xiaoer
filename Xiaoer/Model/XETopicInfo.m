@@ -33,6 +33,9 @@
     if ([dic objectForKey:@"istop"]) {
         _isTop = [dic boolValueForKey:@"istop"];
     }
+    if ([dic objectForKey:@"isrec"]) {
+        _isRec = [dic boolValueForKey:@"isrec"];
+    }
     if ([dic objectForKey:@"imgnum"]) {
         _imgnum = [dic intValueForKey:@"imgnum"];
     }
