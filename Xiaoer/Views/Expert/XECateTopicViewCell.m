@@ -64,7 +64,7 @@
     
     CGSize textSize = [XECommonUtils sizeWithText:self.topicTitleLabel.text font:self.topicTitleLabel.font width:self.topicTitleLabel.frame.size.width];
     
-    CGRect frame = self.picLabel.frame;
+    CGRect frame = self.picImage.frame;
     CGRect frame2 = self.topicTitleLabel.frame;
     if (textSize.height < 18) {
          frame.origin.x = self.topicTitleLabel.frame.origin.x + textSize.width + 5;
@@ -73,15 +73,15 @@
         frame.origin.y = frame.origin.y + 18;
         frame2.origin.y = frame2.origin.y + 9;
     }
-    self.picLabel.frame = frame;
+    self.picImage.frame = frame;
     self.topicTitleLabel.frame = frame2;
     
     if (topicInfo.imgnum > 0) {
-        self.picLabel.hidden = NO;
-        self.picLabel.layer.cornerRadius = 2;
-        self.picLabel.clipsToBounds = YES;
+        self.picImage.hidden = NO;
+        self.picImage.layer.cornerRadius = 2;
+        self.picImage.clipsToBounds = YES;
     }else{
-        self.picLabel.hidden = YES;
+        self.picImage.hidden = YES;
     }
     
     frame = self.nickNameLabel.frame;

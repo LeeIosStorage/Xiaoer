@@ -34,6 +34,11 @@
     }
     _faved = [dic intValueForKey:@"faved"];
     
+    objectForKey = [dic objectForKey:@"utitle"];
+    if (objectForKey) {
+        _utitle = [objectForKey description];
+    }
+    
     objectForKey = [dic arrayObjectForKey:@"imgs"];
     if (objectForKey) {
         _picIds = [NSMutableArray array];
@@ -60,6 +65,13 @@
     }
     
     self.jsonString = [_questionInfoByJsonDic JSONString];
+}
+
+- (NSURL *)smallAvatarUrl {
+    if (_avatar == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small", _avatar]];
 }
 
 - (NSArray *)picURLs{

@@ -13,9 +13,13 @@
 
 @property (strong, nonatomic) XEQuestionInfo *questionInfo;
 
+@property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (strong, nonatomic) IBOutlet UILabel *questionLabel;
 @property (strong, nonatomic) IBOutlet UILabel *expertLabel;
 @property (strong, nonatomic) IBOutlet UILabel *topicDateLabel;
+
+@property (strong, nonatomic) IBOutlet UILabel *nickNameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (assign, nonatomic) BOOL isExpertChat;
 

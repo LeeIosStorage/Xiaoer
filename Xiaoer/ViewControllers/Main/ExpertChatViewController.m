@@ -448,10 +448,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView == self.questionTableView) {
-        XEQuestionInfo *questionInfo = _questionArray[indexPath.row];
-        return [XEQuestionViewCell heightForQuestionInfo:questionInfo];
-    }
+//    if (tableView == self.questionTableView) {
+//        XEQuestionInfo *questionInfo = _questionArray[indexPath.row];
+//        return [XEQuestionViewCell heightForQuestionInfo:questionInfo];
+//    }
 //    XETopicInfo *topicInfo = _topicArray[indexPath.row];
 //    return [XECateTopicViewCell heightForTopicInfo:topicInfo];
     return 80;
@@ -568,6 +568,9 @@
 //    } tag:tag];
     TopicListViewController *tlVc = [[TopicListViewController alloc] init];
     tlVc.bQuestion = self.bQuestion;
+    if (self.bQuestion) {
+        tlVc.topicType = TopicType_NONE;
+    }
     [self.navigationController pushViewController:tlVc animated:YES];
 }
 

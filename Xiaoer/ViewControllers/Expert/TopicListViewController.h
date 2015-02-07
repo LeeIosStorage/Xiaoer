@@ -14,6 +14,7 @@ typedef enum TopicType_{
     TopicType_Nutri,       //营养
     TopicType_Kinder,      //入园
     TopicType_Mind,        //心理
+    TopicType_NONE,
 }TopicType;
 
 @interface TopicListViewController : XESuperViewController

@@ -52,7 +52,11 @@
             }
             
             int tag = [[XEEngine shareInstance] getConnectTag];
-            [[XEEngine shareInstance] getQuestionListWithUid:[XEEngine shareInstance].uid pagenum:weakSelf.nextCursor tag:tag];
+            if (weakSelf.topicType == TopicType_NONE) {
+                [[XEEngine shareInstance] getQuestionListWithPagenum:weakSelf.nextCursor tag:tag];
+            }else{
+                [[XEEngine shareInstance] getQuestionListWithUid:[XEEngine shareInstance].uid pagenum:weakSelf.nextCursor tag:tag];
+            }
             [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
                 if (!weakSelf) {
                     return;
@@ -147,7 +151,11 @@
 
 - (void)initNormalTitleNavBarSubviews{
     if (_bQuestion) {
-        [self setTitle:@"我的问答"];
+        if (self.topicType == TopicType_NONE) {
+            [self setTitle:@"全部问答"];
+        }else{
+            [self setTitle:@"我的问答"];
+        }
         [self setRightButtonWithImageName:@"expert_public_icon" selector:@selector(askAction)];
     }else {
         if (self.topicType == TopicType_Nutri) {
@@ -168,7 +176,11 @@
     __weak TopicListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] addGetCacheTag:tag];
-    [[XEEngine shareInstance] getQuestionListWithUid:[XEEngine shareInstance].uid pagenum:1 tag:tag];
+    if (self.topicType == TopicType_NONE) {
+        [[XEEngine shareInstance] getQuestionListWithPagenum:1 tag:tag];
+    }else{
+        [[XEEngine shareInstance] getQuestionListWithUid:[XEEngine shareInstance].uid pagenum:1 tag:tag];
+    }
     [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
         if (jsonRet == nil) {
             //...
@@ -193,7 +205,11 @@
     _nextCursor = 1;
     __weak TopicListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getQuestionListWithUid:[XEEngine shareInstance].uid pagenum:_nextCursor tag:tag];
+    if (self.topicType == TopicType_NONE) {
+        [[XEEngine shareInstance] getQuestionListWithPagenum:_nextCursor tag:tag];
+    }else{
+        [[XEEngine shareInstance] getQuestionListWithUid:[XEEngine shareInstance].uid pagenum:_nextCursor tag:tag];
+    }
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         
         [self.pullRefreshView finishedLoading];
@@ -306,11 +322,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.bQuestion) {
-//        XEQuestionInfo *questionInfo = _dateArray[indexPath.row];
-//        return [XEQuestionViewCell heightForQuestionInfo:questionInfo];
-        return 70;
-    }
+//    if (self.bQuestion) {
+////        XEQuestionInfo *questionInfo = _dateArray[indexPath.row];
+////        return [XEQuestionViewCell heightForQuestionInfo:questionInfo];
+//        return 70;
+//    }
 //    XETopicInfo *topicInfo = _dateArray[indexPath.row];
 //    return [XECateTopicViewCell heightForTopicInfo:topicInfo];
     return 80;

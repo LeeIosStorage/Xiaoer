@@ -22,7 +22,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *topImageView;
 @property (strong, nonatomic) IBOutlet UILabel *topicDateLabel;
 @property (strong, nonatomic) IBOutlet UILabel *hotLabel;
-@property (strong, nonatomic) IBOutlet UILabel *picLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *picImage;
+
 
 @property (assign, nonatomic) BOOL isExpertChat;
 //@property (assign, nonatomic) BOOL isHot;
