@@ -13,7 +13,7 @@
 
 @implementation XECateTopicViewCell
 
-//+ (float)heightForTopicInfo:(XETopicInfo *)topicInfo{
++ (float)heightForTopicInfo:(XETopicInfo *)topicInfo{
 //    NSString* topicText = topicInfo.title;
 //    if (!topicText) {
 //        topicText = @"";
@@ -26,7 +26,8 @@
 //    float height = topicTextSize.height;
 //    height += 68;
 //    return height;
-//}
+    return 80;
+}
 
 - (void)awakeFromNib {
     // Initialization code
@@ -68,7 +69,7 @@
     if (textSize.height < 18) {
          frame.origin.x = self.topicTitleLabel.frame.origin.x + textSize.width + 5;
     }else {
-        frame.origin.x = 170;
+        frame.origin.x = SCREEN_WIDTH - 45;
         frame.origin.y = frame.origin.y + 18;
         frame2.origin.y = frame2.origin.y + 9;
     }

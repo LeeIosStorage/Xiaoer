@@ -27,6 +27,6 @@
 @property (assign, nonatomic) BOOL isExpertChat;
 //@property (assign, nonatomic) BOOL isHot;
 
-//+ (float)heightForTopicInfo:(XETopicInfo *)topicInfo;
++ (float)heightForTopicInfo:(XETopicInfo *)topicInfo;
 
 @end
