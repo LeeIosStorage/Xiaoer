@@ -183,7 +183,7 @@
     
     self.expertCommentBgImgView.image = [[UIImage imageNamed:@"ask_question_background"] stretchableImageWithLeftCapWidth:60 topCapHeight:30];
     
-    [self.answerAvatarImgView sd_setImageWithURL:_expertComment.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
+    [self.answerAvatarImgView sd_setImageWithURL:_expertComment.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
     self.answerNameLabel.text = _expertComment.userName;
     self.answerHospitalLabel.text = _expertComment.title;
     self.answerTimeLabel.text = [XEUIUtils dateDiscriptionFromNowBk:_expertComment.time];

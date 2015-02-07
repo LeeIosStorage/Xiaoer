@@ -254,6 +254,9 @@ enum TABLEVIEW_SECTION_INDEX {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"section is %ld",(long)indexPath.row);
+    NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
+    [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
+    
     switch (indexPath.section) {
         case kMyProfile:{
             if (indexPath.row == 0) {
@@ -261,14 +264,23 @@ enum TABLEVIEW_SECTION_INDEX {
                 [self.navigationController pushViewController:mVc animated:YES];
                 break;
             }else if (indexPath.row == 1){
+                if ([[XEEngine shareInstance] needUserLogin:nil]) {
+                    return;
+                }
                 MineActivityListViewController *mVc = [[MineActivityListViewController alloc] init];
                 [self.navigationController pushViewController:mVc animated:YES];
                 break;
             }else if (indexPath.row == 2){
+                if ([[XEEngine shareInstance] needUserLogin:nil]) {
+                    return;
+                }
                 CollectionViewController *cVc = [[CollectionViewController alloc] init];
                 [self.navigationController pushViewController:cVc animated:YES];
                 break;
             }else if (indexPath.row == 3){
+                if ([[XEEngine shareInstance] needUserLogin:nil]) {
+                    return;
+                }
                 MineTopicListViewController *mVc = [[MineTopicListViewController alloc] init];
                 [self.navigationController pushViewController:mVc animated:YES];
                 break;
@@ -303,9 +315,6 @@ enum TABLEVIEW_SECTION_INDEX {
         default:
             break;
     }
- 
-    NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
-    [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
 }
 
 - (void)dealloc {

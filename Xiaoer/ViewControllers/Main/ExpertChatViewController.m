@@ -78,7 +78,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:@"专家聊"];
-
+    
+    UIButton *topicBtn2 = (UIButton *)[self.sectionView2 viewWithTag:INFO_TYPE_TOPIC];
+    [topicBtn2 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [topicBtn2 setBackgroundImage:[[UIImage imageNamed:@"public_type_open_icon"] stretchableImageWithLeftCapWidth:18 topCapHeight:8] forState:UIControlStateNormal];
+    
     self.pullRefreshView = [[PullToRefreshView alloc] initWithScrollView:self.topicTableView];
     self.pullRefreshView.delegate = self;
     [self.topicTableView addSubview:self.pullRefreshView];
@@ -509,14 +513,14 @@
     if (btn.tag == INFO_TYPE_TOPIC) {
         self.bQuestion = NO;
         [self.topicBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.topicBtn setBackgroundImage:[UIImage imageNamed:@"expert_selected_bg"] forState:UIControlStateNormal];
+        [self.topicBtn setBackgroundImage:[[UIImage imageNamed:@"public_type_open_icon"] stretchableImageWithLeftCapWidth:18 topCapHeight:8] forState:UIControlStateNormal];
         [self.questionBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [self.questionBtn setBackgroundImage:nil forState:UIControlStateNormal];
         [self feedsTypeSwitch:INFO_TYPE_TOPIC needRefreshFeeds:NO];
     }else if(btn.tag == INFO_TYPE_QUESTION){
         self.bQuestion = YES;
         [self.questionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.questionBtn setBackgroundImage:[UIImage imageNamed:@"expert_selected_bg"] forState:UIControlStateNormal];
+        [self.questionBtn setBackgroundImage:[[UIImage imageNamed:@"public_type_open_icon"] stretchableImageWithLeftCapWidth:18 topCapHeight:8] forState:UIControlStateNormal];
         [self.topicBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [self.topicBtn setBackgroundImage:nil forState:UIControlStateNormal];
         [self feedsTypeSwitch:INFO_TYPE_QUESTION needRefreshFeeds:NO];

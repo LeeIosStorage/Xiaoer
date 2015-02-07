@@ -56,7 +56,7 @@
 
 -(void)setCommentInfo:(XECommentInfo *)commentInfo{
     _commentInfo = commentInfo;
-    [self.avatarImgView sd_setImageWithURL:commentInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
+    [self.avatarImgView sd_setImageWithURL:commentInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
     self.nameLabel.text = commentInfo.userName;
     self.monthLabel.text = commentInfo.title;
     

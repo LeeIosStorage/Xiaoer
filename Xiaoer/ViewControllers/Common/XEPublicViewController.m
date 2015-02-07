@@ -18,6 +18,9 @@
 #import "GMGridViewLayoutStrategies.h"
 #import "GMGridViewCell+Extended.h"
 #import "UIImage+Resize.h"
+#import "XEAlertView.h"
+#import "WelcomeViewController.h"
+#import "XENavigationController.h"
 
 #define MAX_IMAGES_NUM 9
 #define ONE_IMAGE_HEIGHT  44
@@ -73,6 +76,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    if (![[XEEngine shareInstance] hasAccoutLoggedin]) {
+        XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"请登录" cancelButtonTitle:@"取消" cancelBlock:^{
+            [self.navigationController popViewControllerAnimated:YES];
+        } okButtonTitle:@"登录" okBlock:^{
+            WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
+            welcomeVc.showBackButton = YES;
+            welcomeVc.backActionCallBack = ^(BOOL isBack){
+                if (isBack) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            };
+            XENavigationController* navigationController = [[XENavigationController alloc] initWithRootViewController:welcomeVc];
+            navigationController.navigationBarHidden = YES;
+            [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+        }];
+        [alertView show];
+        return;
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)

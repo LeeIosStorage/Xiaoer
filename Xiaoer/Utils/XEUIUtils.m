@@ -154,7 +154,7 @@ static bool dateFormatterOFUSInvalid ;
     NSDateComponents *compsNow = [calender components:unitFlags fromDate:nowDate];
     
     if (comps.year == compsNow.year){
-        _timestamp = [NSString stringWithFormat:@"%ld月%ld日 %02ld:%02ld", comps.month, comps.day, comps.hour, comps.minute];
+        _timestamp = [NSString stringWithFormat:@"%ld月%ld日 %02ld:%02ld", (long)comps.month, comps.day, comps.hour, comps.minute];
     } else {
         _timestamp = [NSString stringWithFormat:@"%04ld-%02ld-%02ld %02ld:%02ld", comps.year, comps.month, comps.day, comps.hour, comps.minute];
     }
