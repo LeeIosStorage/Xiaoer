@@ -469,7 +469,6 @@
         if (cell == nil) {
             NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
             cell = [cells objectAtIndex:0];
-            cell.backgroundColor = [UIColor clearColor];
         }
         XETopicInfo *topicInfo = _topicArray[indexPath.row];
         cell.isExpertChat = YES;
@@ -481,7 +480,6 @@
         if (cell == nil) {
             NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
             cell = [cells objectAtIndex:0];
-            cell.backgroundColor = [UIColor clearColor];
         }
         
         XEQuestionInfo *info = _questionArray[indexPath.row];

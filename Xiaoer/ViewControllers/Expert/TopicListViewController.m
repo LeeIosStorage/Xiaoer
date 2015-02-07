@@ -311,8 +311,9 @@
 //        return [XEQuestionViewCell heightForQuestionInfo:questionInfo];
         return 70;
     }
-    XETopicInfo *topicInfo = _dateArray[indexPath.row];
-    return [XECateTopicViewCell heightForTopicInfo:topicInfo];
+//    XETopicInfo *topicInfo = _dateArray[indexPath.row];
+//    return [XECateTopicViewCell heightForTopicInfo:topicInfo];
+    return 80;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
