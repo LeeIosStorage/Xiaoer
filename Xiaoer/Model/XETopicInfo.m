@@ -39,6 +39,10 @@
     if ([dic objectForKey:@"imgnum"]) {
         _imgnum = [dic intValueForKey:@"imgnum"];
     }
+    if ([dic objectForKey:@"thumbnail"]) {
+        _thumbnail = [dic stringObjectForKey:@"thumbnail"];
+    }
+    
     NSDateFormatter *dateFormatter = [XEUIUtils dateFormatterOFUS];
     if ([dic objectForKey:@"time"] && [[dic objectForKey:@"time"] isKindOfClass:[NSString class]]) {
         _time = [dateFormatter dateFromString:[dic objectForKey:@"time"]];
@@ -103,6 +107,13 @@
         return nil;
     }
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small", _avatar]];
+}
+
+- (NSURL *)thumbnailUrl{
+    if (_thumbnail == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@",[[XEEngine shareInstance] baseUrl],@"small",_thumbnail]];
 }
 
 - (NSArray *)picURLs{

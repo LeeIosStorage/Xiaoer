@@ -39,6 +39,11 @@
         _utitle = [objectForKey description];
     }
     
+    objectForKey = [dic objectForKey:@"avatar"];
+    if (objectForKey) {
+        _avatar = [dic stringObjectForKey:@"avatar"];
+    }
+    
     objectForKey = [dic arrayObjectForKey:@"imgs"];
     if (objectForKey) {
         _picIds = [NSMutableArray array];

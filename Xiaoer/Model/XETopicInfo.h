@@ -24,10 +24,13 @@
 @property(nonatomic, strong) NSDate* time;
 @property(nonatomic, assign) int imgnum;//话题包含图片的数量
 @property(nonatomic, assign) BOOL isRec;//热门
+@property(nonatomic, strong) NSString *thumbnail;//热门话题图片
 
 @property(nonatomic, strong) NSString* content;
 @property(nonatomic, strong) NSString* userName;
 @property(nonatomic, readonly) NSURL* smallAvatarUrl;
+@property(nonatomic, readonly) NSURL* thumbnailUrl;
+
 @property(nonatomic, assign) int faved;
 @property(nonatomic, strong) NSMutableArray *picIds;
 @property(nonatomic, readonly) NSArray* picURLs;

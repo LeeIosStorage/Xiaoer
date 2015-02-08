@@ -22,6 +22,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 @property (assign, nonatomic) BOOL isExpertChat;
+@property (assign, nonatomic) BOOL isMineChat;
 
 + (float)heightForQuestionInfo:(XEQuestionInfo *)topicInfo;
 

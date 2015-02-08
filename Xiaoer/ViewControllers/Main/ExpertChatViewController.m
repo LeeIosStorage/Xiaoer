@@ -10,7 +10,8 @@
 #import "XETabBarViewController.h"
 #import "XEEngine.h"
 #import "XELinkerHandler.h"
-#import "XECateTopicViewCell.h"
+//#import "XECateTopicViewCell.h"
+#import "XETopicViewCell.h"
 #import "XEQuestionViewCell.h"
 #import "XEProgressHUD.h"
 #import "ODRefreshControl.h"
@@ -464,14 +465,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.topicTableView) {
-        static NSString *CellIdentifier = @"XECateTopicViewCell";
-        XECateTopicViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        static NSString *CellIdentifier = @"XETopicViewCell";
+        XETopicViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
             cell = [cells objectAtIndex:0];
         }
         XETopicInfo *topicInfo = _topicArray[indexPath.row];
-        cell.isExpertChat = YES;
+//        cell.isExpertChat = YES;
         cell.topicInfo = topicInfo;
         return cell;
     }else{

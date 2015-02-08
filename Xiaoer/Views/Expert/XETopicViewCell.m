@@ -9,6 +9,7 @@
 #import "XETopicViewCell.h"
 #import "XECommonUtils.h"
 #import "XEUIUtils.h"
+#import "UIImageView+WebCache.h"
 
 @implementation XETopicViewCell
 
@@ -40,19 +41,25 @@
 -(void)setTopicInfo:(XETopicInfo *)topicInfo{
     _topicInfo = topicInfo;
     self.topicNameLabel.text = topicInfo.title;
-    [self.commentLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.favnum] forState:0];
-    [self.collectLabel setTitle:[NSString stringWithFormat:@" %d",topicInfo.clicknum] forState:0];
-    if (_isExpertChat) {
-        [self.collectLabel setImage:[UIImage imageNamed:@"topic_collect_icon"] forState:UIControlStateNormal];
-        [self.commentLabel setImage:[UIImage imageNamed:@"topic_comment_icon"] forState:UIControlStateNormal];
-        if (_topicInfo.isTop) {
-            self.topImageView.hidden = NO;
-            [self.topImageView setImage:[UIImage imageNamed:@"info_top_icon"]];
-        }else{
-            self.topImageView.hidden = YES;
-        }
-        self.topicDateLabel.hidden = NO;
-        self.topicDateLabel.text = [XEUIUtils dateDiscriptionFromNowBk:topicInfo.time];
+
+    self.topicDateLabel.text = [XEUIUtils dateDiscriptionFromNowBk:topicInfo.time];
+    
+    self.nickNameLabel.text = topicInfo.uname;
+    self.userTitleLabel.text = topicInfo.utitle;
+    
+    CGRect frame = self.nickNameLabel.frame;
+    frame.size.width = [XECommonUtils widthWithText:self.nickNameLabel.text font:self.nickNameLabel.font lineBreakMode:self.nickNameLabel.lineBreakMode];
+    self.nickNameLabel.frame = frame;
+    
+    frame = self.userTitleLabel.frame;
+    frame.origin.x = self.nickNameLabel.frame.origin.x + self.nickNameLabel.frame.size.width + 10;
+    self.userTitleLabel.frame = frame;
+    
+    if (![topicInfo.thumbnailUrl isEqual:[NSNull null]]) {
+        [self.topicImageView sd_setImageWithURL:topicInfo.thumbnailUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
+    }else{
+        [self.topicImageView sd_setImageWithURL:nil];
+        [self.topicImageView setImage:[UIImage imageNamed:@"topic_avatar_icon"]];
     }
 }
 
