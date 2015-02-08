@@ -13,14 +13,16 @@
 #import "UIImageView+WebCache.h"
 #import "PerfectInfoViewController.h"
 
-@interface CardDetailViewController ()
+@interface CardDetailViewController ()<UIWebViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *cardImageView;
 @property (strong, nonatomic) IBOutlet UILabel *cardTitle;
 @property (strong, nonatomic) IBOutlet UILabel *cardDes;
 @property (strong, nonatomic) IBOutlet UILabel *cardPrice;
 @property (strong, nonatomic) IBOutlet UILabel *leftNum;
+@property (strong, nonatomic) IBOutlet UIWebView *cardWebView;
 @property (strong, nonatomic) IBOutlet UIButton *statusBtn;
+@property (strong, nonatomic) IBOutlet UIScrollView *containerView;
 
 - (IBAction)receiveAction:(id)sender;
 
@@ -33,6 +35,11 @@
     // Do any additional setup after loading the view from its nib.
     [self refreshDetailUI];
     [self refreshCardInfo];
+    NSURL *cardUrl = [NSURL URLWithString:_cardInfo.cardActionUrl];
+    [_cardWebView loadRequest:[NSURLRequest requestWithURL:cardUrl]];
+    [(UIScrollView *)[[_cardWebView subviews] objectAtIndex:0] setBounces:NO];
+    
+    [_containerView setContentSize:CGSizeMake(SCREEN_WIDTH,800)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -129,6 +136,36 @@
         }];
         [alertView show];
     }
+}
+
+#pragma webview
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    return YES;
+}
+
+-(void)webViewDidStartLoad:(UIWebView *)webView{
+    NSLog(@"webViewDidStartLoad");
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    NSLog(@"webViewDidFinishLoad: ");
+    CGRect frame = webView.frame;
+    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
+    frame.size = fittingSize;
+    webView.frame = frame;
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
+
+- (void)dealloc
+{
+    [self.cardWebView stopLoading];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    self.cardWebView.delegate = nil;
 }
 
 @end
