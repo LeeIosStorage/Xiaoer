@@ -180,7 +180,7 @@ static CGFloat beginImageH = 64;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGPoint offset = scrollView.contentOffset;
-    XELog(@"offset = %f",offset.y);
+//    XELog(@"offset = %f",offset.y);
     CGRect frame = CGRectMake(0, -63, SCREEN_WIDTH, BKImageHeight);
     CGFloat factor;
     
@@ -202,7 +202,7 @@ static CGFloat beginImageH = 64;
         factor = (ABS(offset.y+beginOffsetY)+BKImageHeight) * SCREEN_WIDTH/BKImageHeight;
         frame = CGRectMake(-(factor-SCREEN_WIDTH)/2, beginImageH, factor, BKImageHeight+ABS(offset.y+beginOffsetY));
     }
-    XELog(@"frame = %@",NSStringFromCGRect(frame));
+//    XELog(@"frame = %@",NSStringFromCGRect(frame));
     _ownerbkImageView.frame = frame;
 }
 
