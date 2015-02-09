@@ -71,11 +71,10 @@
     if (index == _introPages.count - 1) {
         
         UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        loginBtn.frame = CGRectMake((SCREEN_WIDTH-200)/2, SCREEN_HEIGHT - 32 - 20, 200, 32);
-        [loginBtn setTitle:@"立即体验" forState:0];
+        loginBtn.frame = CGRectMake((SCREEN_WIDTH-250)/2, SCREEN_HEIGHT - 60 - 70, 250, 80);
+        loginBtn.backgroundColor = [UIColor clearColor];
 //        CGFloat originalH = self.frame.size.height > 500 ? 508 : 420;
 //        loginBtn.center = self.center;
-        [loginBtn setBackgroundImage:[UIImage imageNamed:@"login_btn_enabled"] forState:UIControlStateNormal];
         [loginBtn addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
         [pageView addSubview:loginBtn];
         

@@ -9,7 +9,6 @@
             <connections>
                 <outlet property="address" destination="xIV-hs-8ZM" id="rP9-EJ-Gh9"/>
                 <outlet property="birthday" destination="gKf-FQ-O24" id="gOv-7v-QR1"/>
-                <outlet property="bkImageView" destination="KnS-mo-gxM" id="uEU-3T-IS4"/>
                 <outlet property="editBtn" destination="nuZ-32-M9w" id="q45-6m-faA"/>
                 <outlet property="headEdgeview" destination="gTH-cY-qcw" id="AxH-Xz-LH6"/>
                 <outlet property="headView" destination="Zp7-nl-tgZ" id="qMV-tu-gZs"/>
@@ -29,25 +28,28 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" id="KnS-mo-gxM">
-                    <rect key="frame" x="0.0" y="-37" width="320" height="200"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="koH-Ad-NNr">
-                    <rect key="frame" x="0.0" y="-37" width="320" height="250"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </imageView>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pj2-xM-z9K">
+                <view contentMode="scaleToFill" id="CdI-gi-6PK">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="koH-Ad-NNr">
+                            <rect key="frame" x="0.0" y="-63" width="320" height="320"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </imageView>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pj2-xM-z9K">
+                            <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="TYt-66-6rr"/>
+                                <outlet property="delegate" destination="-1" id="M0Q-Zh-Ahh"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="TYt-66-6rr"/>
-                        <outlet property="delegate" destination="-1" id="M0Q-Zh-Ahh"/>
-                    </connections>
-                </tableView>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="276" y="334"/>
