@@ -52,7 +52,7 @@
 
 -(void) setLeftButtonWithImageName:(NSString *) butonImageName;
 -(void) setLeftButtonWithImageName:(NSString *) butonImageName selector:(SEL) selector;
-
+-(void) setLeft2ButtonWithImageName:(NSString *) butonImageName selector:(SEL) selector;
 
 //right button
 -(void) setRightButtonWithTitle:(NSString *) buttonTitle;

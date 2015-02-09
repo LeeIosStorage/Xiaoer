@@ -313,6 +313,18 @@
     }
 }
 
+-(void) setLeft2ButtonWithImageName:(NSString *) butonImageName selector:(SEL) selector{
+    if (![_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
+        return;
+    }
+    
+    if (_titleNavBarLeftButton2) {
+        _titleNavBarLeftButton2.hidden = NO;
+        [_titleNavBarLeftButton2 setImage:[UIImage imageNamed:butonImageName] forState:UIControlStateNormal];
+        [_titleNavBarLeftButton2 addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
 #pragma mark - ScrollViewContentInset
 -(void) setContentInsetForScrollView:(UIScrollView *) scrollview
 {
