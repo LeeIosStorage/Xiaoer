@@ -50,9 +50,9 @@
     UIImage *page2 = [UIImage imageNamed:@"welcome2"];
     UIImage *page3 = [UIImage imageNamed:@"welcome3"];
     UIImage *page4 = [UIImage imageNamed:@"welcome4"];
-    UIImage *page5 = [UIImage imageNamed:@"welcome5"];
+//    UIImage *page5 = [UIImage imageNamed:@"welcome5"];
     
-    _introView = [[NewIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1, page2, page3, page4, page5]];
+    _introView = [[NewIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1, page2, page3, page4]];
     __weak NewIntroViewController *weakSelf = self;
     [_introView setLoginIntroCallBack:^(){
         [weakSelf loginAction];

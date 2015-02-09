@@ -18,7 +18,8 @@
 @property(nonatomic, strong) NSString* regionName;
 @property(nonatomic, strong) NSString* address;//
 @property(nonatomic, strong) NSString* phone;//
-
+@property(nonatomic, strong) NSString* bgImgId;
+@property(nonatomic, readonly) NSURL* bgImgUrl;
 @property(nonatomic, strong) NSString* avatar;
 @property(nonatomic, strong) NSString* password;
 

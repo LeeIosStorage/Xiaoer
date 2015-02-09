@@ -49,14 +49,14 @@
         [self.scrollView addSubview:_pageViews[idx]];
     }
     
-    self.scrollView.contentSize = CGSizeMake(_introPages.count*320, self.scrollView.frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(_introPages.count*SCREEN_WIDTH, self.scrollView.frame.size.height);
     [self addSubview:self.scrollView];
 }
 
 - (UIView *)viewForPage:(UIImage *)pageImage atXIndex:(int)index {
     
     UIView *pageView = [[UIView alloc] initWithFrame:
-                        CGRectMake(index*320, 0, self.scrollView.frame.size.width,self.scrollView.frame.size.height)];
+                        CGRectMake(index*SCREEN_WIDTH, 0, self.scrollView.frame.size.width,self.scrollView.frame.size.height)];
     
     CGRect frame = self.scrollView.frame;
     CGFloat x = 0;
@@ -71,11 +71,11 @@
     if (index == _introPages.count - 1) {
         
         UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        loginBtn.frame = CGRectMake(0, 0, 100, 40);
-        [loginBtn setTitle:@"登陆" forState:0];
+        loginBtn.frame = CGRectMake((SCREEN_WIDTH-200)/2, SCREEN_HEIGHT - 32 - 20, 200, 32);
+        [loginBtn setTitle:@"立即体验" forState:0];
 //        CGFloat originalH = self.frame.size.height > 500 ? 508 : 420;
-        loginBtn.center = self.center;
-        [loginBtn setBackgroundImage:[UIImage imageNamed:@"welcom_button"] forState:UIControlStateNormal];
+//        loginBtn.center = self.center;
+        [loginBtn setBackgroundImage:[UIImage imageNamed:@"login_btn_enabled"] forState:UIControlStateNormal];
         [loginBtn addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
         [pageView addSubview:loginBtn];
         

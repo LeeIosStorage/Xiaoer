@@ -20,6 +20,12 @@
 #import "CardPackViewController.h"
 #import "MineActivityListViewController.h"
 #import "MineTopicListViewController.h"
+#import "XEActionSheet.h"
+#import "AVCamUtilities.h"
+#import "XEImagePickerController.h"
+#import "UIImage+ProportionalFill.h"
+#import "QHQnetworkingTool.h"
+#import "XEProgressHUD.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
@@ -28,7 +34,7 @@ enum TABLEVIEW_SECTION_INDEX {
     kSectionNumber,
 };
 
-@interface MineTabViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface MineTabViewController ()<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) XEUserInfo *userInfo;
 
@@ -130,12 +136,22 @@ enum TABLEVIEW_SECTION_INDEX {
             [self setTitle:@"我的"];
         }
         self.loginBtn.hidden = YES;
-        [self.ownerbkImageView sd_setImageWithURL:_userInfo.originalAvatarUrl placeholderImage:[UIImage imageNamed:@"activity_load_icon"]];
+//        self.ownerbkImageView.clipsToBounds = YES;
+//        self.ownerbkImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [self.ownerbkImageView sd_setImageWithURL:_userInfo.bgImgUrl placeholderImage:[UIImage imageNamed:@"activity_load_icon"]];
         [self.ownerHeadImageView sd_setImageWithURL:_userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
         self.ownerHeadImageView.layer.CornerRadius = 8;
         self.nickName.text = _userInfo.nickName;
         self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
-        self.address.text  = _userInfo.address;
+        self.address.text  = _userInfo.regionName;
+        CGSize textSize = [XECommonUtils sizeWithText:_userInfo.regionName font:self.address.font width:SCREEN_WIDTH-205];
+        CGRect frame = self.address.frame;
+        if (textSize.height > 42) {
+            textSize.height = 41;
+        }
+        frame.size.height = textSize.height;
+        self.address.frame = frame;
+        
         self.tableView.tableHeaderView = self.headView;
     }
     
@@ -152,6 +168,38 @@ enum TABLEVIEW_SECTION_INDEX {
 //    }
 }
 
+#pragma mark - Scroll view
+static CGFloat beginOffsetY = 150;
+static CGFloat BKImageHeight = 220;
+static CGFloat beginImageH = 64;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGPoint offset = scrollView.contentOffset;
+    XELog(@"offset = %f",offset.y);
+    CGRect frame = CGRectMake(0, -37, SCREEN_WIDTH, BKImageHeight);
+    CGFloat factor;
+    
+    //pull animation
+    if (offset.y < 0) {
+        factor = 0.5;
+    } else {
+        factor = 1;
+    }
+    
+    float topOffset = (self.headEdgeview.frame.origin.y - BKImageHeight)/2;
+    frame.origin.y = topOffset-offset.y*factor;
+    if (frame.origin.y > 0) {
+        frame.origin.y =  topOffset/factor - offset.y;
+    }
+    
+    // zoom image
+    if (offset.y <= -beginOffsetY) {
+        factor = (ABS(offset.y+beginOffsetY)+BKImageHeight) * SCREEN_WIDTH/BKImageHeight;
+        frame = CGRectMake(-(factor-SCREEN_WIDTH)/2, beginImageH, factor, BKImageHeight+ABS(offset.y+beginOffsetY));
+    }
+    XELog(@"frame = %@",NSStringFromCGRect(frame));
+    _ownerbkImageView.frame = frame;
+}
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -326,7 +374,16 @@ enum TABLEVIEW_SECTION_INDEX {
 }
 
 - (IBAction)setOwnerImageAction:(id)sender {
-    NSLog(@"===========%s",__func__);
+//    NSLog(@"===========%s",__func__);
+    __weak MineTabViewController *weakSelf = self;
+    XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:@"设置主页背景" actionBlock:^(NSInteger buttonIndex) {
+        if (2 == buttonIndex) {
+            return;
+        }
+        
+        [weakSelf doActionSheetClickedButtonAtIndex:buttonIndex];
+    } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从手机相册选择", @"拍一张", nil];
+    [sheet showInView:self.view];
 }
 
 - (IBAction)editInfoAction:(id)sender {
@@ -350,6 +407,92 @@ enum TABLEVIEW_SECTION_INDEX {
     NSLog(@"signOut for user logout");
     [appDelgate signOut];
     
+}
+
+-(void)doActionSheetClickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (1 == buttonIndex ) {
+        //检查设备是否有相机功能
+        if (![AVCamUtilities userCameraIsUsable]) {
+            [XEUIUtils showAlertWithMsg:[XEUIUtils documentOfCameraDenied]];
+            return;
+        }
+        //判断ios7用户相机是否打开
+        if (![AVCamUtilities userCaptureIsAuthorization]) {
+            [XEUIUtils showAlertWithMsg:[XEUIUtils documentOfAVCaptureDenied]];
+            return;
+        }
+    }
+    
+    XEImagePickerController *picker = [[XEImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    
+    if (buttonIndex == 1) {
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+#pragma mark -UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
+    
+    {
+        UIImage* imageAfterScale = image;
+        if (image.size.width != image.size.height) {
+            CGSize cropSize = image.size;
+            cropSize.height = MIN(image.size.width, image.size.height);
+            cropSize.width = MIN(image.size.width, image.size.height);
+            imageAfterScale = [image imageCroppedToFitSize:cropSize];
+        }
+        
+        NSData* imageData = UIImageJPEGRepresentation(imageAfterScale, XE_IMAGE_COMPRESSION_QUALITY);
+        
+        [self updateMineBg:imageData];
+        [self.tableView reloadData];
+    }
+    [picker dismissModalViewControllerAnimated:YES];
+    //    [LSCommonUtils saveImageToAlbum:picker Img:image];
+    
+}
+
+-(void)updateMineBg:(NSData *)data{
+    
+    NSMutableArray *dataArray = [NSMutableArray array];
+    if (data) {
+        QHQFormData* pData = [[QHQFormData alloc] init];
+        pData.data = data;
+        pData.name = @"bgimg";
+        pData.filename = @"bgimg";
+        pData.mimeType = @"image/png";
+        [dataArray addObject:pData];
+    }
+    
+    [XEProgressHUD AlertLoading:@"头像上传中..."];
+    __weak MineTabViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] updateBgImgWithUid:[XEEngine shareInstance].uid avatar:dataArray tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"上传失败";
+            }
+            return;
+        }
+        [XEProgressHUD AlertSuccess:@"上传成功."];
+        NSString *imgId = [jsonRet stringObjectForKey:@"object"];
+        _userInfo.bgImgId = imgId;
+        NSMutableDictionary *userDic = [NSMutableDictionary dictionaryWithDictionary:_userInfo.userInfoByJsonDic];
+        [userDic setObject:imgId forKey:@"bgImg"];
+        [_userInfo setUserInfoByJsonDic:userDic];
+        [XEEngine shareInstance].userInfo = _userInfo;
+        [weakSelf refreshUserInfoShow];
+        [weakSelf.tableView reloadData];
+        
+        [[XEEngine shareInstance] refreshUserInfo];
+        
+    }tag:tag];
 }
 
 @end

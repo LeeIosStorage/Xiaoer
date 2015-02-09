@@ -46,6 +46,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (void)saveAccount;
 - (NSString*)getCurrentAccoutDocDirectory;
 
+- (void)refreshUserInfo;
 - (BOOL)hasAccoutLoggedin;
 - (void)logout;
 - (void)logout:(BOOL)removeAccout;
@@ -81,6 +82,8 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 
 - (BOOL)loginWithUid:(NSString *)uid password:(NSString*)password tag:(int)tag error:(NSError **)errPtr;
 
+- (BOOL)getUserInfoWithUid:(NSString*)uid tag:(int)tag error:(NSError **)errPtr;
+
 //获取验证码
 - (BOOL)getCodeWithPhone:(NSString*)phone type:(NSString*)type tag:(int)tag;
 //校验验证码
@@ -93,6 +96,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)checkEmailWithEmail:(NSString *)email uid:(NSString *)uid tag:(int)tag;
 //校验手机号 uid可以为空
 - (BOOL)checkPhoneWithPhone:(NSString *)phone uid:(NSString *)uid tag:(int)tag;
+- (BOOL)updateBgImgWithUid:(NSString *)uid avatar:(NSArray *)data tag:(int)tag;
 //修改头像
 - (BOOL)updateAvatarWithUid:(NSString *)uid avatar:(NSArray *)data tag:(int)tag;
 //上传baby头像

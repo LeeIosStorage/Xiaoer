@@ -297,6 +297,19 @@ static XEEngine* s_ShareInstance = nil;
     [self serverInit];
 }
 
+- (void)refreshUserInfo{
+    int tag = [self getConnectTag];
+    [self getUserInfoWithUid:self.uid tag:tag error:nil];
+    [self addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (jsonRet && !errorMsg) {
+            [[XEEngine shareInstance].userInfo setUserInfoByJsonDic:[jsonRet objectForKey:@"object"]];
+            [XEEngine shareInstance].userInfo = [XEEngine shareInstance].userInfo;
+        }
+        
+    } tag:tag];
+}
+
 #pragma mark - Visitor 
 - (void)visitorLogin{
     _uid = nil;
@@ -560,6 +573,15 @@ static XEEngine* s_ShareInstance = nil;
 
 }
 
+- (BOOL)getUserInfoWithUid:(NSString*)uid tag:(int)tag error:(NSError **)errPtr{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/sync",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
 - (BOOL)loginWithEmail:(NSString*)email password:(NSString*)password error:(NSError **)errPtr
 {
     return NO;
@@ -620,6 +642,14 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
+- (BOOL)updateBgImgWithUid:(NSString *)uid avatar:(NSArray *)data tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/bgimg",API_URL] type:2 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:data withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
 - (BOOL)updateAvatarWithUid:(NSString *)uid avatar:(NSArray *)data tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     

@@ -124,6 +124,9 @@
 //        }
         _avatar = [dic objectForKey:@"avatar"];
     }
+    if ([dic objectForKey:@"bgImg"]) {
+        _bgImgId = [dic objectForKey:@"bgImg"];
+    }
     
     _babys = [[NSMutableArray alloc] init];
     for (NSDictionary*babyDic in [dic objectForKey:@"babys"]) {
@@ -174,6 +177,13 @@
 //    
 //    self.jsonString = [[dic objectForKey:@"user"] JSONString];
 //}
+
+- (NSURL *)bgImgUrl {
+    if (_bgImgId == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl], _bgImgId]];
+}
 
 + (NSString*)getAvatarUrlWithAvatar:(NSString*)avatar size:(int)size{
     
