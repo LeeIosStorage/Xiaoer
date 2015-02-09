@@ -39,6 +39,7 @@ enum TABLEVIEW_SECTION_INDEX {
 @property (nonatomic, strong) XEUserInfo *userInfo;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) IBOutlet UIImageView *bkImageView;
 @property (strong, nonatomic) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UIImageView *headEdgeview;
@@ -136,9 +137,9 @@ enum TABLEVIEW_SECTION_INDEX {
             [self setTitle:@"我的"];
         }
         self.loginBtn.hidden = YES;
-//        self.ownerbkImageView.clipsToBounds = YES;
-//        self.ownerbkImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [self.ownerbkImageView sd_setImageWithURL:_userInfo.bgImgUrl placeholderImage:[UIImage imageNamed:@"activity_load_icon"]];
+        self.ownerbkImageView.clipsToBounds = YES;
+        self.ownerbkImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [self.ownerbkImageView sd_setImageWithURL:_userInfo.bgImgUrl placeholderImage:[UIImage imageNamed:@"user_default_bg_img"]];
         [self.ownerHeadImageView sd_setImageWithURL:_userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
         self.ownerHeadImageView.layer.CornerRadius = 8;
         self.nickName.text = _userInfo.nickName;
@@ -169,14 +170,14 @@ enum TABLEVIEW_SECTION_INDEX {
 }
 
 #pragma mark - Scroll view
-static CGFloat beginOffsetY = 150;
-static CGFloat BKImageHeight = 220;
+static CGFloat beginOffsetY = 190;
+static CGFloat BKImageHeight = 320;
 static CGFloat beginImageH = 64;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGPoint offset = scrollView.contentOffset;
     XELog(@"offset = %f",offset.y);
-    CGRect frame = CGRectMake(0, -37, SCREEN_WIDTH, BKImageHeight);
+    CGRect frame = CGRectMake(0, -63, SCREEN_WIDTH, BKImageHeight);
     CGFloat factor;
     
     //pull animation
@@ -186,7 +187,7 @@ static CGFloat beginImageH = 64;
         factor = 1;
     }
     
-    float topOffset = (self.headEdgeview.frame.origin.y - BKImageHeight)/2;
+    float topOffset = -63;
     frame.origin.y = topOffset-offset.y*factor;
     if (frame.origin.y > 0) {
         frame.origin.y =  topOffset/factor - offset.y;
