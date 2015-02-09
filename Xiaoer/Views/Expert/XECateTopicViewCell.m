@@ -26,7 +26,7 @@
 //    float height = topicTextSize.height;
 //    height += 68;
 //    return height;
-    return 80;
+    return 70;
 }
 
 - (void)awakeFromNib {
@@ -70,8 +70,8 @@
          frame.origin.x = self.topicTitleLabel.frame.origin.x + textSize.width + 5;
     }else {
         frame.origin.x = [XECommonUtils widthWithText:self.topicTitleLabel.text font:self.topicTitleLabel.font lineBreakMode:1] - self.topicTitleLabel.frame.size.width + self.topicTitleLabel.frame.origin.x + 5 - (SCREEN_WIDTH==320?0:(SCREEN_WIDTH - 320 - 10));
-        frame.origin.y = frame.origin.y + 18;
-        frame2.origin.y = frame2.origin.y + 9;
+        frame.origin.y = frame.origin.y + 8;
+        frame2.origin.y = frame2.origin.y ;
     }
     self.picImage.frame = frame;
     self.topicTitleLabel.frame = frame2;

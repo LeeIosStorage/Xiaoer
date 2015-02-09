@@ -25,7 +25,7 @@
 //    }
 //    float height = topicTextSize.height;
 //    height += 55;
-    float height = 80;
+    float height = 70;
     return height;
 }
 
@@ -65,8 +65,8 @@
 //        if (self.isExpertChat) {
 //            self.expertLabel.hidden = YES;
 //        }else{
-//            self.expertLabel.hidden = NO;
-//            self.expertLabel.text = [NSString stringWithFormat:@"向%@教授提问",questionInfo.expertName];
+            self.expertLabel.hidden = NO;
+            self.expertLabel.text = [NSString stringWithFormat:@"向%@教授提问",questionInfo.expertName];
 //        }
         //问答内容移下
         frame = self.questionLabel.frame;
