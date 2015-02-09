@@ -235,7 +235,8 @@
     
     NSMutableDictionary *imgIdDics = [NSMutableDictionary dictionaryWithCapacity:tmpDataArray.count];
     
-    [XEProgressHUD AlertLoading:@"图片上传中..."];
+//    [XEProgressHUD AlertLoading:@"图片上传中..."];
+    [XEProgressHUD AlertLoading:@"图片上传中..." At:self.view];
     __weak XEPublicViewController *weakSelf = self;
     int index = 0;
     for (NSData *imgData in tmpDataArray) {
@@ -888,6 +889,11 @@ static int image_tag = 201,label_tag = 202;
     _selectTopicTypeDic = infoDic;
     [self refreshTypeButton];
     [self hideTopicTypeView];
+}
+
+- (void)backAction:(id)sender{
+    [super backAction:sender];
+    NSLog(@"=====================");
 }
 
 @end

@@ -32,6 +32,7 @@
 
 + (void)show:(NSString *)status;
 + (void)show:(NSString *)status Interaction:(BOOL)Interaction;
++ (void)show:(NSString *)status Interaction:(BOOL)Interaction atView:(UIView *)view;
 
 + (void)showSuccess:(NSString *)status;
 + (void)showSuccess:(NSString *)status Interaction:(BOOL)Interaction;

@@ -19,6 +19,13 @@
     [self AlertLoading:@"正在加载"];
 }
 
++ (void)AlertLoading:(NSString *)Info At:(UIView *)view
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [ProgressHUDJF show:Info Interaction:NO atView:view];
+    });
+}
+
 + (void)AlertLoading:(NSString *)Info
 {
     dispatch_async(dispatch_get_main_queue(), ^{

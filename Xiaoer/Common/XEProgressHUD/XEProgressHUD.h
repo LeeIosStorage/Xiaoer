@@ -19,6 +19,8 @@
 + (void) AlertErrorNetwork;
 + (void) AlertErrorTimeOut;
 
++ (void)AlertLoading:(NSString *)Info At:(UIView *)view;
+
 //从底部轻轻地弹出提示，2秒后默默得消失
 + (void) lightAlert:(NSString *)Info;
 

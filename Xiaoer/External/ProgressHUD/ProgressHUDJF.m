@@ -50,6 +50,89 @@
 	[[self shared] hudMake:status image:nil spin:YES hide:NO];
 }
 
+//////////////////////////////////////////////////////////////////////////////
++ (void)show:(NSString *)status Interaction:(BOOL)Interaction atView:(UIView *)view
+{
+    [self shared].Interaction = Interaction;
+    [[self shared] hudMake:status image:nil spin:YES hide:NO atView:view];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)hudMake:(NSString *)status image:(UIImage *)img spin:(BOOL)spin hide:(BOOL)hide atView:(UIView *)view
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    [self hudCreateAtView:view];
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    label.text = status;
+    label.hidden = (status == nil) ? YES : NO;
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    image.image = img;
+    image.hidden = (img == nil) ? YES : NO;
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    if (spin) [spinner startAnimating]; else [spinner stopAnimating];
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    [self hudSize];
+    [self hudPosition:nil];
+    [self hudShow];
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    if (hide) [NSThread detachNewThreadSelector:@selector(timedHide) toTarget:self withObject:nil];
+}
+
+- (void)hudCreateAtView:(UIView *)view
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    if (hud == nil)
+    {
+        hud = [[UIToolbar alloc] initWithFrame:CGRectZero];
+        hud.translucent = YES;
+        hud.backgroundColor = HUD_BACKGROUND_COLOR;
+        hud.layer.cornerRadius = 10;
+        hud.layer.masksToBounds = YES;
+        [self registerNotifications];
+    }
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    if (hud.superview == nil)
+    {
+        if (interaction == NO)
+        {
+            CGRect frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
+            background = [[UIView alloc] initWithFrame:frame];
+            background.backgroundColor = HUD_WINDOW_COLOR;
+            [view addSubview:background];
+            [background addSubview:hud];
+        }
+        else [view addSubview:hud];
+    }
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    if (spinner == nil)
+    {
+        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        spinner.color = SKIN_COLOR;
+        spinner.hidesWhenStopped = YES;
+    }
+    if (spinner.superview == nil) [hud addSubview:spinner];
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    if (image == nil)
+    {
+        image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    }
+    if (image.superview == nil) [hud addSubview:image];
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    if (label == nil)
+    {
+        label = [[UILabel alloc] initWithFrame:CGRectZero];
+        label.font = HUD_STATUS_FONT;
+        label.textColor = HUD_STATUS_COLOR;
+        label.backgroundColor = [UIColor clearColor];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
+        label.numberOfLines = 0;
+    }
+    if (label.superview == nil) [hud addSubview:label];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 + (void)showSuccess:(NSString *)status
 //-------------------------------------------------------------------------------------------------------------------------------------------------
