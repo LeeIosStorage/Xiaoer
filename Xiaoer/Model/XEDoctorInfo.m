@@ -15,6 +15,9 @@
 - (void)doSetDoctorInfoByJsonDic:(NSDictionary*)dic {
     if ([dic objectForKey:@"name"]) {
         _doctorName = [dic objectForKey:@"name"];
+        if ([_doctorName isEqual:[NSNull null]]) {
+            _doctorName = @"";
+        }
     }
     if ([dic stringObjectForKey:@"hospital"]) {
         _hospital = [dic stringObjectForKey:@"hospital"];
@@ -24,6 +27,9 @@
     }
     if ([dic objectForKey:@"des"]) {
         _des = [dic objectForKey:@"des"];
+        if ([_des isEqual:[NSNull null]]) {
+            _des = @"";
+        }
     }
     if ([dic objectForKey:@"avatar"]) {
         _avatar = [dic objectForKey:@"avatar"];
