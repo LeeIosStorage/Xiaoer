@@ -227,10 +227,7 @@
             return;
         }
         NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"questions"];
-        //暂时放下
-        if (object.count == 0) {
-            object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"qas"];
-        }
+
         for (NSDictionary *dic in object) {
             XEQuestionInfo *questionInfo = [[XEQuestionInfo alloc] init];
             [questionInfo setQuestionInfoByJsonDic:dic];

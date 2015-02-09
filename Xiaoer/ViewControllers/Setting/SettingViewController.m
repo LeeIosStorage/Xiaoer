@@ -200,38 +200,38 @@
 }
 
 - (void)checkVersion{
-//    int tag = [[XEEngine shareInstance] getConnectTag];
-//    [XEProgressHUD AlertLoading:@"正在获取版本..."];
-    
-//    [[XEEngine shareInstance] getAppInItunsInfoWithtag:tag error:nil];
-//    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-//        
-//        if (!jsonRet || err){
-//            
-//            return ;
-//            
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    //去服务器取版本信息
+    [[XEEngine shareInstance] getAppNewVersionWithTag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        if (!jsonRet || err){
+            return ;
+        }
+        
+        NSString *localVserion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
+        NSString* version = nil;
+        
+        version = [jsonRet stringObjectForKey:@"object"];
+        
+//        NSString* checkedVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"checkedVersion"];
+//        if ([checkedVersion isEqualToString:version]) {
+//            return;
 //        }
-//        NSString *localVserion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
-//        
-//        for (NSDictionary* dic in [jsonRet objectForKey:@"results"]) {
-//            NSString* version = [dic objectForKey:@"version"];
-//            NSString* releaseNotes = [dic objectForKey:@"releaseNotes"];
-//            if ([XECommonUtils isVersion:version greaterThanVersion:localVserion]) {
-//                
-//                XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:@"新版本已上线" message:[NSString stringWithFormat:@"%@", releaseNotes] cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"立刻更新" okBlock:^{
-////                    NSURL *url = [[ NSURL alloc ] initWithString: @"http://itunes.apple.com/app/idxxxxxxx"] ;
-////                    [[UIApplication sharedApplication] openURL:url];
-//                }];
-//                [alertView show];
-//                
-//                return;
-//            }
-//            break;
-//        }
-//        [XEProgressHUD AlertSuccess:@"当前版本已经是最新版本"];
-//        
-//    } tag:tag];
-     [XEProgressHUD AlertSuccess:@"当前版本已经是最新版本"];
+//        localVserion
+//        [[NSUserDefaults standardUserDefaults] setObject:version forKey:@"checkedVersion"];
+        if ([XECommonUtils isVersion:version greaterThanVersion:localVserion]) {
+            XEAlertView *alert = [[XEAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@版本已上线", version] message:@"宝爸宝妈快去更新吧" cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"立刻更新" okBlock:^{
+                NSURL *url = [[ NSURL alloc ] initWithString: @"http://itunes.apple.com/app/idxxxxxx"] ;
+                [[UIApplication sharedApplication] openURL:url];
+            }];
+            [alert show];
+            return;
+        }else{
+            [XEProgressHUD AlertSuccess:@"当前版本已经是最新版本"];
+        }
+    } tag:tag];
+
+//    [XEProgressHUD AlertSuccess:@"当前版本已经是最新版本"];
 }
 
 - (void)showClearCacheAction

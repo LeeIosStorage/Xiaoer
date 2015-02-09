@@ -107,6 +107,8 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getCommonAreaRoot:(int)tag;
 //获取地区-市
 - (BOOL)getCommonAreaNodeWithCode:(NSString *)code tag:(int)tag;
+//获取服务器版本信息
+- (BOOL)getAppNewVersionWithTag:(int)tag;
 
 #pragma mark - home
 //获取轮播信息
