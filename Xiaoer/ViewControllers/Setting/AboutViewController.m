@@ -12,6 +12,8 @@
 
 @interface AboutViewController ()
 
+@property (strong, nonatomic) IBOutlet UILabel *versionLabel;
+
 @end
 
 @implementation AboutViewController
@@ -19,6 +21,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    NSString *localVserion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
+    self.versionLabel.text = [NSString stringWithFormat:@"v%@",localVserion];
+    
 }
 
 - (void)didReceiveMemoryWarning {

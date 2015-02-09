@@ -42,7 +42,8 @@
     _topicInfo = topicInfo;
     self.topicNameLabel.text = topicInfo.title;
 
-    self.topicDateLabel.text = [XEUIUtils dateDiscriptionFromNowBk:topicInfo.time];
+//    self.topicDateLabel.text = [XEUIUtils dateDiscriptionFromNowBk:topicInfo.time];
+    self.topicDateLabel.text =  [NSString stringWithFormat:@"%d条评论",topicInfo.commentnum];
     
     self.nickNameLabel.text = topicInfo.uname;
     self.userTitleLabel.text = topicInfo.utitle;
@@ -56,10 +57,10 @@
     self.userTitleLabel.frame = frame;
     
     if (![topicInfo.thumbnailUrl isEqual:[NSNull null]]) {
-        [self.topicImageView sd_setImageWithURL:topicInfo.thumbnailUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
+        [self.topicImageView sd_setImageWithURL:topicInfo.thumbnailUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
     }else{
         [self.topicImageView sd_setImageWithURL:nil];
-        [self.topicImageView setImage:[UIImage imageNamed:@"topic_avatar_icon"]];
+        [self.topicImageView setImage:[UIImage imageNamed:@"recipes_load_icon"]];
     }
 }
 

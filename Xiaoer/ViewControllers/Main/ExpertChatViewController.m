@@ -459,7 +459,7 @@
 //    }
 //    XETopicInfo *topicInfo = _topicArray[indexPath.row];
 //    return [XECateTopicViewCell heightForTopicInfo:topicInfo];
-    return 80;
+    return 70;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

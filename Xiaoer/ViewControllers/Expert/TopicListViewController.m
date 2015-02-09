@@ -227,10 +227,7 @@
             return;
         }
         NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"questions"];
-        //暂时放下
-        if (object.count == 0) {
-            object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"qas"];
-        }
+
         for (NSDictionary *dic in object) {
             XEQuestionInfo *questionInfo = [[XEQuestionInfo alloc] init];
             [questionInfo setQuestionInfoByJsonDic:dic];
@@ -332,7 +329,7 @@
 //    }
 //    XETopicInfo *topicInfo = _dateArray[indexPath.row];
 //    return [XECateTopicViewCell heightForTopicInfo:topicInfo];
-    return 80;
+    return 70;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -362,9 +359,9 @@
     XEQuestionInfo *info = _dateArray[indexPath.row];
     cell.isExpertChat = NO;
     //蛋疼需求先区分一下
-    if (self.topicType != TopicType_NONE) {
+//    if (self.topicType != TopicType_NONE) {
         cell.isMineChat = YES;
-    }
+//    }
     cell.questionInfo = info;
     return cell;
 }
