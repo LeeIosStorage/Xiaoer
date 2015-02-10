@@ -111,7 +111,7 @@
 -(void)editUserInfo{
     
     XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
-    [XEProgressHUD AlertLoading:@"保存中"];
+    [XEProgressHUD AlertLoading:@"保存中" At:self.view];
     __weak PerfectInfoViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] editUserInfoWithUid:_userInfo.uid name:_userInfo.name nickname:_userInfo.nickName title:_userInfo.title desc:_userInfo.desc district:_userInfo.region address:_userInfo.address phone:_userInfo.phone bbId:babyUserInfo.babyId bbName:babyUserInfo.babyNick bbGender:babyUserInfo.babyGender bbBirthday:babyUserInfo.birthdayString bbAvatar:babyUserInfo.babyAvatarId userAvatar:_userInfo.avatar tag:tag];
@@ -122,11 +122,11 @@
             if (!errorMsg.length) {
                 errorMsg = @"保存失败";  
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         
-        [XEProgressHUD AlertSuccess:[XEEngine getSuccessMsgWithReponseDic:jsonRet]];
+        [XEProgressHUD AlertSuccess:[XEEngine getSuccessMsgWithReponseDic:jsonRet] At:weakSelf.view];
         [_userInfo setUserInfoByJsonDic:[[jsonRet objectForKey:@"object"] objectForKey:@"user"]];
         [XEEngine shareInstance].userInfo = _userInfo;
         [weakSelf.tableView reloadData];
@@ -148,7 +148,7 @@
         [XEProgressHUD lightAlert:@"请输入正确的手机号"];
         return;
     }
-    [XEProgressHUD AlertLoading:@"正在验证手机号"];
+    [XEProgressHUD AlertLoading:@"正在验证手机号" At:self.view];
     __weak PerfectInfoViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] checkPhoneWithPhone:phone uid:nil tag:tag];
@@ -159,7 +159,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败!";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         weakSelf.userInfo.phone = phone;
@@ -673,7 +673,7 @@
     pData.filename = @"userAvatar";
     pData.mimeType = @"image/png";
     
-    [XEProgressHUD AlertLoading:@"头像上传中..."];
+    [XEProgressHUD AlertLoading:@"头像上传中..." At:self.view];
     __weak PerfectInfoViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] updateAvatarWithUid:_userInfo.uid avatar:@[pData] tag:tag];
@@ -687,7 +687,7 @@
             return;
         }
         weakSelf.userInfo.avatar = [jsonRet stringObjectForKey:@"object"];
-        [XEProgressHUD AlertSuccess:@"上传成功."];
+        [XEProgressHUD AlertSuccess:@"上传成功." At:weakSelf.view];
     }tag:tag];
 }
 
@@ -703,7 +703,7 @@
         [dataArray addObject:pData];
     }
     
-    [XEProgressHUD AlertLoading:@"头像上传中..."];
+    [XEProgressHUD AlertLoading:@"头像上传中..." At:self.view];
     __weak PerfectInfoViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] updateBabyAvatarWithBabyUid:nil avatar:dataArray tag:tag];
@@ -716,7 +716,7 @@
             }
             return;
         }
-        [XEProgressHUD AlertSuccess:@"上传成功."];
+        [XEProgressHUD AlertSuccess:@"上传成功." At:weakSelf.view];
         XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
         babyUserInfo.babyAvatarId = [jsonRet stringObjectForKey:@"object"];
         [weakSelf.tableView reloadData];

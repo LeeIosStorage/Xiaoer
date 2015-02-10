@@ -21,6 +21,7 @@
 #import "WelcomeViewController.h"
 #import "AppDelegate.h"
 #import "XENavigationController.h"
+#import "UMSocial.h"
 
 #define CONNECT_TIMEOUT 20
 
@@ -549,11 +550,84 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)loginWithAccredit:(NSString*)loginType error:(NSError **)errPtr
+- (BOOL)loginWithAccredit:(NSString*)loginType tag:(int)tag error:(NSError **)errPtr
 {
     //..UM
     //if else
-    return NO;
+    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:loginType];
+    snsPlatform.loginClickHandler(nil,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response)
+                                  {
+                                      if ([loginType isEqualToString:UMShareToSina])
+                                      {
+                                          [[UMSocialDataService defaultDataService] requestSocialAccountWithCompletion:^(UMSocialResponseEntity *accountResponse)
+                                           {
+                                               NSDictionary *info = nil;
+                                               if (accountResponse.responseCode == UMSResponseCodeSuccess)
+                                               {
+                                                   info = [[accountResponse.data objectForKey:@"accounts"] objectForKey:UMShareToSina];
+                                               }else
+                                               {
+                                                   NSString *message = @"授权失败";
+                                                   if (accountResponse.message) {
+                                                       message = accountResponse.message;
+                                                   }
+                                                   info = [NSDictionary dictionaryWithObject:message forKey:@"error"];
+                                               }
+                                               onAppServiceBlock block = [self getonAppServiceBlockByTag:tag];
+                                               if (block) {
+                                                   [self removeOnAppServiceBlockForTag:tag];
+                                                   block(tag, info, nil);
+                                               }
+                                           }];
+                                      }
+                                      else if ([loginType isEqualToString:UMShareToQQ])
+                                      {
+                                          [[UMSocialDataService defaultDataService] requestSnsInformation:UMShareToQQ completion:^(UMSocialResponseEntity *respose)
+                                           {
+                                               NSDictionary *info = nil;
+                                               if (respose.responseCode == UMSResponseCodeSuccess)
+                                               {
+                                                   info = respose.data;
+                                               }else
+                                               {
+                                                   NSString *message = @"授权失败";
+                                                   if (respose.message) {
+                                                       message = respose.message;
+                                                   }
+                                                   info = [NSDictionary dictionaryWithObject:message forKey:@"error"];
+                                               }
+                                               onAppServiceBlock block = [self getonAppServiceBlockByTag:tag];
+                                               if (block) {
+                                                   [self removeOnAppServiceBlockForTag:tag];
+                                                   block(tag, info, nil);
+                                               }
+                                           }];
+                                      }
+                                      else if ([loginType isEqualToString:UMShareToWechatSession])
+                                      {
+                                          [[UMSocialDataService defaultDataService] requestSnsInformation:UMShareToWechatSession completion:^(UMSocialResponseEntity *respose)
+                                           {
+                                               NSDictionary *info = nil;
+                                               if (respose.responseCode == UMSResponseCodeSuccess)
+                                               {
+                                                   info = respose.data;
+                                               }else
+                                               {
+                                                   NSString *message = @"授权失败";
+                                                   if (respose.message) {
+                                                       message = respose.message;
+                                                   }
+                                                   info = [NSDictionary dictionaryWithObject:message forKey:@"error"];
+                                               }
+                                               onAppServiceBlock block = [self getonAppServiceBlockByTag:tag];
+                                               if (block) {
+                                                   [self removeOnAppServiceBlockForTag:tag];
+                                                   block(tag, info, nil);
+                                               }
+                                           }];
+                                      }
+                                  });
+    return YES;
 }
 
 - (BOOL)loginWithPhone:(NSString *)phone password:(NSString *)password tag:(int)tag error:(NSError **)errPtr

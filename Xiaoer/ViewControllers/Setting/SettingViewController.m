@@ -16,6 +16,7 @@
 #import "AppDelegate.h"
 #import "UIImageView+WebCache.h"
 #import "XEProgressHUD.h"
+#import "XEActionSheet.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -171,9 +172,23 @@
         }
         case 1:{
             if (indexPath.row == 0) {
-                [[XEEngine shareInstance] logout];
-                WelcomeViewController *weVc = [[WelcomeViewController alloc] init];
-                [self.navigationController pushViewController:weVc animated:YES];
+                __weak SettingViewController *weakSelf = self;
+                XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:nil actionBlock:^(NSInteger buttonIndex) {
+                    if (buttonIndex == 1) {
+                        return;
+                    }
+                    if (buttonIndex == 0) {
+                        [[XEEngine shareInstance] logout];
+                        WelcomeViewController *weVc = [[WelcomeViewController alloc] init];
+                        [weakSelf.navigationController pushViewController:weVc animated:YES];
+                    }
+                }];
+                [sheet addButtonWithTitle:@"退出登录"];
+                sheet.destructiveButtonIndex = sheet.numberOfButtons - 1;
+                
+                [sheet addButtonWithTitle:@"取消"];
+                sheet.cancelButtonIndex = sheet.numberOfButtons -1;
+                [sheet showInView:self.view];
                 break;
             }else if (indexPath.row == 1){
                 [self onLogoutWithError:nil];

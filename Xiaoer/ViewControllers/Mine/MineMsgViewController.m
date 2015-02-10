@@ -74,7 +74,7 @@
                 if (!errorMsg.length) {
                     errorMsg = @"请求失败";
                 }
-                [XEProgressHUD AlertError:errorMsg];
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
             NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"notices"];
@@ -120,7 +120,7 @@
                 if (!errorMsg.length) {
                     errorMsg = @"请求失败";
                 }
-                [XEProgressHUD AlertError:errorMsg];
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
             
@@ -224,7 +224,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         weakSelf.announcementList = [[NSMutableArray alloc] init];
@@ -283,7 +283,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         
@@ -369,7 +369,7 @@ static int topImage_tag = 201, titleLabel_tag = 202, timeLabel_tag = 203;
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2];
         
-        UIImageView *topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 9, 26, 26)];
+        UIImageView *topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width-26, 0, 26, 26)];
         topImageView.image = [UIImage imageNamed:@"expert_top_icon"];
         topImageView.tag = topImage_tag;
         [cell addSubview:topImageView];

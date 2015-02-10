@@ -144,7 +144,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
 //        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];

@@ -195,7 +195,7 @@
         }
         
         _loginContainerView.hidden = NO;
-        _socialContainerView.hidden = NO;
+        _socialContainerView.hidden = YES;
         _registerContainerView.hidden = YES;
         
         [self loginButtonEnabled];
@@ -468,124 +468,54 @@
         }else if (button.tag == 2){
             _loginType = [[NSString alloc]initWithString:UMShareToWechatSession];
         }
-        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:_loginType];
-        snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response)
-                                      {
-                                          if ([_loginType isEqualToString:UMShareToSina])
-                                          {
-                                              [[UMSocialDataService defaultDataService] requestSocialAccountWithCompletion:^(UMSocialResponseEntity *accountResponse)
-                                               {
-                                                   if (accountResponse.responseCode == UMSResponseCodeSuccess)
-                                                   {
-                                                       NSDictionary *info = [[accountResponse.data objectForKey:@"accounts"] objectForKey:UMShareToSina];
-                                                       if (info)
-                                                       {
-                                                           [XEProgressHUD AlertLoading:@"正在登录"];
-                                                           NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                                                           [dic setValue:[info objectForKey:@"usid"]     forKey:@"openId"];
-                                                           [dic setValue: @"2"                           forKey:@"type"];
-                                                           [dic setValue:[info objectForKey:@"username"] forKey:@"username"];
-                                                           [dic setValue:[info objectForKey:@"icon"]     forKey:@"avatar"];
-                                                           if ([[info objectForKey:@"gender"]intValue] == 0)
-                                                               [dic setValue:@"2" forKey:@"sex"];
-                                                           else if ([[info objectForKey:@"gender"]intValue] == 1)
-                                                               [dic setValue:@"1" forKey:@"sex"];
-                                                           else
-                                                               [dic setValue:@"0" forKey:@"sex"];
-                                                           //                                                           [QHQnetworkingTool postWithURL:JFun_Login_Third params:dic
-                                                           //                                                                                  success:^(id json)
-                                                           //                                                            {
-                                                           //                                                                [self LoginInfo:[json objectForKey:HTTP_Keys_Info]];
-                                                           //                                                            }
-                                                           //                                                                                  failure:^(NSError *error)
-                                                           //                                                            {
-                                                           //
-                                                           //                                                            }];
-                                                       }
-                                                   }
-                                                   else
-                                                   {
-                                                       [XEProgressHUD AlertError:accountResponse.message];
-                                                   }
-                                               }];
-                                          }
-                                          else if ([_loginType isEqualToString:UMShareToQQ])
-                                          {
-                                              [[UMSocialDataService defaultDataService] requestSnsInformation:UMShareToQQ completion:^(UMSocialResponseEntity *respose)
-                                               {
-                                                   if (respose.responseCode == UMSResponseCodeSuccess)
-                                                   {
-                                                       NSDictionary *info = respose.data;
-                                                       if (info)
-                                                       {
-                                                           [XEProgressHUD AlertLoading:@"正在登录"];
-                                                           NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                                                           [dic setValue:[info objectForKey:@"uid"]      forKey:@"openId"];
-                                                           [dic setValue: @"1"                           forKey:@"type"];
-                                                           [dic setValue:[info objectForKey:@"screen_name"] forKey:@"username"];
-                                                           [dic setValue:[info objectForKey:@"profile_image_url"]     forKey:@"avatar"];
-                                                           if ([[info objectForKey:@"gender"] isEqualToString:@"男"])
-                                                               [dic setValue:@"1" forKey:@"sex"];
-                                                           else if ([[info objectForKey:@"gender"] isEqualToString:@"女"])
-                                                               [dic setValue:@"2" forKey:@"sex"];
-                                                           else
-                                                               [dic setValue:@"0" forKey:@"sex"];
-                                                           //                                                           [QHQnetworkingTool postWithURL:JFun_Login_Third params:dic
-                                                           //                                                                                  success:^(id json)
-                                                           //                                                            {
-                                                           //                                                                [self LoginInfo:[json objectForKey:HTTP_Keys_Info]];
-                                                           //                                                            }
-                                                           //                                                                                  failure:^(NSError *error)
-                                                           //                                                            {
-                                                           //
-                                                           //                                                            }];
-                                                       }
-                                                   }
-                                                   else
-                                                   {
-                                                       [XEProgressHUD AlertError:respose.message];
-                                                   }
-                                               }];
-                                          }
-                                          else if ([_loginType isEqualToString:UMShareToWechatSession])
-                                          {
-                                              [[UMSocialDataService defaultDataService] requestSnsInformation:UMShareToWechatSession completion:^(UMSocialResponseEntity *respose)
-                                               {
-                                                   if (respose.responseCode == UMSResponseCodeSuccess)
-                                                   {
-                                                       NSDictionary *info = respose.data;
-                                                       if (info)
-                                                       {
-                                                           [XEProgressHUD AlertLoading:@"正在登录"];
-                                                           NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                                                           [dic setValue:[info objectForKey:@"openid"]      forKey:@"openId"];
-                                                           [dic setValue: @"4"                           forKey:@"type"];
-                                                           [dic setValue:[info objectForKey:@"screen_name"] forKey:@"username"];
-                                                           [dic setValue:[info objectForKey:@"profile_image_url"]     forKey:@"avatar"];
-                                                           if ([[info objectForKey:@"gender"] intValue] == 1)
-                                                               [dic setValue:@"1" forKey:@"sex"];
-                                                           else if ([[info objectForKey:@"gender"] intValue] == 0)
-                                                               [dic setValue:@"2" forKey:@"sex"];
-                                                           else
-                                                               [dic setValue:@"0" forKey:@"sex"];
-                                                           //                                                           [QHQnetworkingTool postWithURL:JFun_Login_Third params:dic
-                                                           //                                                                                  success:^(id json)
-                                                           //                                                            {
-                                                           //                                                                [self LoginInfo:[json objectForKey:HTTP_Keys_Info]];
-                                                           //                                                            }
-                                                           //                                                                                  failure:^(NSError *error)
-                                                           //                                                            {
-                                                           //                                                                
-                                                           //                                                            }];
-                                                       }
-                                                   }
-                                                   else
-                                                   {
-                                                       [XEProgressHUD AlertError:respose.message];
-                                                   }
-                                               }];
-                                          }
-                                      });
+        __weak LoginViewController *weakSelf = self;
+        int tag = [[XEEngine shareInstance] getConnectTag];
+        [[XEEngine shareInstance] loginWithAccredit:_loginType tag:tag error:nil];
+        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+            NSString* errorMsg = [jsonRet stringObjectForKey:@"error"];
+            if (!jsonRet || errorMsg) {
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+                return;
+            }
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            if ([_loginType isEqualToString:UMShareToSina]) {
+                [dic setValue:[jsonRet objectForKey:@"usid"]     forKey:@"openId"];
+                [dic setValue: @"2"                              forKey:@"type"];
+                [dic setValue:[jsonRet objectForKey:@"username"] forKey:@"username"];
+                [dic setValue:[jsonRet objectForKey:@"icon"]     forKey:@"avatar"];
+                if ([[jsonRet objectForKey:@"gender"]intValue] == 0)
+                    [dic setValue:@"2" forKey:@"sex"];
+                else if ([[jsonRet objectForKey:@"gender"]intValue] == 1)
+                    [dic setValue:@"1" forKey:@"sex"];
+                else
+                    [dic setValue:@"0" forKey:@"sex"];
+            }else if ([_loginType isEqualToString:UMShareToQQ]){
+                [dic setValue:[jsonRet objectForKey:@"uid"]         forKey:@"openId"];
+                [dic setValue: @"1"                                 forKey:@"type"];
+                [dic setValue:[jsonRet objectForKey:@"screen_name"] forKey:@"username"];
+                [dic setValue:[jsonRet objectForKey:@"profile_image_url"]     forKey:@"avatar"];
+                if ([[jsonRet objectForKey:@"gender"] isEqualToString:@"男"])
+                    [dic setValue:@"1" forKey:@"sex"];
+                else if ([[jsonRet objectForKey:@"gender"] isEqualToString:@"女"])
+                    [dic setValue:@"2" forKey:@"sex"];
+                else
+                    [dic setValue:@"0" forKey:@"sex"];
+            }else if ([_loginType isEqualToString:UMShareToWechatSession]){
+                [dic setValue:[jsonRet objectForKey:@"openid"]      forKey:@"openId"];
+                [dic setValue: @"4"                           forKey:@"type"];
+                [dic setValue:[jsonRet objectForKey:@"screen_name"] forKey:@"username"];
+                [dic setValue:[jsonRet objectForKey:@"profile_image_url"]     forKey:@"avatar"];
+                if ([[jsonRet objectForKey:@"gender"] intValue] == 1)
+                    [dic setValue:@"1" forKey:@"sex"];
+                else if ([[jsonRet objectForKey:@"gender"] intValue] == 0)
+                    [dic setValue:@"2" forKey:@"sex"];
+                else
+                    [dic setValue:@"0" forKey:@"sex"];
+            }
+            
+            XELog(@"loginWithAccredit response = %@",dic);
+            
+        }tag:tag];
     }
 }
 
@@ -674,7 +604,7 @@
         return;
     }
     [self TextFieldResignFirstResponder];
-    [XEProgressHUD AlertLoading:@"正在登录..."];
+    [XEProgressHUD AlertLoading:@"正在登录..." At:self.view];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] loginWithUid:_accountTextField.text password:_loginPasswordTextFieldText tag:tag error:nil];
@@ -685,10 +615,10 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        [XEProgressHUD AlertSuccess:@"登录成功."];
+        [XEProgressHUD AlertSuccess:@"登录成功." At:weakSelf.view];
         
         NSDictionary *object = [jsonRet objectForKey:@"object"];
         XEUserInfo *userInfo = [[XEUserInfo alloc] init];
@@ -728,7 +658,7 @@
         return;
     }
     [self TextFieldResignFirstResponder];
-    [XEProgressHUD AlertLoading:@"正在验证,请稍等"];
+    [XEProgressHUD AlertLoading:@"正在验证,请稍等" At:self.view];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] checkCodeWithPhone:_registerPhoneTextFieldText code:verifyAndemailTextFieldText codeType:@"0" tag:tag];
@@ -770,7 +700,8 @@
     [self waitTimerInterval:_waitTimer];
     
     [self TextFieldResignFirstResponder];
-    [XEProgressHUD AlertLoading:@"正在验证手机号"];
+    [XEProgressHUD AlertLoading:@"正在验证手机号" At:self.view];
+    __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getCodeWithPhone:_registerPhoneTextFieldText type:@"0" tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
@@ -780,13 +711,13 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败!";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             _waitSmsSecond = 0;
-            [self waitTimerInterval:_waitTimer];
+            [weakSelf waitTimerInterval:_waitTimer];
             return;
         }
         
-        [XEProgressHUD AlertSuccess:@"验证码发送成功."];
+        [XEProgressHUD AlertSuccess:@"验证码发送成功." At:weakSelf.view];
         
     }tag:tag];
 }
@@ -799,7 +730,7 @@
         return;
     }
     [self TextFieldResignFirstResponder];
-    [XEProgressHUD AlertLoading:@"正在验证手机号"];
+    [XEProgressHUD AlertLoading:@"正在验证手机号" At:self.view];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] checkPhoneWithPhone:_registerPhoneTextFieldText uid:nil tag:tag];
@@ -828,7 +759,7 @@
         return;
     }
     [self TextFieldResignFirstResponder];
-    [XEProgressHUD AlertLoading:@"正在验证邮箱"];
+    [XEProgressHUD AlertLoading:@"正在验证邮箱" At:self.view];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] checkEmailWithEmail:verifyAndemailTextFieldText uid:nil tag:tag];
@@ -844,7 +775,7 @@
             return;
         }
         
-        [XEProgressHUD AlertSuccess:@"邮箱验证通过."];
+        [XEProgressHUD AlertSuccess:@"邮箱验证通过." At:weakSelf.view];
         
         SetPwdViewController *spVc = [[SetPwdViewController alloc] init];
         spVc.registerName = verifyAndemailTextFieldText;

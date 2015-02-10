@@ -143,7 +143,7 @@ enum TABLEVIEW_SECTION_INDEX {
 
         self.ownerbkImageView.clipsToBounds = YES;
         self.ownerbkImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [self.ownerbkImageView sd_setImageWithURL:_userInfo.bgImgUrl placeholderImage:[UIImage imageNamed:@"user_default_bg_img"]];
+        [self.ownerbkImageView sd_setImageWithURL:_userInfo.bgImgUrl placeholderImage:[UIImage imageNamed:@"activity_load_icon"]];
         [self.ownerHeadImageView sd_setImageWithURL:_userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
         self.ownerHeadImageView.layer.CornerRadius = 8;
         self.nickName.text = _userInfo.nickName;

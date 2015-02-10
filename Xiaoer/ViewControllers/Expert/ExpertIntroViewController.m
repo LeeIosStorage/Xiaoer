@@ -83,7 +83,7 @@
                 if (!errorMsg.length) {
                     errorMsg = @"请求失败";
                 }
-                [XEProgressHUD AlertError:errorMsg];
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
 //            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
@@ -181,7 +181,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
 //        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
@@ -215,7 +215,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
 //        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
@@ -305,7 +305,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         if ([self isCollect]) {
@@ -313,7 +313,7 @@
         }else{
             _doctorInfo.faved = 1;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
         
         [weakSelf refreshDoctorInfoShow];
         [weakSelf.tableView reloadData];
@@ -335,10 +335,10 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
         [weakSelf.tableView reloadData];
         
     }tag:tag];

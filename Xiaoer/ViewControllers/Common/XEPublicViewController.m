@@ -175,7 +175,7 @@
     if (self.imgIds.count > 0) {
         imgs = [XECommonUtils stringSplitWithCommaForIds:self.imgIds];
     }
-    [XEProgressHUD AlertLoading:@"发送中..."];
+    [XEProgressHUD AlertLoading:@"发送中..." At:self.view];
     NSString *overt = [NSString stringWithFormat:@"%d",self.openStateButton.selected];
     __weak XEPublicViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
@@ -187,10 +187,10 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
         [weakSelf.navigationController popViewControllerAnimated:YES];
         
     }tag:tag];
@@ -202,7 +202,7 @@
     if (self.imgIds.count > 0) {
         imgs = [XECommonUtils stringSplitWithCommaForIds:self.imgIds];
     }
-    [XEProgressHUD AlertLoading:@"发送中..."];
+    [XEProgressHUD AlertLoading:@"发送中..." At:self.view];
         __weak XEPublicViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] publishTopicWithUserId:[XEEngine shareInstance].uid title:_titleTextField.text content:_descriptionTextView.text cat:[_selectTopicTypeDic intValueForKey:TopicType_Cat] imgs:imgs tag:tag];
@@ -213,10 +213,10 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
         [weakSelf.navigationController popViewControllerAnimated:YES];
         
     }tag:tag];
@@ -262,12 +262,12 @@
                 if (!errorMsg.length) {
                     errorMsg = @"上传失败";
                 }
-                [XEProgressHUD AlertError:errorMsg];
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
             [imgIdDics setObject:[jsonRet stringObjectForKey:@"object"] forKey:[NSNumber numberWithInt:index]];
             if (imgIdDics.count == tmpDataArray.count) {
-                [XEProgressHUD AlertSuccess:@"上传成功."];
+                [XEProgressHUD AlertSuccess:@"上传成功." At:weakSelf.view];
                 NSMutableArray* picIds = [[NSMutableArray alloc] init];
                 
                 for (int i = 0; i < tmpDataArray.count; ++i) {

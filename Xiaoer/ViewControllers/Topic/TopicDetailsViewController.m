@@ -209,7 +209,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
 //        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
@@ -281,7 +281,7 @@
                 if (!errorMsg.length) {
                     errorMsg = @"请求失败";
                 }
-                [XEProgressHUD AlertError:errorMsg];
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
 //            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
@@ -324,7 +324,7 @@
     _inputViewBgImageView.image = [[UIImage imageNamed:@"verify_commit_bg"] stretchableImageWithLeftCapWidth:20 topCapHeight:15];
     
     [self.authorAvatarImgView sd_setImageWithURL:_topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
-    self.authorNameLabel.text = _topicInfo.userName;
+    self.authorNameLabel.text = _topicInfo.uname;
     self.authorHospitalLabel.text = _topicInfo.utitle;
     self.timeLabel.text = [XEUIUtils dateDiscriptionFromNowBk:_topicInfo.time];
     
@@ -446,6 +446,9 @@
 }
 
 - (IBAction)expressionAction:(id)sender {
+    if ([_growingTextView isFirstResponder]) {
+        [_growingTextView resignFirstResponder];
+    }
 }
 
 - (IBAction)sendAction:(id)sender {
@@ -469,10 +472,10 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
         
         NSDictionary *dic = [jsonRet objectForKey:@"object"];
         XECommentInfo *commentInfo = [[XECommentInfo alloc] init];
@@ -499,10 +502,10 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
         
         weakSelf.topicInfo.clicknum --;
         [weakSelf.topicComments removeObject:_selCommentInfo];

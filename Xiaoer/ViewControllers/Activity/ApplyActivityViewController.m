@@ -180,7 +180,7 @@
         [XEProgressHUD lightAlert:@"详细街道必填哦"];
         return;
     }
-    
+    [XEProgressHUD AlertLoading:@"正在提交信息" At:self.view];
     __weak ApplyActivityViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] applyActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid nickname:_oldUserInfo.nickName title:_oldUserInfo.title phone:_oldUserInfo.phone district:_oldUserInfo.region address:_oldUserInfo.address remark:_textView.text stage:_oldUserInfo.stage tag:tag];
@@ -191,10 +191,10 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
         
         [weakSelf.navigationController popViewControllerAnimated:YES];
         

@@ -73,7 +73,7 @@
                 if (!errorMsg.length) {
                     errorMsg = @"请求失败";
                 }
-                [XEProgressHUD AlertError:errorMsg];
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
             NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
@@ -117,7 +117,7 @@
                 if (!errorMsg.length) {
                     errorMsg = @"请求失败";
                 }
-                [XEProgressHUD AlertError:errorMsg];
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
             
@@ -231,7 +231,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         weakSelf.applyActivityList = [[NSMutableArray alloc] init];
@@ -290,7 +290,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         
@@ -349,7 +349,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         NSInteger index = [weakSelf.collectActivityList indexOfObject:activityInfo];
