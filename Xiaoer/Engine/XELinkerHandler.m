@@ -19,16 +19,16 @@
     }
     NSString* scheme = [realUrl.scheme lowercaseString];
     if ([scheme isEqualToString:@"XXX"]) {
-        NSString *lastCompment = [[realUrl path] lastPathComponent];
-        NSDictionary *paramDic = [XECommonUtils getParamDictFrom:realUrl.query];
-        if ([[realUrl host] isEqualToString:@"AAA"]) {
-            return nil;
-        }
-        //else if...
+//        NSString *lastCompment = [[realUrl path] lastPathComponent];
+//        NSDictionary *paramDic = [XECommonUtils getParamDictFrom:realUrl.query];
+//        if ([[realUrl host] isEqualToString:@"AAA"]) {
+//            return nil;
+//        }
+//        //else if...
         
     }else if([scheme hasPrefix:@"http"]){
-        NSString *lastCompment = [[realUrl path] lastPathComponent];
-        NSDictionary *paramDic = [XECommonUtils getParamDictFrom:realUrl.query];
+//        NSString *lastCompment = [[realUrl path] lastPathComponent];
+//        NSDictionary *paramDic = [XECommonUtils getParamDictFrom:realUrl.query];
         //if...else
         
         if (nav) {

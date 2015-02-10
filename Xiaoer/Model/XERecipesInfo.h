@@ -28,7 +28,7 @@
 
 - (void)setRecipesInfoByDic:(NSDictionary*)dic;
 
-+ (NSString*)getRecipesImageUrlWithUrl:(NSString*)url size:(int)size;
+//+ (NSString*)getRecipesImageUrlWithUrl:(NSString*)url size:(int)size;
 
 - (NSString*)getSmallRecipesImageUrl;
 - (NSString*)getMediumRecipesImageUrl;

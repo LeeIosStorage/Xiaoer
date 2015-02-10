@@ -292,7 +292,8 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
         [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [button setTitle:self.titles[i] forState:UIControlStateNormal];
         //暂时不要
-        CGSize titleSize = [button.titleLabel.text sizeWithFont:button.titleLabel.font];
+//        CGSize titleSize = [button.titleLabel.text sizeWithFont:button.titleLabel.font];
+        CGSize titleSize =[button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:button.titleLabel.font}];
         [button setFrame:CGRectMake(scrollBarWidth, 12, titleSize.width, 20)];
         scrollBarWidth += itemMargin + titleSize.width;
 //        CGFloat titleWidth = (SCREEN_WIDTH - (self.titles.count - 1)*20)/self.titles.count;

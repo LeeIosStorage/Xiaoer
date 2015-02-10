@@ -161,7 +161,7 @@
     [self menuItemDisappear];
 }
 
--(void)zoomWithButton:(XEPublishMenuItemButton *)btn andZoom:(BOOL *)bZoom
+-(void)zoomWithButton:(XEPublishMenuItemButton *)btn andZoom:(int)bZoom
 {
     CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
     animation.duration = 0.5;

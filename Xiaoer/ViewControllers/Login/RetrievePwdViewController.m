@@ -100,8 +100,9 @@
         self.titleLabel.text = @"请输入您的邮箱账号";
         self.noticeLabel.text = @"您的密码重置链接将发送到您的邮箱\n如果没有收到，请检查垃圾邮件";
         CGRect frame = self.noticeLabel.frame;
-        CGSize size = CGSizeMake(180, MAXFLOAT);
-        CGSize titleSize = [self.noticeLabel.text sizeWithFont:self.noticeLabel.font constrainedToSize:size lineBreakMode:UILineBreakModeCharacterWrap];
+//        CGSize size = CGSizeMake(180, MAXFLOAT);
+//        CGSize titleSize = [self.noticeLabel.text sizeWithFont:self.noticeLabel.font constrainedToSize:size lineBreakMode:UILineBreakModeCharacterWrap];
+        CGSize titleSize = [XECommonUtils sizeWithText:self.noticeLabel.text font:self.noticeLabel.font width:self.noticeLabel.frame.size.width];
         frame.size.height = titleSize.height;
         self.noticeLabel.frame = frame;
 

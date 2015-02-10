@@ -365,7 +365,7 @@ static char UIScrollViewPullToRefreshView;
     else if([keyPath isEqualToString:@"contentSize"]) {
         [self layoutSubviews];
         
-        CGFloat yOrigin;
+        CGFloat yOrigin = 0.0;
         switch (self.position) {
             case SVPullToRefreshPositionTop:
                 yOrigin = -SVPullToRefreshViewHeight;
