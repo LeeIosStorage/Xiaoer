@@ -201,7 +201,8 @@
 
 - (void)initNormalTitleNavBarSubviews{
     if (![XEEngine shareInstance].bVisitor) {
-        [self setLeftButtonWithTitle:@"我的问答" selector:@selector(mineAction)];
+        //[self setLeftButtonWithTitle:@"我的问答" selector:@selector(mineAction)];
+        [self setLeft2ButtonWithImageName:@"expert_question_icon" selector:@selector(mineAction)];
     }
     [self setRightButtonWithImageName:@"expert_public_icon" selector:@selector(showAction)];
 }

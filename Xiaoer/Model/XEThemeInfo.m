@@ -17,7 +17,6 @@
         return;
     }
     _themeInfoByJsonDic = [[NSMutableDictionary alloc] initWithDictionary:dic];
-    _tid = [[dic objectForKey:@"id"] description];
     
     @try {
         [self doSetThemeInfoByJsonDic:dic];
@@ -31,6 +30,10 @@
 }
 
 - (void)doSetThemeInfoByJsonDic:(NSDictionary*)dic {
+    if ([dic objectForKey:@"id"]) {
+        _themeActionUrl = [dic objectForKey:@"id"];
+    }
+    
     if ([dic objectForKey:@"url"]) {
         _themeImageUrl = [dic objectForKey:@"url"];
     }
@@ -39,13 +42,13 @@
     }
 }
 
-- (NSString *)themeActionUrl{
-    if (_tid == nil) {
-        return nil;
-    }
-
-    return [NSString stringWithFormat:@"%@/info/detail?id=%@", [[XEEngine shareInstance] baseUrl], _tid];
-}
+//- (NSString *)themeActionUrl{
+//    if (_tid == nil) {
+//        return nil;
+//    }
+//
+//    return [NSString stringWithFormat:@"%@/info/detail?id=%@", [[XEEngine shareInstance] baseUrl], _tid];
+//}
 
 + (NSString*)getThemeImageUrlWithUrl:(NSString*)url size:(int)size{
     

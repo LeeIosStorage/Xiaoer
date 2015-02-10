@@ -19,7 +19,12 @@
 + (void) AlertErrorNetwork;
 + (void) AlertErrorTimeOut;
 
-+ (void)AlertLoading:(NSString *)Info At:(UIView *)view;
+//当前页提示信息
++ (void) AlertLoading:(NSString *)Info At:(UIView *)view;
++ (void) AlertSuccess:(NSString *)Info At:(UIView *)view;
++ (void) AlertError:(NSString *)Info At:(UIView *)view;
++ (void) AlertErrorNetworkAt:(UIView *)view;
++ (void) AlertErrorTimeOutAt:(UIView *)view;
 
 //从底部轻轻地弹出提示，2秒后默默得消失
 + (void) lightAlert:(NSString *)Info;

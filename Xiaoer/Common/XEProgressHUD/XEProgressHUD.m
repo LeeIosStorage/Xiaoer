@@ -19,13 +19,6 @@
     [self AlertLoading:@"正在加载"];
 }
 
-+ (void)AlertLoading:(NSString *)Info At:(UIView *)view
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ProgressHUDJF show:Info Interaction:NO atView:view];
-    });
-}
-
 + (void)AlertLoading:(NSString *)Info
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -43,7 +36,7 @@
 + (void)AlertSuccess:(NSString *)Info
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [ProgressHUD showSuccess:Info];
+        [ProgressHUDJF showSuccess:Info];
     });
 }
 
@@ -65,6 +58,41 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [ProgressHUD showError:@"网络连接超时\n请您稍后再试"];
+    });
+}
+
++ (void)AlertLoading:(NSString *)Info At:(UIView *)view
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [ProgressHUDJF show:Info Interaction:NO atView:view];
+    });
+}
+
++ (void) AlertSuccess:(NSString *)Info At:(UIView *)view
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [ProgressHUDJF showSuccess:Info atView:view];
+    });
+}
+
++ (void) AlertError:(NSString *)Info At:(UIView *)view
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [ProgressHUDJF showError:Info atView:view];
+    });
+}
+
++ (void) AlertErrorNetworkAt:(UIView *)view
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [ProgressHUDJF showError:@"系统网络已被断开\n请连接网络后重试" atView:view];
+    });
+}
+
++ (void) AlertErrorTimeOutAt:(UIView *)view
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [ProgressHUDJF showError:@"网络连接超时\n请您稍后再试" atView:view];
     });
 }
 

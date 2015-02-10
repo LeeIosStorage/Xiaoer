@@ -36,9 +36,11 @@
 
 + (void)showSuccess:(NSString *)status;
 + (void)showSuccess:(NSString *)status Interaction:(BOOL)Interaction;
++ (void)showSuccess:(NSString *)status atView:(UIView *)view;
 
 + (void)showError:(NSString *)status;
 + (void)showError:(NSString *)status Interaction:(BOOL)Interaction;
++ (void)showError:(NSString *)status atView:(UIView *)view;
 
 @property (nonatomic, assign) BOOL interaction;
 

@@ -57,6 +57,16 @@
     [[self shared] hudMake:status image:nil spin:YES hide:NO atView:view];
 }
 
++ (void)showSuccess:(NSString *)status atView:(UIView *)view{
+    [self shared].interaction = YES;
+    [[self shared] hudMake:status image:HUD_IMAGE_SUCCESS spin:NO hide:YES atView:view];
+}
+
++ (void)showError:(NSString *)status atView:(UIView *)view{
+    [self shared].interaction = YES;
+    [[self shared] hudMake:status image:HUD_IMAGE_ERROR spin:NO hide:YES atView:view];
+}
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)hudMake:(NSString *)status image:(UIImage *)img spin:(BOOL)spin hide:(BOOL)hide atView:(UIView *)view
 //-------------------------------------------------------------------------------------------------------------------------------------------------
