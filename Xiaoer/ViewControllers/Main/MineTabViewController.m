@@ -472,7 +472,7 @@ static CGFloat beginImageH = 64;
         [dataArray addObject:pData];
     }
     
-    [XEProgressHUD AlertLoading:@"头像上传中..."];
+    [XEProgressHUD AlertLoading:@"头像上传中..." At:self.view];
     __weak MineTabViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] updateBgImgWithUid:[XEEngine shareInstance].uid avatar:dataArray tag:tag];
@@ -483,9 +483,10 @@ static CGFloat beginImageH = 64;
             if (!errorMsg.length) {
                 errorMsg = @"上传失败";
             }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        [XEProgressHUD AlertSuccess:@"上传成功."];
+        [XEProgressHUD AlertSuccess:@"上传成功." At:weakSelf.view];
         NSString *imgId = [jsonRet stringObjectForKey:@"object"];
         _userInfo.bgImgId = imgId;
         NSMutableDictionary *userDic = [NSMutableDictionary dictionaryWithDictionary:_userInfo.userInfoByJsonDic];

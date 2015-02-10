@@ -113,7 +113,7 @@
     [self TextFieldResignFirstResponder];
     __weak SetPwdViewController *weakSelf = self;
     if ([self.setPwdTextField.text isEqualToString:self.comfirmTextField.text]) {
-        [XEProgressHUD AlertLoading:@"正在注册"];
+        [XEProgressHUD AlertLoading:@"正在注册" At:weakSelf.view];
         int tag = [[XEEngine shareInstance] getConnectTag];
         if (weakSelf.registerName.length != 0) {
             if ([weakSelf.registerName isPhone]) {
@@ -124,12 +124,11 @@
                     if (!jsonRet || errorMsg) {
                         if (!errorMsg.length) {
                             errorMsg = @"获取失败";
-                            [XEProgressHUD AlertError:errorMsg];
                         }
-                        [XEUIUtils showAlertWithMsg:errorMsg];
+                        [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                         return;
                     }
-                    [XEProgressHUD AlertSuccess:@"注册成功"];
+                    [XEProgressHUD AlertSuccess:@"注册成功" At:weakSelf.view];
                     NSDictionary *dic = [jsonRet objectForKey:@"object"];
                     if (!_userInfo) {
                         _userInfo = [[XEUserInfo alloc] init];
@@ -145,12 +144,11 @@
                     if (!jsonRet || errorMsg) {
                         if (!errorMsg.length) {
                             errorMsg = @"获取失败";
-                            [XEProgressHUD AlertError:errorMsg];
                         }
-                        [XEUIUtils showAlertWithMsg:errorMsg];
+                        [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                         return;
                     }
-                    [XEProgressHUD AlertSuccess:@"注册成功"];
+                    [XEProgressHUD AlertSuccess:@"注册成功" At:weakSelf.view];
                     NSDictionary *dic = [jsonRet objectForKey:@"object"];
                     if (!_userInfo) {
                         _userInfo = [[XEUserInfo alloc] init];
@@ -168,17 +166,16 @@
                 if (!jsonRet || errorMsg) {
                     if (!errorMsg.length) {
                         errorMsg = @"获取失败";
-                        [XEProgressHUD AlertError:errorMsg];
                     }
-                    [XEUIUtils showAlertWithMsg:errorMsg];
+                    [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                     return;
                 }
-                [XEProgressHUD AlertSuccess:@"重置密码成功"];
+                [XEProgressHUD AlertSuccess:@"重置密码成功" At:weakSelf.view];
             }tag:tag];
         }
     }else{
         [self.comfirmTextField becomeFirstResponder];
-        [XEProgressHUD AlertError:@"两次密码不一致"];
+        [XEProgressHUD AlertError:@"两次密码不一致" At:weakSelf.view];
     }
 }
 

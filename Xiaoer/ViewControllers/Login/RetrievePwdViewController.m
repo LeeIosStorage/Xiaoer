@@ -148,8 +148,8 @@
     _verifyButton.enabled = NO;
     [_verifyButton setBackgroundColor:UIColorToRGB(0x699db2)];
     [self waitTimerInterval:_waitTimer];
-    
-    [XEProgressHUD AlertLoading:@"正在验证手机号"];
+    __weak RetrievePwdViewController *weakSelf = self;
+    [XEProgressHUD AlertLoading:@"正在验证手机号" At:self.view];
     [self TextFieldResignFirstResponder];
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getCodeWithPhone:self.phoneTextField.text type:@"1" tag:tag];
@@ -160,18 +160,19 @@
             if (!errorMsg.length) {
                 errorMsg = @"获取失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             _waitSmsSecond = 0;
             [self waitTimerInterval:_waitTimer];
             return;
         }
-        NSLog(@"=====%@",[jsonRet objectForKey:@"obj"]);
+        //NSLog(@"=====%@",[jsonRet objectForKey:@"obj"]);
     }tag:tag];
 }
 
 - (IBAction)sendAction:(id)sender {
     //test
     [self TextFieldResignFirstResponder];
+    __weak RetrievePwdViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
 //    [[XEEngine shareInstance] loginWithUid:@"t1" password:@"123456" tag:tag error:nil];
     [[XEEngine shareInstance] checkCodeWithPhone:self.phoneTextField.text code:self.commitTextField.text codeType:@"1" tag:tag];
@@ -181,6 +182,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"获取失败";
             }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         

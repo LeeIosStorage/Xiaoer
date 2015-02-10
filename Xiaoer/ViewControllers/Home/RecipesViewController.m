@@ -121,7 +121,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         
@@ -137,8 +137,6 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
             [weakSelf initContentScrollView];
             [weakSelf getCategoryInfoWithTag:weakSelf.titles[0] andIndex:0];
         }
-
-        [XEProgressHUD AlertSuccess:@"获取成功."];
     }tag:tag];
 }
 
@@ -243,6 +241,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
                 [cv.tableView.infiniteScrollingView stopAnimating];
                 NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
                 if (!jsonRet || errorMsg) {
+                    [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                     return;
                 }
                 NSMutableArray *hotGroups = [NSMutableArray arrayWithArray:[weakSelf.hotUnionDic arrayObjectForKey:weakSelf.titles[index]]];
