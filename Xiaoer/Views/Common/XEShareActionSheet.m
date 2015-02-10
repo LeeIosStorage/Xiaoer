@@ -125,7 +125,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.owner.view];
             return;
         }
         if ([weakSelf topicIsCollect]) {
@@ -133,7 +133,7 @@
         }else{
             weakSelf.topicInfo.faved = 1;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.owner.view];
         
     }tag:tag];
     
@@ -153,10 +153,10 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.owner.view];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.owner.view];
         if ([weakSelf.owner respondsToSelector:@selector(deleteTopicAction:)]) {
             [weakSelf.owner deleteTopicAction:weakSelf.topicInfo];
         }
@@ -177,10 +177,10 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.owner.view];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.owner.view];
         if ([weakSelf.owner respondsToSelector:@selector(deleteTopicAction:)]) {
             [weakSelf.owner deleteTopicAction:weakSelf.questionInfo];
         }

@@ -76,7 +76,7 @@
                 if (!errorMsg.length) {
                     errorMsg = @"请求失败";
                 }
-                [XEProgressHUD AlertError:errorMsg];
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
             NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"infos"];
@@ -122,7 +122,7 @@
                 if (!errorMsg.length) {
                     errorMsg = @"请求失败";
                 }
-                [XEProgressHUD AlertError:errorMsg];
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
             
@@ -226,7 +226,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         weakSelf.informationList = [[NSMutableArray alloc] init];
@@ -285,7 +285,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         
@@ -344,7 +344,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         NSInteger index = [weakSelf.informationList indexOfObject:info];
@@ -370,7 +370,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         NSInteger index = [weakSelf.expertList indexOfObject:doctorInfo];

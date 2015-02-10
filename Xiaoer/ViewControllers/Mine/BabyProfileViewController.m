@@ -97,7 +97,7 @@
         return;
     }
     
-    [XEProgressHUD AlertLoading:@"资料保存中"];
+    [XEProgressHUD AlertLoading:@"资料保存中" At:self.view];
     __weak BabyProfileViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] editBabyInfoWithUserId:[XEEngine shareInstance].uid bbId:babyUserInfo.babyId bbName:babyUserInfo.babyNick bbGender:babyUserInfo.babyGender bbBirthday:babyUserInfo.birthdayString bbAvatar:babyUserInfo.babyAvatarId acquiesce:nil tag:tag];
@@ -108,11 +108,11 @@
             if (!errorMsg.length) {
                 errorMsg = @"保存失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         
-        [XEProgressHUD AlertSuccess:[XEEngine getSuccessMsgWithReponseDic:jsonRet]];
+        [XEProgressHUD AlertSuccess:[XEEngine getSuccessMsgWithReponseDic:jsonRet] At:weakSelf.view];
         NSDictionary *babyDic = [jsonRet objectForKey:@"object"];
         
         NSMutableDictionary *userDic = [[NSMutableDictionary alloc] initWithDictionary:[XEEngine shareInstance].userInfo.userInfoByJsonDic];
@@ -394,7 +394,7 @@
         [dataArray addObject:pData];
     }
     
-    [XEProgressHUD AlertLoading:@"头像上传中..."];
+    [XEProgressHUD AlertLoading:@"头像上传中..." At:self.view];
     __weak BabyProfileViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] updateBabyAvatarWithBabyUid:nil avatar:dataArray tag:tag];
@@ -405,9 +405,10 @@
             if (!errorMsg.length) {
                 errorMsg = @"上传失败";
             }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        [XEProgressHUD AlertSuccess:@"上传成功."];
+        [XEProgressHUD AlertSuccess:@"上传成功." At:weakSelf.view];
         weakSelf.selectBabyInfo.babyAvatarId = [jsonRet stringObjectForKey:@"object"];
         [weakSelf.tableView reloadData];
         

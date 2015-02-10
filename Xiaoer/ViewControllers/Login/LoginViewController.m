@@ -468,13 +468,13 @@
         }else if (button.tag == 2){
             _loginType = [[NSString alloc]initWithString:UMShareToWechatSession];
         }
-//        __weak LoginViewController *weakSelf = self;
+        __weak LoginViewController *weakSelf = self;
         int tag = [[XEEngine shareInstance] getConnectTag];
         [[XEEngine shareInstance] loginWithAccredit:_loginType tag:tag error:nil];
         [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
             NSString* errorMsg = [jsonRet stringObjectForKey:@"error"];
             if (!jsonRet || errorMsg) {
-                [XEProgressHUD AlertError:errorMsg];
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
             NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -604,7 +604,7 @@
         return;
     }
     [self TextFieldResignFirstResponder];
-    [XEProgressHUD AlertLoading:@"正在登录..."];
+    [XEProgressHUD AlertLoading:@"正在登录..." At:self.view];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] loginWithUid:_accountTextField.text password:_loginPasswordTextFieldText tag:tag error:nil];
@@ -615,10 +615,10 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        [XEProgressHUD AlertSuccess:@"登录成功."];
+        [XEProgressHUD AlertSuccess:@"登录成功." At:weakSelf.view];
         
         NSDictionary *object = [jsonRet objectForKey:@"object"];
         XEUserInfo *userInfo = [[XEUserInfo alloc] init];
@@ -658,7 +658,7 @@
         return;
     }
     [self TextFieldResignFirstResponder];
-    [XEProgressHUD AlertLoading:@"正在验证,请稍等"];
+    [XEProgressHUD AlertLoading:@"正在验证,请稍等" At:self.view];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] checkCodeWithPhone:_registerPhoneTextFieldText code:verifyAndemailTextFieldText codeType:@"0" tag:tag];
@@ -700,7 +700,8 @@
     [self waitTimerInterval:_waitTimer];
     
     [self TextFieldResignFirstResponder];
-    [XEProgressHUD AlertLoading:@"正在验证手机号"];
+    [XEProgressHUD AlertLoading:@"正在验证手机号" At:self.view];
+    __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getCodeWithPhone:_registerPhoneTextFieldText type:@"0" tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
@@ -710,13 +711,13 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败!";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             _waitSmsSecond = 0;
-            [self waitTimerInterval:_waitTimer];
+            [weakSelf waitTimerInterval:_waitTimer];
             return;
         }
         
-        [XEProgressHUD AlertSuccess:@"验证码发送成功."];
+        [XEProgressHUD AlertSuccess:@"验证码发送成功." At:weakSelf.view];
         
     }tag:tag];
 }
@@ -729,7 +730,7 @@
         return;
     }
     [self TextFieldResignFirstResponder];
-    [XEProgressHUD AlertLoading:@"正在验证手机号"];
+    [XEProgressHUD AlertLoading:@"正在验证手机号" At:self.view];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] checkPhoneWithPhone:_registerPhoneTextFieldText uid:nil tag:tag];
@@ -758,7 +759,7 @@
         return;
     }
     [self TextFieldResignFirstResponder];
-    [XEProgressHUD AlertLoading:@"正在验证邮箱"];
+    [XEProgressHUD AlertLoading:@"正在验证邮箱" At:self.view];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] checkEmailWithEmail:verifyAndemailTextFieldText uid:nil tag:tag];
@@ -774,7 +775,7 @@
             return;
         }
         
-        [XEProgressHUD AlertSuccess:@"邮箱验证通过."];
+        [XEProgressHUD AlertSuccess:@"邮箱验证通过." At:weakSelf.view];
         
         SetPwdViewController *spVc = [[SetPwdViewController alloc] init];
         spVc.registerName = verifyAndemailTextFieldText;
