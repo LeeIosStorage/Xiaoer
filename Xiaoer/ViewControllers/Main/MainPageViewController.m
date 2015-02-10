@@ -95,9 +95,10 @@
 
 - (void)refreshUserInfoShow{
     XEUserInfo *userInfo = [self getBabyUserInfo:0];
-    [self.avatarImageView sd_setImageWithURL:userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"home_placeholder_avatar"]];
+    [self.avatarImageView sd_setImageWithURL:userInfo.babySmallAvatarUrl placeholderImage:[UIImage imageNamed:@"home_placeholder_avatar"]];
     self.avatarImageView.layer.CornerRadius = 8;
-    self.nickName.text = _userInfo.nickName;
+    self.avatarImageView.clipsToBounds = YES;
+    self.nickName.text = userInfo.babyNick;
     self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
     self.tableView.tableHeaderView = self.headView;
     ///底部加点间隙

@@ -52,7 +52,7 @@
 {
     [super viewWillAppear:animated];
     
-    self.wantsFullScreenLayout = YES;
+    //self.wantsFullScreenLayout = YES;
     
     self.assetPickerState.state = WSAssetPickerStatePickingAlbum;
 }

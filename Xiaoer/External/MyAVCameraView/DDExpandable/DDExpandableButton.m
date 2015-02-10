@@ -490,7 +490,7 @@
 		v.font = labelFont;
 		v.textColor = textColor;
 		v.backgroundColor = [UIColor clearColor];
-		v.textAlignment = UITextAlignmentCenter;
+		v.textAlignment = NSTextAlignmentCenter;
 		v.opaque = YES;
 		v.text = obj;
 		return [v ah_autorelease];
