@@ -64,7 +64,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="topic_show_icon" id="zoT-v2-6tT">
-                        <rect key="frame" x="53" y="15" width="23" height="15"/>
+                        <rect key="frame" x="15" y="15" width="25" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                 </subviews>

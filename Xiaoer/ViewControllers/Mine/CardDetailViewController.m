@@ -38,8 +38,6 @@
     NSURL *cardUrl = [NSURL URLWithString:_cardInfo.cardActionUrl];
     [_cardWebView loadRequest:[NSURLRequest requestWithURL:cardUrl]];
     [(UIScrollView *)[[_cardWebView subviews] objectAtIndex:0] setBounces:NO];
-    
-    [_containerView setContentSize:CGSizeMake(SCREEN_WIDTH,800)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -154,6 +152,8 @@
     CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
     frame.size = fittingSize;
     webView.frame = frame;
+//    NSLog(@"==========%f",frame.size.height);
+    [_containerView setContentSize:CGSizeMake(SCREEN_WIDTH,265 + frame.size.height)];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error

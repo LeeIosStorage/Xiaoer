@@ -56,6 +56,15 @@
     frame.origin.x = self.nickNameLabel.frame.origin.x + self.nickNameLabel.frame.size.width + 10;
     self.userTitleLabel.frame = frame;
     
+    frame = self.topicNameLabel.frame;
+    CGSize textSize = [XECommonUtils sizeWithText:self.topicNameLabel.text font:self.topicNameLabel.font width:self.topicNameLabel.frame.size.width];
+    if (textSize.height > 18) {
+        frame.origin.y = frame.origin.y + 8;
+    }else{
+        frame.origin.y = frame.origin.y;
+    }
+    self.topicNameLabel.frame = frame;
+    
     if (![topicInfo.thumbnailUrl isEqual:[NSNull null]]) {
         [self.topicImageView sd_setImageWithURL:topicInfo.thumbnailUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
     }else{

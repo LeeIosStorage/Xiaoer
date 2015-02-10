@@ -57,32 +57,44 @@
         self.hotLabel.hidden = NO;
         self.hotLabel.layer.cornerRadius = 2;
         self.hotLabel.clipsToBounds = YES;
-        self.topicTitleLabel.text = [NSString stringWithFormat:@"      %@",self.topicTitleLabel.text];
+        if (topicInfo.cat <= 4 && topicInfo.cat >= 1) {
+            self.topicTitleLabel.text = [NSString stringWithFormat:@"      %@",self.topicTitleLabel.text];
+        }else{
+            self.topicTitleLabel.text = [NSString stringWithFormat:@"        %@",self.topicTitleLabel.text];
+        }
     }else{
         self.hotLabel.hidden = YES;
     }
     
-    CGSize textSize = [XECommonUtils sizeWithText:self.topicTitleLabel.text font:self.topicTitleLabel.font width:self.topicTitleLabel.frame.size.width];
-        
     CGRect frame = self.picImage.frame;
-    CGRect frame2 = self.topicTitleLabel.frame;
-    if (textSize.height < 18) {
-//         frame.origin.x = self.topicTitleLabel.frame.origin.x + textSize.width + 5;
-    }else {
-//        frame.origin.x = [XECommonUtils widthWithText:self.topicTitleLabel.text font:self.topicTitleLabel.font lineBreakMode:1] - self.topicTitleLabel.frame.size.width + self.topicTitleLabel.frame.origin.x + 5 - (SCREEN_WIDTH==320?0:(SCREEN_WIDTH - 320 - 10));
-//        frame.origin.y = frame.origin.y + 8;
-        frame2.origin.y = frame2.origin.y ;
-    }
-    self.picImage.frame = frame;
-    self.topicTitleLabel.frame = frame2;
     
     if (topicInfo.imgnum > 0) {
+        if (topicInfo.isRec) {
+            frame.origin.x = frame.origin.x + 35;
+            self.topicTitleLabel.text = [NSString stringWithFormat:@"       %@",self.topicTitleLabel.text];
+        }else {
+            if (topicInfo.cat <= 4 && topicInfo.cat >= 1) {
+                self.topicTitleLabel.text = [NSString stringWithFormat:@"     %@",self.topicTitleLabel.text];
+            }else{
+                self.topicTitleLabel.text = [NSString stringWithFormat:@"       %@",self.topicTitleLabel.text];
+            }
+        }
         self.picImage.hidden = NO;
         self.picImage.layer.cornerRadius = 2;
         self.picImage.clipsToBounds = YES;
     }else{
         self.picImage.hidden = YES;
     }
+    self.picImage.frame = frame;
+    
+    frame = self.topicTitleLabel.frame;
+    CGSize textSize = [XECommonUtils sizeWithText:self.topicTitleLabel.text font:self.topicTitleLabel.font width:self.topicTitleLabel.frame.size.width];
+    if (textSize.height > 18) {
+        frame.origin.y = frame.origin.y + 8;
+    }else{
+        frame.origin.y = frame.origin.y;
+    }
+    self.topicTitleLabel.frame = frame;
     
     frame = self.nickNameLabel.frame;
     frame.size.width = [XECommonUtils widthWithText:self.nickNameLabel.text font:self.nickNameLabel.font lineBreakMode:self.nickNameLabel.lineBreakMode];
