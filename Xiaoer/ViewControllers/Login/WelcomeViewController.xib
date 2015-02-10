@@ -69,7 +69,7 @@
                         <action selector="visitorAction:" destination="-1" eventType="touchUpInside" id="0vV-Jj-lPb"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" id="sHY-nd-5bw" userLabel="View - social">
+                <view hidden="YES" contentMode="scaleToFill" id="sHY-nd-5bw" userLabel="View - social">
                     <rect key="frame" x="0.0" y="495" width="320" height="67"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
@@ -79,7 +79,7 @@
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="lyG-g2-O9f">
-                            <rect key="frame" x="227.00000045995006" y="10" width="83" height="1"/>
+                            <rect key="frame" x="227.00000048114589" y="10" width="83" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
@@ -139,7 +139,7 @@
         </view>
     </objects>
     <resources>
-        <image name="login_back_btn" width="20" height="20"/>
+        <image name="login_back_btn" width="30" height="30"/>
         <image name="login_btn_enabled" width="248" height="42"/>
         <image name="login_btn_hover" width="248" height="42"/>
         <image name="login_qq_btn" width="87" height="30"/>

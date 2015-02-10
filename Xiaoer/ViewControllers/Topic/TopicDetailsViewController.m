@@ -324,7 +324,7 @@
     _inputViewBgImageView.image = [[UIImage imageNamed:@"verify_commit_bg"] stretchableImageWithLeftCapWidth:20 topCapHeight:15];
     
     [self.authorAvatarImgView sd_setImageWithURL:_topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
-    self.authorNameLabel.text = _topicInfo.userName;
+    self.authorNameLabel.text = _topicInfo.uname;
     self.authorHospitalLabel.text = _topicInfo.utitle;
     self.timeLabel.text = [XEUIUtils dateDiscriptionFromNowBk:_topicInfo.time];
     
@@ -446,6 +446,9 @@
 }
 
 - (IBAction)expressionAction:(id)sender {
+    if ([_growingTextView isFirstResponder]) {
+        [_growingTextView resignFirstResponder];
+    }
 }
 
 - (IBAction)sendAction:(id)sender {
