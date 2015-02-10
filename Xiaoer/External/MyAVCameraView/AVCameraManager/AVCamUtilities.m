@@ -79,7 +79,7 @@ typedef enum : NSInteger {
     BOOL isAuthor = YES;
     
     if ([[AVCaptureDevice class] respondsToSelector:@selector(authorizationStatusForMediaType:)]) {
-        AVAuthorizationStatus_ status = [[AVCaptureDevice class] performSelector:@selector(authorizationStatusForMediaType:) withObject: AVMediaTypeVideo];
+        AVAuthorizationStatus_ status = (NSInteger)[[AVCaptureDevice class] performSelector:@selector(authorizationStatusForMediaType:) withObject: AVMediaTypeVideo];
         if (AVAuthorizationStatusDenied_ == status || AVAuthorizationStatusRestricted_ == status) {
             isAuthor = NO;
         }

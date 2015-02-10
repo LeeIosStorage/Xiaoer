@@ -120,7 +120,7 @@
                                                 8, /* bits per channel */
                                                 (newRect.size.width * 4), /* 4 channels per pixel * numPixels/row */
                                                 colorSpace,
-                                                kCGImageAlphaPremultipliedLast
+                                                (uint32_t)kCGImageAlphaPremultipliedLast
                                                 );
     CGColorSpaceRelease(colorSpace);
 	

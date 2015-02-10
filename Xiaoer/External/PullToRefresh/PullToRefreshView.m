@@ -147,8 +147,8 @@
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setLocale:[NSLocale currentLocale]];
-    [formatter setDateStyle:kCFDateFormatterShortStyle];
-    [formatter setTimeStyle:kCFDateFormatterShortStyle];
+    [formatter setDateStyle:(NSInteger)kCFDateFormatterShortStyle];
+    [formatter setTimeStyle:(NSInteger)kCFDateFormatterShortStyle];
     lastUpdatedLabel.text = [NSString stringWithFormat:LAST_UPDATE_NOTE, [formatter stringFromDate:date]];
 }
 

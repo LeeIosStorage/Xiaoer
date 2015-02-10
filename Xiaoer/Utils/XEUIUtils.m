@@ -295,7 +295,7 @@ static bool dateFormatterOFUSInvalid ;
     
     if (fullResolutionImageSize.height/fullResolutionImageSize.width > [UIScreen mainScreen].bounds.size.height/[UIScreen mainScreen].bounds.size.width) {
         CFTimeInterval tick = CACurrentMediaTime();
-        image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage scale:1.0 orientation:asset.defaultRepresentation.orientation];
+        image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage scale:1.0 orientation:(NSInteger)asset.defaultRepresentation.orientation];
         NSLog(@"imageWithCGImage tick=%f", CACurrentMediaTime() -tick);
         
         if (MIN(image.size.width, image.size.height) > LS_MAX_IMAGE_WIDTH) {
