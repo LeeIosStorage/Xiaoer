@@ -67,10 +67,10 @@
     CGRect frame = self.picImage.frame;
     CGRect frame2 = self.topicTitleLabel.frame;
     if (textSize.height < 18) {
-         frame.origin.x = self.topicTitleLabel.frame.origin.x + textSize.width + 5;
+//         frame.origin.x = self.topicTitleLabel.frame.origin.x + textSize.width + 5;
     }else {
-        frame.origin.x = [XECommonUtils widthWithText:self.topicTitleLabel.text font:self.topicTitleLabel.font lineBreakMode:1] - self.topicTitleLabel.frame.size.width + self.topicTitleLabel.frame.origin.x + 5 - (SCREEN_WIDTH==320?0:(SCREEN_WIDTH - 320 - 10));
-        frame.origin.y = frame.origin.y + 8;
+//        frame.origin.x = [XECommonUtils widthWithText:self.topicTitleLabel.text font:self.topicTitleLabel.font lineBreakMode:1] - self.topicTitleLabel.frame.size.width + self.topicTitleLabel.frame.origin.x + 5 - (SCREEN_WIDTH==320?0:(SCREEN_WIDTH - 320 - 10));
+//        frame.origin.y = frame.origin.y + 8;
         frame2.origin.y = frame2.origin.y ;
     }
     self.picImage.frame = frame;

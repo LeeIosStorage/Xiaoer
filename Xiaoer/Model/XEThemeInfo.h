@@ -17,7 +17,7 @@
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* themeInfoByJsonDic;
 
-@property(nonatomic, readonly) NSString* themeActionUrl;
+@property(nonatomic, strong) NSString* themeActionUrl;
 
 @property(nonatomic, readonly) NSString* smallThemeImageUrl;
 @property(nonatomic, readonly) NSString* mediumThemeImageUrl;

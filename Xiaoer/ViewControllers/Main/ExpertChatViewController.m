@@ -104,7 +104,7 @@
 //    [panRecognizer2 setMaximumNumberOfTouches:1];
 //    panRecognizer2.delegate = self;
 //    [_questionTableView addGestureRecognizer:panRecognizer2];
-    
+    [self getCacheTopicInfo];
     [self feedsTypeSwitch:INFO_TYPE_TOPIC needRefreshFeeds:YES];
 //    上拉先拿掉
 //    __weak ExpertChatViewController *weakSelf = self;
@@ -249,24 +249,45 @@
     }
 }
 
+- (void)getCacheTopicInfo{
+    __weak ExpertChatViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getHotTopicWithWithTag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            weakSelf.topicArray = [[NSMutableArray alloc] init];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+            for (NSDictionary *dic in object) {
+                XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
+                [topicInfo setTopicInfoByJsonDic:dic];
+                [weakSelf.topicArray addObject:topicInfo];
+            }
+            [weakSelf.topicTableView reloadData];
+        }
+    }];
+}
+
 - (void)refreshTopicList:(BOOL)isAlert{
-    if (isAlert) {
-        [XEProgressHUD AlertLoading:@"努力加载中..."];
-    }
+//    if (isAlert) {
+//        [XEProgressHUD AlertLoading:@"努力加载中..."];
+//    }
     //_tNextCursor = 1;
     __weak ExpertChatViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
 //    [[XEEngine shareInstance] getHotTopicWithWithPagenum:_tNextCursor tag:tag];
     [[XEEngine shareInstance] getHotTopicWithWithTag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         [self.pullRefreshView finishedLoading];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         weakSelf.topicArray = [[NSMutableArray alloc] init];
@@ -294,9 +315,9 @@
 }
 
 - (void)refreshQuestionList:(BOOL)isAlert{
-    if (isAlert) {
-        [XEProgressHUD AlertLoading:@"努力加载中..."];
-    }
+//    if (isAlert) {
+//        [XEProgressHUD AlertLoading:@"努力加载中..."];
+//    }
     //_qNextCursor = 1;
     __weak ExpertChatViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
@@ -310,7 +331,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         weakSelf.questionArray = [[NSMutableArray alloc] init];

@@ -29,9 +29,6 @@
           if (failure) {
               failure(error);
           }
-          //统一提示连接超时
-          [XEProgressHUD AlertErrorTimeOut];
-          [XEProgressHUD AlertLoadDone];
       }];
 }
 
@@ -55,9 +52,6 @@
         if (failure) {
             failure(error);
         }
-        //统一提示连接超时
-        [XEProgressHUD AlertLoadDone];
-        [XEProgressHUD AlertErrorTimeOut];
     }];
 }
 
@@ -78,9 +72,6 @@
          if (failure) {
              failure(error);
          }
-         //统一提示连接超时
-         [XEProgressHUD AlertErrorTimeOut];
-         [XEProgressHUD AlertLoadDone];
      }];
 }
 

@@ -123,23 +123,23 @@
 }
 
 - (void)getHomePageInfo{
-    [XEProgressHUD AlertLoading];
+//    [XEProgressHUD AlertLoading];
     __weak MainPageViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getHomepageInfosWithUid:[XEEngine shareInstance].uid tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%@条新消息",[[jsonRet objectForKey:@"object"] objectForKey:@"msgnum"]];
         _mallurl = [[jsonRet objectForKey:@"object"] objectForKey:@"mallurl"];
-        [XEProgressHUD AlertSuccess:@"获取成功."];
+//        [XEProgressHUD AlertSuccess:@"获取成功."];
     }tag:tag];
 }
 
@@ -180,7 +180,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             [_themeControl endRefreshing:NO];
             return;
         }
