@@ -572,7 +572,7 @@
     [sender dismissViewControllerAnimated:YES completion:NULL];
     
     for (ALAsset* asset in assets) {
-        UIImage *image = [self addOperationAsset:asset];
+        UIImage *image = [XEUIUtils addOperationAsset:asset];
         [self.images addObject:image];
     }
     [self refreshViewUI];
@@ -581,63 +581,6 @@
 //    [self.images addObjectsFromArray:images];
 //    
 //}
-
-#define LS_MAX_IMAGE_WIDTH  640.0
--(UIImage *)addOperationAsset:(ALAsset *) asset
-{
-    NSLog(@"########start");
-    
-    UIImage* image = nil;
-    //只有长图才去压缩，一般的图直接取fullScreenImage
-    CGSize fullResolutionImageSize = [UIScreen mainScreen].bounds.size;
-    
-    if ([asset.defaultRepresentation respondsToSelector:@selector(dimensions)]) {
-        fullResolutionImageSize = asset.defaultRepresentation.dimensions;
-    } else {
-        fullResolutionImageSize.width = CGImageGetWidth(asset.defaultRepresentation.fullResolutionImage);
-        fullResolutionImageSize.height = CGImageGetHeight(asset.defaultRepresentation.fullResolutionImage);
-    }
-    
-    if (fullResolutionImageSize.height/fullResolutionImageSize.width > [UIScreen mainScreen].bounds.size.height/[UIScreen mainScreen].bounds.size.width) {
-        CFTimeInterval tick = CACurrentMediaTime();
-        image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage scale:1.0 orientation:asset.defaultRepresentation.orientation];
-        NSLog(@"imageWithCGImage tick=%f", CACurrentMediaTime() -tick);
-        
-        if (MIN(image.size.width, image.size.height) > LS_MAX_IMAGE_WIDTH) {
-            CGSize newSize = image.size;
-            if (image.size.width == MIN(image.size.width, image.size.height)) {
-                newSize.width = LS_MAX_IMAGE_WIDTH;
-                newSize.height = image.size.height/(image.size.width/LS_MAX_IMAGE_WIDTH);
-            } else {
-                newSize.height = LS_MAX_IMAGE_WIDTH;
-                newSize.width = image.size.width/(image.size.height/LS_MAX_IMAGE_WIDTH);
-            }
-            //                @synchronized(_selectedAssetsSet){
-            //                    if (![_selectedAssetsSet containsObject:asset]) {
-            //                        return ;
-            //                    }
-            //                }
-            image = [XEUIUtils scaleImage:image toSize:newSize];
-            //image = [image imageScaledToFitSize:newSize];
-        }
-        NSLog(@"scaleImage tick=%f", CACurrentMediaTime() -tick);
-    } else {
-        image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
-    }
-    
-    if (image == nil) {
-        image = [[UIImage alloc] init];
-    }
-    //        dispatch_async(dispatch_get_main_queue(), ^{
-    //            @synchronized(_selectedAssetsSet) {
-    //                if ([self.selectedAssetsSet containsObject:asset]) {
-    //                    [[self selectedImageDic] setObject:image forKey:[NSNumber numberWithInt:(int)asset]];
-    //                }
-    //            }
-    //        });
-    NSLog(@"########stop");
-    return image;
-}
 
 #pragma mark - UITextFieldDelegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField{

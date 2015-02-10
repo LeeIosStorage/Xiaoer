@@ -217,16 +217,6 @@
         NSDictionary *topicDic = [[jsonRet objectForKey:@"object"] objectForKey:@"topic"];
         [weakSelf.topicInfo setTopicInfoByJsonDic:topicDic];
         
-//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000013.jpg"];
-//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000014.jpg"];
-//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000033.jpg"];
-//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-//        [weakSelf.topicInfo.picIds addObject:@"00000000000000000000000000000032.jpg"];
-        
         weakSelf.topicComments = [[NSMutableArray alloc] init];
         NSArray *comments = [[jsonRet objectForKey:@"object"] objectForKey:@"comments"];
         for (NSDictionary *dic in comments) {

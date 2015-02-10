@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 #import "XEUIKitMacro.h"
 
 @interface XEUIUtils : NSObject
@@ -46,6 +47,7 @@
 + (NSString*)documentOfLocationDenied;
 
 + (UIImage*)scaleImage:(UIImage*)image toSize:(CGSize)size;
++ (UIImage*)addOperationAsset:(ALAsset *) asset;
 
 //计算textview的高度
 +(CGFloat) calculateTextViewMaxHeight:(UITextView *) textview;

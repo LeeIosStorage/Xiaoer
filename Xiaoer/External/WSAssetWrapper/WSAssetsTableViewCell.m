@@ -108,12 +108,18 @@
 - (void)layoutSubviews
 {
     // Calculate the container's width.
+//    float tmpPerRowF = self.frame.size.width / ASSET_VIEW_FRAME.size.width;
+//    int tmpPerRowI = tmpPerRowF;
+    
     int assetsPerRow = self.frame.size.width / ASSET_VIEW_FRAME.size.width;    
     float containerWidth = assetsPerRow * ASSET_VIEW_FRAME.size.width + (assetsPerRow - 1) * ASSET_VIEW_PADDING;
     
     // Create the container frame dynamically.
     CGRect containerFrame;
     containerFrame.origin.x = (self.frame.size.width - containerWidth) / 2;
+    if (containerFrame.origin.x < ASSET_VIEW_PADDING) {
+        containerFrame.origin.x = ASSET_VIEW_PADDING;
+    }
     containerFrame.origin.y = (self.frame.size.height - ASSET_VIEW_FRAME.size.height) / 2;
     containerFrame.size.width = containerWidth;
     containerFrame.size.height = ASSET_VIEW_FRAME.size.height;
