@@ -87,6 +87,8 @@ CGFloat const SGProgressBarHeight = 2.5;
 //    //    leftEdge.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleHeight;
 //    leftEdge.backgroundColor = [UIColor clearColor];
 //    [self.view addSubview:leftEdge];
+    
+    [self setRightButtonWithImageName:@"more_icon" selector:@selector(actionButtonClicked:)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -357,6 +359,11 @@ CGFloat const SGProgressBarHeight = 2.5;
             [self viewUpdatesForPercentage:percentage andTintColor:tintColor];
         });
     }
+}
+
+- (void)actionButtonClicked:(id)sender {
+    //出现分享菜单
+    //[self tapAtRightShareBtn:sender];
 }
 
 - (void)dealloc
