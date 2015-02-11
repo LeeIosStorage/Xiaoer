@@ -379,7 +379,6 @@ static CGFloat beginImageH = 64;
 }
 
 - (IBAction)setOwnerImageAction:(id)sender {
-//    NSLog(@"===========%s",__func__);
     __weak MineTabViewController *weakSelf = self;
     XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:@"设置主页背景" actionBlock:^(NSInteger buttonIndex) {
         if (2 == buttonIndex) {

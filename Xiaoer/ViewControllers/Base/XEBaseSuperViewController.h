@@ -17,6 +17,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *titleNavBarRightBtn;
 @property (nonatomic, strong) IBOutlet UIButton *titleNavBarRightBtn2;
 @property (nonatomic, strong) IBOutlet UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) UIImageView *titleNavImageView;
 
 /*! @brief Pull View
  *

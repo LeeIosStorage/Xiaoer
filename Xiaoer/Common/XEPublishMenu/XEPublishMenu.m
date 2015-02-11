@@ -58,8 +58,8 @@
 @implementation XEPublishMenu {
     UIImageView *_backgroundView;
     NSMutableArray *_buttonArray;
-//    UIButton *_closeButton;
-    
+    UIButton *_closeButton;
+    UIImageView *_hintIamgeView;
     NSArray *_delayArray;
     NSArray *_delayDisappearArray;
 }
@@ -77,16 +77,25 @@
         _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         [self addSubview:_backgroundView];
         [self setBlurView:[XEAMBlurView new]];
-        [[self blurView] setFrame:CGRectMake(0,64,SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [[self blurView] setFrame:self.bounds];
         [[self blurView] setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
         
 //        [[self blurView] setBlurTintColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:0.00]];
         [_backgroundView addSubview:[self blurView]];
-//        _closeButton = [[UIButton alloc] initWithFrame:CGRectMake(268, 23, 44, 44)];
-//        [_closeButton setImage:[UIImage imageNamed:@"public_menu_close_normal.png"] forState:UIControlStateNormal];
+        
+        _hintIamgeView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"expert_public_hint_bg"]];
+        [_hintIamgeView setCenter:CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 150)];
+        [_blurView addSubview:_hintIamgeView];
+        
+        UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 44, SCREEN_WIDTH, 44)];
+        [bottomView setBackgroundColor:[UIColor colorWithRed:234 green:234 blue:234 alpha:1]];
+        [_backgroundView addSubview:bottomView];
+        
+        _closeButton = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 20)/2, SCREEN_HEIGHT - 30, 20, 20)];
+        [_closeButton setImage:[UIImage imageNamed:@"login_back_btn"] forState:UIControlStateNormal];
 //        [_closeButton setImage:[UIImage imageNamed:@"public_menu_close_hover.png"] forState:UIControlStateHighlighted];
-//        [_closeButton addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
-//        [self addSubview:_closeButton];
+        [_closeButton addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
+        [_backgroundView addSubview:_closeButton];
         _buttonArray = [[NSMutableArray alloc] initWithCapacity:6];
         //运动时间自然一点
         _delayArray = @[@(0.02), @(0.09), @(0.18), @(0.06), @(0.13), @(0.23)];
@@ -157,7 +166,7 @@
 - (void)dismiss:(id)sender
 {
     //做一次旋转
-    //[self rotateAnimation:NO];
+    [self rotateAnimation:NO];
     [self menuItemDisappear];
 }
 
@@ -176,14 +185,14 @@
     [btn.layer addAnimation:animation forKey:nil];
 }
 
-//-(void)rotateAnimation:(BOOL)bShow{
-//    CABasicAnimation* rotationAnimation;
-//    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-//    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * (bShow?0.5:-0.5)];
-//    rotationAnimation.duration = bShow?XEPublishMenuAnimationTime:XEPublishMenuAnimationTime+0.2;
-//    rotationAnimation.cumulative = YES;
-//    [_closeButton.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
-//}
+-(void)rotateAnimation:(BOOL)bShow{
+    CABasicAnimation* rotationAnimation;
+    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * (bShow?-1:1)];
+    rotationAnimation.duration = bShow?XEPublishMenuAnimationTime:XEPublishMenuAnimationTime+0.2;
+    rotationAnimation.cumulative = YES;
+    [_closeButton.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+}
 
 - (void)buttonTapped:(XEPublishMenuItemButton*)btn {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -234,7 +243,7 @@
 - (void)riseMenuItem:(XEPublishMenuItemButton *)item
 {
     CGPoint fromPosition = item.center;
-    CGPoint toPosition = CGPointMake(fromPosition.x, fromPosition.y - CGRectGetHeight(self.bounds) / 2 - 120);
+    CGPoint toPosition = CGPointMake(fromPosition.x, fromPosition.y - CGRectGetHeight(self.bounds) / 2 - 100);
     CGPoint finalPosition = CGPointMake(toPosition.x, toPosition.y + 20);
     
     CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];

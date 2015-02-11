@@ -67,12 +67,17 @@
                     </segments>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </segmentedControl>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nav_xiaoer_icon" id="lEK-Jn-y8L">
+                    <rect key="frame" x="140" y="15" width="40" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="backgroundImageView" destination="G5i-Xf-wzB" id="azf-48-4LR"/>
+                <outlet property="navImageView" destination="lEK-Jn-y8L" id="IFq-Z4-de6"/>
                 <outlet property="segmentedControl" destination="XZO-OD-Gjb" id="ZIU-Qf-tDf"/>
                 <outlet property="titleLabel" destination="RTC-8c-yMk" id="JgM-oy-s9s"/>
                 <outlet property="toolBarLeftButton" destination="U9Z-RZ-1Uz" id="BJ7-zN-v8q"/>
@@ -85,6 +90,7 @@
     </objects>
     <resources>
         <image name="nav_back_btn" width="7" height="14"/>
+        <image name="nav_xiaoer_icon" width="40" height="38"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

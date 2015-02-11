@@ -608,7 +608,9 @@
 }
 
 - (void)showAction {
-    
+    if ([[XEEngine shareInstance] needUserLogin:@"当前为游客状态，是否切换到登录状态？"]) {
+        return;
+    }
     _menuView = [[XEPublishMenu alloc] init];
     __weak ExpertChatViewController *weakSelf = self;
     [_menuView addMenuItemWithTitle:@"发话题" andIcon:[UIImage imageNamed:@"expert_public_topic_icon"] andSelectedBlock:^{

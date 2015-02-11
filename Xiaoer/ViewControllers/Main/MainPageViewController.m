@@ -237,7 +237,8 @@
 
 -(void)initNormalTitleNavBarSubviews{
     
-    [self setTitle:@"晓儿"];
+//    [self setTitle:@"晓儿"];
+    self.titleNavImageView.hidden = NO;
 }
 
 - (UINavigationController *)navigationController{

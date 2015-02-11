@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TopicDetailsViewController">
@@ -105,7 +105,7 @@
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <point key="canvasLocation" x="261" y="325"/>
+            <point key="canvasLocation" x="59" y="261"/>
         </view>
         <view contentMode="scaleToFill" id="cnD-I5-7E0">
             <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
@@ -285,13 +285,13 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="360" y="274.5"/>
+            <point key="canvasLocation" x="470" y="185.5"/>
         </view>
     </objects>
     <resources>
         <image name="expert_comment_background" width="156" height="46"/>
-        <image name="expert_comment_label" width="56" height="26"/>
-        <image name="public_bottom_btn_face" width="28" height="28"/>
+        <image name="expert_comment_label" width="85" height="40"/>
+        <image name="public_bottom_btn_face" width="29" height="29"/>
         <image name="s_n_set_line" width="300" height="1"/>
         <image name="verify_commit_bg" width="248" height="40"/>
     </resources>

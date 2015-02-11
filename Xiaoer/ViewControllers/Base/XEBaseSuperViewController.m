@@ -118,6 +118,7 @@
         _titleNavBarRightBtn = ((XETitleNavBarView *) _titleNavBar).toolBarRightButton;
         _titleNavBarRightBtn2 = ((XETitleNavBarView *) _titleNavBar).toolBarRightButton2;
         _segmentedControl = ((XETitleNavBarView *) _titleNavBar).segmentedControl;
+        _titleNavImageView = ((XETitleNavBarView *) _titleNavBar).navImageView;
         _segmentedControl.hidden = YES;
     }
 }
