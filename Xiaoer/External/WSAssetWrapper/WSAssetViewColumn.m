@@ -19,6 +19,7 @@
 
 #import "WSAssetViewColumn.h"
 #import "WSAssetWrapper.h"
+#import "XEUIUtils.h"
 
 @interface WSAssetViewColumn ()
 @property (nonatomic, weak) UIImageView *selectedView;
@@ -46,14 +47,16 @@
 
 - (id)initWithImage:(UIImage *)thumbnail
 {
-    if ((self = [super initWithFrame:ASSET_VIEW_FRAME])) {
+    CGRect asset_view_frame = [XEUIUtils getAssetViewFrame];
+    
+    if ((self = [super initWithFrame:asset_view_frame])) {
         
         // Setup a tap gesture.
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userDidTapAction:)];
         [self addGestureRecognizer:tapGestureRecognizer];
         
         // Add the photo thumbnail.
-        UIImageView *assetImageView = [[UIImageView alloc] initWithFrame:ASSET_VIEW_FRAME];
+        UIImageView *assetImageView = [[UIImageView alloc] initWithFrame:asset_view_frame];
         assetImageView.contentMode = UIViewContentModeScaleToFill;
         assetImageView.image = thumbnail;
         [self addSubview:assetImageView];
@@ -92,6 +95,7 @@
         // Lazily create the selectedView.
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:SELECTED_IMAGE]];
         imageView.hidden = YES;
+        imageView.frame = [XEUIUtils getAssetViewFrame];;
         [self addSubview:imageView];
         
         _selectedView = imageView;

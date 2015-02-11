@@ -53,4 +53,6 @@
 +(CGFloat) calculateTextViewMaxHeight:(UITextView *) textview;
 +(CGSize) reSizeTextViewContentSize:(UITextView *) textview;
 
++(CGRect)getAssetViewFrame;
+
 @end

@@ -21,6 +21,7 @@
 #import "WSAssetPickerState.h"
 #import "WSAssetsTableViewCell.h"
 #import "WSAssetWrapper.h"
+#import "XEUIUtils.h"
 
 #define ASSET_WIDTH_WITH_PADDING 79.0f
 
@@ -254,8 +255,9 @@
 #define ROW_HEIGHT 79.0f
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath 
-{ 
-	return ROW_HEIGHT;
+{
+    CGRect asset_view_frame = [XEUIUtils getAssetViewFrame];
+	return asset_view_frame.size.height + 4;
 }
 
 @end
