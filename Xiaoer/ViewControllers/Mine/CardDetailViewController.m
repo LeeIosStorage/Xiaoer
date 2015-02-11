@@ -38,6 +38,8 @@
     NSURL *cardUrl = [NSURL URLWithString:_cardInfo.cardActionUrl];
     [_cardWebView loadRequest:[NSURLRequest requestWithURL:cardUrl]];
     [(UIScrollView *)[[_cardWebView subviews] objectAtIndex:0] setBounces:NO];
+    [_containerView setContentSize:CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT*2)];
+//    _cardWebView.scalesPageToFit = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -152,7 +154,12 @@
     CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
     frame.size = fittingSize;
     webView.frame = frame;
-//    NSLog(@"==========%f",frame.size.height);
+    NSLog(@"1==========%f",frame.size.height);
+    
+//    NSArray *arr = [webView subviews];
+//    UIScrollView *scrollView = [arr objectAtIndex:0];
+//    NSLog(@"2==========%f",[scrollView  contentSize].height);
+    
     [_containerView setContentSize:CGSizeMake(SCREEN_WIDTH,265 + frame.size.height)];
 }
 
