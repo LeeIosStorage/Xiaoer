@@ -42,6 +42,7 @@
 
 @property (nonatomic, strong) NSDictionary *selectTopicTypeDic;
 @property (nonatomic, strong) NSMutableArray *topicTypeArray;
+@property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (strong, nonatomic) IBOutlet UIView *contentContainerView;
 @property (strong, nonatomic) IBOutlet UIView *topicTypeSelectContainerView;
 @property (strong, nonatomic) IBOutlet UITableView *topicTypeTableView;
@@ -71,6 +72,11 @@
 - (void)dealloc{
     XELog(@"XEPublicViewController dealloc !!!");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self textViewResignFirstResponder];
 }
 
 - (void)viewDidLoad {
@@ -320,6 +326,10 @@
     CGRect frame = self.contentContainerView.frame;
     frame.size.height = self.inputContainerView.frame.origin.y + self.inputContainerView.frame.size.height;
     self.contentContainerView.frame = frame;
+    
+    float sHeight = (SCREEN_HEIGHT - _toolbarContainerView.frame.size.height - self.mainScrollView.contentInset.top + 1);
+    CGSize contentSize = CGSizeMake(SCREEN_WIDTH, sHeight);
+    self.mainScrollView.contentSize = contentSize;
 }
 
 -(void)refreshTypeButton{
@@ -336,7 +346,7 @@
     if (!self.topicTypeSelectContainerView.superview) {
         CGRect frame = self.topicTypeSelectContainerView.frame;
         frame.origin.x = 0;
-        frame.origin.y = self.contentContainerView.frame.origin.y;
+        frame.origin.y = self.titleNavBar.frame.size.height;
         frame.size.height = self.view.frame.size.height;
         frame.size.width = self.view.frame.size.width;
         self.topicTypeSelectContainerView.frame = frame;
@@ -434,6 +444,14 @@
 }
 
 -(IBAction)photoAction:(id)sender{
+    
+    if (self.images.count >= MAX_IMAGES_NUM) {
+        NSString* alertMsg = [NSString stringWithFormat:@"您一次最多只能选择%d张图片", MAX_IMAGES_NUM];
+        UIAlertView *noticeAlert = [[UIAlertView alloc] initWithTitle:nil message:alertMsg delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [noticeAlert show];
+        return;
+    }
+    
     __weak XEPublicViewController *weakSelf = self;
     XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:nil actionBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 2) {
@@ -533,6 +551,7 @@
         }
     }];
     [sheet addButtonWithTitle:@"删除"];
+    sheet.destructiveButtonIndex = sheet.numberOfButtons - 1;
     [sheet addButtonWithTitle:@"取消"];
     sheet.cancelButtonIndex = sheet.numberOfButtons -1;
     [sheet showInView:self.view];
@@ -585,7 +604,7 @@
 #pragma mark - UITextFieldDelegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     _titleTextFieldEditing = YES;
-    [self customKeyboardViewMove:NO];
+//    [self customKeyboardViewMove:NO];
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     _titleTextFieldEditing = NO;
@@ -612,7 +631,7 @@
 
 #pragma mark - UITextViewDelegate
 - (void)textViewDidBeginEditing:(UITextView *)textView{
-    [self customKeyboardViewMove:YES];
+//    [self customKeyboardViewMove:YES];
 }
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     [self updatePlaceHolderLabel];
@@ -659,14 +678,14 @@
     //    CGRect containerFrame = _toolbarContainerView.frame;
     //    containerFrame.origin.y = self.view.bounds.size.height - (keyboardBounds.size.height + containerFrame.size.height);
     
-    UIView *supView = self.contentContainerView;
-    CGRect supViewFrame = supView.frame;
-    float gapHeight = keyboardBounds.size.height + _toolbarContainerView.frame.size.height - (self.view.bounds.size.height - supViewFrame.origin.y - supViewFrame.size.height);
-    BOOL isMove = (gapHeight > 0 && !_titleTextFieldEditing);
-    if (gapHeight > 0 && _oldRect.size.height == 0 && _oldRect.size.width == 0) {
-        supViewFrame.origin.y -= gapHeight;
-        _oldRect = supViewFrame;
-    }
+//    UIView *supView = self.contentContainerView;
+//    CGRect supViewFrame = supView.frame;
+//    float gapHeight = keyboardBounds.size.height + _toolbarContainerView.frame.size.height - (self.view.bounds.size.height - supViewFrame.origin.y - supViewFrame.size.height);
+//    BOOL isMove = (gapHeight > 0 && !_titleTextFieldEditing);
+//    if (gapHeight > 0 && _oldRect.size.height == 0 && _oldRect.size.width == 0) {
+//        supViewFrame.origin.y -= gapHeight;
+//        _oldRect = supViewFrame;
+//    }
     
     // animations settings
     [UIView beginAnimations:nil context:NULL];
@@ -674,11 +693,11 @@
     [UIView setAnimationDuration:[duration doubleValue]];
     [UIView setAnimationCurve:[curve intValue]];
     
-    if (isMove) {
-        supViewFrame.origin.y -= gapHeight;
-        supView.frame = supViewFrame;
-        _oldRect = supViewFrame;
-    }
+//    if (isMove) {
+//        supViewFrame.origin.y -= gapHeight;
+//        supView.frame = supViewFrame;
+//        _oldRect = supViewFrame;
+//    }
     
     CGRect toolbarFrame = _toolbarContainerView.frame;
     toolbarFrame.origin.y = self.view.bounds.size.height - keyboardBounds.size.height - toolbarFrame.size.height;
@@ -704,9 +723,9 @@
     toolbarFrame.origin.y = self.view.bounds.size.height - toolbarFrame.size.height;
     _toolbarContainerView.frame = toolbarFrame;
     
-    CGRect contentFrame = self.contentContainerView.frame;
-    contentFrame.origin.y = self.titleNavBar.frame.size.height;
-    self.contentContainerView.frame = contentFrame;
+//    CGRect contentFrame = self.contentContainerView.frame;
+//    contentFrame.origin.y = self.titleNavBar.frame.size.height;
+//    self.contentContainerView.frame = contentFrame;
     
     // commit animations
     [UIView commitAnimations];
@@ -731,6 +750,13 @@
     }
     // commit animations
     [UIView commitAnimations];
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    if (scrollView == self.mainScrollView) {
+        [self textViewResignFirstResponder];
+    }
 }
 
 #pragma mark - tableViewDataSource
@@ -835,8 +861,16 @@ static int image_tag = 201,label_tag = 202;
 }
 
 - (void)backAction:(id)sender{
-    [super backAction:sender];
-    NSLog(@"=====================");
+    if (_titleTextField.text.length > 0 || _descriptionTextView.text.length > 0 || self.images.count > 0) {
+        XEAlertView* alertView = [[XEAlertView alloc] initWithTitle:nil message:@"确定要放弃本次操作?" cancelButtonTitle:@"取消" cancelBlock:^{
+            
+        }  okButtonTitle:@"确定" okBlock:^{
+            [super backAction:sender];
+        }];
+        [alertView show];
+    } else {
+        [super backAction:sender];
+    }
 }
 
 @end

@@ -98,6 +98,21 @@
     }
 }
 
+-(void)backAction:(id)sender{
+    if ([self isChangedWithUserInfo]) {
+        
+        __weak PerfectInfoViewController *weakSlef = self;
+        XEAlertView *alert = [[XEAlertView alloc] initWithTitle:nil message:@"资料已修改还没保存哦！" cancelButtonTitle:@"取消" cancelBlock:^{
+            [super backAction:sender];
+        } okButtonTitle:@"保存" okBlock:^{
+            [weakSlef saveAction:nil];
+        }];
+        [alert show];
+    }else{
+        
+        [super backAction:sender];
+    }
+}
 /*
 #pragma mark - Navigation
 
@@ -224,8 +239,7 @@
         return;
     }
     
-    XEUserInfo *oldBabyUserInfo = [self getOldBabyUserInfo:0];
-    if (![_userInfo.avatar isEqualToString:_oldUserInfo.avatar] || ![_userInfo.nickName isEqualToString:_oldUserInfo.nickName] || ![_userInfo.title isEqualToString:_oldUserInfo.title] || ![_userInfo.address isEqualToString:_oldUserInfo.address] || ![_userInfo.phone isEqualToString:_oldUserInfo.phone] || ![_userInfo.regionName isEqualToString:_oldUserInfo.regionName] || ![babyUserInfo.babyAvatarId isEqualToString:oldBabyUserInfo.babyAvatarId] || ![babyUserInfo.babyNick isEqualToString:oldBabyUserInfo.babyNick] || ![babyUserInfo.birthdayString isEqualToString:oldBabyUserInfo.birthdayString] || ![babyUserInfo.babyGender isEqualToString:oldBabyUserInfo.babyGender]) {
+    if ([self isChangedWithUserInfo]) {
         
         [self editUserInfo];
         
@@ -235,6 +249,12 @@
     }
     
     
+}
+
+-(BOOL)isChangedWithUserInfo{
+    XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
+    XEUserInfo *oldBabyUserInfo = [self getOldBabyUserInfo:0];
+    return (![_userInfo.avatar isEqualToString:_oldUserInfo.avatar] || ![_userInfo.nickName isEqualToString:_oldUserInfo.nickName] || ![_userInfo.title isEqualToString:_oldUserInfo.title] || ![_userInfo.address isEqualToString:_oldUserInfo.address] || ![_userInfo.phone isEqualToString:_oldUserInfo.phone] || ![_userInfo.regionName isEqualToString:_oldUserInfo.regionName] || ![babyUserInfo.babyAvatarId isEqualToString:oldBabyUserInfo.babyAvatarId] || ![babyUserInfo.babyNick isEqualToString:oldBabyUserInfo.babyNick] || ![babyUserInfo.birthdayString isEqualToString:oldBabyUserInfo.birthdayString] || ![babyUserInfo.babyGender isEqualToString:oldBabyUserInfo.babyGender]);
 }
 
 -(void)doActionSheetClickedButtonAtIndex:(NSInteger)buttonIndex{

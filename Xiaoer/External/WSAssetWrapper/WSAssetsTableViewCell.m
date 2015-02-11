@@ -20,6 +20,7 @@
 #import "WSAssetsTableViewCell.h"
 #import "WSAssetWrapper.h"
 #import "WSAssetViewColumn.h"
+#import "XEUIUtils.h"
 
 @interface WSAssetsTableViewCell ()
 @property (nonatomic, strong) UIView *assetsContainerView;
@@ -108,24 +109,27 @@
 - (void)layoutSubviews
 {
     // Calculate the container's width.
-//    float tmpPerRowF = self.frame.size.width / ASSET_VIEW_FRAME.size.width;
-//    int tmpPerRowI = tmpPerRowF;
+    double tmpPerRowF = self.frame.size.width / (ASSET_VIEW_FRAME.size.width + ASSET_VIEW_PADDING);
+    int tmpPerRowI = tmpPerRowF;
     
-    int assetsPerRow = self.frame.size.width / ASSET_VIEW_FRAME.size.width;    
-    float containerWidth = assetsPerRow * ASSET_VIEW_FRAME.size.width + (assetsPerRow - 1) * ASSET_VIEW_PADDING;
+    CGRect asset_view_frame = ASSET_VIEW_FRAME;
+    asset_view_frame = [XEUIUtils getAssetViewFrame];
+    
+//    int assetsPerRow = self.frame.size.width / asset_view_frame.size.width;
+    float containerWidth = tmpPerRowI * asset_view_frame.size.width + (tmpPerRowI - 1) * ASSET_VIEW_PADDING;
     
     // Create the container frame dynamically.
     CGRect containerFrame;
     containerFrame.origin.x = (self.frame.size.width - containerWidth) / 2;
-    if (containerFrame.origin.x < ASSET_VIEW_PADDING) {
-        containerFrame.origin.x = ASSET_VIEW_PADDING;
-    }
-    containerFrame.origin.y = (self.frame.size.height - ASSET_VIEW_FRAME.size.height) / 2;
+//    if (containerFrame.origin.x < ASSET_VIEW_PADDING) {
+//        containerFrame.origin.x = ASSET_VIEW_PADDING;
+//    }
+    containerFrame.origin.y = (self.frame.size.height - asset_view_frame.size.height) / 2;
     containerFrame.size.width = containerWidth;
-    containerFrame.size.height = ASSET_VIEW_FRAME.size.height;
+    containerFrame.size.height = asset_view_frame.size.height;
     self.assetsContainerView.frame = containerFrame;
     
-    CGRect frame = ASSET_VIEW_FRAME;
+    CGRect frame = asset_view_frame;
     
     for (WSAssetViewColumn *assetView in self.cellAssetViews) {
         

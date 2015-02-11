@@ -370,4 +370,17 @@ static bool dateFormatterOFUSInvalid ;
     return textview.contentSize;
 }
 
+#define ASSET_VIEW_FRAME CGRectMake(0, 0, 75, 75)
+#define ASSET_VIEW_PADDING 4
++(CGRect)getAssetViewFrame{
+    
+    double tmpPerRowF = SCREEN_WIDTH / (ASSET_VIEW_FRAME.size.width + ASSET_VIEW_PADDING);
+    int tmpPerRowI = tmpPerRowF;
+    
+    CGRect asset_view_frame = ASSET_VIEW_FRAME;
+    float assetViewWidth = (SCREEN_WIDTH-ASSET_VIEW_PADDING*(tmpPerRowI+1))/tmpPerRowI;
+    asset_view_frame.size.width = assetViewWidth;
+    asset_view_frame.size.height = assetViewWidth;
+    return asset_view_frame;
+}
 @end
