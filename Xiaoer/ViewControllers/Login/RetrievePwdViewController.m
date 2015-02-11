@@ -28,6 +28,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *commitButton;
 @property (strong, nonatomic) IBOutlet UITextField *phoneTextField;
 @property (strong, nonatomic) IBOutlet UITextField *commitTextField;
+@property (strong, nonatomic) IBOutlet UILabel *retrieveEmailPasswordTipLabel;
 
 @property (nonatomic, assign) BOOL bViewDisappear;
 
@@ -106,9 +107,26 @@
         frame.size.height = titleSize.height;
         self.noticeLabel.frame = frame;
 
+        frame = self.commitTextField.frame;
+        frame.origin.y = self.noticeLabel.frame.origin.y + self.noticeLabel.frame.size.height + 15;
+        self.commitTextField.frame = frame;
+        
+        frame = self.commitButton.frame;
+        frame.origin.y = self.commitTextField.frame.origin.y + self.commitTextField.frame.size.height + 15;
+        self.commitButton.frame = frame;
+        
+        frame = self.retrieveEmailPasswordTipLabel.frame;
+        frame.origin.y = self.commitButton.frame.origin.y + self.commitButton.frame.size.height + 10;
+        self.retrieveEmailPasswordTipLabel.frame = frame;
+        
         self.commitTextField.placeholder = @"";
+        self.commitTextField.keyboardType = UIKeyboardTypeEmailAddress;
         [self.commitButton setTitle:@"找回密码" forState:UIControlStateNormal];
         self.phoneNumView.hidden = YES;
+        
+        self.retrieveEmailPasswordTipLabel.textColor = UIColorToRGB(0x6cc5e9);
+        self.retrieveEmailPasswordTipLabel.hidden = YES;
+        
     }
     [self loginButtonEnabled];
 }
@@ -167,6 +185,7 @@
             return;
         }
         //NSLog(@"=====%@",[jsonRet objectForKey:@"obj"]);
+        [XEProgressHUD AlertSuccess:[jsonRet objectForKey:@"result"] At:weakSelf.view];
     }tag:tag];
 }
 
@@ -175,9 +194,14 @@
     [self TextFieldResignFirstResponder];
     __weak RetrievePwdViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-//    [[XEEngine shareInstance] loginWithUid:@"t1" password:@"123456" tag:tag error:nil];
-    [[XEEngine shareInstance] checkCodeWithPhone:self.phoneTextField.text code:self.commitTextField.text codeType:@"1" tag:tag];
+    if (self.reType == TYPE_PHONE) {
+        [[XEEngine shareInstance] checkCodeWithPhone:self.phoneTextField.text code:self.commitTextField.text codeType:@"1" tag:tag];
+    }else{
+        [XEProgressHUD AlertLoading:@"发送中..." At:self.view];
+        [[XEEngine shareInstance] preresetPasswordWithEmail:self.commitTextField.text tag:tag];
+    }
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
@@ -186,17 +210,25 @@
             [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        
+        [XEProgressHUD AlertSuccess:[jsonRet objectForKey:@"result"] At:weakSelf.view];
 //        if ([jsonRet objectForKey:@"object"]) {
 //            NSDictionary *dic = [jsonRet objectForKey:@"object"];
 //            XEUserInfo *userInfo = [[XEUserInfo alloc] init];
 //            [userInfo setUserInfoByJsonDic:dic];
 //            NSLog(@"================");
 //        }
-        
-        SetPwdViewController *spVc = [[SetPwdViewController alloc] init];
-        [self.navigationController pushViewController:spVc animated:YES];
-        
+        if (self.reType == TYPE_PHONE) {
+            NSDictionary *dic = [jsonRet objectForKey:@"object"];
+            XEUserInfo *userInfo = [[XEUserInfo alloc] init];
+            [userInfo setUserInfoByJsonDic:dic];
+            
+            SetPwdViewController *spVc = [[SetPwdViewController alloc] init];
+            spVc.userInfo = userInfo;
+            [self.navigationController pushViewController:spVc animated:YES];
+        }else{
+            self.retrieveEmailPasswordTipLabel.text = [NSString stringWithFormat:@"请到%@查阅来自晓儿的邮件，从邮件重设您的密码",self.commitTextField.text];
+            self.retrieveEmailPasswordTipLabel.hidden = NO;
+        }
     }tag:tag];
 }
 

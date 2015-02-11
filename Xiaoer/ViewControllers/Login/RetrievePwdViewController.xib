@@ -13,6 +13,7 @@
                 <outlet property="noticeLabel" destination="4qT-gQ-c8r" id="HA5-FD-IUa"/>
                 <outlet property="phoneNumView" destination="NKX-q6-JHP" id="Fz1-ho-bMT"/>
                 <outlet property="phoneTextField" destination="3Fk-Ju-Pnw" id="HsN-pN-vCM"/>
+                <outlet property="retrieveEmailPasswordTipLabel" destination="4OC-Kb-zaf" id="6hd-m3-zl5"/>
                 <outlet property="retrieveImageView" destination="AYF-8i-FXM" id="OIc-GW-DPR"/>
                 <outlet property="titleLabel" destination="1HV-pU-rS1" id="EHP-5I-6ZJ"/>
                 <outlet property="verifyButton" destination="bs6-i8-u78" id="spt-ec-FXm"/>
@@ -92,6 +93,13 @@
                                 <action selector="sendAction:" destination="-1" eventType="touchUpInside" id="Uq2-6c-5bu"/>
                             </connections>
                         </button>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请到123456@qq.com查阅来自晓儿的邮件，从邮件重设您的密码" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4OC-Kb-zaf">
+                            <rect key="frame" x="0.0" y="240" width="272" height="34"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.42352941179999998" green="0.7725490196" blue="0.91372549020000005" alpha="1" colorSpace="deviceRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="AYF-8i-FXM">
                             <rect key="frame" x="92" y="0.0" width="76" height="76"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>

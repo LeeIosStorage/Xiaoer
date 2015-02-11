@@ -681,11 +681,15 @@ static XEEngine* s_ShareInstance = nil;
 
 }
 
-- (BOOL)resetPassword:(NSString*)password withUid:(NSString*)uid tag:(int)tag
+- (BOOL)resetPassword:(NSString*)password withPhone:(NSString*)phone tag:(int)tag
 {
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:password forKey:@"password"];
-    [params setObject:uid forKey:@"userid"];
+    if (password) {
+        [params setObject:password forKey:@"password"];
+    }
+    if (phone) {
+        [params setObject:phone forKey:@"phone"];
+    }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/password/reset",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
@@ -701,6 +705,14 @@ static XEEngine* s_ShareInstance = nil;
         [params setObject:email forKey:@"email"];
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/check/email",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)preresetPasswordWithEmail:(NSString *)email tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (email) {
+        [params setObject:email forKey:@"email"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/password/email/prereset",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 - (BOOL)checkPhoneWithPhone:(NSString *)phone uid:(NSString *)uid tag:(int)tag{

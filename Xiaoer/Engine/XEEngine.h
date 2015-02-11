@@ -90,10 +90,12 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)checkCodeWithPhone:(NSString*)phone code:(NSString*)msgcode codeType:(NSString*)type tag:(int)tag;
 
 //重置密码
-- (BOOL)resetPassword:(NSString*)password withUid:(NSString*)uid tag:(int)tag;
+- (BOOL)resetPassword:(NSString*)password withPhone:(NSString*)phone tag:(int)tag;
 
 //校验邮箱 uid可以为空
 - (BOOL)checkEmailWithEmail:(NSString *)email uid:(NSString *)uid tag:(int)tag;
+//重置邮箱密码
+- (BOOL)preresetPasswordWithEmail:(NSString *)email tag:(int)tag;
 //校验手机号 uid可以为空
 - (BOOL)checkPhoneWithPhone:(NSString *)phone uid:(NSString *)uid tag:(int)tag;
 - (BOOL)updateBgImgWithUid:(NSString *)uid avatar:(NSArray *)data tag:(int)tag;

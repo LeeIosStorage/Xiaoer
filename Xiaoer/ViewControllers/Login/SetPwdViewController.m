@@ -11,6 +11,7 @@
 #import "XEEngine.h"
 #import "NSString+Value.h"
 #import "PerfectInfoViewController.h"
+#import "AppDelegate.h"
 
 @interface SetPwdViewController ()
 {
@@ -113,9 +114,9 @@
     [self TextFieldResignFirstResponder];
     __weak SetPwdViewController *weakSelf = self;
     if ([self.setPwdTextField.text isEqualToString:self.comfirmTextField.text]) {
-        [XEProgressHUD AlertLoading:@"正在注册" At:weakSelf.view];
         int tag = [[XEEngine shareInstance] getConnectTag];
         if (weakSelf.registerName.length != 0) {
+            [XEProgressHUD AlertLoading:@"正在注册" At:weakSelf.view];
             if ([weakSelf.registerName isPhone]) {
                 [[XEEngine shareInstance] registerWithPhone:weakSelf.registerName password:weakSelf.setPwdTextField.text tag:tag];
                 [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
@@ -158,8 +159,8 @@
                 }tag:tag];
             }
         }else{
-            [XEProgressHUD lightAlert:@"正在重置密码"];
-            [[XEEngine shareInstance] resetPassword:self.setPwdTextField.text withUid:@"t1" tag:tag];
+            [XEProgressHUD AlertLoading:@"正在重置密码" At:weakSelf.view];
+            [[XEEngine shareInstance] resetPassword:self.setPwdTextField.text withPhone:_userInfo.phone tag:tag];
             [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
                 [XEProgressHUD AlertLoadDone];
                 NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -171,12 +172,27 @@
                     return;
                 }
                 [XEProgressHUD AlertSuccess:@"重置密码成功" At:weakSelf.view];
+                [XEEngine shareInstance].uid = _userInfo.uid;
+                [XEEngine shareInstance].account = _userInfo.phone;
+                [XEEngine shareInstance].userPassword = self.setPwdTextField.text;
+                [[XEEngine shareInstance] saveAccount];
+                [[XEEngine shareInstance] setUserInfo:_userInfo];
+                [[XEEngine shareInstance] refreshUserInfo];
+                
+                [weakSelf performSelector:@selector(loginFinished) withObject:nil afterDelay:1.0];
+                
             }tag:tag];
         }
     }else{
         [self.comfirmTextField becomeFirstResponder];
         [XEProgressHUD AlertError:@"两次密码不一致" At:weakSelf.view];
     }
+}
+
+-(void)loginFinished{
+    
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate signIn];
 }
 
 -(void)perfectInformation{
