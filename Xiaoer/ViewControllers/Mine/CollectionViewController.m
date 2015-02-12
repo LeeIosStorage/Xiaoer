@@ -464,7 +464,7 @@
         [cell.infoImageView sd_setImageWithURL:info.smallRecipesImageUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
     }else{
         [cell.infoImageView sd_setImageWithURL:nil];
-        [cell.infoImageView setImage:[UIImage imageNamed:@"information_placeholder_icon"]];
+        [cell.infoImageView setImage:[UIImage imageNamed:@"recipes_load_icon"]];
     }
     
     cell.titleLabel.text = info.title;

@@ -111,7 +111,7 @@
 //    [self.mapView addSubview:_hud];
 //    [_hud show:YES];
     
-    [XEProgressHUD AlertLoading:@"正在获取位置信息..."];
+    [XEProgressHUD AlertLoading:@"正在获取位置信息..." At:self.view];
 //    _backCurrentBtn = [[UIButton alloc] init];
 //    CGRect aframe = CGRectMake(11, self.mapView.bounds.size.height - 100, 40, 40);
 //    _backCurrentBtn.frame = aframe;
@@ -374,7 +374,7 @@
         NSString* souceLong = [NSString stringWithString:[[NSNumber numberWithDouble:_currentLocation.longitude] description]];
         NSString* desLat = [NSString stringWithString:[[NSNumber numberWithDouble:_showLocation.latitude] description]];
         NSString* desLong = [NSString stringWithString:[[NSNumber numberWithDouble:_showLocation.longitude] description]];
-        urlString = [NSString stringWithFormat:@"baidumap://map/direction?origin=%@,%@&destination=%@,%@&mode=driving&src=weimi&coord_type=gcj02",souceLat,souceLong,desLat,desLong];
+        urlString = [NSString stringWithFormat:@"baidumap://map/direction?origin=%@,%@&destination=%@,%@&mode=driving&src=Xiaoer&coord_type=gcj02",souceLat,souceLong,desLat,desLong];
         tipString = @"您还未安装百度地图";
     }else if ([buttonTitle isEqualToString:@"高德地图"]){
         //style  导航方式：(=0：速度最快，=1：费用最少，=2：距离最短，=3：不走高速，=4：躲避拥堵，=5：不走高速且避免收费，=6：不走高速且躲避拥堵，=7：躲避收费和拥堵，=8：不走高速躲避收费和拥堵)
@@ -502,7 +502,7 @@
 //                [weakSelf addCustomMark:location];//test
                 _reseverLocation = CLLocationCoordinate2DMake(-180, -180);
                 NSLog(@"did not FindPlacemark, error = %@",error);
-                [XEProgressHUD AlertError:@"位置获取失败"];
+                [XEProgressHUD AlertError:@"位置获取失败" At:weakSelf.view];
                 return;
             }
             //    NSLog(@"didFindPlacemark des: %@", placemark.description);
@@ -543,7 +543,7 @@
         }else {
             _reseverLocation = CLLocationCoordinate2DMake(-180, -180);
             //                NSLog(@"did not FindPlacemark, error = %@",error);
-            [XEProgressHUD AlertError:@"位置获取失败"];
+            [XEProgressHUD AlertError:@"位置获取失败" At:weakSelf.view];
             return;
         }
             //    NSLog(@"didFindPlacemark des: %@", placemark.description);
