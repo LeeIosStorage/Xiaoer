@@ -253,12 +253,10 @@
 {
     _showMode = YES;
     CLLocationCoordinate2D location;
-    location.latitude = 30.189734;
-    location.longitude = 120.154937;
-//    location.latitude = 119.119119;
-//    location.longitude = 110.110110;
-//    location.latitude = lat;
-//    location.longitude = log;
+//    location.latitude = 30.189734;
+//    location.longitude = 120.154937;
+    location.latitude = lat;
+    location.longitude = log;
     
     //要保证小数点八位以上的精度，不然有可能会解析不到位置信息
     NSMutableString* strLat = [NSMutableString stringWithString:[[NSNumber numberWithDouble:location.latitude] description]];
