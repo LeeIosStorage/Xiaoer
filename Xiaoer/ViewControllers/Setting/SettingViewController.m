@@ -172,15 +172,16 @@
         }
         case 1:{
             if (indexPath.row == 0) {
-                __weak SettingViewController *weakSelf = self;
+//                __weak SettingViewController *weakSelf = self;
                 XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:nil actionBlock:^(NSInteger buttonIndex) {
                     if (buttonIndex == 1) {
                         return;
                     }
                     if (buttonIndex == 0) {
-                        [[XEEngine shareInstance] logout];
-                        WelcomeViewController *weVc = [[WelcomeViewController alloc] init];
-                        [weakSelf.navigationController pushViewController:weVc animated:YES];
+                        AppDelegate * appDelgate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+                        XELog(@"signOut for user logout from SettingViewController");
+                        [appDelgate signOut];
+                        [[XEEngine shareInstance] visitorLogin];
                     }
                 }];
                 [sheet addButtonWithTitle:@"退出登录"];
