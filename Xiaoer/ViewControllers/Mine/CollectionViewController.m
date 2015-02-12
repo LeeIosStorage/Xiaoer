@@ -38,6 +38,13 @@
 
 @implementation CollectionViewController
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.informationTableView setEditing:NO];
+    [self.expertTableView setEditing:NO];//设置NO，因为实现了canEditRowAtIndexPath代理 防止返回crash
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.

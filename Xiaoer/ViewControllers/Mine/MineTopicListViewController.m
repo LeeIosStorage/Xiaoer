@@ -39,9 +39,12 @@
     XELog(@"MineTopicListViewController dealloc !!!");
 }
 
-//-(void)viewDidUnload{
-//    
-//}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.publishTableView setEditing:NO];
+    [self.collectTableView setEditing:NO];//设置NO，因为实现了canEditRowAtIndexPath代理 防止返回crash
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

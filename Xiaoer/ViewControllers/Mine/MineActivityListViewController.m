@@ -35,6 +35,13 @@
 
 @implementation MineActivityListViewController
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.applyTableView setEditing:NO];
+    [self.collectTableView setEditing:NO];//设置NO，因为实现了canEditRowAtIndexPath代理 防止返回crash
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
