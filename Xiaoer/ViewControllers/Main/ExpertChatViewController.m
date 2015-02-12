@@ -324,7 +324,7 @@
     //[[XEEngine shareInstance] getQuestionListWithPagenum:_qNextCursor tag:tag];
     [[XEEngine shareInstance] getHotQuestionWithTag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         [self.pullRefreshView2 finishedLoading];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -372,13 +372,13 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 //    NSLog(@"============%f",scrollView.contentOffset.y);
     CGFloat offset = scrollView.contentOffset.y;
-    if (offset <= 100) {
-        if (self.questionTableView.hidden) {
-            self.questionTableView.contentOffset = CGPointMake(0, offset);
-        }else{
-            self.topicTableView.contentOffset = CGPointMake(0, offset);
-        }
-    }
+//    if (offset <= 100) {
+//        if (self.questionTableView.hidden) {
+//            self.questionTableView.contentOffset = CGPointMake(0, offset);
+//        }else{
+//            self.topicTableView.contentOffset = CGPointMake(0, offset);
+//        }
+//    }
 }
 
 //- (void)handlePanFrom1:(UIPanGestureRecognizer*)recognizer

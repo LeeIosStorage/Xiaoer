@@ -25,12 +25,16 @@
 #import "WelcomeViewController.h"
 #import "XEAlertView.h"
 #import "BabyProfileViewController.h"
+#import "TaskViewController.h"
 
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     ODRefreshControl *_themeControl;
     XEScrollPage *scrollPageView;
     BOOL _isScrollViewDrag;
     NSString *_mallurl;
+   
+    NSString *_parklonUrl;  //爬行
+    NSString *_intelUrl;    //智能
 }
 
 @property (nonatomic, strong) NSMutableArray *adsThemeArray;
@@ -140,6 +144,8 @@
         }
         weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%@条新消息",[[jsonRet objectForKey:@"object"] objectForKey:@"msgnum"]];
         _mallurl = [[jsonRet objectForKey:@"object"] objectForKey:@"mallurl"];
+        _intelUrl = [[jsonRet objectForKey:@"object"] objectForKey:@"devices"][0];
+        _parklonUrl = [[jsonRet objectForKey:@"object"] objectForKey:@"devices"][1];
 //        [XEProgressHUD AlertSuccess:@"获取成功."];
     }tag:tag];
 }
@@ -306,10 +312,8 @@
 {
     switch (indexPath.row) {
         case 5:{
-            id vc = [XELinkerHandler handleDealWithHref:_mallurl From:self.navigationController];
-            if (vc) {
-                [self.navigationController pushViewController:vc animated:YES];
-            }
+            XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:@"小贴示" message:@"商城平台尚未开放，晓儿一直在努力" cancelButtonTitle:@"确定"];
+            [alertView show];
             break;
         }
         case 4:{
@@ -408,9 +412,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"section is %ld",(long)indexPath.row);
-    
-    id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
+//    NSLog(@"section is %ld",(long)indexPath.row);
+    NSString *url = nil;
+    if (indexPath.row == 0) {
+        url = _intelUrl;
+    } else if (indexPath.row == 1) {
+        url = _parklonUrl;
+    }
+    id vc = [XELinkerHandler handleDealWithHref:url From:self.navigationController];
     if (vc) {
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -509,14 +518,16 @@
 }
 
 - (IBAction)taskAction:(id)sender {
-    if ([self isVisitor]) {
-        [self showAlter];
-    }else{
-        id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
-        if (vc) {
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-    }
+//    if ([self isVisitor]) {
+//        [self showAlter];
+//    }else{
+//        id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
+//        if (vc) {
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
+//    }
+    TaskViewController *tVc = [[TaskViewController alloc] init];
+    [self.navigationController pushViewController:tVc animated:YES];
 }
 
 - (void)handleUserInfoChanged:(NSNotification *)notification{
