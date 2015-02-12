@@ -131,7 +131,7 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] editUserInfoWithUid:_userInfo.uid name:_userInfo.name nickname:_userInfo.nickName title:_userInfo.title desc:_userInfo.desc district:_userInfo.region address:_userInfo.address phone:_userInfo.phone bbId:babyUserInfo.babyId bbName:babyUserInfo.babyNick bbGender:babyUserInfo.babyGender bbBirthday:babyUserInfo.birthdayString bbAvatar:babyUserInfo.babyAvatarId userAvatar:_userInfo.avatar tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
@@ -168,7 +168,7 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] checkPhoneWithPhone:phone uid:nil tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+        
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
@@ -177,6 +177,7 @@
             [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
+        [XEProgressHUD AlertLoadDone];
         weakSelf.userInfo.phone = phone;
         [weakSelf.tableView reloadData];
     }tag:tag];
@@ -698,12 +699,13 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] updateAvatarWithUid:_userInfo.uid avatar:@[pData] tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
                 errorMsg = @"上传失败";
             }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         weakSelf.userInfo.avatar = [jsonRet stringObjectForKey:@"object"];
@@ -728,12 +730,13 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] updateBabyAvatarWithBabyUid:nil avatar:dataArray tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
                 errorMsg = @"上传失败";
             }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         [XEProgressHUD AlertSuccess:@"上传成功." At:weakSelf.view];

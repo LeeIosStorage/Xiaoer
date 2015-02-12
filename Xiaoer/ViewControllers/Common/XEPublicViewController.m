@@ -187,7 +187,7 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] publishQuestionWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid title:_titleTextField.text content:_descriptionTextView.text overt:overt imgs:imgs tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
@@ -213,7 +213,7 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] publishTopicWithUserId:[XEEngine shareInstance].uid title:_titleTextField.text content:_descriptionTextView.text cat:[_selectTopicTypeDic intValueForKey:TopicType_Cat] imgs:imgs tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
@@ -262,7 +262,7 @@
             [[XEEngine shareInstance] updateExpertQuestionWithImgs:dataArray index:-1 tag:tag];
         }
         [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-            [XEProgressHUD AlertLoadDone];
+//            [XEProgressHUD AlertLoadDone];
             NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
             if (!jsonRet || errorMsg) {
                 if (!errorMsg.length) {

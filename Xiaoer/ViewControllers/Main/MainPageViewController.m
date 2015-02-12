@@ -26,6 +26,7 @@
 #import "XEAlertView.h"
 #import "BabyProfileViewController.h"
 #import "TaskViewController.h"
+#import "XENavigationController.h"
 
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     ODRefreshControl *_themeControl;
@@ -488,9 +489,10 @@
     } okButtonTitle:@"确认" okBlock:^{
         WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
         welcomeVc.showBackButton = YES;
-        [weakSelf.navigationController presentViewController:welcomeVc animated:YES completion:^{
-            
-        }];
+        XENavigationController* navigationController = [[XENavigationController alloc] initWithRootViewController:welcomeVc];
+        navigationController.navigationBarHidden = YES;
+        
+        [weakSelf.navigationController presentViewController:navigationController animated:YES completion:nil];
     }];
     [alertView show];
 }

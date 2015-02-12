@@ -116,11 +116,11 @@
     if ([self.setPwdTextField.text isEqualToString:self.comfirmTextField.text]) {
         int tag = [[XEEngine shareInstance] getConnectTag];
         if (weakSelf.registerName.length != 0) {
-            [XEProgressHUD AlertLoading:@"正在注册" At:weakSelf.view];
+            [XEProgressHUD AlertLoading:@"注册中，请稍等" At:weakSelf.view];
             if ([weakSelf.registerName isPhone]) {
                 [[XEEngine shareInstance] registerWithPhone:weakSelf.registerName password:weakSelf.setPwdTextField.text tag:tag];
                 [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-                    [XEProgressHUD AlertLoadDone];
+//                    [XEProgressHUD AlertLoadDone];
                     NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
                     if (!jsonRet || errorMsg) {
                         if (!errorMsg.length) {
@@ -140,7 +140,7 @@
             }else if([weakSelf.registerName isEmail]){
                 [[XEEngine shareInstance] registerWithEmail:weakSelf.registerName password:weakSelf.setPwdTextField.text tag:tag];
                 [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-                    [XEProgressHUD AlertLoadDone];
+//                    [XEProgressHUD AlertLoadDone];
                     NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
                     if (!jsonRet || errorMsg) {
                         if (!errorMsg.length) {
@@ -162,7 +162,7 @@
             [XEProgressHUD AlertLoading:@"正在重置密码" At:weakSelf.view];
             [[XEEngine shareInstance] resetPassword:self.setPwdTextField.text withPhone:_userInfo.phone tag:tag];
             [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-                [XEProgressHUD AlertLoadDone];
+//                [XEProgressHUD AlertLoadDone];
                 NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
                 if (!jsonRet || errorMsg) {
                     if (!errorMsg.length) {
