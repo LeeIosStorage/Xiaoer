@@ -8,6 +8,7 @@
 
 #import "XELinkerHandler.h"
 #import "XECommonWebVc.h"
+#import "XEEngine.h"
 //#import "SVModalWebViewController+Back.h"
 
 @implementation XELinkerHandler
@@ -34,13 +35,13 @@
         if (nav) {
             NSString *url = [realUrl description];
             XECommonWebVc *webvc = [[XECommonWebVc alloc] initWithAddress:url];
-            if ([url hasSuffix:@"/info/detail?id=419"] || [url hasSuffix:@"/info/detail?id=420"]) {
+
+            if ([url hasPrefix:[NSString stringWithFormat:@"%@/info/detail",[XEEngine shareInstance].baseUrl]]) {
+                NSDictionary *paramDic = [XECommonUtils getParamDictFrom:realUrl.query];
+                NSString *openId = [paramDic stringObjectForKey:@"id"];
                 webvc.isShareViewOut = YES;
+                webvc.openId = openId;
             }
-            NSDictionary *paramDic = [XECommonUtils getParamDictFrom:realUrl.query];
-            NSString *openId = [paramDic stringObjectForKey:@"id"];
-            webvc.openId = openId;
-//            NSLog(@"=================%@",paramDic);
 //            webvc.availableActions = SVWebViewControllerAvailableActionsOpenInSafari | SVWebViewControllerAvailableActionsOpenInChrome | SVWebViewControllerAvailableActionsCopyLink | SVWebViewControllerAvailableActionsMailLink;
             [nav pushViewController:webvc animated:YES];
         }
