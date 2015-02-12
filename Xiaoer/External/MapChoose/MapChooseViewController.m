@@ -160,7 +160,7 @@
 
 -(void)initNormalTitleNavBarSubviews
 {
-//    [self setRightButtonWithTitle:@"路线" selector:@selector(sendPosition:)];
+    [self setRightButtonWithTitle:@"路线" selector:@selector(sendPosition:)];
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -296,12 +296,12 @@
         //        LSActionSheet *sheet = [[LSActionSheet alloc] initWithTitle:sheetTitle actionBlock:^(NSInteger buttonIndex) {
         //            [weakSelf doActionSheetWithButtonIndex:buttonIndex];
         //        } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"百度地图",@"高德地图", @"苹果地图", nil];
-        _acsheet = [[XEActionSheet alloc] initWithTitle:@"" actionBlock:^(NSInteger buttonIndex) {
+        _acsheet = [[XEActionSheet alloc] initWithTitle:sheetTitle actionBlock:^(NSInteger buttonIndex) {
             [weakSelf doActionSheetWithButtonIndex:buttonIndex];
         }cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil, nil];
-        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]]) {
-            [_acsheet addButtonWithTitle:@"百度地图"];
-        }
+//        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]]) {
+//            [_acsheet addButtonWithTitle:@"百度地图"];
+//        }
         
         if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"iosamap://"]]) {
             [_acsheet addButtonWithTitle:@"高德地图"];
@@ -378,7 +378,7 @@
         tipString = @"您还未安装百度地图";
     }else if ([buttonTitle isEqualToString:@"高德地图"]){
         //style  导航方式：(=0：速度最快，=1：费用最少，=2：距离最短，=3：不走高速，=4：躲避拥堵，=5：不走高速且避免收费，=6：不走高速且躲避拥堵，=7：躲避收费和拥堵，=8：不走高速躲避收费和拥堵)
-        urlString = [NSString stringWithFormat:@"iosamap://navi?sourceApplication=weimi&backScheme=weimi://&lat=%f&lon=%f&dev=1&style=2",_showLocation.latitude,_showLocation.longitude];
+        urlString = [NSString stringWithFormat:@"iosamap://navi?sourceApplication=Xiaoer&backScheme=Xiaoer://&lat=%f&lon=%f&dev=1&style=2",_showLocation.latitude,_showLocation.longitude];
         //poiname=fangheng&poiid=BGVIS&
         tipString = @"您还未安装高德地图";
     }else if ([buttonTitle isEqualToString:@"苹果地图"]){
@@ -619,8 +619,8 @@
     if (!_showMode) {
         self.titleNavBarRightBtn.hidden = NO;
     }else{
-//        self.titleNavBarRightBtn.hidden = NO;
-//        [self.titleNavBarRightBtn setTitle:@"路线" forState:UIControlStateNormal];
+        self.titleNavBarRightBtn.hidden = NO;
+        [self.titleNavBarRightBtn setTitle:@"路线" forState:UIControlStateNormal];
     }
     _isShowLoading = NO;
     [self hideProgressBar];
