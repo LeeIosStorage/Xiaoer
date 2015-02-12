@@ -14,18 +14,19 @@
 @implementation XETopicViewCell
 
 + (float)heightForTopicInfo:(XETopicInfo *)topicInfo{
-    NSString* topicText = topicInfo.title;
-    if (!topicText) {
-        topicText = @"";
-    }
-    CGSize topicTextSize = [XECommonUtils sizeWithText:topicText font:[UIFont systemFontOfSize:15] width:SCREEN_WIDTH-11-26];
-    
-    if (topicTextSize.height < 16) {
-        topicTextSize.height = 16;
-    }
-    float height = topicTextSize.height;
-    height += 35;
-    return height;
+//    NSString* topicText = topicInfo.title;
+//    if (!topicText) {
+//        topicText = @"";
+//    }
+//    CGSize topicTextSize = [XECommonUtils sizeWithText:topicText font:[UIFont systemFontOfSize:15] width:SCREEN_WIDTH-11-26];
+//    
+//    if (topicTextSize.height < 16) {
+//        topicTextSize.height = 16;
+//    }
+//    float height = topicTextSize.height;
+//    height += 35;
+//    return height;
+    return 70;
 }
 
 - (void)awakeFromNib {
@@ -59,7 +60,7 @@
     frame = self.topicNameLabel.frame;
     CGSize textSize = [XECommonUtils sizeWithText:self.topicNameLabel.text font:self.topicNameLabel.font width:self.topicNameLabel.frame.size.width];
     if (textSize.height > 18) {
-        frame.origin.y = frame.origin.y + 8;
+        frame.origin.y = 9;
     }else{
         frame.origin.y = frame.origin.y;
     }

@@ -89,7 +89,7 @@
         </view>
     </objects>
     <resources>
-        <image name="nav_back_btn" width="7" height="14"/>
+        <image name="nav_back_btn" width="13" height="28"/>
         <image name="nav_xiaoer_icon" width="40" height="38"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -30,6 +30,8 @@
 		0712B3B41A5BD853000A1A7F /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0712B3A31A5BD853000A1A7F /* UIView+WebCacheOperation.m */; };
 		071D51961A674FC6003D6752 /* MainTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 071D51941A674FC6003D6752 /* MainTabCell.m */; };
 		071D51971A674FC6003D6752 /* MainTabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 071D51951A674FC6003D6752 /* MainTabCell.xib */; };
+		0727A5DF1A8C77A00037805A /* TaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0727A5DD1A8C77A00037805A /* TaskViewController.m */; };
+		0727A5E01A8C77A00037805A /* TaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0727A5DE1A8C77A00037805A /* TaskViewController.xib */; };
 		073F9F0B1A68B2B8009D94E3 /* XECategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 073F9F0A1A68B2B8009D94E3 /* XECategoryView.m */; };
 		073F9F0F1A68B31D009D94E3 /* XECategoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073F9F0E1A68B31D009D94E3 /* XECategoryView.xib */; };
 		073F9F131A68B38F009D94E3 /* CategoryItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 073F9F111A68B38F009D94E3 /* CategoryItemCell.m */; };
@@ -337,6 +339,9 @@
 		071D51931A674FC6003D6752 /* MainTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabCell.h; sourceTree = "<group>"; };
 		071D51941A674FC6003D6752 /* MainTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabCell.m; sourceTree = "<group>"; };
 		071D51951A674FC6003D6752 /* MainTabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTabCell.xib; sourceTree = "<group>"; };
+		0727A5DC1A8C77A00037805A /* TaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TaskViewController.h; path = Home/TaskViewController.h; sourceTree = "<group>"; };
+		0727A5DD1A8C77A00037805A /* TaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TaskViewController.m; path = Home/TaskViewController.m; sourceTree = "<group>"; };
+		0727A5DE1A8C77A00037805A /* TaskViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TaskViewController.xib; path = Home/TaskViewController.xib; sourceTree = "<group>"; };
 		073F9F091A68B2B8009D94E3 /* XECategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XECategoryView.h; path = Home/XECategoryView.h; sourceTree = "<group>"; };
 		073F9F0A1A68B2B8009D94E3 /* XECategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XECategoryView.m; path = Home/XECategoryView.m; sourceTree = "<group>"; };
 		073F9F0E1A68B31D009D94E3 /* XECategoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XECategoryView.xib; sourceTree = "<group>"; };
@@ -1863,6 +1868,9 @@
 				07FC6D261A67B317001F34D8 /* RecipesViewController.h */,
 				07FC6D271A67B317001F34D8 /* RecipesViewController.m */,
 				07FC6D281A67B317001F34D8 /* RecipesViewController.xib */,
+				0727A5DC1A8C77A00037805A /* TaskViewController.h */,
+				0727A5DD1A8C77A00037805A /* TaskViewController.m */,
+				0727A5DE1A8C77A00037805A /* TaskViewController.xib */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -2044,6 +2052,7 @@
 				07E2846F1A5A8DFC005651EB /* umFeedback.bundle in Resources */,
 				070346701A64F8E200EDE251 /* WelcomeViewController.xib in Resources */,
 				076971AF1A77564E00FEA571 /* TopicListViewController.xib in Resources */,
+				0727A5E01A8C77A00037805A /* TaskViewController.xib in Resources */,
 				075B032A1A6E3892002B577D /* MapChooseViewController.xib in Resources */,
 				07E284701A5A8DFC005651EB /* UMSocialLocalizable.strings in Resources */,
 				073F9F141A68B38F009D94E3 /* CategoryItemCell.xib in Resources */,
@@ -2236,6 +2245,7 @@
 				0760E9421A81D93100BBEA3D /* XEMsgInfo.m in Sources */,
 				0752F7A81A7B25C5008C0E0A /* MWGridCell.m in Sources */,
 				0760E92D1A81ACB300BBEA3D /* CollectionViewController.m in Sources */,
+				0727A5DF1A8C77A00037805A /* TaskViewController.m in Sources */,
 				07C49F561A5E7E9900E1725C /* AVCamCaptureManager.m in Sources */,
 				075E40B31A5940920062F6AD /* URLHelper.m in Sources */,
 				075CAF4C1A5D0E6A005CF4B6 /* SetPwdViewController.m in Sources */,
