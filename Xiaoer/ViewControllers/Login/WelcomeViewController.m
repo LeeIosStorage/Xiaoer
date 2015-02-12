@@ -67,23 +67,26 @@
 - (IBAction)visitorAction:(id)sender {
     [XEEngine shareInstance].firstLogin = NO;
     [[XEEngine shareInstance] visitorLogin];
-    XETabBarViewController* tabViewController = [[XETabBarViewController alloc] init];
-    tabViewController.viewControllers = [NSArray arrayWithObjects:
-                                         [[MainPageViewController alloc] init],
-                                         [[EvaluationViewController alloc] init],
-                                         [[ExpertChatViewController alloc] init],
-                                         [[MineTabViewController alloc] init],
-                                         nil];
-    
     AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    appDelegate.mainTabViewController = tabViewController;
+    [appDelegate signIn];
     
-    XENavigationController* tabNavVc = [[XENavigationController alloc] initWithRootViewController:tabViewController];
-    tabNavVc.navigationBarHidden = YES;
-    appDelegate.window.rootViewController = tabNavVc;
+//    XETabBarViewController* tabViewController = [[XETabBarViewController alloc] init];
+//    tabViewController.viewControllers = [NSArray arrayWithObjects:
+//                                         [[MainPageViewController alloc] init],
+//                                         [[EvaluationViewController alloc] init],
+//                                         [[ExpertChatViewController alloc] init],
+//                                         [[MineTabViewController alloc] init],
+//                                         nil];
+//    
+//    
+//    appDelegate.mainTabViewController = tabViewController;
+//    
+//    XENavigationController* tabNavVc = [[XENavigationController alloc] initWithRootViewController:tabViewController];
+//    tabNavVc.navigationBarHidden = YES;
+//    appDelegate.window.rootViewController = tabNavVc;
     
-    MainPageViewController *mpVc = [[MainPageViewController alloc] init];
-    [self.navigationController pushViewController:mpVc animated:YES];
+//    MainPageViewController *mpVc = [[MainPageViewController alloc] init];
+//    [self.navigationController pushViewController:mpVc animated:YES];
     
 }
 

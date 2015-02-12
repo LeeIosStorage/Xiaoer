@@ -91,7 +91,7 @@
     XETabBarViewController* tabViewController = [[XETabBarViewController alloc] init];
     tabViewController.viewControllers = [NSArray arrayWithObjects:
                                          [[MainPageViewController alloc] init],
-                                         [[EvaluationViewController alloc] init],
+//                                         [[EvaluationViewController alloc] init],
                                          [[ExpertChatViewController alloc] init],
                                          [[MineTabViewController alloc] init],
                                          nil];

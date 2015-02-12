@@ -396,7 +396,8 @@ static CGFloat beginImageH = 64;
         
         [weakSelf doActionSheetClickedButtonAtIndex:buttonIndex];
     } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从手机相册选择", @"拍一张", nil];
-    [sheet showInView:self.view];
+    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    [sheet showInView:appDelegate.window];
 }
 
 - (IBAction)editInfoAction:(id)sender {
