@@ -111,14 +111,14 @@
             tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"main_tabbar_icon_hover"];
             tabItem.itemLabel.text = @"首页";
         }else if (tagIndex == 1){
-            tabItem.itemIconImageView.image = [UIImage imageNamed:@"evaluations_tabbar_icon"];
-            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"evaluations_tabbar_icon_hover"];
-            tabItem.itemLabel.text = @"测评";
-        }else if (tagIndex == 2){
+//            tabItem.itemIconImageView.image = [UIImage imageNamed:@"evaluations_tabbar_icon"];
+//            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"evaluations_tabbar_icon_hover"];
+//            tabItem.itemLabel.text = @"测评";
+//        }else if (tagIndex == 2){
             tabItem.itemIconImageView.image = [UIImage imageNamed:@"chat_tabbar_icon"];
             tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"chat_tabbar_icon_hover"];
             tabItem.itemLabel.text = @"专家聊";
-        }else if (tagIndex == 3){
+        }else if (tagIndex == 2){
             tabItem.itemIconImageView.image = [UIImage imageNamed:@"mine_tabbar_icon"];
             tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"mine_tabbar_icon_hover"];
             tabItem.itemLabel.text = @"我的";
