@@ -88,7 +88,7 @@ CGFloat const SGProgressBarHeight = 2.5;
     self.mainWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self loadURL:self.URL];
     [self.view insertSubview:self.mainWebView atIndex:0];
-    if (!self.isShareViewOut) {
+    if (self.isShareViewOut) {
         [self setRightButtonWithImageName:@"more_icon" selector:@selector(actionButtonClicked:)];
     }
 
