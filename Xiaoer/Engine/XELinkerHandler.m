@@ -34,6 +34,13 @@
         if (nav) {
             NSString *url = [realUrl description];
             XECommonWebVc *webvc = [[XECommonWebVc alloc] initWithAddress:url];
+            if ([url hasSuffix:@"/info/detail?id=419"] || [url hasSuffix:@"/info/detail?id=420"]) {
+                webvc.isShareViewOut = YES;
+            }
+            NSDictionary *paramDic = [XECommonUtils getParamDictFrom:realUrl.query];
+            NSString *openId = [paramDic stringObjectForKey:@"id"];
+            webvc.openId = openId;
+//            NSLog(@"=================%@",paramDic);
 //            webvc.availableActions = SVWebViewControllerAvailableActionsOpenInSafari | SVWebViewControllerAvailableActionsOpenInChrome | SVWebViewControllerAvailableActionsCopyLink | SVWebViewControllerAvailableActionsMailLink;
             [nav pushViewController:webvc animated:YES];
         }

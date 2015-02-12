@@ -50,6 +50,12 @@
     }else if (_selectShareType == XEShareType_Qusetion){
         _csheet.deleteBtnHidden = NO;
         _csheet.collectBtnHidden = YES;
+    }else if (_selectShareType == XEShareType_Web){
+        if (self.bCollect) {
+            _csheet.collectBtnTitle = @"取消收藏";
+        }else {
+            _csheet.collectBtnTitle = @"收藏";
+        }
     }else{
         _csheet.collectBtnTitle = @"收藏";
     }
@@ -86,6 +92,8 @@
 -(void)collectButtonAction{
     if (_selectShareType == XEShareType_Topic) {
         [self topicCollectAction];
+    }else if(_selectShareType == XEShareType_Web) {
+        [self webCollectAction];
     }
 }
 -(void)deleteButtonAction{
@@ -137,6 +145,27 @@
         
     }tag:tag];
     
+}
+
+- (void)webCollectAction{
+    __weak XEShareActionSheet *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    if (self.bCollect) {
+        [[XEEngine shareInstance] unCollectTopicWithTopicId:self.recipesId uid:[XEEngine shareInstance].uid tag:tag];
+    }else{
+        [[XEEngine shareInstance] collectTopicWithTopicId:self.recipesId uid:[XEEngine shareInstance].uid tag:tag];
+    }
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.owner.view];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.owner.view];
+    }tag:tag];
 }
 
 -(void)topicDeleteAction{

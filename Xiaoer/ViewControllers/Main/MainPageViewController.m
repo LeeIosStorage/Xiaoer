@@ -145,8 +145,10 @@
         }
         weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%@条新消息",[[jsonRet objectForKey:@"object"] objectForKey:@"msgnum"]];
         _mallurl = [[jsonRet objectForKey:@"object"] objectForKey:@"mallurl"];
-        _intelUrl = [[jsonRet objectForKey:@"object"] objectForKey:@"devices"][0];
-        _parklonUrl = [[jsonRet objectForKey:@"object"] objectForKey:@"devices"][1];
+        if ([[jsonRet objectForKey:@"object"] objectForKey:@"devices"]) {
+            _intelUrl = [[jsonRet objectForKey:@"object"] objectForKey:@"devices"][0];
+            _parklonUrl = [[jsonRet objectForKey:@"object"] objectForKey:@"devices"][1];
+        }
 //        [XEProgressHUD AlertSuccess:@"获取成功."];
     }tag:tag];
 }

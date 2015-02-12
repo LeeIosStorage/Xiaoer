@@ -26,5 +26,6 @@ typedef NSUInteger WebViewControllerAvailableActions;
 @property (nonatomic, strong) UIWebView *mainWebView;
 @property (nonatomic, assign) BOOL isPortrait;
 @property (nonatomic, assign) BOOL isShareViewOut;
+@property (nonatomic, strong) NSString *openId;
 
 @end

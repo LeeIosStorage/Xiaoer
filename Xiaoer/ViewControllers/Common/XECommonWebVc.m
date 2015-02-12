@@ -7,11 +7,17 @@
 //
 
 #import "XECommonWebVc.h"
+#import "XEShareActionSheet.h"
+#import "XEEngine.h"
+#import "XEProgressHUD.h"
 
 NSInteger const SGProgresstagId = 222122323;
 CGFloat const SGProgressBarHeight = 2.5;
 
-@interface XECommonWebVc ()<UIGestureRecognizerDelegate>
+@interface XECommonWebVc ()<UIGestureRecognizerDelegate,XEShareActionSheetDelegate>
+{
+    XEShareActionSheet *_shareAction;
+}
 
 @property (nonatomic, strong) NSURL *URL;
 
@@ -82,13 +88,15 @@ CGFloat const SGProgressBarHeight = 2.5;
     self.mainWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self loadURL:self.URL];
     [self.view insertSubview:self.mainWebView atIndex:0];
-    
+    if (!self.isShareViewOut) {
+        [self setRightButtonWithImageName:@"more_icon" selector:@selector(actionButtonClicked:)];
+    }
+
 //    UIView *leftEdge = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, [UIScreen mainScreen].bounds.size.height)];
 //    //    leftEdge.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleHeight;
 //    leftEdge.backgroundColor = [UIColor clearColor];
 //    [self.view addSubview:leftEdge];
     
-    [self setRightButtonWithImageName:@"more_icon" selector:@selector(actionButtonClicked:)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -364,6 +372,39 @@ CGFloat const SGProgressBarHeight = 2.5;
 - (void)actionButtonClicked:(id)sender {
     //出现分享菜单
     //[self tapAtRightShareBtn:sender];
+    if ([[XEEngine shareInstance] needUserLogin:@"当前为游客状态，登录以后才能查看更多"]) {
+        return;
+    }
+    __weak XECommonWebVc *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+
+    [[XEEngine shareInstance] getRecipesStatusWithUid:[XEEngine shareInstance].uid rid:self.openId tag:tag];
+
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+    
+        BOOL status = [jsonRet boolValueForKey:@"object"];
+        
+        _shareAction = [[XEShareActionSheet alloc] init];
+        _shareAction.owner = self;
+        _shareAction.selectShareType = XEShareType_Web;
+        _shareAction.bCollect = status;
+        _shareAction.recipesId = weakSelf.openId;
+        [_shareAction showShareAction];
+    }tag:tag];
+}
+
+#pragma mark - XEShareActionSheetDelegate
+-(void) deleteTopicAction:(id)info{
+    [super backAction:nil];
 }
 
 - (void)dealloc

@@ -919,6 +919,19 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
+//查询资讯是否被当前用户收藏
+- (BOOL)getRecipesStatusWithUid:(NSString *)uid rid:(NSString *)rid tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    if (rid) {
+        [params setObject:rid forKey:@"id"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/info/faved",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
 - (BOOL)getExpertListWithPage:(int)page tag:(int)tag{
     
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];

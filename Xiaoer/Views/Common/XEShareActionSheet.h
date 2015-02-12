@@ -14,7 +14,8 @@ typedef enum XEUrlShareType_{
     XEShareType_Expert,
     XEShareType_Activity,
     XEShareType_Topic,
-    XEShareType_Qusetion
+    XEShareType_Qusetion,
+    XEShareType_Web,
 }XEShareType;
 
 @protocol XEShareActionSheetDelegate <NSObject>
@@ -29,6 +30,10 @@ typedef enum XEUrlShareType_{
 @property (nonatomic, strong) XETopicInfo *topicInfo;
 
 @property (nonatomic, strong) XEQuestionInfo *questionInfo;
+
+@property (nonatomic, assign) BOOL bCollect;
+
+@property (nonatomic, strong) NSString *recipesId;
 
 -(void) showShareAction;
 

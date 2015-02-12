@@ -131,6 +131,8 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 //资讯
 - (BOOL)collectInfoWithInfoId:(NSString *)infoId uid:(NSString *)uid tag:(int)tag;
 - (BOOL)unCollectInfoWithInfoId:(NSString *)infoId uid:(NSString *)uid tag:(int)tag;
+//查询资讯是否被当前用户收藏
+- (BOOL)getRecipesStatusWithUid:(NSString *)uid rid:(NSString *)rid tag:(int)tag;
 
 //专家列表
 - (BOOL)getExpertListWithPage:(int)page tag:(int)tag;
