@@ -254,7 +254,7 @@
     MapChooseViewController *showmap = [[MapChooseViewController alloc] init];
     [showmap showCurrentLocation:YES];
     [showmap setCurrentLocation:_activityInfo.latitude longitute:_activityInfo.longitude];
-    
+    showmap.showPlaceTitle = _activityInfo.address;
     [self.navigationController pushViewController:showmap animated:YES];
 }
 
