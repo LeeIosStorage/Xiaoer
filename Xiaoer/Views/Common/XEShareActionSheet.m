@@ -151,9 +151,9 @@
     __weak XEShareActionSheet *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     if (self.bCollect) {
-        [[XEEngine shareInstance] unCollectTopicWithTopicId:self.recipesId uid:[XEEngine shareInstance].uid tag:tag];
+        [[XEEngine shareInstance] unCollectInfoWithInfoId:self.recipesId uid:[XEEngine shareInstance].uid tag:tag];
     }else{
-        [[XEEngine shareInstance] collectTopicWithTopicId:self.recipesId uid:[XEEngine shareInstance].uid tag:tag];
+        [[XEEngine shareInstance] collectInfoWithInfoId:self.recipesId uid:[XEEngine shareInstance].uid tag:tag];
     }
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];

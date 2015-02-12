@@ -145,7 +145,7 @@
         }
         weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%@条新消息",[[jsonRet objectForKey:@"object"] objectForKey:@"msgnum"]];
         _mallurl = [[jsonRet objectForKey:@"object"] objectForKey:@"mallurl"];
-        if ([[jsonRet objectForKey:@"object"] objectForKey:@"devices"]) {
+        if (![[[jsonRet objectForKey:@"object"] objectForKey:@"devices"] isEqual:[NSNull null]]) {
             _intelUrl = [[jsonRet objectForKey:@"object"] objectForKey:@"devices"][0];
             _parklonUrl = [[jsonRet objectForKey:@"object"] objectForKey:@"devices"][1];
         }
