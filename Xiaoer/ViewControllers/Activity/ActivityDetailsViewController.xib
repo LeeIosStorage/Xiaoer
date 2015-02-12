@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActivityDetailsViewController">
@@ -10,6 +9,7 @@
                 <outlet property="activityContainerView" destination="Xlx-Yg-NJx" id="8S0-pa-dFR"/>
                 <outlet property="activityIntroLabel" destination="Lpi-gD-bQ8" id="9qz-iP-oMg"/>
                 <outlet property="addressAndTimeLabel" destination="dv1-h9-EWU" id="nAc-49-dFE"/>
+                <outlet property="applyActivityButton" destination="dgp-j0-iTW" id="ZqB-xZ-6S0"/>
                 <outlet property="avatarImageView" destination="E3j-UJ-xDS" id="sL8-UV-nNz"/>
                 <outlet property="headView" destination="oM4-hD-yvU" id="Iga-Ac-lxr"/>
                 <outlet property="phoneLabel" destination="od5-4R-ih6" id="fVP-c6-Kbm"/>
@@ -152,7 +152,7 @@
         <image name="activity_ego_icon" width="21" height="26"/>
         <image name="activity_phone_icon" width="21" height="26"/>
         <image name="s_n_set_line" width="300" height="1"/>
-        <image name="segment_arrows" width="2" height="40"/>
+        <image name="segment_arrows" width="4" height="60"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

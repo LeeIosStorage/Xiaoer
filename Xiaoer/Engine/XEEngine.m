@@ -221,6 +221,9 @@ static XEEngine* s_ShareInstance = nil;
     }
     NSString *path = [[self getCurrentAccoutDocDirectory] stringByAppendingPathComponent:@"myUserInfo.xml"];
     NSString *jsonString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    if (!jsonString) {
+        [self refreshUserInfo];
+    }
     NSDictionary *userDic = [jsonString objectFromJSONString];
     XELog(@"XEEngine loadUserInfo userDic =%@ ",userDic);
     if (userDic) {

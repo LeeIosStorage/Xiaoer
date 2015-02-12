@@ -29,6 +29,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *addressAndTimeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (strong, nonatomic) IBOutlet UILabel *activityIntroLabel;
+@property (strong, nonatomic) IBOutlet UIButton *applyActivityButton;
+
 - (IBAction)applyActivityAction:(id)sender;
 - (IBAction)phoneAction:(id)sender;
 - (IBAction)addressAction:(id)sender;
@@ -155,6 +157,27 @@
     }else{
         [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
     }
+    
+    _applyActivityButton.enabled = NO;
+    NSString *applyButtonTitle = @"在线报名";
+    int status = _activityInfo.status;
+    if (status == 1) {
+        applyButtonTitle = @"未发布";
+    }else if (status == 2){
+        applyButtonTitle = @"可报名";
+        _applyActivityButton.enabled = YES;
+    }else if (status == 3){
+        applyButtonTitle = @"已报名";
+    }else if (status == 4){
+        applyButtonTitle = @"已截止";
+    }else if (status == 5){
+        applyButtonTitle = @"未开始";
+    }else if (status == 6){
+        applyButtonTitle = @"已开始";
+    }else if (status == 7){
+        applyButtonTitle = @"已结束";
+    }
+    [self.applyActivityButton setTitle:applyButtonTitle forState:0];
     
     self.avatarImageView.clipsToBounds = YES;
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
