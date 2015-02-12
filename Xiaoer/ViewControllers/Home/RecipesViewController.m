@@ -115,7 +115,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getInfoWithBabyId:nil tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {

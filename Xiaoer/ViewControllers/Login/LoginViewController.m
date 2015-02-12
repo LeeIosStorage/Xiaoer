@@ -17,6 +17,7 @@
 #import "NSString+Value.h"
 #import "XELinkerHandler.h"
 #import "XECommonWebVc.h"
+#import "XEActionSheet.h"
 
 @interface LoginViewController () <UITextFieldDelegate>
 {
@@ -451,9 +452,23 @@
 }
 
 - (IBAction)retrieveAction:(id)sender {
-    RetrievePwdViewController *rpVc = [[RetrievePwdViewController alloc] init];
-    rpVc.reType = (int)_selectedSegmentIndex;
-    [self.navigationController pushViewController:rpVc animated:YES];
+    
+    __weak LoginViewController *weakSelf = self;
+    XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:nil actionBlock:^(NSInteger buttonIndex) {
+        if (buttonIndex == 2) {
+            return;
+        }
+        RetrievePwdViewController *rpVc = [[RetrievePwdViewController alloc] init];
+        rpVc.reType = (int)buttonIndex;
+        [weakSelf.navigationController pushViewController:rpVc animated:YES];
+    }];
+    [sheet addButtonWithTitle:@"手机号找回"];
+    [sheet addButtonWithTitle:@"邮箱找回"];
+    [sheet addButtonWithTitle:@"取消"];
+    sheet.cancelButtonIndex = sheet.numberOfButtons -1;
+    
+    
+    [sheet showInView:self.view];
 }
 
 - (IBAction)socialLoginAction:(id)sender {
@@ -609,7 +624,7 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] loginWithUid:_accountTextField.text password:_loginPasswordTextFieldText tag:tag error:nil];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
@@ -705,7 +720,7 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getCodeWithPhone:_registerPhoneTextFieldText type:@"0" tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
@@ -759,18 +774,18 @@
         return;
     }
     [self TextFieldResignFirstResponder];
-    [XEProgressHUD AlertLoading:@"正在验证邮箱" At:self.view];
+    [XEProgressHUD AlertLoading:@"正在验证邮箱号" At:self.view];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] checkEmailWithEmail:verifyAndemailTextFieldText uid:nil tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+        
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-//            [XEProgressHUD AlertError:errorMsg];
+            [XEProgressHUD AlertLoadDone];
             [XEUIUtils showAlertWithMsg:errorMsg];
             return;
         }

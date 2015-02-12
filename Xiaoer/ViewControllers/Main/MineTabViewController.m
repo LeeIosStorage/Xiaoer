@@ -26,6 +26,7 @@
 #import "UIImage+ProportionalFill.h"
 #import "QHQnetworkingTool.h"
 #import "XEProgressHUD.h"
+#import "XENavigationController.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
@@ -398,7 +399,10 @@ static CGFloat beginImageH = 64;
 
 - (IBAction)loginAction:(id)sender {
     WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
-    [self.navigationController pushViewController:welcomeVc animated:YES];
+    welcomeVc.showBackButton = YES;
+    XENavigationController* navigationController = [[XENavigationController alloc] initWithRootViewController:welcomeVc];
+    navigationController.navigationBarHidden = YES;
+    [self.navigationController presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)onLogoutWithError:(NSError *)error {
@@ -476,7 +480,7 @@ static CGFloat beginImageH = 64;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] updateBgImgWithUid:[XEEngine shareInstance].uid avatar:dataArray tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {

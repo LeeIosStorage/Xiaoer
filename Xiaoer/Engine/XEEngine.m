@@ -271,6 +271,10 @@ static XEEngine* s_ShareInstance = nil;
     [accountDic writeToFile:[self getAccountsStoragePath] atomically:NO];
 }
 
+-(void)removeAccount{
+    [[NSFileManager defaultManager] removeItemAtPath:[self getAccountsStoragePath] error:nil];
+}
+
 - (void)setDebugMode:(BOOL)debugMode save:(BOOL)save {
     _debugMode = debugMode;
     if (save) {
@@ -314,7 +318,9 @@ static XEEngine* s_ShareInstance = nil;
 #pragma mark - Visitor 
 - (void)visitorLogin{
     _uid = nil;
+    _account = nil;
     _userPassword = nil;
+    [self removeAccount];
     _userInfo = [[XEUserInfo alloc] init];
 }
 - (BOOL)needUserLogin:(NSString *)message{

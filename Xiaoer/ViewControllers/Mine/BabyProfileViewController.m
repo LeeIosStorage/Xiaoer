@@ -102,7 +102,7 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] editBabyInfoWithUserId:[XEEngine shareInstance].uid bbId:babyUserInfo.babyId bbName:babyUserInfo.babyNick bbGender:babyUserInfo.babyGender bbBirthday:babyUserInfo.birthdayString bbAvatar:babyUserInfo.babyAvatarId acquiesce:nil tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
@@ -399,7 +399,7 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] updateBabyAvatarWithBabyUid:nil avatar:dataArray tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {

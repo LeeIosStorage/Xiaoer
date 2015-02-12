@@ -324,7 +324,7 @@
     //[[XEEngine shareInstance] getQuestionListWithPagenum:_qNextCursor tag:tag];
     [[XEEngine shareInstance] getHotQuestionWithTag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        [XEProgressHUD AlertLoadDone];
+//        [XEProgressHUD AlertLoadDone];
         [self.pullRefreshView2 finishedLoading];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {

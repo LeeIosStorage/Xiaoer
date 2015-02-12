@@ -497,8 +497,8 @@
         CLLocation *clocation = [[CLLocation alloc] initWithCoordinate:location altitude:0 horizontalAccuracy:kCLLocationAccuracyNearestTenMeters verticalAccuracy:kCLLocationAccuracyNearestTenMeters timestamp:nil];
         __weak MapChooseViewController *weakSelf = self;
         [_mRgeo reverseGeocodeLocation:clocation completionHandler:^(NSArray *placemarks, NSError *error) {
-            [XEProgressHUD AlertLoadDone];
             if (placemarks.count && !error) {
+                [XEProgressHUD AlertLoadDone];
                 //                NSLog(@"didFindPlacemark: placemarks.count = %d, %@", placemarks.count, placemarks);
             }else {
 //                [weakSelf addCustomMark:location];//test
