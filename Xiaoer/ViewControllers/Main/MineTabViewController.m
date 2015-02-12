@@ -147,13 +147,21 @@ enum TABLEVIEW_SECTION_INDEX {
         [self.ownerbkImageView sd_setImageWithURL:_userInfo.bgImgUrl placeholderImage:[UIImage imageNamed:@"user_default_bg_img"]];
         [self.ownerHeadImageView sd_setImageWithURL:_userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
         self.ownerHeadImageView.layer.CornerRadius = 8;
-        self.nickName.text = _userInfo.nickName;
+        NSString *babyNick = userInfo.babyNick;
+        if (babyNick.length == 0) {
+            babyNick = @"未设置宝宝信息";
+        }
+        self.nickName.text = babyNick;
         self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
-        self.address.text  = _userInfo.regionName;
-        CGSize textSize = [XECommonUtils sizeWithText:_userInfo.regionName font:self.address.font width:SCREEN_WIDTH-205];
+        NSString *regionName = _userInfo.regionName;
+        if (regionName.length == 0) {
+            regionName = @"未知地区";
+        }
+        self.address.text  = regionName;
+        CGSize textSize = [XECommonUtils sizeWithText:regionName font:self.address.font width:SCREEN_WIDTH-200];
         CGRect frame = self.address.frame;
-        if (textSize.height > 42) {
-            textSize.height = 41;
+        if (textSize.height > 38) {
+            textSize.height = 37;
         }
         frame.size.height = textSize.height;
         self.address.frame = frame;
