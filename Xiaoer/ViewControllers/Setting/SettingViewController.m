@@ -71,7 +71,10 @@
     if (section == 0) {
         return 3;
     }
+#ifdef DEBUG
     return 2;
+#endif
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
