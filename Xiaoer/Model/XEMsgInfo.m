@@ -33,6 +33,10 @@
     if ([dic objectForKey:@"istop"]) {
         _isTop = [dic boolValueForKey:@"istop"];
     }
+    
+    if ([dic objectForKey:@"status"]) {
+        _readStatus = [dic boolValueForKey:@"status"];
+    }
 }
 -(void)setMsgInfoByJsonDic:(NSDictionary *)dic{
     if (![dic isKindOfClass:[NSDictionary class]]) {

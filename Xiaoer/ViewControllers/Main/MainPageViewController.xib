@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainPageViewController">
@@ -13,6 +13,7 @@
                 <outlet property="collectionView" destination="jt8-B3-dM0" id="u5I-m7-Ook"/>
                 <outlet property="headView" destination="LUx-H4-FQq" id="iIl-rR-uIK"/>
                 <outlet property="nickName" destination="U5T-8e-qXX" id="1ei-Dj-KOd"/>
+                <outlet property="roundImageView" destination="yQj-Ao-g0V" id="Wyy-pd-X8f"/>
                 <outlet property="tableView" destination="Umj-bA-0xR" id="zs2-zZ-wKr"/>
                 <outlet property="unreadLabel" destination="kBT-se-MxL" id="pUj-op-SzS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -116,7 +117,7 @@
                                     <rect key="frame" x="10" y="11" width="45" height="45"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_round_red" id="yQj-Ao-g0V">
+                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_round_red" id="yQj-Ao-g0V">
                                     <rect key="frame" x="129" y="13" width="9" height="9"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
