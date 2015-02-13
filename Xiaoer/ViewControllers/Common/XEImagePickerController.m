@@ -30,10 +30,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
+        [[UINavigationBar appearance] setBarTintColor:SKIN_COLOR];
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    } else {
+        [[UINavigationBar appearance] setTintColor:SKIN_COLOR];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
+    
     self.edgesForExtendedLayout = UIRectEdgeNone;
         
     [self prefersStatusBarHidden];
-    [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+        
+    }
     
     if (self.sourceType == UIImagePickerControllerSourceTypeCamera) {
         //恢复上次的相机状态
@@ -76,7 +88,10 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    return YES;
+    if (self.sourceType == UIImagePickerControllerSourceTypeCamera) {
+        return YES;
+    }
+    return NO;
 }
 
 - (UIViewController *)childViewControllerForStatusBarHidden

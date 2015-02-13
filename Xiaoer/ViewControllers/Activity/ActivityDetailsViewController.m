@@ -127,7 +127,6 @@
 }
 
 #pragma mark - custom
-///刷新广告位
 - (void)refreshAdsScrollView {
     for (UIView *view in _avatarImageView.subviews) {
         [view removeFromSuperview];
@@ -160,21 +159,19 @@
     
     _applyActivityButton.enabled = NO;
     NSString *applyButtonTitle = @"在线报名";
-    int status = _activityInfo.status;
+    int status = _activityInfo.status;//0未发布 1报名未开始 2可报名 3已报名 4已报满  5已截止 6已结束
     if (status == 1) {
-        applyButtonTitle = @"未发布";
+        applyButtonTitle = @"已报名还未开始";
     }else if (status == 2){
-        applyButtonTitle = @"可报名";
+        applyButtonTitle = @"在线报名";
         _applyActivityButton.enabled = YES;
     }else if (status == 3){
         applyButtonTitle = @"已报名";
     }else if (status == 4){
-        applyButtonTitle = @"已截止";
+        applyButtonTitle = @"已报满";
     }else if (status == 5){
-        applyButtonTitle = @"未开始";
+        applyButtonTitle = @"已截止";
     }else if (status == 6){
-        applyButtonTitle = @"已开始";
-    }else if (status == 7){
         applyButtonTitle = @"已结束";
     }
     [self.applyActivityButton setTitle:applyButtonTitle forState:0];

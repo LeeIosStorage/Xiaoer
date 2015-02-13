@@ -279,9 +279,7 @@
     if (buttonIndex == 1) {
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     }
-    [self presentViewController:picker animated:YES completion:^{
-        
-    }];
+    [self presentViewController:picker animated:YES completion:NULL];
 }
 
 -(XEUserInfo *)getBabyUserInfo:(NSInteger)index{
@@ -511,7 +509,8 @@
                 
                 [weakSelf doActionSheetClickedButtonAtIndex:buttonIndex];
             } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从手机相册选择", @"拍一张", nil];
-            [sheet showInView:self.view];
+            AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+            [sheet showInView:appDelegate.window];
         }
     }else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
@@ -555,7 +554,8 @@
                 
                 [weakSelf doActionSheetClickedButtonAtIndex:buttonIndex];
             } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从手机相册选择", @"拍一张", nil];
-            [sheet showInView:self.view];
+            AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+            [sheet showInView:appDelegate.window];
         }else if (indexPath.row == 1) {
             [self editUserInfo:TAG_BOBY_NAME withRowDicts:rowDicts];
         }else if (indexPath.row == 2){

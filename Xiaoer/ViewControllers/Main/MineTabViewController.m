@@ -446,8 +446,11 @@ static CGFloat beginImageH = 64;
     
     if (buttonIndex == 1) {
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
     }
-    [self presentViewController:picker animated:YES completion:NULL];
+    [self presentViewController:picker animated:YES completion:^{
+        
+    }];
 }
 
 #pragma mark -UIImagePickerControllerDelegate
