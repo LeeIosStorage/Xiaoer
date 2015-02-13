@@ -75,4 +75,33 @@
     return [NSString stringWithFormat:@"%@/cp/detail?id=%@", [[XEEngine shareInstance] baseUrl], _cid];
 }
 
+- (NSURL *)smallCardImageUrl {
+    if (_img == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small", _img]];
+}
+
+- (NSURL *)mediumCardImageUrl{
+    if (_img == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"middle", _img]];
+}
+
+//- (NSURL *)largeRecipesImageUrl{
+//    if (_img == nil) {
+//        return nil;
+//    }
+//    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"large", _img]];
+//}
+
+- (NSURL *)originalCardImageUrl {
+    if (_img == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl], _img]];
+}
+
+
 @end

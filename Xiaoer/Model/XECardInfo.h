@@ -19,7 +19,15 @@
 @property(nonatomic, assign) int status;
 @property(nonatomic, readonly) NSString* cardActionUrl;
 
+@property(nonatomic, readonly) NSURL* smallCardImageUrl;
+@property(nonatomic, readonly) NSURL* mediumCardImageUrl;
+@property(nonatomic, readonly) NSURL* originalCardImageUrl;
+
 @property(nonatomic, strong) NSString* jsonString;
 @property(nonatomic, strong) NSDictionary* cardInfoByJsonDic;
+
+//- (NSString*)getSmallCardImageUrl;
+//- (NSString*)getMediumCardImageUrl;
+//- (NSString*)getOriginalCardImageUrl;
 
 @end

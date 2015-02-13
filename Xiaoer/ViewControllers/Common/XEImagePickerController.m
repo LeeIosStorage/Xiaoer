@@ -35,6 +35,14 @@
     [self prefersStatusBarHidden];
     [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
     
+    if (self.sourceType == UIImagePickerControllerSourceTypeCamera) {
+        //恢复上次的相机状态
+        UIImagePickerControllerCameraFlashMode flashModel = [[XESettingConfig staticInstance] systemCameraFlashStatus];
+        if (flashModel < UIImagePickerControllerCameraFlashModeOff || flashModel > UIImagePickerControllerCameraFlashModeOn) {
+            flashModel = UIImagePickerControllerCameraFlashModeAuto;
+        }
+        [self setCameraFlashMode:flashModel];
+    }
 }
 
 -(void)viewDidDisappear:(BOOL)animated

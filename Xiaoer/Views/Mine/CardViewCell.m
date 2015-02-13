@@ -24,7 +24,7 @@
 -(void)setCardInfo:(XECardInfo *)cardInfo{
     _cardInfo = cardInfo;
     if (![cardInfo.img isEqual:[NSNull null]]) {
-        [_cardImageView sd_setImageWithURL:[NSURL URLWithString:cardInfo.img] placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
+        [_cardImageView sd_setImageWithURL:cardInfo.smallCardImageUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
     }else{
         [_cardImageView sd_setImageWithURL:nil];
         [_cardImageView setImage:[UIImage imageNamed:@"topic_load_icon"]];

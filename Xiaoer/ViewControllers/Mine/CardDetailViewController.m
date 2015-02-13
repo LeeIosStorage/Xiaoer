@@ -91,7 +91,7 @@
         [_statusBtn setBackgroundImage:[UIImage imageNamed:@"card_staus_hover_bg"] forState:UIControlStateNormal];
     }
     if (![_cardInfo.img isEqual:[NSNull null]]) {
-        [_cardImageView sd_setImageWithURL:[NSURL URLWithString:_cardInfo.img] placeholderImage:[UIImage imageNamed:@"activity_load_icon"]];
+        [_cardImageView sd_setImageWithURL:_cardInfo.originalCardImageUrl placeholderImage:[UIImage imageNamed:@"activity_load_icon"]];
     }else{
         [_cardImageView sd_setImageWithURL:nil];
         [_cardImageView setImage:[UIImage imageNamed:@"topic_load_icon"]];
