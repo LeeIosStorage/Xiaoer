@@ -252,7 +252,7 @@
         return NO;
         
     }else if (self.reType == TYPE_EMAIL){
-        if ([[_commitTextField text] isEmail] ) {
+        if ([[_commitTextField text] isValidateEmail] ) {
             _commitButton.enabled = YES;
             return YES;
         }

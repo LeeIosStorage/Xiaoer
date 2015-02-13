@@ -265,7 +265,7 @@
             _loginButton.enabled = NO;
             return NO;
         }else if (_selectedSegmentIndex == 1){
-            if ([[_accountTextField text] isEmail] && ([_passwordTextField text].length >= 6 &&[_passwordTextField text].length <= 15)) {
+            if ([[_accountTextField text] isValidateEmail] && ([_passwordTextField text].length >= 6 &&[_passwordTextField text].length <= 15)) {
                 _loginButton.enabled = YES;
                 return YES;
             }
@@ -292,7 +292,7 @@
             return NO;
             
         }else if (_selectedSegmentIndex == 1){
-            if ([[_verifyAndemailTextField text] isEmail] ) {
+            if ([[_verifyAndemailTextField text] isValidateEmail] ) {
                 _registerAffirmButton.enabled = YES;
                 return YES;
             }
@@ -638,12 +638,13 @@
         NSDictionary *object = [jsonRet objectForKey:@"object"];
         XEUserInfo *userInfo = [[XEUserInfo alloc] init];
         [userInfo setUserInfoByJsonDic:object];
-        [XEEngine shareInstance].userInfo = userInfo;
         
         [XEEngine shareInstance].uid = userInfo.uid;
         [XEEngine shareInstance].account = _accountTextField.text;
         [XEEngine shareInstance].userPassword = _passwordTextField.text;
         [[XEEngine shareInstance] saveAccount];
+        
+        [XEEngine shareInstance].userInfo = userInfo;
         
         [weakSelf performSelector:@selector(loginFinished) withObject:nil afterDelay:1.0];
         

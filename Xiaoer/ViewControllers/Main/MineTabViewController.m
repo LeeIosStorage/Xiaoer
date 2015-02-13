@@ -447,7 +447,7 @@ static CGFloat beginImageH = 64;
     if (buttonIndex == 1) {
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     }
-    [self presentViewController:picker animated:YES completion:NULL];
+    [self.navigationController presentViewController:picker animated:YES completion:NULL];//用self.navigationController弹出 相机 StatusBar才会隐藏
 }
 
 #pragma mark -UIImagePickerControllerDelegate

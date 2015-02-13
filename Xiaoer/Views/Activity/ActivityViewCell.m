@@ -36,7 +36,7 @@
     _totalnumLabel.text = [NSString stringWithFormat:@"%d人",activityInfo.totalnum];
     
     _statusLabel.hidden = NO;
-    int status = activityInfo.status;
+    int status = activityInfo.status;//1未发布 2可报名 3已报名 4已报满  5已截止 6已结束
     if (status == 1) {
         _statusLabel.text = @"未发布";
     }else if (status == 2){
@@ -44,12 +44,10 @@
     }else if (status == 3){
         _statusLabel.text = @"已报名";
     }else if (status == 4){
-        _statusLabel.text = @"已截止";
+        _statusLabel.text = @"已报满";
     }else if (status == 5){
-        _statusLabel.text = @"未开始";
+        _statusLabel.text = @"已截止";
     }else if (status == 6){
-        _statusLabel.text = @"已开始";
-    }else if (status == 7){
         _statusLabel.text = @"已结束";
     }else{
         _statusLabel.hidden = YES;

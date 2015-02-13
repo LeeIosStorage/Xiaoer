@@ -12,6 +12,8 @@
 
 - (BOOL)isPhone;
 - (BOOL)isEmail;
+//检测email是否合法
+- (BOOL)isValidateEmail;
 
 //统计混编字符
 - (int)      GetLength;

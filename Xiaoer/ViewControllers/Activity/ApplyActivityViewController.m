@@ -195,7 +195,7 @@
             return;
         }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
-        
+        _activityInfo.status = 3;
         [weakSelf.navigationController popViewControllerAnimated:YES];
         
     }tag:tag];
@@ -375,23 +375,32 @@ static int redIconImageView_tag = 201;
                 return;
             }
             if (buttonIndex == 0) {
-                _babyAgeOfMoon = @"0-3个月";
+                _babyAgeOfMoon = @"0-4周";
                 _oldUserInfo.stage = 1;
             }else if (buttonIndex == 1){
-                _babyAgeOfMoon = @"4-6个月";
+                _babyAgeOfMoon = @"4-16周";
                 _oldUserInfo.stage = 2;
             }else if (buttonIndex == 2){
-                _babyAgeOfMoon = @"7-12个月";
+                _babyAgeOfMoon = @"16-28周";
                 _oldUserInfo.stage = 3;
             }else if (buttonIndex == 3){
-                _babyAgeOfMoon = @"1-2岁";
+                _babyAgeOfMoon = @"28-40周";
                 _oldUserInfo.stage = 4;
             }else if (buttonIndex == 4){
-                _babyAgeOfMoon = @"2-3岁";
+                _babyAgeOfMoon = @"40-52周";
                 _oldUserInfo.stage = 5;
+            }else if (buttonIndex == 5){
+                _babyAgeOfMoon = @"12-18月";
+                _oldUserInfo.stage = 6;
+            }else if (buttonIndex == 6){
+                _babyAgeOfMoon = @"18-24月";
+                _oldUserInfo.stage = 7;
+            }else if (buttonIndex == 7){
+                _babyAgeOfMoon = @"24-36月";
+                _oldUserInfo.stage = 8;
             }
             [weakSelf.tableView reloadData];
-        } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"0-3个月", @"4-6个月",@"7-12个月",@"1-2岁",@"2-3岁", nil];
+        } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"0-4周", @"4-16周",@"16-28周",@"28-40周",@"40-52周",@"12-18月",@"18-24月",@"24-36月", nil];
         [sheet showInView:self.view];
         
     }else if (indexPath.row == 3){

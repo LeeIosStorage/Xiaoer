@@ -137,7 +137,7 @@
                     [_userInfo setUserInfoByJsonDic:dic];
                     [weakSelf perfectInformation];
                 }tag:tag];
-            }else if([weakSelf.registerName isEmail]){
+            }else if([weakSelf.registerName isValidateEmail]){
                 [[XEEngine shareInstance] registerWithEmail:weakSelf.registerName password:weakSelf.setPwdTextField.text tag:tag];
                 [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
 //                    [XEProgressHUD AlertLoadDone];
