@@ -50,7 +50,7 @@
         }
         
         int tag = [[XEEngine shareInstance] getConnectTag];
-        [[XEEngine shareInstance] getQuestionListWithUid:[XEEngine shareInstance].uid pagenum:weakSelf.nextCursor tag:tag];
+        [[XEEngine shareInstance] getCardListWithUid:[XEEngine shareInstance].uid pagenum:weakSelf.nextCursor tag:tag];
         [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
             if (!weakSelf) {
                 return;

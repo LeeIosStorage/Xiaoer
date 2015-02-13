@@ -182,6 +182,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
                 [cv.pullRefreshView finishedLoading];
                 cv.bRefresh = NO;
             }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         
@@ -195,9 +196,11 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
         [weakSelf.hotUnionDic setValue:hotGroups forKey:weakSelf.titles[index]];
         weakSelf.hotGroups = [weakSelf.hotUnionDic mutableArrayValueForKey:weakSelf.titles[index]];
         cv.dateArray = weakSelf.hotGroups;
-        
-        [cv.tableView reloadData];
-        [cv.maskView setHidden:YES];
+        if (hotGroups.count > 0) {
+            [cv.tableView reloadData];
+        }else {
+            [cv.maskView setHidden:NO];
+        }
         
         [weakSelf recordCategoryRefreshTimeWith:index];
         

@@ -14,7 +14,8 @@
 @property(nonatomic, strong) NSString* userName;
 @property(nonatomic, strong) NSString* title;
 @property(nonatomic, strong) NSDate* time;
-@property(nonatomic, assign) BOOL isTop;//是否置顶
+@property(nonatomic, assign) BOOL isTop;  //是否置顶
+@property(nonatomic, assign) BOOL readStatus; //读取状态
 
 @property(nonatomic, readonly) NSString* detailsActionUrl;
 

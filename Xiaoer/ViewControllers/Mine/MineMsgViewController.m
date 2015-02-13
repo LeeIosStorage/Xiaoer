@@ -18,6 +18,7 @@
 
 #define ANNOUNCEMENT_TYPE     0
 #define QUESTION_TYPE         1
+#define mineMsgCountKey       @"mineMsgCountKey"
 
 @interface MineMsgViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -361,7 +362,7 @@
     return 76;
 }
 
-static int topImage_tag = 201, titleLabel_tag = 202, timeLabel_tag = 203;
+static int topImage_tag = 201, titleLabel_tag = 202, timeLabel_tag = 203, readLabel_tag = 204;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier2 = @"CellIdentifier2";
@@ -392,6 +393,16 @@ static int topImage_tag = 201, titleLabel_tag = 202, timeLabel_tag = 203;
         timeLabel.tag = timeLabel_tag;
         [cell addSubview:timeLabel];
         
+        UILabel *readLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 53, 30, 15)];
+        readLabel.font = [UIFont systemFontOfSize:11];
+        readLabel.numberOfLines = 1;
+        readLabel.textAlignment = NSTextAlignmentCenter;
+        readLabel.textColor = [UIColor whiteColor];
+        readLabel.tag = readLabel_tag;
+        readLabel.layer.cornerRadius = 2;
+        readLabel.clipsToBounds = YES;
+        [cell addSubview:readLabel];
+
         UIImageView *lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0 , 75, self.view.bounds.size.width, 1)];
         lineImageView.image = [UIImage imageNamed:@"s_n_set_line"];
         [cell addSubview:lineImageView];
@@ -401,11 +412,19 @@ static int topImage_tag = 201, titleLabel_tag = 202, timeLabel_tag = 203;
     topImageView.hidden = YES;
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:titleLabel_tag];
     UILabel *timeLabel = (UILabel *)[cell viewWithTag:timeLabel_tag];
+    UILabel *readLabel = (UILabel *)[cell viewWithTag:readLabel_tag];
     
     if (tableView == self.questionTableView) {
         XEMsgInfo *msgInfo = [self.questionList objectAtIndex:indexPath.row];
         titleLabel.text = [NSString stringWithFormat:@"%@回答了你“%@”的问题",msgInfo.userName,msgInfo.title];
         timeLabel.text = [XEUIUtils dateDiscriptionFromNowBk:msgInfo.time];
+        if (msgInfo.readStatus) {
+            readLabel.backgroundColor = UIColorRGB(233, 115, 114);
+            readLabel.text = @"未读";
+        }else{
+            readLabel.backgroundColor = SKIN_COLOR;
+            readLabel.text = @"已读";
+        }
     }else if (tableView == self.announcementTableView){
         XEMsgInfo *msgInfo = [self.announcementList objectAtIndex:indexPath.row];
         titleLabel.text = msgInfo.title;
@@ -413,6 +432,13 @@ static int topImage_tag = 201, titleLabel_tag = 202, timeLabel_tag = 203;
         BOOL isTop = msgInfo.isTop;
         if (isTop) {
             topImageView.hidden = NO;
+        }
+        if (msgInfo.readStatus) {
+            readLabel.backgroundColor = UIColorRGB(233, 115, 114);
+            readLabel.text = @"未读";
+        }else{
+            readLabel.backgroundColor = SKIN_COLOR;
+            readLabel.text = @"已读";
         }
     }
     
@@ -426,6 +452,11 @@ static int topImage_tag = 201, titleLabel_tag = 202, timeLabel_tag = 203;
     
     if (tableView == self.questionTableView) {
         XEMsgInfo *msgInfo = [self.questionList objectAtIndex:indexPath.row];
+        if (msgInfo.readStatus) {
+            msgInfo.readStatus = !msgInfo.readStatus;
+            [self.questionTableView reloadData];
+            [self refreshMsgCount];
+        }
         XEQuestionInfo *questionInfo = [[XEQuestionInfo alloc] init];
         questionInfo.sId = msgInfo.msgId;
         QuestionDetailsViewController *vc = [[QuestionDetailsViewController alloc] init];
@@ -433,12 +464,27 @@ static int topImage_tag = 201, titleLabel_tag = 202, timeLabel_tag = 203;
         [self.navigationController pushViewController:vc animated:YES];
     }else{
         XEMsgInfo *msgInfo = [self.announcementList objectAtIndex:indexPath.row];
-        
+        if (msgInfo.readStatus) {
+            msgInfo.readStatus = !msgInfo.readStatus;
+            [self.announcementTableView reloadData];
+            [self refreshMsgCount];
+        }
         id vc = [XELinkerHandler handleDealWithHref:msgInfo.detailsActionUrl From:self.navigationController];
         if (vc) {
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
+}
+
+//全局消息先简单计算一下
+- (void)refreshMsgCount{
+    NSString *key = [NSString stringWithFormat:@"%@_%@", mineMsgCountKey, [XEEngine shareInstance].uid];
+    NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:key];
+    if (count > 0) {
+        count--;
+    }
+    [[NSUserDefaults standardUserDefaults] setInteger:count forKey:key];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XE_MSGINFO_CHANGED_NOTIFICATION object:self];
 }
 
 @end

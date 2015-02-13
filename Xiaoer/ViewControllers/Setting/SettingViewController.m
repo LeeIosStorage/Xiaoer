@@ -240,7 +240,7 @@
 //        [[NSUserDefaults standardUserDefaults] setObject:version forKey:@"checkedVersion"];
         if ([XECommonUtils isVersion:version greaterThanVersion:localVserion]) {
             XEAlertView *alert = [[XEAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@版本已上线", version] message:@"宝爸宝妈快去更新吧" cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"立刻更新" okBlock:^{
-                NSURL *url = [[ NSURL alloc ] initWithString: @"http://itunes.apple.com/app/idxxxxxx"] ;
+                NSURL *url = [[ NSURL alloc ] initWithString: @"http://itunes.apple.com/app/id967105015"] ;
                 [[UIApplication sharedApplication] openURL:url];
             }];
             [alert show];

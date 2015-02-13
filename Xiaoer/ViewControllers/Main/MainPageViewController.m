@@ -28,6 +28,8 @@
 #import "TaskViewController.h"
 #import "XENavigationController.h"
 
+#define mineMsgCountKey @"mineMsgCountKey"
+
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     ODRefreshControl *_themeControl;
     XEScrollPage *scrollPageView;
@@ -49,6 +51,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *nickName;
 @property (strong, nonatomic) IBOutlet UILabel *birthday;
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *roundImageView;
 
 - (IBAction)mineMsgAction:(id)sender;
 - (IBAction)historyAction:(id)sender;
@@ -64,12 +67,13 @@
     
     [self refreshUserInfoShow];
     
-    //获取首页信息
-    [self getCacheHomePageInfo];
-    [self getHomePageInfo];
     //获取广告位信息
     [self getCacheThemeInfo];
     [self getThemeInfo];
+    
+    //获取首页信息
+    [self getCacheHomePageInfo];
+    [self getHomePageInfo];
     
     //此句不加程序崩
     [self.collectionView registerClass:[XECollectionViewCell class] forCellWithReuseIdentifier:@"XECollectionViewCell"];
@@ -80,6 +84,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMsgChanged:) name:XE_MSGINFO_CHANGED_NOTIFICATION object:nil];
 }
 
 - (BOOL)isVisitor{
@@ -143,7 +148,16 @@
             [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%@条新消息",[[jsonRet objectForKey:@"object"] objectForKey:@"msgnum"]];
+        
+        int count = [[jsonRet objectForKey:@"object"] intValueForKey:@"msgnum"];
+        if (count > 0) {
+            weakSelf.roundImageView.hidden = NO;
+        }
+        
+        NSString *key = [NSString stringWithFormat:@"%@_%@", mineMsgCountKey, [XEEngine shareInstance].uid];
+        [[NSUserDefaults standardUserDefaults] setInteger:count forKey:key];
+        
+        weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%d条新消息",count];
         _mallurl = [[jsonRet objectForKey:@"object"] objectForKey:@"mallurl"];
         if (![[[jsonRet objectForKey:@"object"] objectForKey:@"devices"] isEqual:[NSNull null]]) {
             _intelUrl = [[jsonRet objectForKey:@"object"] objectForKey:@"devices"][0];
@@ -536,6 +550,18 @@
 
 - (void)handleUserInfoChanged:(NSNotification *)notification{
     [self refreshUserInfoShow];
+    [self.tableView reloadData];
+}
+
+- (void)handleMsgChanged:(NSNotification *)notification{
+    NSString *key = [NSString stringWithFormat:@"%@_%@", mineMsgCountKey, [XEEngine shareInstance].uid];
+    NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:key];
+    if (count > 0) {
+        self.roundImageView.hidden = NO;
+    }else {
+        self.roundImageView.hidden = YES;
+    }
+    self.unreadLabel.text = [NSString stringWithFormat:@"%ld条新消息",count];
     [self.tableView reloadData];
 }
 
