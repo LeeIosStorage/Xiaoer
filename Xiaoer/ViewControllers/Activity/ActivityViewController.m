@@ -94,7 +94,7 @@
             }
 //            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
             
-            NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"activity"];
             for (NSDictionary *dic in object) {
                 XEActivityInfo *activityInfo = [[XEActivityInfo alloc] init];
                 [activityInfo setActivityInfoByJsonDic:dic];
@@ -140,7 +140,7 @@
             }
 //            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
             
-            NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"activity"];
             for (NSDictionary *dic in object) {
                 XERecipesInfo *recipesInfo = [[XERecipesInfo alloc] init];
                 [recipesInfo setRecipesInfoByDic:dic];
@@ -259,7 +259,7 @@
 //        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         weakSelf.activityList = [[NSMutableArray alloc] init];
         
-        NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"activity"];
         for (NSDictionary *dic in object) {
             XEActivityInfo *activityInfo = [[XEActivityInfo alloc] init];
             [activityInfo setActivityInfoByJsonDic:dic];
@@ -323,7 +323,7 @@
 //        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         weakSelf.historyActivityList = [[NSMutableArray alloc] init];
-        NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"activity"];
         for (NSDictionary *dic in object) {
             XERecipesInfo *recipesInfo = [[XERecipesInfo alloc] init];
             [recipesInfo setRecipesInfoByDic:dic];

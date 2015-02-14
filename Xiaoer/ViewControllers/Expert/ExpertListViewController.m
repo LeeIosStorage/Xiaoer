@@ -73,7 +73,7 @@
             }
 //            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
             
-            NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"experts"];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"experts"];
             for (NSDictionary *dic in object) {
                 XEDoctorInfo *doctorInfo = [[XEDoctorInfo alloc] init];
                 [doctorInfo setDoctorInfoByJsonDic:dic];
@@ -158,7 +158,7 @@
 //        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         weakSelf.expertList = [[NSMutableArray alloc] init];
-        NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"experts"];
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"experts"];
         for (NSDictionary *dic in object) {
             XEDoctorInfo *doctorInfo = [[XEDoctorInfo alloc] init];
             [doctorInfo setDoctorInfoByJsonDic:dic];

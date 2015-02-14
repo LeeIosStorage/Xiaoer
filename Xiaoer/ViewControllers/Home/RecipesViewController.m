@@ -151,7 +151,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
             //...
         }else{
             NSMutableArray *hotGroups = [[NSMutableArray alloc] init];
-            for (NSDictionary *groupDic in [[jsonRet objectForKey:@"object"] objectForKey:@"infos"]) {
+            for (NSDictionary *groupDic in [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"infos"]) {
                 XERecipesInfo *recipesInfo = [[XERecipesInfo alloc] init];
                 [recipesInfo setRecipesInfoByDic:groupDic];
                 [hotGroups addObject:recipesInfo];
@@ -188,7 +188,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
         
         NSMutableArray *hotGroups = [[NSMutableArray alloc] init];
         
-        for (NSDictionary *groupDic in [[jsonRet objectForKey:@"object"] objectForKey:@"infos"]) {
+        for (NSDictionary *groupDic in [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"infos"]) {
             XERecipesInfo *recipesInfo = [[XERecipesInfo alloc] init];
             [recipesInfo setRecipesInfoByDic:groupDic];
             [hotGroups addObject:recipesInfo];
@@ -250,7 +250,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
                 NSMutableArray *hotGroups = [NSMutableArray arrayWithArray:[weakSelf.hotUnionDic arrayObjectForKey:weakSelf.titles[index]]];
                 
 //                NSInteger countIndex = hotGroups.count;
-                for (NSDictionary *groupDic in [[jsonRet objectForKey:@"object"] objectForKey:@"infos"]) {
+                for (NSDictionary *groupDic in [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"infos"]) {
                     XERecipesInfo *recipesInfo = [[XERecipesInfo alloc] init];
                     [recipesInfo setRecipesInfoByDic:groupDic];
                     [hotGroups addObject:recipesInfo];

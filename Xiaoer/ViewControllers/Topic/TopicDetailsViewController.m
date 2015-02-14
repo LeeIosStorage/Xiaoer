@@ -279,7 +279,7 @@
             }
 //            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
             
-            NSArray *comments = [[jsonRet objectForKey:@"object"] objectForKey:@"comments"];
+            NSArray *comments = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"comments"];
             for (NSDictionary *dic in comments) {
                 XECommentInfo *commentInfo = [[XECommentInfo alloc] init];
                 [commentInfo setCommentInfoByJsonDic:dic];

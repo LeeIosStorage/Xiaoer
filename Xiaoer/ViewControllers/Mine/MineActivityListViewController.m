@@ -83,7 +83,7 @@
                 [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
-            NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"activity"];
             for (NSDictionary *dic in object) {
                 XEActivityInfo *activityInfo = [[XEActivityInfo alloc] init];
                 [activityInfo setActivityInfoByJsonDic:dic];
@@ -128,7 +128,7 @@
                 return;
             }
             
-            NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"activity"];
             for (NSDictionary *dic in object) {
                 XEActivityInfo *activityInfo = [[XEActivityInfo alloc] init];
                 [activityInfo setActivityInfoByJsonDic:dic];
@@ -243,7 +243,7 @@
         }
         weakSelf.applyActivityList = [[NSMutableArray alloc] init];
         
-        NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"activity"];
         for (NSDictionary *dic in object) {
             XEActivityInfo *activityInfo = [[XEActivityInfo alloc] init];
             [activityInfo setActivityInfoByJsonDic:dic];
@@ -302,7 +302,7 @@
         }
         
         weakSelf.collectActivityList = [[NSMutableArray alloc] init];
-        NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"activity"];
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"activity"];
         for (NSDictionary *dic in object) {
             XEActivityInfo *activityInfo = [[XEActivityInfo alloc] init];
             [activityInfo setActivityInfoByJsonDic:dic];

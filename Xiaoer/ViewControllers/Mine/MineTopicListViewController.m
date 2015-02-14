@@ -87,7 +87,7 @@
                 [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
-            NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"pubs"];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"pubs"];
             for (NSDictionary *dic in object) {
                 XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
                 [topicInfo setTopicInfoByJsonDic:dic];
@@ -133,7 +133,7 @@
                 return;
             }
             
-            NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"favs"];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"favs"];
             for (NSDictionary *dic in object) {
                 XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
                 [topicInfo setTopicInfoByJsonDic:dic];
@@ -219,7 +219,7 @@
         }else{
             weakSelf.publishTopicList = [[NSMutableArray alloc] init];
             
-            NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"pubs"];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"pubs"];
             for (NSDictionary *dic in object) {
                 XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
                 [topicInfo setTopicInfoByJsonDic:dic];
@@ -248,7 +248,7 @@
         }
         weakSelf.publishTopicList = [[NSMutableArray alloc] init];
         
-        NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"pubs"];
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"pubs"];
         for (NSDictionary *dic in object) {
             XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
             [topicInfo setTopicInfoByJsonDic:dic];
@@ -278,7 +278,7 @@
             //...
         }else{
             weakSelf.collectTopicList = [[NSMutableArray alloc] init];
-            NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"favs"];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"favs"];
             for (NSDictionary *dic in object) {
                 XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
                 [topicInfo setTopicInfoByJsonDic:dic];
@@ -306,7 +306,7 @@
         }
         
         weakSelf.collectTopicList = [[NSMutableArray alloc] init];
-        NSArray *object = [[jsonRet objectForKey:@"object"] objectForKey:@"favs"];
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"favs"];
         for (NSDictionary *dic in object) {
             XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
             [topicInfo setTopicInfoByJsonDic:dic];
