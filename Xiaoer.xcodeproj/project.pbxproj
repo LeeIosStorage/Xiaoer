@@ -116,7 +116,6 @@
 		075DD0381A78AC0C009A64B4 /* WSAssetWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD0311A78AC0C009A64B4 /* WSAssetWrapper.m */; };
 		075DD03B1A78B42E009A64B4 /* WSAssetViewSelectionIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 075DD0391A78B42E009A64B4 /* WSAssetViewSelectionIndicator.png */; };
 		075DD03C1A78B42E009A64B4 /* WSAssetViewSelectionIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 075DD03A1A78B42E009A64B4 /* WSAssetViewSelectionIndicator@2x.png */; };
-		075DD0471A78BA3F009A64B4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 075DD03E1A78BA3F009A64B4 /* README.md */; };
 		075DD0481A78BA3F009A64B4 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD0401A78BA3F009A64B4 /* UIImage+Alpha.m */; };
 		075DD0491A78BA3F009A64B4 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD0421A78BA3F009A64B4 /* UIImage+Resize.m */; };
 		075DD04A1A78BA3F009A64B4 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 075DD0441A78BA3F009A64B4 /* UIImage+RoundedCorner.m */; };
@@ -501,7 +500,6 @@
 		075DD0311A78AC0C009A64B4 /* WSAssetWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSAssetWrapper.m; sourceTree = "<group>"; };
 		075DD0391A78B42E009A64B4 /* WSAssetViewSelectionIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WSAssetViewSelectionIndicator.png; sourceTree = "<group>"; };
 		075DD03A1A78B42E009A64B4 /* WSAssetViewSelectionIndicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WSAssetViewSelectionIndicator@2x.png"; sourceTree = "<group>"; };
-		075DD03E1A78BA3F009A64B4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		075DD03F1A78BA3F009A64B4 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
 		075DD0401A78BA3F009A64B4 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
 		075DD0411A78BA3F009A64B4 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
@@ -1184,7 +1182,6 @@
 		075DD03D1A78BA3F009A64B4 /* UIImage-Categories-master */ = {
 			isa = PBXGroup;
 			children = (
-				075DD03E1A78BA3F009A64B4 /* README.md */,
 				075DD03F1A78BA3F009A64B4 /* UIImage+Alpha.h */,
 				075DD0401A78BA3F009A64B4 /* UIImage+Alpha.m */,
 				075DD0411A78BA3F009A64B4 /* UIImage+Resize.h */,
@@ -2170,7 +2167,6 @@
 				0752F7A91A7B25C5008C0E0A /* MWGridViewController.m in Sources */,
 				07C7C5141A70E336003E1272 /* PullToRefreshView.m in Sources */,
 				075E409F1A59386C0062F6AD /* AFURLSessionManager.m in Sources */,
-				075DD0471A78BA3F009A64B4 /* README.md in Sources */,
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
 				07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */,
 				0752F7D71A7B2638008C0E0A /* PSTCollectionViewItemKey.m in Sources */,
