@@ -484,7 +484,7 @@ static CGFloat beginImageH = 64;
         [dataArray addObject:pData];
     }
     
-    [XEProgressHUD AlertLoading:@"头像上传中..." At:self.view];
+    [XEProgressHUD AlertLoading:@"封面上传中..." At:self.view];
     __weak MineTabViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] updateBgImgWithUid:[XEEngine shareInstance].uid avatar:dataArray tag:tag];
