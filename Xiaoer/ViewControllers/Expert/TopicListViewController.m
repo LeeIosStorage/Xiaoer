@@ -18,7 +18,7 @@
 #import "QuestionDetailsViewController.h"
 #import "ExpertListViewController.h"
 
-@interface TopicListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface TopicListViewController ()<UITableViewDelegate,UITableViewDataSource,QuestionDetailsViewControllerDelegate,TopicDetailsViewControllerDelegate>
 
 @property (assign, nonatomic) int nextCursor;
 @property (assign, nonatomic) BOOL loadMore;
@@ -375,12 +375,38 @@
         XETopicInfo *topicInfo = _dateArray[indexPath.row];
         TopicDetailsViewController *vc = [[TopicDetailsViewController alloc] init];
         vc.topicInfo = topicInfo;
+        vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
     }else{
         XEQuestionInfo *info = _dateArray[indexPath.row];
         QuestionDetailsViewController *vc = [[QuestionDetailsViewController alloc] init];
         vc.questionInfo = info;
+        vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+#pragma mark - TopicDetailsViewControllerDelegate
+- (void)topicDetailViewController:(TopicDetailsViewController*)controller deleteTopic:(XETopicInfo*)topicInfo{
+    
+    for (XETopicInfo *info in self.dateArray) {
+        if ([info.tId isEqualToString:topicInfo.tId]) {
+            [self.dateArray removeObject:info];
+            [self.tableView reloadData];
+            return;
+        }
+    }
+}
+
+#pragma mark - QuestionDetailsViewControllerDelegate
+- (void)questionDetailViewController:(QuestionDetailsViewController*)controller deleteQuestion:(XEQuestionInfo*)questionInfo{
+    
+    for (XEQuestionInfo *info in self.dateArray) {
+        if ([info.sId isEqualToString:questionInfo.sId]) {
+            [self.dateArray removeObject:info];
+            [self.tableView reloadData];
+            return;
+        }
     }
 }
 
