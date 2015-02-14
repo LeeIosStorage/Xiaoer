@@ -244,7 +244,7 @@
         unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit |
         NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit;
         NSDateComponents *comps = [calender components:unitFlags fromDate:birthdayDate];
-        _birthdayString = [NSString stringWithFormat:@"%ld-%ld-%ld", comps.year, comps.month, comps.day];
+        _birthdayString = [NSString stringWithFormat:@"%d-%d-%d", (int)comps.year, (int)comps.month, (int)comps.day];
     }
     
 }

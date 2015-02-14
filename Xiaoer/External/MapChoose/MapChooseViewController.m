@@ -338,7 +338,7 @@
 
 - (void)doActionSheetWithButtonIndex:(NSInteger)buttonIndex{
     
-    NSLog(@"0702 buttonIndex is %ld\n\n",buttonIndex);
+//    NSLog(@"0702 buttonIndex is %d\n\n",buttonIndex);
     if (_currentLocation.longitude == 0 && _currentLocation.latitude == 0) {
         __weak MapChooseViewController *weakSelf = self;
         [[XELocationServiceUtil shareInstance] getUserCurrentLocation:^(NSString *errorString){

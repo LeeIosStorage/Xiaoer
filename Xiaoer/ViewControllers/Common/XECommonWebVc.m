@@ -149,7 +149,7 @@ CGFloat const SGProgressBarHeight = 2.5;
 #pragma mark -
 #pragma mark UIWebViewDelegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSLog(@"shouldStartLoadWithRequest url=%@ navigationType is %ld\n", request.URL, navigationType);
+    NSLog(@"shouldStartLoadWithRequest url=%@ navigationType is %d\n", request.URL, (int)navigationType);
     
     return YES;
 }

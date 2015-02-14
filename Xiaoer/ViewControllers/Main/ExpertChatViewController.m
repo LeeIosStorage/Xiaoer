@@ -372,13 +372,13 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 //    NSLog(@"============%f",scrollView.contentOffset.y);
     CGFloat offset = scrollView.contentOffset.y;
-//    if (offset <= 100) {
-//        if (self.questionTableView.hidden) {
-//            self.questionTableView.contentOffset = CGPointMake(0, offset);
-//        }else{
-//            self.topicTableView.contentOffset = CGPointMake(0, offset);
-//        }
-//    }
+    if (offset <= 100) {
+        if (self.questionTableView.hidden) {
+            self.questionTableView.contentOffset = CGPointMake(0, offset);
+        }else{
+            self.topicTableView.contentOffset = CGPointMake(0, offset);
+        }
+    }
 }
 
 //- (void)handlePanFrom1:(UIPanGestureRecognizer*)recognizer

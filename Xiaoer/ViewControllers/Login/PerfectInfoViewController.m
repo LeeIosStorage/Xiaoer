@@ -318,7 +318,7 @@
     NSDictionary *dict00 = @{@"titleLabel": @"我的头像",
                            @"intro": intro!=nil?intro:@"",
                            };
-    [sectionDict0 setObject:dict00 forKey:[NSString stringWithFormat:@"r%ld",sectionDict0.count]];
+    [sectionDict0 setObject:dict00 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict0.count]];
     
     //section = 1
     NSMutableDictionary *sectionDict1 = [NSMutableDictionary dictionary];

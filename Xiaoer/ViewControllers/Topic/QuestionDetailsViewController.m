@@ -371,7 +371,7 @@
 #pragma mark GMGridViewActionDelegate
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
-    NSLog(@"Did tap at index %ld", position);
+//    NSLog(@"Did tap at index %d", position);
     NSString *url = nil;
     if (gridView == _answerImageGridView) {
         _isLookExpertPhotoBrowser = YES;

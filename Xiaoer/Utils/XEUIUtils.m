@@ -154,9 +154,9 @@ static bool dateFormatterOFUSInvalid ;
     NSDateComponents *compsNow = [calender components:unitFlags fromDate:nowDate];
     
     if (comps.year == compsNow.year){
-        _timestamp = [NSString stringWithFormat:@"%ld月%ld日 %02ld:%02ld", (long)comps.month, comps.day, comps.hour, comps.minute];
+        _timestamp = [NSString stringWithFormat:@"%d月%d日 %02d:%02d", (int)comps.month, (int)comps.day, (int)comps.hour, (int)comps.minute];
     } else {
-        _timestamp = [NSString stringWithFormat:@"%04ld-%02ld-%02ld %02ld:%02ld", comps.year, comps.month, comps.day, comps.hour, comps.minute];
+        _timestamp = [NSString stringWithFormat:@"%04d-%02d-%02d %02d:%02d", (int)comps.year, (int)comps.month, (int)comps.day, (int)comps.hour, (int)comps.minute];
     }
     
     return _timestamp;
@@ -186,19 +186,19 @@ static bool dateFormatterOFUSInvalid ;
     }else if (distance < 60*60*24) {
         if (comps.day == compsNow.day)
         {
-            _timestamp = [NSString stringWithFormat:@"今天 %02ld:%02ld", comps.hour,comps.minute];
+            _timestamp = [NSString stringWithFormat:@"今天 %02d:%02d", (int)comps.hour,(int)comps.minute];
         }
         else
-            _timestamp = [NSString stringWithFormat:@"昨天 %02ld:%02ld", comps.hour,comps.minute];
+            _timestamp = [NSString stringWithFormat:@"昨天 %02d:%02d", (int)comps.hour,(int)comps.minute];
     }else if (distance < 60*60*24*2) {
-        _timestamp = [NSString stringWithFormat:@"昨天 %02ld:%02ld", comps.hour,comps.minute];
+        _timestamp = [NSString stringWithFormat:@"昨天 %02d:%02d", (int)comps.hour,(int)comps.minute];
     }else if (distance < 60*60*24*3) {
-        _timestamp = [NSString stringWithFormat:@"前天 %02ld:%02ld", comps.hour,comps.minute];
+        _timestamp = [NSString stringWithFormat:@"前天 %02d:%02d", (int)comps.hour,(int)comps.minute];
     }else {
         if (comps.year == compsNow.year){
-            _timestamp = [NSString stringWithFormat:@"%ld月%ld日 %02ld:%02ld", comps.month, comps.day, comps.hour, comps.minute];
+            _timestamp = [NSString stringWithFormat:@"%d月%d日 %02d:%02d", (int)comps.month, (int)comps.day, (int)comps.hour, (int)comps.minute];
         } else {
-            _timestamp = [NSString stringWithFormat:@"%04ld年%02ld月%02ld日 %02ld:%02ld", comps.year, comps.month, comps.day, comps.hour, comps.minute];
+            _timestamp = [NSString stringWithFormat:@"%04d年%02d月%02d日 %02d:%02d", (int)comps.year, (int)comps.month, (int)comps.day, (int)comps.hour, (int)comps.minute];
         }
     }
     
