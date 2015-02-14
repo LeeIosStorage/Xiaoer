@@ -10,6 +10,8 @@
 
 @interface TaskViewController ()
 
+@property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
+
 @end
 
 @implementation TaskViewController
@@ -26,6 +28,12 @@
 
 - (void)initNormalTitleNavBarSubviews{
     [self setTitle:@"妈妈任务"];
+    if(SCREEN_HEIGHT == 480){
+        [self.bgImageView setImage:[UIImage imageNamed:@"common_task4_bg"]];
+        CGRect frame = self.bgImageView.frame;
+        frame.origin.y -= 30;
+        self.bgImageView.frame = frame;
+    }
 }
 
 @end
