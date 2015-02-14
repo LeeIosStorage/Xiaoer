@@ -221,7 +221,7 @@
         [weakSelf.topicInfo setTopicInfoByJsonDic:topicDic];
         
         weakSelf.topicComments = [[NSMutableArray alloc] init];
-        NSArray *comments = [[jsonRet objectForKey:@"object"] objectForKey:@"comments"];
+        NSArray *comments = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"comments"];
         for (NSDictionary *dic in comments) {
             XECommentInfo *commentInfo = [[XECommentInfo alloc] init];
             [commentInfo setCommentInfoByJsonDic:dic];
@@ -905,7 +905,10 @@
 
 #pragma mark - XEShareActionSheetDelegate
 -(void) deleteTopicAction:(id)info{
-    [super backAction:nil];
+    if ([self.delegate respondsToSelector:@selector(topicDetailViewController:deleteTopic:)]) {
+        [self.delegate topicDetailViewController:self deleteTopic:info];
+        [super backAction:nil];
+    }
 }
 
 @end

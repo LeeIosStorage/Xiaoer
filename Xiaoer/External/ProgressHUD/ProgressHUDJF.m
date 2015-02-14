@@ -340,20 +340,20 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (notification != nil)
-	{
-		NSDictionary *keyboardInfo = [notification userInfo];
-		duration = [[keyboardInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-		CGRect keyboard = [[keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-
-		if ((notification.name == UIKeyboardWillShowNotification) || (notification.name == UIKeyboardDidShowNotification))
-		{
-			if (UIInterfaceOrientationIsPortrait(orientation))
-				heightKeyboard = keyboard.size.height;
-			else heightKeyboard = keyboard.size.width;
-		}
-	}
-	else heightKeyboard = [self keyboardHeight];
+//	if (notification != nil)
+//	{
+//		NSDictionary *keyboardInfo = [notification userInfo];
+//		duration = [[keyboardInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+//		CGRect keyboard = [[keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+//
+//		if ((notification.name == UIKeyboardWillShowNotification) || (notification.name == UIKeyboardDidShowNotification))
+//		{
+//			if (UIInterfaceOrientationIsPortrait(orientation))
+//				heightKeyboard = keyboard.size.height;
+//			else heightKeyboard = keyboard.size.width;
+//		}
+//	}
+//	else heightKeyboard = [self keyboardHeight];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	CGRect screen = [UIScreen mainScreen].bounds;
 	if (UIInterfaceOrientationIsLandscape(orientation))

@@ -18,7 +18,7 @@
 #define TOPIC_TYPE_PUBLISH     0
 #define TOPIC_TYPE_COLLECT     1
 
-@interface MineTopicListViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface MineTopicListViewController ()<UITableViewDataSource,UITableViewDelegate,TopicDetailsViewControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *publishTopicList;
 @property (nonatomic, strong) IBOutlet UITableView *publishTableView;
@@ -474,7 +474,27 @@
     }
     TopicDetailsViewController *vc = [[TopicDetailsViewController alloc] init];
     vc.topicInfo = topicInfo;
+    vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - TopicDetailsViewControllerDelegate
+- (void)topicDetailViewController:(TopicDetailsViewController*)controller deleteTopic:(XETopicInfo*)topicInfo{
+    
+    for (XETopicInfo* info in self.publishTopicList) {
+        if ([info.tId isEqualToString:topicInfo.tId]) {
+            [self.publishTopicList removeObject:info];
+            [self.publishTableView reloadData];
+            break;
+        }
+    }
+    for (XETopicInfo* info in self.collectTopicList) {
+        if ([info.tId isEqualToString:topicInfo.tId]) {
+            [self.collectTopicList removeObject:info];
+            [self.collectTableView reloadData];
+            break;
+        }
+    }
 }
 
 @end

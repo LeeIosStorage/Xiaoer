@@ -323,7 +323,11 @@
 
 #pragma mark - XEShareActionSheetDelegate
 -(void) deleteTopicAction:(id)info{
-    [super backAction:nil];
+    
+    if ([self.delegate respondsToSelector:@selector(questionDetailViewController:deleteQuestion:)]) {
+        [self.delegate questionDetailViewController:self deleteQuestion:info];
+        [super backAction:nil];
+    }
 }
 
 #pragma mark - GMGridViewDataSource
