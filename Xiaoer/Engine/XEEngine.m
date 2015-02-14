@@ -873,7 +873,7 @@ static XEEngine* s_ShareInstance = nil;
 - (BOOL)getHomepageInfosWithUid:(NSString *)uid tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (uid) {
-        [params setObject:uid forKey:@"uid"];
+        [params setObject:uid forKey:@"userid"];
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/userinfos",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
