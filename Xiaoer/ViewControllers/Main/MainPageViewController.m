@@ -199,6 +199,7 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getBannerWithTag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        _isScrollViewDrag = NO;
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
@@ -235,12 +236,14 @@
 ///刷新广告位
 - (void)refreshAdsScrollView {
     if (!_adsThemeArray.count) {
-        self.tableView.tableHeaderView = nil;
+//        self.tableView.tableHeaderView = nil;
+        self.adsViewContainer = nil;
         return;
     }
     //移除老view
     for (UIView *view in _adsViewContainer.subviews) {
         [view removeFromSuperview];
+        [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     }
     
     scrollPageView = [[XEScrollPage alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(_adsViewContainer.frame))];
