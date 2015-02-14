@@ -22,6 +22,8 @@
 #import "XEActionSheet.h"
 #import <objc/message.h>
 #import "MWPhotoBrowser.h"
+#import "ExpertIntroViewController.h"
+#import "NSString+Value.h"
 
 #define ONE_IMAGE_HEIGHT  93
 #define item_spacing  4
@@ -77,6 +79,7 @@
 - (IBAction)collectAction:(id)sender;
 - (IBAction)expressionAction:(id)sender;
 - (IBAction)sendAction:(id)sender;
+- (IBAction)expertAvatarAction:(id)sender;
 
 @end
 
@@ -310,7 +313,7 @@
     self.expertAvatarImgView.clipsToBounds = YES;
     self.expertAvatarImgView.contentMode = UIViewContentModeScaleAspectFill;
     
-    self.expertCommentBgImgView.image = [[UIImage imageNamed:@"expert_comment_background"] stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+    self.expertCommentBgImgView.image = [[UIImage imageNamed:@"expert_comment_background"] stretchableImageWithLeftCapWidth:40 topCapHeight:48];
     _inputViewBgImageView.image = [[UIImage imageNamed:@"verify_commit_bg"] stretchableImageWithLeftCapWidth:20 topCapHeight:15];
     
     [self.authorAvatarImgView sd_setImageWithURL:_topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
@@ -387,7 +390,7 @@
         self.expertCommentContainerView.hidden = NO;
         frame = self.expertCommentContainerView.frame;
         frame.origin.y = self.contentContainerView.frame.origin.y + self.contentContainerView.frame.size.height + 10;
-        frame.size.height = self.comContentLabel.frame.origin.y + self.comContentLabel.frame.size.height + 8;
+        frame.size.height = self.comContentLabel.frame.origin.y + self.comContentLabel.frame.size.height + 18;
         if (frame.size.height < 90) {
             frame.size.height = 90;
         }
@@ -443,6 +446,17 @@
 
 - (IBAction)sendAction:(id)sender {
     [self commitComment];
+}
+
+- (IBAction)expertAvatarAction:(id)sender {
+    XEDoctorInfo *doctorInfo = [[XEDoctorInfo alloc] init];
+    doctorInfo.doctorId = _expertComment.uId;
+    doctorInfo.doctorName = _expertComment.userName;
+    doctorInfo.avatar = _expertComment.avatar;
+    doctorInfo.title = _expertComment.title;
+    ExpertIntroViewController *vc = [[ExpertIntroViewController alloc] init];
+    vc.doctorInfo = doctorInfo;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)commitComment{
