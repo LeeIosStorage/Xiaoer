@@ -561,7 +561,7 @@
     }else {
         self.roundImageView.hidden = YES;
     }
-    self.unreadLabel.text = [NSString stringWithFormat:@"%ld条新消息",count];
+    self.unreadLabel.text = [NSString stringWithFormat:@"%d条新消息",(int)count];
     [self.tableView reloadData];
 }
 

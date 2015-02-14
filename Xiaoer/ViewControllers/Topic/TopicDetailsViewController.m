@@ -697,7 +697,7 @@
 #pragma mark GMGridViewActionDelegate
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
-    NSLog(@"Did tap at index %ld", position);
+//    NSLog(@"Did tap at index %ld", position);
     NSString *url = [self.topicInfo.picURLs objectAtIndex:position];
     XELog(@"url===%@",url);
     

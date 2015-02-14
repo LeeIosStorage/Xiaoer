@@ -483,7 +483,7 @@
 - (void)scrollRangeToVisible:(NSRange)range
 {
 	[internalTextView scrollRangeToVisible:range];
-    NSLog(@"range= %ld, textview.contentSize.height = %f, textview.contentSize.width = %f, frame.size.height = %f, parent.frame.size.height = %f, contentOffset.y = %f", range.location, internalTextView.contentSize.height, internalTextView.contentSize.width, internalTextView.frame.size.height, self.frame.size.height, internalTextView.contentOffset.y);
+//    NSLog(@"range= %ld, textview.contentSize.height = %f, textview.contentSize.width = %f, frame.size.height = %f, parent.frame.size.height = %f, contentOffset.y = %f", range.location, internalTextView.contentSize.height, internalTextView.contentSize.width, internalTextView.frame.size.height, self.frame.size.height, internalTextView.contentOffset.y);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////

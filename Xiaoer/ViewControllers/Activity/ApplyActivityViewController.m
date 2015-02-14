@@ -129,14 +129,14 @@
                              @"intro": intro!=nil?intro:@"",
                              };
     
-    [sectionDict0 setObject:dict10 forKey:[NSString stringWithFormat:@"r%ld",(unsigned long)sectionDict0.count]];
-    [sectionDict0 setObject:dict11 forKey:[NSString stringWithFormat:@"r%ld",sectionDict0.count]];
-    [sectionDict0 setObject:dict12 forKey:[NSString stringWithFormat:@"r%ld",sectionDict0.count]];
-    [sectionDict0 setObject:dict13 forKey:[NSString stringWithFormat:@"r%ld",sectionDict0.count]];
-    [sectionDict0 setObject:dict14 forKey:[NSString stringWithFormat:@"r%ld",sectionDict0.count]];
-    [sectionDict0 setObject:dict15 forKey:[NSString stringWithFormat:@"r%ld",sectionDict0.count]];
+    [sectionDict0 setObject:dict10 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
+    [sectionDict0 setObject:dict11 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
+    [sectionDict0 setObject:dict12 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
+    [sectionDict0 setObject:dict13 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
+    [sectionDict0 setObject:dict14 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
+    [sectionDict0 setObject:dict15 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
     
-    [tmpMutDict setObject:sectionDict0 forKey:[NSString stringWithFormat:@"s%ld",tmpMutDict.count]];
+    [tmpMutDict setObject:sectionDict0 forKey:[NSString stringWithFormat:@"s%d",(unsigned int)tmpMutDict.count]];
     moduleDict = tmpMutDict;
     return moduleDict;
 }
@@ -299,7 +299,7 @@ static int _maxTextLength = 200;
     return 44;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSDictionary *rowContentDic = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%ld", section]];
+    NSDictionary *rowContentDic = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%d", section]];
     return [rowContentDic count];
 }
 static int redIconImageView_tag = 201;
@@ -323,8 +323,8 @@ static int redIconImageView_tag = 201;
     cell.introLabel.hidden = NO;
     cell.introLabel.textColor = UIColorToRGB(0x1ba7d8);
     
-    NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%ld", indexPath.section]];
-    NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%ld", indexPath.row]];
+    NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%d", indexPath.section]];
+    NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%d", indexPath.row]];
     cell.titleLabel.text = [rowDicts objectForKey:@"titleLabel"];
     
     if (!cell.introLabel.hidden) {
@@ -346,8 +346,8 @@ static int redIconImageView_tag = 201;
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
     
-    NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%ld", indexPath.section]];
-    NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%ld", indexPath.row]];
+    NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%d", indexPath.section]];
+    NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%d", indexPath.row]];
     if (indexPath.row == 0) {
         [self editUserInfo:TAG_USER_NAME withRowDicts:rowDicts];
     }else if (indexPath.row == 1) {

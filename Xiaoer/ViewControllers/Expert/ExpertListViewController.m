@@ -267,7 +267,7 @@
     CGPoint currentTouchPosition = [touch locationInView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
     if (indexPath != nil){
-        NSLog(@"indexPath: row:%ld", indexPath.row);
+//        NSLog(@"indexPath: row:%d", indexPath.row);
 //        _isNeedSelect = YES;
 //        [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
         XEDoctorInfo *doctorInfo = _expertList[indexPath.row];

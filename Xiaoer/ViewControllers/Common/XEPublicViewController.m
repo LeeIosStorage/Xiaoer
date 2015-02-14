@@ -246,7 +246,7 @@
     __weak XEPublicViewController *weakSelf = self;
     int index = 0;
     for (NSData *imgData in tmpDataArray) {
-        XELog(@"imageData.length=%ld",imgData.length);
+        XELog(@"imageData.length=%d",(int)imgData.length);
         QHQFormData* pData = [[QHQFormData alloc] init];
         pData.data = imgData;
         pData.name = @"img";

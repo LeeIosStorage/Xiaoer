@@ -175,7 +175,7 @@
     
     if ((shouldSelectAsset == NO) && (assetWrapper.isSelected == NO)){
         self.assetPickerState.state = WSAssetPickerStateSelectionLimitReached;
-        NSString* alertMsg = [NSString stringWithFormat:@"您一次最多只能选择%ld张图片哦", self.assetPickerState.selectionLimit];
+        NSString* alertMsg = [NSString stringWithFormat:@"您一次最多只能选择%d张图片哦", (int)self.assetPickerState.selectionLimit];
         UIAlertView *noticeAlert = [[UIAlertView alloc] initWithTitle:nil message:alertMsg delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
         [noticeAlert show];
     }
