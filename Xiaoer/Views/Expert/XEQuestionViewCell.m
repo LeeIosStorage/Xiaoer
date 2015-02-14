@@ -71,6 +71,7 @@
         //问答内容移下
         frame = self.questionLabel.frame;
         frame.origin.x = 13;
+        frame.size.width += 58;
         self.questionLabel.frame = frame;
     }else {
         self.nickNameLabel.text = questionInfo.expertName;
