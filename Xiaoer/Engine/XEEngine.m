@@ -26,7 +26,7 @@
 #define CONNECT_TIMEOUT 20
 
 //static NSString* API_URL = @"http://192.168.16.29/api";
-static NSString* API_URL = @"http://58.30.245.58:8080/api";
+static NSString* API_URL = @"http://xiaor123.cn:801/api";
 
 static XEEngine* s_ShareInstance = nil;
 
@@ -161,7 +161,7 @@ static XEEngine* s_ShareInstance = nil;
     if (self.serverPlatform == TestPlatform) {
         API_URL = @"http://192.168.16.29/api";
     } else {
-        API_URL = @"http://58.30.245.58:8080/api";
+        API_URL = @"http://xiaor123.cn:801/api";
     }
 }
 
