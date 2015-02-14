@@ -299,7 +299,7 @@ static int _maxTextLength = 200;
     return 44;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSDictionary *rowContentDic = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%d", section]];
+    NSDictionary *rowContentDic = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%d", (int)section]];
     return [rowContentDic count];
 }
 static int redIconImageView_tag = 201;
@@ -323,8 +323,8 @@ static int redIconImageView_tag = 201;
     cell.introLabel.hidden = NO;
     cell.introLabel.textColor = UIColorToRGB(0x1ba7d8);
     
-    NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%d", indexPath.section]];
-    NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%d", indexPath.row]];
+    NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%d", (int)indexPath.section]];
+    NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%d", (int)indexPath.row]];
     cell.titleLabel.text = [rowDicts objectForKey:@"titleLabel"];
     
     if (!cell.introLabel.hidden) {
@@ -346,8 +346,8 @@ static int redIconImageView_tag = 201;
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
     
-    NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%d", indexPath.section]];
-    NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%d", indexPath.row]];
+    NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%d", (int)indexPath.section]];
+    NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%d", (int)indexPath.row]];
     if (indexPath.row == 0) {
         [self editUserInfo:TAG_USER_NAME withRowDicts:rowDicts];
     }else if (indexPath.row == 1) {
