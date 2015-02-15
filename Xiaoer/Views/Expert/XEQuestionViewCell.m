@@ -55,7 +55,7 @@
     if (textSize.height < 18) {
         
     }else {
-        frame.origin.y = frame.origin.y + 9;
+        frame.origin.y = frame.origin.y + 6;
     }
     self.questionLabel.frame = frame;
     

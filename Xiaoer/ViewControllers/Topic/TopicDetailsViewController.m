@@ -717,8 +717,8 @@
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
 //    NSLog(@"Did tap at index %ld", position);
-    NSString *url = [self.topicInfo.picURLs objectAtIndex:position];
-    XELog(@"url===%@",url);
+//    NSString *url = [self.topicInfo.picURLs objectAtIndex:position];
+//    XELog(@"url===%@",url);
     
     MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
     browser.displayActionButton = NO;

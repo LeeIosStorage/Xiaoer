@@ -539,7 +539,7 @@
 #pragma mark GMGridViewActionDelegate
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
-    NSLog(@"Did tap at index %ld", position);
+//    NSLog(@"Did tap at index %ld", position);
     __weak XEPublicViewController *weakSelf = self;
     XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:nil actionBlock:^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {

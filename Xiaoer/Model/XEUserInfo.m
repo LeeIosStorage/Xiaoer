@@ -277,7 +277,7 @@
     unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit |
     NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit;
     NSDateComponents *comps = [calender components:unitFlags fromDate:date];
-    return [NSString stringWithFormat:@"%ld-%ld-%ld", comps.year, comps.month, comps.day];
+    return [NSString stringWithFormat:@"%d-%d-%d", (int)comps.year, (int)comps.month, (int)comps.day];
 }
 
 @end

@@ -349,11 +349,11 @@
     NSDictionary *dict14 = @{@"titleLabel": @"常用手机",
                              @"intro": intro!=nil?intro:@"",
                              };
-    [sectionDict1 setObject:dict10 forKey:[NSString stringWithFormat:@"r%ld",sectionDict1.count]];
-    [sectionDict1 setObject:dict11 forKey:[NSString stringWithFormat:@"r%ld",sectionDict1.count]];
-    [sectionDict1 setObject:dict12 forKey:[NSString stringWithFormat:@"r%ld",sectionDict1.count]];
-    [sectionDict1 setObject:dict13 forKey:[NSString stringWithFormat:@"r%ld",sectionDict1.count]];
-    [sectionDict1 setObject:dict14 forKey:[NSString stringWithFormat:@"r%ld",sectionDict1.count]];
+    [sectionDict1 setObject:dict10 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict1.count]];
+    [sectionDict1 setObject:dict11 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict1.count]];
+    [sectionDict1 setObject:dict12 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict1.count]];
+    [sectionDict1 setObject:dict13 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict1.count]];
+    [sectionDict1 setObject:dict14 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict1.count]];
     
     //section = 2
     XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
@@ -380,16 +380,16 @@
     NSDictionary *dict23 = @{@"titleLabel": @"出生日期",
                              @"intro": intro!=nil?intro:@"",
                              };
-    [sectionDict2 setObject:dict20 forKey:[NSString stringWithFormat:@"r%ld",sectionDict2.count]];
-    [sectionDict2 setObject:dict21 forKey:[NSString stringWithFormat:@"r%ld",sectionDict2.count]];
-    [sectionDict2 setObject:dict22 forKey:[NSString stringWithFormat:@"r%ld",sectionDict2.count]];
-    [sectionDict2 setObject:dict23 forKey:[NSString stringWithFormat:@"r%ld",sectionDict2.count]];
+    [sectionDict2 setObject:dict20 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict2.count]];
+    [sectionDict2 setObject:dict21 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict2.count]];
+    [sectionDict2 setObject:dict22 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict2.count]];
+    [sectionDict2 setObject:dict23 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict2.count]];
     
     
     
-    [tmpMutDict setObject:sectionDict0 forKey:[NSString stringWithFormat:@"s%ld",tmpMutDict.count]];
-    [tmpMutDict setObject:sectionDict1 forKey:[NSString stringWithFormat:@"s%ld",tmpMutDict.count]];
-    [tmpMutDict setObject:sectionDict2 forKey:[NSString stringWithFormat:@"s%ld",tmpMutDict.count]];
+    [tmpMutDict setObject:sectionDict0 forKey:[NSString stringWithFormat:@"s%d",(int)tmpMutDict.count]];
+    [tmpMutDict setObject:sectionDict1 forKey:[NSString stringWithFormat:@"s%d",(int)tmpMutDict.count]];
+    [tmpMutDict setObject:sectionDict2 forKey:[NSString stringWithFormat:@"s%d",(int)tmpMutDict.count]];
     
     moduleDict = tmpMutDict;
     return moduleDict;
@@ -401,7 +401,7 @@
 }
 -(NSInteger)newSectionPolicy:(NSInteger)section{
     
-    NSDictionary *rowContentDic = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%ld", section]];
+    NSDictionary *rowContentDic = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%d", (int)section]];
     return [rowContentDic count];
 }
 #pragma mark - UITableViewDataSource
@@ -468,8 +468,8 @@
         }
     }
     
-    NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%ld", indexPath.section]];
-    NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%ld", indexPath.row]];
+    NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%d", (int)indexPath.section]];
+    NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%d", (int)indexPath.row]];
     
     cell.titleLabel.text = [rowDicts objectForKey:@"titleLabel"];
     
@@ -495,8 +495,8 @@
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
     
-    NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%ld", indexPath.section]];
-    NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%ld", indexPath.row]];
+    NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%d", (int)indexPath.section]];
+    NSDictionary *rowDicts = [cellDicts objectForKey:[NSString stringWithFormat:@"r%d", (int)indexPath.row]];
     
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
