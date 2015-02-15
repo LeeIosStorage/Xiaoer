@@ -258,6 +258,7 @@
     }else{
         [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
     }
+    self.topicLabel.text = @"她的话题";
     
     self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width/2;
     self.avatarImageView.layer.masksToBounds = YES;

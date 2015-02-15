@@ -467,10 +467,15 @@
     if (content.length == 0) {
         return;
     }
+    if (!self.sendButton.enabled) {
+        return;
+    }
+    self.sendButton.enabled = NO;
     __weak TopicDetailsViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] commitCommentTopicWithTopicId:_topicInfo.tId uid:[XEEngine shareInstance].uid content:content tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        self.sendButton.enabled = YES;
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
