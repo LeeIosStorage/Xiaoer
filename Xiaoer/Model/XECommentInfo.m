@@ -80,7 +80,10 @@
 - (NSArray *)picURLs{
     NSMutableArray* urls = [[NSMutableArray alloc] init];
     for (NSString* picID in _picIds) {
-        [urls addObject:[NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small" ,picID]]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small" ,picID]];
+        if (url) {
+            [urls addObject:url];
+        }
     }
     return urls;
 }
