@@ -332,8 +332,12 @@
 {
     switch (indexPath.row) {
         case 5:{
-            XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:@"小贴示" message:@"商城平台尚未开放，晓儿一直在努力" cancelButtonTitle:@"确定"];
-            [alertView show];
+//            XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:@"小贴示" message:@"商城平台尚未开放，晓儿一直在努力" cancelButtonTitle:@"确定"];
+//            [alertView show];
+            id vc = [XELinkerHandler handleDealWithHref:_mallurl From:self.navigationController];
+            if (vc) {
+                [self.navigationController pushViewController:vc animated:YES];
+            }
             break;
         }
         case 4:{
@@ -531,22 +535,10 @@
     }else {
         BabyProfileViewController *vc = [[BabyProfileViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-//        id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
-//        if (vc) {
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
     }
 }
 
 - (IBAction)taskAction:(id)sender {
-//    if ([self isVisitor]) {
-//        [self showAlter];
-//    }else{
-//        id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
-//        if (vc) {
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
-//    }
     TaskViewController *tVc = [[TaskViewController alloc] init];
     [self.navigationController pushViewController:tVc animated:YES];
 }
