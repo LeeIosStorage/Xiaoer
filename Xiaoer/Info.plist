@@ -26,10 +26,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>MIQ</string>
+			<string>com.miqu.xiaoer</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>Xiaoer</string>
+				<string>xiaoer</string>
 			</array>
 		</dict>
 		<dict>

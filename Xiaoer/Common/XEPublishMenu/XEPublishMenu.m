@@ -234,6 +234,7 @@
     
     [UIView animateWithDuration:0.2 delay:XEPublishMenuAnimationTime options:UIViewAnimationOptionCurveEaseIn animations:^{
         _backgroundView.alpha = 0.7;
+        _hintIamgeView.alpha = 0.1;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
     }];
