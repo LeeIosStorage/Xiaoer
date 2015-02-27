@@ -8,7 +8,7 @@
 
 #import "WelcomeViewController.h"
 #import "LoginViewController.h"
-
+#import "UMSocial.h"
 #import "AppDelegate.h"
 #import "MainPageViewController.h"
 #import "EvaluationViewController.h"
@@ -16,15 +16,20 @@
 #import "MineTabViewController.h"
 #import "XENavigationController.h"
 #import "XEEngine.h"
+#import "XEProgressHUD.h"
+#import "XEShare.h"
 
 @interface WelcomeViewController ()
-
+{
+    NSString *_loginType;
+}
 @property (nonatomic,strong) IBOutlet UIButton *backButton;
 
 - (IBAction)loginAction:(id)sender;
 - (IBAction)registerAction:(id)sender;
 - (IBAction)visitorAction:(id)sender;
 - (IBAction)backAction:(id)sender;
+- (IBAction)socialLoginAction:(id)sender;
 
 @end
 
@@ -65,6 +70,7 @@
 }
 
 - (IBAction)visitorAction:(id)sender {
+    
     [XEEngine shareInstance].firstLogin = NO;
     [[XEEngine shareInstance] visitorLogin];
     AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -88,6 +94,71 @@
 //    MainPageViewController *mpVc = [[MainPageViewController alloc] init];
 //    [self.navigationController pushViewController:mpVc animated:YES];
     
+}
+
+- (IBAction)socialLoginAction:(id)sender{
+    
+    if ([XECommonUtils NetworkConnected])
+    {
+        _loginType = @"";
+        UIButton *button = (UIButton *)sender;
+        if (button.tag == 0) {
+            _loginType = [[NSString alloc]initWithString:UMShareToQQ];
+        }else if (button.tag == 1){
+            _loginType = [[NSString alloc]initWithString:UMShareToSina];
+        }else if (button.tag == 2){
+            _loginType = [[NSString alloc]initWithString:UMShareToWechatSession];
+        }
+        __weak WelcomeViewController *weakSelf = self;
+        int tag = [[XEEngine shareInstance] getConnectTag];
+        [[XEEngine shareInstance] loginWithAccredit:_loginType tag:tag error:nil];
+        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+            NSString* errorMsg = [jsonRet stringObjectForKey:@"error"];
+            if (!jsonRet || errorMsg) {
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+                return;
+            }
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            if ([_loginType isEqualToString:UMShareToSina]) {
+                [dic setValue:[jsonRet objectForKey:@"usid"]     forKey:@"openId"];
+                [dic setValue: @"3"                              forKey:@"type"];
+                [dic setValue:[jsonRet objectForKey:@"username"] forKey:@"username"];
+                [dic setValue:[jsonRet objectForKey:@"icon"]     forKey:@"avatar"];
+                if ([[jsonRet objectForKey:@"gender"]intValue] == 0)
+                    [dic setValue:@"2" forKey:@"sex"];
+                else if ([[jsonRet objectForKey:@"gender"]intValue] == 1)
+                    [dic setValue:@"1" forKey:@"sex"];
+                else
+                    [dic setValue:@"0" forKey:@"sex"];
+            }else if ([_loginType isEqualToString:UMShareToQQ]){
+                [dic setValue:[jsonRet objectForKey:@"uid"]         forKey:@"openId"];
+                [dic setValue: @"2"                                 forKey:@"type"];
+                [dic setValue:[jsonRet objectForKey:@"screen_name"] forKey:@"username"];
+                [dic setValue:[jsonRet objectForKey:@"profile_image_url"]     forKey:@"avatar"];
+                if ([[jsonRet objectForKey:@"gender"] isEqualToString:@"男"])
+                    [dic setValue:@"1" forKey:@"sex"];
+                else if ([[jsonRet objectForKey:@"gender"] isEqualToString:@"女"])
+                    [dic setValue:@"2" forKey:@"sex"];
+                else
+                    [dic setValue:@"0" forKey:@"sex"];
+            }else if ([_loginType isEqualToString:UMShareToWechatSession]){
+                [dic setValue:[jsonRet objectForKey:@"openid"]      forKey:@"openId"];
+                [dic setValue: @"1"                           forKey:@"type"];
+                [dic setValue:[jsonRet objectForKey:@"screen_name"] forKey:@"username"];
+                [dic setValue:[jsonRet objectForKey:@"profile_image_url"]     forKey:@"avatar"];
+                if ([[jsonRet objectForKey:@"gender"] intValue] == 1)
+                    [dic setValue:@"1" forKey:@"sex"];
+                else if ([[jsonRet objectForKey:@"gender"] intValue] == 0)
+                    [dic setValue:@"2" forKey:@"sex"];
+                else
+                    [dic setValue:@"0" forKey:@"sex"];
+            }
+            
+            XELog(@"welcomeVc loginWithAccredit response = %@",dic);
+            
+        }tag:tag];
+    }else
+        [XEProgressHUD AlertErrorNetwork];
 }
 
 @end

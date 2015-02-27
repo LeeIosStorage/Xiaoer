@@ -9,6 +9,7 @@
 #import "XECommonUtils.h"
 #import "XEAlertView.h"
 #import "SDImageCache.h"
+#import "LSReachability.h"
 
 @implementation XECommonUtils
 
@@ -183,4 +184,11 @@
     return FALSE;
 }
 
++ (BOOL)NetworkConnected{
+    if (([LSReachability reachabilityForInternetConnection].currentReachabilityStatus == NotReachable) &&
+        ([LSReachability reachabilityForLocalWiFi         ].currentReachabilityStatus == NotReachable))
+        return NO;
+    else
+        return YES;
+}
 @end
