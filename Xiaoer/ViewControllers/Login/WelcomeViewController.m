@@ -163,17 +163,25 @@
 
 -(void)socialAffirmLogin:(NSDictionary *)info{
     
-//    __weak WelcomeViewController *weakSelf = self;
-//    int tag = [[XEEngine shareInstance] getConnectTag];
-//    [[XEEngine shareInstance] thirdLoginWithPlantform:[info objectForKey:@""] avatar:<#(NSString *)#> openid:<#(NSString *)#> nickname:<#(NSString *)#> gender:<#(NSString *)#> tag:<#(int)#> error:<#(NSError *__autoreleasing *)#>];
-//    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-//        NSString* errorMsg = [jsonRet stringObjectForKey:@"error"];
-//        if (!jsonRet || errorMsg) {
-//            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-//            return;
-//        }
-//        
-//    }tag:tag];
+    NSString *plantform = nil;
+    if ([_loginType isEqualToString:UMShareToWechatSession]) {
+        plantform = @"1";
+    }else if ([_loginType isEqualToString:UMShareToQQ]){
+        plantform = @"2";
+    }else if ([_loginType isEqualToString:UMShareToSina]){
+        plantform = @"3";
+    }
+    __weak WelcomeViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] thirdLoginWithPlantform:plantform avatar:[info objectForKey:@"avatar"] openid:[info objectForKey:@"openid"] nickname:[info objectForKey:@"username"] gender:[info objectForKey:@"gender"] tag:tag error:nil];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [jsonRet stringObjectForKey:@"error"];
+        if (!jsonRet || errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+        
+    }tag:tag];
     
 }
 
