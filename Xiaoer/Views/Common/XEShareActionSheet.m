@@ -12,6 +12,8 @@
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
 #import "XEAlertView.h"
+#import "UMSocial.h"
+#import "XEShare.h"
 
 @interface XEShareActionSheet() <XECustomerWindowDelg>
 {
@@ -34,7 +36,7 @@
     if (_selectShareType != XEShareType_Topic) {
         _csheet.deleteBtnHidden = YES;
     }
-    _csheet.shareSectionHidden = YES;
+//    _csheet.shareSectionHidden = YES;
     if (_selectShareType == XEShareType_Topic) {
         if ([self topicIsCollect])
             _csheet.collectBtnTitle = @"取消收藏";
@@ -86,6 +88,18 @@
                 [self deleteButtonAction];
             }
         }
+    }else if (indexPath.section == 1){
+        NSString *shareType = @"";
+        if (row == 0){
+            shareType = [[NSString alloc]initWithString:UMShareToSina];
+        }else if (row == 1){
+            shareType = [[NSString alloc]initWithString:UMShareToWechatSession];
+        }else if (row == 2){
+            shareType = [[NSString alloc]initWithString:UMShareToWechatTimeline];
+        }else if (row == 3) {
+            shareType = [[NSString alloc]initWithString:UMShareToQQ];
+        }
+        [XEShare socialShare:self.owner shareType:shareType URL:@"http://xiaor.miqtech.com/" IMG:[UIImage imageNamed:@"common_load_icon"] Info:@"晓儿新版上线了，赶紧下载吧"];
     }
 }
 

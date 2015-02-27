@@ -196,7 +196,7 @@
         }
         
         _loginContainerView.hidden = NO;
-        _socialContainerView.hidden = YES;
+        _socialContainerView.hidden = NO;
         _registerContainerView.hidden = YES;
         
         [self loginButtonEnabled];
@@ -472,7 +472,7 @@
 }
 
 - (IBAction)socialLoginAction:(id)sender {
-    if (1)
+    if ([XECommonUtils NetworkConnected])
     {
         _loginType = @"";
         UIButton *button = (UIButton *)sender;
@@ -495,7 +495,7 @@
             NSMutableDictionary *dic = [NSMutableDictionary dictionary];
             if ([_loginType isEqualToString:UMShareToSina]) {
                 [dic setValue:[jsonRet objectForKey:@"usid"]     forKey:@"openId"];
-                [dic setValue: @"2"                              forKey:@"type"];
+                [dic setValue: @"3"                              forKey:@"type"];
                 [dic setValue:[jsonRet objectForKey:@"username"] forKey:@"username"];
                 [dic setValue:[jsonRet objectForKey:@"icon"]     forKey:@"avatar"];
                 if ([[jsonRet objectForKey:@"gender"]intValue] == 0)
@@ -506,7 +506,7 @@
                     [dic setValue:@"0" forKey:@"sex"];
             }else if ([_loginType isEqualToString:UMShareToQQ]){
                 [dic setValue:[jsonRet objectForKey:@"uid"]         forKey:@"openId"];
-                [dic setValue: @"1"                                 forKey:@"type"];
+                [dic setValue: @"2"                                 forKey:@"type"];
                 [dic setValue:[jsonRet objectForKey:@"screen_name"] forKey:@"username"];
                 [dic setValue:[jsonRet objectForKey:@"profile_image_url"]     forKey:@"avatar"];
                 if ([[jsonRet objectForKey:@"gender"] isEqualToString:@"男"])
@@ -517,7 +517,7 @@
                     [dic setValue:@"0" forKey:@"sex"];
             }else if ([_loginType isEqualToString:UMShareToWechatSession]){
                 [dic setValue:[jsonRet objectForKey:@"openid"]      forKey:@"openId"];
-                [dic setValue: @"4"                           forKey:@"type"];
+                [dic setValue: @"1"                           forKey:@"type"];
                 [dic setValue:[jsonRet objectForKey:@"screen_name"] forKey:@"username"];
                 [dic setValue:[jsonRet objectForKey:@"profile_image_url"]     forKey:@"avatar"];
                 if ([[jsonRet objectForKey:@"gender"] intValue] == 1)
@@ -531,7 +531,8 @@
             XELog(@"loginWithAccredit response = %@",dic);
             
         }tag:tag];
-    }
+    }else
+        [XEProgressHUD AlertErrorNetwork];
 }
 
 - (IBAction)protocolAction:(id)sender {

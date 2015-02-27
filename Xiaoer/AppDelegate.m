@@ -51,11 +51,11 @@
 //    [XEUIUtils colorWithHex:0x1bb9e8 alpha:1.0];//27 185 232
     
     //友盟组件
-//    [UMSocialData setAppKey:UMS_APP];
-//    [UMSocialWechatHandler setWXAppId:UMS_WX_ID appSecret:UMS_WX_Key url:nil];
-//    [UMSocialQQHandler setQQWithAppId:UMS_QQ_ID appKey:UMS_QQ_Key    url:nil];
-//    [UMSocialQQHandler setSupportWebView:YES];
-//    [UMSocialSinaHandler openSSOWithRedirectURL:Sina_RedirectURL];
+    [UMSocialData setAppKey:UMS_APP];
+    [UMSocialWechatHandler setWXAppId:UMS_WX_ID appSecret:UMS_WX_Key url:nil];
+    [UMSocialQQHandler setQQWithAppId:UMS_QQ_ID appKey:UMS_QQ_Key    url:nil];
+    [UMSocialQQHandler setSupportWebView:YES];
+    [UMSocialSinaHandler openSSOWithRedirectURL:Sina_RedirectURL];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor clearColor];
