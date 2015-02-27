@@ -639,6 +639,27 @@ static XEEngine* s_ShareInstance = nil;
     return YES;
 }
 
+- (BOOL)thirdLoginWithPlantform:(NSString*)plantform avatar:(NSString*)avatar openid:(NSString*)openid nickname:(NSString*)nickname gender:(NSString*)gender tag:(int)tag error:(NSError **)errPtr{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (plantform) {
+        [params setObject:plantform forKey:@"plantform"];
+    }
+    if (avatar) {
+        [params setObject:avatar forKey:@"avatar"];
+    }
+    if (openid) {
+        [params setObject:openid forKey:@"openid"];
+    }
+    if (nickname) {
+        [params setObject:nickname forKey:@"nickname"];
+    }
+    if (gender) {
+        [params setObject:gender forKey:@"gender"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/third/login",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
 - (BOOL)loginWithPhone:(NSString *)phone password:(NSString *)password tag:(int)tag error:(NSError **)errPtr
 {
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
