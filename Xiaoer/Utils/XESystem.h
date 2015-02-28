@@ -14,8 +14,8 @@
 
 //友盟参数
 #define UMS_APP                         @"54aa3f96fd98c551990006a6"
-#define UMS_QQ_ID                       @"1102848470"
-#define UMS_QQ_Key                      @"EbxqpOpdEUk3BPfe"
+#define UMS_QQ_ID                       @"1104063457"
+#define UMS_QQ_Key                      @"QcpNppBj9VlIr1vN"
 #define UMS_WX_ID                       @"wx521006e5839528d0"
 #define UMS_WX_Key                      @"d3b3e52d012832db6641cafd1fe229ea"
 #define Sina_RedirectURL                @"sina.54aa3f96fd98c551990006a6://"

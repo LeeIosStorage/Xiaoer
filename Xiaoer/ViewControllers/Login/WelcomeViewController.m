@@ -109,7 +109,6 @@
         }else if (button.tag == 2){
             _loginType = [[NSString alloc]initWithString:UMShareToWechatSession];
         }
-        [XEProgressHUD AlertLoading:@"正在登录..." At:self.view];
         __weak WelcomeViewController *weakSelf = self;
         int tag = [[XEEngine shareInstance] getConnectTag];
         [[XEEngine shareInstance] loginWithAccredit:_loginType tag:tag error:nil];
@@ -172,7 +171,7 @@
     }else if ([_loginType isEqualToString:UMShareToSina]){
         plantform = @"3";
     }
-    
+    [XEProgressHUD AlertLoading:@"正在登录..." At:self.view];
     __weak WelcomeViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] thirdLoginWithPlantform:plantform avatar:[info objectForKey:@"avatar"] openid:[info objectForKey:@"openId"] nickname:[info objectForKey:@"username"] gender:[info objectForKey:@"gender"] tag:tag error:nil];
