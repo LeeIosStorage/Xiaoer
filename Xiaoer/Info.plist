@@ -46,16 +46,6 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>WB</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>wb1102848470</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
 			<string>WX</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
@@ -79,7 +69,7 @@
 			<string>Tencent</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>tencent1102848470</string>
+				<string>tencent1104063457</string>
 			</array>
 		</dict>
 	</array>

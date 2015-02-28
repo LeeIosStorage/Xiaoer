@@ -27,6 +27,7 @@
 #import "QHQnetworkingTool.h"
 #import "XEProgressHUD.h"
 #import "XENavigationController.h"
+#import "StageSelectViewController.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
@@ -228,9 +229,9 @@ static CGFloat beginImageH = 64;
     if (section == kMyProfile) {
         return 4;
     }
-//    else if (section == kMyCard){
-//        return 2;
-//    }
+    else if (section == kMyCard){
+        return 2;
+    }
     else {
         return 1;
     }
@@ -284,11 +285,11 @@ static CGFloat beginImageH = 64;
                 [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_card_icon"]];
                 break;
             }
-//            else if (indexPath.row == 1){
-//                cell.titleLabel.text = @"历史测评";
-//                [cell.avatarImageView setImage:[UIImage imageNamed:@""]];
-//                break;
-//            }
+            else if (indexPath.row == 1){
+                cell.titleLabel.text = @"历史测评";
+                [cell.avatarImageView setImage:[UIImage imageNamed:@""]];
+                break;
+            }
         }
 //        case kSetting:{
 //            if (indexPath.row == 0) {
@@ -357,10 +358,15 @@ static CGFloat beginImageH = 64;
                 [self.navigationController pushViewController:cpVc animated:YES];
                 break;
             }
-//            else if (indexPath.row == 1){
-//                NSLog(@"============历史测评");
-//                break;
-//            }
+            else if (indexPath.row == 1){
+                NSLog(@"============历史测评");
+                if ([[XEEngine shareInstance] needUserLogin:nil]) {
+                    return;
+                }
+                StageSelectViewController *cpVc = [[StageSelectViewController alloc] init];
+                [self.navigationController pushViewController:cpVc animated:YES];
+                break;
+            }
         }
 //        case kSetting:{
 //            if (indexPath.row == 0) {

@@ -171,18 +171,39 @@
     }else if ([_loginType isEqualToString:UMShareToSina]){
         plantform = @"3";
     }
+    [XEProgressHUD AlertLoading:@"正在登录..." At:self.view];
     __weak WelcomeViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] thirdLoginWithPlantform:plantform avatar:[info objectForKey:@"avatar"] openid:[info objectForKey:@"openid"] nickname:[info objectForKey:@"username"] gender:[info objectForKey:@"gender"] tag:tag error:nil];
+    [[XEEngine shareInstance] thirdLoginWithPlantform:plantform avatar:[info objectForKey:@"avatar"] openid:[info objectForKey:@"openId"] nickname:[info objectForKey:@"username"] gender:[info objectForKey:@"gender"] tag:tag error:nil];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [jsonRet stringObjectForKey:@"error"];
         if (!jsonRet || errorMsg) {
             [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
+        [XEProgressHUD AlertSuccess:@"登录成功." At:weakSelf.view];
+        
+        NSDictionary *object = [jsonRet objectForKey:@"object"];
+        XEUserInfo *userInfo = [[XEUserInfo alloc] init];
+        [userInfo setUserInfoByJsonDic:object];
+        
+        [XEEngine shareInstance].uid = userInfo.uid;
+        [XEEngine shareInstance].account = userInfo.nickName;
+        [XEEngine shareInstance].userPassword = userInfo.uid;
+        [[XEEngine shareInstance] saveAccount];
+        
+        [XEEngine shareInstance].userInfo = userInfo;
+        
+        [weakSelf performSelector:@selector(loginFinished) withObject:nil afterDelay:1.0];
         
     }tag:tag];
     
+}
+
+-(void)loginFinished{
+    
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate signIn];
 }
 
 @end

@@ -189,6 +189,10 @@
 		07882C231A80675D003874FA /* CardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07882C211A80675D003874FA /* CardViewCell.m */; };
 		07882C241A80675D003874FA /* CardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07882C221A80675D003874FA /* CardViewCell.xib */; };
 		07882C271A80753D003874FA /* XECardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 07882C261A80753D003874FA /* XECardInfo.m */; };
+		078E87E61AA18934008AD45A /* StageSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078E87E41AA18934008AD45A /* StageSelectViewController.m */; };
+		078E87E71AA18934008AD45A /* StageSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 078E87E51AA18934008AD45A /* StageSelectViewController.xib */; };
+		078E87EC1AA18CAE008AD45A /* StageSelectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 078E87EA1AA18CAE008AD45A /* StageSelectViewCell.m */; };
+		078E87ED1AA18CAE008AD45A /* StageSelectViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 078E87EB1AA18CAE008AD45A /* StageSelectViewCell.xib */; };
 		07913F5F1A676F840083E8E5 /* ExpertListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07913F5D1A676F840083E8E5 /* ExpertListViewController.m */; };
 		07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07913F5E1A676F840083E8E5 /* ExpertListViewController.xib */; };
 		07913F651A67808F0083E8E5 /* ExpertListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07913F631A67808F0083E8E5 /* ExpertListViewCell.m */; };
@@ -635,6 +639,12 @@
 		07882C221A80675D003874FA /* CardViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CardViewCell.xib; path = Mine/CardViewCell.xib; sourceTree = "<group>"; };
 		07882C251A80753D003874FA /* XECardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECardInfo.h; sourceTree = "<group>"; };
 		07882C261A80753D003874FA /* XECardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECardInfo.m; sourceTree = "<group>"; };
+		078E87E31AA18934008AD45A /* StageSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageSelectViewController.h; sourceTree = "<group>"; };
+		078E87E41AA18934008AD45A /* StageSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StageSelectViewController.m; sourceTree = "<group>"; };
+		078E87E51AA18934008AD45A /* StageSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StageSelectViewController.xib; sourceTree = "<group>"; };
+		078E87E91AA18CAE008AD45A /* StageSelectViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageSelectViewCell.h; sourceTree = "<group>"; };
+		078E87EA1AA18CAE008AD45A /* StageSelectViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StageSelectViewCell.m; sourceTree = "<group>"; };
+		078E87EB1AA18CAE008AD45A /* StageSelectViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StageSelectViewCell.xib; sourceTree = "<group>"; };
 		07913F5C1A676F840083E8E5 /* ExpertListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertListViewController.h; sourceTree = "<group>"; };
 		07913F5D1A676F840083E8E5 /* ExpertListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertListViewController.m; sourceTree = "<group>"; };
 		07913F5E1A676F840083E8E5 /* ExpertListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpertListViewController.xib; sourceTree = "<group>"; };
@@ -1375,6 +1385,26 @@
 			name = Mine;
 			sourceTree = "<group>";
 		};
+		078E87E21AA188A9008AD45A /* Evaluation */ = {
+			isa = PBXGroup;
+			children = (
+				078E87E31AA18934008AD45A /* StageSelectViewController.h */,
+				078E87E41AA18934008AD45A /* StageSelectViewController.m */,
+				078E87E51AA18934008AD45A /* StageSelectViewController.xib */,
+			);
+			path = Evaluation;
+			sourceTree = "<group>";
+		};
+		078E87E81AA18C88008AD45A /* Evaluation */ = {
+			isa = PBXGroup;
+			children = (
+				078E87E91AA18CAE008AD45A /* StageSelectViewCell.h */,
+				078E87EA1AA18CAE008AD45A /* StageSelectViewCell.m */,
+				078E87EB1AA18CAE008AD45A /* StageSelectViewCell.xib */,
+			);
+			path = Evaluation;
+			sourceTree = "<group>";
+		};
 		07913F5B1A676F570083E8E5 /* Expert */ = {
 			isa = PBXGroup;
 			children = (
@@ -1763,6 +1793,7 @@
 				07913F5B1A676F570083E8E5 /* Expert */,
 				075AA0361A68B7F3000B6302 /* Activity */,
 				7E7241171A77BFA2001E1F69 /* Topic */,
+				078E87E21AA188A9008AD45A /* Evaluation */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1778,6 +1809,7 @@
 				07913F611A67805B0083E8E5 /* Expert */,
 				075AA03F1A68DEDB000B6302 /* Activity */,
 				7E7241201A77C12A001E1F69 /* Topic */,
+				078E87E81AA18C88008AD45A /* Evaluation */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2036,6 +2068,7 @@
 				07C7C5111A70E336003E1272 /* arrow.png in Resources */,
 				07C988171A63B44B003A2B30 /* ChooseLocationViewController.xib in Resources */,
 				075B032C1A6E3BB7002B577D /* Pin.png in Resources */,
+				078E87ED1AA18CAE008AD45A /* StageSelectViewCell.xib in Resources */,
 				075DD03B1A78B42E009A64B4 /* WSAssetViewSelectionIndicator.png in Resources */,
 				07E536321A5290C9005E1DA9 /* EvaluationViewController.xib in Resources */,
 				07E284721A5A8DFC005651EB /* UMSCommentDetailController.xib in Resources */,
@@ -2086,6 +2119,7 @@
 				0797A32A1A7F106C00D5650A /* XEScrollPage.xib in Resources */,
 				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
 				07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */,
+				078E87E71AA18934008AD45A /* StageSelectViewController.xib in Resources */,
 				0760E93D1A81ACCD00BBEA3D /* CardPackViewController.xib in Resources */,
 				0776639C1A80779A004C885B /* ActivityApplyViewCell.xib in Resources */,
 				07C7C5121A70E336003E1272 /* arrow@2x.png in Resources */,
@@ -2127,6 +2161,7 @@
 				079E42181A7611240056968E /* XEQuestionInfo.m in Sources */,
 				075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */,
 				07582D0D1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
+				078E87E61AA18934008AD45A /* StageSelectViewController.m in Sources */,
 				07AAB8021A8367420030D306 /* LSReachability.m in Sources */,
 				075B031E1A6CAC28002B577D /* ApplyActivityViewController.m in Sources */,
 				0703466F1A64F8E200EDE251 /* WelcomeViewController.m in Sources */,
@@ -2248,6 +2283,7 @@
 				0752F7D31A7B2638008C0E0A /* PSTCollectionViewCell.m in Sources */,
 				0774A8851A66705D00336465 /* XEActionSheet.m in Sources */,
 				07E5363B1A529259005E1DA9 /* MineTabViewController.m in Sources */,
+				078E87EC1AA18CAE008AD45A /* StageSelectViewCell.m in Sources */,
 				0774A8761A666EAB00336465 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */,
 				07508E861A51346300873B45 /* main.m in Sources */,
