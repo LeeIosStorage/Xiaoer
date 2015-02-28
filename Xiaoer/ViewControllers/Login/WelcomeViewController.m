@@ -104,6 +104,10 @@
         UIButton *button = (UIButton *)sender;
         if (button.tag == 0) {
             _loginType = [[NSString alloc]initWithString:UMShareToQQ];
+            if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]]) {
+                [XEUIUtils showAlertWithMsg:@"您还没有安装QQ？"];
+                return;
+            }
         }else if (button.tag == 1){
             _loginType = [[NSString alloc]initWithString:UMShareToSina];
         }else if (button.tag == 2){

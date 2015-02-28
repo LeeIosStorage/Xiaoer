@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>3ADCD083-8E12-4E32-AFBD-A702C313CFC9</string>
 	<key>IDESourceControlProjectName</key>
-	<string>xiaoer</string>
+	<string>Xiaoer</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>AD612B5060C74342D36E47D320797045FAE96D28</key>
 		<string>https://github.com/LeeIosStorage/Xiaoer.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>xiaoer.xcodeproj</string>
+	<string>Xiaoer.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>AD612B5060C74342D36E47D320797045FAE96D28</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>AD612B5060C74342D36E47D320797045FAE96D28</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Slek</string>
+			<string>Xiaoer</string>
 		</dict>
 	</array>
 </dict>
