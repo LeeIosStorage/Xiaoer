@@ -478,12 +478,16 @@
         UIButton *button = (UIButton *)sender;
         if (button.tag == 0) {
             _loginType = [[NSString alloc]initWithString:UMShareToQQ];
+            if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]]) {
+                [XEUIUtils showAlertWithMsg:@"您还没有安装QQ？"];
+                return;
+            }
         }else if (button.tag == 1){
             _loginType = [[NSString alloc]initWithString:UMShareToSina];
         }else if (button.tag == 2){
             _loginType = [[NSString alloc]initWithString:UMShareToWechatSession];
         }
-        [XEProgressHUD AlertLoading:@"正在登录..." At:self.view];
+        
         __weak LoginViewController *weakSelf = self;
         int tag = [[XEEngine shareInstance] getConnectTag];
         [[XEEngine shareInstance] loginWithAccredit:_loginType tag:tag error:nil];
@@ -667,7 +671,7 @@
     }else if ([_loginType isEqualToString:UMShareToSina]){
         plantform = @"3";
     }
-    
+    [XEProgressHUD AlertLoading:@"正在登录..." At:self.view];
     __weak LoginViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] thirdLoginWithPlantform:plantform avatar:[info objectForKey:@"avatar"] openid:[info objectForKey:@"openId"] nickname:[info objectForKey:@"username"] gender:[info objectForKey:@"gender"] tag:tag error:nil];
