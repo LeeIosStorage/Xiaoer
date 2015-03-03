@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "UMSocial.h"
+#import "UMSocialQQHandler.h"
 #import "XEProgressHUD.h"
 #import "XEEngine.h"
 #import "RetrievePwdViewController.h"
@@ -478,7 +479,7 @@
         UIButton *button = (UIButton *)sender;
         if (button.tag == 0) {
             _loginType = [[NSString alloc]initWithString:UMShareToQQ];
-            if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]]) {
+            if (![QQApi isQQInstalled]) {
                 [XEUIUtils showAlertWithMsg:@"您还没有安装QQ？"];
                 return;
             }
