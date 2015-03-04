@@ -16,6 +16,7 @@ typedef enum RETRIEVE_TYPE_
 
 @interface RetrievePwdViewController : XESuperViewController
 
+@property (nonatomic, assign) BOOL isCanBack;
 @property (nonatomic, assign) RETRIEVE_TYPE reType;
 
 @end

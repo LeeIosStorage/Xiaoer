@@ -461,6 +461,7 @@
         }
         RetrievePwdViewController *rpVc = [[RetrievePwdViewController alloc] init];
         rpVc.reType = (int)buttonIndex;
+        rpVc.isCanBack = _isCanBack;
         [weakSelf.navigationController pushViewController:rpVc animated:YES];
     }];
     [sheet addButtonWithTitle:@"手机号找回"];
@@ -703,8 +704,12 @@
 
 -(void)loginFinished{
     
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate signIn];
+    if (_isCanBack) {
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }else{
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate signIn];
+    }
 }
 
 -(void)checkCode{

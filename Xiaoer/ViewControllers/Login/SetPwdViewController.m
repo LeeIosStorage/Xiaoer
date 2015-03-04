@@ -191,8 +191,12 @@
 
 -(void)loginFinished{
     
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate signIn];
+    if (_isCanBack) {
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }else{
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate signIn];
+    }
 }
 
 -(void)perfectInformation{

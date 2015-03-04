@@ -109,7 +109,10 @@ enum TABLEVIEW_SECTION_INDEX {
 }
 
 - (BOOL)isVisitor{
-    if ([XEEngine shareInstance].bVisitor) {
+//    if ([XEEngine shareInstance].bVisitor) {
+//        return YES;
+//    }
+    if (![[XEEngine shareInstance] hasAccoutLoggedin]) {
         return YES;
     }
     return NO;

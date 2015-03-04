@@ -224,6 +224,7 @@
             
             SetPwdViewController *spVc = [[SetPwdViewController alloc] init];
             spVc.userInfo = userInfo;
+            spVc.isCanBack = _isCanBack;
             [self.navigationController pushViewController:spVc animated:YES];
         }else{
             self.retrieveEmailPasswordTipLabel.text = [NSString stringWithFormat:@"请到%@查阅来自晓儿的邮件，从邮件重设您的密码",self.commitTextField.text];

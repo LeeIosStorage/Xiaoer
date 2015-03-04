@@ -11,6 +11,7 @@
 
 @interface SetPwdViewController : XESuperViewController
 
+@property (nonatomic, assign) BOOL isCanBack;//
 @property (nonatomic, strong) NSString *registerName;
 @property (nonatomic, strong) XEUserInfo *userInfo;
 

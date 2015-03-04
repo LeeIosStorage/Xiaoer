@@ -16,5 +16,6 @@ typedef enum VcType_{
 @interface LoginViewController : XESuperViewController
 
 @property (nonatomic, assign) VcType vcType;
+@property (nonatomic, assign) BOOL isCanBack;
 
 @end

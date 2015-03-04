@@ -60,6 +60,7 @@
     [XEEngine shareInstance].firstLogin = NO;
     LoginViewController *mpVc = [[LoginViewController alloc] init];
     mpVc.vcType = VcType_Login;
+    mpVc.isCanBack = _showBackButton;
     [self.navigationController pushViewController:mpVc animated:YES];
 }
 
@@ -67,6 +68,7 @@
     [XEEngine shareInstance].firstLogin = NO;
     LoginViewController *mpVc = [[LoginViewController alloc] init];
     mpVc.vcType = VcType_Register;
+    mpVc.isCanBack = _showBackButton;
     [self.navigationController pushViewController:mpVc animated:YES];
 }
 
@@ -207,8 +209,12 @@
 
 -(void)loginFinished{
     
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate signIn];
+    if (_showBackButton) {
+        [self backAction:nil];
+    }else{
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate signIn];
+    }
 }
 
 @end

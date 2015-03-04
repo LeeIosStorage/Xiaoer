@@ -71,9 +71,11 @@
 + (BOOL) socialShare:(id)VC shareType:(NSString *)shareType URL:(NSString *)URL IMG:(UIImage *)IMG Info:(NSString *)Info{
     
 //    UMSocialUrlResource *urlResource = [[UMSocialUrlResource alloc] init];
-//    urlResource.resourceType = UMSocialUrlResourceTypeImage;
+//    urlResource.resourceType = UMSocialUrlResourceTypeDefault;
 //    urlResource.url = URL;
-    
+    if ([shareType isEqualToString:UMShareToSina]) {
+        Info = [NSString stringWithFormat:@"%@ 链接地址:%@",Info,URL];
+    }
     [UMSocialQQHandler setQQWithAppId:UMS_QQ_ID appKey:UMS_QQ_Key    url:URL];
     [UMSocialWechatHandler setWXAppId:UMS_WX_ID appSecret:UMS_WX_Key url:URL];
     
