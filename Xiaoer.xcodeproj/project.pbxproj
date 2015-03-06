@@ -704,7 +704,7 @@
 		07882C251A80753D003874FA /* XECardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECardInfo.h; sourceTree = "<group>"; };
 		07882C261A80753D003874FA /* XECardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECardInfo.m; sourceTree = "<group>"; };
 		078E87E31AA18934008AD45A /* StageSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageSelectViewController.h; sourceTree = "<group>"; };
-		078E87E41AA18934008AD45A /* StageSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StageSelectViewController.m; sourceTree = "<group>"; };
+		078E87E41AA18934008AD45A /* StageSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = StageSelectViewController.m; sourceTree = "<group>"; };
 		078E87E51AA18934008AD45A /* StageSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StageSelectViewController.xib; sourceTree = "<group>"; };
 		078E87E91AA18CAE008AD45A /* StageSelectViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageSelectViewCell.h; sourceTree = "<group>"; };
 		078E87EA1AA18CAE008AD45A /* StageSelectViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StageSelectViewCell.m; sourceTree = "<group>"; };

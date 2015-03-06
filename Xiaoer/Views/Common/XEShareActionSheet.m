@@ -14,6 +14,7 @@
 #import "XEAlertView.h"
 #import "UMSocial.h"
 #import "XEShare.h"
+#import "SDImageCache.h"
 
 @interface XEShareActionSheet() <XECustomerWindowDelg>
 {
@@ -99,7 +100,27 @@
         }else if (row == 3) {
             shareType = [[NSString alloc]initWithString:UMShareToQQ];
         }
-        [XEShare socialShare:self.owner shareType:shareType URL:@"http://xiaor.miqtech.com/" IMG:[UIImage imageNamed:@"common_load_icon"] Info:@"晓儿新版上线了，赶紧下载吧"];
+        NSString *URL = @"http://xiaor.miqtech.com/";
+        UIImage *image = [UIImage imageNamed:@"common_load_icon"];
+        NSString *info = @"晓儿新版上线了，赶紧下载吧";
+        if (_selectShareType == XEShareType_Expert) {
+//            URL = [NSString stringWithFormat:@"%@/share/expert/%@/%@",[[XEEngine shareInstance] baseUrl],[XEEngine shareInstance].uid,_];
+        }else if(_selectShareType == XEShareType_Activity) {
+//            URL = [NSString stringWithFormat:@"%@/share/activity/%@/%@",[[XEEngine shareInstance] baseUrl],[XEEngine shareInstance].uid,_];
+        }else if(_selectShareType == XEShareType_Topic) {
+            URL = [NSString stringWithFormat:@"%@/share/topic/%@/%@",[[XEEngine shareInstance] baseUrl],[XEEngine shareInstance].uid,_topicInfo.tId];
+            if (self.topicInfo.picIds.count > 0) {
+                image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:[[self.topicInfo.picURLs objectAtIndex:0] absoluteString]];
+            }
+            if (_topicInfo.title) {
+                info = _topicInfo.title;
+            }
+        }else if(_selectShareType == XEShareType_Qusetion) {
+            
+        }else if(_selectShareType == XEShareType_Web) {
+            
+        }
+        [XEShare socialShare:self.owner shareType:shareType URL:URL IMG:image Info:info];
     }
 }
 
