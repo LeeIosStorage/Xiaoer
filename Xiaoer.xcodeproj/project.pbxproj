@@ -149,6 +149,7 @@
 		0760E9421A81D93100BBEA3D /* XEMsgInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760E9411A81D93100BBEA3D /* XEMsgInfo.m */; };
 		0760FC461A79D4DD00A0E5D8 /* QuestionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0760FC441A79D4DD00A0E5D8 /* QuestionDetailsViewController.m */; };
 		0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0760FC451A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib */; };
+		076380561AA9446400F449CD /* XEBabyInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 076380551AA9446400F449CD /* XEBabyInfo.m */; };
 		076971AE1A77564E00FEA571 /* TopicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076971AC1A77564E00FEA571 /* TopicListViewController.m */; };
 		076971AF1A77564E00FEA571 /* TopicListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076971AD1A77564E00FEA571 /* TopicListViewController.xib */; };
 		076CF5711A78AD8C00CDE21D /* XECateTopicViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 076CF56F1A78AD8C00CDE21D /* XECateTopicViewCell.m */; };
@@ -622,6 +623,8 @@
 		0760FC431A79D4DD00A0E5D8 /* QuestionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionDetailsViewController.h; sourceTree = "<group>"; };
 		0760FC441A79D4DD00A0E5D8 /* QuestionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionDetailsViewController.m; sourceTree = "<group>"; };
 		0760FC451A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionDetailsViewController.xib; sourceTree = "<group>"; };
+		076380541AA9446400F449CD /* XEBabyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEBabyInfo.h; sourceTree = "<group>"; };
+		076380551AA9446400F449CD /* XEBabyInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEBabyInfo.m; sourceTree = "<group>"; };
 		076971AB1A77564E00FEA571 /* TopicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicListViewController.h; sourceTree = "<group>"; };
 		076971AC1A77564E00FEA571 /* TopicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicListViewController.m; sourceTree = "<group>"; };
 		076971AD1A77564E00FEA571 /* TopicListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TopicListViewController.xib; sourceTree = "<group>"; };
@@ -1945,6 +1948,8 @@
 				0774A8611A6663AD00336465 /* XEThemeInfo.m */,
 				07B650591A67B85200DEDE4E /* XEDoctorInfo.h */,
 				07B6505A1A67B85200DEDE4E /* XEDoctorInfo.m */,
+				076380541AA9446400F449CD /* XEBabyInfo.h */,
+				076380551AA9446400F449CD /* XEBabyInfo.m */,
 				07B6505C1A67B88000DEDE4E /* XETopicInfo.h */,
 				07B6505D1A67B88000DEDE4E /* XETopicInfo.m */,
 				073F9F151A68D0CB009D94E3 /* XERecipesInfo.h */,
@@ -2200,7 +2205,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 07508E7B1A51346300873B45 /* Build configuration list for PBXProject "Xiaoer" */;
+			buildConfigurationList = 07508E7B1A51346300873B45 /* Build configuration list for PBXProject "xiaoer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2494,6 +2499,7 @@
 				075B03351A6E4350002B577D /* MapChooseAnnotationView.m in Sources */,
 				07EBF07B1A7A01080050B256 /* XEAMBlurView.m in Sources */,
 				7E72411B1A77BFA2001E1F69 /* TopicDetailsViewController.m in Sources */,
+				076380561AA9446400F449CD /* XEBabyInfo.m in Sources */,
 				074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */,
 				0774A8731A666EAB00336465 /* GMGridView.m in Sources */,
 				0712B3A51A5BD853000A1A7F /* NSData+GIF.m in Sources */,
@@ -2797,7 +2803,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		07508E7B1A51346300873B45 /* Build configuration list for PBXProject "Xiaoer" */ = {
+		07508E7B1A51346300873B45 /* Build configuration list for PBXProject "xiaoer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07508EA11A51346300873B45 /* Debug */,

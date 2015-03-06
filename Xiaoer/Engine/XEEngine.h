@@ -210,4 +210,10 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getNoticeMessagesListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
 - (BOOL)getQuestionMessagesListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
 
+#pragma mark - evaluation
+//评测页默认宝宝的信息
+- (BOOL)getEvaInfoWithUid:(NSString *)uid tag:(int)tag;
+//关键期道具信息和购买链接信息
+- (BOOL)getEvaToolWithStage:(NSString *)stage tag:(int)tag;
+
 @end

@@ -48,8 +48,9 @@
     _themeControl = [[ODRefreshControl alloc] initInScrollView:self.scrollView];
     [_themeControl addTarget:self action:@selector(themeBeginPull:) forControlEvents:UIControlEventValueChanged];
     
-    [self getCacheThemeInfo];
-    [self getThemeInfo];
+//    [self getCacheThemeInfo];
+//    [self getThemeInfo];
+    [self getEvaDataSource];
     [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT*1.2)];
 }
 
@@ -106,6 +107,48 @@
         self.birthLabel.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
     }
 }
+
+- (void)getEvaDataSource{
+    __weak EvaluationViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] getEvaInfoWithUid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+//        _isScrollViewDrag = NO;
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+//            [_themeControl endRefreshing:NO];
+            return;
+        }
+        
+        NSLog(@"=================%@",jsonRet);
+//        [_themeControl endRefreshing:YES];
+//        
+//        [weakSelf.adsThemeArray removeAllObjects];
+//        //解析数据
+//        weakSelf.adsThemeArray = [NSMutableArray array];
+//        
+//        NSArray *themeDicArray = [jsonRet arrayObjectForKey:@"object"];
+//        for (NSDictionary *dic  in themeDicArray) {
+//            if (![dic isKindOfClass:[NSDictionary class]]) {
+//                continue;
+//            }
+//            
+//            XEThemeInfo *theme = [[XEThemeInfo alloc] init];
+//            [theme setThemeInfoByDic:dic];
+//            [weakSelf.adsThemeArray addObject:theme];
+//        }
+//        
+//        //刷新广告
+//        if (weakSelf.adsThemeArray.count) {
+//            [weakSelf refreshAdsScrollView];
+//        }
+    }tag:tag];
+}
+
 
 -(void)getCacheThemeInfo {
     __weak EvaluationViewController *weakSelf = self;
