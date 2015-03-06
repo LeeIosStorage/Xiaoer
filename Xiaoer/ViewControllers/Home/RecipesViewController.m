@@ -62,8 +62,11 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     
     _unselectedLabelColor = UnSelected_Color;
     _selectedLabelColor = SKIN_COLOR;
-    _selectedIndex = 1;
-    
+    if (_bSpecific) {
+        _selectedIndex = self.stage;
+    }else{
+        _selectedIndex = 1;
+    }
     _pageNumDic = [[NSMutableDictionary alloc] init];
     _endDic = [[NSMutableDictionary alloc] init];
     _hotUnionDic = [[NSMutableDictionary alloc] init];
@@ -102,9 +105,15 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
                     XECategoryView *cv = [[XECategoryView alloc] init];
                     [weakSelf addTableWithTitle:[child objectForKey:@"title"] andView:cv];
                 }
-                [weakSelf initNavigationBarView];
-                [weakSelf initContentScrollView];
-                [weakSelf getCacheCategoryInfoWithTag:weakSelf.titles[0] andIndex:0];
+                if (weakSelf.bSpecific) {
+                    [weakSelf initNavigationBarView];
+                    [weakSelf initContentScrollView];
+                    [weakSelf getCacheCategoryInfoWithTag:weakSelf.titles[0] andIndex:weakSelf.stage];
+                }else{
+                    [weakSelf initNavigationBarView];
+                    [weakSelf initContentScrollView];
+                    [weakSelf getCacheCategoryInfoWithTag:weakSelf.titles[0] andIndex:0];
+                }
             }
         }
     }];
@@ -133,9 +142,15 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
                 XECategoryView *cv = [[XECategoryView alloc] init];
                 [weakSelf addTableWithTitle:[child objectForKey:@"title"] andView:cv];
             }
-            [weakSelf initNavigationBarView];
-            [weakSelf initContentScrollView];
-            [weakSelf getCategoryInfoWithTag:weakSelf.titles[0] andIndex:0];
+            if (weakSelf.bSpecific) {
+                [weakSelf initNavigationBarView];
+                [weakSelf initContentScrollView];
+                [weakSelf getCategoryInfoWithTag:weakSelf.titles[0] andIndex:weakSelf.stage];
+            }else{
+                [weakSelf initNavigationBarView];
+                [weakSelf initContentScrollView];
+                [weakSelf getCategoryInfoWithTag:weakSelf.titles[0] andIndex:0];
+            }
         }
     }tag:tag];
 }
@@ -320,6 +335,9 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     _categoryScrollView.contentSize = CGSizeMake(scrollBarWidth, _categoryScrollView.frame.size.height);
     //滚动动态计算
     [self needScrollIndex];
+    if (self.bSpecific) {
+        self.selectedIndex = self.stage;
+    }
 }
 
 - (void)needScrollIndex{

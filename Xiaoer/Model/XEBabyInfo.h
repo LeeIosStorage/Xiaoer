@@ -20,9 +20,13 @@
 @property(nonatomic, assign) int preday;            //超过上个关键期天数
 @property(nonatomic, assign) int afterday;          //距离下个关键期的天数
 
-@property(nonatomic, readonly) NSURL* babyAvatarUrl;
+@property(nonatomic, readonly) NSURL* smallAvatarUrl;
+@property(nonatomic, readonly) NSURL* originalAvatarUrl;
 @property(nonatomic, readonly) NSURL* mediumAvatarUrl;
 @property(nonatomic, readonly) NSURL* largeAvatarUrl;
+@property(nonatomic, readonly) NSURL* imgUrl;
+@property(nonatomic, readonly) NSURL* preimgUrl;
+@property(nonatomic, readonly) NSURL* afterimgUrl;
 
 @property(nonatomic, strong) NSDictionary* babyInfoByJsonDic;
 

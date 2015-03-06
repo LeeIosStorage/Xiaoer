@@ -214,6 +214,6 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 //评测页默认宝宝的信息
 - (BOOL)getEvaInfoWithUid:(NSString *)uid tag:(int)tag;
 //关键期道具信息和购买链接信息
-- (BOOL)getEvaToolWithStage:(NSString *)stage tag:(int)tag;
+- (BOOL)getEvaToolWithStage:(int)stage tag:(int)tag;
 
 @end

@@ -464,8 +464,7 @@
 - (void)themeBeginPull:(ODRefreshControl *)refreshControl
 {
     if (_isScrollViewDrag) {
-//        [self performSelector:@selector(getThemeInfo) withObject:self afterDelay:1.0];
-        [self getThemeInfo];
+        [self performSelector:@selector(getThemeInfo) withObject:self afterDelay:0.5];
         [self getHomePageInfo];
     }
 }

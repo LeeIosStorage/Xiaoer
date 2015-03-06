@@ -12,11 +12,13 @@
 #import "XEScrollPage.h"
 #import "UIImageView+WebCache.h"
 #import "XEThemeInfo.h"
+#import "XEBabyInfo.h"
 #import "XEProgressHUD.h"
 #import "ODRefreshControl.h"
 #import "XELinkerHandler.h"
 #import "StageSelectViewController.h"
 #import "ReadyTestViewController.h"
+#import "RecipesViewController.h"
 
 @interface EvaluationViewController ()<XEScrollPageDelegate,UIScrollViewDelegate>{
     ODRefreshControl *_themeControl;
@@ -28,11 +30,14 @@
 @property (strong, nonatomic) IBOutlet UILabel *babyName;
 @property (strong, nonatomic) IBOutlet UILabel *birthLabel;
 @property (strong, nonatomic) IBOutlet UIButton *readybutton;
+@property (strong, nonatomic) IBOutlet UILabel *stageLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *evaImageView;
 
 @property (nonatomic, strong) XEUserInfo *userInfo;
 @property (nonatomic, strong) NSMutableArray *adsThemeArray;
-@property (nonatomic, strong) IBOutlet UIView *adsViewContainer;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (strong, nonatomic) XEBabyInfo *babyInfo;
 
 
 - (IBAction)criticalAction:(id)sender;
@@ -50,13 +55,9 @@
     _themeControl = [[ODRefreshControl alloc] initInScrollView:self.scrollView];
     [_themeControl addTarget:self action:@selector(themeBeginPull:) forControlEvents:UIControlEventValueChanged];
     
-//    [self getCacheThemeInfo];
-//    [self getThemeInfo];
     [self getEvaDataSource];
-    [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT*1.2)];
+    [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT*1.1)];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
 }
 
@@ -68,6 +69,12 @@
 -(void)initNormalTitleNavBarSubviews{
     
     [self setTitle:@"评测"];
+//    if ([self isVisitor]) {
+//        
+//    }else{
+//        
+//    }
+    [self setRightButtonWithImageName:@"expert_public_icon" selector:@selector(showAction)];
 }
 
 - (UINavigationController *)navigationController{
@@ -84,14 +91,14 @@
     return NO;
 }
 
--(XEUserInfo *)getBabyUserInfo:(NSInteger)index{
-    _userInfo = [XEEngine shareInstance].userInfo;
-    if (_userInfo.babys.count > index) {
-        XEUserInfo *babyUserInfo = [_userInfo.babys objectAtIndex:index];
-        return babyUserInfo;
-    }
-    return nil;
-}
+//-(XEUserInfo *)getBabyUserInfo:(NSInteger)index{
+//    _userInfo = [XEEngine shareInstance].userInfo;
+//    if (_userInfo.babys.count > index) {
+//        XEUserInfo *babyUserInfo = [_userInfo.babys objectAtIndex:index];
+//        return babyUserInfo;
+//    }
+//    return nil;
+//}
 
 - (void)refreshUserInfoShow
 {
@@ -99,18 +106,23 @@
         [self.babyImageView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
         self.babyImageView.layer.CornerRadius = 8;
     }else{
-        XEUserInfo *userInfo = [self getBabyUserInfo:0];
         self.babyImageView.clipsToBounds = YES;
         self.babyImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [self.babyImageView sd_setImageWithURL:_userInfo.bgImgUrl placeholderImage:[UIImage imageNamed:@"user_default_bg_img"]];
-        [self.babyImageView sd_setImageWithURL:_userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
+        [self.babyImageView sd_setImageWithURL:_babyInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
         self.babyImageView.layer.CornerRadius = 8;
-        NSString *babyNick = userInfo.babyNick;
-        if (babyNick.length == 0) {
-            babyNick = @"未设置宝宝信息";
-        }
-        self.babyName.text = babyNick;
-        self.birthLabel.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
+        [self.evaImageView sd_setImageWithURL:_babyInfo.imgUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
+        
+        self.babyName.text = _babyInfo.babyName;
+        self.stageLabel.text = [NSString stringWithFormat:@"第%d关键期", _babyInfo.stage];
+        
+        CGRect frame = self.babyName.frame;
+        frame.size.width = [XECommonUtils widthWithText:self.babyName.text font:self.babyName.font lineBreakMode:self.babyName.lineBreakMode];
+        self.babyName.frame = frame;
+        
+        frame = self.birthLabel.frame;
+        frame.origin.x = self.babyName.frame.origin.x + self.babyName.frame.size.width + 5;
+        self.birthLabel.frame = frame;
+        self.birthLabel.text = _babyInfo.month;
     }
 }
 
@@ -118,75 +130,6 @@
     __weak EvaluationViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getEvaInfoWithUid:[XEEngine shareInstance].uid tag:tag];
-    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-//        _isScrollViewDrag = NO;
-        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-        if (!jsonRet || errorMsg) {
-            if (!errorMsg.length) {
-                errorMsg = @"请求失败";
-            }
-            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-//            [_themeControl endRefreshing:NO];
-            return;
-        }
-        
-        NSLog(@"=================%@",jsonRet);
-//        [_themeControl endRefreshing:YES];
-//        
-//        [weakSelf.adsThemeArray removeAllObjects];
-//        //解析数据
-//        weakSelf.adsThemeArray = [NSMutableArray array];
-//        
-//        NSArray *themeDicArray = [jsonRet arrayObjectForKey:@"object"];
-//        for (NSDictionary *dic  in themeDicArray) {
-//            if (![dic isKindOfClass:[NSDictionary class]]) {
-//                continue;
-//            }
-//            
-//            XEThemeInfo *theme = [[XEThemeInfo alloc] init];
-//            [theme setThemeInfoByDic:dic];
-//            [weakSelf.adsThemeArray addObject:theme];
-//        }
-//        
-//        //刷新广告
-//        if (weakSelf.adsThemeArray.count) {
-//            [weakSelf refreshAdsScrollView];
-//        }
-    }tag:tag];
-}
-
-
--(void)getCacheThemeInfo {
-    __weak EvaluationViewController *weakSelf = self;
-    int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] addGetCacheTag:tag];
-    [[XEEngine shareInstance] getBannerWithTag:tag];
-    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
-        if (jsonRet == nil) {
-            //...
-        }else{
-            //解析数据
-            weakSelf.adsThemeArray = [NSMutableArray array];
-            NSArray *themeDicArray = [jsonRet arrayObjectForKey:@"object"];
-            for (NSDictionary *dic  in themeDicArray) {
-                if (![dic isKindOfClass:[NSDictionary class]]) {
-                    continue;
-                }
-                XEThemeInfo *theme = [[XEThemeInfo alloc] init];
-                [theme setThemeInfoByDic:dic];
-                [weakSelf.adsThemeArray addObject:theme];
-            }
-            if (weakSelf.adsThemeArray.count) {
-                [weakSelf refreshAdsScrollView];
-            }
-        }
-    }];
-}
-
-- (void)getThemeInfo{
-    __weak EvaluationViewController *weakSelf = self;
-    int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getBannerWithTag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         _isScrollViewDrag = NO;
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -199,49 +142,13 @@
             return;
         }
         [_themeControl endRefreshing:YES];
-        
-        [weakSelf.adsThemeArray removeAllObjects];
-        //解析数据
-        weakSelf.adsThemeArray = [NSMutableArray array];
-        
-        NSArray *themeDicArray = [jsonRet arrayObjectForKey:@"object"];
-        for (NSDictionary *dic  in themeDicArray) {
-            if (![dic isKindOfClass:[NSDictionary class]]) {
-                continue;
-            }
-            
-            XEThemeInfo *theme = [[XEThemeInfo alloc] init];
-            [theme setThemeInfoByDic:dic];
-            [weakSelf.adsThemeArray addObject:theme];
-        }
-        
-        //刷新广告
-        if (weakSelf.adsThemeArray.count) {
-            [weakSelf refreshAdsScrollView];
-        }
+        NSLog(@"=================%@",jsonRet);
+        NSDictionary *dic = [jsonRet objectForKey:@"object"];
+        XEBabyInfo *babyInfo = [[XEBabyInfo alloc] init];
+        [babyInfo setBabyInfoByJsonDic:dic];
+        weakSelf.babyInfo = babyInfo;
+        [weakSelf refreshUserInfoShow];
     }tag:tag];
-}
-
-- (void)refreshAdsScrollView{
-    if (!_adsThemeArray.count) {
-        //        self.tableView.tableHeaderView = nil;
-        self.adsViewContainer = nil;
-        return;
-    }
-    
-    //移除老view
-    for (UIView *view in _adsViewContainer.subviews) {
-        [view removeFromSuperview];
-        [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
-    }
-    
-    scrollPageView = [[XEScrollPage alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(_adsViewContainer.frame))];
-    scrollPageView.duration = 4;
-    scrollPageView.adsType = AdsType_Theme;
-    scrollPageView.dataArray = _adsThemeArray;
-    scrollPageView.delegate = self;
-    [self.adsViewContainer addSubview:scrollPageView];
-
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -253,26 +160,7 @@
 - (void)themeBeginPull:(ODRefreshControl *)refreshControl
 {
     if (_isScrollViewDrag) {
-        //        [self performSelector:@selector(getThemeInfo) withObject:self afterDelay:1.0];
-        [self getThemeInfo];
-    }
-}
-
-
-//#pragma LSScrollPage delegate
-- (void)didTouchPageView:(NSInteger)index{
-    if (index < 0) {
-        return;
-    }
-    
-    XEThemeInfo *theme = [_adsThemeArray objectAtIndex:index];
-    if (!theme) {
-        return;
-    }
-    
-    id vc = [XELinkerHandler handleDealWithHref:theme.themeActionUrl From:self.navigationController];
-    if (vc) {
-        [self.navigationController pushViewController:vc animated:YES];
+        [self performSelector:@selector(getEvaDataSource) withObject:self afterDelay:0.5];
     }
 }
 
@@ -290,20 +178,12 @@
     [self refreshUserInfoShow];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
-}
-
-- (void)applicationWillResignActive:(NSNotification *)notification{
-    [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
-}
-
-- (void)appWillEnterForeground:(NSNotification *)notification{
-    [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
+- (void)showAction{
+    RecipesViewController *rVc = [[RecipesViewController alloc] init];
+    rVc.stage = _babyInfo.stage;
+    rVc.infoType = TYPE_EVALUATION;
+    rVc.bSpecific = YES;
+    [self.navigationController pushViewController:rVc animated:YES];
 }
 
 - (void)dealloc {

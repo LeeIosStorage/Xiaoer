@@ -53,11 +53,39 @@
     
 }
 
-- (NSURL *)babyAvatarUrl {
+- (NSURL *)smallAvatarUrl {
+    if (_avatar == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"small", _avatar]];
+}
+
+- (NSURL *)originalAvatarUrl {
     if (_avatar == nil) {
         return nil;
     }
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl], _avatar]];
+}
+
+- (NSURL *)imgUrl{
+    if (_img == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl], _img]];
+}
+
+- (NSURL *)preimgUrl{
+    if (_preimg == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl], _preimg]];
+}
+
+- (NSURL *)afterimgUrl{
+    if (_afterimg == nil) {
+        return nil;
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl], _afterimg]];
 }
 
 //- (NSURL *)mediumAvatarUrl{

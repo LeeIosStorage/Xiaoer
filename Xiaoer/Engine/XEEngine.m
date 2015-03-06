@@ -1496,9 +1496,9 @@ static XEEngine* s_ShareInstance = nil;
 }
 
 //关键期道具信息和购买链接信息
-- (BOOL)getEvaToolWithStage:(NSString *)stage tag:(int)tag{
+- (BOOL)getEvaToolWithStage:(int)stage tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:stage forKey:@"stage"];
+    [params setObject:[NSNumber numberWithInt:stage] forKey:@"stage"];
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/eva/tool",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }

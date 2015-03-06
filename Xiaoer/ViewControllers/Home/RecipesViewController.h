@@ -18,5 +18,7 @@ typedef enum INFO_TYPE
 @interface RecipesViewController : XESuperViewController
 
 @property (nonatomic, assign) INFO_TYPE infoType;
+@property (nonatomic, assign) int stage;
+@property (nonatomic, assign) BOOL bSpecific;
 
 @end
