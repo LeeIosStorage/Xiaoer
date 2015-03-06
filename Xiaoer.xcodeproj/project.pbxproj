@@ -280,6 +280,7 @@
 		0794259B1A5A59A7002BF56C /* QHQnetworkingTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 079425981A5A59A7002BF56C /* QHQnetworkingTool.m */; };
 		0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */ = {isa = PBXBuildFile; fileRef = 0794259A1A5A59A7002BF56C /* UIImage+HQ.m */; };
 		0797A32A1A7F106C00D5650A /* XEScrollPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0797A3291A7F106C00D5650A /* XEScrollPage.xib */; };
+		079879E31AA98BDC00B59CED /* XEWebViewWithEvaluationVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 079879E21AA98BDC00B59CED /* XEWebViewWithEvaluationVc.m */; };
 		079E42181A7611240056968E /* XEQuestionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E42171A7611240056968E /* XEQuestionInfo.m */; };
 		079E421C1A762ABE0056968E /* XEQuestionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 079E421A1A762ABE0056968E /* XEQuestionViewCell.m */; };
 		079E421D1A762ABE0056968E /* XEQuestionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 079E421B1A762ABE0056968E /* XEQuestionViewCell.xib */; };
@@ -815,6 +816,8 @@
 		079425991A5A59A7002BF56C /* UIImage+HQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+HQ.h"; sourceTree = "<group>"; };
 		0794259A1A5A59A7002BF56C /* UIImage+HQ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+HQ.m"; sourceTree = "<group>"; };
 		0797A3291A7F106C00D5650A /* XEScrollPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XEScrollPage.xib; path = Common/XEScrollPage/XEScrollPage.xib; sourceTree = "<group>"; };
+		079879E11AA98BDB00B59CED /* XEWebViewWithEvaluationVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEWebViewWithEvaluationVc.h; sourceTree = "<group>"; };
+		079879E21AA98BDC00B59CED /* XEWebViewWithEvaluationVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEWebViewWithEvaluationVc.m; sourceTree = "<group>"; };
 		079E42161A7611240056968E /* XEQuestionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEQuestionInfo.h; sourceTree = "<group>"; };
 		079E42171A7611240056968E /* XEQuestionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEQuestionInfo.m; sourceTree = "<group>"; };
 		079E42191A762ABE0056968E /* XEQuestionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEQuestionViewCell.h; sourceTree = "<group>"; };
@@ -1509,6 +1512,8 @@
 				0758CD1A1AA1BBCB0086F270 /* ReadyTestViewController.h */,
 				0758CD1B1AA1BBCB0086F270 /* ReadyTestViewController.m */,
 				0758CD1C1AA1BBCB0086F270 /* ReadyTestViewController.xib */,
+				079879E11AA98BDB00B59CED /* XEWebViewWithEvaluationVc.h */,
+				079879E21AA98BDC00B59CED /* XEWebViewWithEvaluationVc.m */,
 			);
 			path = Evaluation;
 			sourceTree = "<group>";
@@ -2213,7 +2218,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 07508E7B1A51346300873B45 /* Build configuration list for PBXProject "xiaoer" */;
+			buildConfigurationList = 07508E7B1A51346300873B45 /* Build configuration list for PBXProject "Xiaoer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2341,9 +2346,7 @@
 				07508E941A51346300873B45 /* LaunchScreen.xib in Resources */,
 				078E88FD1AA1C32D008AD45A /* UMSocialControllerServiceComment.html in Resources */,
 				075E321E1A762F4A006037B3 /* XECustomerWindow.xib in Resources */,
-				07E2847E1A5A8DFC005651EB /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				0758CD1E1AA1BBCB0086F270 /* ReadyTestViewController.xib in Resources */,
-				07E2846F1A5A8DFC005651EB /* umFeedback.bundle in Resources */,
 				070346701A64F8E200EDE251 /* WelcomeViewController.xib in Resources */,
 				076971AF1A77564E00FEA571 /* TopicListViewController.xib in Resources */,
 				078E88FB1AA1C32D008AD45A /* UMSocialConfig.html in Resources */,
@@ -2573,6 +2576,7 @@
 				07E536211A528C4B005E1DA9 /* XETabBarItemView.m in Sources */,
 				0752F7AC1A7B25C5008C0E0A /* MWTapDetectingImageView.m in Sources */,
 				075DD0361A78AC0C009A64B4 /* WSAssetTableViewController.m in Sources */,
+				079879E31AA98BDC00B59CED /* XEWebViewWithEvaluationVc.m in Sources */,
 				0712B3AF1A5BD853000A1A7F /* UIImage+GIF.m in Sources */,
 				07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */,
 				074644851A6CFFDA00CE2935 /* XECollectionViewCell.m in Sources */,
@@ -2815,7 +2819,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		07508E7B1A51346300873B45 /* Build configuration list for PBXProject "xiaoer" */ = {
+		07508E7B1A51346300873B45 /* Build configuration list for PBXProject "Xiaoer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07508EA11A51346300873B45 /* Debug */,

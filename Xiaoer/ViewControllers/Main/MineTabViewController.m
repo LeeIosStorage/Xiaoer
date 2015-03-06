@@ -28,6 +28,7 @@
 #import "XEProgressHUD.h"
 #import "XENavigationController.h"
 #import "StageSelectViewController.h"
+#import "XEWebViewWithEvaluationVc.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
@@ -366,6 +367,10 @@ static CGFloat beginImageH = 64;
                 if ([[XEEngine shareInstance] needUserLogin:nil]) {
                     return;
                 }
+                NSString *detailUrl = @"http://www.baidu.com";
+                XEWebViewWithEvaluationVc *webView = [[XEWebViewWithEvaluationVc alloc] initWithAddress:detailUrl];
+                [self.navigationController pushViewController:webView animated:YES];
+                return;
                 StageSelectViewController *cpVc = [[StageSelectViewController alloc] init];
                 [self.navigationController pushViewController:cpVc animated:YES];
                 break;
