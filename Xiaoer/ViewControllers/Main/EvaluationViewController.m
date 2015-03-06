@@ -15,6 +15,8 @@
 #import "XEProgressHUD.h"
 #import "ODRefreshControl.h"
 #import "XELinkerHandler.h"
+#import "StageSelectViewController.h"
+#import "ReadyTestViewController.h"
 
 @interface EvaluationViewController ()<XEScrollPageDelegate,UIScrollViewDelegate>{
     ODRefreshControl *_themeControl;
@@ -52,6 +54,10 @@
 //    [self getThemeInfo];
     [self getEvaDataSource];
     [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT*1.2)];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -271,11 +277,37 @@
 }
 
 - (IBAction)criticalAction:(id)sender {
-    
+    StageSelectViewController *ssVc = [[StageSelectViewController alloc] init];
+    [self.navigationController pushViewController:ssVc animated:YES];
 }
 
 - (IBAction)readyAction:(id)sender {
-    
+    ReadyTestViewController *rtVc = [[ReadyTestViewController alloc] init];
+    [self.navigationController pushViewController:rtVc animated:YES];
+}
+
+- (void)handleUserInfoChanged:(NSNotification *)notification{
+    [self refreshUserInfoShow];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
+}
+
+- (void)applicationWillResignActive:(NSNotification *)notification{
+    [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
+}
+
+- (void)appWillEnterForeground:(NSNotification *)notification{
+    [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

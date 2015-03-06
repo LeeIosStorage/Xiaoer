@@ -60,9 +60,9 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mWM-HV-f7H">
-                                    <rect key="frame" x="192" y="50" width="120" height="30"/>
+                                    <rect key="frame" x="220" y="50" width="92" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="选择其他关键期">
+                                    <state key="normal" title="历史评测">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
