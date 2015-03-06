@@ -10,4 +10,7 @@
 
 @interface StageSelectViewCell : UITableViewCell
 
+@property (strong, nonatomic) IBOutlet UILabel *keyStageLabel;
+@property (strong, nonatomic) IBOutlet UILabel *babyDateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *historyLabel;
 @end

@@ -17,6 +17,12 @@
 
 @implementation XESuperViewController
 
+-(void)setDisablePan:(BOOL)disablePan{
+    
+    _popRecognizer.enabled = !disablePan;
+    _disablePan = disablePan;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
