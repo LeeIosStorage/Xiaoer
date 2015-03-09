@@ -10,4 +10,6 @@
 
 @interface ReadyTestViewController : XESuperViewController
 
+@property (nonatomic, assign) int stageIndex;
+
 @end

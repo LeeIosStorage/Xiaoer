@@ -10,7 +10,10 @@
                 <outlet property="babyImageView" destination="kWU-PX-vlI" id="yCi-8N-GHF"/>
                 <outlet property="babyName" destination="741-Kk-8V8" id="e7g-0k-lKL"/>
                 <outlet property="birthLabel" destination="Tjd-v6-qOp" id="akN-Jh-POh"/>
+                <outlet property="contextLabel" destination="K3H-kp-F0I" id="zfP-fG-wgg"/>
                 <outlet property="evaImageView" destination="cs4-au-8PM" id="BEu-59-0xJ"/>
+                <outlet property="nextBtn" destination="aPe-JO-x4g" id="dNe-zg-mzU"/>
+                <outlet property="previousBtn" destination="F9p-wK-zhS" id="hPc-Iy-ogt"/>
                 <outlet property="readybutton" destination="hR9-nL-3Su" id="WGU-Jt-YpZ"/>
                 <outlet property="scrollView" destination="qY9-8r-kZW" id="vyC-Zj-gBI"/>
                 <outlet property="stageLabel" destination="ICs-Yv-ESB" id="DkT-AO-uFF"/>
@@ -37,35 +40,6 @@
                                     <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="kWU-PX-vlI">
-                                    <rect key="frame" x="72" y="13" width="40" height="40"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第3关键期" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ICs-Yv-ESB">
-                                    <rect key="frame" x="120" y="32" width="106" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="F9p-wK-zhS">
-                                    <rect key="frame" x="8" y="18" width="46" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <state key="normal" title="向上">
-                                        <color key="titleColor" red="0.1058823529" green="0.72549019609999998" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aPe-JO-x4g">
-                                    <rect key="frame" x="266" y="18" width="46" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <state key="normal" title="向下">
-                                        <color key="titleColor" red="0.1058823529" green="0.72549019609999998" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2个月16天" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tjd-v6-qOp">
                                     <rect key="frame" x="190" y="13" width="113" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -73,31 +47,54 @@
                                     <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                            </subviews>
-                            <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                        </view>
-                        <view contentMode="scaleToFill" id="SwI-cX-uh2">
-                            <rect key="frame" x="0.0" y="65" width="320" height="288"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mWM-HV-f7H">
-                                    <rect key="frame" x="220" y="46" width="92" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <state key="normal" title="历史评测">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="kWU-PX-vlI">
+                                    <rect key="frame" x="72" y="13" width="40" height="40"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第3关键期" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ICs-Yv-ESB">
+                                    <rect key="frame" x="120" y="32" width="160" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="F9p-wK-zhS">
+                                    <rect key="frame" x="0.0" y="12" width="70" height="40"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" image="eva_previous_icon">
                                         <color key="titleColor" red="0.1058823529" green="0.72549019609999998" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="criticalAction:" destination="-1" eventType="touchUpInside" id="Pek-9r-LjE"/>
+                                        <action selector="changeStageAction:" destination="-1" eventType="touchUpInside" id="wcX-1c-v0D"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aPe-JO-x4g">
+                                    <rect key="frame" x="250" y="12" width="70" height="40"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" image="eva_next_icon">
+                                        <color key="titleColor" red="0.1058823529" green="0.72549019609999998" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="changeStageAction:" destination="-1" eventType="touchUpInside" id="tf8-eR-exS"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="SwI-cX-uh2">
+                            <rect key="frame" x="0.0" y="65" width="320" height="281"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="DFK-Us-mJ5">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="宝宝处于第二关键期，请对宝宝进行各方面发育状态进行测评。" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="K3H-kp-F0I">
-                                    <rect key="frame" x="12" y="10" width="296" height="37"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="宝宝处于第二关键期，请对宝宝进行各方面发育状态进行测评。" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="K3H-kp-F0I">
+                                    <rect key="frame" x="12" y="10" width="296" height="40"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -107,21 +104,83 @@
                                     <rect key="frame" x="20" y="78" width="280" height="199"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1xk-DU-Bu6">
+                                    <rect key="frame" x="12" y="52" width="40" height="23"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <state key="normal" title="展开" backgroundImage="eva_more_icon">
+                                        <color key="titleColor" red="0.1058823529" green="0.72549019609999998" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="readMoreAction:" destination="-1" eventType="touchUpInside" id="yBa-ec-TJy"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hR9-nL-3Su">
-                            <rect key="frame" x="35" y="396" width="250" height="30"/>
+                        <view contentMode="scaleToFill" id="1xa-4i-7oZ">
+                            <rect key="frame" x="0.0" y="349" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="进入测评" backgroundImage="expert_unfold_btn">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="readyAction:" destination="-1" eventType="touchUpInside" id="TQf-DH-fIs"/>
-                            </connections>
-                        </button>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eva_category_1_icon" id="z8L-tK-uvn">
+                                    <rect key="frame" x="38" y="6" width="31" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eva_category_2_icon" id="C5Y-Zz-bKz">
+                                    <rect key="frame" x="80" y="6" width="31" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eva_category_3_icon" id="xgJ-av-1eE">
+                                    <rect key="frame" x="122" y="6" width="31" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eva_category_4_icon" id="V4N-UR-KeW">
+                                    <rect key="frame" x="164" y="6" width="31" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eva_category_5_icon" id="bdv-hn-8aT">
+                                    <rect key="frame" x="206" y="6" width="31" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eva_category_6_icon" id="SB7-xb-Qas">
+                                    <rect key="frame" x="248" y="6" width="31" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="mmv-bo-GND">
+                            <rect key="frame" x="0.0" y="393" width="320" height="87"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hR9-nL-3Su">
+                                    <rect key="frame" x="20" y="14" width="280" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <state key="normal" title="进入测评" backgroundImage="expert_unfold_btn">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="readyAction:" destination="-1" eventType="touchUpInside" id="TQf-DH-fIs"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mWM-HV-f7H">
+                                    <rect key="frame" x="114" y="49" width="92" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <state key="normal" title="历史评测">
+                                        <color key="titleColor" red="0.1058823529" green="0.72549019609999998" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="criticalAction:" destination="-1" eventType="touchUpInside" id="Pek-9r-LjE"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -134,6 +193,15 @@
         </view>
     </objects>
     <resources>
+        <image name="eva_category_1_icon" width="31" height="31"/>
+        <image name="eva_category_2_icon" width="31" height="31"/>
+        <image name="eva_category_3_icon" width="31" height="31"/>
+        <image name="eva_category_4_icon" width="31" height="31"/>
+        <image name="eva_category_5_icon" width="31" height="31"/>
+        <image name="eva_category_6_icon" width="31" height="31"/>
+        <image name="eva_more_icon" width="40" height="23"/>
+        <image name="eva_next_icon" width="6" height="12"/>
+        <image name="eva_previous_icon" width="6" height="12"/>
         <image name="expert_unfold_btn" width="475" height="50"/>
         <image name="s_n_set_line" width="300" height="1"/>
     </resources>

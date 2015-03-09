@@ -20,10 +20,14 @@
 #import "ReadyTestViewController.h"
 #import "RecipesViewController.h"
 
+#define Tag_Stage_Previous   101
+#define Tag_Stage_Next       102
+
 @interface EvaluationViewController ()<XEScrollPageDelegate,UIScrollViewDelegate>{
     ODRefreshControl *_themeControl;
     XEScrollPage *scrollPageView;
     BOOL _isScrollViewDrag;
+    int stageIndex;
 }
 
 @property (strong, nonatomic) IBOutlet UIImageView *babyImageView;
@@ -32,6 +36,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *readybutton;
 @property (strong, nonatomic) IBOutlet UILabel *stageLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *evaImageView;
+@property (strong, nonatomic) IBOutlet UILabel *contextLabel;
+@property (strong, nonatomic) IBOutlet UIButton *previousBtn;
+@property (strong, nonatomic) IBOutlet UIButton *nextBtn;
 
 @property (nonatomic, strong) XEUserInfo *userInfo;
 @property (nonatomic, strong) NSMutableArray *adsThemeArray;
@@ -50,12 +57,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self refreshUserInfoShow];
+    stageIndex = 1;
+    [self getEvaDataSource];
+
+    [self refreshEvaWithStage:stageIndex];
     
     _themeControl = [[ODRefreshControl alloc] initInScrollView:self.scrollView];
     [_themeControl addTarget:self action:@selector(themeBeginPull:) forControlEvents:UIControlEventValueChanged];
     
-    [self getEvaDataSource];
     [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT*1.1)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
@@ -74,7 +83,7 @@
 //    }else{
 //        
 //    }
-    [self setRightButtonWithImageName:@"expert_public_icon" selector:@selector(showAction)];
+    [self setRightButtonWithImageName:@"eva_recipes_icon" selector:@selector(showAction)];
 }
 
 - (UINavigationController *)navigationController{
@@ -91,16 +100,7 @@
     return NO;
 }
 
-//-(XEUserInfo *)getBabyUserInfo:(NSInteger)index{
-//    _userInfo = [XEEngine shareInstance].userInfo;
-//    if (_userInfo.babys.count > index) {
-//        XEUserInfo *babyUserInfo = [_userInfo.babys objectAtIndex:index];
-//        return babyUserInfo;
-//    }
-//    return nil;
-//}
-
-- (void)refreshUserInfoShow
+- (void)refreshEvaWithStage:(int)stage
 {
     if ([self isVisitor]) {
         [self.babyImageView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
@@ -109,11 +109,24 @@
         self.babyImageView.clipsToBounds = YES;
         self.babyImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.babyImageView sd_setImageWithURL:_babyInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
-        self.babyImageView.layer.CornerRadius = 8;
+        self.babyImageView.layer.cornerRadius = self.babyImageView.frame.size.width/2;
+        self.babyImageView.layer.masksToBounds = YES;
+        self.babyImageView.clipsToBounds = YES;
         [self.evaImageView sd_setImageWithURL:_babyInfo.imgUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
         
         self.babyName.text = _babyInfo.babyName;
-        self.stageLabel.text = [NSString stringWithFormat:@"第%d关键期", _babyInfo.stage];
+        
+        if (stageIndex == 0) {
+            self.previousBtn.hidden = YES;
+            self.stageLabel.text = [NSString stringWithFormat:@"距离上一关键期已过%d天",_babyInfo.preday];
+        }else if (stageIndex == 2) {
+            self.nextBtn.hidden = YES;
+            self.stageLabel.text = [NSString stringWithFormat:@"距离下一关键期还有%d天",_babyInfo.afterday];
+        }else{
+            self.nextBtn.hidden = NO;
+            self.previousBtn.hidden = NO;
+            self.stageLabel.text = [NSString stringWithFormat:@"第%d关键期",_babyInfo.stage];
+        }
         
         CGRect frame = self.babyName.frame;
         frame.size.width = [XECommonUtils widthWithText:self.babyName.text font:self.babyName.font lineBreakMode:self.babyName.lineBreakMode];
@@ -142,12 +155,11 @@
             return;
         }
         [_themeControl endRefreshing:YES];
-        NSLog(@"=================%@",jsonRet);
         NSDictionary *dic = [jsonRet objectForKey:@"object"];
         XEBabyInfo *babyInfo = [[XEBabyInfo alloc] init];
         [babyInfo setBabyInfoByJsonDic:dic];
         weakSelf.babyInfo = babyInfo;
-        [weakSelf refreshUserInfoShow];
+        [weakSelf refreshEvaWithStage:stageIndex];
     }tag:tag];
 }
 
@@ -160,8 +172,23 @@
 - (void)themeBeginPull:(ODRefreshControl *)refreshControl
 {
     if (_isScrollViewDrag) {
+        stageIndex = 1;
         [self performSelector:@selector(getEvaDataSource) withObject:self afterDelay:0.5];
     }
+}
+
+- (IBAction)readMoreAction:(id)sender {
+    
+}
+
+- (IBAction)changeStageAction:(id)sender {
+    UIButton *btn = sender;
+    if (btn.tag == Tag_Stage_Previous) {
+        stageIndex--;
+    }else if(btn.tag == Tag_Stage_Next){
+        stageIndex++;
+    }
+    [self refreshEvaWithStage:stageIndex];
 }
 
 - (IBAction)criticalAction:(id)sender {
@@ -171,11 +198,12 @@
 
 - (IBAction)readyAction:(id)sender {
     ReadyTestViewController *rtVc = [[ReadyTestViewController alloc] init];
+    rtVc.stageIndex = _babyInfo.stage + (stageIndex-1);
     [self.navigationController pushViewController:rtVc animated:YES];
 }
 
 - (void)handleUserInfoChanged:(NSNotification *)notification{
-    [self refreshUserInfoShow];
+    [self refreshEvaWithStage:1];
 }
 
 - (void)showAction{
