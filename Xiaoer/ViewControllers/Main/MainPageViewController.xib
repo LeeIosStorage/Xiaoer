@@ -36,7 +36,7 @@
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="deviceRGB"/>
-            <point key="canvasLocation" x="217" y="105"/>
+            <point key="canvasLocation" x="257" y="105"/>
         </view>
         <view contentMode="scaleToFill" id="LUx-H4-FQq">
             <rect key="frame" x="0.0" y="0.0" width="320" height="485"/>
@@ -225,7 +225,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="69" y="68.5"/>
+            <point key="canvasLocation" x="-145" y="63.5"/>
         </view>
     </objects>
     <resources>
@@ -233,7 +233,7 @@
         <image name="home_msg_icon" width="41" height="41"/>
         <image name="home_task_icon" width="41" height="41"/>
         <image name="s_n_set_line" width="300" height="1"/>
-        <image name="s_round_red" width="6" height="6"/>
+        <image name="s_round_red" width="7" height="7"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
