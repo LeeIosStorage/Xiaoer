@@ -25,7 +25,7 @@
     // Do any additional setup after loading the view.
     self.delegate = self;
 #ifdef USE_SYS_PAN_GESTURE
-    __weak LSNavigationController *weakSelf = self;
+    __weak XENavigationController *weakSelf = self;
     
     if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
     {

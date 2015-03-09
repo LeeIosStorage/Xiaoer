@@ -38,7 +38,7 @@
     view.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = view;
     
-    [self refreshUIShow];
+//    [self refreshUIShow];
     [self.tableView reloadData];
     
     if (_vcType == VcType_ALL) {
@@ -194,7 +194,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     if (_vcType == VcType_ALL) {
-        return self.sectionView;
+        return nil;
     }else if (_vcType == VcType_ONE_KEY){
         return nil;
     }
@@ -202,7 +202,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (_vcType == VcType_ALL) {
-        return self.sectionView.frame.size.height;
+        return 0;
     }else if (_vcType == VcType_ONE_KEY){
         return 0;
     }
