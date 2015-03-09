@@ -12,6 +12,9 @@
 @implementation XEBabyInfo
 
 - (void)doSetBabyInfoByJsonDic:(NSDictionary*)dic {
+    if ([dic objectForKey:@"id"]) {
+        _babyId = [dic objectForKey:@"id"];
+    }
     if ([dic objectForKey:@"name"]) {
         _babyName = [dic objectForKey:@"name"];
     }
@@ -29,6 +32,15 @@
     }
     if ([dic objectForKey:@"avatar"]) {
         _avatar = [dic objectForKey:@"avatar"];
+    }
+    if ([dic objectForKey:@"content"]) {
+        _content = [dic objectForKey:@"content"];
+    }
+    if ([dic objectForKey:@"precontent"]) {
+        _precontent = [dic objectForKey:@"precontent"];
+    }
+    if ([dic objectForKey:@"aftercontent"]) {
+        _aftercontent = [dic objectForKey:@"aftercontent"];
     }
     _stage = [[dic objectForKey:@"stage"] intValue];
     _preday = [[dic objectForKey:@"preday"] intValue];

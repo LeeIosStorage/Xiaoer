@@ -112,22 +112,23 @@
         self.babyImageView.layer.cornerRadius = self.babyImageView.frame.size.width/2;
         self.babyImageView.layer.masksToBounds = YES;
         self.babyImageView.clipsToBounds = YES;
-        [self.evaImageView sd_setImageWithURL:_babyInfo.imgUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
-        
-        self.babyName.text = _babyInfo.babyName;
         
         if (stageIndex == 0) {
             self.previousBtn.hidden = YES;
             self.stageLabel.text = [NSString stringWithFormat:@"距离上一关键期已过%d天",_babyInfo.preday];
+            [self.evaImageView sd_setImageWithURL:_babyInfo.preimgUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
         }else if (stageIndex == 2) {
             self.nextBtn.hidden = YES;
             self.stageLabel.text = [NSString stringWithFormat:@"距离下一关键期还有%d天",_babyInfo.afterday];
+            [self.evaImageView sd_setImageWithURL:_babyInfo.afterimgUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
         }else{
             self.nextBtn.hidden = NO;
             self.previousBtn.hidden = NO;
             self.stageLabel.text = [NSString stringWithFormat:@"第%d关键期",_babyInfo.stage];
+            [self.evaImageView sd_setImageWithURL:_babyInfo.imgUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
         }
         
+        self.babyName.text = _babyInfo.babyName;
         CGRect frame = self.babyName.frame;
         frame.size.width = [XECommonUtils widthWithText:self.babyName.text font:self.babyName.font lineBreakMode:self.babyName.lineBreakMode];
         self.babyName.frame = frame;
@@ -199,6 +200,7 @@
 - (IBAction)readyAction:(id)sender {
     ReadyTestViewController *rtVc = [[ReadyTestViewController alloc] init];
     rtVc.stageIndex = _babyInfo.stage + (stageIndex-1);
+    rtVc.babyInfo = _babyInfo;
     [self.navigationController pushViewController:rtVc animated:YES];
 }
 

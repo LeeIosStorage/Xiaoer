@@ -11,11 +11,14 @@
 #import "XEProgressHUD.h"
 #import "XECollectionViewCell.h"
 #import "XELinkerHandler.h"
+#import "XEItemInfo.h"
+#import "UIImageView+WebCache.h"
 
 @interface ReadyTestViewController () <UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 
+@property (strong, nonatomic) NSMutableArray *itemsArray;
 @end
 
 @implementation ReadyTestViewController
@@ -53,6 +56,18 @@
             return;
         }
         NSLog(@"=================%@",jsonRet);
+        weakSelf.itemsArray = [NSMutableArray array];
+        
+        NSArray *themeDicArray = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"toy"];
+        for (NSDictionary *dic  in themeDicArray) {
+            if (![dic isKindOfClass:[NSDictionary class]]) {
+                continue;
+            }
+            XEItemInfo *item = [[XEItemInfo alloc] init];
+            [item setItemInfoByJsonDic:dic];
+            [weakSelf.itemsArray addObject:item];
+        }
+        [weakSelf.collectionView reloadData];
     }tag:tag];
 }
 
@@ -72,26 +87,11 @@
 {
     
     XECollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XECollectionViewCell" forIndexPath:indexPath];
-    if(indexPath.row == 0){
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_recipes_icon"]];
-        [cell.nameLabel setText:@"食谱"];
-    }else if(indexPath.row == 1){
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_nourish_icon"]];
-        cell.nameLabel.text = @"养育";
-    }else if(indexPath.row == 2){
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_evaluation_icon"]];
-        cell.nameLabel.text = @"测评";
-    }else if(indexPath.row == 3){
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_expert_icon"]];
-        cell.nameLabel.text = @"专家";
-    }else if(indexPath.row == 4){
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_activity_icon"]];
-        cell.nameLabel.text = @"活动";
-    }else if(indexPath.row == 5){
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_mall_icon"]];
-        cell.nameLabel.text = @"商城";
+    XEItemInfo *itemInfo = _itemsArray[indexPath.row];
+    if (indexPath.row >= 0 && indexPath.row <= 6) {
+        [cell.avatarImgView sd_setImageWithURL:itemInfo.imageUrl placeholderImage:[UIImage imageNamed:@"home_placeholder_avatar"]];
+        [cell.nameLabel setText:itemInfo.name];
     }
-    
     return cell;
 }
 
@@ -149,6 +149,14 @@
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
+}
+//
+- (IBAction)evaAction:(id)sender {
+    NSString *evaUrl = [NSString stringWithFormat:@"%@/eva/test/start/%@/%@/%d",[XEEngine shareInstance].baseUrl,[XEEngine shareInstance].uid,_babyInfo.babyId,self.stageIndex];
+    id vc = [XELinkerHandler handleDealWithHref:evaUrl From:self.navigationController];
+    if (vc) {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end

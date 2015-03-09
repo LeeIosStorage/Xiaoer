@@ -7,9 +7,12 @@
 //
 
 #import "XESuperViewController.h"
+#import "XEBabyInfo.h"
 
 @interface ReadyTestViewController : XESuperViewController
 
 @property (nonatomic, assign) int stageIndex;
+
+@property (nonatomic, strong) XEBabyInfo* babyInfo;
 
 @end

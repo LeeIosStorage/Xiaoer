@@ -157,6 +157,7 @@
 		076CF5711A78AD8C00CDE21D /* XECateTopicViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 076CF56F1A78AD8C00CDE21D /* XECateTopicViewCell.m */; };
 		076CF5721A78AD8C00CDE21D /* XECateTopicViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076CF5701A78AD8C00CDE21D /* XECateTopicViewCell.xib */; };
 		076CF5791A78CFE300CDE21D /* XEPublishMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 076CF5781A78CFE300CDE21D /* XEPublishMenu.m */; };
+		076D73371AAD9E7A00C1A30A /* XEItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 076D73361AAD9E7A00C1A30A /* XEItemInfo.m */; };
 		076F32581A5F806200346F44 /* XEInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32561A5F806200346F44 /* XEInputViewController.m */; };
 		076F32591A5F806200346F44 /* XEInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 076F32571A5F806200346F44 /* XEInputViewController.xib */; };
 		076F32681A5FA67700346F44 /* UIImage+ProportionalFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 076F32671A5FA67700346F44 /* UIImage+ProportionalFill.m */; };
@@ -639,6 +640,8 @@
 		076CF5701A78AD8C00CDE21D /* XECateTopicViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XECateTopicViewCell.xib; sourceTree = "<group>"; };
 		076CF5771A78CFE300CDE21D /* XEPublishMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XEPublishMenu.h; path = Common/XEPublishMenu/XEPublishMenu.h; sourceTree = "<group>"; };
 		076CF5781A78CFE300CDE21D /* XEPublishMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEPublishMenu.m; path = Common/XEPublishMenu/XEPublishMenu.m; sourceTree = "<group>"; };
+		076D73351AAD9E7A00C1A30A /* XEItemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEItemInfo.h; sourceTree = "<group>"; };
+		076D73361AAD9E7A00C1A30A /* XEItemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEItemInfo.m; sourceTree = "<group>"; };
 		076F32551A5F806200346F44 /* XEInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEInputViewController.h; sourceTree = "<group>"; };
 		076F32561A5F806200346F44 /* XEInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEInputViewController.m; sourceTree = "<group>"; };
 		076F32571A5F806200346F44 /* XEInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEInputViewController.xib; sourceTree = "<group>"; };
@@ -1977,6 +1980,8 @@
 				07882C261A80753D003874FA /* XECardInfo.m */,
 				0760E9401A81D93100BBEA3D /* XEMsgInfo.h */,
 				0760E9411A81D93100BBEA3D /* XEMsgInfo.m */,
+				076D73351AAD9E7A00C1A30A /* XEItemInfo.h */,
+				076D73361AAD9E7A00C1A30A /* XEItemInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2218,7 +2223,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 07508E7B1A51346300873B45 /* Build configuration list for PBXProject "Xiaoer" */;
+			buildConfigurationList = 07508E7B1A51346300873B45 /* Build configuration list for PBXProject "xiaoer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2454,6 +2459,7 @@
 				07702D011A5901AF00168E2E /* XESuperViewController.m in Sources */,
 				075E409C1A59386C0062F6AD /* AFURLConnectionOperation.m in Sources */,
 				0752F7DB1A7B2638008C0E0A /* PSTGridLayoutItem.m in Sources */,
+				076D73371AAD9E7A00C1A30A /* XEItemInfo.m in Sources */,
 				0760FC461A79D4DD00A0E5D8 /* QuestionDetailsViewController.m in Sources */,
 				07B6505B1A67B85200DEDE4E /* XEDoctorInfo.m in Sources */,
 				07C49F4A1A5E7CD000E1725C /* XEImagePickerController.m in Sources */,
@@ -2819,7 +2825,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		07508E7B1A51346300873B45 /* Build configuration list for PBXProject "Xiaoer" */ = {
+		07508E7B1A51346300873B45 /* Build configuration list for PBXProject "xiaoer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07508EA11A51346300873B45 /* Debug */,
