@@ -83,6 +83,10 @@
 		0752F7DC1A7B2638008C0E0A /* PSTGridLayoutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0752F7CE1A7B2638008C0E0A /* PSTGridLayoutRow.m */; };
 		0752F7DD1A7B2638008C0E0A /* PSTGridLayoutSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0752F7D01A7B2638008C0E0A /* PSTGridLayoutSection.m */; };
 		0752F7E01A7B267A008C0E0A /* MWPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0752F7DF1A7B267A008C0E0A /* MWPhotoBrowser.bundle */; };
+		075513901AAD7B5F00B1E513 /* BabyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0755138E1AAD7B5F00B1E513 /* BabyListViewController.m */; };
+		075513911AAD7B5F00B1E513 /* BabyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0755138F1AAD7B5F00B1E513 /* BabyListViewController.xib */; };
+		075513951AAD824900B1E513 /* BabyListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075513931AAD824900B1E513 /* BabyListViewCell.m */; };
+		075513961AAD824900B1E513 /* BabyListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075513941AAD824900B1E513 /* BabyListViewCell.xib */; };
 		07582CF71A6E37F200CDCA13 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582CF61A6E37F200CDCA13 /* ODRefreshControl.m */; };
 		07582D0D1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D0A1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m */; };
 		07582D0E1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D0C1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m */; };
@@ -509,6 +513,12 @@
 		0752F7CF1A7B2638008C0E0A /* PSTGridLayoutSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutSection.h; sourceTree = "<group>"; };
 		0752F7D01A7B2638008C0E0A /* PSTGridLayoutSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutSection.m; sourceTree = "<group>"; };
 		0752F7DF1A7B267A008C0E0A /* MWPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MWPhotoBrowser.bundle; sourceTree = "<group>"; };
+		0755138D1AAD7B5F00B1E513 /* BabyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyListViewController.h; sourceTree = "<group>"; };
+		0755138E1AAD7B5F00B1E513 /* BabyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyListViewController.m; sourceTree = "<group>"; };
+		0755138F1AAD7B5F00B1E513 /* BabyListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyListViewController.xib; sourceTree = "<group>"; };
+		075513921AAD824900B1E513 /* BabyListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyListViewCell.h; sourceTree = "<group>"; };
+		075513931AAD824900B1E513 /* BabyListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyListViewCell.m; sourceTree = "<group>"; };
+		075513941AAD824900B1E513 /* BabyListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyListViewCell.xib; sourceTree = "<group>"; };
 		07582CF51A6E37F200CDCA13 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
 		07582CF61A6E37F200CDCA13 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
 		07582D081A6E566100CDCA13 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
@@ -1499,6 +1509,9 @@
 				077663A21A80C0DB004C885B /* CollectActivityViewCell.h */,
 				077663A31A80C0DB004C885B /* CollectActivityViewCell.m */,
 				077663A41A80C0DB004C885B /* CollectActivityViewCell.xib */,
+				075513921AAD824900B1E513 /* BabyListViewCell.h */,
+				075513931AAD824900B1E513 /* BabyListViewCell.m */,
+				075513941AAD824900B1E513 /* BabyListViewCell.xib */,
 			);
 			name = Mine;
 			sourceTree = "<group>";
@@ -2074,6 +2087,9 @@
 				0776639D1A809C01004C885B /* MineTopicListViewController.h */,
 				0776639E1A809C01004C885B /* MineTopicListViewController.m */,
 				0776639F1A809C01004C885B /* MineTopicListViewController.xib */,
+				0755138D1AAD7B5F00B1E513 /* BabyListViewController.h */,
+				0755138E1AAD7B5F00B1E513 /* BabyListViewController.m */,
+				0755138F1AAD7B5F00B1E513 /* BabyListViewController.xib */,
 				078623721A84529900B17230 /* BabyProfileViewController.h */,
 				078623731A84529900B17230 /* BabyProfileViewController.m */,
 				078623741A84529900B17230 /* BabyProfileViewController.xib */,
@@ -2248,6 +2264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
+				075513961AAD824900B1E513 /* BabyListViewCell.xib in Resources */,
 				076CF5721A78AD8C00CDE21D /* XECateTopicViewCell.xib in Resources */,
 				078E88EF1AA1C32D008AD45A /* UMSCommentInputController.xib in Resources */,
 				078E89251AA1C32D008AD45A /* UMSocialUIDelegate.html in Resources */,
@@ -2295,6 +2312,7 @@
 				0760E93B1A81ACCD00BBEA3D /* CardDetailViewController.xib in Resources */,
 				077916711A5E64BA0047C17C /* PerfectInfoViewController.xib in Resources */,
 				075B03241A6DECE2002B577D /* XEPublicViewController.xib in Resources */,
+				075513911AAD7B5F00B1E513 /* BabyListViewController.xib in Resources */,
 				078E88F91AA1C32D008AD45A /* UMSocialBar.html in Resources */,
 				071D51971A674FC6003D6752 /* MainTabCell.xib in Resources */,
 				078E89181AA1C32D008AD45A /* UMSocialYXSessionData.html in Resources */,
@@ -2407,6 +2425,7 @@
 				0752F7AE1A7B25C5008C0E0A /* MWZoomingScrollView.m in Sources */,
 				075E40971A59386C0062F6AD /* AFHTTPRequestOperation.m in Sources */,
 				0752F7AB1A7B25C5008C0E0A /* MWPhotoBrowser.m in Sources */,
+				075513951AAD824900B1E513 /* BabyListViewCell.m in Sources */,
 				075DD04B1A78BA3F009A64B4 /* UIImageExtras.m in Sources */,
 				073F9F0B1A68B2B8009D94E3 /* XECategoryView.m in Sources */,
 				074DD0DA1A5E33B80042B721 /* MineTabCell.m in Sources */,
@@ -2533,6 +2552,7 @@
 				0712B3A71A5BD853000A1A7F /* SDImageCache.m in Sources */,
 				076F32681A5FA67700346F44 /* UIImage+ProportionalFill.m in Sources */,
 				7E72411F1A77C0E1001E1F69 /* XECommentInfo.m in Sources */,
+				075513901AAD7B5F00B1E513 /* BabyListViewController.m in Sources */,
 				075DD0371A78AC0C009A64B4 /* WSAssetViewColumn.m in Sources */,
 				0712B3AC1A5BD853000A1A7F /* SDWebImageManager.m in Sources */,
 				075E409D1A59386C0062F6AD /* AFURLRequestSerialization.m in Sources */,

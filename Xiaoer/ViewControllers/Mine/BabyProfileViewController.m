@@ -29,6 +29,11 @@
 @property (nonatomic, strong) NSMutableArray *babyInfos;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
+@property (nonatomic, strong) IBOutlet UIView *footerView;
+@property (nonatomic, strong) IBOutlet UISwitch *defaultBabySwitch;
+@property (assign, nonatomic) BOOL isDefaultBaby;
+
+- (IBAction)setDefaultBabyAction:(UISwitch *)sender;
 @end
 
 @implementation BabyProfileViewController
@@ -36,16 +41,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    _isEditStatus = NO;
+    _isEditStatus = YES;
     self.view.backgroundColor = UIColorRGB(240, 240, 240);
+    self.tableView.tableFooterView = self.footerView;
     
     _babyInfos = [[NSMutableArray alloc] init];
-    if ([XEEngine shareInstance].userInfo.babys && [XEEngine shareInstance].userInfo.babys.count > 0) {
-        [_babyInfos addObject:[[XEEngine shareInstance].userInfo.babys objectAtIndex:0]];
+    if (_babyInfo) {
+        [_babyInfos addObject:_babyInfo];
     }else{
         XEUserInfo *babyInfo = [[XEUserInfo alloc] init];
         [_babyInfos addObject:babyInfo];
     }
+//    if ([XEEngine shareInstance].userInfo.babys && [XEEngine shareInstance].userInfo.babys.count > 0) {
+//        [_babyInfos addObject:[[XEEngine shareInstance].userInfo.babys objectAtIndex:0]];
+//    }else{
+//        XEUserInfo *babyInfo = [[XEUserInfo alloc] init];
+//        [_babyInfos addObject:babyInfo];
+//    }
+    _isDefaultBaby = (_babyInfo.acquiesce == 1);
+    [self.defaultBabySwitch setOn:_isDefaultBaby animated:YES];
     
     [self.tableView reloadData];
 }
@@ -57,8 +71,11 @@
 
 - (void)initNormalTitleNavBarSubviews{
     //title
-    [self setTitle:@"宝宝资料"];
-    [self setRightButtonWithTitle:@"编辑" selector:@selector(editAction:)];
+    [self setTitle:@"增加宝宝"];
+    if (_babyInfo) {
+        [self setTitle:@"编辑宝宝资料"];
+    }
+    [self setRightButtonWithTitle:@"保存" selector:@selector(editAction:)];
 }
 
 /*
@@ -141,24 +158,27 @@
     return nil;
 }
 #pragma mark - custom
+- (IBAction)setDefaultBabyAction:(UISwitch *)sender {
+    _isDefaultBaby = sender.on;
+}
 -(void)editAction:(id)sender{
     if (_isEditStatus) {
         [self editUserInfo];
         return;
     }
-    _isEditStatus = !_isEditStatus;
-    if (_isEditStatus) {
-        [UIView animateWithDuration:1.0 animations:^{
-            [self setTitle:@"编辑宝宝资料"];
-            [self setRightButtonWithTitle:@"保存"];
-        }];
-    }else{
-        [UIView animateWithDuration:1.0 animations:^{
-            [self setTitle:@"宝宝资料"];
-            [self setRightButtonWithTitle:@"编辑"];
-        }];
-    }
-    [self.tableView reloadData];
+//    _isEditStatus = !_isEditStatus;
+//    if (_isEditStatus) {
+//        [UIView animateWithDuration:1.0 animations:^{
+//            [self setTitle:@"编辑宝宝资料"];
+//            [self setRightButtonWithTitle:@"保存"];
+//        }];
+//    }else{
+//        [UIView animateWithDuration:1.0 animations:^{
+//            [self setTitle:@"宝宝资料"];
+//            [self setRightButtonWithTitle:@"编辑"];
+//        }];
+//    }
+//    [self.tableView reloadData];
 }
 -(void)doActionSheetClickedButtonAtIndex:(NSInteger)buttonIndex{
     if (1 == buttonIndex ) {
