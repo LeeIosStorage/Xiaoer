@@ -42,6 +42,9 @@
                 webvc.isShareViewOut = YES;
                 webvc.openId = openId;
             }
+            if ([url hasPrefix:[NSString stringWithFormat:@"%@/eva/test/start",[XEEngine shareInstance].baseUrl]]) {
+                webvc.isCanClosed = YES;
+            }
 //            webvc.availableActions = SVWebViewControllerAvailableActionsOpenInSafari | SVWebViewControllerAvailableActionsOpenInChrome | SVWebViewControllerAvailableActionsCopyLink | SVWebViewControllerAvailableActionsMailLink;
             [nav pushViewController:webvc animated:YES];
         }

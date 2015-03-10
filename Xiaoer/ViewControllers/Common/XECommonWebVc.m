@@ -10,6 +10,7 @@
 #import "XEShareActionSheet.h"
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
+#import "XEAlertView.h"
 
 NSInteger const SGProgresstagId = 222122323;
 CGFloat const SGProgressBarHeight = 2.5;
@@ -91,12 +92,28 @@ CGFloat const SGProgressBarHeight = 2.5;
     if (self.isShareViewOut) {
         [self setRightButtonWithImageName:@"more_icon" selector:@selector(actionButtonClicked:)];
     }
+    if (self.isCanClosed) {
+        [self setRightButtonWithTitle:@"结束" selector:@selector(closedAction)];
+    }
 
 //    UIView *leftEdge = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, [UIScreen mainScreen].bounds.size.height)];
 //    //    leftEdge.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleHeight;
 //    leftEdge.backgroundColor = [UIColor clearColor];
 //    [self.view addSubview:leftEdge];
     
+}
+
+- (void)closedAction{
+    if (self.navigationController) {
+        __weak XECommonWebVc *weakSelf = self;
+        XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"你确定要结束吗？结束将不保存该次评测数据" cancelButtonTitle:@"取消" cancelBlock:^{
+        } okButtonTitle:@"确认" okBlock:^{
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }];
+        [alertView show];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

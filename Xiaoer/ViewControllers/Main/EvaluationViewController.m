@@ -19,7 +19,9 @@
 #import "StageSelectViewController.h"
 #import "ReadyTestViewController.h"
 #import "RecipesViewController.h"
-
+#import "WelcomeViewController.h"
+#import "XENavigationController.h"
+#import "PerfectInfoViewController.h"
 #define Tag_Stage_Previous   101
 #define Tag_Stage_Next       102
 
@@ -30,6 +32,12 @@
     BOOL _isReadMore;
     int stageIndex;
 }
+
+@property (strong, nonatomic) IBOutlet UIView *hideView;
+@property (strong, nonatomic) IBOutlet UIImageView *hideImageView;
+@property (strong, nonatomic) IBOutlet UIButton *hideButton;
+@property (strong, nonatomic) IBOutlet UIImageView *hideBabyImage;
+@property (strong, nonatomic) IBOutlet UILabel *hideNamelabel;
 
 @property (strong, nonatomic) IBOutlet UIImageView *babyImageView;
 @property (strong, nonatomic) IBOutlet UILabel *babyName;
@@ -54,6 +62,7 @@
 
 - (IBAction)criticalAction:(id)sender;
 - (IBAction)readyAction:(id)sender;
+- (IBAction)bottomAction:(id)sender;
 
 @end
 
@@ -63,9 +72,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     stageIndex = 1;
-    [self getCacheEvaDataSource];
-    [self getEvaDataSource];
-
+    if (![self isVisitor]) {
+        [self getCacheEvaDataSource];
+        [self getEvaDataSource];
+    }
     [self refreshEvaWithStage:stageIndex];
     
     _themeControl = [[ODRefreshControl alloc] initInScrollView:self.scrollView];
@@ -82,12 +92,12 @@
 -(void)initNormalTitleNavBarSubviews{
     
     [self setTitle:@"评测"];
-//    if ([self isVisitor]) {
-//        
-//    }else{
-//        
-//    }
-    [self setRightButtonWithImageName:@"eva_recipes_icon" selector:@selector(showAction)];
+    if ([self isVisitor]) {
+    
+    }else{
+       [self setRightButtonWithImageName:@"eva_recipes_icon" selector:@selector(showAction)];
+    }
+    
 }
 
 - (UINavigationController *)navigationController{
@@ -106,10 +116,27 @@
 
 - (void)refreshEvaWithStage:(int)stage
 {
-    if ([self isVisitor]) {
-        [self.babyImageView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
-        self.babyImageView.layer.CornerRadius = 8;
+    if ([self isVisitor] || !self.babyInfo.babyId) {
+        self.hideView.hidden = NO;
+        self.scrollView.hidden = YES;
+        [self.hideImageView setImage:[UIImage imageNamed:@"eva_placeholder_img"]];
+        [self.hideBabyImage setImage:[UIImage imageNamed:@"topic_load_icon"]];
+        self.hideBabyImage.layer.cornerRadius = self.babyImageView.frame.size.width/2;
+        self.hideBabyImage.layer.masksToBounds = YES;
+        self.hideBabyImage.clipsToBounds = YES;
+        if (SCREEN_HEIGHT == 480) {
+            
+        }
+        if ([self isVisitor]) {
+            self.hideNamelabel.text = @"你还没有登录";
+            [self.hideButton setTitle:@"登录或注册" forState:UIControlStateNormal];
+        }else{
+            self.hideNamelabel.text = @"你还没有宝宝";
+            [self.hideButton setTitle:@"完善质料" forState:UIControlStateNormal];
+        }
     }else{
+        self.hideView.hidden = YES;
+        self.scrollView.hidden = NO;
         self.babyImageView.clipsToBounds = YES;
         self.babyImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.babyImageView sd_setImageWithURL:_babyInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
@@ -121,19 +148,19 @@
             self.previousBtn.hidden = YES;
             self.contextLabel.text = _babyInfo.precontent;
             self.stageLabel.text = [NSString stringWithFormat:@"距离上一关键期已过%d天",_babyInfo.preday];
-            [self.evaImageView sd_setImageWithURL:_babyInfo.preimgUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
+            [self.evaImageView sd_setImageWithURL:_babyInfo.preimgUrl placeholderImage:[UIImage imageNamed:@"eva_placeholder_img"]];
             
         }else if (stageIndex == 2) {
             self.nextBtn.hidden = YES;
             self.contextLabel.text = _babyInfo.aftercontent;
             self.stageLabel.text = [NSString stringWithFormat:@"距离下一关键期还有%d天",_babyInfo.afterday];
-            [self.evaImageView sd_setImageWithURL:_babyInfo.afterimgUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
+            [self.evaImageView sd_setImageWithURL:_babyInfo.afterimgUrl placeholderImage:[UIImage imageNamed:@"eva_placeholder_img"]];
         }else{
             self.nextBtn.hidden = NO;
             self.previousBtn.hidden = NO;
             self.contextLabel.text = _babyInfo.content;
             self.stageLabel.text = [NSString stringWithFormat:@"第%d关键期",_babyInfo.stage];
-            [self.evaImageView sd_setImageWithURL:_babyInfo.imgUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
+            [self.evaImageView sd_setImageWithURL:_babyInfo.imgUrl placeholderImage:[UIImage imageNamed:@"eva_placeholder_img"]];
         }
         self.babyName.text = _babyInfo.babyName;
         
@@ -278,6 +305,20 @@
     rtVc.stageIndex = _babyInfo.stage + (stageIndex-1);
     rtVc.babyInfo = _babyInfo;
     [self.navigationController pushViewController:rtVc animated:YES];
+}
+
+- (IBAction)bottomAction:(id)sender {
+    if ([self isVisitor]) {
+        WelcomeViewController *welcomeVc = [[WelcomeViewController alloc] init];
+        welcomeVc.showBackButton = YES;
+        XENavigationController* navigationController = [[XENavigationController alloc] initWithRootViewController:welcomeVc];
+        navigationController.navigationBarHidden = YES;
+        [self.navigationController presentViewController:navigationController animated:YES completion:nil];
+    }else{
+        PerfectInfoViewController *pVc = [[PerfectInfoViewController alloc] init];
+        pVc.userInfo = [XEEngine shareInstance].userInfo;
+        [self.navigationController pushViewController:pVc animated:YES];
+    }
 }
 
 - (void)handleUserInfoChanged:(NSNotification *)notification{
