@@ -37,7 +37,7 @@
             <subviews>
                 <view hidden="YES" contentMode="scaleToFill" id="YGR-Jf-XfH">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="sd4-VX-4Mv">
                             <rect key="frame" x="0.0" y="130" width="320" height="2"/>
@@ -74,7 +74,7 @@
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PaJ-nk-AAd">
                             <rect key="frame" x="20" y="395" width="280" height="30"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" backgroundImage="expert_unfold_btn">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

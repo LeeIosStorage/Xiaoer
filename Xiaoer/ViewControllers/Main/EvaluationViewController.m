@@ -124,9 +124,6 @@
         self.hideBabyImage.layer.cornerRadius = self.babyImageView.frame.size.width/2;
         self.hideBabyImage.layer.masksToBounds = YES;
         self.hideBabyImage.clipsToBounds = YES;
-        if (SCREEN_HEIGHT == 480) {
-            
-        }
         if ([self isVisitor]) {
             self.hideNamelabel.text = @"你还没有登录";
             [self.hideButton setTitle:@"登录或注册" forState:UIControlStateNormal];
@@ -322,7 +319,10 @@
 }
 
 - (void)handleUserInfoChanged:(NSNotification *)notification{
-    [self refreshEvaWithStage:1];
+    [XEEngine shareInstance].bVisitor = NO;
+    self.hideView.hidden = YES;
+    self.scrollView.hidden = NO;
+    [self getEvaDataSource];
 }
 
 - (void)showAction{
