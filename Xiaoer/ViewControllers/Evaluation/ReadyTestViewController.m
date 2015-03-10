@@ -17,6 +17,7 @@
 @interface ReadyTestViewController () <UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @end
@@ -28,6 +29,13 @@
     // Do any additional setup after loading the view from its nib.
     //此句不加程序崩
     [self.collectionView registerClass:[XECollectionViewCell class] forCellWithReuseIdentifier:@"XECollectionViewCell"];
+    [self.imageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"eva_stage_%d_icon",self.stageIndex]]];
+    if (SCREEN_HEIGHT == 480) {
+        CGRect frame = self.imageView.frame;
+        frame.origin.y = self.imageView.frame.origin.y - 35;
+        self.imageView.frame = frame;
+    }
+    [self getCacheToolDataSource];
     [self getEvaToolSource];
 }
 
@@ -41,11 +49,36 @@
     [self setTitle:@"准备评测"];
 }
 
+-(void)getCacheToolDataSource {
+    __weak ReadyTestViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getEvaToolWithStage:self.stageIndex tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            //解析数据
+            weakSelf.itemsArray = [NSMutableArray array];
+            NSArray *themeDicArray = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"toy"];
+            for (NSDictionary *dic  in themeDicArray) {
+                if (![dic isKindOfClass:[NSDictionary class]]) {
+                    continue;
+                }
+                XEItemInfo *item = [[XEItemInfo alloc] init];
+                [item setItemInfoByJsonDic:dic];
+                [weakSelf.itemsArray addObject:item];
+            }
+            [weakSelf.collectionView reloadData];
+        }
+    }];
+}
+
 - (void)getEvaToolSource{
     __weak ReadyTestViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-//    [[XEEngine shareInstance] getEvaToolWithStage:self.stageIndex tag:tag];
-    [[XEEngine shareInstance] getEvaToolWithStage:1 tag:tag];
+    [[XEEngine shareInstance] getEvaToolWithStage:self.stageIndex tag:tag];
+//    [[XEEngine shareInstance] getEvaToolWithStage:1 tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -55,9 +88,8 @@
             [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        NSLog(@"=================%@",jsonRet);
         weakSelf.itemsArray = [NSMutableArray array];
-        
+        NSLog(@"================%@",jsonRet);
         NSArray *themeDicArray = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"toy"];
         for (NSDictionary *dic  in themeDicArray) {
             if (![dic isKindOfClass:[NSDictionary class]]) {
@@ -85,8 +117,11 @@
 //每个UICollectionView展示的内容
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     XECollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XECollectionViewCell" forIndexPath:indexPath];
+    //避免crash
+    if (_itemsArray.count == 0) {
+        return cell;
+    }
     XEItemInfo *itemInfo = _itemsArray[indexPath.row];
     if (indexPath.row >= 0 && indexPath.row <= 5) {
         [cell.avatarImgView sd_setImageWithURL:itemInfo.imageUrl placeholderImage:[UIImage imageNamed:@""]];
@@ -129,7 +164,7 @@
 {
     return YES;
 }
-//
+
 - (IBAction)evaAction:(id)sender {
     NSString *evaUrl = [NSString stringWithFormat:@"%@/eva/test/start/%@/%@/%d",[XEEngine shareInstance].baseUrl,[XEEngine shareInstance].uid,_babyInfo.babyId,self.stageIndex];
     id vc = [XELinkerHandler handleDealWithHref:evaUrl From:self.navigationController];

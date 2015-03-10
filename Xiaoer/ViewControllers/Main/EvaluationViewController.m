@@ -63,13 +63,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     stageIndex = 1;
+    [self getCacheEvaDataSource];
     [self getEvaDataSource];
 
     [self refreshEvaWithStage:stageIndex];
     
     _themeControl = [[ODRefreshControl alloc] initInScrollView:self.scrollView];
     [_themeControl addTarget:self action:@selector(themeBeginPull:) forControlEvents:UIControlEventValueChanged];
-    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
 }
@@ -119,15 +119,19 @@
         
         if (stageIndex == 0) {
             self.previousBtn.hidden = YES;
+            self.contextLabel.text = _babyInfo.precontent;
             self.stageLabel.text = [NSString stringWithFormat:@"距离上一关键期已过%d天",_babyInfo.preday];
             [self.evaImageView sd_setImageWithURL:_babyInfo.preimgUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
+            
         }else if (stageIndex == 2) {
             self.nextBtn.hidden = YES;
+            self.contextLabel.text = _babyInfo.aftercontent;
             self.stageLabel.text = [NSString stringWithFormat:@"距离下一关键期还有%d天",_babyInfo.afterday];
             [self.evaImageView sd_setImageWithURL:_babyInfo.afterimgUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
         }else{
             self.nextBtn.hidden = NO;
             self.previousBtn.hidden = NO;
+            self.contextLabel.text = _babyInfo.content;
             self.stageLabel.text = [NSString stringWithFormat:@"第%d关键期",_babyInfo.stage];
             [self.evaImageView sd_setImageWithURL:_babyInfo.imgUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
         }
@@ -142,7 +146,6 @@
         self.birthLabel.frame = frame;
         self.birthLabel.text = _babyInfo.month;
         
-        self.contextLabel.text = _babyInfo.content;
         [self refreshLayout];
     }
 }
@@ -150,7 +153,6 @@
 - (void)refreshLayout{
     CGRect frame = self.contextLabel.frame;
     CGSize textSize = [XECommonUtils sizeWithText:self.contextLabel.text font:self.contextLabel.font width:self.contextLabel.frame.size.width];
-    NSLog(@"==============%f",textSize.height);
     frame = self.contextLabel.frame;
     frame.origin.y = 10;
     if (_isReadMore) {
@@ -175,14 +177,37 @@
     self.evaImageView.frame = frame;
     
     frame = self.imageConView.frame;
-    frame.size.height = self.evaImageView.frame.origin.y + self.evaImageView.frame.size.height + 5;
+    frame.origin.y = self.evaImageView.frame.origin.y + self.evaImageView.frame.size.height + 5;
     self.imageConView.frame = frame;
 
     frame = self.contextConView.frame;
-    frame.size.height = self.imageConView.frame.origin.y + self.imageConView.frame.size.height + 5;
+    frame.size.height = self.imageConView.frame.origin.y + self.imageConView.frame.size.height;
     self.contextConView.frame = frame;
     
-    [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,self.headView.frame.size.height + self.contextConView.frame.size.height - 200)];
+    frame = self.footerView.frame;
+    frame.origin.y = self.contextConView.frame.origin.y + self.contextConView.frame.size.height;
+    self.footerView.frame = frame;
+    
+    [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,self.headView.frame.size.height + self.contextConView.frame.size.height + self.footerView.frame.size.height)];
+}
+
+-(void)getCacheEvaDataSource {
+    __weak EvaluationViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getEvaInfoWithUid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            //解析数据
+            NSDictionary *dic = [jsonRet objectForKey:@"object"];
+            XEBabyInfo *babyInfo = [[XEBabyInfo alloc] init];
+            [babyInfo setBabyInfoByJsonDic:dic];
+            weakSelf.babyInfo = babyInfo;
+            [weakSelf refreshEvaWithStage:stageIndex];
+        }
+    }];
 }
 
 - (void)getEvaDataSource{
