@@ -35,7 +35,6 @@
     }
     if ([dic objectForKey:@"content"]) {
         _content = [dic objectForKey:@"content"];
-        _content = @"我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容";
     }
     if ([dic objectForKey:@"precontent"]) {
         _precontent = [dic objectForKey:@"precontent"];
