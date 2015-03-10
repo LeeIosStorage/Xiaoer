@@ -83,13 +83,13 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="3lA-Nj-FT3">
-                                    <rect key="frame" x="67" y="74" width="187" height="42"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eva_stage_icon" id="3lA-Nj-FT3">
+                                    <rect key="frame" x="67" y="74" width="180" height="35"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UkW-XT-ydr">
-                                    <rect key="frame" x="33" y="146" width="254" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <rect key="frame" x="33" y="176" width="254" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <state key="normal" title="开始测评" backgroundImage="expert_unfold_btn">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -110,6 +110,7 @@
         </view>
     </objects>
     <resources>
+        <image name="eva_stage_icon" width="180" height="35"/>
         <image name="expert_unfold_btn" width="475" height="50"/>
         <image name="s_n_set_line" width="300" height="1"/>
     </resources>

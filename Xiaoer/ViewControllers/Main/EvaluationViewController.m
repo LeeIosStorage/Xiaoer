@@ -27,6 +27,7 @@
     ODRefreshControl *_themeControl;
     XEScrollPage *scrollPageView;
     BOOL _isScrollViewDrag;
+    BOOL _isReadMore;
     int stageIndex;
 }
 
@@ -39,13 +40,17 @@
 @property (strong, nonatomic) IBOutlet UILabel *contextLabel;
 @property (strong, nonatomic) IBOutlet UIButton *previousBtn;
 @property (strong, nonatomic) IBOutlet UIButton *nextBtn;
+@property (strong, nonatomic) IBOutlet UIButton *moreBtn;
+@property (strong, nonatomic) IBOutlet UIView *contextConView;
+@property (strong, nonatomic) IBOutlet UIView *imageConView;
+@property (strong, nonatomic) IBOutlet UIView *headView;
+@property (strong, nonatomic) IBOutlet UIView *footerView;
 
 @property (nonatomic, strong) XEUserInfo *userInfo;
 @property (nonatomic, strong) NSMutableArray *adsThemeArray;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (strong, nonatomic) XEBabyInfo *babyInfo;
-
 
 - (IBAction)criticalAction:(id)sender;
 - (IBAction)readyAction:(id)sender;
@@ -65,7 +70,6 @@
     _themeControl = [[ODRefreshControl alloc] initInScrollView:self.scrollView];
     [_themeControl addTarget:self action:@selector(themeBeginPull:) forControlEvents:UIControlEventValueChanged];
     
-    [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT*1.1)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
 }
@@ -127,8 +131,8 @@
             self.stageLabel.text = [NSString stringWithFormat:@"第%d关键期",_babyInfo.stage];
             [self.evaImageView sd_setImageWithURL:_babyInfo.imgUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
         }
-        
         self.babyName.text = _babyInfo.babyName;
+        
         CGRect frame = self.babyName.frame;
         frame.size.width = [XECommonUtils widthWithText:self.babyName.text font:self.babyName.font lineBreakMode:self.babyName.lineBreakMode];
         self.babyName.frame = frame;
@@ -137,7 +141,48 @@
         frame.origin.x = self.babyName.frame.origin.x + self.babyName.frame.size.width + 5;
         self.birthLabel.frame = frame;
         self.birthLabel.text = _babyInfo.month;
+        
+        self.contextLabel.text = _babyInfo.content;
+        [self refreshLayout];
     }
+}
+
+- (void)refreshLayout{
+    CGRect frame = self.contextLabel.frame;
+    CGSize textSize = [XECommonUtils sizeWithText:self.contextLabel.text font:self.contextLabel.font width:self.contextLabel.frame.size.width];
+    NSLog(@"==============%f",textSize.height);
+    frame = self.contextLabel.frame;
+    frame.origin.y = 10;
+    if (_isReadMore) {
+        frame.size.height = textSize.height;
+    }else{
+        if (textSize.height > 75) {
+            frame.size.height = 75;
+            self.moreBtn.hidden = NO;
+        }else{
+            frame.size.height = textSize.height;
+            self.moreBtn.hidden = YES;
+        }
+    }
+    self.contextLabel.frame = frame;
+    
+    frame = self.moreBtn.frame;
+    frame.origin.y = self.contextLabel.frame.origin.y + self.contextLabel.frame.size.height + 5;
+    self.moreBtn.frame = frame;
+        
+    frame = self.evaImageView.frame;
+    frame.origin.y = self.moreBtn.frame.origin.y + self.moreBtn.frame.size.height + 5;
+    self.evaImageView.frame = frame;
+    
+    frame = self.imageConView.frame;
+    frame.size.height = self.evaImageView.frame.origin.y + self.evaImageView.frame.size.height + 5;
+    self.imageConView.frame = frame;
+
+    frame = self.contextConView.frame;
+    frame.size.height = self.imageConView.frame.origin.y + self.imageConView.frame.size.height + 5;
+    self.contextConView.frame = frame;
+    
+    [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,self.headView.frame.size.height + self.contextConView.frame.size.height - 200)];
 }
 
 - (void)getEvaDataSource{
@@ -179,7 +224,13 @@
 }
 
 - (IBAction)readMoreAction:(id)sender {
-    
+    _isReadMore = !_isReadMore;
+    if (_isReadMore) {
+        [_moreBtn setTitle:@"收起" forState:UIControlStateNormal];
+    }else{
+        [_moreBtn setTitle:@"展开" forState:UIControlStateNormal];
+    }
+    [self refreshLayout];
 }
 
 - (IBAction)changeStageAction:(id)sender {

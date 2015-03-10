@@ -88,8 +88,8 @@
     
     XECollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XECollectionViewCell" forIndexPath:indexPath];
     XEItemInfo *itemInfo = _itemsArray[indexPath.row];
-    if (indexPath.row >= 0 && indexPath.row <= 6) {
-        [cell.avatarImgView sd_setImageWithURL:itemInfo.imageUrl placeholderImage:[UIImage imageNamed:@"home_placeholder_avatar"]];
+    if (indexPath.row >= 0 && indexPath.row <= 5) {
+        [cell.avatarImgView sd_setImageWithURL:itemInfo.imageUrl placeholderImage:[UIImage imageNamed:@""]];
         [cell.nameLabel setText:itemInfo.name];
     }
     return cell;
@@ -112,38 +112,17 @@
 //UICollectionView被选中时调用的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-        case 5:{
-            id vc = [XELinkerHandler handleDealWithHref:@"http://www.baidu.com" From:self.navigationController];
+    NSLog(@"section is %ld",(long)indexPath.row);
+    XEItemInfo *itemInfo = _itemsArray[indexPath.row];
+    if (indexPath.row >= 0 && indexPath.row <= 5) {
+        if (itemInfo.mallurl.length > 0) {
+            id vc = [XELinkerHandler handleDealWithHref:itemInfo.mallurl From:self.navigationController];
             if (vc) {
                 [self.navigationController pushViewController:vc animated:YES];
             }
-            break;
         }
-        case 4:{
-
-        }
-            break;
-        case 3:{
-
-        }
-            break;
-        case 2:{
-
-        }
-            break;
-        case 1:{
-
-            break;
-        }
-        case 0:{
-        
-            break;
-        }
-        default:
-            break;
     }
-}
+ }
 
 //返回这个UICollectionView是否可以被选择
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath

@@ -17,6 +17,9 @@
     }
     if ([dic objectForKey:@"mallurl"]) {
         _mallurl = [dic objectForKey:@"mallurl"];
+        if ([_mallurl isEqual:[NSNull null]]) {
+            _mallurl = @"";
+        }
     }
     if ([dic stringObjectForKey:@"name"]) {
         _name = [dic stringObjectForKey:@"name"];
