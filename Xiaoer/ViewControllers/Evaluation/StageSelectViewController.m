@@ -269,7 +269,7 @@
         vc.stage = [[dicInfo objectForKey:@"stage"] description];
         [self.navigationController pushViewController:vc animated:YES];
     }else if (_vcType == VcType_ONE_KEY){
-        NSString *detailUrl = @"http://www.baidu.com";
+        NSString *detailUrl = [NSString stringWithFormat:@"%@/eva/result/%@",[XEEngine shareInstance].baseUrl,[[dicInfo objectForKey:@"id"] description]];
         XEWebViewWithEvaluationVc *webView = [[XEWebViewWithEvaluationVc alloc] initWithAddress:detailUrl];
         [self.navigationController pushViewController:webView animated:YES];
     }

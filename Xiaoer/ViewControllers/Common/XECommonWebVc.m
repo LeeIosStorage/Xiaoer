@@ -11,6 +11,7 @@
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
 #import "XEAlertView.h"
+#import "StageSelectViewController.h"
 
 NSInteger const SGProgresstagId = 222122323;
 CGFloat const SGProgressBarHeight = 2.5;
@@ -167,6 +168,27 @@ CGFloat const SGProgressBarHeight = 2.5;
 #pragma mark UIWebViewDelegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSLog(@"shouldStartLoadWithRequest url=%@ navigationType is %d\n", request.URL, (int)navigationType);
+    
+    NSURL *url = request.URL;
+    NSLog(@"shouldStartLoadWithRequest: %@", url);
+    NSRange range = [url.path rangeOfString:@"eva/history"];
+    if (range.length > 0) {
+        NSDictionary *paramDic = [XECommonUtils getParamDictFrom:url.query];
+        NSLog(@"infoDic: %@", paramDic);
+        if (paramDic) {
+            
+        }
+        if (self.navigationController.viewControllers.count > 2) {
+            UIViewController *vc = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count - 3];
+            if ([vc isKindOfClass:[StageSelectViewController class]]) {
+                [self.navigationController popToViewController:vc animated:YES];
+                return NO;
+            }
+        }
+        StageSelectViewController *ssVc = [[StageSelectViewController alloc] init];
+        [self.navigationController pushViewController:ssVc animated:YES];
+        return NO;
+    }
     
     return YES;
 }

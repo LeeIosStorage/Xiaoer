@@ -234,7 +234,7 @@ static CGFloat beginImageH = 64;
         return 4;
     }
     else if (section == kMyCard){
-        return 2;
+        return 1;
     }
     else {
         return 1;
@@ -367,10 +367,6 @@ static CGFloat beginImageH = 64;
                 if ([[XEEngine shareInstance] needUserLogin:nil]) {
                     return;
                 }
-                NSString *detailUrl = @"http://www.baidu.com";
-                XEWebViewWithEvaluationVc *webView = [[XEWebViewWithEvaluationVc alloc] initWithAddress:detailUrl];
-                [self.navigationController pushViewController:webView animated:YES];
-                return;
                 StageSelectViewController *cpVc = [[StageSelectViewController alloc] init];
                 [self.navigationController pushViewController:cpVc animated:YES];
                 break;

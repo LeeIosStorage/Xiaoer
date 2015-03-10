@@ -9,6 +9,7 @@
 #import "XEWebViewWithEvaluationVc.h"
 #import "JSONKit.h"
 #import "XELinkerHandler.h"
+#import "StageSelectViewController.h"
 
 @interface XEWebViewWithEvaluationVc ()<UIWebViewDelegate>
 
@@ -35,9 +36,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setRightButtonWithTitle:@"结束" selector:@selector(actionButtonClicked:)];
-    [self setTilteLeftViewHide:YES];
-    self.disablePan = YES;
+//    [self setRightButtonWithTitle:@"结束" selector:@selector(actionButtonClicked:)];
+//    [self setTilteLeftViewHide:YES];
+//    self.disablePan = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,11 +67,11 @@
         [self.mainWebView goBack];
 //        [self setLeft2ButtonWithImageName:@"expert_question_icon" selector:@selector(closeButtonClicked:)];
     }else{
-//        if (self.navigationController) {
-//            [self.navigationController popViewControllerAnimated:YES];
-//        }else{
-//            [self dismissViewControllerAnimated:YES completion:nil];
-//        }
+        if (self.navigationController) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
     }
 }
 
@@ -97,23 +98,51 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSURL *url = request.URL;
     NSLog(@"shouldStartLoadWithRequest: %@", url);
-    if ([url.scheme caseInsensitiveCompare:@"xiaoer"] == NSOrderedSame) {
-        if ([url.host isEqualToString:@"purchase"]){
-//            NSString *durl = [XEWebViewWithEvaluationVc decodeUrlString:[url absoluteString]];
-//            NSString *info = [durl substringFromIndex:[durl rangeOfString:@"="].location+1];
-//            NSDictionary *infoDic = [info objectFromJSONString];
+    NSRange range = [url.path rangeOfString:@"eva/history"];
+    if (range.length > 0) {
+        NSDictionary *paramDic = [XECommonUtils getParamDictFrom:url.query];
+        NSLog(@"infoDic: %@", paramDic);
+        if (paramDic) {
             
-            NSDictionary *paramDic = [XECommonUtils getParamDictFrom:url.query];
-            NSLog(@"infoDic: %@", paramDic);
-            if (paramDic) {
-                
+        }
+        if (self.navigationController.viewControllers.count > 2) {
+            UIViewController *vc = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count - 3];
+            if ([vc isKindOfClass:[StageSelectViewController class]]) {
+                [self.navigationController popToViewController:vc animated:YES];
+                return NO;
             }
-            return NO;
         }
-        else if ([url.host isEqualToString:@"member"]) {
-            return NO;
-        }
+        StageSelectViewController *ssVc = [[StageSelectViewController alloc] init];
+        [self.navigationController pushViewController:ssVc animated:YES];
+        return NO;
     }
+    /*****
+    if ([url.path caseInsensitiveCompare:@"eva/result"] == NSOrderedSame) {
+//        if ([url.host isEqualToString:@"purchase"]){
+////            NSString *durl = [XEWebViewWithEvaluationVc decodeUrlString:[url absoluteString]];
+////            NSString *info = [durl substringFromIndex:[durl rangeOfString:@"="].location+1];
+////            NSDictionary *infoDic = [info objectFromJSONString];
+//            
+//            NSDictionary *paramDic = [XECommonUtils getParamDictFrom:url.query];
+//            NSLog(@"infoDic: %@", paramDic);
+//            if (paramDic) {
+//                
+//            }
+//            return NO;
+//        }
+//        else if ([url.host isEqualToString:@"member"]) {
+//            return NO;
+//        }
+        NSDictionary *paramDic = [XECommonUtils getParamDictFrom:url.query];
+        NSLog(@"infoDic: %@", paramDic);
+        if (paramDic) {
+            
+        }
+        StageSelectViewController *ssVc = [[StageSelectViewController alloc] init];
+        [self.navigationController pushViewController:ssVc animated:YES];
+        return NO;
+    }
+     ****/
     
     return [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
 }
