@@ -45,6 +45,10 @@
             if ([url hasPrefix:[NSString stringWithFormat:@"%@/eva/test/start",[XEEngine shareInstance].baseUrl]]) {
                 webvc.isCanClosed = YES;
             }
+            if ([url hasPrefix:[NSString stringWithFormat:@"%@/eva/result",[XEEngine shareInstance].baseUrl]]) {
+                webvc.isCanClosed = YES;
+                webvc.isResult = YES;
+            }
 //            webvc.availableActions = SVWebViewControllerAvailableActionsOpenInSafari | SVWebViewControllerAvailableActionsOpenInChrome | SVWebViewControllerAvailableActionsCopyLink | SVWebViewControllerAvailableActionsMailLink;
             [nav pushViewController:webvc animated:YES];
         }

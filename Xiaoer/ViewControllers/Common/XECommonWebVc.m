@@ -109,8 +109,9 @@ CGFloat const SGProgressBarHeight = 2.5;
 
 - (void)closedAction{
     if (self.navigationController) {
+        NSString *message = _isResult?@"测试结果已经保存，点确定重新测试":@"你确定要结束吗？结束将不保存该次评测数据";
         __weak XECommonWebVc *weakSelf = self;
-        XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"你确定要结束吗？结束将不保存该次评测数据" cancelButtonTitle:@"取消" cancelBlock:^{
+        XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:message cancelButtonTitle:@"取消" cancelBlock:^{
         } okButtonTitle:@"确认" okBlock:^{
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
