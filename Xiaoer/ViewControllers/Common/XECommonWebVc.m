@@ -94,7 +94,10 @@ CGFloat const SGProgressBarHeight = 2.5;
         [self setRightButtonWithImageName:@"more_icon" selector:@selector(actionButtonClicked:)];
     }
     if (self.isCanClosed) {
+        self.disablePan = YES;
+        [self setTilteLeftViewHide:YES];
         [self setRightButtonWithTitle:@"结束" selector:@selector(closedAction)];
+        
     }
 
 //    UIView *leftEdge = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, [UIScreen mainScreen].bounds.size.height)];

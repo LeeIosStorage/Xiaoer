@@ -18,6 +18,7 @@
 
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) IBOutlet UIButton *startButton;
 
 @property (strong, nonatomic) NSMutableArray *itemsArray;
 @end
@@ -47,6 +48,10 @@
 - (void)initNormalTitleNavBarSubviews {
     
     [self setTitle:@"准备评测"];
+    if (self.babyInfo.stage < self.stageIndex) {
+        self.startButton.enabled = NO;
+        [self.startButton setTitle:[NSString stringWithFormat:@"%d天后评测",self.babyInfo.afterday] forState:UIControlStateNormal];
+    }
 }
 
 -(void)getCacheToolDataSource {
