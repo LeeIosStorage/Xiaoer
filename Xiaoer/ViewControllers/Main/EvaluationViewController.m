@@ -142,25 +142,34 @@
         self.babyImageView.clipsToBounds = YES;
         
         if (stageIndex == 0) {
+            self.nextBtn.hidden = NO;
             self.previousBtn.hidden = YES;
             self.contextLabel.text = _babyInfo.precontent;
             self.stageLabel.text = [NSString stringWithFormat:@"距离上一关键期已过%d天",_babyInfo.preday];
             [self.evaImageView sd_setImageWithURL:_babyInfo.preimgUrl placeholderImage:[UIImage imageNamed:@"eva_placeholder_img"]];
-            
         }else if (stageIndex == 2) {
             self.nextBtn.hidden = YES;
+            self.previousBtn.hidden = NO;
             self.contextLabel.text = _babyInfo.aftercontent;
             self.stageLabel.text = [NSString stringWithFormat:@"距离下一关键期还有%d天",_babyInfo.afterday];
             [self.evaImageView sd_setImageWithURL:_babyInfo.afterimgUrl placeholderImage:[UIImage imageNamed:@"eva_placeholder_img"]];
         }else{
-            self.nextBtn.hidden = NO;
-            self.previousBtn.hidden = NO;
+            if (self.babyInfo.stage == 1) {
+                self.nextBtn.hidden = NO;
+                self.previousBtn.hidden = YES;
+            }else if (self.babyInfo.stage == 8){
+                self.nextBtn.hidden = YES;
+                self.previousBtn.hidden = NO;
+            }else{
+                self.nextBtn.hidden = NO;
+                self.previousBtn.hidden = NO;
+            }
             self.contextLabel.text = _babyInfo.content;
             self.stageLabel.text = [NSString stringWithFormat:@"第%d关键期",_babyInfo.stage];
             [self.evaImageView sd_setImageWithURL:_babyInfo.imgUrl placeholderImage:[UIImage imageNamed:@"eva_placeholder_img"]];
         }
         self.babyName.text = _babyInfo.babyName;
-        
+
         CGRect frame = self.babyName.frame;
         frame.size.width = [XECommonUtils widthWithText:self.babyName.text font:self.babyName.font lineBreakMode:self.babyName.lineBreakMode];
         self.babyName.frame = frame;
@@ -174,6 +183,7 @@
     }
 }
 
+//重新计算各view高度位置
 - (void)refreshLayout{
     CGRect frame = self.contextLabel.frame;
     CGSize textSize = [XECommonUtils sizeWithText:self.contextLabel.text font:self.contextLabel.font width:self.contextLabel.frame.size.width];
@@ -181,6 +191,11 @@
     frame.origin.y = 10;
     if (_isReadMore) {
         frame.size.height = textSize.height;
+        if (textSize.height > 75) {
+            self.moreBtn.hidden = NO;
+        }else {
+            self.moreBtn.hidden = YES;
+        }
     }else{
         if (textSize.height > 75) {
             frame.size.height = 75;
@@ -209,10 +224,10 @@
     self.contextConView.frame = frame;
     
     frame = self.footerView.frame;
-    frame.origin.y = self.contextConView.frame.origin.y + self.contextConView.frame.size.height;
+    frame.origin.y = self.contextConView.frame.origin.y + self.contextConView.frame.size.height + (SCREEN_HEIGHT>568?SCREEN_HEIGHT/480*80:SCREEN_HEIGHT/480*10);
     self.footerView.frame = frame;
     
-    [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,self.headView.frame.size.height + self.contextConView.frame.size.height + self.footerView.frame.size.height)];
+    [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,self.headView.frame.size.height + self.contextConView.frame.size.height + self.footerView.frame.size.height + (SCREEN_HEIGHT>568?SCREEN_HEIGHT/480*110:SCREEN_HEIGHT/480*10))];
 }
 
 -(void)getCacheEvaDataSource {

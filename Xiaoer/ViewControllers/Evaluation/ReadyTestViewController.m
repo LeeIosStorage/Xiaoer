@@ -78,7 +78,6 @@
     __weak ReadyTestViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getEvaToolWithStage:self.stageIndex tag:tag];
-//    [[XEEngine shareInstance] getEvaToolWithStage:1 tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -89,7 +88,6 @@
             return;
         }
         weakSelf.itemsArray = [NSMutableArray array];
-        NSLog(@"================%@",jsonRet);
         NSArray *themeDicArray = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"toy"];
         for (NSDictionary *dic  in themeDicArray) {
             if (![dic isKindOfClass:[NSDictionary class]]) {
@@ -134,13 +132,13 @@
 //定义每个UICollectionView 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake((SCREEN_WIDTH - 110) / 3, 89);
+    return CGSizeMake((SCREEN_WIDTH - 80) / 3, 89);
 }
 
 //定义每个UICollectionView 的 margin
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(20, 25, 15, 15);
+    return UIEdgeInsetsMake(20, 20, 15, 15);
 }
 
 #pragma mark --UICollectionViewDelegate
