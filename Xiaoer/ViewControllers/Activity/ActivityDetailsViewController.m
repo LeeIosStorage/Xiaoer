@@ -14,9 +14,12 @@
 #import "MapChooseViewController.h"
 #import "XEScrollPage.h"
 #import "XEThemeInfo.h"
+#import "XEShareActionSheet.h"
 
-@interface ActivityDetailsViewController () <UITableViewDataSource,UITableViewDelegate,XEScrollPageDelegate>
+@interface ActivityDetailsViewController () <UITableViewDataSource,UITableViewDelegate,XEScrollPageDelegate,XEShareActionSheetDelegate>
 {
+    XEShareActionSheet *_shareAction;
+    
     XEScrollPage *_scrollPageView;
     BOOL _servicerInfoSucceed;
 }
@@ -58,8 +61,8 @@
 -(void)initNormalTitleNavBarSubviews{
 
     [self setTitle:@"活动详情"];
-    [self setRightButtonWithImageName:@"nav_collect_un_icon" selector:@selector(collectAction:)];
-    [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateHighlighted];
+    [self setRightButtonWithImageName:@"more_icon" selector:@selector(collectAction:)];
+//    [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateHighlighted];
     
 //    [self setRight2ButtonWithImageName:@"share_icon" selector:@selector(shareAction:)];
 }
@@ -155,11 +158,11 @@
 
 -(void)refreshActivityHeadShow{
     
-    if (![self isCollect]) {
-        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_un_icon"] forState:UIControlStateNormal];
-    }else{
-        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
-    }
+//    if (![self isCollect]) {
+//        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_un_icon"] forState:UIControlStateNormal];
+//    }else{
+//        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
+//    }
     
     _applyActivityButton.enabled = NO;
     NSString *applyButtonTitle = @"在线报名";
@@ -210,33 +213,38 @@
     if ([[XEEngine shareInstance] needUserLogin:nil]) {
         return;
     }
-    __weak ActivityDetailsViewController *weakSelf = self;
-    int tag = [[XEEngine shareInstance] getConnectTag];
-    if ([self isCollect]) {
-        [[XEEngine shareInstance] unCollectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
-    }else{
-        [[XEEngine shareInstance] collectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
-    }
-    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-//        [XEProgressHUD AlertLoadDone];
-        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-        if (!jsonRet || errorMsg) {
-            if (!errorMsg.length) {
-                errorMsg = @"请求失败";
-            }
-            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-            return;
-        }
-        if ([self isCollect]) {
-            _activityInfo.faved = 0;
-        }else{
-            _activityInfo.faved = 1;
-        }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
-        [weakSelf refreshActivityHeadShow];
-        [weakSelf.tableView reloadData];
-        
-    }tag:tag];
+    _shareAction = [[XEShareActionSheet alloc] init];
+    _shareAction.owner = self;
+    _shareAction.selectShareType = XEShareType_Activity;
+    _shareAction.activityInfo = _activityInfo;
+    [_shareAction showShareAction];
+//    __weak ActivityDetailsViewController *weakSelf = self;
+//    int tag = [[XEEngine shareInstance] getConnectTag];
+//    if ([self isCollect]) {
+//        [[XEEngine shareInstance] unCollectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+//    }else{
+//        [[XEEngine shareInstance] collectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+//    }
+//    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+////        [XEProgressHUD AlertLoadDone];
+//        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+//        if (!jsonRet || errorMsg) {
+//            if (!errorMsg.length) {
+//                errorMsg = @"请求失败";
+//            }
+//            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+//            return;
+//        }
+//        if ([self isCollect]) {
+//            _activityInfo.faved = 0;
+//        }else{
+//            _activityInfo.faved = 1;
+//        }
+//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
+//        [weakSelf refreshActivityHeadShow];
+//        [weakSelf.tableView reloadData];
+//        
+//    }tag:tag];
 }
 
 -(void)shareAction:(id)sender{

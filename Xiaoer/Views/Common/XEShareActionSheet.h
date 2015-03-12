@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "XETopicInfo.h"
 #import "XEQuestionInfo.h"
+#import "XEDoctorInfo.h"
+#import "XEActivityInfo.h"
 
 typedef enum XEUrlShareType_{
     XEShareType_Expert,
@@ -26,6 +28,10 @@ typedef enum XEUrlShareType_{
 
 @property (nonatomic, assign) XEShareType selectShareType;
 @property (nonatomic, weak) UIViewController<XEShareActionSheetDelegate> *owner;
+
+@property (strong, nonatomic) XEDoctorInfo *doctorInfo;
+
+@property (nonatomic, strong) XEActivityInfo *activityInfo;
 
 @property (nonatomic, strong) XETopicInfo *topicInfo;
 

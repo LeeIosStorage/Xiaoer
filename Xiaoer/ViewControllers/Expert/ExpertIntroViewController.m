@@ -18,7 +18,7 @@
 #import "XEShareActionSheet.h"
 #import "TopicDetailsViewController.h"
 
-@interface ExpertIntroViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface ExpertIntroViewController () <UITableViewDelegate,UITableViewDataSource,XEShareActionSheetDelegate>
 {
     XEShareActionSheet *_shareAction;
 }
@@ -116,7 +116,7 @@
 
 -(void)initNormalTitleNavBarSubviews{
     [self setTitle:@"专家介绍"];
-    [self setRightButtonWithImageName:@"nav_collect_un_icon" selector:@selector(collectAction:)];
+    [self setRightButtonWithImageName:@"more_icon" selector:@selector(collectAction:)];
     
 //    [self setRight2ButtonWithImageName:@"share_icon" selector:@selector(shareAction:)];
 }
@@ -253,11 +253,11 @@
 #pragma mark - custom
 -(void)refreshDoctorInfoShow{
     
-    if (![self isCollect]) {
-        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_un_icon"] forState:UIControlStateNormal];
-    }else{
-        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
-    }
+//    if (![self isCollect]) {
+//        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_un_icon"] forState:UIControlStateNormal];
+//    }else{
+//        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
+//    }
     self.topicLabel.text = @"她的话题";
     
     self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width/2;
@@ -293,33 +293,39 @@
     if ([[XEEngine shareInstance] needUserLogin:nil]) {
         return;
     }
-    __weak ExpertIntroViewController *weakSelf = self;
-    int tag = [[XEEngine shareInstance] getConnectTag];
-    if ([self isCollect]) {
-        [[XEEngine shareInstance] unCollectExpertWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
-    }else{
-        [[XEEngine shareInstance] collectExpertWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
-    }
-    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-        if (!jsonRet || errorMsg) {
-            if (!errorMsg.length) {
-                errorMsg = @"请求失败";
-            }
-            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-            return;
-        }
-        if ([self isCollect]) {
-            _doctorInfo.faved = 0;
-        }else{
-            _doctorInfo.faved = 1;
-        }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
-        
-        [weakSelf refreshDoctorInfoShow];
-        [weakSelf.tableView reloadData];
-        
-    }tag:tag];
+    _shareAction = [[XEShareActionSheet alloc] init];
+    _shareAction.owner = self;
+    _shareAction.selectShareType = XEShareType_Expert;
+    _shareAction.doctorInfo = _doctorInfo;
+    [_shareAction showShareAction];
+    
+//    __weak ExpertIntroViewController *weakSelf = self;
+//    int tag = [[XEEngine shareInstance] getConnectTag];
+//    if ([self isCollect]) {
+//        [[XEEngine shareInstance] unCollectExpertWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
+//    }else{
+//        [[XEEngine shareInstance] collectExpertWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
+//    }
+//    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+//        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+//        if (!jsonRet || errorMsg) {
+//            if (!errorMsg.length) {
+//                errorMsg = @"请求失败";
+//            }
+//            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+//            return;
+//        }
+//        if ([self isCollect]) {
+//            _doctorInfo.faved = 0;
+//        }else{
+//            _doctorInfo.faved = 1;
+//        }
+//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
+//        
+//        [weakSelf refreshDoctorInfoShow];
+//        [weakSelf.tableView reloadData];
+//        
+//    }tag:tag];
     
 }
 

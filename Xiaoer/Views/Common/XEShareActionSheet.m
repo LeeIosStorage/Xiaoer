@@ -48,11 +48,22 @@
         }
     }else if (_selectShareType == XEShareType_Expert){
         
+        if ([self expertIsCollect])
+            _csheet.collectBtnTitle = @"取消收藏";
+        else
+            _csheet.collectBtnTitle = @"收藏";
+        
     }else if (_selectShareType == XEShareType_Activity){
+        
+        if ([self activityIsCollect])
+            _csheet.collectBtnTitle = @"取消收藏";
+        else
+            _csheet.collectBtnTitle = @"收藏";
         
     }else if (_selectShareType == XEShareType_Qusetion){
         _csheet.deleteBtnHidden = NO;
         _csheet.collectBtnHidden = YES;
+        _csheet.shareSectionHidden = YES;
     }else if (_selectShareType == XEShareType_Web){
         if (self.bCollect) {
             _csheet.collectBtnTitle = @"取消收藏";
@@ -68,6 +79,20 @@
 
 -(BOOL)topicIsCollect{
     if (_topicInfo.faved != 0) {
+        return YES;
+    }
+    return NO;
+}
+
+-(BOOL)expertIsCollect{
+    if (_doctorInfo.faved != 0) {
+        return YES;
+    }
+    return NO;
+}
+
+-(BOOL)activityIsCollect{
+    if (_activityInfo.faved != 0) {
         return YES;
     }
     return NO;
@@ -102,18 +127,32 @@
         }
         NSString *URL = @"http://xiaor.miqtech.com/";
         UIImage *image = [UIImage imageNamed:@"common_load_icon"];
-        NSString *info = @"晓儿新版上线了，赶紧下载吧";
+        NSString *info = @"（分享自@晓儿app）";
         if (_selectShareType == XEShareType_Expert) {
-//            URL = [NSString stringWithFormat:@"%@/share/expert/%@/%@",[[XEEngine shareInstance] baseUrl],[XEEngine shareInstance].uid,_];
+            URL = [NSString stringWithFormat:@"%@/share/expert/%@/%@",[[XEEngine shareInstance] baseUrl],[XEEngine shareInstance].uid,_doctorInfo.doctorId];
+            info = [NSString stringWithFormat:@"育儿专家：%@-%@-%@%@",_doctorInfo.doctorName,_doctorInfo.title,_doctorInfo.hospital,info];
         }else if(_selectShareType == XEShareType_Activity) {
-//            URL = [NSString stringWithFormat:@"%@/share/activity/%@/%@",[[XEEngine shareInstance] baseUrl],[XEEngine shareInstance].uid,_];
+            URL = [NSString stringWithFormat:@"%@/share/activity/%@/%@",[[XEEngine shareInstance] baseUrl],[XEEngine shareInstance].uid,_activityInfo.aId];
+            info = [NSString stringWithFormat:@"活动：%@%@",_activityInfo.title,info];
         }else if(_selectShareType == XEShareType_Topic) {
             URL = [NSString stringWithFormat:@"%@/share/topic/%@/%@",[[XEEngine shareInstance] baseUrl],[XEEngine shareInstance].uid,_topicInfo.tId];
             if (self.topicInfo.picIds.count > 0) {
                 image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:[[self.topicInfo.picURLs objectAtIndex:0] absoluteString]];
             }
             if (_topicInfo.title) {
-                info = _topicInfo.title;
+                //1教育2营养3入园4心理
+                NSString *topicType = @"";
+                if (_topicInfo.cat == 1){
+                    topicType = @"养育话题：";
+                }else if (_topicInfo.cat == 2){
+                    topicType = @"营养话题：";
+                }else if (_topicInfo.cat == 3){
+                    topicType = @"入园话题：";
+                }else if (_topicInfo.cat == 4){
+                    topicType = @"心理话题：";
+                }
+                    
+                info = [NSString stringWithFormat:@"%@%@%@",topicType,_topicInfo.title,info];
             }
         }else if(_selectShareType == XEShareType_Qusetion) {
             
@@ -129,6 +168,10 @@
         [self topicCollectAction];
     }else if(_selectShareType == XEShareType_Web) {
         [self webCollectAction];
+    }else if (_selectShareType == XEShareType_Expert){
+        [self expertCollectAction];
+    }else if (_selectShareType == XEShareType_Activity){
+        [self activityCollectAction];
     }
 }
 -(void)deleteButtonAction{
@@ -252,7 +295,60 @@
 }
 
 #pragma mark -expert custom
+-(void)expertCollectAction{
+    
+    __weak XEShareActionSheet *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    if ([self expertIsCollect]) {
+        [[XEEngine shareInstance] unCollectExpertWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
+    }else{
+        [[XEEngine shareInstance] collectExpertWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
+    }
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.owner.view];
+            return;
+        }
+        if ([weakSelf expertIsCollect]) {
+            weakSelf.doctorInfo.faved = 0;
+        }else{
+            weakSelf.doctorInfo.faved = 1;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.owner.view];
+        
+    }tag:tag];
+}
 
 #pragma mark -acvitity custom
-
+-(void)activityCollectAction{
+    __weak XEShareActionSheet *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    if ([self activityIsCollect]) {
+        [[XEEngine shareInstance] unCollectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    }else{
+        [[XEEngine shareInstance] collectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    }
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        //        [XEProgressHUD AlertLoadDone];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.owner.view];
+            return;
+        }
+        if ([weakSelf activityIsCollect]) {
+            weakSelf.activityInfo.faved = 0;
+        }else{
+            weakSelf.activityInfo.faved = 1;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.owner.view];
+        
+    }tag:tag];
+}
 @end

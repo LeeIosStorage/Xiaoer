@@ -170,6 +170,10 @@
 
 -(void)socialAffirmLogin:(NSDictionary *)info{
     
+    if (![info objectForKey:@"openId"]) {
+        [XEProgressHUD AlertError:@"授权失败" At:self.view];
+        return;
+    }
     NSString *plantform = nil;
     if ([_loginType isEqualToString:UMShareToWechatSession]) {
         plantform = @"1";
