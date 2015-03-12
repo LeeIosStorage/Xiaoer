@@ -281,7 +281,7 @@
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 6;
+    return 8;
 }
 //定义展示的Section的个数
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -311,6 +311,12 @@
     }else if(indexPath.row == 5){
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_mall_icon"]];
         cell.nameLabel.text = @"商城";
+    }else if(indexPath.row == 6){
+        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
+        cell.nameLabel.text = @"抢票";
+    }else if(indexPath.row == 7){
+        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_card_icon"]];
+        cell.nameLabel.text = @"卡券";
     }
     
     return cell;
@@ -320,13 +326,13 @@
 //定义每个UICollectionView 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake((SCREEN_WIDTH - 110) / 3, 89);
+    return CGSizeMake((SCREEN_WIDTH - 120) / 4, (SCREEN_WIDTH - 120) / 4 + 19);
 }
 
 //定义每个UICollectionView 的 margin
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(20, 25, 15, 15);
+    return UIEdgeInsetsMake(20, 15, 15, 15);
 }
                        
 #pragma mark --UICollectionViewDelegate
@@ -334,6 +340,12 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.row) {
+        case 7:{
+            break;
+        }
+        case 6:{
+            break;
+        }
         case 5:{
 //            XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:@"小贴示" message:@"商城平台尚未开放，晓儿一直在努力" cancelButtonTitle:@"确定"];
 //            [alertView show];
@@ -405,9 +417,9 @@
     
     UILabel *indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, view.frame.size.height)];
     indexLabel.backgroundColor = [UIColor clearColor];
-    indexLabel.textColor = [UIColor lightGrayColor];
+    indexLabel.textColor = TEXT_COLOR;
     indexLabel.font = [UIFont boldSystemFontOfSize:13];
-    indexLabel.text = @"智能硬件";
+    indexLabel.text = @"注意力和好习惯";
     [view addSubview:indexLabel];
     
     return view;
@@ -425,12 +437,12 @@
     }
     
     if (indexPath.row == 0) {
-        cell.titleLabel.text = @"智能垫";
-        cell.subTitleLabel.text = @"给宝宝一个科学的睡眠环境";
+        cell.titleLabel.text = @"注意力培养";
+        cell.subTitleLabel.text = @"注意力不集中影响宝宝智力发育";
         cell.itemImageView.image = [UIImage imageNamed:@"home_intelligent_icon"];
     }else if (indexPath.row == 1) {
-        cell.titleLabel.text = @"爬行毯";
-        cell.subTitleLabel.text = @"训练“大动作”的首创智能产品";
+        cell.titleLabel.text = @"好习惯培养的文案";
+        cell.subTitleLabel.text = @"当宝宝的好习惯行为指导老师";
         cell.itemImageView.image = [UIImage imageNamed:@"home_parklon_icon"];
     }
     

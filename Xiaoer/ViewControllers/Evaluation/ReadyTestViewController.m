@@ -137,13 +137,13 @@
 //定义每个UICollectionView 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake((SCREEN_WIDTH - 80) / 3, 89);
+    return CGSizeMake((SCREEN_WIDTH - 130) / 3, (SCREEN_WIDTH - 130) / 3 + 13);
 }
 
 //定义每个UICollectionView 的 margin
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(20, 20, 15, 15);
+    return UIEdgeInsetsMake(8, 20, 8, 15);
 }
 
 #pragma mark --UICollectionViewDelegate

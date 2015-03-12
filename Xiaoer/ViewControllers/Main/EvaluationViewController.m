@@ -342,7 +342,7 @@
 
 - (void)showAction{
     RecipesViewController *rVc = [[RecipesViewController alloc] init];
-    rVc.stage = _babyInfo.stage;
+    rVc.stage = _babyInfo.stage - 1;
     rVc.infoType = TYPE_EVALUATION;
     rVc.bSpecific = YES;
     [self.navigationController pushViewController:rVc animated:YES];
