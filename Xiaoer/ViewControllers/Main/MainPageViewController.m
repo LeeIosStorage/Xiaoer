@@ -27,6 +27,7 @@
 #import "BabyProfileViewController.h"
 #import "TaskViewController.h"
 #import "XENavigationController.h"
+#import "BabyListViewController.h"
 
 #define mineMsgCountKey @"mineMsgCountKey"
 
@@ -535,7 +536,7 @@
     if ([self isVisitor]) {
         [self showAlter];
     }else {
-        BabyProfileViewController *vc = [[BabyProfileViewController alloc] init];
+        BabyListViewController *vc = [[BabyListViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
