@@ -784,7 +784,7 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:data withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)editUserInfoWithUid:(NSString *)uid name:(NSString *)name nickname:(NSString *)nickname title:(NSString *)title desc:(NSString *)desc district:(NSString *)district address:(NSString *)address phone:(NSString *)phone bbId:(NSString *)bbId bbName:(NSString *)bbName bbGender:(NSString *)bbGender bbBirthday:(NSString *)bbBirthday bbAvatar:(NSString *)bbAvatar userAvatar:(NSString *)userAvatar tag:(int)tag{
+- (BOOL)editUserInfoWithUid:(NSString *)uid name:(NSString *)name nickname:(NSString *)nickname hasBaby:(NSString *)hasBaby desc:(NSString *)desc district:(NSString *)district address:(NSString *)address phone:(NSString *)phone bbId:(NSString *)bbId bbName:(NSString *)bbName bbGender:(NSString *)bbGender bbBirthday:(NSString *)bbBirthday bbAvatar:(NSString *)bbAvatar userAvatar:(NSString *)userAvatar dueDate:(NSString *)dueDate hospital:(NSString *)hospital tag:(int)tag{
     
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (uid) {
@@ -796,8 +796,8 @@ static XEEngine* s_ShareInstance = nil;
     if (nickname) {
         [params setObject:nickname forKey:@"nickname"];
     }
-    if (title) {
-        [params setObject:title forKey:@"title"];
+    if (hasBaby) {
+        [params setObject:hasBaby forKey:@"hasbaby"];
     }
     if (desc) {
         [params setObject:desc forKey:@"desc"];
@@ -828,6 +828,12 @@ static XEEngine* s_ShareInstance = nil;
     }
     if (userAvatar) {
         [params setObject:userAvatar forKey:@"avatar"];
+    }
+    if (dueDate) {
+        [params setObject:dueDate forKey:@"due_date"];
+    }
+    if (hospital) {
+        [params setObject:hospital forKey:@"hospital"];
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/edit",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];

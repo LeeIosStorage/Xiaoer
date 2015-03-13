@@ -35,6 +35,8 @@
 #define TAG_BOBY_DATE      7
 #define TAG_USER_AVATER    8
 #define TAG_BOBY_AVATER    9
+#define TAG_USER_DUEDATE   10
+#define TAG_USER_HOSPITAL  11
 
 @interface PerfectInfoViewController () <UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,XEInputViewControllerDelegate,SelectBirthdayViewControllerDelegate,ChooseLocationDelegate>
 {
@@ -51,6 +53,8 @@
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *footerView;
 @property (strong, nonatomic) IBOutlet UIButton *saveButton;
+
+@property (assign, nonatomic) int showType;//当前状态 0无选择 1怀孕中 2已有宝宝 3怀孕中且已有宝宝
 
 - (IBAction)saveAction:(id)sender;
 @end
@@ -71,18 +75,22 @@
     
     _userInfo = [[XEUserInfo alloc] init];
     [_userInfo setUserInfoByJsonDic:tmpUserInfo.userInfoByJsonDic];
-    if (_userInfo.title.length == 0) {
-        _userInfo.title = @"f";
-    }
     _userInfo.uid = tmpUserInfo.uid;
+    if (!_userInfo.hasbaby || _userInfo.hasbaby.length == 0) {
+        XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
+        if (babyUserInfo.babyId.length > 0) {
+            _userInfo.hasbaby = @"y";
+        }
+    }
     
-//    [self setTilteLeftViewHide:_isNeedSkip];
+    [self setTilteLeftViewHide:_isNeedSkip];
     self.saveButton.layer.cornerRadius = 4;
     self.saveButton.layer.masksToBounds = YES;
     self.tableView.tableFooterView = self.footerView;
     self.view.backgroundColor = UIColorRGB(240, 240, 240);
     
     [self.tableView reloadData];
+    [self refreshViewUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,9 +101,9 @@
 - (void)initNormalTitleNavBarSubviews{
     //title
     [self setTitle:@"完善资料"];
-    if (_isNeedSkip) {
-        [self setRightButtonWithTitle:@"跳过" selector:@selector(skipAction:)];
-    }
+//    if (_isNeedSkip) {
+//        [self setRightButtonWithTitle:@"跳过" selector:@selector(skipAction:)];
+//    }
 }
 
 -(void)backAction:(id)sender{
@@ -113,6 +121,33 @@
         [super backAction:sender];
     }
 }
+
+- (int)showType{
+    
+    if (_userInfo.hasbaby.length == 0 || !_userInfo.hasbaby) {
+        return 0;
+    }
+    
+    XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
+    if ([_userInfo.hasbaby isEqualToString:@"n"] && babyUserInfo.babyId.length > 0){
+        return 3;
+    }
+    
+    if ([_userInfo.hasbaby isEqualToString:@"n"]) {
+        return 1;
+    }else if ([_userInfo.hasbaby isEqualToString:@"y"]){
+        return 2;
+    }
+    return 0;
+}
+
+- (void)refreshViewUI{
+    if (_isNeedSkip) {
+        [self.saveButton setTitle:@"完成" forState:0];
+    }
+    
+    [self.tableView reloadData];
+}
 /*
 #pragma mark - Navigation
 
@@ -129,7 +164,7 @@
     [XEProgressHUD AlertLoading:@"保存中" At:self.view];
     __weak PerfectInfoViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] editUserInfoWithUid:_userInfo.uid name:_userInfo.name nickname:_userInfo.nickName title:_userInfo.title desc:_userInfo.desc district:_userInfo.region address:_userInfo.address phone:_userInfo.phone bbId:babyUserInfo.babyId bbName:babyUserInfo.babyNick bbGender:babyUserInfo.babyGender bbBirthday:babyUserInfo.birthdayString bbAvatar:babyUserInfo.babyAvatarId userAvatar:_userInfo.avatar tag:tag];
+    [[XEEngine shareInstance] editUserInfoWithUid:_userInfo.uid name:_userInfo.name nickname:_userInfo.nickName hasBaby:_userInfo.hasbaby desc:_userInfo.desc district:_userInfo.region address:_userInfo.address phone:_userInfo.phone bbId:babyUserInfo.babyId bbName:babyUserInfo.babyNick bbGender:babyUserInfo.babyGender bbBirthday:babyUserInfo.birthdayString bbAvatar:babyUserInfo.babyAvatarId userAvatar:_userInfo.avatar dueDate:_userInfo.dueDateString hospital:_userInfo.hospital tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
 //        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -210,34 +245,46 @@
         [XEProgressHUD lightAlert:@"昵称太短了"];
         return;
     }
-    if (_userInfo.regionName.length == 0) {
-        [XEProgressHUD lightAlert:@"请输入您的地区"];
-        return;
+//    if (_userInfo.regionName.length == 0) {
+//        [XEProgressHUD lightAlert:@"请输入您的地区"];
+//        return;
+//    }
+//    if (_isFromCard && _userInfo.address.length == 0) {
+//        [XEProgressHUD lightAlert:@"请输入您的详细地址"];
+//        return;
+//    }
+    if (self.showType == 2 || self.showType == 3){
+        XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
+        if (babyUserInfo.babyAvatarId.length == 0) {
+            [XEProgressHUD lightAlert:@"请上传宝宝头像"];
+            return;
+        }
+        if (babyUserInfo.babyNick.length == 0) {
+            [XEProgressHUD lightAlert:@"请输入宝宝昵称"];
+            return;
+        }
+        if ([XECommonUtils getHanziTextNum:babyUserInfo.babyNick] < 2) {
+            [XEProgressHUD lightAlert:@"宝宝昵称太短了"];
+            return;
+        }
+        if (babyUserInfo.babyGender.length == 0) {
+            [XEProgressHUD lightAlert:@"请输入宝宝性别"];
+            return;
+        }
+        if (babyUserInfo.birthdayString.length == 0) {
+            [XEProgressHUD lightAlert:@"请输入宝宝生日"];
+            return;
+        }
     }
-    if (_isFromCard && _userInfo.address.length == 0) {
-        [XEProgressHUD lightAlert:@"请输入您的详细地址"];
-        return;
-    }
-    XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
-    if (babyUserInfo.babyAvatarId.length == 0) {
-        [XEProgressHUD lightAlert:@"请上传宝宝头像"];
-        return;
-    }
-    if (babyUserInfo.babyNick.length == 0) {
-        [XEProgressHUD lightAlert:@"请输入宝宝昵称"];
-        return;
-    }
-    if ([XECommonUtils getHanziTextNum:babyUserInfo.babyNick] < 2) {
-        [XEProgressHUD lightAlert:@"宝宝昵称太短了"];
-        return;
-    }
-    if (babyUserInfo.babyGender.length == 0) {
-        [XEProgressHUD lightAlert:@"请输入宝宝性别"];
-        return;
-    }
-    if (babyUserInfo.birthdayString.length == 0) {
-        [XEProgressHUD lightAlert:@"请输入宝宝生日"];
-        return;
+    if (self.showType == 1 || self.showType == 3) {
+        if (_userInfo.dueDateString.length == 0) {
+            [XEProgressHUD lightAlert:@"请输入预产期"];
+            return;
+        }
+        if (_userInfo.hospital.length == 0) {
+            [XEProgressHUD lightAlert:@"请输入产检医院"];
+            return;
+        }
     }
     
     if ([self isChangedWithUserInfo]) {
@@ -253,9 +300,26 @@
 }
 
 -(BOOL)isChangedWithUserInfo{
+    //baby信息
     XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
     XEUserInfo *oldBabyUserInfo = [self getOldBabyUserInfo:0];
-    return (![_userInfo.avatar isEqualToString:_oldUserInfo.avatar] || ![_userInfo.nickName isEqualToString:_oldUserInfo.nickName] || ![_userInfo.title isEqualToString:_oldUserInfo.title] || ![_userInfo.address isEqualToString:_oldUserInfo.address] || ![_userInfo.phone isEqualToString:_oldUserInfo.phone] || ![_userInfo.regionName isEqualToString:_oldUserInfo.regionName] || ![babyUserInfo.babyAvatarId isEqualToString:oldBabyUserInfo.babyAvatarId] || ![babyUserInfo.babyNick isEqualToString:oldBabyUserInfo.babyNick] || ![babyUserInfo.birthdayString isEqualToString:oldBabyUserInfo.birthdayString] || ![babyUserInfo.babyGender isEqualToString:oldBabyUserInfo.babyGender]);
+    BOOL isBabyInfoChange = (![babyUserInfo.babyAvatarId isEqualToString:oldBabyUserInfo.babyAvatarId] || ![babyUserInfo.babyNick isEqualToString:oldBabyUserInfo.babyNick] || ![babyUserInfo.birthdayString isEqualToString:oldBabyUserInfo.birthdayString] || ![babyUserInfo.babyGender isEqualToString:oldBabyUserInfo.babyGender]);
+    
+    //怀孕信息
+    BOOL isPregnancyChange = (![_userInfo.dueDateString isEqualToString:_oldUserInfo.dueDateString] || ![_userInfo.hospital isEqualToString:_oldUserInfo.hospital]);
+    
+    //user信息
+    BOOL isUserInfoChange = (![_userInfo.avatar isEqualToString:_oldUserInfo.avatar] || ![_userInfo.nickName isEqualToString:_oldUserInfo.nickName] || ![_userInfo.hasbaby isEqualToString:_oldUserInfo.hasbaby] || ![_userInfo.address isEqualToString:_oldUserInfo.address] || ![_userInfo.phone isEqualToString:_oldUserInfo.phone] || ![_userInfo.regionName isEqualToString:_oldUserInfo.regionName]);
+    if (self.showType == 0) {
+        return isUserInfoChange;
+    }else if (self.showType == 1){
+        return (isUserInfoChange || isPregnancyChange);
+    }else if (self.showType == 2){
+        return (isUserInfoChange || isBabyInfoChange);
+    }else if (self.showType == 3){
+        return (isUserInfoChange || isBabyInfoChange || isPregnancyChange);
+    }
+    return YES;
 }
 
 -(void)doActionSheetClickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -307,6 +371,22 @@
     return nil;
 }
 
+-(void)reloadDataWithAnimation{
+    NSMutableArray *sectionArray=[NSMutableArray array];
+    for (int section=0; section<[self newSections]; section++) {
+        NSDictionary *cellDicts = [[self tableDataModule] objectForKey:[NSString stringWithFormat:@"s%d", section]];
+//        NSMutableArray *rowArray=[NSMutableArray array];
+        for (int row=0; row<cellDicts.allKeys.count; row++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+            [sectionArray addObject:indexPath];
+        }
+//        [sectionArray addObject:rowArray];
+    }
+    [self.tableView beginUpdates];
+    [self.tableView insertRowsAtIndexPaths:sectionArray withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+}
+
 -(NSDictionary *)tableDataModule{
     NSDictionary *moduleDict;
     NSMutableDictionary *tmpMutDict = [NSMutableDictionary dictionary];
@@ -326,15 +406,13 @@
     NSDictionary *dict10 = @{@"titleLabel": @"昵称",
                             @"intro": intro!=nil?intro:@"2-16个字",
                             };
-    intro = _userInfo.title;
-    if ([_userInfo.title isEqualToString:@"f"]) {
-        intro = @"妈妈";
-    }else if ([_userInfo.title isEqualToString:@"m"]){
-        intro = @"爸爸";
-    }else if ([_userInfo.title isEqualToString:@"o"]){
-        intro = @"其他";
+    intro = @"";
+    if ([_userInfo.hasbaby isEqualToString:@"y"]) {
+        intro = @"已有宝宝";
+    }else if ([_userInfo.hasbaby isEqualToString:@"n"]){
+        intro = @"怀孕中";
     }
-    NSDictionary *dict11 = @{@"titleLabel": @"我的身份",
+    NSDictionary *dict11 = @{@"titleLabel": @"当前状态",
                              @"intro": intro!=nil?intro:@"",
                              };
     intro = _userInfo.regionName;
@@ -357,7 +435,6 @@
     
     //section = 2
     XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
-    
     NSMutableDictionary *sectionDict2 = [NSMutableDictionary dictionary];
     intro = [babyUserInfo.babySmallAvatarUrl absoluteString];
     NSDictionary *dict20 = @{@"titleLabel": @"宝宝头像",
@@ -385,11 +462,30 @@
     [sectionDict2 setObject:dict22 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict2.count]];
     [sectionDict2 setObject:dict23 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict2.count]];
     
+    //section = 3
+    NSMutableDictionary *sectionDict3 = [NSMutableDictionary dictionary];
+    intro = _userInfo.dueDateString;
+    NSDictionary *dict30 = @{@"titleLabel": @"预产期",
+                             @"intro": intro!=nil?intro:@"",
+                             };
+    intro = _userInfo.hospital;
+    NSDictionary *dict31 = @{@"titleLabel": @"产检医院",
+                             @"intro": intro!=nil?intro:@"",
+                             };
+    [sectionDict3 setObject:dict30 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict3.count]];
+    [sectionDict3 setObject:dict31 forKey:[NSString stringWithFormat:@"r%d",(int)sectionDict3.count]];
     
     
     [tmpMutDict setObject:sectionDict0 forKey:[NSString stringWithFormat:@"s%d",(int)tmpMutDict.count]];
     [tmpMutDict setObject:sectionDict1 forKey:[NSString stringWithFormat:@"s%d",(int)tmpMutDict.count]];
-    [tmpMutDict setObject:sectionDict2 forKey:[NSString stringWithFormat:@"s%d",(int)tmpMutDict.count]];
+    if (self.showType == 2) {
+        [tmpMutDict setObject:sectionDict2 forKey:[NSString stringWithFormat:@"s%d",(int)tmpMutDict.count]];
+    }else if (self.showType == 1){
+        [tmpMutDict setObject:sectionDict3 forKey:[NSString stringWithFormat:@"s%d",(int)tmpMutDict.count]];
+    }else if (self.showType == 3){
+        [tmpMutDict setObject:sectionDict2 forKey:[NSString stringWithFormat:@"s%d",(int)tmpMutDict.count]];
+        [tmpMutDict setObject:sectionDict3 forKey:[NSString stringWithFormat:@"s%d",(int)tmpMutDict.count]];
+    }
     
     moduleDict = tmpMutDict;
     return moduleDict;
@@ -427,7 +523,7 @@
     }else if (indexPath.section == 1){
         return 44;
     }else if (indexPath.section == 2){
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0 && self.showType != 1) {
             return 61;
         }
     }
@@ -461,8 +557,13 @@
     
     cell.introLabel.hidden = NO;
     cell.leftAvater.hidden = YES;
-    if (indexPath.section == 0 || indexPath.section == 2) {
+    if (indexPath.section == 0) {
         if (indexPath.row == 0) {
+            cell.leftAvater.hidden = NO;
+            cell.introLabel.hidden = YES;
+        }
+    }else if (indexPath.section == 2){
+        if (indexPath.row == 0 && self.showType != 1) {
             cell.leftAvater.hidden = NO;
             cell.introLabel.hidden = YES;
         }
@@ -519,18 +620,19 @@
             _editTag = TAG_USER_IDENTITY;
             __weak PerfectInfoViewController *weakSelf = self;
             XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:@"身份" actionBlock:^(NSInteger buttonIndex) {
-                if (3 == buttonIndex) {
+                if (2 == buttonIndex) {
                     return;
                 }
                 if (buttonIndex == 0) {
-                    _userInfo.title = @"f";
+                    weakSelf.userInfo.hasbaby = @"n";
                 }else if (buttonIndex == 1){
-                    _userInfo.title = @"m";
-                }else if (buttonIndex == 2){
-                    _userInfo.title = @"o";
+                    weakSelf.userInfo.hasbaby = @"y";
                 }
-                [weakSelf.tableView reloadData];
-            } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"我是妈妈", @"我是爸爸",@"其他", nil];
+//                [weakSelf reloadDataWithAnimation];
+                [UIView transitionWithView:tableView duration:0.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                    [weakSelf.tableView reloadData];
+                } completion:nil];
+            } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"怀孕中", @"已有宝宝", nil];
             [sheet showInView:self.view];
         }else if (indexPath.row == 2){
             _editTag = TAG_USER_REGION;
@@ -544,53 +646,74 @@
             [self editUserInfo:TAG_USER_PHONE withRowDicts:rowDicts];
         }
     }else if (indexPath.section == 2){
-        if (indexPath.row == 0) {
-            _editTag = TAG_BOBY_AVATER;
-            __weak PerfectInfoViewController *weakSelf = self;
-            XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"设置%@",[rowDicts objectForKey:@"titleLabel"]] actionBlock:^(NSInteger buttonIndex) {
-                if (2 == buttonIndex) {
-                    return;
-                }
-                
-                [weakSelf doActionSheetClickedButtonAtIndex:buttonIndex];
-            } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从手机相册选择", @"拍一张", nil];
-            AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-            [sheet showInView:appDelegate.window];
-        }else if (indexPath.row == 1) {
-            [self editUserInfo:TAG_BOBY_NAME withRowDicts:rowDicts];
-        }else if (indexPath.row == 2){
-            _editTag = TAG_BOBY_GENDER;
-            __weak PerfectInfoViewController *weakSelf = self;
-            XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:@"宝宝性别" actionBlock:^(NSInteger buttonIndex) {
-                if (2 == buttonIndex) {
-                    return;
-                }
-                XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
-                if (buttonIndex == 0) {
-                    babyUserInfo.babyGender = @"m";
-                }else if (buttonIndex == 1){
-                    babyUserInfo.babyGender = @"f";
-                }
-                [weakSelf.tableView reloadData];
-            } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"男宝宝", @"女宝宝", nil];
-            [sheet showInView:self.view];
-        }else if (indexPath.row == 3){
-            _editTag = TAG_BOBY_DATE;
-            
-            SelectBirthdayViewController* selectBirthdayViewController = [[SelectBirthdayViewController alloc] init];
-            selectBirthdayViewController.delegate = self;
-            XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
-            if (babyUserInfo.birthdayDate) {
-                selectBirthdayViewController.oldDate = babyUserInfo.birthdayDate;
-            }else{
-                selectBirthdayViewController.oldDate = babyUserInfo.birthdayDate;
-            }
-            [self.navigationController pushViewController:selectBirthdayViewController animated:YES];
-            
-//            NSDate *nowDate = [NSDate date];
-//            _userInfo.birthdayDate = nowDate;
-//            [self.tableView reloadData];
+        if (self.showType == 1) {
+            [self selectUserPregnancyRowAtIndexPath:indexPath rowDicts:rowDicts];
+        }else if (self.showType == 2 || self.showType == 3){
+            [self selectBabyRowAtIndexPath:indexPath rowDicts:rowDicts];
         }
+    }else if (indexPath.section == 3){
+        if (self.showType == 3) {
+            [self selectUserPregnancyRowAtIndexPath:indexPath rowDicts:rowDicts];
+        }
+    }
+}
+
+-(void)selectBabyRowAtIndexPath:(NSIndexPath *)indexPath rowDicts:(NSDictionary *)rowDicts{
+    if (indexPath.row == 0) {
+        _editTag = TAG_BOBY_AVATER;
+        __weak PerfectInfoViewController *weakSelf = self;
+        XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"设置%@",[rowDicts objectForKey:@"titleLabel"]] actionBlock:^(NSInteger buttonIndex) {
+            if (2 == buttonIndex) {
+                return;
+            }
+            
+            [weakSelf doActionSheetClickedButtonAtIndex:buttonIndex];
+        } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从手机相册选择", @"拍一张", nil];
+        AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        [sheet showInView:appDelegate.window];
+    }else if (indexPath.row == 1) {
+        [self editUserInfo:TAG_BOBY_NAME withRowDicts:rowDicts];
+    }else if (indexPath.row == 2){
+        _editTag = TAG_BOBY_GENDER;
+        __weak PerfectInfoViewController *weakSelf = self;
+        XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:@"宝宝性别" actionBlock:^(NSInteger buttonIndex) {
+            if (2 == buttonIndex) {
+                return;
+            }
+            XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
+            if (buttonIndex == 0) {
+                babyUserInfo.babyGender = @"m";
+            }else if (buttonIndex == 1){
+                babyUserInfo.babyGender = @"f";
+            }
+            [weakSelf.tableView reloadData];
+        } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"男宝宝", @"女宝宝", nil];
+        [sheet showInView:self.view];
+    }else if (indexPath.row == 3){
+        _editTag = TAG_BOBY_DATE;
+        
+        SelectBirthdayViewController* selectBirthdayViewController = [[SelectBirthdayViewController alloc] init];
+        selectBirthdayViewController.delegate = self;
+        XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
+        if (babyUserInfo.birthdayDate) {
+            selectBirthdayViewController.oldDate = babyUserInfo.birthdayDate;
+        }else{
+            selectBirthdayViewController.oldDate = babyUserInfo.birthdayDate;
+        }
+        [self.navigationController pushViewController:selectBirthdayViewController animated:YES];
+    }
+}
+
+-(void)selectUserPregnancyRowAtIndexPath:(NSIndexPath *)indexPath rowDicts:(NSDictionary *)rowDicts{
+    if (indexPath.row == 0){
+        _editTag = TAG_USER_DUEDATE;
+        SelectBirthdayViewController* selectBirthdayViewController = [[SelectBirthdayViewController alloc] init];
+        selectBirthdayViewController.delegate = self;
+        selectBirthdayViewController.oldDate = _userInfo.dueDate;
+        selectBirthdayViewController.maximumDateAddYear = 1;
+        [self.navigationController pushViewController:selectBirthdayViewController animated:YES];
+    }else if (indexPath.row == 1){
+        [self editUserInfo:TAG_USER_HOSPITAL withRowDicts:rowDicts];
     }
 }
 
@@ -634,12 +757,19 @@
     }else if (_editTag == TAG_BOBY_NAME){
         XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
         babyUserInfo.babyNick = text;
+    }else if (_editTag == TAG_USER_HOSPITAL) {
+        _userInfo.hospital = text;
     }
     [self.tableView reloadData];
 }
 
 #pragma mark - SelectBirthdayViewControllerDelegate
 - (void)SelectBirthdayWithDate:(NSDate *)date{
+    if (_editTag == TAG_USER_DUEDATE) {
+        _userInfo.dueDate = date;
+        [self.tableView reloadData];
+        return;
+    }
     XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
     babyUserInfo.birthdayDate = date;
     [self.tableView reloadData];

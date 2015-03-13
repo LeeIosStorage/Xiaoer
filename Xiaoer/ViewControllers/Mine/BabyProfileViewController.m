@@ -58,7 +58,7 @@
 //        XEUserInfo *babyInfo = [[XEUserInfo alloc] init];
 //        [_babyInfos addObject:babyInfo];
 //    }
-    _isDefaultBaby = (_babyInfo.acquiesce == 1);
+    _isDefaultBaby = (_babyInfo.acquiesce == 0);
     [self.defaultBabySwitch setOn:_isDefaultBaby animated:YES];
     
     [self.tableView reloadData];
@@ -114,10 +114,17 @@
         return;
     }
     
+    NSString *acquiesce = nil;
+    if (_isDefaultBaby) {
+        acquiesce = @"0";
+    }else{
+        acquiesce = @"1";
+    }
+    
     [XEProgressHUD AlertLoading:@"资料保存中" At:self.view];
     __weak BabyProfileViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] editBabyInfoWithUserId:[XEEngine shareInstance].uid bbId:babyUserInfo.babyId bbName:babyUserInfo.babyNick bbGender:babyUserInfo.babyGender bbBirthday:babyUserInfo.birthdayString bbAvatar:babyUserInfo.babyAvatarId acquiesce:nil tag:tag];
+    [[XEEngine shareInstance] editBabyInfoWithUserId:[XEEngine shareInstance].uid bbId:babyUserInfo.babyId bbName:babyUserInfo.babyNick bbGender:babyUserInfo.babyGender bbBirthday:babyUserInfo.birthdayString bbAvatar:babyUserInfo.babyAvatarId acquiesce:acquiesce tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
 //        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -133,21 +140,33 @@
         NSDictionary *babyDic = [jsonRet objectForKey:@"object"];
         
         NSMutableDictionary *userDic = [[NSMutableDictionary alloc] initWithDictionary:[XEEngine shareInstance].userInfo.userInfoByJsonDic];
+        NSArray *oldBabyArray = [NSArray arrayWithArray:[[XEEngine shareInstance].userInfo.userInfoByJsonDic arrayObjectForKey:@"babys"]];
         NSMutableArray *babyArray = [NSMutableArray array];
-        [babyArray addObject:babyDic];
+        for (NSDictionary *oldBabyDic in oldBabyArray) {
+            if ([[oldBabyDic stringObjectForKey:@"id"] isEqualToString:[babyDic stringObjectForKey:@"id"]]) {
+                [babyArray addObject:babyDic];
+            }else{
+                [babyArray addObject:oldBabyDic];
+            }
+        }
         [userDic setObject:babyArray forKey:@"babys"];
         
         XEUserInfo *userInfo = [XEEngine shareInstance].userInfo;
         [userInfo setUserInfoByJsonDic:userDic];
         [XEEngine shareInstance].userInfo = userInfo;
         
+        //更新用户信息
+        [[XEEngine shareInstance] refreshUserInfo];
+        
         [weakSelf.tableView reloadData];
-        [self.navigationController popViewControllerAnimated:YES];
+        [weakSelf performSelector:@selector(popViewController) withObject:nil afterDelay:2.0];
         
     }tag:tag];
     
 }
-
+-(void)popViewController{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 -(XEUserInfo *)getBabyUserInfo:(NSInteger)index{
     
     if (_babyInfos.count > index) {

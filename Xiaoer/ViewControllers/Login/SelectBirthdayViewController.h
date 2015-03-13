@@ -12,6 +12,7 @@
 @interface SelectBirthdayViewController : XESuperViewController
 @property(nonatomic, assign)id<SelectBirthdayViewControllerDelegate> delegate;
 @property(nonatomic, strong) NSDate* oldDate;
+@property(nonatomic, assign) int maximumDateAddYear;
 @end
 
 @protocol SelectBirthdayViewControllerDelegate <NSObject>
