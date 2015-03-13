@@ -327,7 +327,7 @@
 //定义每个UICollectionView 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake((SCREEN_WIDTH - 120) / 4, (SCREEN_WIDTH - 120) / 4 + 19);
+    return CGSizeMake((SCREEN_WIDTH - 120) / 4, (SCREEN_WIDTH - 120) / 4 + 17);
 }
 
 //定义每个UICollectionView 的 margin
@@ -440,9 +440,9 @@
     if (indexPath.row == 0) {
         cell.titleLabel.text = @"注意力培养";
         cell.subTitleLabel.text = @"注意力不集中影响宝宝智力发育";
-        cell.itemImageView.image = [UIImage imageNamed:@"home_intelligent_icon"];
+        cell.itemImageView.image = [UIImage imageNamed:@"home_attention_icon"];
     }else if (indexPath.row == 1) {
-        cell.titleLabel.text = @"好习惯培养的文案";
+        cell.titleLabel.text = @"好习惯培养";
         cell.subTitleLabel.text = @"当宝宝的好习惯行为指导老师";
         cell.itemImageView.image = [UIImage imageNamed:@"home_parklon_icon"];
     }
@@ -452,17 +452,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSLog(@"section is %ld",(long)indexPath.row);
-    NSString *url = nil;
+    RecipesViewController *rVc = [[RecipesViewController alloc] init];
     if (indexPath.row == 0) {
-        url = _intelUrl;
+        rVc.infoType = TYPE_ATTENTION;
     } else if (indexPath.row == 1) {
-        url = _parklonUrl;
+        rVc.infoType = TYPE_HABIT;
     }
-    id vc = [XELinkerHandler handleDealWithHref:url From:self.navigationController];
-    if (vc) {
-        [self.navigationController pushViewController:vc animated:YES];
-    }
+    [self.navigationController pushViewController:rVc animated:YES];
     
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];

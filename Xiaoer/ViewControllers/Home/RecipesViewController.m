@@ -83,6 +83,12 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
         [self setTitle:@"养育"];
     }else if (self.infoType == TYPE_EVALUATION) {
         [self setTitle:@"测评"];
+    }else if (self.infoType == TYPE_ACTIVITY) {
+        [self setTitle:@"活动"];
+    }else if (self.infoType == TYPE_ATTENTION) {
+        [self setTitle:@"注意力"];
+    }else if (self.infoType == TYPE_HABIT) {
+        [self setTitle:@"好习惯"];
     }
     [self setRightButtonWithImageName:@"common_collect_icon" selector:@selector(settingAction)];
 }

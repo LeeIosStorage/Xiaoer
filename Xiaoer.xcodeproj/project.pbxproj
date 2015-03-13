@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0703466F1A64F8E200EDE251 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0703466D1A64F8E200EDE251 /* WelcomeViewController.m */; };
 		070346701A64F8E200EDE251 /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0703466E1A64F8E200EDE251 /* WelcomeViewController.xib */; };
+		0710A22C1AB2B4820050DFB7 /* XETrainInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0710A22B1AB2B4820050DFB7 /* XETrainInfo.m */; };
 		0712B37E1A5BC0DE000A1A7F /* RetrievePwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0712B37C1A5BC0DE000A1A7F /* RetrievePwdViewController.m */; };
 		0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0712B37D1A5BC0DE000A1A7F /* RetrievePwdViewController.xib */; };
 		0712B3A41A5BD853000A1A7F /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0712B3821A5BD853000A1A7F /* MKAnnotationView+WebCache.m */; };
@@ -369,6 +370,8 @@
 		0703466C1A64F8E200EDE251 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		0703466D1A64F8E200EDE251 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		0703466E1A64F8E200EDE251 /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
+		0710A22A1AB2B4820050DFB7 /* XETrainInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XETrainInfo.h; sourceTree = "<group>"; };
+		0710A22B1AB2B4820050DFB7 /* XETrainInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XETrainInfo.m; sourceTree = "<group>"; };
 		0712B37B1A5BC0DE000A1A7F /* RetrievePwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetrievePwdViewController.h; sourceTree = "<group>"; };
 		0712B37C1A5BC0DE000A1A7F /* RetrievePwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetrievePwdViewController.m; sourceTree = "<group>"; };
 		0712B37D1A5BC0DE000A1A7F /* RetrievePwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RetrievePwdViewController.xib; sourceTree = "<group>"; };
@@ -1995,6 +1998,8 @@
 				0760E9411A81D93100BBEA3D /* XEMsgInfo.m */,
 				076D73351AAD9E7A00C1A30A /* XEItemInfo.h */,
 				076D73361AAD9E7A00C1A30A /* XEItemInfo.m */,
+				0710A22A1AB2B4820050DFB7 /* XETrainInfo.h */,
+				0710A22B1AB2B4820050DFB7 /* XETrainInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2473,6 +2478,7 @@
 				073F9F131A68B38F009D94E3 /* CategoryItemCell.m in Sources */,
 				0752F7DA1A7B2638008C0E0A /* PSTGridLayoutInfo.m in Sources */,
 				075E40AC1A593A820062F6AD /* ProgressHUDJF.m in Sources */,
+				0710A22C1AB2B4820050DFB7 /* XETrainInfo.m in Sources */,
 				075B03291A6E3892002B577D /* MapChooseViewController.m in Sources */,
 				0774A8871A66705D00336465 /* XEProgressHUD.m in Sources */,
 				07702D011A5901AF00168E2E /* XESuperViewController.m in Sources */,
