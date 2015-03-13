@@ -24,9 +24,16 @@
 
 @implementation BabyListViewController
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
+    
     self.view.backgroundColor = UIColorRGB(240, 240, 240);
     self.tableView.tableFooterView = self.footerView;
     _babyInfos = [[NSMutableArray alloc] init];
@@ -59,6 +66,14 @@
 - (IBAction)addBabyAction:(id)sender {
     BabyProfileViewController *vc = [[BabyProfileViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleUserInfoChanged:(NSNotification *)notification{
+    _babyInfos = [[NSMutableArray alloc] init];
+    for (XEUserInfo *babyInfo in [XEEngine shareInstance].userInfo.babys) {
+        [self.babyInfos addObject:babyInfo];
+    }
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource
@@ -104,7 +119,7 @@
     cell.monthLabel.text = [XEUIUtils dateDiscription1FromNowBk:babyInfo.birthdayDate];
     
     cell.defaultBabyLabel.hidden = YES;
-    if (babyInfo.acquiesce == 1) {
+    if (babyInfo.acquiesce == 0) {
         cell.defaultBabyLabel.hidden = NO;
     }
     

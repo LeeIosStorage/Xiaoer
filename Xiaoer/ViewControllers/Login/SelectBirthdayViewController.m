@@ -43,6 +43,10 @@
     NSDateComponents *compsNow = [calender components:unitFlags fromDate:[NSDate date]];
     compsNow.year -= 30;
     _datePicker.minimumDate = [calender dateFromComponents:compsNow];
+    if (_maximumDateAddYear > 0) {
+        compsNow.year += 30 + _maximumDateAddYear;
+        _datePicker.maximumDate = [calender dateFromComponents:compsNow];
+    }
     [self setValueByDate:_datePicker.date];
     
 }
@@ -54,7 +58,7 @@
 
 -(void)initNormalTitleNavBarSubviews
 {
-    [self setTitle:@"选择生日"];
+    [self setTitle:@"选择日期"];
     [self setRightButtonWithTitle:@"完成" selector:@selector(saveAction:)];
 }
 

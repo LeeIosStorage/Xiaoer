@@ -85,6 +85,15 @@
     if ([dic objectForKey:@"title"]) {
         _title = [dic objectForKey:@"title"];
     }
+    if ([dic objectForKey:@"hasbaby"]) {
+        _hasbaby = [dic objectForKey:@"hasbaby"];
+    }
+    if ([dic objectForKey:@"dueDate"]) {
+        self.dueDateString = [dic objectForKey:@"dueDate"];
+    }
+    if ([dic objectForKey:@"dueHospital"]) {
+        _hospital = [dic objectForKey:@"dueHospital"];
+    }
     if ([dic objectForKey:@"topicNum"]) {
         _topicNum = [[dic objectForKey:@"topicNum"] intValue];
         
@@ -270,6 +279,39 @@
     
     _birthdayDate = date;
     _birthdayString = birthdayString;
+}
+
+-(void)setDueDate:(NSDate *)dueDate{
+    _dueDate = dueDate;
+    if (dueDate) {
+        NSCalendar * calender = [NSCalendar currentCalendar];
+        unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit |
+        NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit;
+        NSDateComponents *comps = [calender components:unitFlags fromDate:dueDate];
+        _dueDateString = [NSString stringWithFormat:@"%d-%d-%d", (int)comps.year, (int)comps.month, (int)comps.day];
+    }
+}
+-(void)setDueDateString:(NSString *)dueDateString{
+    NSArray* yearItems = [dueDateString componentsSeparatedByString:@" "];
+    if (yearItems.count < 1) {
+        return;
+    }
+    dueDateString = [yearItems objectAtIndex:0];
+    NSArray* items = [dueDateString componentsSeparatedByString:@"-"];
+    if (items.count != 3) {
+        return;
+    }
+    
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setDay:[[items objectAtIndex:2] integerValue]];
+    [comps setMonth:[[items objectAtIndex:1] integerValue]];
+    [comps setYear:[[items objectAtIndex:0] integerValue]];
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDate *date = [gregorian dateFromComponents:comps];
+    
+    _dueDate = date;
+    _dueDateString = dueDateString;
 }
 
 + (NSString*)getBirthdayByDate:(NSDate*)date{

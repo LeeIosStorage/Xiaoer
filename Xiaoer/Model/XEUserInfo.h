@@ -32,7 +32,11 @@
 @property(nonatomic, strong) NSString* name;
 @property(nonatomic, strong) NSString* desc;
 @property(nonatomic, strong) NSDate* registerTime;
-@property(nonatomic, strong) NSString* title;
+@property(nonatomic, strong) NSString* title;//身份
+@property(nonatomic, strong) NSString* hasbaby;//n表示怀孕中,y表示已有宝宝
+@property(nonatomic, strong) NSDate* dueDate;//预产期
+@property(nonatomic, strong) NSString* dueDateString;//预产期
+@property(nonatomic, strong) NSString* hospital;//产检医院
 @property(nonatomic, assign) int topicNum;
 @property(nonatomic, assign) int profileStatus;
 
@@ -46,7 +50,7 @@
 @property(nonatomic, strong) NSString* babyGender;
 @property(nonatomic, assign) int babyMonth;
 @property(nonatomic, assign) int stage;
-@property(nonatomic, assign) int acquiesce;//是否默认宝宝
+@property(nonatomic, assign) int acquiesce;//0是默认宝宝
 @property(nonatomic, strong) NSDate* birthdayDate;
 @property(nonatomic, strong) NSString* birthdayString;
 
