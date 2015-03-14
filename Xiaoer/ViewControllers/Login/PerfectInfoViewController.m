@@ -24,6 +24,7 @@
 #import "ChooseLocationViewController.h"
 #import "JSONKit.h"
 #import "NSString+Value.h"
+#import "ApplyActivityViewController.h"
 
 #define TAG_USER_NAME      0
 #define TAG_USER_IDENTITY  1
@@ -145,6 +146,12 @@
     if (_isNeedSkip) {
         [self.saveButton setTitle:@"完成" forState:0];
     }
+    if (_isFromActivity) {
+        [self.saveButton setTitle:@"确认报名" forState:0];
+    }
+    if (_isFromCard) {
+        [self.saveButton setTitle:@"确认领取" forState:0];
+    }
     
     [self.tableView reloadData];
 }
@@ -184,6 +191,10 @@
         if (_isNeedSkip) {
             AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
             [appDelegate signIn];
+        }else if (_isFromActivity){
+            [self applyActivity];
+        }else if (_isFromCard){
+            [self receiveCard];
         }else{
             [self.navigationController popViewControllerAnimated:YES];
         }
@@ -245,14 +256,24 @@
         [XEProgressHUD lightAlert:@"昵称太短了"];
         return;
     }
-//    if (_userInfo.regionName.length == 0) {
-//        [XEProgressHUD lightAlert:@"请输入您的地区"];
-//        return;
-//    }
-//    if (_isFromCard && _userInfo.address.length == 0) {
-//        [XEProgressHUD lightAlert:@"请输入您的详细地址"];
-//        return;
-//    }
+    if (_isFromCard || _isFromActivity) {
+        if (_userInfo.hasbaby.length == 0) {
+            [XEProgressHUD lightAlert:@"请输入您的当前状态"];
+            return;
+        }
+        if (_userInfo.regionName.length == 0) {
+            [XEProgressHUD lightAlert:@"请输入您的地区"];
+            return;
+        }
+        if (_userInfo.address.length == 0) {
+            [XEProgressHUD lightAlert:@"请输入您的详细地址"];
+            return;
+        }
+        if (_userInfo.phone.length == 0) {
+            [XEProgressHUD lightAlert:@"请输入您的常用手机"];
+            return;
+        }
+    }
     if (self.showType == 2 || self.showType == 3){
         XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
         if (babyUserInfo.babyAvatarId.length == 0) {
@@ -285,6 +306,11 @@
             [XEProgressHUD lightAlert:@"请输入产检医院"];
             return;
         }
+    }
+    
+    if (_isFromActivity || _isFromCard) {
+        [self editUserInfo];
+        return;
     }
     
     if ([self isChangedWithUserInfo]) {
@@ -877,4 +903,79 @@
     }tag:tag];
 }
 
+
+
+#pragma mark - activity
+-(void)applyActivity{
+    
+    _saveButton.enabled = NO;
+    [_saveButton setTitle:@"报名中..." forState:0];
+    __weak PerfectInfoViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] applyActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            weakSelf.saveButton.enabled = YES;
+            [weakSelf.saveButton setTitle:@"确认报名" forState:0];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+        weakSelf.saveButton.enabled = NO;
+        [weakSelf.saveButton setTitle:@"已报名" forState:0];
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
+        weakSelf.activityInfo.status = 3;
+        weakSelf.activityInfo.regnum ++;
+        
+        if (weakSelf.finishedCallBack) {
+            weakSelf.finishedCallBack(YES);
+        }
+        
+        ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
+        applyVc.infoId = [jsonRet stringObjectForKey:@"object"];
+        [weakSelf.navigationController pushViewController:applyVc animated:YES];
+        
+    }tag:tag];
+}
+#pragma mark - 卡包
+-(void)receiveCard{
+    
+    _saveButton.enabled = NO;
+    [_saveButton setTitle:@"领取中..." forState:0];
+    [self.saveButton setBackgroundImage:[UIImage imageNamed:@"card_staus_hover_bg"] forState:UIControlStateNormal];
+    __weak PerfectInfoViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] receiveCardWithUid:[XEEngine shareInstance].uid cid:_cardInfo.cid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            weakSelf.saveButton.enabled = YES;
+            [weakSelf.saveButton setTitle:@"确认领取" forState:0];
+            [weakSelf.saveButton setBackgroundImage:[UIImage imageNamed:@"card_status_bg"] forState:UIControlStateNormal];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+        [weakSelf.saveButton setTitle:@"已领取" forState:UIControlStateNormal];
+        weakSelf.saveButton.enabled = NO;
+        [weakSelf.saveButton setBackgroundImage:[UIImage imageNamed:@"card_staus_hover_bg"] forState:UIControlStateNormal];
+        weakSelf.cardInfo.status = 4;
+        weakSelf.cardInfo.leftNum ++;
+        
+        if (weakSelf.finishedCallBack) {
+            weakSelf.finishedCallBack(YES);
+        }
+        
+        ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
+        applyVc.infoId = [jsonRet stringObjectForKey:@"receiveid"];
+        applyVc.vcType = 1;
+        [weakSelf.navigationController pushViewController:applyVc animated:YES];
+        
+    }tag:tag];
+}
 @end

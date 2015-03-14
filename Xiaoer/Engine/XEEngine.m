@@ -1049,7 +1049,7 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)applyActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid nickname:(NSString *)nickname title:(NSString *)title phone:(NSString *)phone district:(NSString *)district address:(NSString *)address remark:(NSString *)remark stage:(int)stage tag:(int)tag{
+- (BOOL)applyActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (activityId) {
         [params setObject:activityId forKey:@"id"];
@@ -1057,28 +1057,43 @@ static XEEngine* s_ShareInstance = nil;
     if (uid) {
         [params setObject:uid forKey:@"userid"];
     }
-    if (nickname) {
-        [params setObject:nickname forKey:@"nickname"];
+//    if (nickname) {
+//        [params setObject:nickname forKey:@"nickname"];
+//    }
+//    if (title) {
+//        [params setObject:title forKey:@"title"];
+//    }
+//    if (phone) {
+//        [params setObject:phone forKey:@"phone"];
+//    }
+//    if (district) {
+//        [params setObject:district forKey:@"district"];
+//    }
+//    if (address) {
+//        [params setObject:address forKey:@"address"];
+//    }
+//    if (remark) {
+//        [params setObject:remark forKey:@"remark"];
+//    }
+//    if (stage > 0) {
+//        [params setObject:[NSNumber numberWithInt:stage] forKey:@"stage"];
+//    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/activity/reg",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)applyActivityAddInfoWithActivityId:(NSString *)activityId name:(NSString *)name  remark:(NSString *)remark tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (activityId) {
+        [params setObject:activityId forKey:@"id"];
     }
-    if (title) {
-        [params setObject:title forKey:@"title"];
-    }
-    if (phone) {
-        [params setObject:phone forKey:@"phone"];
-    }
-    if (district) {
-        [params setObject:district forKey:@"district"];
-    }
-    if (address) {
-        [params setObject:address forKey:@"address"];
+    if (name) {
+        [params setObject:name forKey:@"name"];
     }
     if (remark) {
         [params setObject:remark forKey:@"remark"];
     }
-    if (stage > 0) {
-        [params setObject:[NSNumber numberWithInt:stage] forKey:@"stage"];
-    }
-    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/activity/reg",API_URL] type:0 parameters:params];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/activity/reg/addinfo",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
@@ -1404,6 +1419,21 @@ static XEEngine* s_ShareInstance = nil;
     [params setObject:uid forKey:@"userid"];
     [params setObject:cid forKey:@"id"];
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/cp/receive",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)receiveCardAddInfoWithInfoId:(NSString *)infoId name:(NSString *)name remark:(NSString *)remark tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (infoId) {
+        [params setObject:infoId forKey:@"id"];
+    }
+    if (name) {
+        [params setObject:name forKey:@"name"];
+    }
+    if (remark) {
+        [params setObject:remark forKey:@"remark"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/cp/receive/addinfo",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 

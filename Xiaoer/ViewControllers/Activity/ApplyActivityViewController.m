@@ -14,6 +14,8 @@
 #import "ChooseLocationViewController.h"
 #import "XEInputViewController.h"
 #import "XEProgressHUD.h"
+#import "ActivityDetailsViewController.h"
+#import "CardDetailViewController.h"
 
 #define TAG_USER_NAME      0
 #define TAG_USER_IDENTITY  1
@@ -28,6 +30,8 @@
     int _editTag;
     XEUserInfo *_oldUserInfo;
     NSString *_babyAgeOfMoon;
+    
+    NSString *_userNickName;
 }
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *headView;
@@ -59,6 +63,9 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     
+    [self setTilteLeftViewHide:YES];
+    self.disablePan = YES;
+    
     XEUserInfo* tmpUserInfo = [XEEngine shareInstance].userInfo;
     _oldUserInfo = [[XEUserInfo alloc] init];
     [_oldUserInfo setUserInfoByJsonDic:tmpUserInfo.userInfoByJsonDic];
@@ -72,8 +79,11 @@
 }
 -(void)initNormalTitleNavBarSubviews{
     
-    [self setTitle:@"在线报名"];
-    [self setRightButtonWithTitle:@"提交" selector:@selector(submitAction:)];
+    [self setTitle:@"报名成功"];
+    if (_vcType == 1) {
+        [self setTitle:@"领取成功"];
+    }
+    [self setRightButtonWithTitle:@"完成" selector:@selector(submitAction:)];
 }
 /*
 #pragma mark - Navigation
@@ -93,48 +103,48 @@
     //section = 0
     NSMutableDictionary *sectionDict0 = [NSMutableDictionary dictionary];
     
-    NSString *intro = _oldUserInfo.nickName;
-    NSDictionary *dict10 = @{@"titleLabel": @"昵称",
-                             @"intro": intro!=nil?intro:@"",
+    NSString *intro = _userNickName;
+    NSDictionary *dict10 = @{@"titleLabel": @"称呼",
+                             @"intro": intro!=nil?intro:@"先生/女士",
                              };
     
-    intro = _oldUserInfo.title;
-    if ([_oldUserInfo.title isEqualToString:@"f"]) {
-        intro = @"妈妈";
-    }else if ([_oldUserInfo.title isEqualToString:@"m"]){
-        intro = @"爸爸";
-    }else if ([_oldUserInfo.title isEqualToString:@"o"]){
-        intro = @"其他";
-    }
-    NSDictionary *dict11 = @{@"titleLabel": @"身份",
-                             @"intro": intro!=nil?intro:@"",
-                             };
-    
-    intro =_babyAgeOfMoon;
-    NSDictionary *dict12 = @{@"titleLabel": @"宝宝月龄",
-                             @"intro": intro!=nil?intro:@"",
-                             };
-    
-    intro = _oldUserInfo.phone;
-    NSDictionary *dict13 = @{@"titleLabel": @"常用电话",
-                             @"intro": intro!=nil?intro:@"",
-                             };
-    
-    intro = _oldUserInfo.regionName;
-    NSDictionary *dict14 = @{@"titleLabel": @"所在区域",
-                             @"intro": intro!=nil?intro:@"",
-                             };
-    intro = _oldUserInfo.address;
-    NSDictionary *dict15 = @{@"titleLabel": @"详细街道",
-                             @"intro": intro!=nil?intro:@"",
-                             };
+//    intro = _oldUserInfo.title;
+//    if ([_oldUserInfo.title isEqualToString:@"f"]) {
+//        intro = @"妈妈";
+//    }else if ([_oldUserInfo.title isEqualToString:@"m"]){
+//        intro = @"爸爸";
+//    }else if ([_oldUserInfo.title isEqualToString:@"o"]){
+//        intro = @"其他";
+//    }
+//    NSDictionary *dict11 = @{@"titleLabel": @"身份",
+//                             @"intro": intro!=nil?intro:@"",
+//                             };
+//    
+//    intro =_babyAgeOfMoon;
+//    NSDictionary *dict12 = @{@"titleLabel": @"宝宝月龄",
+//                             @"intro": intro!=nil?intro:@"",
+//                             };
+//    
+//    intro = _oldUserInfo.phone;
+//    NSDictionary *dict13 = @{@"titleLabel": @"常用电话",
+//                             @"intro": intro!=nil?intro:@"",
+//                             };
+//    
+//    intro = _oldUserInfo.regionName;
+//    NSDictionary *dict14 = @{@"titleLabel": @"所在区域",
+//                             @"intro": intro!=nil?intro:@"",
+//                             };
+//    intro = _oldUserInfo.address;
+//    NSDictionary *dict15 = @{@"titleLabel": @"详细街道",
+//                             @"intro": intro!=nil?intro:@"",
+//                             };
     
     [sectionDict0 setObject:dict10 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
-    [sectionDict0 setObject:dict11 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
-    [sectionDict0 setObject:dict12 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
-    [sectionDict0 setObject:dict13 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
-    [sectionDict0 setObject:dict14 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
-    [sectionDict0 setObject:dict15 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
+//    [sectionDict0 setObject:dict11 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
+//    [sectionDict0 setObject:dict12 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
+//    [sectionDict0 setObject:dict13 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
+//    [sectionDict0 setObject:dict14 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
+//    [sectionDict0 setObject:dict15 forKey:[NSString stringWithFormat:@"r%d",(unsigned int)sectionDict0.count]];
     
     [tmpMutDict setObject:sectionDict0 forKey:[NSString stringWithFormat:@"s%d",(unsigned int)tmpMutDict.count]];
     moduleDict = tmpMutDict;
@@ -144,8 +154,10 @@
 #pragma mark - custom
 -(void)refreshHeadView{
     
-    _titleLabel.text = _activityInfo.title;
-    
+    _titleLabel.text = @"恭喜，您已报名成功！请输入以下信息，方便我们联系和发放奖品.";
+    if (_vcType == 1){
+        _titleLabel.text = @"恭喜，您已领取成功！请输入以下信息，方便我们联系和发放奖品.";
+    }
     self.tableView.tableHeaderView = self.headView;
     self.tableView.tableFooterView = self.footerView;
     
@@ -156,36 +168,44 @@
     if ([XEEngine shareInstance].uid.length == 0) {
         return;
     }
-    if (_oldUserInfo.nickName.length == 0) {
-        [XEProgressHUD lightAlert:@"昵称必填哦"];
+    if (_userNickName.length == 0) {
+        [XEProgressHUD lightAlert:@"称呼必填哦"];
         return;
     }
-    if (_oldUserInfo.title.length == 0) {
-        [XEProgressHUD lightAlert:@"身份必填哦"];
-        return;
-    }
-    if (_oldUserInfo.stage == 0) {
-        [XEProgressHUD lightAlert:@"宝宝月龄必填哦"];
-        return;
-    }
-    if (_oldUserInfo.phone.length == 0) {
-        [XEProgressHUD lightAlert:@"常用电话必填哦"];
-        return;
-    }
-    if (_oldUserInfo.region.length == 0) {
-        [XEProgressHUD lightAlert:@"所在地区必填哦"];
-        return;
-    }
-    if (_oldUserInfo.address.length == 0) {
-        [XEProgressHUD lightAlert:@"详细街道必填哦"];
-        return;
-    }
+//    if (_oldUserInfo.title.length == 0) {
+//        [XEProgressHUD lightAlert:@"身份必填哦"];
+//        return;
+//    }
+//    if (_oldUserInfo.stage == 0) {
+//        [XEProgressHUD lightAlert:@"宝宝月龄必填哦"];
+//        return;
+//    }
+//    if (_oldUserInfo.phone.length == 0) {
+//        [XEProgressHUD lightAlert:@"常用电话必填哦"];
+//        return;
+//    }
+//    if (_oldUserInfo.region.length == 0) {
+//        [XEProgressHUD lightAlert:@"所在地区必填哦"];
+//        return;
+//    }
+//    if (_oldUserInfo.address.length == 0) {
+//        [XEProgressHUD lightAlert:@"详细街道必填哦"];
+//        return;
+//    }
     [XEProgressHUD AlertLoading:@"正在提交信息" At:self.view];
+    if (_vcType == 0) {
+        [self submitActivityInfo];
+    }else if (_vcType == 1){
+        [self submitCardInfo];
+    }
+}
+
+-(void)submitActivityInfo{
     __weak ApplyActivityViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] applyActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid nickname:_oldUserInfo.nickName title:_oldUserInfo.title phone:_oldUserInfo.phone district:_oldUserInfo.region address:_oldUserInfo.address remark:_textView.text stage:_oldUserInfo.stage tag:tag];
+    [[XEEngine shareInstance] applyActivityAddInfoWithActivityId:_infoId name:_userNickName remark:_textView.text tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-//        [XEProgressHUD AlertLoadDone];
+        //        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
             if (!errorMsg.length) {
@@ -195,12 +215,42 @@
             return;
         }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
-        _activityInfo.status = 3;
-        [weakSelf.navigationController popViewControllerAnimated:YES];
+        [weakSelf performSelector:@selector(popViewController) withObject:nil afterDelay:1.0];
         
     }tag:tag];
-    
 }
+
+-(void)submitCardInfo{
+    __weak ApplyActivityViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] receiveCardAddInfoWithInfoId:_infoId name:_userNickName remark:_textView.text tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
+        [weakSelf performSelector:@selector(popViewController) withObject:nil afterDelay:1.0];
+        
+    }tag:tag];
+}
+
+-(void)popViewController{
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    if (viewControllers.count > 2) {
+        UIViewController *vc = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count - 3];
+        if ([vc isKindOfClass:[ActivityDetailsViewController class]] || [vc isKindOfClass:[CardDetailViewController class]]) {
+            [self.navigationController popToViewController:vc animated:YES];
+            return;
+        }
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(void)updateRemainNumLabel{
     if (_textView.text.length > 0) {
         _placeHolderLabel.hidden = YES;
@@ -423,8 +473,8 @@ static int redIconImageView_tag = 201;
     lvc.delegate = self;
     lvc.oldText = [rowDicts objectForKey:@"intro"];
     if (Tag == TAG_USER_NAME) {
-        lvc.oldText = _oldUserInfo.nickName;
-        lvc.minTextLength = 2;
+        lvc.oldText = _userNickName;
+//        lvc.minTextLength = 2;
         lvc.maxTextLength = 16;
     }
     if (Tag == TAG_USER_PHONE) {
@@ -454,7 +504,7 @@ static int redIconImageView_tag = 201;
     }else if (_editTag == TAG_USER_PHONE){
         _oldUserInfo.phone = text;
     }else if (_editTag == TAG_USER_NAME){
-        _oldUserInfo.nickName = text;
+        _userNickName = text;
     }
     [self.tableView reloadData];
 }

@@ -21,6 +21,8 @@ typedef enum XEUrlShareType_{
 }XEShareType;
 
 @protocol XEShareActionSheetDelegate <NSObject>
+
+@optional
 -(void) deleteTopicAction:(id)info;
 @end
 
