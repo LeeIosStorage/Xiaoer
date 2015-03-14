@@ -132,6 +132,12 @@
             PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
             piVc.userInfo = [XEEngine shareInstance].userInfo;
             piVc.isFromCard = YES;
+            piVc.cardInfo = self.cardInfo;
+            piVc.finishedCallBack = ^(BOOL isFinish){
+                if (isFinish) {
+                    [self refreshDetailUI];
+                }
+            };
             [self.navigationController pushViewController:piVc animated:YES];
         }];
         [alertView show];

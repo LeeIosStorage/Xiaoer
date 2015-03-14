@@ -15,6 +15,8 @@
 #import "XEScrollPage.h"
 #import "XEThemeInfo.h"
 #import "XEShareActionSheet.h"
+#import "XEAlertView.h"
+#import "PerfectInfoViewController.h"
 
 @interface ActivityDetailsViewController () <UITableViewDataSource,UITableViewDelegate,XEScrollPageDelegate,XEShareActionSheetDelegate>
 {
@@ -273,9 +275,24 @@
     if ([[XEEngine shareInstance] needUserLogin:nil]) {
         return;
     }
-    ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
-    applyVc.activityInfo = _activityInfo;
-    [self.navigationController pushViewController:applyVc animated:YES];
+    if ([XEEngine shareInstance].userInfo.profileStatus == 0) {
+        [self applyActivity];
+    }else{
+        XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"您需要完善资料才能报名活动" cancelButtonTitle:@"取消" cancelBlock:^{
+        } okButtonTitle:@"确定" okBlock:^{
+            PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
+            piVc.userInfo = [XEEngine shareInstance].userInfo;
+            piVc.isFromActivity = YES;
+            piVc.activityInfo = _activityInfo;
+            piVc.finishedCallBack = ^(BOOL isFinish){
+                if (isFinish) {
+                    [self refreshActivityHeadShow];
+                }
+            };
+            [self.navigationController pushViewController:piVc animated:YES];
+        }];
+        [alertView show];
+    }
 }
 
 - (IBAction)phoneAction:(id)sender {
@@ -288,6 +305,35 @@
     [showmap setCurrentLocation:_activityInfo.latitude longitute:_activityInfo.longitude];
     showmap.showPlaceTitle = _activityInfo.address;
     [self.navigationController pushViewController:showmap animated:YES];
+}
+
+-(void)applyActivity{
+    
+    _applyActivityButton.enabled = NO;
+    [_applyActivityButton setTitle:@"报名中..." forState:0];
+    __weak ActivityDetailsViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] applyActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [self refreshActivityHeadShow];
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
+        _activityInfo.status = 3;
+        _activityInfo.regnum ++;
+        [self refreshActivityHeadShow];
+        
+        ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
+        applyVc.infoId = [jsonRet stringObjectForKey:@"object"];
+        [self.navigationController pushViewController:applyVc animated:YES];
+        
+    }tag:tag];
 }
 
 #pragma mark - XEScrollPageDelegate

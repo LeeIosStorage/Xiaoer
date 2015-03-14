@@ -148,7 +148,8 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 //报名活动列表
 - (BOOL)getApplyActivityListWithPage:(int)page uid:(NSString *)uid tag:(int)tag;
 - (BOOL)getApplyActivityDetailWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag;
-- (BOOL)applyActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid nickname:(NSString *)nickname title:(NSString *)title phone:(NSString *)phone district:(NSString *)district address:(NSString *)address remark:(NSString *)remark stage:(int)stage tag:(int)tag;
+- (BOOL)applyActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag;
+- (BOOL)applyActivityAddInfoWithActivityId:(NSString *)activityId name:(NSString *)name  remark:(NSString *)remark tag:(int)tag;
 - (BOOL)collectActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag;
 - (BOOL)unCollectActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag;
 - (BOOL)shareActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag;
@@ -199,6 +200,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getCardDetailInfoWithUid:(NSString *)uid cid:(NSString *)cid tag:(int)tag;
 //领取卡包
 - (BOOL)receiveCardWithUid:(NSString *)uid cid:(NSString *)cid tag:(int)tag;
+- (BOOL)receiveCardAddInfoWithInfoId:(NSString *)infoId name:(NSString *)name remark:(NSString *)remark tag:(int)tag;
 //我的活动
 - (BOOL)getMyApplyActivityListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
 - (BOOL)getMyCollectActivityListWithUid:(NSString *)uid page:(int)page tag:(int)tag;
