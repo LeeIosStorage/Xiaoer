@@ -12,8 +12,10 @@
 #import "XETrainInfo.h"
 #import "XELinkerHandler.h"
 #import "EvaluationViewController.h"
+#import "XEActionSheet.h"
+#import "AppDelegate.h"
 
-@interface TaskViewController (){
+@interface TaskViewController ()<UIScrollViewDelegate>{
     BOOL _isData;
 }
 
@@ -21,6 +23,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *startBtn;
 @property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) IBOutlet UILabel *scoreTitleLabel;
+@property (strong, nonatomic) IBOutlet UIScrollView *containerScroll;
+@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) IBOutlet UIImageView *trainImage;
 
 
 @end
@@ -75,6 +80,7 @@
         }
         
         if (weakSelf.trainArray.count) {
+            [weakSelf initScrollPage];
             [weakSelf refreshUIWithData:_isData];
         }
     }tag:tag];
@@ -82,6 +88,7 @@
 
 - (void)refreshUIWithData:(BOOL)bData{
     if (bData) {
+        
         XETrainInfo *trainInfo = [[XETrainInfo alloc] init];
         trainInfo = [self.trainArray objectAtIndex:0];
         _scoreLabel.text = [[trainInfo.resultsInfo objectAtIndex:0]objectForKey:@"score"];
@@ -90,7 +97,6 @@
         _scoreTitleLabel.text = @"当前关键期还没有评测记录";
     }
 }
-
 
 - (IBAction)startTrainAction:(id)sender {
     if (_isData) {
@@ -111,5 +117,146 @@
 }
 
 
+- (void)initScrollPage{
+    
+    CGRect frame = self.view.bounds;
+    [self addSubviewToScrollView:_containerScroll withIndex:5];
+    for (int i = 0; i < 6; i++) {
+        [self addSubviewToScrollView:_containerScroll withIndex:i];
+    }
+    [self addSubviewToScrollView:_containerScroll withIndex:0];
+    //多算两屏,默认第二屏
+    _containerScroll.ContentSize = CGSizeMake(8*frame.size.width,frame.size.height);
+    [_containerScroll scrollRectToVisible:CGRectMake(frame.size.width, 0, frame.size.width, frame.size.height) animated:NO];
+    //设置pageControl属性
+    _pageControl.numberOfPages = 6;
+}
+
+- (void)addSubviewToScrollView:(UIScrollView *)scrollView withIndex:(NSInteger)index{
+    CGRect frame = self.view.bounds;
+    
+    CGRect vFrame = frame;
+    vFrame.origin.x = (index+1)*vFrame.size.width;
+    
+    UIView *view = [[UIView alloc] init];
+
+    view.frame = vFrame;
+    view.clipsToBounds = YES;
+    
+    [scrollView addSubview:view];
+    switch (index) {
+        case 0:
+            view.backgroundColor = [XEUIUtils colorWithHex:0xf0ac5b alpha:1.0];
+            break;
+        case 1:
+            view.backgroundColor = [XEUIUtils colorWithHex:0x8568ab alpha:1.0];
+            break;
+        case 2:
+            view.backgroundColor = [XEUIUtils colorWithHex:0xfbca5a alpha:1.0];
+            break;
+        case 3:
+            view.backgroundColor = [XEUIUtils colorWithHex:0x6cc5e8 alpha:1.0];
+            break;
+        case 4:
+            view.backgroundColor = [XEUIUtils colorWithHex:0xeb7270 alpha:1.0];
+            break;
+        case 5:
+            view.backgroundColor = [XEUIUtils colorWithHex:0x78bf54 alpha:1.0];
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark -- ads scrollview delegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (![scrollView isEqual:_containerScroll]) {
+        return;
+    }
+    
+    CGFloat pageWidth  = _containerScroll.frame.size.width;
+    CGFloat pageHeigth = _containerScroll.frame.size.height;
+    int currentPage = floor((_containerScroll.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    
+    if (currentPage == 0) {
+        [_containerScroll scrollRectToVisible:CGRectMake(pageWidth * 6, 0, pageWidth, pageHeigth) animated:NO];
+        _pageControl.currentPage = 5;
+        return;
+    }else if(currentPage == 7){
+        [_containerScroll scrollRectToVisible:CGRectMake(pageWidth, 0, pageWidth, pageHeigth) animated:NO];
+        _pageControl.currentPage = 0;
+        return;
+    }
+    _pageControl.currentPage = currentPage - 1;
+    switch (_pageControl.currentPage) {
+        case 0:
+            [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn1_bg"] forState:UIControlStateNormal];
+            [_trainImage setImage:[UIImage imageNamed:@"task_sport_icon"]];
+            break;
+        case 1:
+            [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn2_bg"] forState:UIControlStateNormal];
+            [_trainImage setImage:[UIImage imageNamed:@"task_social_icon"]];
+            break;
+        case 2:
+            [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn3_bg"] forState:UIControlStateNormal];
+            [_trainImage setImage:[UIImage imageNamed:@"task_adapt_icon"]];
+            break;
+        case 3:
+            [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn4_bg"] forState:UIControlStateNormal];
+            [_trainImage setImage:[UIImage imageNamed:@"task_fine_icon"]];
+            break;
+        case 4:
+            [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn5_bg"] forState:UIControlStateNormal];
+            [_trainImage setImage:[UIImage imageNamed:@"task_speak_icon"]];
+            break;
+        case 5:
+            [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn6_bg"] forState:UIControlStateNormal];
+            [_trainImage setImage:[UIImage imageNamed:@"task_attention_icon"]];
+            break;
+        default:
+            break;
+    }
+    
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat pageWidth = _containerScroll.frame.size.width;
+    int currentPage = floor((_containerScroll.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    if (currentPage == 0) {
+        _pageControl.currentPage = 5;
+    }else if(currentPage == 7){
+        _pageControl.currentPage = 0;
+    }
+    _pageControl.currentPage = currentPage - 1;
+}
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+
+}
+
+- (IBAction)changeResultAction:(id)sender {
+    __weak TaskViewController *weakSelf = self;
+    XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:@"评测记录" actionBlock:^(NSInteger buttonIndex) {
+        if (2 == buttonIndex) {
+            return;
+        }
+        
+        [weakSelf doActionSheetClickedButtonAtIndex:buttonIndex];
+    } cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"1",@"2", nil];
+    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    [sheet showInView:appDelegate.window];
+}
+
+- (void)doActionSheetClickedButtonAtIndex:(NSInteger)index{
+    
+}
 
 @end
