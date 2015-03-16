@@ -418,7 +418,7 @@
     
     UILabel *indexLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 200, view.frame.size.height)];
     indexLabel.backgroundColor = [UIColor clearColor];
-    indexLabel.textColor = TEXT_COLOR;
+    indexLabel.textColor = SKIN_TEXT_COLOR;
     indexLabel.font = [UIFont boldSystemFontOfSize:13];
     indexLabel.text = @"注意力和好习惯";
     [view addSubview:indexLabel];
