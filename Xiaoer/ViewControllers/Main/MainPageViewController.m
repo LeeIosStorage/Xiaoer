@@ -29,6 +29,7 @@
 #import "XENavigationController.h"
 #import "BabyListViewController.h"
 #import "CardPackViewController.h"
+#import "StageSelectViewController.h"
 
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     ODRefreshControl *_themeControl;
@@ -53,6 +54,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *birthday;
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *roundImageView;
+@property (strong, nonatomic) IBOutlet UIView *containerView;
 
 - (IBAction)mineMsgAction:(id)sender;
 - (IBAction)historyAction:(id)sender;
@@ -78,7 +80,7 @@
     
     //此句不加程序崩
     [self.collectionView registerClass:[XECollectionViewCell class] forCellWithReuseIdentifier:@"XECollectionViewCell"];
-    
+
     _themeControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
     [_themeControl addTarget:self action:@selector(themeBeginPull:) forControlEvents:UIControlEventValueChanged];
     
@@ -115,6 +117,17 @@
     self.avatarImageView.clipsToBounds = YES;
     self.nickName.text = userInfo.babyNick;
     self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
+
+    if (SCREEN_HEIGHT <= 568) {
+        CGRect frame = self.containerView.frame;
+        frame.origin.y = frame.origin.y - 30;
+        self.containerView.frame = frame;
+        
+        frame = self.headView.frame;
+        frame.size.height = 506;
+        self.headView.frame = frame;
+    }
+    
     self.tableView.tableHeaderView = self.headView;
     ///底部加点间隙
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 19)];
@@ -362,8 +375,6 @@
             break;
         }
         case 5:{
-//            XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:@"小贴示" message:@"商城平台尚未开放，晓儿一直在努力" cancelButtonTitle:@"确定"];
-//            [alertView show];
             id vc = [XELinkerHandler handleDealWithHref:_mallurl From:self.navigationController];
             if (vc) {
                 [self.navigationController pushViewController:vc animated:YES];
@@ -558,7 +569,7 @@
     if ([self isVisitor]) {
         [self showAlter];
     }else {
-        BabyListViewController *vc = [[BabyListViewController alloc] init];
+        StageSelectViewController *vc = [[StageSelectViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

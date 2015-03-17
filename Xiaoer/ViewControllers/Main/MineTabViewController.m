@@ -299,7 +299,7 @@ static CGFloat beginImageH = 64;
         case kMyBaby:{
             if (indexPath.row == 0) {
                 cell.titleLabel.text = @"我的宝宝";
-                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_card_icon"]];
+                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_baby_icon"]];
                 break;
             }
 //            if (indexPath.row == 0) {
