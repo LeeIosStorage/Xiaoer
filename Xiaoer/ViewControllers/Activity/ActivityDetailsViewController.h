@@ -12,5 +12,6 @@
 @interface ActivityDetailsViewController : XESuperViewController
 
 @property (nonatomic, strong) XEActivityInfo *activityInfo;
+@property (nonatomic, assign) BOOL isTicketActivity;
 
 @end

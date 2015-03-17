@@ -50,6 +50,10 @@
 		0746446D1A6C9F7200CE2935 /* XECommonWebVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 0746446C1A6C9F7200CE2935 /* XECommonWebVc.m */; };
 		074644851A6CFFDA00CE2935 /* XECollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 074644831A6CFFDA00CE2935 /* XECollectionViewCell.m */; };
 		074644861A6CFFDA00CE2935 /* XECollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074644841A6CFFDA00CE2935 /* XECollectionViewCell.xib */; };
+		074D4B581AB8107900C19972 /* TicketListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074D4B561AB8107900C19972 /* TicketListViewController.m */; };
+		074D4B591AB8107900C19972 /* TicketListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074D4B571AB8107900C19972 /* TicketListViewController.xib */; };
+		074D4B5D1AB8192200C19972 /* TicketListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 074D4B5B1AB8192200C19972 /* TicketListViewCell.m */; };
+		074D4B5E1AB8192200C19972 /* TicketListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074D4B5C1AB8192200C19972 /* TicketListViewCell.xib */; };
 		074DD0DA1A5E33B80042B721 /* MineTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 074DD0D81A5E33B80042B721 /* MineTabCell.m */; };
 		074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 074DD0D91A5E33B80042B721 /* MineTabCell.xib */; };
 		074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 074DD0DD1A5E6A740042B721 /* XESettingConfig.m */; };
@@ -450,6 +454,12 @@
 		074644821A6CFFDA00CE2935 /* XECollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECollectionViewCell.h; sourceTree = "<group>"; };
 		074644831A6CFFDA00CE2935 /* XECollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECollectionViewCell.m; sourceTree = "<group>"; };
 		074644841A6CFFDA00CE2935 /* XECollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XECollectionViewCell.xib; sourceTree = "<group>"; };
+		074D4B551AB8107900C19972 /* TicketListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketListViewController.h; sourceTree = "<group>"; };
+		074D4B561AB8107900C19972 /* TicketListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketListViewController.m; sourceTree = "<group>"; };
+		074D4B571AB8107900C19972 /* TicketListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TicketListViewController.xib; sourceTree = "<group>"; };
+		074D4B5A1AB8192200C19972 /* TicketListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketListViewCell.h; sourceTree = "<group>"; };
+		074D4B5B1AB8192200C19972 /* TicketListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketListViewCell.m; sourceTree = "<group>"; };
+		074D4B5C1AB8192200C19972 /* TicketListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TicketListViewCell.xib; sourceTree = "<group>"; };
 		074DD0D71A5E33B80042B721 /* MineTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTabCell.h; sourceTree = "<group>"; };
 		074DD0D81A5E33B80042B721 /* MineTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTabCell.m; sourceTree = "<group>"; };
 		074DD0D91A5E33B80042B721 /* MineTabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineTabCell.xib; sourceTree = "<group>"; };
@@ -1274,6 +1284,9 @@
 				075AA0371A68B85D000B6302 /* ActivityViewController.h */,
 				075AA0381A68B85D000B6302 /* ActivityViewController.m */,
 				075AA0391A68B85D000B6302 /* ActivityViewController.xib */,
+				074D4B551AB8107900C19972 /* TicketListViewController.h */,
+				074D4B561AB8107900C19972 /* TicketListViewController.m */,
+				074D4B571AB8107900C19972 /* TicketListViewController.xib */,
 				075AA0451A690C58000B6302 /* ActivityDetailsViewController.h */,
 				075AA0461A690C58000B6302 /* ActivityDetailsViewController.m */,
 				075AA0471A690C58000B6302 /* ActivityDetailsViewController.xib */,
@@ -1290,6 +1303,9 @@
 				075AA0401A68DEFA000B6302 /* ActivityViewCell.h */,
 				075AA0411A68DEFA000B6302 /* ActivityViewCell.m */,
 				075AA0421A68DEFA000B6302 /* ActivityViewCell.xib */,
+				074D4B5A1AB8192200C19972 /* TicketListViewCell.h */,
+				074D4B5B1AB8192200C19972 /* TicketListViewCell.m */,
+				074D4B5C1AB8192200C19972 /* TicketListViewCell.xib */,
 				077663981A80779A004C885B /* ActivityApplyViewCell.h */,
 				077663991A80779A004C885B /* ActivityApplyViewCell.m */,
 				0776639A1A80779A004C885B /* ActivityApplyViewCell.xib */,
@@ -2252,7 +2268,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 07508E7B1A51346300873B45 /* Build configuration list for PBXProject "xiaoer" */;
+			buildConfigurationList = 07508E7B1A51346300873B45 /* Build configuration list for PBXProject "Xiaoer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2295,6 +2311,7 @@
 				0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */,
 				075B031F1A6CAC28002B577D /* ApplyActivityViewController.xib in Resources */,
 				075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */,
+				074D4B591AB8107900C19972 /* TicketListViewController.xib in Resources */,
 				078E89101AA1C32D008AD45A /* UMSocialSnsPlatform.html in Resources */,
 				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
 				0760E9301A81ACB300BBEA3D /* MineMsgViewController.xib in Resources */,
@@ -2407,6 +2424,7 @@
 				078E89031AA1C32D008AD45A /* UMSocialExtConfig.html in Resources */,
 				075AA0441A68DEFA000B6302 /* ActivityViewCell.xib in Resources */,
 				07B650581A67AC7E00DEDE4E /* XETopicViewCell.xib in Resources */,
+				074D4B5E1AB8192200C19972 /* TicketListViewCell.xib in Resources */,
 				0797A32A1A7F106C00D5650A /* XEScrollPage.xib in Resources */,
 				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
 				078E89211AA1C32D008AD45A /* library_background.png in Resources */,
@@ -2547,6 +2565,7 @@
 				073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */,
 				075E409A1A59386C0062F6AD /* AFNetworkReachabilityManager.m in Sources */,
 				079E421C1A762ABE0056968E /* XEQuestionViewCell.m in Sources */,
+				074D4B5D1AB8192200C19972 /* TicketListViewCell.m in Sources */,
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
 				07AAB7F81A8330130030D306 /* SettingViewCell.m in Sources */,
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
@@ -2589,6 +2608,7 @@
 				0774A8851A66705D00336465 /* XEActionSheet.m in Sources */,
 				07E5363B1A529259005E1DA9 /* MineTabViewController.m in Sources */,
 				078E87EC1AA18CAE008AD45A /* StageSelectViewCell.m in Sources */,
+				074D4B581AB8107900C19972 /* TicketListViewController.m in Sources */,
 				0774A8761A666EAB00336465 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				0783F68F1AB819DF00AAB5B0 /* CollectActivityViewCell.m in Sources */,
 				07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */,
@@ -2861,7 +2881,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		07508E7B1A51346300873B45 /* Build configuration list for PBXProject "xiaoer" */ = {
+		07508E7B1A51346300873B45 /* Build configuration list for PBXProject "Xiaoer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07508EA11A51346300873B45 /* Debug */,

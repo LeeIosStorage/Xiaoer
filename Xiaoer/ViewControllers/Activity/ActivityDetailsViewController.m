@@ -34,7 +34,11 @@
 @property (strong, nonatomic) IBOutlet UILabel *addressAndTimeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (strong, nonatomic) IBOutlet UILabel *activityIntroLabel;
+
+@property (strong, nonatomic) IBOutlet UIView *applyActivityView;
 @property (strong, nonatomic) IBOutlet UIButton *applyActivityButton;
+
+@property (strong, nonatomic) IBOutlet UIView *rushTicketView;
 
 - (IBAction)applyActivityAction:(id)sender;
 - (IBAction)phoneAction:(id)sender;
@@ -166,6 +170,10 @@
 //        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
 //    }
     
+    if (_isTicketActivity) {
+        
+    }
+    
     _applyActivityButton.enabled = NO;
     NSString *applyButtonTitle = @"在线报名";
     int status = _activityInfo.status;//0未发布 1报名未开始 2可报名 3已报名 4已报满  5已截止 6已结束
@@ -209,6 +217,10 @@
     self.headView.frame = frame;
     
     self.tableView.tableHeaderView = self.headView;
+}
+
+-(void)refreshTicketActivityFooterShow{
+    
 }
 
 -(void)collectAction:(id)sender{

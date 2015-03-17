@@ -30,6 +30,7 @@
 #import "BabyListViewController.h"
 #import "CardPackViewController.h"
 #import "StageSelectViewController.h"
+#import "TicketListViewController.h"
 
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     ODRefreshControl *_themeControl;
@@ -372,6 +373,8 @@
         }
             break;
         case 6:{
+            TicketListViewController *vc = [[TicketListViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
             break;
         }
         case 5:{

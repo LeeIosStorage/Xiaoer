@@ -11,9 +11,11 @@
                 <outlet property="activityIntroLabel" destination="Lpi-gD-bQ8" id="9qz-iP-oMg"/>
                 <outlet property="addressAndTimeLabel" destination="dv1-h9-EWU" id="nAc-49-dFE"/>
                 <outlet property="applyActivityButton" destination="dgp-j0-iTW" id="ZqB-xZ-6S0"/>
+                <outlet property="applyActivityView" destination="dgp-j0-iTW" id="0Mo-2L-cs0"/>
                 <outlet property="avatarImageView" destination="E3j-UJ-xDS" id="sL8-UV-nNz"/>
                 <outlet property="headView" destination="oM4-hD-yvU" id="Iga-Ac-lxr"/>
                 <outlet property="phoneLabel" destination="od5-4R-ih6" id="fVP-c6-Kbm"/>
+                <outlet property="rushTicketView" destination="y4H-hc-SHo" id="Z3f-Ko-JQd"/>
                 <outlet property="tableView" destination="XOq-Zp-NR3" id="aoT-Zc-GJd"/>
                 <outlet property="titleLabel" destination="mTu-7b-niE" id="HbM-f2-7Ka"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -150,6 +152,18 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="745" y="285"/>
+        </view>
+        <view contentMode="scaleToFill" id="y4H-hc-SHo">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="Pr3-J4-V0W">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
