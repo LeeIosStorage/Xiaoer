@@ -34,7 +34,6 @@
 		0727A5DF1A8C77A00037805A /* TaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0727A5DD1A8C77A00037805A /* TaskViewController.m */; };
 		0727A5E01A8C77A00037805A /* TaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0727A5DE1A8C77A00037805A /* TaskViewController.xib */; };
 		073F9F0B1A68B2B8009D94E3 /* XECategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 073F9F0A1A68B2B8009D94E3 /* XECategoryView.m */; };
-		073F9F0F1A68B31D009D94E3 /* XECategoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073F9F0E1A68B31D009D94E3 /* XECategoryView.xib */; };
 		073F9F131A68B38F009D94E3 /* CategoryItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 073F9F111A68B38F009D94E3 /* CategoryItemCell.m */; };
 		073F9F141A68B38F009D94E3 /* CategoryItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073F9F121A68B38F009D94E3 /* CategoryItemCell.xib */; };
 		073F9F171A68D0CB009D94E3 /* XERecipesInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 073F9F161A68D0CB009D94E3 /* XERecipesInfo.m */; };
@@ -86,8 +85,6 @@
 		0752F7E01A7B267A008C0E0A /* MWPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0752F7DF1A7B267A008C0E0A /* MWPhotoBrowser.bundle */; };
 		075513901AAD7B5F00B1E513 /* BabyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0755138E1AAD7B5F00B1E513 /* BabyListViewController.m */; };
 		075513911AAD7B5F00B1E513 /* BabyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0755138F1AAD7B5F00B1E513 /* BabyListViewController.xib */; };
-		075513951AAD824900B1E513 /* BabyListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075513931AAD824900B1E513 /* BabyListViewCell.m */; };
-		075513961AAD824900B1E513 /* BabyListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075513941AAD824900B1E513 /* BabyListViewCell.xib */; };
 		07582CF71A6E37F200CDCA13 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582CF61A6E37F200CDCA13 /* ODRefreshControl.m */; };
 		07582D0D1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D0A1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m */; };
 		07582D0E1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 07582D0C1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m */; };
@@ -182,8 +179,6 @@
 		0776639C1A80779A004C885B /* ActivityApplyViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0776639A1A80779A004C885B /* ActivityApplyViewCell.xib */; };
 		077663A01A809C01004C885B /* MineTopicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0776639E1A809C01004C885B /* MineTopicListViewController.m */; };
 		077663A11A809C01004C885B /* MineTopicListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0776639F1A809C01004C885B /* MineTopicListViewController.xib */; };
-		077663A51A80C0DB004C885B /* CollectActivityViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 077663A31A80C0DB004C885B /* CollectActivityViewCell.m */; };
-		077663A61A80C0DB004C885B /* CollectActivityViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077663A41A80C0DB004C885B /* CollectActivityViewCell.xib */; };
 		077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0779166E1A5E64BA0047C17C /* PerfectInfoViewController.m */; };
 		077916711A5E64BA0047C17C /* PerfectInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0779166F1A5E64BA0047C17C /* PerfectInfoViewController.xib */; };
 		077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98AE1A53A11000E2985B /* XEUserInfo.m */; };
@@ -193,6 +188,13 @@
 		077C98BD1A53CC0600E2985B /* XETitleNavBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077C98BC1A53CC0600E2985B /* XETitleNavBarView.xib */; };
 		077C98C01A53D12700E2985B /* XECommonUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98BF1A53D12700E2985B /* XECommonUtils.m */; };
 		077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 077C98C21A53D48800E2985B /* XEUIUtils.m */; };
+		0783F6851AB8137A00AAB5B0 /* ToolCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783F6831AB8137A00AAB5B0 /* ToolCollectionCell.m */; };
+		0783F6861AB8137A00AAB5B0 /* ToolCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0783F6841AB8137A00AAB5B0 /* ToolCollectionCell.xib */; };
+		0783F68A1AB819D600AAB5B0 /* BabyListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783F6881AB819D600AAB5B0 /* BabyListViewCell.m */; };
+		0783F68B1AB819D600AAB5B0 /* BabyListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0783F6891AB819D600AAB5B0 /* BabyListViewCell.xib */; };
+		0783F68F1AB819DF00AAB5B0 /* CollectActivityViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0783F68D1AB819DF00AAB5B0 /* CollectActivityViewCell.m */; };
+		0783F6901AB819DF00AAB5B0 /* CollectActivityViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0783F68E1AB819DF00AAB5B0 /* CollectActivityViewCell.xib */; };
+		0783F6921AB819FE00AAB5B0 /* XECategoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0783F6911AB819FE00AAB5B0 /* XECategoryView.xib */; };
 		078623751A84529900B17230 /* BabyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078623731A84529900B17230 /* BabyProfileViewController.m */; };
 		078623761A84529900B17230 /* BabyProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 078623741A84529900B17230 /* BabyProfileViewController.xib */; };
 		07882C231A80675D003874FA /* CardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07882C211A80675D003874FA /* CardViewCell.m */; };
@@ -418,7 +420,6 @@
 		0727A5DE1A8C77A00037805A /* TaskViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TaskViewController.xib; path = Home/TaskViewController.xib; sourceTree = "<group>"; };
 		073F9F091A68B2B8009D94E3 /* XECategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XECategoryView.h; path = Home/XECategoryView.h; sourceTree = "<group>"; };
 		073F9F0A1A68B2B8009D94E3 /* XECategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XECategoryView.m; path = Home/XECategoryView.m; sourceTree = "<group>"; };
-		073F9F0E1A68B31D009D94E3 /* XECategoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XECategoryView.xib; sourceTree = "<group>"; };
 		073F9F101A68B38F009D94E3 /* CategoryItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryItemCell.h; path = Home/CategoryItemCell.h; sourceTree = "<group>"; };
 		073F9F111A68B38F009D94E3 /* CategoryItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryItemCell.m; path = Home/CategoryItemCell.m; sourceTree = "<group>"; };
 		073F9F121A68B38F009D94E3 /* CategoryItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CategoryItemCell.xib; path = Home/CategoryItemCell.xib; sourceTree = "<group>"; };
@@ -520,9 +521,6 @@
 		0755138D1AAD7B5F00B1E513 /* BabyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyListViewController.h; sourceTree = "<group>"; };
 		0755138E1AAD7B5F00B1E513 /* BabyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyListViewController.m; sourceTree = "<group>"; };
 		0755138F1AAD7B5F00B1E513 /* BabyListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyListViewController.xib; sourceTree = "<group>"; };
-		075513921AAD824900B1E513 /* BabyListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyListViewCell.h; sourceTree = "<group>"; };
-		075513931AAD824900B1E513 /* BabyListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyListViewCell.m; sourceTree = "<group>"; };
-		075513941AAD824900B1E513 /* BabyListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyListViewCell.xib; sourceTree = "<group>"; };
 		07582CF51A6E37F200CDCA13 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
 		07582CF61A6E37F200CDCA13 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
 		07582D081A6E566100CDCA13 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
@@ -691,9 +689,6 @@
 		0776639D1A809C01004C885B /* MineTopicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTopicListViewController.h; sourceTree = "<group>"; };
 		0776639E1A809C01004C885B /* MineTopicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTopicListViewController.m; sourceTree = "<group>"; };
 		0776639F1A809C01004C885B /* MineTopicListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineTopicListViewController.xib; sourceTree = "<group>"; };
-		077663A21A80C0DB004C885B /* CollectActivityViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectActivityViewCell.h; sourceTree = "<group>"; };
-		077663A31A80C0DB004C885B /* CollectActivityViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectActivityViewCell.m; sourceTree = "<group>"; };
-		077663A41A80C0DB004C885B /* CollectActivityViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectActivityViewCell.xib; sourceTree = "<group>"; };
 		0779166D1A5E64BA0047C17C /* PerfectInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerfectInfoViewController.h; sourceTree = "<group>"; };
 		0779166E1A5E64BA0047C17C /* PerfectInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerfectInfoViewController.m; sourceTree = "<group>"; };
 		0779166F1A5E64BA0047C17C /* PerfectInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PerfectInfoViewController.xib; sourceTree = "<group>"; };
@@ -712,6 +707,16 @@
 		077C98BF1A53D12700E2985B /* XECommonUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECommonUtils.m; sourceTree = "<group>"; };
 		077C98C11A53D48800E2985B /* XEUIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEUIUtils.h; sourceTree = "<group>"; };
 		077C98C21A53D48800E2985B /* XEUIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEUIUtils.m; sourceTree = "<group>"; };
+		0783F6821AB8137A00AAB5B0 /* ToolCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolCollectionCell.h; sourceTree = "<group>"; };
+		0783F6831AB8137A00AAB5B0 /* ToolCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolCollectionCell.m; sourceTree = "<group>"; };
+		0783F6841AB8137A00AAB5B0 /* ToolCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToolCollectionCell.xib; sourceTree = "<group>"; };
+		0783F6871AB819D600AAB5B0 /* BabyListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BabyListViewCell.h; path = Mine/BabyListViewCell.h; sourceTree = "<group>"; };
+		0783F6881AB819D600AAB5B0 /* BabyListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BabyListViewCell.m; path = Mine/BabyListViewCell.m; sourceTree = "<group>"; };
+		0783F6891AB819D600AAB5B0 /* BabyListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BabyListViewCell.xib; path = Mine/BabyListViewCell.xib; sourceTree = "<group>"; };
+		0783F68C1AB819DF00AAB5B0 /* CollectActivityViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectActivityViewCell.h; path = Mine/CollectActivityViewCell.h; sourceTree = "<group>"; };
+		0783F68D1AB819DF00AAB5B0 /* CollectActivityViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CollectActivityViewCell.m; path = Mine/CollectActivityViewCell.m; sourceTree = "<group>"; };
+		0783F68E1AB819DF00AAB5B0 /* CollectActivityViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CollectActivityViewCell.xib; path = Mine/CollectActivityViewCell.xib; sourceTree = "<group>"; };
+		0783F6911AB819FE00AAB5B0 /* XECategoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XECategoryView.xib; path = Home/XECategoryView.xib; sourceTree = "<group>"; };
 		078623721A84529900B17230 /* BabyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyProfileViewController.h; sourceTree = "<group>"; };
 		078623731A84529900B17230 /* BabyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyProfileViewController.m; sourceTree = "<group>"; };
 		078623741A84529900B17230 /* BabyProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyProfileViewController.xib; sourceTree = "<group>"; };
@@ -1022,7 +1027,7 @@
 			children = (
 				073F9F091A68B2B8009D94E3 /* XECategoryView.h */,
 				073F9F0A1A68B2B8009D94E3 /* XECategoryView.m */,
-				073F9F0E1A68B31D009D94E3 /* XECategoryView.xib */,
+				0783F6911AB819FE00AAB5B0 /* XECategoryView.xib */,
 				073F9F101A68B38F009D94E3 /* CategoryItemCell.h */,
 				073F9F111A68B38F009D94E3 /* CategoryItemCell.m */,
 				073F9F121A68B38F009D94E3 /* CategoryItemCell.xib */,
@@ -1512,12 +1517,12 @@
 				07882C201A80675D003874FA /* CardViewCell.h */,
 				07882C211A80675D003874FA /* CardViewCell.m */,
 				07882C221A80675D003874FA /* CardViewCell.xib */,
-				077663A21A80C0DB004C885B /* CollectActivityViewCell.h */,
-				077663A31A80C0DB004C885B /* CollectActivityViewCell.m */,
-				077663A41A80C0DB004C885B /* CollectActivityViewCell.xib */,
-				075513921AAD824900B1E513 /* BabyListViewCell.h */,
-				075513931AAD824900B1E513 /* BabyListViewCell.m */,
-				075513941AAD824900B1E513 /* BabyListViewCell.xib */,
+				0783F6871AB819D600AAB5B0 /* BabyListViewCell.h */,
+				0783F6881AB819D600AAB5B0 /* BabyListViewCell.m */,
+				0783F6891AB819D600AAB5B0 /* BabyListViewCell.xib */,
+				0783F68C1AB819DF00AAB5B0 /* CollectActivityViewCell.h */,
+				0783F68D1AB819DF00AAB5B0 /* CollectActivityViewCell.m */,
+				0783F68E1AB819DF00AAB5B0 /* CollectActivityViewCell.xib */,
 			);
 			name = Mine;
 			sourceTree = "<group>";
@@ -1543,6 +1548,9 @@
 				078E87E91AA18CAE008AD45A /* StageSelectViewCell.h */,
 				078E87EA1AA18CAE008AD45A /* StageSelectViewCell.m */,
 				078E87EB1AA18CAE008AD45A /* StageSelectViewCell.xib */,
+				0783F6821AB8137A00AAB5B0 /* ToolCollectionCell.h */,
+				0783F6831AB8137A00AAB5B0 /* ToolCollectionCell.m */,
+				0783F6841AB8137A00AAB5B0 /* ToolCollectionCell.xib */,
 			);
 			path = Evaluation;
 			sourceTree = "<group>";
@@ -2274,7 +2282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
-				075513961AAD824900B1E513 /* BabyListViewCell.xib in Resources */,
+				0783F68B1AB819D600AAB5B0 /* BabyListViewCell.xib in Resources */,
 				076CF5721A78AD8C00CDE21D /* XECateTopicViewCell.xib in Resources */,
 				078E88EF1AA1C32D008AD45A /* UMSCommentInputController.xib in Resources */,
 				078E89251AA1C32D008AD45A /* UMSocialUIDelegate.html in Resources */,
@@ -2294,8 +2302,6 @@
 				078623761A84529900B17230 /* BabyProfileViewController.xib in Resources */,
 				078E88F61AA1C32D008AD45A /* UMSocialSDKResourcesNew.bundle in Resources */,
 				078E88EC1AA1C32D008AD45A /* UMSocialLocalizable.strings in Resources */,
-				077663A61A80C0DB004C885B /* CollectActivityViewCell.xib in Resources */,
-				073F9F0F1A68B31D009D94E3 /* XECategoryView.xib in Resources */,
 				078E89321AA1C32D008AD45A /* ios-social-sdk-login-quick.html in Resources */,
 				078E89161AA1C32D008AD45A /* UMSocialWechatSessionData.html in Resources */,
 				078E890E1AA1C32D008AD45A /* UMSocialSmsData.html in Resources */,
@@ -2354,6 +2360,7 @@
 				07C988121A63AAEA003A2B30 /* SelectBirthdayViewController.xib in Resources */,
 				078E88F31AA1C32D008AD45A /* UMSLoginViewController.xib in Resources */,
 				077C98BD1A53CC0600E2985B /* XETitleNavBarView.xib in Resources */,
+				0783F6901AB819DF00AAB5B0 /* CollectActivityViewCell.xib in Resources */,
 				0752F7E01A7B267A008C0E0A /* MWPhotoBrowser.bundle in Resources */,
 				078E89011AA1C32D008AD45A /* UMSocialDoubanData.html in Resources */,
 				078E88FA1AA1C32D008AD45A /* UMSocialButton.html in Resources */,
@@ -2367,6 +2374,7 @@
 				078E89071AA1C32D008AD45A /* UMSocialLWSessionData.html in Resources */,
 				07AAB7FE1A8359CB0030D306 /* AboutViewController.xib in Resources */,
 				078E89231AA1C32D008AD45A /* index.html in Resources */,
+				0783F6921AB819FE00AAB5B0 /* XECategoryView.xib in Resources */,
 				078E88F51AA1C32D008AD45A /* UMSShareListController.xib in Resources */,
 				078E89111AA1C32D008AD45A /* UMSocialSnsPlatformManager.html in Resources */,
 				078E892F1AA1C32D008AD45A /* ios-social-sdk-comment-quick.html in Resources */,
@@ -2382,6 +2390,7 @@
 				0727A5E01A8C77A00037805A /* TaskViewController.xib in Resources */,
 				078E89331AA1C32D008AD45A /* ios-social-sdk-shake.html in Resources */,
 				075B032A1A6E3892002B577D /* MapChooseViewController.xib in Resources */,
+				0783F6861AB8137A00AAB5B0 /* ToolCollectionCell.xib in Resources */,
 				078E891E1AA1C32D008AD45A /* class_grath.png in Resources */,
 				078E88FE1AA1C32D008AD45A /* UMSocialCustomAccount.html in Resources */,
 				078E89051AA1C32D008AD45A /* UMSocialIconActionSheet.html in Resources */,
@@ -2435,7 +2444,6 @@
 				0752F7AE1A7B25C5008C0E0A /* MWZoomingScrollView.m in Sources */,
 				075E40971A59386C0062F6AD /* AFHTTPRequestOperation.m in Sources */,
 				0752F7AB1A7B25C5008C0E0A /* MWPhotoBrowser.m in Sources */,
-				075513951AAD824900B1E513 /* BabyListViewCell.m in Sources */,
 				075DD04B1A78BA3F009A64B4 /* UIImageExtras.m in Sources */,
 				073F9F0B1A68B2B8009D94E3 /* XECategoryView.m in Sources */,
 				074DD0DA1A5E33B80042B721 /* MineTabCell.m in Sources */,
@@ -2457,6 +2465,7 @@
 				0703466F1A64F8E200EDE251 /* WelcomeViewController.m in Sources */,
 				0712B3B01A5BD853000A1A7F /* UIImage+MultiFormat.m in Sources */,
 				07B650521A67A1E500DEDE4E /* ExpertIntroViewController.m in Sources */,
+				0783F68A1AB819D600AAB5B0 /* BabyListViewCell.m in Sources */,
 				075AA03E1A68D5EC000B6302 /* XEActivityInfo.m in Sources */,
 				077C98B81A53BEAE00E2985B /* XEBaseSuperViewController.m in Sources */,
 				0712B3B11A5BD853000A1A7F /* UIImage+WebP.m in Sources */,
@@ -2568,6 +2577,7 @@
 				075DD0371A78AC0C009A64B4 /* WSAssetViewColumn.m in Sources */,
 				0712B3AC1A5BD853000A1A7F /* SDWebImageManager.m in Sources */,
 				075E409D1A59386C0062F6AD /* AFURLRequestSerialization.m in Sources */,
+				0783F6851AB8137A00AAB5B0 /* ToolCollectionCell.m in Sources */,
 				0712B3AD1A5BD853000A1A7F /* SDWebImagePrefetcher.m in Sources */,
 				07582D0E1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				075E32191A762C49006037B3 /* XEShareActionSheet.m in Sources */,
@@ -2580,12 +2590,12 @@
 				07E5363B1A529259005E1DA9 /* MineTabViewController.m in Sources */,
 				078E87EC1AA18CAE008AD45A /* StageSelectViewCell.m in Sources */,
 				0774A8761A666EAB00336465 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
+				0783F68F1AB819DF00AAB5B0 /* CollectActivityViewCell.m in Sources */,
 				07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */,
 				07508E861A51346300873B45 /* main.m in Sources */,
 				073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */,
 				0752F7D11A7B2638008C0E0A /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				075DD0481A78BA3F009A64B4 /* UIImage+Alpha.m in Sources */,
-				077663A51A80C0DB004C885B /* CollectActivityViewCell.m in Sources */,
 				075AA0431A68DEFA000B6302 /* ActivityViewCell.m in Sources */,
 				7E7241241A77C12A001E1F69 /* TopicCommentViewCell.m in Sources */,
 				075AA0481A690C58000B6302 /* ActivityDetailsViewController.m in Sources */,

@@ -263,7 +263,7 @@
     }
     
     catIndex = _pageControl.currentPage + 1;
-    NSLog(@"catIndex=================%ld",(long)catIndex);
+
     switch (_pageControl.currentPage) {
         case 0:
             [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn1_bg"] forState:UIControlStateNormal];

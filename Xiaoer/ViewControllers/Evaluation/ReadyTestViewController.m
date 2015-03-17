@@ -10,6 +10,7 @@
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
 #import "XECollectionViewCell.h"
+#import "ToolCollectionCell.h"
 #import "XELinkerHandler.h"
 #import "XEItemInfo.h"
 #import "UIImageView+WebCache.h"
@@ -29,7 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     //此句不加程序崩
-    [self.collectionView registerClass:[XECollectionViewCell class] forCellWithReuseIdentifier:@"XECollectionViewCell"];
+    [self.collectionView registerClass:[ToolCollectionCell class] forCellWithReuseIdentifier:@"ToolCollectionCell"];
     [self.imageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"eva_stage_%d_icon",self.stageIndex]]];
     if (SCREEN_HEIGHT == 480) {
         CGRect frame = self.imageView.frame;
@@ -120,7 +121,7 @@
 //每个UICollectionView展示的内容
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    XECollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XECollectionViewCell" forIndexPath:indexPath];
+    ToolCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ToolCollectionCell" forIndexPath:indexPath];
     //避免crash
     if (_itemsArray.count == 0) {
         return cell;
@@ -137,7 +138,7 @@
 //定义每个UICollectionView 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake((SCREEN_WIDTH - 130) / 3, (SCREEN_WIDTH - 130) / 3 + 13);
+    return CGSizeMake((SCREEN_WIDTH - 80) / 3, 89);
 }
 
 //定义每个UICollectionView 的 margin
