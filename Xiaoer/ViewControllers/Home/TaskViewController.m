@@ -321,11 +321,11 @@
     XETrainInfo *trainInfo = [[XETrainInfo alloc] init];
     trainInfo = [self.trainDic objectForKey:[NSString stringWithFormat:@"%ld",catIndex]];
     if (trainInfo) {
-        NSString *otherbutTit1 = [trainInfo.resultsInfo[0] objectForKey:@"scoretitle"];
-        NSString *otherbutTit2 = [trainInfo.resultsInfo[1] objectForKey:@"scoretitle"];
-        NSString *otherbutTit3 = [trainInfo.resultsInfo[2] objectForKey:@"scoretitle"];
-        NSString *otherbutTit4 = [trainInfo.resultsInfo[3] objectForKey:@"scoretitle"];
-        NSString *otherbutTit5 = [trainInfo.resultsInfo[4] objectForKey:@"scoretitle"];
+        NSString *otherbutTit1 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[0] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[0] objectForKey:@"time"]];
+        NSString *otherbutTit2 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[1] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[1] objectForKey:@"time"]];
+        NSString *otherbutTit3 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[2] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[2] objectForKey:@"time"]];
+        NSString *otherbutTit4 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[3] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[3] objectForKey:@"time"]];
+        NSString *otherbutTit5 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[4] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[4] objectForKey:@"time"]];
         
         __weak TaskViewController *weakSelf = self;
         XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:@"评测记录" actionBlock:^(NSInteger buttonIndex) {

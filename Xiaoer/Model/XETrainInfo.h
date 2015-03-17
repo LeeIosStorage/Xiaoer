@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSString *score;
 @property (strong, nonatomic) NSString *scoreTitle;
 @property (strong, nonatomic) NSString *stage;
+@property (strong, nonatomic) NSString *time;
 
 @property (strong, nonatomic) NSMutableArray *resultsInfo;
 

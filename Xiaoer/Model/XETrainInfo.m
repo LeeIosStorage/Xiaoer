@@ -31,6 +31,9 @@
             if ([resultDic stringObjectForKey:@"stage"]) {
                 _stage = [resultDic stringObjectForKey:@"stage"];
             }
+            if ([resultDic stringObjectForKey:@"time"]) {
+                _time = [resultDic stringObjectForKey:@"time"];
+            }
             _catType = _cat;
             NSMutableDictionary *resultInfo = [[NSMutableDictionary alloc] init];
             [resultInfo setValue:_babyId forKey:@"babyid"];
@@ -38,6 +41,7 @@
             [resultInfo setValue:_scoreTitle forKey:@"scoretitle"];
             [resultInfo setValue:_stage forKey:@"stage"];
             [resultInfo setValue:_catType forKey:@"catType"];
+            [resultInfo setValue:_time forKey:@"time"];
             [_resultsInfo addObject:resultInfo];
         }
     }
