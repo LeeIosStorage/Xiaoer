@@ -31,7 +31,7 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *containerScroll;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UIImageView *trainImage;
-
+@property (strong, nonatomic) IBOutlet UIView *maskView;
 
 @end
 
@@ -189,7 +189,7 @@
 }
 
 - (void)initScrollPage{
-    
+    self.maskView.hidden = YES;
     CGRect frame = self.view.bounds;
     [self addSubviewToScrollView:_containerScroll withIndex:5];
     for (int i = 0; i < 6; i++) {
@@ -309,7 +309,7 @@
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-
+    
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate

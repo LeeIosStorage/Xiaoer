@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TaskViewController">
             <connections>
                 <outlet property="containerScroll" destination="Lzt-J2-hV4" id="lTM-jJ-hM4"/>
+                <outlet property="maskView" destination="R0b-FL-FpP" id="xtd-cf-ylI"/>
                 <outlet property="pageControl" destination="V3Y-3p-lFV" id="Wmd-jH-UD5"/>
                 <outlet property="scoreLabel" destination="rcQ-jY-1se" id="l4q-JP-5iZ"/>
                 <outlet property="scoreTitleLabel" destination="BCZ-FW-xip" id="Zvk-nA-gn9"/>
@@ -25,6 +26,11 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
+                        <view contentMode="scaleToFill" id="R0b-FL-FpP">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" red="0.93333339689999995" green="0.67058825489999996" blue="0.38431376220000002" alpha="1" colorSpace="deviceRGB"/>
+                        </view>
                         <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="V3Y-3p-lFV">
                             <rect key="frame" x="141" y="495" width="39" height="37"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -122,7 +128,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.93333339689999995" green="0.67058825489999996" blue="0.38431376220000002" alpha="1" colorSpace="deviceRGB"/>
             <point key="canvasLocation" x="442" y="314"/>
         </view>
     </objects>
