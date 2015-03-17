@@ -233,6 +233,7 @@
     if ([XEEngine shareInstance].userInfo.profileStatus == 0) {
         [self receiveCardWithInfo:cardInfo];
     }else{
+        __weak CardPackViewController *weakSelf = self;
         XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"您需要完善资料才能领取" cancelButtonTitle:@"取消" cancelBlock:^{
         } okButtonTitle:@"确定" okBlock:^{
             PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
@@ -241,10 +242,11 @@
             piVc.cardInfo = cardInfo;
             piVc.finishedCallBack = ^(BOOL isFinish){
                 if (isFinish) {
-                    [self.cardTableView reloadData];
+                    [weakSelf.cardTableView reloadData];
+                    [weakSelf refreshCardCount];
                 }
             };
-            [self.navigationController pushViewController:piVc animated:YES];
+            [weakSelf.navigationController pushViewController:piVc animated:YES];
         }];
         [alertView show];
     }
