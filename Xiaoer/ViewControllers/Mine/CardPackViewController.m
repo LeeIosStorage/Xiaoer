@@ -179,6 +179,7 @@
             }
         }
         [weakSelf.cardTableView reloadData];
+        [weakSelf refreshCardCount];
     }tag:tag];
 }
 
@@ -252,6 +253,17 @@
 
 - (NSDate *)pullToRefreshViewLastUpdated:(PullToRefreshView *)view {
     return [NSDate date];
+}
+
+//全局卡包未领数量先简单计算一下
+- (void)refreshCardCount{
+    NSString *cardKey = [NSString stringWithFormat:@"%@_%@", mineCardCountKey, [XEEngine shareInstance].uid];
+    NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:cardKey];
+    if (count > 0) {
+        count--;
+    }
+    [[NSUserDefaults standardUserDefaults] setInteger:count forKey:cardKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XE_CARD_CHANGED_NOTIFICATION object:self];
 }
 
 @end

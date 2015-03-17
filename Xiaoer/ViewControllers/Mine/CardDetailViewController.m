@@ -120,6 +120,7 @@
         weakSelf.statusBtn.enabled = NO;
         [weakSelf.statusBtn setBackgroundImage:[UIImage imageNamed:@"card_staus_hover_bg"] forState:UIControlStateNormal];
         weakSelf.leftNum.text = [NSString stringWithFormat:@"%d",[jsonRet intValueForKey:@"object"]];
+        [weakSelf refreshCardCount];
     }tag:tag];
 }
 
@@ -127,21 +128,34 @@
     if ([XEEngine shareInstance].userInfo.profileStatus == 0) {
         [self receiveCardWithInfo:self.cardInfo];
     }else{
+        __weak CardDetailViewController *weakSelf = self;
         XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"您需要完善资料才能领取" cancelButtonTitle:@"取消" cancelBlock:^{
         } okButtonTitle:@"确定" okBlock:^{
             PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
             piVc.userInfo = [XEEngine shareInstance].userInfo;
             piVc.isFromCard = YES;
-            piVc.cardInfo = self.cardInfo;
+            piVc.cardInfo = weakSelf.cardInfo;
             piVc.finishedCallBack = ^(BOOL isFinish){
                 if (isFinish) {
-                    [self refreshDetailUI];
+                    [weakSelf refreshDetailUI];
+                    [weakSelf refreshCardCount];
                 }
             };
-            [self.navigationController pushViewController:piVc animated:YES];
+            [weakSelf.navigationController pushViewController:piVc animated:YES];
         }];
         [alertView show];
     }
+}
+
+//全局卡包未领数量先简单计算一下
+- (void)refreshCardCount{
+    NSString *cardKey = [NSString stringWithFormat:@"%@_%@", mineCardCountKey, [XEEngine shareInstance].uid];
+    NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:cardKey];
+    if (count > 0) {
+        count--;
+    }
+    [[NSUserDefaults standardUserDefaults] setInteger:count forKey:cardKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XE_CARD_CHANGED_NOTIFICATION object:self];
 }
 
 #pragma webview
@@ -160,12 +174,6 @@
     CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
     frame.size = fittingSize;
     webView.frame = frame;
-    NSLog(@"1==========%f",frame.size.height);
-    
-//    NSArray *arr = [webView subviews];
-//    UIScrollView *scrollView = [arr objectAtIndex:0];
-//    NSLog(@"2==========%f",[scrollView  contentSize].height);
-    
     [_containerView setContentSize:CGSizeMake(SCREEN_WIDTH,265 + frame.size.height)];
 }
 

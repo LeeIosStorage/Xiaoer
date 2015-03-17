@@ -24,6 +24,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="63" height="63"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_round_red" id="Eq9-FM-DRE">
+                        <rect key="frame" x="49" y="62" width="9" height="9"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -32,10 +36,14 @@
             <connections>
                 <outlet property="avatarImgView" destination="qzR-ae-lu7" id="IrO-5j-gRW"/>
                 <outlet property="nameLabel" destination="Wqe-oq-JNJ" id="m8z-G1-EHD"/>
+                <outlet property="roundImgView" destination="Eq9-FM-DRE" id="Blm-tg-zw5"/>
             </connections>
             <point key="canvasLocation" x="477.5" y="255"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="s_round_red" width="7" height="7"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -8,8 +8,6 @@
 
 #import "XESuperViewController.h"
 
-#define XE_MSGINFO_CHANGED_NOTIFICATION @"XE_MSGINFO_CHANGED_NOTIFICATION"
-
 @interface MineMsgViewController : XESuperViewController
 
 @end

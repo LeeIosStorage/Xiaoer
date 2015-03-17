@@ -71,7 +71,7 @@
             }
             return;
         }
-        _isData = YES;
+        
         //解析数据
         weakSelf.trainDic = [NSMutableDictionary dictionary];
         
@@ -86,6 +86,7 @@
         }
         
         if (weakSelf.trainDic.count) {
+            _isData = YES;
             [weakSelf initScrollPage];
             [weakSelf refreshUIWithData:_isData AndIndex:0];
         }

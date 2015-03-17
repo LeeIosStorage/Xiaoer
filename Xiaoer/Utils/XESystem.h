@@ -20,6 +20,12 @@
 #define UMS_WX_Key                      @"d3b3e52d012832db6641cafd1fe229ea"
 #define Sina_RedirectURL                @"sina.54aa3f96fd98c551990006a6://"
 
+#define mineMsgCountKey @"mineMsgCountKey"
+#define mineCardCountKey @"mineCardCountKey"
+
+#define XE_MSGINFO_CHANGED_NOTIFICATION @"XE_MSGINFO_CHANGED_NOTIFICATION"
+#define XE_CARD_CHANGED_NOTIFICATION    @"XE_CARD_CHANGED_NOTIFICATION"
+
 #define SINGLE_CELL_HEIGHT 44.f
 #define SINGLE_HEADER_HEADER 6.f
 

@@ -28,12 +28,12 @@
 #import "TaskViewController.h"
 #import "XENavigationController.h"
 #import "BabyListViewController.h"
-
-#define mineMsgCountKey @"mineMsgCountKey"
+#import "CardPackViewController.h"
 
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     ODRefreshControl *_themeControl;
     XEScrollPage *scrollPageView;
+    NSInteger  _cardNum;
     BOOL _isScrollViewDrag;
     NSString *_mallurl;
    
@@ -86,6 +86,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMsgChanged:) name:XE_MSGINFO_CHANGED_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCardChanged:) name:XE_CARD_CHANGED_NOTIFICATION object:nil];
 }
 
 - (BOOL)isVisitor{
@@ -160,13 +161,19 @@
         
         NSString *key = [NSString stringWithFormat:@"%@_%@", mineMsgCountKey, [XEEngine shareInstance].uid];
         [[NSUserDefaults standardUserDefaults] setInteger:count forKey:key];
-        
         weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%d条新消息",count];
+        
         _mallurl = [[jsonRet objectForKey:@"object"] objectForKey:@"mallurl"];
         if (![[[jsonRet objectForKey:@"object"] objectForKey:@"devices"] isEqual:[NSNull null]]) {
             _intelUrl = [[jsonRet objectForKey:@"object"] objectForKey:@"devices"][0];
             _parklonUrl = [[jsonRet objectForKey:@"object"] objectForKey:@"devices"][1];
         }
+        
+        int cardCount = [[jsonRet objectForKey:@"object"] intValueForKey:@"cpnum"];
+        NSString *cardKey = [NSString stringWithFormat:@"%@_%@",mineCardCountKey,[XEEngine shareInstance].uid];
+        [[NSUserDefaults standardUserDefaults] setInteger:cardCount forKey:cardKey];
+        _cardNum = cardCount;
+        [weakSelf.collectionView reloadData];
 //        [XEProgressHUD AlertSuccess:@"获取成功."];
     }tag:tag];
 }
@@ -318,6 +325,11 @@
     }else if(indexPath.row == 7){
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_card_icon"]];
         cell.nameLabel.text = @"卡券";
+        if (_cardNum > 0) {
+            cell.roundImgView.hidden = NO;
+        }else{
+            cell.roundImgView.hidden = YES;
+        }
     }
     
     return cell;
@@ -342,8 +354,10 @@
 {
     switch (indexPath.row) {
         case 7:{
-            break;
+            CardPackViewController *vc = [[CardPackViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
+            break;
         case 6:{
             break;
         }
@@ -569,6 +583,13 @@
     }
     self.unreadLabel.text = [NSString stringWithFormat:@"%d条新消息",(int)count];
     [self.tableView reloadData];
+}
+
+- (void)handleCardChanged:(NSNotification *)notification{
+    NSString *key = [NSString stringWithFormat:@"%@_%@", mineCardCountKey, [XEEngine shareInstance].uid];
+    NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:key];
+    _cardNum = count;
+    [self.collectionView reloadData];
 }
 
 #pragma mark -XETabBarControllerSubVcProtocol
