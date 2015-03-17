@@ -29,11 +29,12 @@
 #import "XENavigationController.h"
 #import "StageSelectViewController.h"
 #import "XEWebViewWithEvaluationVc.h"
+#import "BabyListViewController.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
+    kMyBaby,
     kMyCard,
-    //kSetting,
     kSectionNumber,
 };
 
@@ -289,13 +290,18 @@ static CGFloat beginImageH = 64;
                 [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_card_icon"]];
                 break;
             }
-            else if (indexPath.row == 1){
-                cell.titleLabel.text = @"历史测评";
-                [cell.avatarImageView setImage:[UIImage imageNamed:@""]];
+//            else if (indexPath.row == 1){
+//                cell.titleLabel.text = @"历史测评";
+//                [cell.avatarImageView setImage:[UIImage imageNamed:@""]];
+//                break;
+//            }
+        }
+        case kMyBaby:{
+            if (indexPath.row == 0) {
+                cell.titleLabel.text = @"我的宝宝";
+                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_card_icon"]];
                 break;
             }
-        }
-//        case kSetting:{
 //            if (indexPath.row == 0) {
 //                cell.titleLabel.text = @"用户退出";
 //                break;
@@ -307,7 +313,7 @@ static CGFloat beginImageH = 64;
 //                }
 //                break;
 //            }
-//        }
+        }
         default:
             break;
     }
@@ -362,17 +368,25 @@ static CGFloat beginImageH = 64;
                 [self.navigationController pushViewController:cpVc animated:YES];
                 break;
             }
-            else if (indexPath.row == 1){
-                NSLog(@"============历史测评");
+//            else if (indexPath.row == 1){
+//                NSLog(@"============历史测评");
+//                if ([[XEEngine shareInstance] needUserLogin:nil]) {
+//                    return;
+//                }
+//                StageSelectViewController *cpVc = [[StageSelectViewController alloc] init];
+//                [self.navigationController pushViewController:cpVc animated:YES];
+//                break;
+//            }
+        }
+        case kMyBaby:{
+            if (indexPath.row == 0) {
                 if ([[XEEngine shareInstance] needUserLogin:nil]) {
                     return;
                 }
-                StageSelectViewController *cpVc = [[StageSelectViewController alloc] init];
-                [self.navigationController pushViewController:cpVc animated:YES];
+                BabyListViewController *vc = [[BabyListViewController alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
                 break;
             }
-        }
-//        case kSetting:{
 //            if (indexPath.row == 0) {
 //                [[XEEngine shareInstance] logout];
 //                WelcomeViewController *weVc = [[WelcomeViewController alloc] init];
@@ -383,7 +397,7 @@ static CGFloat beginImageH = 64;
 //                break;
 //            }
 //            //暂时放下
-//        }
+        }
         default:
             break;
     }

@@ -159,7 +159,10 @@
         [[XEEngine shareInstance] refreshUserInfo];
         
         [weakSelf.tableView reloadData];
-        [weakSelf performSelector:@selector(popViewController) withObject:nil afterDelay:2.0];
+        
+        double length = [XEEngine getSuccessMsgWithReponseDic:jsonRet].length;
+        NSTimeInterval sleep = length * 0.04 + 0.5 + 0.15;
+        [weakSelf performSelector:@selector(popViewController) withObject:nil afterDelay:sleep];
         
     }tag:tag];
     
