@@ -42,6 +42,7 @@ typedef enum XEUrlShareType_{
 @property (nonatomic, assign) BOOL bCollect;
 
 @property (nonatomic, strong) NSString *recipesId;
+@property (nonatomic, strong) NSString *webShareTitle;
 
 -(void) showShareAction;
 

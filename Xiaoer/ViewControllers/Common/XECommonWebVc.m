@@ -456,6 +456,8 @@ CGFloat const SGProgressBarHeight = 2.5;
         _shareAction.selectShareType = XEShareType_Web;
         _shareAction.bCollect = status;
         _shareAction.recipesId = weakSelf.openId;
+        NSString *title = [self.mainWebView stringByEvaluatingJavaScriptFromString:@"document.getElementById('shareid').innerHTML"];
+        _shareAction.webShareTitle = title;
         [_shareAction showShareAction];
     }tag:tag];
 }

@@ -39,10 +39,16 @@
 @property (strong, nonatomic) IBOutlet UIButton *applyActivityButton;
 
 @property (strong, nonatomic) IBOutlet UIView *rushTicketView;
+@property (strong, nonatomic) IBOutlet UILabel *rushStateTipLabel;
+@property (strong, nonatomic) IBOutlet UILabel *rushDateTipLabel;
+@property (strong, nonatomic) IBOutlet UIButton *rushButton;
+@property (assign, nonatomic) int dateDistance;
+@property (strong, nonatomic) NSTimer *dateTimer;
 
 - (IBAction)applyActivityAction:(id)sender;
 - (IBAction)phoneAction:(id)sender;
 - (IBAction)addressAction:(id)sender;
+- (IBAction)rushAction:(id)sender;
 @end
 
 @implementation ActivityDetailsViewController
@@ -138,6 +144,31 @@
     return NO;
 }
 
+-(void) startTimer
+{
+    if (!_dateTimer) {
+        _dateTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(refreshTimeLabel) userInfo:nil repeats:YES];
+    }
+}
+-(void) stopTimer{
+    [_dateTimer invalidate];
+    _dateTimer = nil;
+}
+
+-(void)refreshTimeLabel{
+    
+    _dateDistance --;
+    XELog(@"DateTimer refreshTimeLabel%d",_dateDistance);
+    if (_dateDistance > 0) {
+        NSString *timeStr = [XEUIUtils secondChangToDateString:[NSString stringWithFormat:@"%d",_dateDistance]];
+        NSArray *timeArray = [timeStr componentsSeparatedByString:@":"];
+        if (timeArray.count > 2) {
+            _rushDateTipLabel.text = [NSString stringWithFormat:@"%@小时%@分钟%@秒",[[timeArray objectAtIndex:0] description],[[timeArray objectAtIndex:1] description],[[timeArray objectAtIndex:2] description]];
+        }
+    }else{
+        [self refreshTicketActivityFooterShow];
+    }
+}
 #pragma mark - custom
 - (void)refreshAdsScrollView {
     for (UIView *view in _avatarImageView.subviews) {
@@ -170,8 +201,46 @@
 //        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
 //    }
     
+//    //test
+//    NSCalendar * calender = [NSCalendar currentCalendar];
+//    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit |
+//    NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit;
+//    NSDateComponents *compsNow = [calender components:unitFlags fromDate:[NSDate date]];
+//    compsNow.second += 10;
+//    NSDate *begintime = [calender dateFromComponents:compsNow];
+//    
+//    compsNow.hour += 1;
+//    NSDate *endtime = [calender dateFromComponents:compsNow];
+//    
+//    _activityInfo.begintime = begintime;
+//    _activityInfo.endtime = endtime;
+    
+    
     if (_isTicketActivity) {
+        if (self.applyActivityView.superview) {
+            [self.applyActivityView removeFromSuperview];
+        }
+        CGRect frame = self.rushTicketView.frame;
+        frame.origin.y = self.view.bounds.size.height - frame.size.height;
+        self.rushTicketView.frame = frame;
+        [self.view addSubview:self.rushTicketView];
         
+        frame = self.tableView.frame;
+        frame.size.height = self.rushTicketView.frame.origin.y;
+        self.tableView.frame = frame;
+        [self refreshTicketActivityFooterShow];
+    }else{
+        if (self.rushTicketView.superview) {
+            [self.rushTicketView removeFromSuperview];
+        }
+        CGRect frame = self.applyActivityView.frame;
+        frame.origin.y = self.view.bounds.size.height - frame.size.height;
+        self.applyActivityView.frame = frame;
+        [self.view addSubview:self.applyActivityView];
+        
+        frame = self.tableView.frame;
+        frame.size.height = self.applyActivityView.frame.origin.y;
+        self.tableView.frame = frame;
     }
     
     _applyActivityButton.enabled = NO;
@@ -220,6 +289,56 @@
 }
 
 -(void)refreshTicketActivityFooterShow{
+    
+    _rushButton.enabled = NO;
+    NSString *applyButtonTitle = @"抢票";
+    _rushDateTipLabel.text = [NSString stringWithFormat:@"%d",_activityInfo.regnum];
+    _rushStateTipLabel.text = @"已报名";
+    int status = _activityInfo.status;//0未发布 1报名未开始 2可报名 3已报名 4已报满  5已截止 6已结束
+    if (status == 2){
+        applyButtonTitle = @"抢票";
+        _rushButton.enabled = YES;
+        _rushStateTipLabel.text = @"报名倒计时";
+    }else if (status == 3){
+        applyButtonTitle = @"已抢";
+        _rushStateTipLabel.text = @"抢票码";
+        _rushDateTipLabel.text = _activityInfo.regcode;
+    }else if (status == 4){
+        applyButtonTitle = @"已满";
+    }else if (status == 5){
+        applyButtonTitle = @"截止";
+    }else if (status == 6){
+        applyButtonTitle = @"截止";
+    }
+    [self.rushButton setTitle:applyButtonTitle forState:0];
+    
+    
+    int beginDistance = [XEUIUtils distanceSinceNowCompareDate:_activityInfo.begintime];
+    int endDistance = [XEUIUtils distanceSinceNowCompareDate:_activityInfo.endtime];
+    if (beginDistance <= 0 && endDistance <= 0) {
+        _rushDateTipLabel.text = [NSString stringWithFormat:@"%d",_activityInfo.regnum];
+        _rushStateTipLabel.text = @"已报名";
+        _rushButton.enabled = NO;
+        [self.rushButton setTitle:@"截止" forState:0];
+    }else{
+        if (endDistance > 0) {
+            _dateDistance = endDistance;
+            _rushStateTipLabel.text = @"结束倒计时";
+            _rushButton.enabled = YES;
+        }
+        if (beginDistance > 0) {
+            _dateDistance = beginDistance;
+            _rushStateTipLabel.text = @"报名倒计时";
+            _rushButton.enabled = NO;
+        }
+        NSString *timeStr = [XEUIUtils secondChangToDateString:[NSString stringWithFormat:@"%d",_dateDistance]];
+        NSArray *timeArray = [timeStr componentsSeparatedByString:@":"];
+        if (timeArray.count > 2) {
+            
+            _rushDateTipLabel.text = [NSString stringWithFormat:@"%@小时%@分钟%@秒",[[timeArray objectAtIndex:0] description],[[timeArray objectAtIndex:1] description],[[timeArray objectAtIndex:2] description]];
+            [self startTimer];
+        }
+    }
     
 }
 
@@ -290,7 +409,11 @@
     if ([XEEngine shareInstance].userInfo.profileStatus == 0) {
         [self applyActivity];
     }else{
-        XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"您需要完善资料才能报名活动" cancelButtonTitle:@"取消" cancelBlock:^{
+        NSString *message = @"您需要完善资料才能报名活动";
+        if (_isTicketActivity) {
+            message = @"您需要完善资料才能抢票";
+        }
+        XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:message cancelButtonTitle:@"取消" cancelBlock:^{
         } okButtonTitle:@"确定" okBlock:^{
             PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
             piVc.userInfo = [XEEngine shareInstance].userInfo;
@@ -319,10 +442,17 @@
     [self.navigationController pushViewController:showmap animated:YES];
 }
 
+- (IBAction)rushAction:(id)sender {
+    [self applyActivityAction:nil];
+}
+
 -(void)applyActivity{
     
     _applyActivityButton.enabled = NO;
     [_applyActivityButton setTitle:@"报名中..." forState:0];
+    _rushButton.enabled = NO;
+    [_rushButton setTitle:@"抢票中" forState:0];
+    
     __weak ActivityDetailsViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] applyActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
@@ -404,10 +534,12 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
+    [self refreshTicketActivityFooterShow];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
+    [self stopTimer];
 }
 
 - (void)applicationWillResignActive:(NSNotification *)notification{

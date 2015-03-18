@@ -15,6 +15,9 @@
                 <outlet property="avatarImageView" destination="E3j-UJ-xDS" id="sL8-UV-nNz"/>
                 <outlet property="headView" destination="oM4-hD-yvU" id="Iga-Ac-lxr"/>
                 <outlet property="phoneLabel" destination="od5-4R-ih6" id="fVP-c6-Kbm"/>
+                <outlet property="rushButton" destination="ddO-YG-00P" id="KxZ-Qi-BHY"/>
+                <outlet property="rushDateTipLabel" destination="Bhe-bl-tde" id="vRo-kU-Zcw"/>
+                <outlet property="rushStateTipLabel" destination="M2i-Nx-cZB" id="VO5-LG-aH4"/>
                 <outlet property="rushTicketView" destination="y4H-hc-SHo" id="Z3f-Ko-JQd"/>
                 <outlet property="tableView" destination="XOq-Zp-NR3" id="aoT-Zc-GJd"/>
                 <outlet property="titleLabel" destination="mTu-7b-niE" id="HbM-f2-7Ka"/>
@@ -155,12 +158,38 @@
         </view>
         <view contentMode="scaleToFill" id="y4H-hc-SHo">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="Pr3-J4-V0W">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="M2i-Nx-cZB">
+                    <rect key="frame" x="20" y="10" width="163" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.70588235294117641" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bhe-bl-tde">
+                    <rect key="frame" x="20" y="30" width="205" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.1058823529" green="0.65490196079999996" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ddO-YG-00P">
+                    <rect key="frame" x="240" y="15" width="70" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="抢票" backgroundImage="rush_ticket_bgicon_n">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled" backgroundImage="rush_ticket_bgicon_d"/>
+                    <connections>
+                        <action selector="rushAction:" destination="-1" eventType="touchUpInside" id="pCT-Y4-CXD"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -169,6 +198,8 @@
     <resources>
         <image name="activity_ego_icon" width="21" height="26"/>
         <image name="activity_phone_icon" width="21" height="26"/>
+        <image name="rush_ticket_bgicon_d" width="70" height="30"/>
+        <image name="rush_ticket_bgicon_n" width="70" height="30"/>
         <image name="s_n_set_line" width="300" height="1"/>
         <image name="segment_arrows" width="4" height="60"/>
     </resources>

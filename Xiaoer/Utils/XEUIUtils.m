@@ -251,6 +251,29 @@ static bool dateFormatterOFUSInvalid ;
     return _timestamp;
 }
 
++ (int)distanceSinceNowCompareDate:(NSDate*)date{
+    NSDate* nowDate = [NSDate date];
+    if (date == nil) {
+        return 0;
+    }
+    int distance = [date timeIntervalSinceDate:nowDate];
+    return distance;
+}
++ (NSString *)secondChangToDateString:(NSString *)dateStr {
+    
+    if (dateStr.length == 0) {
+        return @"";
+    }
+    
+    long long time = [dateStr longLongValue];
+    int hour = (int)time/(60*60);
+    int minute = (time/60)%60;
+    int second = time%60;
+    
+    NSString *ts = [NSString stringWithFormat:@"%02d:%02d:%02d", hour, minute,second];
+    return ts;
+}
+
 + (NSString*)documentOfCameraDenied
 {
     return @"请检查设备是否有相机功能";

@@ -14,6 +14,9 @@
 #import "UIImageView+WebCache.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "ActivityDetailsViewController.h"
+#import "XEAlertView.h"
+#import "PerfectInfoViewController.h"
+#import "ApplyActivityViewController.h"
 
 @interface TicketListViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -197,6 +200,7 @@
         NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
         cell = [cells objectAtIndex:0];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        [cell.rushButton addTarget:self action:@selector(handleClickAt:event:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     XEActivityInfo *activityInfo = _ticketList[indexPath.row];
@@ -214,6 +218,64 @@
     vc.activityInfo = activityInfo;
     vc.isTicketActivity = YES;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)handleClickAt:(id)sender event:(id)event{
+    NSSet *touches = [event allTouches];
+    UITouch *touch = [touches anyObject];
+    CGPoint currentTouchPosition = [touch locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
+    if (indexPath != nil){
+        XEActivityInfo *activityInfo = _ticketList[indexPath.row];
+        if ([[XEEngine shareInstance] needUserLogin:nil]) {
+            return;
+        }
+        if ([XEEngine shareInstance].userInfo.profileStatus == 0) {
+            [self applyActivity:activityInfo];
+        }else{
+            XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"您需要完善资料才能报名活动" cancelButtonTitle:@"取消" cancelBlock:^{
+            } okButtonTitle:@"确定" okBlock:^{
+                PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
+                piVc.userInfo = [XEEngine shareInstance].userInfo;
+                piVc.isFromActivity = YES;
+                piVc.activityInfo = activityInfo;
+                piVc.finishedCallBack = ^(BOOL isFinish){
+                    if (isFinish) {
+                        [self.tableView reloadData];
+                    }
+                };
+                [self.navigationController pushViewController:piVc animated:YES];
+            }];
+            [alertView show];
+        }
+    }
+    
+}
+
+-(void)applyActivity:(XEActivityInfo *)activityInfo{
+    
+    __weak TicketListViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] applyActivityWithActivityId:activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
+        activityInfo.status = 3;
+        activityInfo.regnum ++;
+        [weakSelf.tableView reloadData];
+        
+        ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
+        applyVc.infoId = [jsonRet stringObjectForKey:@"object"];
+        [self.navigationController pushViewController:applyVc animated:YES];
+        
+    }tag:tag];
 }
 
 @end
