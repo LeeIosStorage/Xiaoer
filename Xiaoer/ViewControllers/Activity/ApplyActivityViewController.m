@@ -17,6 +17,7 @@
 #import "ActivityDetailsViewController.h"
 #import "CardDetailViewController.h"
 #import "CardPackViewController.h"
+#import "TicketListViewController.h"
 
 #define TAG_USER_NAME      0
 #define TAG_USER_IDENTITY  1
@@ -244,7 +245,7 @@
     NSArray *viewControllers = self.navigationController.viewControllers;
     if (viewControllers.count > 2) {
         UIViewController *vc = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count - 3];
-        if ([vc isKindOfClass:[ActivityDetailsViewController class]] || [vc isKindOfClass:[CardDetailViewController class]] || [vc isKindOfClass:[CardPackViewController class]]) {
+        if ([vc isKindOfClass:[ActivityDetailsViewController class]] || [vc isKindOfClass:[CardDetailViewController class]] || [vc isKindOfClass:[CardPackViewController class]] || [vc isKindOfClass:[TicketListViewController class]]) {
             [self.navigationController popToViewController:vc animated:YES];
             return;
         }

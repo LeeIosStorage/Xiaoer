@@ -48,7 +48,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     _appMenu = [[UIMenuController alloc] init];
     
-//    [XEUIUtils colorWithHex:0x1bb9e8 alpha:1.0];//27 185 232
+//    [XEUIUtils colorWithHex:0xb4b4b4 alpha:1.0];//180 180 180
     
     //友盟组件
     [UMSocialData setAppKey:UMS_APP];

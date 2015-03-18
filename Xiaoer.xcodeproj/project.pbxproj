@@ -716,7 +716,7 @@
 		077C98BE1A53D12700E2985B /* XECommonUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XECommonUtils.h; sourceTree = "<group>"; };
 		077C98BF1A53D12700E2985B /* XECommonUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XECommonUtils.m; sourceTree = "<group>"; };
 		077C98C11A53D48800E2985B /* XEUIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEUIUtils.h; sourceTree = "<group>"; };
-		077C98C21A53D48800E2985B /* XEUIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEUIUtils.m; sourceTree = "<group>"; };
+		077C98C21A53D48800E2985B /* XEUIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = XEUIUtils.m; sourceTree = "<group>"; };
 		0783F6821AB8137A00AAB5B0 /* ToolCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolCollectionCell.h; sourceTree = "<group>"; };
 		0783F6831AB8137A00AAB5B0 /* ToolCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolCollectionCell.m; sourceTree = "<group>"; };
 		0783F6841AB8137A00AAB5B0 /* ToolCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToolCollectionCell.xib; sourceTree = "<group>"; };

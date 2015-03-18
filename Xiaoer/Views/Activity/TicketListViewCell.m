@@ -29,7 +29,7 @@
     [self.infoImageView sd_setImageWithURL:activityInfo.picUrl placeholderImage:[UIImage imageNamed:@"recipes_load_icon"]];
     self.titleLabel.text = activityInfo.title;
     _addressLabel.text = activityInfo.address;
-    _rushNumLabel.text = [NSString stringWithFormat:@"%d人已抢",activityInfo.totalnum];
+    _rushNumLabel.text = [NSString stringWithFormat:@"%d人已抢",activityInfo.regnum];
     
     CGRect frame = self.titleLabel.frame;
     CGSize textSize = [XECommonUtils sizeWithText:activityInfo.title font:self.titleLabel.font width:SCREEN_WIDTH-165];
@@ -60,7 +60,7 @@
         _stateImageView.image = [UIImage imageNamed:@"ticket_state_close"];
     }else if (status == 6){
         _stateImageView.hidden = NO;
-        _stateImageView.image = [UIImage imageNamed:@""];
+        _stateImageView.image = [UIImage imageNamed:@"ticket_state_close"];
     }else{
         _rushButton.hidden = NO;
         _rushNumLabel.hidden = NO;

@@ -157,7 +157,10 @@
         }else if(_selectShareType == XEShareType_Qusetion) {
             
         }else if(_selectShareType == XEShareType_Web) {
-            
+            URL = [NSString stringWithFormat:@"%@/share/info/%@/%@",[[XEEngine shareInstance] baseUrl],[XEEngine shareInstance].uid,_recipesId];
+            if (_webShareTitle) {
+                info = _webShareTitle;
+            }
         }
         [XEShare socialShare:self.owner shareType:shareType URL:URL IMG:image Info:info];
     }

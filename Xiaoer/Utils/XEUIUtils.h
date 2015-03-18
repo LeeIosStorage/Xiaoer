@@ -35,6 +35,8 @@
 + (NSString*)dateDiscriptionFromDate:(NSDate*)date;
 + (NSString*)dateDiscriptionFromNowBk:(NSDate*)date;
 + (NSString*)dateDiscription1FromNowBk:(NSDate*)date;
++ (int)distanceSinceNowCompareDate:(NSDate*)date;
++ (NSString *)secondChangToDateString:(NSString *)dateStr;
 
 + (NSDateFormatter *) dateFormatterOFUS;
 + (NSDate*)dateFromUSDateString:(NSString*)string;

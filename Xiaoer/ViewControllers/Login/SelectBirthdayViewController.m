@@ -48,7 +48,6 @@
         _datePicker.maximumDate = [calender dateFromComponents:compsNow];
     }
     [self setValueByDate:_datePicker.date];
-    
 }
 
 - (void)didReceiveMemoryWarning {
