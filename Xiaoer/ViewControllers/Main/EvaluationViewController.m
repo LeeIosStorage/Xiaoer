@@ -171,7 +171,11 @@
         self.babyName.text = _babyInfo.babyName;
 
         CGRect frame = self.babyName.frame;
-        frame.size.width = [XECommonUtils widthWithText:self.babyName.text font:self.babyName.font lineBreakMode:self.babyName.lineBreakMode];
+        CGFloat textWidth = [XECommonUtils widthWithText:self.babyName.text font:self.babyName.font lineBreakMode:self.babyName.lineBreakMode];
+        if (textWidth > 80) {
+            textWidth = 80;
+        }
+        frame.size.width = textWidth;
         self.babyName.frame = frame;
         
         frame = self.birthLabel.frame;

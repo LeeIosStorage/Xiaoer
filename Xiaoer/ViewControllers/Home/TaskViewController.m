@@ -41,6 +41,7 @@
     catIndex = 1;
     // Do any additional setup after loading the view from its nib.
     [self.titleNavBar setHidden:YES];
+    [self initScrollPage];
     [self getTrainInfo];
 }
 
@@ -65,9 +66,8 @@
             }
             if ([errorMsg isEqualToString:@"暂无评测结果信息"]) {
                 [weakSelf refreshUIWithData:_isData AndIndex:0];
-            }else{
-                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         
@@ -86,7 +86,6 @@
         
         if (weakSelf.trainDic.count) {
             _isData = YES;
-            [weakSelf initScrollPage];
             [weakSelf refreshUIWithData:_isData AndIndex:0];
         }
     }tag:tag];
@@ -110,8 +109,8 @@
         }
     }else {
         [_startBtn setTitle:@"开始测评" forState:UIControlStateNormal];
-        _scoreLabel.text = @"";
-        _scoreTitleLabel.text = @"当前关键期还没有评测记录";
+//        _scoreLabel.text = @"";
+        _scoreTitleLabel.text = @"暂无评测成绩";
     }
 }
 
@@ -144,18 +143,54 @@
     CGSize viewSize = _containerScroll.frame.size;
     CGRect rect = CGRectMake(catIndex*viewSize.width, 0, viewSize.width, viewSize.height);
     [_containerScroll scrollRectToVisible:rect animated:YES];
-//    NSInteger pageNum = _pageControl.currentPage;
-//    CGSize viewSize = _containerScroll.frame.size;
-//    CGRect rect = CGRectMake((pageNum + 2)*viewSize.width, 0, viewSize.width, viewSize.height);
-//    [_containerScroll scrollRectToVisible:rect animated:YES];
-//    pageNum++;
-//    if (pageNum == _trainDic.count) {
-//        [_containerScroll setContentOffset:CGPointMake(0, 0)];
-//        CGRect newRect = CGRectMake(viewSize.width, 0, viewSize.width, viewSize.height);
-//        [_containerScroll scrollRectToVisible:newRect animated:YES];
-//    }
-    
-    switch (_pageControl.currentPage) {
+
+    [self setImagesWithIndex:_pageControl.currentPage];
+    [self refreshUIWithData:YES AndIndex:catIndex];
+}
+
+- (void)initScrollPage{
+    self.maskView.hidden = YES;
+    [self setContentInsetForScrollView:_containerScroll inset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    CGRect frame = self.view.bounds;
+    [self addSubviewToScrollView:_containerScroll withIndex:5];
+    for (int i = 0; i < 6; i++) {
+        [self addSubviewToScrollView:_containerScroll withIndex:i];
+    }
+    [self addSubviewToScrollView:_containerScroll withIndex:0];
+    //多算两屏,默认第二屏
+    _containerScroll.ContentSize = CGSizeMake(8*frame.size.width,frame.size.height);
+    [_containerScroll scrollRectToVisible:CGRectMake(frame.size.width, 0, frame.size.width, frame.size.height) animated:NO];
+    //设置pageControl属性
+    _pageControl.numberOfPages = 6;
+}
+
+- (void)setBackGroundColorWithIndex:(NSInteger)index atView:(UIView *)view{
+    switch (index) {
+        case 0:
+            view.backgroundColor = [XEUIUtils colorWithHex:0xf0ac5b alpha:1.0];
+            break;
+        case 1:
+            view.backgroundColor = [XEUIUtils colorWithHex:0x8568ab alpha:1.0];
+            break;
+        case 2:
+            view.backgroundColor = [XEUIUtils colorWithHex:0xfbca5a alpha:1.0];
+            break;
+        case 3:
+            view.backgroundColor = [XEUIUtils colorWithHex:0x6cc5e8 alpha:1.0];
+            break;
+        case 4:
+            view.backgroundColor = [XEUIUtils colorWithHex:0xeb7270 alpha:1.0];
+            break;
+        case 5:
+            view.backgroundColor = [XEUIUtils colorWithHex:0x78bf54 alpha:1.0];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)setImagesWithIndex:(NSInteger)index{
+    switch (index) {
         case 0:
             [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn1_bg"] forState:UIControlStateNormal];
             [_trainImage setImage:[UIImage imageNamed:@"task_sport_icon"]];
@@ -183,26 +218,6 @@
         default:
             break;
     }
-
-    [self refreshUIWithData:YES AndIndex:catIndex];
-}
-
-
-
-- (void)initScrollPage{
-    self.maskView.hidden = YES;
-    [self setContentInsetForScrollView:_containerScroll inset:UIEdgeInsetsMake(0, 0, 0, 0)];
-    CGRect frame = self.view.bounds;
-    [self addSubviewToScrollView:_containerScroll withIndex:5];
-    for (int i = 0; i < 6; i++) {
-        [self addSubviewToScrollView:_containerScroll withIndex:i];
-    }
-    [self addSubviewToScrollView:_containerScroll withIndex:0];
-    //多算两屏,默认第二屏
-    _containerScroll.ContentSize = CGSizeMake(8*frame.size.width,frame.size.height);
-    [_containerScroll scrollRectToVisible:CGRectMake(frame.size.width, 0, frame.size.width, frame.size.height) animated:NO];
-    //设置pageControl属性
-    _pageControl.numberOfPages = 6;
 }
 
 - (void)addSubviewToScrollView:(UIScrollView *)scrollView withIndex:(NSInteger)index{
@@ -217,28 +232,8 @@
     view.clipsToBounds = YES;
     
     [scrollView addSubview:view];
-    switch (index) {
-        case 0:
-            view.backgroundColor = [XEUIUtils colorWithHex:0xf0ac5b alpha:1.0];
-            break;
-        case 1:
-            view.backgroundColor = [XEUIUtils colorWithHex:0x8568ab alpha:1.0];
-            break;
-        case 2:
-            view.backgroundColor = [XEUIUtils colorWithHex:0xfbca5a alpha:1.0];
-            break;
-        case 3:
-            view.backgroundColor = [XEUIUtils colorWithHex:0x6cc5e8 alpha:1.0];
-            break;
-        case 4:
-            view.backgroundColor = [XEUIUtils colorWithHex:0xeb7270 alpha:1.0];
-            break;
-        case 5:
-            view.backgroundColor = [XEUIUtils colorWithHex:0x78bf54 alpha:1.0];
-            break;
-        default:
-            break;
-    }
+    
+    [self setBackGroundColorWithIndex:index atView:view];
 }
 
 #pragma mark -- ads scrollview delegate
@@ -265,35 +260,8 @@
     }
     
     catIndex = _pageControl.currentPage + 1;
-
-    switch (_pageControl.currentPage) {
-        case 0:
-            [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn1_bg"] forState:UIControlStateNormal];
-            [_trainImage setImage:[UIImage imageNamed:@"task_sport_icon"]];
-            break;
-        case 1:
-            [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn2_bg"] forState:UIControlStateNormal];
-            [_trainImage setImage:[UIImage imageNamed:@"task_social_icon"]];
-            break;
-        case 2:
-            [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn3_bg"] forState:UIControlStateNormal];
-            [_trainImage setImage:[UIImage imageNamed:@"task_adapt_icon"]];
-            break;
-        case 3:
-            [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn4_bg"] forState:UIControlStateNormal];
-            [_trainImage setImage:[UIImage imageNamed:@"task_fine_icon"]];
-            break;
-        case 4:
-            [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn5_bg"] forState:UIControlStateNormal];
-            [_trainImage setImage:[UIImage imageNamed:@"task_speak_icon"]];
-            break;
-        case 5:
-            [_startBtn setBackgroundImage:[UIImage imageNamed:@"task_start_btn6_bg"] forState:UIControlStateNormal];
-            [_trainImage setImage:[UIImage imageNamed:@"task_attention_icon"]];
-            break;
-        default:
-            break;
-    }
+    
+    [self setImagesWithIndex:_pageControl.currentPage];
     [self refreshUIWithData:YES AndIndex:catIndex];
 }
 
@@ -340,7 +308,7 @@
         AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         [sheet showInView:appDelegate.window];
     }else{
-        XEAlertView *alert = [[XEAlertView alloc] initWithTitle:nil message:@"暂无评测成绩" cancelButtonTitle:@"确定"];
+        XEAlertView *alert = [[XEAlertView alloc] initWithTitle:nil message:@"暂无评测成绩,点击开始测评进入评测" cancelButtonTitle:@"确定"];
         [alert show];
     }
 }
