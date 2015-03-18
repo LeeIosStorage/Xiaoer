@@ -41,13 +41,18 @@ CGFloat const SGProgressBarHeight = 2.5;
 //        frame.size.height = frame.size.width;
 //        frame.size.width = temp;
 //    }
-    frame.origin.y = [self titleNavBar].frame.size.height;
-    frame.size.height -=  frame.origin.y;
-    self.mainWebView.frame = frame;
-    
-    frame = self.titleNavBar.frame;
-    frame.size.width = SCREEN_WIDTH;
-    self.titleNavBar.frame = frame;
+    if (self.isFullScreen) {
+        [self.titleNavBar setHidden:YES];
+        self.mainWebView.frame = frame;
+    }else{
+        frame.origin.y = [self titleNavBar].frame.size.height;
+        frame.size.height -= frame.origin.y;
+        self.mainWebView.frame = frame;
+        
+        frame = self.titleNavBar.frame;
+        frame.size.width = SCREEN_WIDTH;
+        self.titleNavBar.frame = frame;
+    }
 }
 
 
@@ -175,6 +180,15 @@ CGFloat const SGProgressBarHeight = 2.5;
     
     NSURL *url = request.URL;
     NSLog(@"shouldStartLoadWithRequest: %@", url);
+    if (_isFullScreen) {
+        if ([url.absoluteString hasSuffix:@"===="]) {
+            UIViewController *vc = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count - 2];
+            [self.navigationController popToViewController:vc animated:YES];
+            return NO;
+        }
+        return YES;
+    }
+    
     NSRange range = [url.path rangeOfString:@"eva/history"];
     if (range.length > 0) {
         NSDictionary *paramDic = [XECommonUtils getParamDictFrom:url.query];
@@ -218,6 +232,7 @@ CGFloat const SGProgressBarHeight = 2.5;
     [self setTitle:title];
 //    [self updateToolbarItems:YES];
     [self finishPressed:nil];
+    NSString *backNum = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('backid').innerHTML"];
     
 }
 

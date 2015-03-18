@@ -431,7 +431,7 @@
         QHQFormData* pData = [[QHQFormData alloc] init];
         pData.data = data;
         pData.name = @"bbavatar";
-        pData.filename = @"bbAvatar";
+        pData.filename = @".png";
         pData.mimeType = @"image/png";
         [dataArray addObject:pData];
     }

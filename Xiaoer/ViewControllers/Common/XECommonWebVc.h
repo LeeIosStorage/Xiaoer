@@ -24,6 +24,7 @@ typedef NSUInteger WebViewControllerAvailableActions;
 
 @property (nonatomic, readwrite) WebViewControllerAvailableActions availableActions;
 @property (nonatomic, strong) UIWebView *mainWebView;
+@property (nonatomic, assign) BOOL isFullScreen;
 @property (nonatomic, assign) BOOL isPortrait;
 @property (nonatomic, assign) BOOL isShareViewOut;
 @property (nonatomic, assign) BOOL isCanClosed;

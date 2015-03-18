@@ -119,16 +119,6 @@
     self.nickName.text = userInfo.babyNick;
     self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
 
-    if (SCREEN_HEIGHT <= 568) {
-        CGRect frame = self.containerView.frame;
-        frame.origin.y = frame.origin.y - 30;
-        self.containerView.frame = frame;
-        
-        frame = self.headView.frame;
-        frame.size.height = 506;
-        self.headView.frame = frame;
-    }
-    
     self.tableView.tableHeaderView = self.headView;
     ///底部加点间隙
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 19)];
@@ -290,6 +280,15 @@
     
 //    [self setTitle:@"晓儿"];
     self.titleNavImageView.hidden = NO;
+    if (SCREEN_HEIGHT <= 568) {
+        CGRect frame = self.containerView.frame;
+        frame.origin.y = frame.origin.y - 30;
+        self.containerView.frame = frame;
+        
+        frame = self.headView.frame;
+        frame.size.height = 506;
+        self.headView.frame = frame;
+    }
 }
 
 - (UINavigationController *)navigationController{
@@ -368,11 +367,17 @@
 {
     switch (indexPath.row) {
         case 7:{
+            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
+                return;
+            }
             CardPackViewController *vc = [[CardPackViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 6:{
+            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能进行抢票"]) {
+                return;
+            }
             TicketListViewController *vc = [[TicketListViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
             break;
@@ -578,8 +583,12 @@
 }
 
 - (IBAction)taskAction:(id)sender {
-    TaskViewController *tVc = [[TaskViewController alloc] init];
-    [self.navigationController pushViewController:tVc animated:YES];
+    if ([self isVisitor]) {
+        [self showAlter];
+    }else{
+        TaskViewController *tVc = [[TaskViewController alloc] init];
+        [self.navigationController pushViewController:tVc animated:YES];
+    }
 }
 
 - (void)handleUserInfoChanged:(NSNotification *)notification{

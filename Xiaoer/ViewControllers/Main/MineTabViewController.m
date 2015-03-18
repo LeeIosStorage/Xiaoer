@@ -503,7 +503,7 @@ static CGFloat beginImageH = 64;
         QHQFormData* pData = [[QHQFormData alloc] init];
         pData.data = data;
         pData.name = @"bgimg";
-        pData.filename = @"bgimg";
+        pData.filename = @".png";
         pData.mimeType = @"image/png";
         [dataArray addObject:pData];
     }

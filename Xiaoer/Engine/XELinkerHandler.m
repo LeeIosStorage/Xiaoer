@@ -49,6 +49,9 @@
                 webvc.isCanClosed = YES;
                 webvc.isResult = YES;
             }
+            if ([url hasPrefix:[NSString stringWithFormat:@"%@/train/cat",[XEEngine shareInstance].baseUrl]]) {
+                webvc.isFullScreen = YES;
+            }
 //            webvc.availableActions = SVWebViewControllerAvailableActionsOpenInSafari | SVWebViewControllerAvailableActionsOpenInChrome | SVWebViewControllerAvailableActionsCopyLink | SVWebViewControllerAvailableActionsMailLink;
             [nav pushViewController:webvc animated:YES];
         }

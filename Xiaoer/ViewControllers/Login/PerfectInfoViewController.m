@@ -847,7 +847,7 @@
     QHQFormData* pData = [[QHQFormData alloc] init];
     pData.data = data;
     pData.name = @"avatar";
-    pData.filename = @"userAvatar";
+    pData.filename = @".png";
     pData.mimeType = @"image/png";
     
     [XEProgressHUD AlertLoading:@"头像上传中..." At:self.view];
@@ -876,7 +876,7 @@
         QHQFormData* pData = [[QHQFormData alloc] init];
         pData.data = data;
         pData.name = @"bbavatar";
-        pData.filename = @"bbAvatar";
+        pData.filename = @".png";
         pData.mimeType = @"image/png";
         [dataArray addObject:pData];
     }

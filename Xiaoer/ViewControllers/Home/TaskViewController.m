@@ -11,12 +11,11 @@
 #import "XEProgressHUD.h"
 #import "XETrainInfo.h"
 #import "XELinkerHandler.h"
-#import "EvaluationViewController.h"
 #import "XEActionSheet.h"
 #import "XEAlertView.h"
 #import "AppDelegate.h"
 
-#define Train_Cat_Pre_Tag   101
+#define Train_Cat_Pre_Tag    101
 #define Train_Cat_Nex_Tag    102
 
 @interface TaskViewController ()<UIScrollViewDelegate>{
@@ -97,7 +96,7 @@
     if (bData) {
         XETrainInfo *trainInfo = [[XETrainInfo alloc] init];
         if (self.trainDic) {
-            trainInfo = [self.trainDic objectForKey:[NSString stringWithFormat:@"%ld",catIndex]];
+            trainInfo = [self.trainDic objectForKey:[NSString stringWithFormat:@"%d",(int)catIndex]];
             if (trainInfo) {
                 _scoreLabel.text = [trainInfo.resultsInfo[index] objectForKey:@"score"];
                 [_startBtn setTitle:@"现在开始" forState:UIControlStateNormal];
@@ -117,16 +116,16 @@
 }
 
 - (IBAction)startTrainAction:(id)sender {
-    if (_isData) {
-        XETrainInfo *trainInfo = [[XETrainInfo alloc] init];
-        trainInfo = [self.trainDic objectForKey:[NSString stringWithFormat:@"%ld",catIndex]];
+    XETrainInfo *trainInfo = [[XETrainInfo alloc] init];
+    trainInfo = [self.trainDic objectForKey:[NSString stringWithFormat:@"%d",(int)catIndex]];
+    if (trainInfo) {
         id vc = [XELinkerHandler handleDealWithHref:[NSString stringWithFormat:@"%@/train/cat/%@/%@/%@",[XEEngine shareInstance].baseUrl,trainInfo.stage,trainInfo.cat,_scoreLabel.text] From:self.navigationController];
         if (vc) {
             [self.navigationController pushViewController:vc animated:YES];
         }
     }else{
-        EvaluationViewController *eVc = [[EvaluationViewController alloc] init];
-        [self.navigationController pushViewController:eVc animated:YES];
+        AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate.mainTabViewController.tabBar selectIndex:1];
     }
 }
 
@@ -188,8 +187,11 @@
     [self refreshUIWithData:YES AndIndex:catIndex];
 }
 
+
+
 - (void)initScrollPage{
     self.maskView.hidden = YES;
+    [self setContentInsetForScrollView:_containerScroll inset:UIEdgeInsetsMake(0, 0, 0, 0)];
     CGRect frame = self.view.bounds;
     [self addSubviewToScrollView:_containerScroll withIndex:5];
     for (int i = 0; i < 6; i++) {
@@ -319,7 +321,7 @@
 
 - (IBAction)changeResultAction:(id)sender {
     XETrainInfo *trainInfo = [[XETrainInfo alloc] init];
-    trainInfo = [self.trainDic objectForKey:[NSString stringWithFormat:@"%ld",catIndex]];
+    trainInfo = [self.trainDic objectForKey:[NSString stringWithFormat:@"%d",(int)catIndex]];
     if (trainInfo) {
         NSString *otherbutTit1 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[0] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[0] objectForKey:@"time"]];
         NSString *otherbutTit2 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[1] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[1] objectForKey:@"time"]];
