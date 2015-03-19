@@ -8,8 +8,6 @@
 
 #import "SuperMainViewController.h"
 
-
-
 @interface MainPageViewController : SuperMainViewController
 
 @end

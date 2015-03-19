@@ -30,7 +30,6 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *containerScroll;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UIImageView *trainImage;
-@property (strong, nonatomic) IBOutlet UIView *maskView;
 
 @end
 
@@ -38,10 +37,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     catIndex = 1;
-    // Do any additional setup after loading the view from its nib.
-    [self.titleNavBar setHidden:YES];
     [self initScrollPage];
+    [self getCacheTrainInfo];
     [self getTrainInfo];
 }
 
@@ -52,6 +51,37 @@
 
 - (void)initNormalTitleNavBarSubviews{
     [self setTitle:@"妈妈任务"];
+    [self.titleNavBar setHidden:YES];
+}
+
+-(void)getCacheTrainInfo {
+    __weak TaskViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getTrainIngosWithUid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            //解析数据
+            weakSelf.trainDic = [NSMutableDictionary dictionary];
+            
+            NSArray *themeDicArray = [jsonRet arrayObjectForKey:@"object"];
+            for (NSDictionary *dic in themeDicArray) {
+                if (![dic isKindOfClass:[NSDictionary class]]) {
+                    continue;
+                }
+                XETrainInfo *trainInfo = [[XETrainInfo alloc] init];
+                [trainInfo setTrainInfoByJsonDic:dic];
+                [weakSelf.trainDic setObject:trainInfo forKey:trainInfo.cat];
+            }
+            
+            if (weakSelf.trainDic.count) {
+                _isData = YES;
+                [weakSelf refreshUIWithData:_isData AndIndex:0];
+            }
+        }
+    }];
 }
 
 - (void)getTrainInfo{
@@ -71,6 +101,7 @@
             return;
         }
         
+        [weakSelf.trainDic removeAllObjects];
         //解析数据
         weakSelf.trainDic = [NSMutableDictionary dictionary];
         
@@ -134,22 +165,37 @@
 
 - (IBAction)changeAction:(id)sender {
     UIButton *btn = sender;
+    NSInteger pageNum = _pageControl.currentPage;
     if (btn.tag == Train_Cat_Pre_Tag) {
-        _pageControl.currentPage--;
+        if (pageNum > 0) {
+            pageNum--;
+        }
     }else if(btn.tag == Train_Cat_Nex_Tag){
-        _pageControl.currentPage++;
+        pageNum++;
     }
-    catIndex = _pageControl.currentPage + 1;
     CGSize viewSize = _containerScroll.frame.size;
-    CGRect rect = CGRectMake(catIndex*viewSize.width, 0, viewSize.width, viewSize.height);
-    [_containerScroll scrollRectToVisible:rect animated:YES];
+    CGFloat pageWidth  = _containerScroll.frame.size.width;
+    CGFloat pageHeigth = _containerScroll.frame.size.height;
+    if (pageNum == 0) {
+        [_containerScroll scrollRectToVisible:CGRectMake(pageWidth * 6, 0, pageWidth, pageHeigth) animated:NO];
+        _pageControl.currentPage = 5;
+        catIndex = 6;
+    }else if(pageNum == 6){
+        [_containerScroll scrollRectToVisible:CGRectMake(pageWidth, 0, pageWidth, pageHeigth) animated:NO];
+        _pageControl.currentPage = 0;
+        catIndex = 1;
+    }else{
+        _pageControl.currentPage = pageNum;
+        catIndex = _pageControl.currentPage + 1;
+        CGRect rect = CGRectMake(catIndex*viewSize.width, 0, viewSize.width, viewSize.height);
+        [_containerScroll scrollRectToVisible:rect animated:YES];
+    }
 
     [self setImagesWithIndex:_pageControl.currentPage];
     [self refreshUIWithData:YES AndIndex:catIndex];
 }
 
 - (void)initScrollPage{
-    self.maskView.hidden = YES;
     [self setContentInsetForScrollView:_containerScroll inset:UIEdgeInsetsMake(0, 0, 0, 0)];
     CGRect frame = self.view.bounds;
     [self addSubviewToScrollView:_containerScroll withIndex:5];

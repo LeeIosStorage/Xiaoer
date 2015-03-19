@@ -213,6 +213,7 @@
 {
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
+    [self refreshTicketCount];
     XEActivityInfo *activityInfo = _ticketList[indexPath.row];
     ActivityDetailsViewController *vc = [[ActivityDetailsViewController alloc] init];
     vc.activityInfo = activityInfo;
@@ -276,6 +277,17 @@
         [self.navigationController pushViewController:applyVc animated:YES];
         
     }tag:tag];
+}
+
+//全局抢票数先简单计算一下
+- (void)refreshTicketCount{
+    NSString *key = [NSString stringWithFormat:@"%@_%@", mineTicketCountKey, [XEEngine shareInstance].uid];
+    NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:key];
+    if (count > 0) {
+        count--;
+    }
+    [[NSUserDefaults standardUserDefaults] setInteger:count forKey:key];
+    [[NSNotificationCenter defaultCenter] postNotificationName:XE_TICKET_CHANGED_NOTIFICATION object:self];
 }
 
 @end

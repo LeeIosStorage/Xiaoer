@@ -70,6 +70,7 @@
         NSLog(@"signOut for accout miss");
         [self signOut];
     }
+    [NSThread sleepForTimeInterval:2.0];
     [self.window makeKeyAndVisible];
     
     return YES;

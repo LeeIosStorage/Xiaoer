@@ -36,9 +36,11 @@
     ODRefreshControl *_themeControl;
     XEScrollPage *scrollPageView;
     NSInteger  _cardNum;
+    NSInteger  _ticketNum;
+    
     BOOL _isScrollViewDrag;
+    
     NSString *_mallurl;
-   
     NSString *_parklonUrl;  //爬行
     NSString *_intelUrl;    //智能
 }
@@ -90,6 +92,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMsgChanged:) name:XE_MSGINFO_CHANGED_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCardChanged:) name:XE_CARD_CHANGED_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTicketChanged:) name:XE_TICKET_CHANGED_NOTIFICATION object:nil];
 }
 
 - (BOOL)isVisitor{
@@ -177,6 +180,12 @@
         NSString *cardKey = [NSString stringWithFormat:@"%@_%@",mineCardCountKey,[XEEngine shareInstance].uid];
         [[NSUserDefaults standardUserDefaults] setInteger:cardCount forKey:cardKey];
         _cardNum = cardCount;
+        
+        int ticketCount = [[jsonRet objectForKey:@"object"] intValueForKey:@"xxx"];
+        NSString *ticketKey = [NSString stringWithFormat:@"%@_%@",mineTicketCountKey,[XEEngine shareInstance].uid];
+        [[NSUserDefaults standardUserDefaults] setInteger:ticketCount forKey:ticketKey];
+        _ticketNum = ticketCount;
+        
         [weakSelf.collectionView reloadData];
 //        [XEProgressHUD AlertSuccess:@"获取成功."];
     }tag:tag];
@@ -335,6 +344,11 @@
     }else if(indexPath.row == 6){
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
         cell.nameLabel.text = @"抢票";
+        if (_ticketNum > 0) {
+            cell.roundImgView.hidden = NO;
+        }else{
+            cell.roundImgView.hidden = YES;
+        }
     }else if(indexPath.row == 7){
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_card_icon"]];
         cell.nameLabel.text = @"卡券";
@@ -612,6 +626,13 @@
     NSString *key = [NSString stringWithFormat:@"%@_%@", mineCardCountKey, [XEEngine shareInstance].uid];
     NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:key];
     _cardNum = count;
+    [self.collectionView reloadData];
+}
+
+- (void)handleTicketChanged:(NSNotification *)notification{
+    NSString *key = [NSString stringWithFormat:@"%@_%@", mineTicketCountKey, [XEEngine shareInstance].uid];
+    NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:key];
+    _ticketNum = count;
     [self.collectionView reloadData];
 }
 

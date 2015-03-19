@@ -22,9 +22,11 @@
 
 #define mineMsgCountKey @"mineMsgCountKey"
 #define mineCardCountKey @"mineCardCountKey"
+#define mineTicketCountKey @"mineTicketCountKey"
 
 #define XE_MSGINFO_CHANGED_NOTIFICATION @"XE_MSGINFO_CHANGED_NOTIFICATION"
 #define XE_CARD_CHANGED_NOTIFICATION    @"XE_CARD_CHANGED_NOTIFICATION"
+#define XE_TICKET_CHANGED_NOTIFICATION  @"XE_TICKET_CHANGED_NOTIFICATION"
 
 #define SINGLE_CELL_HEIGHT 44.f
 #define SINGLE_HEADER_HEADER 6.f
