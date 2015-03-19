@@ -197,7 +197,8 @@
 
 - (void)initScrollPage{
     [self setContentInsetForScrollView:_containerScroll inset:UIEdgeInsetsMake(0, 0, 0, 0)];
-    CGRect frame = self.view.bounds;
+    CGRect frame = [UIScreen mainScreen].bounds;
+    _containerScroll.frame = frame;
     [self addSubviewToScrollView:_containerScroll withIndex:5];
     for (int i = 0; i < 6; i++) {
         [self addSubviewToScrollView:_containerScroll withIndex:i];
@@ -267,16 +268,16 @@
 }
 
 - (void)addSubviewToScrollView:(UIScrollView *)scrollView withIndex:(NSInteger)index{
-    CGRect frame = self.view.bounds;
+    CGRect frame = scrollView.frame;
     
     CGRect vFrame = frame;
     vFrame.origin.x = (index+1)*vFrame.size.width;
     
     UIView *view = [[UIView alloc] init];
-
-    view.frame = vFrame;
-    view.clipsToBounds = YES;
     
+    view.frame = vFrame;
+    view.contentMode = UIViewContentModeScaleAspectFill;
+
     [scrollView addSubview:view];
     
     [self setBackGroundColorWithIndex:index atView:view];
