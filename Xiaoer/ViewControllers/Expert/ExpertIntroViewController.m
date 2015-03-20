@@ -281,8 +281,8 @@
     self.doctorCollegeLabel.text = _doctorInfo.hospital;
     self.doctorIntroLabel.text = _doctorInfo.des;
     
-    [self.topicButton setTitle:[NSString stringWithFormat:@"话题 %d",_doctorInfo.topicnum] forState:0];
-    [self.fansButton setTitle:[NSString stringWithFormat:@"粉丝 %d",_doctorInfo.favnum] forState:0];
+    [self.topicButton setTitle:[NSString stringWithFormat:@"话题%d",_doctorInfo.topicnum] forState:0];
+    [self.fansButton setTitle:[NSString stringWithFormat:@"粉丝%d",_doctorInfo.favnum] forState:0];
     self.hotLabel.text = [NSString stringWithFormat:@"%d",_doctorInfo.popularscore];
     
     //擅长领域
