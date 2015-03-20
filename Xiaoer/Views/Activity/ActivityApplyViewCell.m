@@ -31,17 +31,16 @@
     
     _titleLabel.text = activityInfo.title;
     _codeLabel.text = [NSString stringWithFormat:@"抢票码：%@",activityInfo.regcode];
-    _codeLabel.hidden = NO;
-    if (activityInfo.regcode.length == 0) {
-        _codeLabel.hidden = YES;
+    _codeLabel.hidden = YES;
+    if (activityInfo.aType == 1 && activityInfo.status == 3) {
+        _codeLabel.hidden = NO;
     }
     
     _stateButton.hidden = NO;
     [_stateButton setBackgroundImage:[UIImage imageNamed:@"card_staus_hover_bg"] forState:0];
     int status = activityInfo.status;//0未发布 1报名未开始 2可报名 3已报名 4已报满  5已截止 6已结束
     if (status == 1) {
-        [_stateButton setTitle:@"已报名" forState:0];
-        [_stateButton setBackgroundImage:[UIImage imageNamed:@"card_status_bg"] forState:0];
+        [_stateButton setTitle:@"未开始" forState:0];
     }else if (status == 2){
         [_stateButton setTitle:@"可报名" forState:0];
         [_stateButton setBackgroundImage:[UIImage imageNamed:@"card_status_bg"] forState:0];
