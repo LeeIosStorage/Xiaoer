@@ -212,24 +212,28 @@
         [XEProgressHUD lightAlert:@"请输入正确的手机号"];
         return;
     }
-    [XEProgressHUD AlertLoading:@"正在验证手机号" At:self.view];
-    __weak PerfectInfoViewController *weakSelf = self;
-    int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] checkPhoneWithPhone:phone uid:nil tag:tag];
-    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        
-        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-        if (!jsonRet || errorMsg) {
-            if (!errorMsg.length) {
-                errorMsg = @"请求失败!";
-            }
-            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-            return;
-        }
-        [XEProgressHUD AlertLoadDone];
-        weakSelf.userInfo.phone = phone;
-        [weakSelf.tableView reloadData];
-    }tag:tag];
+    self.userInfo.phone = phone;
+    [self.tableView reloadData];
+    return;
+    
+//    [XEProgressHUD AlertLoading:@"正在验证手机号" At:self.view];
+//    __weak PerfectInfoViewController *weakSelf = self;
+//    int tag = [[XEEngine shareInstance] getConnectTag];
+//    [[XEEngine shareInstance] checkPhoneWithPhone:phone uid:nil tag:tag];
+//    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+//        
+//        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+//        if (!jsonRet || errorMsg) {
+//            if (!errorMsg.length) {
+//                errorMsg = @"请求失败!";
+//            }
+//            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+//            return;
+//        }
+//        [XEProgressHUD AlertLoadDone];
+//        weakSelf.userInfo.phone = phone;
+//        [weakSelf.tableView reloadData];
+//    }tag:tag];
     
 }
 
