@@ -1025,7 +1025,7 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)getApplyActivityListWithPage:(int)page uid:(NSString *)uid tag:(int)tag{
+- (BOOL)getApplyActivityListWithPage:(int)page uid:(NSString *)uid type:(int)type tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (page > 0 ) {
         [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
@@ -1033,29 +1033,38 @@ static XEEngine* s_ShareInstance = nil;
     if (uid) {
         [params setObject:uid forKey:@"userid"];
     }
+    if (type > 0) {
+        [params setObject:[NSNumber numberWithInt:type] forKey:@"type"];
+    }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/activity/all",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)getApplyActivityDetailWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag{
+- (BOOL)getApplyActivityDetailWithActivityId:(NSString *)activityId uid:(NSString *)uid type:(int)type tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (activityId) {
         [params setObject:activityId forKey:@"id"];
     }
     if (uid) {
         [params setObject:uid forKey:@"userid"];
+    }
+    if (type > 0) {
+        [params setObject:[NSNumber numberWithInt:type] forKey:@"type"];
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/activity/detail",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)applyActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag{
+- (BOOL)applyActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid type:(int)type tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (activityId) {
         [params setObject:activityId forKey:@"id"];
     }
     if (uid) {
         [params setObject:uid forKey:@"userid"];
+    }
+    if (type > 0) {
+        [params setObject:[NSNumber numberWithInt:type] forKey:@"type"];
     }
 //    if (nickname) {
 //        [params setObject:nickname forKey:@"nickname"];
@@ -1097,35 +1106,44 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)collectActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag{
+- (BOOL)collectActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid type:(int)type tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (activityId) {
         [params setObject:activityId forKey:@"id"];
     }
     if (uid) {
         [params setObject:uid forKey:@"userid"];
+    }
+    if (type > 0) {
+        [params setObject:[NSNumber numberWithInt:type] forKey:@"type"];
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/activity/fav",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
-- (BOOL)unCollectActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag{
+- (BOOL)unCollectActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid type:(int)type tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (activityId) {
         [params setObject:activityId forKey:@"id"];
     }
     if (uid) {
         [params setObject:uid forKey:@"userid"];
+    }
+    if (type > 0) {
+        [params setObject:[NSNumber numberWithInt:type] forKey:@"type"];
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/activity/unfav",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
-- (BOOL)shareActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag{
+- (BOOL)shareActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid type:(int)type tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (activityId) {
         [params setObject:activityId forKey:@"id"];
     }
     if (uid) {
         [params setObject:uid forKey:@"userid"];
+    }
+    if (type > 0) {
+        [params setObject:[NSNumber numberWithInt:type] forKey:@"type"];
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/activity/share",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];

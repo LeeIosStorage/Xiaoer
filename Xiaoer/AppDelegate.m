@@ -32,9 +32,20 @@
 
 @implementation AppDelegate
 
+// Internal error reporting
+void uncaughtExceptionHandler(NSException *exception) {
+    
+    NSLog(@"CRASH: %@", exception);
+    
+    NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
+    
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     //极光推送
     [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |

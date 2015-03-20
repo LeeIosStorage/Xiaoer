@@ -69,6 +69,10 @@
     if (objectForKey) {
         _faved = [objectForKey intValue];
     }
+    objectForKey = [dic objectForKey:@"type"];
+    if (objectForKey) {
+        _aType = [objectForKey intValue];
+    }
     
     objectForKey = [dic objectForKey:@"regnum"];
     if (objectForKey) {
@@ -78,6 +82,14 @@
     objectForKey = [dic objectForKey:@"minnum"];
     if (objectForKey) {
         _minnum = [objectForKey intValue];
+    }
+    objectForKey = [dic objectForKey:@"startsecond"];
+    if (objectForKey) {
+        _startsecond = [objectForKey intValue];
+    }
+    objectForKey = [dic objectForKey:@"endsecond"];
+    if (objectForKey) {
+        _endsecond = [objectForKey intValue];
     }
     
     objectForKey = [dic objectForKey:@"des"];

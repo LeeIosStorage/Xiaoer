@@ -145,14 +145,14 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)unCollectExpertWithExpertId:(NSString *)expertId uid:(NSString *)uid tag:(int)tag;
 - (BOOL)shareExpertWithExpertId:(NSString *)expertId uid:(NSString *)uid tag:(int)tag;
 
-//报名活动列表
-- (BOOL)getApplyActivityListWithPage:(int)page uid:(NSString *)uid tag:(int)tag;
-- (BOOL)getApplyActivityDetailWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag;
-- (BOOL)applyActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag;
+//报名活动列表 type=0报名活动 type=1抢票活动
+- (BOOL)getApplyActivityListWithPage:(int)page uid:(NSString *)uid type:(int)type tag:(int)tag;
+- (BOOL)getApplyActivityDetailWithActivityId:(NSString *)activityId uid:(NSString *)uid type:(int)type tag:(int)tag;
+- (BOOL)applyActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid type:(int)type tag:(int)tag;
 - (BOOL)applyActivityAddInfoWithActivityId:(NSString *)activityId name:(NSString *)name  remark:(NSString *)remark tag:(int)tag;
-- (BOOL)collectActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag;
-- (BOOL)unCollectActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag;
-- (BOOL)shareActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid tag:(int)tag;
+- (BOOL)collectActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid type:(int)type tag:(int)tag;
+- (BOOL)unCollectActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid type:(int)type tag:(int)tag;
+- (BOOL)shareActivityWithActivityId:(NSString *)activityId uid:(NSString *)uid type:(int)type tag:(int)tag;
 
 //历史活动
 - (BOOL)getHistoryActivityListWithPage:(int)page tag:(int)tag;
