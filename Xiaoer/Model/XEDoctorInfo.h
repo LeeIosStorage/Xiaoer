@@ -14,6 +14,7 @@
 @property(nonatomic, strong) NSString* doctorName;
 @property(nonatomic, strong) NSString* hospital;
 @property(nonatomic, strong) NSString* title;
+@property(nonatomic, strong) NSString* professional;//擅长领域
 @property(nonatomic, strong) NSString* des;
 @property(nonatomic, strong) NSString* avatar;
 @property(nonatomic, assign) int age;

@@ -25,6 +25,9 @@
     if ([dic objectForKey:@"title"]) {
         _title = [dic objectForKey:@"title"];
     }
+    if ([dic objectForKey:@"professional"]) {
+        _professional = [[dic objectForKey:@"professional"] description];
+    }
     if ([dic objectForKey:@"des"]) {
         _des = [dic objectForKey:@"des"];
         if ([_des isEqual:[NSNull null]]) {

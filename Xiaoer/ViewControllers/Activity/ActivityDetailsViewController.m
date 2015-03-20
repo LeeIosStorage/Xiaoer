@@ -161,6 +161,12 @@
     
     _dateDistance --;
     XELog(@"DateTimer refreshTimeLabel%d",_dateDistance);
+    int status = _activityInfo.status;
+    if (status == 1) {
+        _activityInfo.startsecond = _dateDistance;
+    }else if (status == 2){
+        _activityInfo.endsecond = _dateDistance;
+    }
     if (_dateDistance > 0) {
         NSString *timeStr = [XEUIUtils secondChangToDateString:[NSString stringWithFormat:@"%d",_dateDistance]];
         NSArray *timeArray = [timeStr componentsSeparatedByString:@":"];
@@ -217,6 +223,9 @@
 //    _activityInfo.begintime = begintime;
 //    _activityInfo.endtime = endtime;
     
+    if (_activityInfo.aType == 1) {
+        _isTicketActivity = YES;
+    }
     
     if (_isTicketActivity) {
         if (self.applyActivityView.superview) {
@@ -294,13 +303,17 @@
     
     _rushButton.enabled = NO;
     NSString *applyButtonTitle = @"抢票";
-    _rushDateTipLabel.text = [NSString stringWithFormat:@"%d",_activityInfo.regnum];
+    _rushDateTipLabel.text = [NSString stringWithFormat:@"%d人",_activityInfo.regnum];
     _rushStateTipLabel.text = @"已报名";
-    int status = _activityInfo.status;//0未发布 1报名未开始 2可报名 3已报名 4已报满  5已截止 6已结束
-    if (status == 2){
+    int status = _activityInfo.status;//0未发布 1报名未开始 2可抢 3已抢 4抢满  5抢票截止
+    if (status == 1) {
+        applyButtonTitle = @"抢票";
+        _rushButton.enabled = NO;
+        _rushStateTipLabel.text = @"报名倒计时";
+    }else if (status == 2){
         applyButtonTitle = @"抢票";
         _rushButton.enabled = YES;
-        _rushStateTipLabel.text = @"报名倒计时";
+        _rushStateTipLabel.text = @"结束倒计时";
     }else if (status == 3){
         applyButtonTitle = @"已抢";
         _rushStateTipLabel.text = @"抢票码";
@@ -314,43 +327,42 @@
     }
     [self.rushButton setTitle:applyButtonTitle forState:0];
     
-//    int beginDistance = [XEUIUtils distanceSinceNowCompareDate:_activityInfo.begintime];
-//    int endDistance = [XEUIUtils distanceSinceNowCompareDate:_activityInfo.endtime];
-
-    int beginDistance = _activityInfo.startsecond;
-    int endDistance = _activityInfo.endsecond;
-    if (beginDistance <= 0 && endDistance <= 0) {
-        _rushDateTipLabel.text = [NSString stringWithFormat:@"%d",_activityInfo.regnum];
-        _rushStateTipLabel.text = @"已报名";
-        _rushButton.enabled = NO;
-        [self.rushButton setTitle:@"截止" forState:0];
-    }else{
-        if (!_isHavServerData) {
-            //没获取到网络数据不显示倒计时view
-            _rushDateTipLabel.hidden = YES;
-            _rushStateTipLabel.hidden = YES;
-            _rushButton.hidden = YES;
-            return;
-        }
-        _rushDateTipLabel.hidden = NO;
-        _rushStateTipLabel.hidden = NO;
-        _rushButton.hidden = NO;
-        if (endDistance > 0) {
-            _dateDistance = endDistance;
-            _rushStateTipLabel.text = @"结束倒计时";
-            _rushButton.enabled = YES;
-        }
-        if (beginDistance > 0) {
-            _dateDistance = beginDistance;
-            _rushStateTipLabel.text = @"报名倒计时";
+    if (status == 1 || status == 2) {
+        int beginDistance = _activityInfo.startsecond;
+        int endDistance = _activityInfo.endsecond;
+        if (beginDistance <= 0 && endDistance <= 0) {
+            _rushDateTipLabel.text = [NSString stringWithFormat:@"%d人",_activityInfo.regnum];
+            _rushStateTipLabel.text = @"已报名";
             _rushButton.enabled = NO;
-        }
-        NSString *timeStr = [XEUIUtils secondChangToDateString:[NSString stringWithFormat:@"%d",_dateDistance]];
-        NSArray *timeArray = [timeStr componentsSeparatedByString:@":"];
-        if (timeArray.count > 2) {
-            
-            _rushDateTipLabel.text = [NSString stringWithFormat:@"%@小时%@分钟%@秒",[[timeArray objectAtIndex:0] description],[[timeArray objectAtIndex:1] description],[[timeArray objectAtIndex:2] description]];
-            [self startTimer];
+            [self.rushButton setTitle:@"截止" forState:0];
+        }else{
+            if (!_isHavServerData) {
+                //没获取到网络数据不显示倒计时view
+                _rushDateTipLabel.hidden = YES;
+                _rushStateTipLabel.hidden = YES;
+                _rushButton.hidden = YES;
+                return;
+            }
+            _rushDateTipLabel.hidden = NO;
+            _rushStateTipLabel.hidden = NO;
+            _rushButton.hidden = NO;
+            if (endDistance > 0) {
+                _dateDistance = endDistance;
+                _rushStateTipLabel.text = @"结束倒计时";
+                _rushButton.enabled = YES;
+            }
+            if (beginDistance > 0) {
+                _dateDistance = beginDistance;
+                _rushStateTipLabel.text = @"报名倒计时";
+                _rushButton.enabled = NO;
+            }
+            NSString *timeStr = [XEUIUtils secondChangToDateString:[NSString stringWithFormat:@"%d",_dateDistance]];
+            NSArray *timeArray = [timeStr componentsSeparatedByString:@":"];
+            if (timeArray.count > 2) {
+                
+                _rushDateTipLabel.text = [NSString stringWithFormat:@"%@小时%@分钟%@秒",[[timeArray objectAtIndex:0] description],[[timeArray objectAtIndex:1] description],[[timeArray objectAtIndex:2] description]];
+                [self startTimer];
+            }
         }
     }
     
@@ -481,13 +493,18 @@
             return;
         }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
-        _activityInfo.status = 3;
-        _activityInfo.regnum ++;
-        [self refreshActivityHeadShow];
+        weakSelf.activityInfo.status = 3;
+        weakSelf.activityInfo.regnum ++;
+        [weakSelf refreshActivityHeadShow];
         
-        ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
-        applyVc.infoId = [jsonRet stringObjectForKey:@"object"];
-        [self.navigationController pushViewController:applyVc animated:YES];
+        if (weakSelf.isTicketActivity) {
+            [self stopTimer];
+            [weakSelf refreshActivityInfo];
+        }else{
+            ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
+            applyVc.infoId = [jsonRet stringObjectForKey:@"object"];
+            [weakSelf.navigationController pushViewController:applyVc animated:YES];
+        }
         
     }tag:tag];
 }
@@ -555,7 +572,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     [self stopTimer];
-    _isHavServerData = NO;
+//    _isHavServerData = NO;
 }
 
 - (void)applicationWillResignActive:(NSNotification *)notification{
@@ -564,6 +581,7 @@
 
 - (void)appWillEnterForeground:(NSNotification *)notification{
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
+    [self refreshActivityInfo];
 }
 
 - (void)dealloc {

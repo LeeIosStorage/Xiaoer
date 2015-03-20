@@ -235,7 +235,7 @@
         if ([XEEngine shareInstance].userInfo.profileStatus == 0) {
             [self applyActivity:activityInfo];
         }else{
-            XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"您需要完善资料才能报名活动" cancelButtonTitle:@"取消" cancelBlock:^{
+            XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"您需要完善资料才能抢票" cancelButtonTitle:@"取消" cancelBlock:^{
             } okButtonTitle:@"确定" okBlock:^{
                 PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
                 piVc.userInfo = [XEEngine shareInstance].userInfo;
@@ -276,7 +276,7 @@
         if (activityInfo.aType == 0) {
             ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
             applyVc.infoId = [jsonRet stringObjectForKey:@"object"];
-            [self.navigationController pushViewController:applyVc animated:YES];
+            [weakSelf.navigationController pushViewController:applyVc animated:YES];
         }
         
     }tag:tag];

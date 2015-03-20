@@ -29,7 +29,7 @@
 @property(nonatomic, assign) int status;//活动状态 0未发布 1报名未开始 2可报名 3已报名 4已报满  5已截止 6已结束
 @property(nonatomic, assign) BOOL istop;//是否置顶
 @property(nonatomic, assign) int faved;//0为收藏 1已收藏
-@property(nonatomic, assign) int aType;//报名活动 抢票活动
+@property(nonatomic, assign) int aType;//0报名活动 1抢票活动(status//0未发布 1报名未开始 2可抢 3已抢 4抢满  5抢票截止)
 @property(nonatomic, strong) NSString* regcode;//抢票码
 @property(nonatomic, assign) int startsecond;//报名倒计时
 @property(nonatomic, assign) int endsecond;//结束倒计时

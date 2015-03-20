@@ -32,6 +32,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *hotLabel;
 @property (strong, nonatomic) IBOutlet UILabel *doctorNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *doctorCollegeLabel;
+@property (strong, nonatomic) IBOutlet UIView *professionalContentView;
+@property (strong, nonatomic) IBOutlet UILabel *professionalLabel;
 @property (strong, nonatomic) IBOutlet UILabel *doctorIntroLabel;
 @property (strong, nonatomic) IBOutlet UIButton *moreButton;
 @property (strong, nonatomic) IBOutlet UIButton *topicButton;
@@ -265,24 +267,46 @@
     self.avatarImageView.clipsToBounds = YES;
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.avatarImageView sd_setImageWithURL:_doctorInfo.mediumAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
-    self.doctorNameLabel.text = [NSString stringWithFormat:@"%@ %d岁",_doctorInfo.doctorName,_doctorInfo.age];
+    
+    
+    float titleLength = [XECommonUtils widthWithText:_doctorInfo.title font:_doctorNameLabel.font lineBreakMode:NSLineBreakByCharWrapping]/16;
+    float maxTitleWidth = SCREEN_WIDTH-64-[XECommonUtils widthWithText:_doctorInfo.doctorName font:_doctorNameLabel.font lineBreakMode:NSLineBreakByCharWrapping]-[XECommonUtils widthWithText:[NSString stringWithFormat:@"%d岁",_doctorInfo.age] font:_doctorNameLabel.font lineBreakMode:NSLineBreakByCharWrapping];
+    int maxTitleLength = maxTitleWidth/16;
+    NSString *title = _doctorInfo.title;
+    if (titleLength > maxTitleLength) {
+        title = [NSString stringWithFormat:@"%@...",[XECommonUtils getHanziTextWithText:_doctorInfo.title maxLength:maxTitleLength-1]];
+    }
+    
+    self.doctorNameLabel.text = [NSString stringWithFormat:@"%@ %@ %d岁",_doctorInfo.doctorName,title,_doctorInfo.age];
     self.doctorCollegeLabel.text = _doctorInfo.hospital;
     self.doctorIntroLabel.text = _doctorInfo.des;
     
-    [self.topicButton setTitle:[NSString stringWithFormat:@"话题 %d",_doctorInfo.topicnum] forState:0];
-    [self.fansButton setTitle:[NSString stringWithFormat:@"粉丝 %d",_doctorInfo.favnum] forState:0];
+    [self.topicButton setTitle:[NSString stringWithFormat:@"话题%d",_doctorInfo.topicnum] forState:0];
+    [self.fansButton setTitle:[NSString stringWithFormat:@"粉丝%d",_doctorInfo.favnum] forState:0];
     self.hotLabel.text = [NSString stringWithFormat:@"%d",_doctorInfo.popularscore];
     
-    CGRect frame = _doctorIntroLabel.frame;
+    //擅长领域
+    self.professionalLabel.text = _doctorInfo.professional;
+    CGRect frame = self.professionalLabel.frame;
+    CGSize professionalTextSize = [XECommonUtils sizeWithText:_doctorInfo.professional font:_professionalLabel.font width:SCREEN_WIDTH-60];
+    frame.size.height = professionalTextSize.height;
+    self.professionalLabel.frame = frame;
+    frame = self.professionalContentView.frame;
+    frame.size.height = self.professionalLabel.frame.origin.y*2 + self.professionalLabel.frame.size.height;
+    self.professionalContentView.frame = frame;
+    
+    
+    frame = _doctorIntroLabel.frame;
+    frame.origin.y = self.professionalContentView.frame.origin.y + self.professionalContentView.frame.size.height + 10;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
     NSDictionary *attributes = @{NSFontAttributeName:_doctorIntroLabel.font, NSParagraphStyleAttributeName:paragraphStyle.copy};
-    CGSize topicTextSize = [_doctorIntroLabel.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-12-86, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+    CGSize topicTextSize = [_doctorInfo.des boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
     frame.size.height = topicTextSize.height;
     _doctorIntroLabel.frame = frame;
     
     frame = self.headView.frame;
-    frame.size.height = self.doctorIntroLabel.frame.origin.y + self.doctorIntroLabel.frame.size.height + 41;
+    frame.size.height = self.doctorIntroLabel.frame.origin.y + self.doctorIntroLabel.frame.size.height + 22;
     self.headView.frame = frame;
     
     self.tableView.tableHeaderView = self.headView;
