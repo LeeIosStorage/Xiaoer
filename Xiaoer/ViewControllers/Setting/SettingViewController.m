@@ -17,6 +17,7 @@
 #import "UIImageView+WebCache.h"
 #import "XEProgressHUD.h"
 #import "XEActionSheet.h"
+#import "XESettingConfig.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 

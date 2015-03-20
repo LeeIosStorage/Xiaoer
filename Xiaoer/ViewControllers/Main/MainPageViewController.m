@@ -325,21 +325,27 @@
     XECollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XECollectionViewCell" forIndexPath:indexPath];
     if(indexPath.row == 0){
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_recipes_icon"]];
+        cell.roundImgView.hidden = YES;
         [cell.nameLabel setText:@"食谱"];
     }else if(indexPath.row == 1){
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_nourish_icon"]];
+        cell.roundImgView.hidden = YES;
         cell.nameLabel.text = @"养育";
     }else if(indexPath.row == 2){
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_evaluation_icon"]];
+        cell.roundImgView.hidden = YES;
         cell.nameLabel.text = @"评测";
     }else if(indexPath.row == 3){
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_expert_icon"]];
+        cell.roundImgView.hidden = YES;
         cell.nameLabel.text = @"专家";
     }else if(indexPath.row == 4){
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_activity_icon"]];
+        cell.roundImgView.hidden = YES;
         cell.nameLabel.text = @"活动";
     }else if(indexPath.row == 5){
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_mall_icon"]];
+        cell.roundImgView.hidden = YES;
         cell.nameLabel.text = @"商城";
     }else if(indexPath.row == 6){
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
@@ -389,9 +395,9 @@
         }
             break;
         case 6:{
-            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能进行抢票"]) {
-                return;
-            }
+//            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能进行抢票"]) {
+//                return;
+//            }
             TicketListViewController *vc = [[TicketListViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
             break;
@@ -520,7 +526,8 @@
 - (void)themeBeginPull:(ODRefreshControl *)refreshControl
 {
     if (_isScrollViewDrag) {
-        [self performSelector:@selector(getThemeInfo) withObject:self afterDelay:0.5];
+//        [self performSelector:@selector(getThemeInfo) withObject:self afterDelay:0.5];
+        [self getThemeInfo];
         [self getHomePageInfo];
     }
 }

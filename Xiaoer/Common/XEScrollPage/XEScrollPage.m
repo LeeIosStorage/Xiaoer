@@ -192,6 +192,8 @@
         _adsPageControl.currentPage = _dataArray.count - 1;
     }else if(currentPage == _dataArray.count + 1){
         _adsPageControl.currentPage = 0;
+    }else if(currentPage < 0){//防止限时引起的crash
+        _adsPageControl.currentPage = 0;
     }
     _adsPageControl.currentPage = currentPage - 1;
 }

@@ -42,7 +42,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *babyImageView;
 @property (strong, nonatomic) IBOutlet UILabel *babyName;
 @property (strong, nonatomic) IBOutlet UILabel *birthLabel;
-@property (strong, nonatomic) IBOutlet UIButton *readybutton;
+@property (strong, nonatomic) IBOutlet UIButton *readyButton;
 @property (strong, nonatomic) IBOutlet UILabel *stageLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *evaImageView;
 @property (strong, nonatomic) IBOutlet UILabel *contextLabel;
@@ -53,6 +53,7 @@
 @property (strong, nonatomic) IBOutlet UIView *imageConView;
 @property (strong, nonatomic) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UIView *footerView;
+@property (strong, nonatomic) IBOutlet UIView *noticeView;
 
 @property (nonatomic, strong) XEUserInfo *userInfo;
 @property (nonatomic, strong) NSMutableArray *adsThemeArray;
@@ -71,7 +72,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    stageIndex = 1;
+    stageIndex = 0;
     if (![self isVisitor]) {
         [self getCacheEvaDataSource];
         [self getEvaDataSource];
@@ -140,14 +141,14 @@
         self.babyImageView.layer.cornerRadius = self.babyImageView.frame.size.width/2;
         self.babyImageView.layer.masksToBounds = YES;
         self.babyImageView.clipsToBounds = YES;
-        
-        if (stageIndex == 0) {
+            
+        if (stageIndex == -1) {
             self.nextBtn.hidden = NO;
             self.previousBtn.hidden = YES;
             self.contextLabel.text = _babyInfo.precontent;
             self.stageLabel.text = [NSString stringWithFormat:@"距离上一关键期已过%d天",_babyInfo.preday];
             [self.evaImageView sd_setImageWithURL:_babyInfo.preimgUrl placeholderImage:[UIImage imageNamed:@"eva_placeholder_img"]];
-        }else if (stageIndex == 2) {
+        }else if (stageIndex == 1) {
             self.nextBtn.hidden = YES;
             self.previousBtn.hidden = NO;
             self.contextLabel.text = _babyInfo.aftercontent;
@@ -169,7 +170,7 @@
             [self.evaImageView sd_setImageWithURL:_babyInfo.imgUrl placeholderImage:[UIImage imageNamed:@"eva_placeholder_img"]];
         }
         self.babyName.text = _babyInfo.babyName;
-
+            
         CGRect frame = self.babyName.frame;
         CGFloat textWidth = [XECommonUtils widthWithText:self.babyName.text font:self.babyName.font lineBreakMode:self.babyName.lineBreakMode];
         if (textWidth > 80) {
@@ -177,12 +178,11 @@
         }
         frame.size.width = textWidth;
         self.babyName.frame = frame;
-        
+            
         frame = self.birthLabel.frame;
         frame.origin.x = self.babyName.frame.origin.x + self.babyName.frame.size.width + 5;
         self.birthLabel.frame = frame;
         self.birthLabel.text = _babyInfo.month;
-        
         [self refreshLayout];
     }
 }
@@ -222,11 +222,27 @@
     frame = self.imageConView.frame;
     frame.origin.y = self.evaImageView.frame.origin.y + self.evaImageView.frame.size.height + 5;
     self.imageConView.frame = frame;
-
-    frame = self.contextConView.frame;
-    frame.size.height = self.imageConView.frame.origin.y + self.imageConView.frame.size.height;
-    self.contextConView.frame = frame;
     
+    if (self.babyInfo.stage + stageIndex > 4) {
+        self.readyButton.enabled = NO;
+        [self.readyButton setTitle:@"敬请期待" forState:UIControlStateNormal];
+        self.noticeView.hidden = NO;
+        frame = self.noticeView.frame;
+        frame.origin.y = self.imageConView.frame.origin.y + self.imageConView.frame.size.height + 5;
+        self.noticeView.frame = frame;
+        
+        frame = self.contextConView.frame;
+        frame.size.height = self.noticeView.frame.origin.y + self.noticeView.frame.size.height;
+        self.contextConView.frame = frame;
+    }else{
+        self.noticeView.hidden = YES;
+        self.readyButton.enabled = YES;
+        [self.readyButton setTitle:@"进入评测" forState:UIControlStateNormal];
+        frame = self.contextConView.frame;
+        frame.size.height = self.imageConView.frame.origin.y + self.imageConView.frame.size.height;
+        self.contextConView.frame = frame;
+    }
+
     frame = self.footerView.frame;
     frame.origin.y = self.contextConView.frame.origin.y + self.contextConView.frame.size.height + (SCREEN_HEIGHT>568?SCREEN_HEIGHT/480*80:SCREEN_HEIGHT/480*10);
     self.footerView.frame = frame;
@@ -287,7 +303,8 @@
 {
     if (_isScrollViewDrag) {
         stageIndex = 1;
-        [self performSelector:@selector(getEvaDataSource) withObject:self afterDelay:0.5];
+        //[self performSelector:@selector(getEvaDataSource) withObject:self afterDelay:0.5];
+        [self getEvaDataSource];
     }
 }
 
@@ -346,7 +363,9 @@
 
 - (void)showAction{
     RecipesViewController *rVc = [[RecipesViewController alloc] init];
-    rVc.stage = _babyInfo.stage - 1;
+    if (_babyInfo.stage > 0) {
+        rVc.stage = _babyInfo.stage - 1;
+    }
     rVc.infoType = TYPE_EVALUATION;
     rVc.bSpecific = YES;
     [self.navigationController pushViewController:rVc animated:YES];
