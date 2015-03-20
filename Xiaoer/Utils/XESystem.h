@@ -34,7 +34,7 @@
 #define XE_IMAGE_COMPRESSION_QUALITY 0.4
 
 #define SKIN_COLOR [UIColor colorWithRed:(1.0*0x1b/0xff) green:(1.0*0xb9/0xff) blue:(1.0*0xe8/0xff) alpha:1]
-#define SKIN_TEXT_COLOR [UIColor colorWithRed:(1.0*0x3a/0xff) green:(1.0*0x3a/0xff) blue:(1.0*0x3b/0xff) alpha:1]
+#define SKIN_TEXT_COLOR [UIColor colorWithRed:(1.0*0x3b/0xff) green:(1.0*0x3b/0xff) blue:(1.0*0x3b/0xff) alpha:1]
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 

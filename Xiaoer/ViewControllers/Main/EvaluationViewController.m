@@ -129,7 +129,7 @@
             [self.hideButton setTitle:@"登录或注册" forState:UIControlStateNormal];
         }else{
             self.hideNamelabel.text = @"你还没有宝宝";
-            [self.hideButton setTitle:@"完善质料" forState:UIControlStateNormal];
+            [self.hideButton setTitle:@"完善资料" forState:UIControlStateNormal];
         }
     }else{
         self.hideView.hidden = YES;
