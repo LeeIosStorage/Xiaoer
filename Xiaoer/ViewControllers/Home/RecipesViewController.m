@@ -82,7 +82,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     }else if (self.infoType == TYPE_NOURISH) {
         [self setTitle:@"养育"];
     }else if (self.infoType == TYPE_EVALUATION) {
-        [self setTitle:@"测评"];
+        [self setTitle:@"评测"];
     }else if (self.infoType == TYPE_ACTIVITY) {
         [self setTitle:@"活动"];
     }else if (self.infoType == TYPE_ATTENTION) {

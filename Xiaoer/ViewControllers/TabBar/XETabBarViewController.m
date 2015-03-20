@@ -113,7 +113,7 @@
         }else if (tagIndex == 1){
             tabItem.itemIconImageView.image = [UIImage imageNamed:@"evaluations_tabbar_icon"];
             tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"evaluations_tabbar_icon_hover"];
-            tabItem.itemLabel.text = @"测评";
+            tabItem.itemLabel.text = @"评测";
         }else if (tagIndex == 2){
             tabItem.itemIconImageView.image = [UIImage imageNamed:@"chat_tabbar_icon"];
             tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"chat_tabbar_icon_hover"];

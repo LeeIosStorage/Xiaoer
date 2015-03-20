@@ -331,7 +331,7 @@
         cell.nameLabel.text = @"养育";
     }else if(indexPath.row == 2){
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_evaluation_icon"]];
-        cell.nameLabel.text = @"测评";
+        cell.nameLabel.text = @"评测";
     }else if(indexPath.row == 3){
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_expert_icon"]];
         cell.nameLabel.text = @"专家";

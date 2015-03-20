@@ -133,13 +133,13 @@
                 _scoreTitleLabel.text = @"最近一次评测得分";
                 _startBtn.enabled = YES;
             }else {
-                [_startBtn setTitle:@"开始测评" forState:UIControlStateNormal];
+                [_startBtn setTitle:@"开始评测" forState:UIControlStateNormal];
                 _scoreTitleLabel.text = @"暂无评测成绩";
                 _scoreLabel.text = @"";
             }
         }
     }else {
-        [_startBtn setTitle:@"开始测评" forState:UIControlStateNormal];
+        [_startBtn setTitle:@"开始评测" forState:UIControlStateNormal];
 //        _scoreLabel.text = @"";
         _scoreTitleLabel.text = @"暂无评测成绩";
     }
@@ -355,7 +355,7 @@
         AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         [sheet showInView:appDelegate.window];
     }else{
-        XEAlertView *alert = [[XEAlertView alloc] initWithTitle:nil message:@"暂无评测成绩,点击开始测评进入评测" cancelButtonTitle:@"确定"];
+        XEAlertView *alert = [[XEAlertView alloc] initWithTitle:nil message:@"暂无评测成绩,点击开始评测进入评测" cancelButtonTitle:@"确定"];
         [alert show];
     }
 }
