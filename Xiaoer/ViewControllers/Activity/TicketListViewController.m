@@ -54,7 +54,7 @@
         }
         
         int tag = [[XEEngine shareInstance] getConnectTag];
-        [[XEEngine shareInstance] getApplyActivityListWithPage:(int)weakSelf.nextCursor uid:[XEEngine shareInstance].uid tag:tag];
+        [[XEEngine shareInstance] getApplyActivityListWithPage:(int)weakSelf.nextCursor uid:[XEEngine shareInstance].uid type:1 tag:tag];
         [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
             if (!weakSelf) {
                 return;
@@ -114,7 +114,7 @@
     __weak TicketListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] addGetCacheTag:tag];
-    [[XEEngine shareInstance] getApplyActivityListWithPage:1 uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getApplyActivityListWithPage:1 uid:[XEEngine shareInstance].uid type:1 tag:tag];
     [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
         if (jsonRet == nil) {
             //...
@@ -135,7 +135,7 @@
     _nextCursor = 1;
     __weak TicketListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getApplyActivityListWithPage:(int)_nextCursor uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getApplyActivityListWithPage:(int)_nextCursor uid:[XEEngine shareInstance].uid type:1 tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         [self.pullRefreshView finishedLoading];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -215,6 +215,7 @@
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
     [self refreshTicketCount];
     XEActivityInfo *activityInfo = _ticketList[indexPath.row];
+    activityInfo.aType = 1;
     ActivityDetailsViewController *vc = [[ActivityDetailsViewController alloc] init];
     vc.activityInfo = activityInfo;
     vc.isTicketActivity = YES;
@@ -257,7 +258,7 @@
     
     __weak TicketListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] applyActivityWithActivityId:activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] applyActivityWithActivityId:activityInfo.aId uid:[XEEngine shareInstance].uid type:1 tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -272,9 +273,11 @@
         activityInfo.regnum ++;
         [weakSelf.tableView reloadData];
         
-        ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
-        applyVc.infoId = [jsonRet stringObjectForKey:@"object"];
-        [self.navigationController pushViewController:applyVc animated:YES];
+        if (activityInfo.aType == 0) {
+            ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
+            applyVc.infoId = [jsonRet stringObjectForKey:@"object"];
+            [self.navigationController pushViewController:applyVc animated:YES];
+        }
         
     }tag:tag];
 }

@@ -148,6 +148,9 @@
     }
     if (_isFromActivity) {
         [self.saveButton setTitle:@"确认报名" forState:0];
+        if (_activityInfo.aType == 1) {
+            [self.saveButton setTitle:@"确认抢票" forState:0];
+        }
     }
     if (_isFromCard) {
         [self.saveButton setTitle:@"确认领取" forState:0];
@@ -244,10 +247,10 @@
 
 - (IBAction)saveAction:(id)sender {
     
-    if (_userInfo.avatar.length == 0) {
-        [XEProgressHUD lightAlert:@"请上传用户头像"];
-        return;
-    }
+//    if (_userInfo.avatar.length == 0) {
+//        [XEProgressHUD lightAlert:@"请上传用户头像"];
+//        return;
+//    }
     if (_userInfo.nickName.length == 0) {
         [XEProgressHUD lightAlert:@"请输入昵称"];
         return;
@@ -910,9 +913,12 @@
     
     _saveButton.enabled = NO;
     [_saveButton setTitle:@"报名中..." forState:0];
+    if (_activityInfo.aType == 1) {
+        [_saveButton setTitle:@"抢票中..." forState:0];
+    }
     __weak PerfectInfoViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] applyActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] applyActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid type:_activityInfo.aType tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -921,11 +927,17 @@
             }
             weakSelf.saveButton.enabled = YES;
             [weakSelf.saveButton setTitle:@"确认报名" forState:0];
+            if (_activityInfo.aType == 1) {
+                [weakSelf.saveButton setTitle:@"确认抢票" forState:0];
+            }
             [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         weakSelf.saveButton.enabled = NO;
         [weakSelf.saveButton setTitle:@"已报名" forState:0];
+        if (_activityInfo.aType == 1) {
+            [weakSelf.saveButton setTitle:@"已抢票" forState:0];
+        }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
         weakSelf.activityInfo.status = 3;
         weakSelf.activityInfo.regnum ++;
@@ -933,10 +945,13 @@
         if (weakSelf.finishedCallBack) {
             weakSelf.finishedCallBack(YES);
         }
-        
-        ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
-        applyVc.infoId = [jsonRet stringObjectForKey:@"object"];
-        [weakSelf.navigationController pushViewController:applyVc animated:YES];
+        if (_activityInfo.aType == 0) {
+            ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];
+            applyVc.infoId = [jsonRet stringObjectForKey:@"object"];
+            [weakSelf.navigationController pushViewController:applyVc animated:YES];
+        }else if (_activityInfo.aType == 1){
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }
         
     }tag:tag];
 }

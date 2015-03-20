@@ -77,7 +77,7 @@
         }
         
         int tag = [[XEEngine shareInstance] getConnectTag];
-        [[XEEngine shareInstance] getApplyActivityListWithPage:(int)weakSelf.applyNextCursor uid:[XEEngine shareInstance].uid tag:tag];
+        [[XEEngine shareInstance] getApplyActivityListWithPage:(int)weakSelf.applyNextCursor uid:[XEEngine shareInstance].uid type:0 tag:tag];
         [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
             if (!weakSelf) {
                 return;
@@ -219,7 +219,7 @@
     __weak ActivityViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] addGetCacheTag:tag];
-    [[XEEngine shareInstance] getApplyActivityListWithPage:1 uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getApplyActivityListWithPage:1 uid:[XEEngine shareInstance].uid type:0 tag:tag];
     [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
         if (jsonRet == nil) {
             //...
@@ -244,7 +244,7 @@
     _applyNextCursor = 1;
     __weak ActivityViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getApplyActivityListWithPage:(int)_applyNextCursor uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getApplyActivityListWithPage:(int)_applyNextCursor uid:[XEEngine shareInstance].uid type:0 tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
 //        [XEProgressHUD AlertLoadDone];
         [self.pullRefreshView finishedLoading];

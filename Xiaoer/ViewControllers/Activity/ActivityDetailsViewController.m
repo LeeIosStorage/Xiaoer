@@ -44,6 +44,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *rushButton;
 @property (assign, nonatomic) int dateDistance;
 @property (strong, nonatomic) NSTimer *dateTimer;
+@property (assign, nonatomic) BOOL isHavServerData;
 
 - (IBAction)applyActivityAction:(id)sender;
 - (IBAction)phoneAction:(id)sender;
@@ -92,7 +93,7 @@
     __weak ActivityDetailsViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] addGetCacheTag:tag];
-    [[XEEngine shareInstance] getApplyActivityDetailWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getApplyActivityDetailWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid type:_activityInfo.aType tag:tag];
     [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
         if (jsonRet == nil) {
             //...
@@ -112,7 +113,7 @@
     
     __weak ActivityDetailsViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getApplyActivityDetailWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] getApplyActivityDetailWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid type:_activityInfo.aType tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
 //        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -124,6 +125,7 @@
             return;
         }
         _servicerInfoSucceed = YES;
+        _isHavServerData = YES;
 //        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         NSDictionary *dic = [jsonRet objectForKey:@"object"];
@@ -206,7 +208,7 @@
 //    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit |
 //    NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit;
 //    NSDateComponents *compsNow = [calender components:unitFlags fromDate:[NSDate date]];
-//    compsNow.second += 10;
+//    compsNow.year += 10;
 //    NSDate *begintime = [calender dateFromComponents:compsNow];
 //    
 //    compsNow.hour += 1;
@@ -312,15 +314,27 @@
     }
     [self.rushButton setTitle:applyButtonTitle forState:0];
     
-    
-    int beginDistance = [XEUIUtils distanceSinceNowCompareDate:_activityInfo.begintime];
-    int endDistance = [XEUIUtils distanceSinceNowCompareDate:_activityInfo.endtime];
+//    int beginDistance = [XEUIUtils distanceSinceNowCompareDate:_activityInfo.begintime];
+//    int endDistance = [XEUIUtils distanceSinceNowCompareDate:_activityInfo.endtime];
+
+    int beginDistance = _activityInfo.startsecond;
+    int endDistance = _activityInfo.endsecond;
     if (beginDistance <= 0 && endDistance <= 0) {
         _rushDateTipLabel.text = [NSString stringWithFormat:@"%d",_activityInfo.regnum];
         _rushStateTipLabel.text = @"已报名";
         _rushButton.enabled = NO;
         [self.rushButton setTitle:@"截止" forState:0];
     }else{
+        if (!_isHavServerData) {
+            //没获取到网络数据不显示倒计时view
+            _rushDateTipLabel.hidden = YES;
+            _rushStateTipLabel.hidden = YES;
+            _rushButton.hidden = YES;
+            return;
+        }
+        _rushDateTipLabel.hidden = NO;
+        _rushStateTipLabel.hidden = NO;
+        _rushButton.hidden = NO;
         if (endDistance > 0) {
             _dateDistance = endDistance;
             _rushStateTipLabel.text = @"结束倒计时";
@@ -386,7 +400,7 @@
     }
     __weak ActivityDetailsViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] shareActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] shareActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid type:_activityInfo.aType tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -455,7 +469,7 @@
     
     __weak ActivityDetailsViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] applyActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] applyActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid type:_activityInfo.aType tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -535,11 +549,13 @@
 - (void)viewDidAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     [self refreshTicketActivityFooterShow];
+    [self refreshActivityInfo];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     [self stopTimer];
+    _isHavServerData = NO;
 }
 
 - (void)applicationWillResignActive:(NSNotification *)notification{

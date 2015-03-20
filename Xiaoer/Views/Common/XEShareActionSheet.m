@@ -331,9 +331,9 @@
     __weak XEShareActionSheet *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     if ([self activityIsCollect]) {
-        [[XEEngine shareInstance] unCollectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+        [[XEEngine shareInstance] unCollectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid type:_activityInfo.aType tag:tag];
     }else{
-        [[XEEngine shareInstance] collectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid tag:tag];
+        [[XEEngine shareInstance] collectActivityWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid type:_activityInfo.aType tag:tag];
     }
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         //        [XEProgressHUD AlertLoadDone];
