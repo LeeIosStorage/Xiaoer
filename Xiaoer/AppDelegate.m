@@ -66,7 +66,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [UMSocialWechatHandler setWXAppId:UMS_WX_ID appSecret:UMS_WX_Key url:nil];
     [UMSocialQQHandler setQQWithAppId:UMS_QQ_ID appKey:UMS_QQ_Key    url:nil];
     [UMSocialQQHandler setSupportWebView:YES];
-    [UMSocialSinaHandler openSSOWithRedirectURL:nil];//@"http://sns.whalecloud.com/sina2/callback"
+    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];//@"http://sns.whalecloud.com/sina2/callback"
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor clearColor];
