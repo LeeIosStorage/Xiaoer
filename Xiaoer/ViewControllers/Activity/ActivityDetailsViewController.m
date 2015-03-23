@@ -95,6 +95,9 @@
     [[XEEngine shareInstance] addGetCacheTag:tag];
     [[XEEngine shareInstance] getApplyActivityDetailWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid type:_activityInfo.aType tag:tag];
     [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (self.navigationController == nil || self.navigationController.topViewController != self || weakSelf == nil) {
+            return ;
+        }
         if (jsonRet == nil) {
             //...
         }else{
@@ -115,6 +118,9 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] getApplyActivityDetailWithActivityId:_activityInfo.aId uid:[XEEngine shareInstance].uid type:_activityInfo.aType tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        if (self.navigationController == nil || self.navigationController.topViewController != self || weakSelf == nil) {
+            return ;
+        }
 //        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {
@@ -125,7 +131,7 @@
             return;
         }
         _servicerInfoSucceed = YES;
-        _isHavServerData = YES;
+        weakSelf.isHavServerData = YES;
 //        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
         
         NSDictionary *dic = [jsonRet objectForKey:@"object"];
@@ -179,6 +185,7 @@
 }
 #pragma mark - custom
 - (void)refreshAdsScrollView {
+    
     for (UIView *view in _avatarImageView.subviews) {
         [view removeFromSuperview];
         [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
@@ -289,6 +296,7 @@
     
     CGRect frame = self.activityIntroLabel.frame;
     CGSize topicTextSize = [XECommonUtils sizeWithText:_activityInfo.des font:self.activityIntroLabel.font width:SCREEN_WIDTH-13*2];
+    frame.size.width = topicTextSize.width;
     frame.size.height = topicTextSize.height;
     self.activityIntroLabel.frame = frame;
     
@@ -567,12 +575,14 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     [self refreshTicketActivityFooterShow];
     [self refreshActivityInfo];
+    [super viewDidAppear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     [self stopTimer];
 //    _isHavServerData = NO;
+    [super viewDidDisappear:animated];
 }
 
 - (void)applicationWillResignActive:(NSNotification *)notification{
@@ -586,6 +596,10 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _scrollPageView.delegate = nil;
+    _scrollPageView = nil;
+    [self stopTimer];
+    XELog(@"ActivityDetailsViewController dealloc !!!");
 }
 
 @end
