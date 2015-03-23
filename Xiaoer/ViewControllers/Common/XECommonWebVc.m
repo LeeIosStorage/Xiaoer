@@ -232,7 +232,7 @@ CGFloat const SGProgressBarHeight = 2.5;
     [self setTitle:title];
 //    [self updateToolbarItems:YES];
     [self finishPressed:nil];
-    NSString *backNum = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('backid').innerHTML"];
+//    NSString *backNum = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('backid').innerHTML"];
     
 }
 

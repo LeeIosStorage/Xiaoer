@@ -42,6 +42,16 @@
     if ([dic objectForKey:@"aftercontent"]) {
         _aftercontent = [dic objectForKey:@"aftercontent"];
     }
+    if ([dic objectForKey:@"stagestatus"]) {
+        _status = [dic boolValueForKey:@"stagestatus"];
+    }
+    if ([dic objectForKey:@"prestagestatus"]) {
+        _pStatus = [dic boolValueForKey:@"prestagestatus"];
+    }
+    if ([dic objectForKey:@"afterstagestatus"]) {
+        _aStatus = [dic boolValueForKey:@"afterstagestatus"];
+    }
+    
     _stage = [[dic objectForKey:@"stage"] intValue];
     _preday = [[dic objectForKey:@"preday"] intValue];
     _afterday = [[dic objectForKey:@"afterday"] intValue];

@@ -78,7 +78,7 @@
             
             if (weakSelf.trainDic.count) {
                 _isData = YES;
-                [weakSelf refreshUIWithData:_isData AndIndex:0];
+                [weakSelf refreshUIWithData:_isData cat:1 index:0];
             }
         }
     }];
@@ -95,7 +95,7 @@
                 errorMsg = @"请求失败";
             }
             if ([errorMsg isEqualToString:@"暂无评测结果信息"]) {
-                [weakSelf refreshUIWithData:_isData AndIndex:0];
+                [weakSelf refreshUIWithData:_isData cat:1 index:0];
             }
             [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
@@ -117,12 +117,12 @@
         
         if (weakSelf.trainDic.count) {
             _isData = YES;
-            [weakSelf refreshUIWithData:_isData AndIndex:0];
+            [weakSelf refreshUIWithData:_isData cat:1 index:0];
         }
     }tag:tag];
 }
 
-- (void)refreshUIWithData:(BOOL)bData AndIndex:(NSInteger)index{
+- (void)refreshUIWithData:(BOOL)bData cat:(NSInteger)cat index:(NSInteger)index{
     if (bData) {
         XETrainInfo *trainInfo = [[XETrainInfo alloc] init];
         if (self.trainDic) {
@@ -192,7 +192,8 @@
     }
 
     [self setImagesWithIndex:_pageControl.currentPage];
-    [self refreshUIWithData:YES AndIndex:catIndex];
+//    [self refreshUIWithData:YES AndIndex:catIndex];
+    [self refreshUIWithData:YES cat:catIndex index:0];
 }
 
 - (void)initScrollPage{
@@ -309,7 +310,8 @@
     catIndex = _pageControl.currentPage + 1;
     
     [self setImagesWithIndex:_pageControl.currentPage];
-    [self refreshUIWithData:YES AndIndex:catIndex];
+//    [self refreshUIWithData:YES AndIndex:catIndex];
+    [self refreshUIWithData:YES cat:catIndex index:0];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -338,12 +340,26 @@
     XETrainInfo *trainInfo = [[XETrainInfo alloc] init];
     trainInfo = [self.trainDic objectForKey:[NSString stringWithFormat:@"%d",(int)catIndex]];
     if (trainInfo) {
-        NSString *otherbutTit1 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[0] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[0] objectForKey:@"time"]];
-        NSString *otherbutTit2 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[1] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[1] objectForKey:@"time"]];
-        NSString *otherbutTit3 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[2] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[2] objectForKey:@"time"]];
-        NSString *otherbutTit4 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[3] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[3] objectForKey:@"time"]];
-        NSString *otherbutTit5 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[4] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[4] objectForKey:@"time"]];
-        
+        NSString *otherbutTit1 = nil;
+        NSString *otherbutTit2 = nil;
+        NSString *otherbutTit3 = nil;
+        NSString *otherbutTit4 = nil;
+        NSString *otherbutTit5 = nil;
+        if(trainInfo.resultsInfo.count >= 1){
+            otherbutTit1 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[0] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[0] objectForKey:@"time"]];
+        }
+        if(trainInfo.resultsInfo.count >= 2){
+            otherbutTit2 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[1] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[1] objectForKey:@"time"]];
+        }
+        if (trainInfo.resultsInfo.count >= 3) {
+            otherbutTit3 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[2] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[2] objectForKey:@"time"]];
+        }
+        if (trainInfo.resultsInfo.count >= 4) {
+            otherbutTit4 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[3] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[3] objectForKey:@"time"]];
+        }
+        if (trainInfo.resultsInfo.count >= 5) {
+            otherbutTit5 = [NSString stringWithFormat:@"%@      %@",[trainInfo.resultsInfo[4] objectForKey:@"scoretitle"],[trainInfo.resultsInfo[4] objectForKey:@"time"]];
+        }
         __weak TaskViewController *weakSelf = self;
         XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:@"评测记录" actionBlock:^(NSInteger buttonIndex) {
             if (trainInfo.resultsInfo.count == buttonIndex) {
@@ -361,7 +377,8 @@
 }
 
 - (void)doActionSheetClickedButtonAtIndex:(NSInteger)index{
-    [self refreshUIWithData:YES AndIndex:index];
+//    [self refreshUIWithData:YES AndIndex:index];
+    [self refreshUIWithData:YES cat:catIndex index:index];
 }
 
 @end

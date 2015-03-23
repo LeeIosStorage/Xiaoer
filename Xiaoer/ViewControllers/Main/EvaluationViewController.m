@@ -223,7 +223,7 @@
     frame.origin.y = self.evaImageView.frame.origin.y + self.evaImageView.frame.size.height + 5;
     self.imageConView.frame = frame;
     
-    if (self.babyInfo.stage + stageIndex > 4) {
+    if (self.babyInfo.aStatus || self.babyInfo.status || self.babyInfo.pStatus) {
         self.readyButton.enabled = NO;
         [self.readyButton setTitle:@"敬请期待" forState:UIControlStateNormal];
         self.noticeView.hidden = NO;
