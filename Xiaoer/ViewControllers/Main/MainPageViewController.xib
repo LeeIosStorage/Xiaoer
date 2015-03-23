@@ -40,20 +40,20 @@
             <point key="canvasLocation" x="244" y="108"/>
         </view>
         <view contentMode="scaleToFill" id="LUx-H4-FQq">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="536"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="505"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="6TQ-SH-oBU">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="eKA-EW-aW8">
-                    <rect key="frame" x="0.0" y="151" width="320" height="1"/>
+                    <rect key="frame" x="0.0" y="121" width="320" height="1"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" id="jt8-B3-dM0">
-                    <rect key="frame" x="0.0" y="151" width="320" height="230"/>
+                    <rect key="frame" x="0.0" y="121" width="320" height="229"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="V9r-sp-uAD">
@@ -68,7 +68,7 @@
                     </connections>
                 </collectionView>
                 <view contentMode="scaleToFill" id="TfL-UX-lZC">
-                    <rect key="frame" x="0.0" y="380" width="320" height="155"/>
+                    <rect key="frame" x="0.0" y="350" width="320" height="155"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="gbn-sf-eCT">
@@ -226,7 +226,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-145" y="92"/>
+            <point key="canvasLocation" x="-145" y="91.5"/>
         </view>
     </objects>
     <resources>

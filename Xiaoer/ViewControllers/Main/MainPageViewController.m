@@ -295,7 +295,7 @@
         self.containerView.frame = frame;
         
         frame = self.headView.frame;
-        frame.size.height = 506;
+        frame.size.height = 476;
         self.headView.frame = frame;
     }
 }
