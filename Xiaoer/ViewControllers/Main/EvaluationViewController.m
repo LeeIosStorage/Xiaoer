@@ -132,6 +132,7 @@
             self.hideNamelabel.text = @"你还没有宝宝";
             [self.hideButton setTitle:@"完善资料" forState:UIControlStateNormal];
         }
+//        [_scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,self.hideView.frame.size.height + self.contextConView.frame.size.height + self.footerView.frame.size.height + 400)];
     }else{
         self.hideView.hidden = YES;
         self.scrollView.hidden = NO;
@@ -223,7 +224,7 @@
     frame.origin.y = self.evaImageView.frame.origin.y + self.evaImageView.frame.size.height + 5;
     self.imageConView.frame = frame;
     
-    if (self.babyInfo.aStatus || self.babyInfo.status || self.babyInfo.pStatus) {
+    if ((self.babyInfo.aStatus && stageIndex == 1) || (self.babyInfo.status && stageIndex == 0)|| (self.babyInfo.pStatus && stageIndex == -1)) {
         self.readyButton.enabled = NO;
         [self.readyButton setTitle:@"敬请期待" forState:UIControlStateNormal];
         self.noticeView.hidden = NO;
@@ -355,9 +356,9 @@
 }
 
 - (void)handleUserInfoChanged:(NSNotification *)notification{
-    [XEEngine shareInstance].bVisitor = NO;
     self.hideView.hidden = YES;
     self.scrollView.hidden = NO;
+    [XEEngine shareInstance].bVisitor = NO;
     [self getEvaDataSource];
 }
 
