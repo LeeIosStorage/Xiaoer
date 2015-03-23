@@ -24,7 +24,7 @@
 #import "WelcomeViewController.h"
 #import "LSReachability.h"
 #import "XEAlertView.h"
-#import "APService.h"
+//#import "APService.h"
 
 @interface AppDelegate () <NewIntroViewControllerDelegate>
 
@@ -48,12 +48,12 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     //极光推送
-    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                   UIRemoteNotificationTypeSound |
-                                                   UIRemoteNotificationTypeAlert)
-                                       categories:nil];
-    
-    [APService setupWithOption:launchOptions];
+//    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+//                                                   UIRemoteNotificationTypeSound |
+//                                                   UIRemoteNotificationTypeAlert)
+//                                       categories:nil];
+//    
+//    [APService setupWithOption:launchOptions];
     
     application.statusBarHidden = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -96,7 +96,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void)signIn{
     NSLog(@"signIn");
-    [APService setAlias:@"" callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+//    [APService setAlias:@"" callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
     if ([[XEEngine shareInstance] hasAccoutLoggedin]) {
         [XEEngine shareInstance].bVisitor = NO;
     }else {
@@ -227,41 +227,41 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [APService registerDeviceToken:deviceToken];
+//    [APService registerDeviceToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
-    [APService handleRemoteNotification:userInfo];
-    NSLog(@"收到通知:%@", userInfo);
-    NSDictionary *alertContent = [userInfo objectForKey:@"aps"];
-    NSString *alertContentStr = [alertContent objectForKey:@"alert"];
-    UIAlertView *remoteNotificationAlert = [[UIAlertView alloc] initWithTitle:@"消息推送" message:alertContentStr delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"查看", nil];
-    [remoteNotificationAlert show];
+//    [APService handleRemoteNotification:userInfo];
+//    NSLog(@"收到通知:%@", userInfo);
+//    NSDictionary *alertContent = [userInfo objectForKey:@"aps"];
+//    NSString *alertContentStr = [alertContent objectForKey:@"alert"];
+//    UIAlertView *remoteNotificationAlert = [[UIAlertView alloc] initWithTitle:@"消息推送" message:alertContentStr delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"查看", nil];
+//    [remoteNotificationAlert show];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
-    [APService handleRemoteNotification:userInfo];
-    NSLog(@"收到通知:%@", userInfo);
-    
-    NSDictionary *alertContent = [userInfo objectForKey:@"aps"];
-    NSString *alertContentStr = [alertContent objectForKey:@"alert"];
-    UIAlertView *remoteNotificationAlert = [[UIAlertView alloc] initWithTitle:@"消息推送" message:alertContentStr delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"查看", nil];
-    remoteNotificationAlert.tag = 10001;
-    [remoteNotificationAlert show];
-    
-    completionHandler(UIBackgroundFetchResultNewData);
+//    [APService handleRemoteNotification:userInfo];
+//    NSLog(@"收到通知:%@", userInfo);
+//    
+//    NSDictionary *alertContent = [userInfo objectForKey:@"aps"];
+//    NSString *alertContentStr = [alertContent objectForKey:@"alert"];
+//    UIAlertView *remoteNotificationAlert = [[UIAlertView alloc] initWithTitle:@"消息推送" message:alertContentStr delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"查看", nil];
+//    remoteNotificationAlert.tag = 10001;
+//    [remoteNotificationAlert show];
+//    
+//    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    [APService showLocalNotificationAtFront:notification identifierKey:nil];
+  //  [APService showLocalNotificationAtFront:notification identifierKey:nil];
 }
 
-//极光推送绑定别名回掉
-- (void)tagsAliasCallback:(int)iResCode tags:(NSSet*)tags alias:(NSString*)alias {
-    NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
-}
+////极光推送绑定别名回掉
+//- (void)tagsAliasCallback:(int)iResCode tags:(NSSet*)tags alias:(NSString*)alias {
+//    NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
+//}
 
 
 

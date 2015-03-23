@@ -335,7 +335,7 @@
 
 - (IBAction)readyAction:(id)sender {
     ReadyTestViewController *rtVc = [[ReadyTestViewController alloc] init];
-    rtVc.stageIndex = _babyInfo.stage + (stageIndex-1);
+    rtVc.stageIndex = _babyInfo.stage + stageIndex;
     rtVc.babyInfo = _babyInfo;
     [self.navigationController pushViewController:rtVc animated:YES];
 }
@@ -364,7 +364,7 @@
 - (void)showAction{
     RecipesViewController *rVc = [[RecipesViewController alloc] init];
     if (_babyInfo.stage > 0) {
-        rVc.stage = _babyInfo.stage - 1;
+        rVc.stage = _babyInfo.stage;
     }
     rVc.infoType = TYPE_EVALUATION;
     rVc.bSpecific = YES;

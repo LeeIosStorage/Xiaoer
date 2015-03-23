@@ -20,7 +20,7 @@
 //#define Selected_Color [UIColor colorWithRed:(1.0 * 58 / 255) green:(1.0 * 161 / 255) blue:(1.0 * 248 / 255) alpha:1]
 #define UnSelected_Color [UIColor colorWithRed:(1.0 * 172 / 255) green:(1.0 * 177 / 255) blue:(1.0 * 183 / 255) alpha:1]
 #define XEDisplayMotionHeight 47
-#define XERefreshInterval     60 
+#define XERefreshInterval     30
 
 #define kCategoryRefreshTime @"categoryRefreshTime"
 
@@ -62,11 +62,9 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     
     _unselectedLabelColor = UnSelected_Color;
     _selectedLabelColor = SKIN_COLOR;
-    if (_bSpecific) {
-        _selectedIndex = self.stage;
-    }else{
-        _selectedIndex = 1;
-    }
+
+    _selectedIndex = 1;
+    
     _pageNumDic = [[NSMutableDictionary alloc] init];
     _endDic = [[NSMutableDictionary alloc] init];
     _hotUnionDic = [[NSMutableDictionary alloc] init];
@@ -114,7 +112,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
                 if (weakSelf.bSpecific) {
                     [weakSelf initNavigationBarView];
                     [weakSelf initContentScrollView];
-                    [weakSelf getCacheCategoryInfoWithTag:weakSelf.titles[0] andIndex:weakSelf.stage];
+                    [weakSelf getCacheCategoryInfoWithTag:weakSelf.titles[0] andIndex:weakSelf.stage-1];
                 }else{
                     [weakSelf initNavigationBarView];
                     [weakSelf initContentScrollView];
@@ -151,7 +149,10 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
             if (weakSelf.bSpecific) {
                 [weakSelf initNavigationBarView];
                 [weakSelf initContentScrollView];
-                [weakSelf getCategoryInfoWithTag:weakSelf.titles[0] andIndex:weakSelf.stage];
+                if (weakSelf.bSpecific) {
+                    weakSelf.selectedIndex = weakSelf.stage;
+                }
+                [weakSelf getCategoryInfoWithTag:weakSelf.titles[0] andIndex:weakSelf.stage-1];
             }else{
                 [weakSelf initNavigationBarView];
                 [weakSelf initContentScrollView];
@@ -341,9 +342,6 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     _categoryScrollView.contentSize = CGSizeMake(scrollBarWidth, _categoryScrollView.frame.size.height);
     //滚动动态计算
     [self needScrollIndex];
-    if (self.bSpecific) {
-        self.selectedIndex = self.stage;
-    }
 }
 
 - (void)needScrollIndex{
@@ -572,7 +570,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 }
 
 - (void)didRefreshRecipesInfos {
-    NSLog(@"==================didRefreshRecipesInfos");
+//    NSLog(@"==================didRefreshRecipesInfos");
     [self getCacheCategoryInfoWithTag:_titles[_selectedIndex-1] andIndex:_selectedIndex-1];
     [self getCategoryInfoWithTag:_titles[_selectedIndex-1] andIndex:_selectedIndex-1];
 }
