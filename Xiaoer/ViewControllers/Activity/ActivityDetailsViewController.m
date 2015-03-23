@@ -264,8 +264,10 @@
     _applyActivityButton.enabled = NO;
     NSString *applyButtonTitle = @"在线报名";
     int status = _activityInfo.status;//0未发布 1报名未开始 2可报名 3已报名 4已报满  5已截止 6已结束
-    if (status == 1) {
-        applyButtonTitle = @"已报名还未开始";
+    if (status == 0) {
+        applyButtonTitle = @"未发布";
+    }else if (status == 1) {
+        applyButtonTitle = @"报名还未开始";
     }else if (status == 2){
         applyButtonTitle = @"在线报名";
         _applyActivityButton.enabled = YES;
@@ -309,6 +311,10 @@
 
 -(void)refreshTicketActivityFooterShow{
     
+    _rushDateTipLabel.hidden = NO;
+    _rushStateTipLabel.hidden = NO;
+    _rushButton.hidden = NO;
+    
     _rushButton.enabled = NO;
     NSString *applyButtonTitle = @"抢票";
     _rushDateTipLabel.text = [NSString stringWithFormat:@"%d人",_activityInfo.regnum];
@@ -351,9 +357,6 @@
                 _rushButton.hidden = YES;
                 return;
             }
-            _rushDateTipLabel.hidden = NO;
-            _rushStateTipLabel.hidden = NO;
-            _rushButton.hidden = NO;
             if (endDistance > 0) {
                 _dateDistance = endDistance;
                 _rushStateTipLabel.text = @"结束倒计时";
@@ -574,7 +577,9 @@
 - (void)viewDidAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     [self refreshTicketActivityFooterShow];
-    [self refreshActivityInfo];
+    if (_activityInfo.startsecond > 0 || _activityInfo.endsecond > 0) {
+        [self refreshActivityInfo];
+    }
     [super viewDidAppear:animated];
 }
 
@@ -591,7 +596,9 @@
 
 - (void)appWillEnterForeground:(NSNotification *)notification{
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
-    [self refreshActivityInfo];
+    if (_activityInfo.startsecond > 0 || _activityInfo.endsecond > 0) {
+        [self refreshActivityInfo];
+    }
 }
 
 - (void)dealloc {

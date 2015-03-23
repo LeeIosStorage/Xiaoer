@@ -559,12 +559,12 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
-- (BOOL)loginWithAccredit:(NSString*)loginType tag:(int)tag error:(NSError **)errPtr
+- (BOOL)loginWithAccredit:(NSString*)loginType presentingController:(UIViewController *)presentingController tag:(int)tag error:(NSError **)errPtr
 {
     //..UM
     //if else
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:loginType];
-    snsPlatform.loginClickHandler(nil,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response)
+    snsPlatform.loginClickHandler(presentingController,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response)
                                   {
                                       if ([loginType isEqualToString:UMShareToSina])
                                       {

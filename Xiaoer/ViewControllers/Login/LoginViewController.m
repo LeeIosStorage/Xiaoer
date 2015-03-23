@@ -19,6 +19,7 @@
 #import "XELinkerHandler.h"
 #import "XECommonWebVc.h"
 #import "XEActionSheet.h"
+#import "WXApi.h"
 
 @interface LoginViewController () <UITextFieldDelegate>
 {
@@ -54,6 +55,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *protocolButton;
 
 @property (strong, nonatomic) IBOutlet UIView *socialContainerView;
+@property (strong, nonatomic) IBOutlet UIButton *qqLoginButton;
+@property (strong, nonatomic) IBOutlet UIButton *weiboLoginButton;
+@property (strong, nonatomic) IBOutlet UIButton *weixinLoginButton;
 
 @property (nonatomic, assign) BOOL bViewDisappear;
 
@@ -74,7 +78,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkTextChaneg:) name:UITextFieldTextDidChangeNotification object:nil];
-//    _bViewDisappear = NO;
+    self.qqLoginButton.hidden= ![QQApi isQQInstalled];
+    self.weixinLoginButton.hidden= ![WXApi isWXAppInstalled];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -481,7 +486,7 @@
         if (button.tag == 0) {
             _loginType = [[NSString alloc]initWithString:UMShareToQQ];
             if (![QQApi isQQInstalled]) {
-                [XEUIUtils showAlertWithMsg:@"您还没有安装QQ？"];
+                [XEUIUtils showAlertWithMsg:@"您的设备没有安装QQ" title:@"温馨提示"];
                 return;
             }
         }else if (button.tag == 1){
@@ -492,7 +497,7 @@
         
         __weak LoginViewController *weakSelf = self;
         int tag = [[XEEngine shareInstance] getConnectTag];
-        [[XEEngine shareInstance] loginWithAccredit:_loginType tag:tag error:nil];
+        [[XEEngine shareInstance] loginWithAccredit:_loginType presentingController:self tag:tag error:nil];
         [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
             NSString* errorMsg = [jsonRet stringObjectForKey:@"error"];
             if (!jsonRet || errorMsg) {
