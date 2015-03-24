@@ -188,6 +188,12 @@ CGFloat const SGProgressBarHeight = 2.5;
         }
         return YES;
     }
+    if(_isCanClosed){
+        NSRange range = [url.path rangeOfString:@"/eva/result"];
+        if (range.length > 0) {
+            _isResult = YES;
+        }
+    }
     
     NSRange range = [url.path rangeOfString:@"eva/history"];
     if (range.length > 0) {
