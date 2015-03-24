@@ -282,6 +282,7 @@
                 errorMsg = @"请求失败";
             }
             [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            [weakSelf refreshEvaWithStage:stageIndex];
             [_themeControl endRefreshing:NO];
             return;
         }
@@ -290,6 +291,10 @@
         XEBabyInfo *babyInfo = [[XEBabyInfo alloc] init];
         [babyInfo setBabyInfoByJsonDic:dic];
         weakSelf.babyInfo = babyInfo;
+        if (babyInfo) {
+            self.hideView.hidden = YES;
+            self.scrollView.hidden = NO;
+        }
         [weakSelf refreshEvaWithStage:stageIndex];
     }tag:tag];
 }
@@ -356,8 +361,6 @@
 }
 
 - (void)handleUserInfoChanged:(NSNotification *)notification{
-    self.hideView.hidden = YES;
-    self.scrollView.hidden = NO;
     [XEEngine shareInstance].bVisitor = NO;
     [self getEvaDataSource];
 }

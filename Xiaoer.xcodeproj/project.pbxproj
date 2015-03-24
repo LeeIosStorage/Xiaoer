@@ -2783,7 +2783,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution:  Xiao Er information technology co., limited (7J37J8KPNB)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2807,7 +2807,7 @@
 					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_4.2.1",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f2c6891f-eec5-4da3-a0b1-a0efb03b1877";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2816,7 +2816,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution:  Xiao Er information technology co., limited (7J37J8KPNB)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2840,7 +2840,7 @@
 					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_4.2.1",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f2c6891f-eec5-4da3-a0b1-a0efb03b1877";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
