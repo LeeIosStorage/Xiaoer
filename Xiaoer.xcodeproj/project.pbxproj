@@ -44,6 +44,7 @@
 		073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9961A53D64400FF0EFD /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD9991A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m */; };
 		073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 073FD99C1A53EB9700FF0EFD /* XELinkerHandler.m */; };
+		07457C901AC3F490009343FC /* HotUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 07457C8F1AC3F490009343FC /* HotUpButton.m */; };
 		074593FC1A5B782B008F4665 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 074593FB1A5B782B008F4665 /* SystemConfiguration.framework */; };
 		074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074594021A5BB4FD008F4665 /* NewIntroViewController.m */; };
 		074594061A5BB52C008F4665 /* NewIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 074594051A5BB52C008F4665 /* NewIntroView.m */; };
@@ -443,6 +444,8 @@
 		073FD9991A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ObjectForKey.m"; sourceTree = "<group>"; };
 		073FD99B1A53EB9700FF0EFD /* XELinkerHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XELinkerHandler.h; sourceTree = "<group>"; };
 		073FD99C1A53EB9700FF0EFD /* XELinkerHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XELinkerHandler.m; sourceTree = "<group>"; };
+		07457C8E1AC3F490009343FC /* HotUpButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotUpButton.h; sourceTree = "<group>"; };
+		07457C8F1AC3F490009343FC /* HotUpButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotUpButton.m; sourceTree = "<group>"; };
 		074593FB1A5B782B008F4665 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		074593FF1A5B8391008F4665 /* Xiaoer-Prefx.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Xiaoer-Prefx.pch"; sourceTree = "<group>"; };
 		074594011A5BB4FD008F4665 /* NewIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewIntroViewController.h; sourceTree = "<group>"; };
@@ -1377,6 +1380,8 @@
 				075E321A1A762E7C006037B3 /* XECustomerWindow.h */,
 				075E321B1A762E7C006037B3 /* XECustomerWindow.m */,
 				075E321D1A762F4A006037B3 /* XECustomerWindow.xib */,
+				07457C8E1AC3F490009343FC /* HotUpButton.h */,
+				07457C8F1AC3F490009343FC /* HotUpButton.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2268,7 +2273,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 07508E7B1A51346300873B45 /* Build configuration list for PBXProject "xiaoer" */;
+			buildConfigurationList = 07508E7B1A51346300873B45 /* Build configuration list for PBXProject "Xiaoer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2470,6 +2475,7 @@
 				073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */,
 				077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */,
 				075DD0351A78AC0C009A64B4 /* WSAssetsTableViewCell.m in Sources */,
+				07457C901AC3F490009343FC /* HotUpButton.m in Sources */,
 				07FC6D201A679D22001F34D8 /* XEGridView.m in Sources */,
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
 				0752F7B31A7B2615008C0E0A /* DACircularProgressView.m in Sources */,
@@ -2881,7 +2887,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		07508E7B1A51346300873B45 /* Build configuration list for PBXProject "xiaoer" */ = {
+		07508E7B1A51346300873B45 /* Build configuration list for PBXProject "Xiaoer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07508EA11A51346300873B45 /* Debug */,
