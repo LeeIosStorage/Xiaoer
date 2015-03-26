@@ -12,6 +12,7 @@
 #import "XEProgressHUD.h"
 #import "XEAlertView.h"
 #import "StageSelectViewController.h"
+#import "ExpertListViewController.h"
 
 NSInteger const SGProgresstagId = 222122323;
 CGFloat const SGProgressBarHeight = 2.5;
@@ -211,6 +212,18 @@ CGFloat const SGProgressBarHeight = 2.5;
         }
         StageSelectViewController *ssVc = [[StageSelectViewController alloc] init];
         [self.navigationController pushViewController:ssVc animated:YES];
+        return NO;
+    }
+    NSRange rangeNursers = [url.path rangeOfString:@"eva/nursers"];
+    if (rangeNursers.length > 0) {
+        ExpertListViewController *vc = [[ExpertListViewController alloc] init];
+        vc.vcType = VcType_Nurser;
+        [self.navigationController pushViewController:vc animated:YES];
+        return NO;
+    }
+    NSRange rangeRestart = [url.path rangeOfString:@"eva/restart"];
+    if (rangeRestart.length > 0) {
+        [self.navigationController popViewControllerAnimated:YES];
         return NO;
     }
     

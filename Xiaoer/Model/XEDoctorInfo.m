@@ -9,6 +9,7 @@
 #import "XEDoctorInfo.h"
 #import "JSONKit.h"
 #import "XEEngine.h"
+#import "XEUIUtils.h"
 
 @implementation XEDoctorInfo
 
@@ -37,6 +38,16 @@
     if ([dic objectForKey:@"avatar"]) {
         _avatar = [dic objectForKey:@"avatar"];
     }
+    if ([dic objectForKey:@"worknum"]) {
+        _worknum = [[dic objectForKey:@"worknum"] description];
+    }
+    
+    NSDateFormatter *dateFormatter = [XEUIUtils dateFormatterOFUS];
+    id objectForKey = [dic objectForKey:@"born"];
+    if (objectForKey && [objectForKey isKindOfClass:[NSString class]]) {
+        _born = [dateFormatter dateFromString:objectForKey];
+    }
+    _status = [[dic objectForKey:@"status"] intValue];
     _age = [[dic objectForKey:@"age"] intValue];
     _topicnum = [[dic objectForKey:@"topicnum"] intValue];
     _favnum = [[dic objectForKey:@"favnum"] intValue];
@@ -82,6 +93,13 @@
         return nil;
     }
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@/%@", [[XEEngine shareInstance] baseUrl], @"large", _avatar]];
+}
+
+-(int)age{
+    if (_born) {
+        return [XEUIUtils getAgeByDate:_born];
+    }
+    return _age;
 }
 
 @end

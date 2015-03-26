@@ -1025,6 +1025,26 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
+- (BOOL)getNurserListWithPage:(int)page tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (page > 0 ) {
+        [params setObject:[NSNumber numberWithInt:page] forKey:@"page"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/eva/nursers",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)bindNurserWithNurserId:(NSString *)nurserid uid:(NSString *)uid tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if (nurserid) {
+        [params setObject:nurserid forKey:@"nurserid"];
+    }
+    if (uid) {
+        [params setObject:uid forKey:@"userid"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/eva/bindnurser",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
 - (BOOL)getApplyActivityListWithPage:(int)page uid:(NSString *)uid type:(int)type tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (page > 0 ) {

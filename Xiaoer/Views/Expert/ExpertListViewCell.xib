@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -21,9 +21,13 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PTg-55-jgi">
                                 <rect key="frame" x="250" y="79" width="54" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" image="consult_button">
                                     <color key="titleColor" red="0.1058823529" green="0.65490196079999996" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="0.70588235290000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="segment_arrows" id="bk5-ls-cDX">
@@ -77,6 +81,7 @@
                 <outlet property="doctorCollegeLabel" destination="ifb-u1-JFe" id="H9s-MN-ZWX"/>
                 <outlet property="doctorIntroLabel" destination="TnE-cB-7Rq" id="Tbo-77-Fws"/>
                 <outlet property="doctorNameLabel" destination="bg2-Am-M8y" id="8PI-lg-w40"/>
+                <outlet property="lineImageView" destination="bk5-ls-cDX" id="xpw-lH-Pb3"/>
                 <outlet property="whiteBgView" destination="8ds-dn-QXM" id="Y2p-Th-mgg"/>
             </connections>
             <point key="canvasLocation" x="271" y="506.5"/>

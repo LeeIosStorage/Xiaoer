@@ -10,6 +10,8 @@
 #import "JSONKit.h"
 #import "XELinkerHandler.h"
 #import "StageSelectViewController.h"
+#import "ExpertListViewController.h"
+#import "AppDelegate.h"
 
 @interface XEWebViewWithEvaluationVc ()<UIWebViewDelegate>
 
@@ -116,6 +118,21 @@
         [self.navigationController pushViewController:ssVc animated:YES];
         return NO;
     }
+    
+    NSRange rangeNursers = [url.path rangeOfString:@"eva/nursers"];
+    if (rangeNursers.length > 0) {
+        ExpertListViewController *vc = [[ExpertListViewController alloc] init];
+        vc.vcType = VcType_Nurser;
+        [self.navigationController pushViewController:vc animated:YES];
+        return NO;
+    }
+    NSRange rangeRestart = [url.path rangeOfString:@"eva/restart"];
+    if (rangeRestart.length > 0) {
+        AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+         [appDelegate.mainTabViewController.tabBar selectIndex:TAB_INDEX_EVALUATION];
+        return NO;
+    }
+    
     /*****
     if ([url.path caseInsensitiveCompare:@"eva/result"] == NSOrderedSame) {
 //        if ([url.host isEqualToString:@"purchase"]){

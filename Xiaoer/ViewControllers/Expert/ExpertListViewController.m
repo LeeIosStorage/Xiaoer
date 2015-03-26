@@ -45,54 +45,105 @@
     [self.tableView addSubview:self.pullRefreshView];
     
     __weak ExpertListViewController *weakSelf = self;
-    [self.tableView addInfiniteScrollingWithActionHandler:^{
-        if (!weakSelf) {
-            return;
-        }
-        if (!weakSelf.canLoadMore) {
-            [weakSelf.tableView.infiniteScrollingView stopAnimating];
-            weakSelf.tableView.showsInfiniteScrolling = NO;
-            return ;
-        }
-        
-        int tag = [[XEEngine shareInstance] getConnectTag];
-        [[XEEngine shareInstance] getExpertListWithPage:(int)weakSelf.nextCursor tag:tag];
-        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+    if (_vcType == VcType_Expert) {
+        [self.tableView addInfiniteScrollingWithActionHandler:^{
             if (!weakSelf) {
                 return;
             }
+            if (!weakSelf.canLoadMore) {
+                [weakSelf.tableView.infiniteScrollingView stopAnimating];
+                weakSelf.tableView.showsInfiniteScrolling = NO;
+                return ;
+            }
             
-            [weakSelf.tableView.infiniteScrollingView stopAnimating];
-            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-            if (!jsonRet || errorMsg) {
-                if (!errorMsg.length) {
-                    errorMsg = @"请求失败";
+            int tag = [[XEEngine shareInstance] getConnectTag];
+            [[XEEngine shareInstance] getExpertListWithPage:(int)weakSelf.nextCursor tag:tag];
+            [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+                if (!weakSelf) {
+                    return;
                 }
-                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+                
+                [weakSelf.tableView.infiniteScrollingView stopAnimating];
+                NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+                if (!jsonRet || errorMsg) {
+                    if (!errorMsg.length) {
+                        errorMsg = @"请求失败";
+                    }
+                    [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+                    return;
+                }
+                //            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+                
+                NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"experts"];
+                for (NSDictionary *dic in object) {
+                    XEDoctorInfo *doctorInfo = [[XEDoctorInfo alloc] init];
+                    [doctorInfo setDoctorInfoByJsonDic:dic];
+                    [weakSelf.expertList addObject:doctorInfo];
+                }
+                weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+                if (!weakSelf.canLoadMore) {
+                    weakSelf.tableView.showsInfiniteScrolling = NO;
+                }else{
+                    weakSelf.tableView.showsInfiniteScrolling = YES;
+                    weakSelf.nextCursor ++;
+                }
+                [weakSelf.tableView reloadData];
+                
+            } tag:tag];
+        }];
+        
+        [self getCacheExpertInfo];
+        [self refreshExpertList:YES];
+    }else if (_vcType == VcType_Nurser){
+        
+        [self.tableView addInfiniteScrollingWithActionHandler:^{
+            if (!weakSelf) {
                 return;
             }
-//            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
-            
-            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"experts"];
-            for (NSDictionary *dic in object) {
-                XEDoctorInfo *doctorInfo = [[XEDoctorInfo alloc] init];
-                [doctorInfo setDoctorInfoByJsonDic:dic];
-                [weakSelf.expertList addObject:doctorInfo];
-            }
-            weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
             if (!weakSelf.canLoadMore) {
+                [weakSelf.tableView.infiniteScrollingView stopAnimating];
                 weakSelf.tableView.showsInfiniteScrolling = NO;
-            }else{
-                weakSelf.tableView.showsInfiniteScrolling = YES;
-                weakSelf.nextCursor ++;
+                return ;
             }
-            [weakSelf.tableView reloadData];
             
-        } tag:tag];
-    }];
-    
-    [self getCacheExpertInfo];
-    [self refreshExpertList:YES];
+            int tag = [[XEEngine shareInstance] getConnectTag];
+            [[XEEngine shareInstance] getNurserListWithPage:(int)weakSelf.nextCursor tag:tag];
+            [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+                if (!weakSelf) {
+                    return;
+                }
+                
+                [weakSelf.tableView.infiniteScrollingView stopAnimating];
+                NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+                if (!jsonRet || errorMsg) {
+                    if (!errorMsg.length) {
+                        errorMsg = @"请求失败";
+                    }
+                    [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+                    return;
+                }
+                
+                NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"nursers"];
+                for (NSDictionary *dic in object) {
+                    XEDoctorInfo *doctorInfo = [[XEDoctorInfo alloc] init];
+                    [doctorInfo setDoctorInfoByJsonDic:dic];
+                    [weakSelf.expertList addObject:doctorInfo];
+                }
+                weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+                if (!weakSelf.canLoadMore) {
+                    weakSelf.tableView.showsInfiniteScrolling = NO;
+                }else{
+                    weakSelf.tableView.showsInfiniteScrolling = YES;
+                    weakSelf.nextCursor ++;
+                }
+                [weakSelf.tableView reloadData];
+                
+            } tag:tag];
+        }];
+        
+        [self getCacheNurserInfo];
+        [self refreshNurserList];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,6 +165,67 @@
 }
 */
 
+#pragma mark - 育婴师
+- (void)getCacheNurserInfo{
+    __weak ExpertListViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] addGetCacheTag:tag];
+    [[XEEngine shareInstance] getNurserListWithPage:1 tag:tag];
+    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+        if (jsonRet == nil) {
+            //...
+        }else{
+            weakSelf.expertList = [[NSMutableArray alloc] init];
+            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"nursers"];
+            for (NSDictionary *dic in object) {
+                XEDoctorInfo *doctorInfo = [[XEDoctorInfo alloc] init];
+                [doctorInfo setDoctorInfoByJsonDic:dic];
+                [weakSelf.expertList addObject:doctorInfo];
+            }
+            [weakSelf.tableView reloadData];
+        }
+    }];
+}
+
+- (void)refreshNurserList{
+    
+    self.nextCursor = 1;
+    __weak ExpertListViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] getNurserListWithPage:(int)self.nextCursor tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        
+        [self.pullRefreshView finishedLoading];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+        
+        weakSelf.expertList = [[NSMutableArray alloc] init];
+        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"nursers"];
+        for (NSDictionary *dic in object) {
+            XEDoctorInfo *doctorInfo = [[XEDoctorInfo alloc] init];
+            [doctorInfo setDoctorInfoByJsonDic:dic];
+            [weakSelf.expertList addObject:doctorInfo];
+        }
+        
+        weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+        if (!weakSelf.canLoadMore) {
+            weakSelf.tableView.showsInfiniteScrolling = NO;
+        }else{
+            weakSelf.tableView.showsInfiniteScrolling = YES;
+            weakSelf.nextCursor ++;
+        }
+        [weakSelf.tableView reloadData];
+        
+    }tag:tag];
+}
+
+#pragma mark - 专家
 - (void)getCacheExpertInfo{
     __weak ExpertListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
@@ -199,7 +311,11 @@
 
 #pragma mark PullToRefreshViewDelegate
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view {
-    [self refreshExpertList:NO];
+    if (_vcType == VcType_Expert) {
+        [self refreshExpertList:NO];
+    }else if (_vcType == VcType_Nurser){
+        [self refreshNurserList];
+    }
 }
 
 - (NSDate *)pullToRefreshViewLastUpdated:(PullToRefreshView *)view {
@@ -237,6 +353,11 @@
         cell.backgroundColor = [UIColor clearColor];
         [cell.consultButton addTarget:self action:@selector(handleClickAt:event:) forControlEvents:UIControlEventTouchUpInside];
     }
+    if (_vcType == VcType_Nurser) {
+        cell.isNurser = YES;
+    }else if (_vcType == VcType_Expert){
+        cell.isNurser = NO;
+    }
     XEDoctorInfo *doctorInfo = _expertList[indexPath.row];
     cell.doctorInfo = doctorInfo;
     return cell;
@@ -246,6 +367,10 @@
 {
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
+    
+    if (_vcType == VcType_Nurser) {
+        return;
+    }
     
     if (_isNeedSelect) {
         XEDoctorInfo *doctorInfo = _expertList[indexPath.row];
@@ -270,13 +395,41 @@
 //        NSLog(@"indexPath: row:%d", indexPath.row);
 //        _isNeedSelect = YES;
 //        [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+        
         XEDoctorInfo *doctorInfo = _expertList[indexPath.row];
+        if (_vcType == VcType_Nurser) {
+            [self bindNurser:doctorInfo];
+            return;
+        }
         XEPublicViewController *vc = [[XEPublicViewController alloc] init];
         vc.publicType = Public_Type_Expert;
         vc.doctorInfo = doctorInfo;
         [self.navigationController pushViewController:vc animated:YES];
     }
     
+}
+
+-(void)bindNurser:(XEDoctorInfo *)doctorInfo{
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
+    [XEProgressHUD AlertLoading:@"绑定中..." At:self.view];
+    __weak ExpertListViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] bindNurserWithNurserId:doctorInfo.doctorId uid:[XEEngine shareInstance].uid tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
+        [weakSelf.tableView reloadData];
+        
+    }tag:tag];
 }
 
 @end
