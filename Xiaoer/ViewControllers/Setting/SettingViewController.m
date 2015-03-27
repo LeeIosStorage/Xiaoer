@@ -134,7 +134,11 @@
         }
         case 1:{
             if (indexPath.row == 0) {
-                cell.titleLabel.text = @"退出当前帐号";
+                if (![[XEEngine shareInstance] hasAccoutLoggedin]) {
+                    cell.titleLabel.text = @"注册或登录";
+                }else{
+                    cell.titleLabel.text = @"退出当前帐号";
+                }
                 cell.indicatorImage.hidden = YES;
                 break;
             }else if (indexPath.row == 1){
@@ -177,25 +181,26 @@
         }
         case 1:{
             if (indexPath.row == 0) {
-//                __weak SettingViewController *weakSelf = self;
-                XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:nil actionBlock:^(NSInteger buttonIndex) {
-                    if (buttonIndex == 1) {
-                        return;
-                    }
-                    if (buttonIndex == 0) {
-                        AppDelegate * appDelgate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-                        XELog(@"signOut for user logout from SettingViewController");
-                        [appDelgate signOut];
-                        [[XEEngine shareInstance] visitorLogin];
-                    }
-                }];
-                [sheet addButtonWithTitle:@"退出登录"];
-                sheet.destructiveButtonIndex = sheet.numberOfButtons - 1;
-                
-                [sheet addButtonWithTitle:@"取消"];
-                sheet.cancelButtonIndex = sheet.numberOfButtons -1;
-                [sheet showInView:self.view];
-                break;
+                __weak SettingViewController *weakSelf = self;
+                if (![[XEEngine shareInstance] hasAccoutLoggedin]) {
+                    [self signOutAndLogin];
+                }else{
+                    XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:nil actionBlock:^(NSInteger buttonIndex) {
+                        if (buttonIndex == 1) {
+                            return;
+                        }
+                        if (buttonIndex == 0) {
+                            [weakSelf signOutAndLogin];
+                        }
+                    }];
+                    [sheet addButtonWithTitle:@"退出登录"];
+                    sheet.destructiveButtonIndex = sheet.numberOfButtons - 1;
+                    
+                    [sheet addButtonWithTitle:@"取消"];
+                    sheet.cancelButtonIndex = sheet.numberOfButtons -1;
+                    [sheet showInView:self.view];
+                    break;
+                }
             }else if (indexPath.row == 1){
                 [self onLogoutWithError:nil];
                 break;
@@ -207,6 +212,13 @@
     
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
+}
+
+- (void)signOutAndLogin{
+    AppDelegate * appDelgate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    XELog(@"signOut for user logout from SettingViewController");
+    [appDelgate signOut];
+    [[XEEngine shareInstance] visitorLogin];
 }
 
 - (void)onLogoutWithError:(NSError *)error {
