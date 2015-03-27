@@ -239,7 +239,7 @@
             [self.applyActivityView removeFromSuperview];
         }
         CGRect frame = self.rushTicketView.frame;
-        frame.origin.y = self.view.bounds.size.height - frame.size.height;
+        frame.origin.y = SCREEN_HEIGHT - frame.size.height;
         self.rushTicketView.frame = frame;
         [self.view addSubview:self.rushTicketView];
         
@@ -292,8 +292,20 @@
     }
     
     self.titleLabel.text = _activityInfo.title;
-    self.addressAndTimeLabel.text = [NSString stringWithFormat:@"%@\n%@到%@",_activityInfo.address,[XEUIUtils dateDiscriptionFromDate:_activityInfo.begintime],[XEUIUtils dateDiscriptionFromDate:_activityInfo.endtime]];
-    self.phoneLabel.text = [NSString stringWithFormat:@"%@ %@\n%d人已报名 至少%d人 最多%d人",_activityInfo.contact,_activityInfo.phone,_activityInfo.regnum,_activityInfo.minnum,_activityInfo.totalnum];
+    NSString *address = _activityInfo.address;
+    if (!address) {
+        address = @"";
+    }
+    self.addressAndTimeLabel.text = [NSString stringWithFormat:@"%@\n%@到%@",address,[XEUIUtils dateDiscriptionFromDate:_activityInfo.begintime],[XEUIUtils dateDiscriptionFromDate:_activityInfo.endtime]];
+    NSString *contact = _activityInfo.contact;
+    if (!contact) {
+        contact = @"";
+    }
+    NSString *phone = _activityInfo.phone;
+    if (!phone) {
+        phone = @"";
+    }
+    self.phoneLabel.text = [NSString stringWithFormat:@"%@ %@\n%d人已报名 至少%d人 最多%d人",contact,phone,_activityInfo.regnum,_activityInfo.minnum,_activityInfo.totalnum];
     self.activityIntroLabel.text = _activityInfo.des;
     
     CGRect frame = self.activityIntroLabel.frame;
