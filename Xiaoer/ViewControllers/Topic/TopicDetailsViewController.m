@@ -622,8 +622,10 @@
     
     if (growingTextView.text.length == 0) {
         self.placeHolderLabel.hidden = NO;
+        [_sendButton setBackgroundColor:[UIColor lightGrayColor]];
     }else{
         self.placeHolderLabel.hidden = YES;
+        [_sendButton setBackgroundColor:SKIN_COLOR];
     }
     return YES;
 }
@@ -631,8 +633,10 @@
     
     if (_growingTextView.text.length == 0) {
         self.placeHolderLabel.hidden = NO;
+        [_sendButton setBackgroundColor:[UIColor lightGrayColor]];
     }else{
         self.placeHolderLabel.hidden = YES;
+        [_sendButton setBackgroundColor:SKIN_COLOR];
     }
     _textRange = growingTextView.selectedRange;
 }
@@ -648,8 +652,10 @@
     _textRange = growingTextView.selectedRange;
     if (growingTextView.text.length > 0) {
         self.placeHolderLabel.hidden = YES;
+        [_sendButton setBackgroundColor:SKIN_COLOR];
     } else {
         self.placeHolderLabel.hidden = NO;
+        [_sendButton setBackgroundColor:[UIColor lightGrayColor]];
     }
     if ([XECommonUtils getHanziTextNum:growingTextView.text] > _maxReplyTextLength && growingTextView.internalTextView.markedTextRange == nil) {
         growingTextView.text = [XECommonUtils getHanziTextWithText:growingTextView.text maxLength:_maxReplyTextLength];
