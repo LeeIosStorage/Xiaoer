@@ -146,7 +146,7 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)shareExpertWithExpertId:(NSString *)expertId uid:(NSString *)uid tag:(int)tag;
 
 //育婴师
-- (BOOL)getNurserListWithPage:(int)page tag:(int)tag;
+- (BOOL)getNurserListWithPage:(int)page uid:(NSString *)uid tag:(int)tag;
 - (BOOL)bindNurserWithNurserId:(NSString *)nurserid uid:(NSString *)uid tag:(int)tag;
 
 //报名活动列表 type=0报名活动 type=1抢票活动

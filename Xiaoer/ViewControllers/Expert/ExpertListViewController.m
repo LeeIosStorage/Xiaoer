@@ -96,6 +96,10 @@
         [self refreshExpertList:YES];
     }else if (_vcType == VcType_Nurser){
         
+        if ([[XEEngine shareInstance] needUserLogin:nil]) {
+            
+        }
+        
         [self.tableView addInfiniteScrollingWithActionHandler:^{
             if (!weakSelf) {
                 return;
@@ -107,7 +111,7 @@
             }
             
             int tag = [[XEEngine shareInstance] getConnectTag];
-            [[XEEngine shareInstance] getNurserListWithPage:(int)weakSelf.nextCursor tag:tag];
+            [[XEEngine shareInstance] getNurserListWithPage:(int)weakSelf.nextCursor uid:[XEEngine shareInstance].uid tag:tag];
             [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
                 if (!weakSelf) {
                     return;
@@ -173,7 +177,7 @@
     __weak ExpertListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] addGetCacheTag:tag];
-    [[XEEngine shareInstance] getNurserListWithPage:1 tag:tag];
+    [[XEEngine shareInstance] getNurserListWithPage:1 uid:[XEEngine shareInstance].uid tag:tag];
     [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
         if (jsonRet == nil) {
             //...
@@ -195,7 +199,7 @@
     self.nextCursor = 1;
     __weak ExpertListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getNurserListWithPage:(int)self.nextCursor tag:tag];
+    [[XEEngine shareInstance] getNurserListWithPage:(int)self.nextCursor uid:[XEEngine shareInstance].uid tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         
         [self.pullRefreshView finishedLoading];
@@ -430,6 +434,7 @@
             return;
         }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
+        doctorInfo.status = 2;
         [weakSelf.tableView reloadData];
         
     }tag:tag];
