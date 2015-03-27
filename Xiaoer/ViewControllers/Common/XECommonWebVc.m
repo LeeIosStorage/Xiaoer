@@ -449,9 +449,9 @@ CGFloat const SGProgressBarHeight = 2.5;
 - (void)actionButtonClicked:(id)sender {
     //出现分享菜单
     //[self tapAtRightShareBtn:sender];
-    if ([[XEEngine shareInstance] needUserLogin:@"当前为游客状态，登录以后才能查看更多"]) {
-        return;
-    }
+//    if ([[XEEngine shareInstance] needUserLogin:@"当前为游客状态，登录以后才能查看更多"]) {
+//        return;
+//    }
     __weak XECommonWebVc *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
 

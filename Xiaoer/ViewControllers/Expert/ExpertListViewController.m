@@ -379,14 +379,14 @@
         return;
     }
     
-    if (_isNeedSelect) {
-        XEDoctorInfo *doctorInfo = _expertList[indexPath.row];
-        XEPublicViewController *vc = [[XEPublicViewController alloc] init];
-        vc.publicType = Public_Type_Expert;
-        vc.doctorInfo = doctorInfo;
-        [self.navigationController pushViewController:vc animated:YES];
-        return;
-    }
+//    if (_isNeedSelect) {
+//        XEDoctorInfo *doctorInfo = _expertList[indexPath.row];
+//        XEPublicViewController *vc = [[XEPublicViewController alloc] init];
+//        vc.publicType = Public_Type_Expert;
+//        vc.doctorInfo = doctorInfo;
+//        [self.navigationController pushViewController:vc animated:YES];
+//        return;
+//    }
     XEDoctorInfo *doctorInfo = _expertList[indexPath.row];
     ExpertIntroViewController *vc = [[ExpertIntroViewController alloc] init];
     vc.doctorInfo = doctorInfo;

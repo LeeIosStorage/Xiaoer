@@ -15,6 +15,7 @@
 #import "XECommentInfo.h"
 #import "MWPhotoBrowser.h"
 #import "XEShareActionSheet.h"
+#import "ExpertIntroViewController.h"
 
 #define ANSWER_ONE_IMAGE_HEIGHT  93
 #define QUESTION_ONE_IMAGE_HEIGHT  66
@@ -47,6 +48,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *questionTimeLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *expertCommentBgImgView;
 
+- (IBAction)expertAvatarAction:(id)sender;
 @end
 
 @implementation QuestionDetailsViewController
@@ -310,15 +312,29 @@
 }
 
 -(void)moreAction:(id)sender{
-    if ([[XEEngine shareInstance] needUserLogin:nil]) {
-        return;
-    }
+//    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+//        return;
+//    }
     _shareAction = [[XEShareActionSheet alloc] init];
     _shareAction.owner = self;
     _shareAction.selectShareType = XEShareType_Qusetion;
     _shareAction.questionInfo = _questionInfo;
     [_shareAction showShareAction];
     
+}
+
+- (IBAction)expertAvatarAction:(id)sender {
+    if (!_expertComment || !_expertComment.uId) {
+        return;
+    }
+    XEDoctorInfo *doctorInfo = [[XEDoctorInfo alloc] init];
+    doctorInfo.doctorId = _expertComment.uId;
+    doctorInfo.doctorName = _expertComment.userName;
+    doctorInfo.avatar = _expertComment.avatar;
+    doctorInfo.title = _expertComment.title;
+    ExpertIntroViewController *vc = [[ExpertIntroViewController alloc] init];
+    vc.doctorInfo = doctorInfo;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - XEShareActionSheetDelegate

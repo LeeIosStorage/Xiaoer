@@ -436,6 +436,7 @@
 - (void)publicTopic{
     XEPublicViewController *pVc = [[XEPublicViewController alloc] init];
     pVc.publicType = Public_Type_Topic;
+    pVc.topicTypeCat = [NSString stringWithFormat:@"%d",_topicType];
     [self.navigationController pushViewController:pVc animated:YES];
 }
 

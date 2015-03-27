@@ -55,7 +55,7 @@
 @property (strong, nonatomic) IBOutlet UIView *footerView;
 @property (strong, nonatomic) IBOutlet UIButton *saveButton;
 
-@property (assign, nonatomic) int showType;//当前状态 0无选择 1怀孕中 2已有宝宝 3怀孕中且已有宝宝
+@property (assign, nonatomic) int showType;//阶段类型 0无选择 1怀孕中 2已有宝宝 3怀孕中且已有宝宝
 
 - (IBAction)saveAction:(id)sender;
 @end
@@ -265,7 +265,7 @@
     }
     if (_isFromCard || _isFromActivity) {
         if (_userInfo.hasbaby.length == 0) {
-            [XEProgressHUD lightAlert:@"请输入您的当前状态"];
+            [XEProgressHUD lightAlert:@"请输入您的阶段类型"];
             return;
         }
         if (_userInfo.regionName.length == 0) {
@@ -445,7 +445,7 @@
     }else if ([_userInfo.hasbaby isEqualToString:@"n"]){
         intro = @"怀孕中";
     }
-    NSDictionary *dict11 = @{@"titleLabel": @"当前状态",
+    NSDictionary *dict11 = @{@"titleLabel": @"阶段类型",
                              @"intro": intro!=nil?intro:@"",
                              };
     intro = _userInfo.regionName;
@@ -652,7 +652,7 @@
         }else if (indexPath.row == 1){
             _editTag = TAG_USER_IDENTITY;
             __weak PerfectInfoViewController *weakSelf = self;
-            XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:@"身份" actionBlock:^(NSInteger buttonIndex) {
+            XEActionSheet *sheet = [[XEActionSheet alloc] initWithTitle:@"阶段类型" actionBlock:^(NSInteger buttonIndex) {
                 if (2 == buttonIndex) {
                     return;
                 }

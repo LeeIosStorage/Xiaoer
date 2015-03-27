@@ -412,9 +412,9 @@
 }
 
 -(void)moreAction:(id)sender{
-    if ([[XEEngine shareInstance] needUserLogin:nil]) {
-        return;
-    }
+//    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+//        return;
+//    }
     _shareAction = [[XEShareActionSheet alloc] init];
     _shareAction.owner = self;
     _shareAction.selectShareType = XEShareType_Topic;

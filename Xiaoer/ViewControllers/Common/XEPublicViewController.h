@@ -18,5 +18,6 @@ typedef enum PublicType_{
 
 @property (nonatomic, assign) PublicType publicType;
 @property (nonatomic, strong) XEDoctorInfo *doctorInfo;
+@property (nonatomic, strong) NSString *topicTypeCat;
 
 @end

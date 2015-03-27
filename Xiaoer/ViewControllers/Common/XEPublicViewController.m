@@ -144,6 +144,14 @@
         [self.topicTypeArray addObject:@{TopicType_Title: @"心理", TopicType_Pic:@"expert_mind_icon", TopicType_Cat:@"4"}];
         [self.topicTypeArray addObject:@{TopicType_Title: @"入园", TopicType_Pic:@"expert_kinder_icon", TopicType_Cat:@"3"}];
 //        [self.topicTypeTableView reloadData];
+        if (_topicTypeCat) {
+            for (NSDictionary *typeDic in _topicTypeArray) {
+                if ([[typeDic objectForKey:TopicType_Cat] isEqualToString:_topicTypeCat]) {
+                    _selectTopicTypeDic = typeDic;
+                    [self refreshTypeButton];
+                }
+            }
+        }
     }
     
     [self refreshViewUI];
@@ -196,8 +204,12 @@
             [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
-        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
-        [weakSelf.navigationController popViewControllerAnimated:YES];
+//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
+//        [weakSelf.navigationController popViewControllerAnimated:YES];
+        XEAlertView* alertView = [[XEAlertView alloc] initWithTitle:nil message:@"已向专家提问，需要您耐心等待，24小时内会解答" cancelButtonTitle:@"知道了" cancelBlock:^{
+            [super backAction:nil];
+        }];
+        [alertView show];
         
     }tag:tag];
 }

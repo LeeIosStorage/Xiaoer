@@ -108,6 +108,9 @@
 //                objc_msgSend(self, opAction);
 //                return;
 //            }
+            if ([[XEEngine shareInstance] needUserLogin:nil]) {
+                return;
+            }
             if (row == 0) {
                 [self collectButtonAction];
             }else if (row == 1){
@@ -129,15 +132,18 @@
         UIImage *image = [UIImage imageNamed:@"common_load_icon"];
         NSString *info = @"（分享自@晓儿app）";
         if (_selectShareType == XEShareType_Expert) {
-            URL = [NSString stringWithFormat:@"%@/share/expert/%@/%@",[[XEEngine shareInstance] baseUrl],[XEEngine shareInstance].uid,_doctorInfo.doctorId];
+            URL = [NSString stringWithFormat:@"%@/share/expert/0/%@",[[XEEngine shareInstance] baseUrl],_doctorInfo.doctorId];
             info = [NSString stringWithFormat:@"育儿专家：%@-%@-%@%@",_doctorInfo.doctorName,_doctorInfo.title,_doctorInfo.hospital,info];
         }else if(_selectShareType == XEShareType_Activity) {
-            URL = [NSString stringWithFormat:@"%@/share/activity/%@/%@",[[XEEngine shareInstance] baseUrl],[XEEngine shareInstance].uid,_activityInfo.aId];
+            URL = [NSString stringWithFormat:@"%@/share/activity/0/%@",[[XEEngine shareInstance] baseUrl],_activityInfo.aId];
             info = [NSString stringWithFormat:@"活动：%@%@",_activityInfo.title,info];
         }else if(_selectShareType == XEShareType_Topic) {
-            URL = [NSString stringWithFormat:@"%@/share/topic/%@/%@",[[XEEngine shareInstance] baseUrl],[XEEngine shareInstance].uid,_topicInfo.tId];
+            URL = [NSString stringWithFormat:@"%@/share/topic/0/%@",[[XEEngine shareInstance] baseUrl],_topicInfo.tId];
             if (self.topicInfo.picIds.count > 0) {
                 image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:[[self.topicInfo.picURLs objectAtIndex:0] absoluteString]];
+                if (!image) {
+                    image = [UIImage imageNamed:@"common_load_icon"];
+                }
             }
             if (_topicInfo.title) {
                 //1教育2营养3入园4心理
@@ -157,7 +163,7 @@
         }else if(_selectShareType == XEShareType_Qusetion) {
             
         }else if(_selectShareType == XEShareType_Web) {
-            URL = [NSString stringWithFormat:@"%@/share/info/%@/%@",[[XEEngine shareInstance] baseUrl],[XEEngine shareInstance].uid,_recipesId];
+            URL = [NSString stringWithFormat:@"%@/share/info/0/%@",[[XEEngine shareInstance] baseUrl],_recipesId];
             if (_webShareTitle) {
                 info = _webShareTitle;
             }
