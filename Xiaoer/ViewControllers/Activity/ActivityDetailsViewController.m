@@ -185,10 +185,9 @@
 }
 #pragma mark - custom
 - (void)refreshAdsScrollView {
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     for (UIView *view in _avatarImageView.subviews) {
         [view removeFromSuperview];
-        [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     }
     
     NSMutableArray *adsThemeArray = [NSMutableArray array];

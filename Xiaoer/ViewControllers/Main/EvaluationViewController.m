@@ -93,10 +93,11 @@
 -(void)initNormalTitleNavBarSubviews{
     
     [self setTitle:@"评测"];
+    [self setRightButtonWithImageName:@"eva_recipes_icon" selector:@selector(showAction)];
     if ([self isVisitor]) {
-    
+        [self.titleNavBarRightBtn setHidden:YES];
     }else{
-       [self setRightButtonWithImageName:@"eva_recipes_icon" selector:@selector(showAction)];
+        [self.titleNavBarRightBtn setHidden:NO];
     }
     
 }
@@ -362,6 +363,7 @@
 
 - (void)handleUserInfoChanged:(NSNotification *)notification{
     [XEEngine shareInstance].bVisitor = NO;
+    [self.titleNavBarRightBtn setHidden:NO];
     [self getEvaDataSource];
 }
 

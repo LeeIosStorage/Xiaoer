@@ -398,6 +398,17 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
 - (void)setSelectedIndex:(NSUInteger)index{
     
     if (index != self.selectedIndex) {
+        //防止crash，加上看看
+        int buttonCount = 0;
+        for (UIButton *obj in _categoryScrollView.subviews) {
+            if ([obj isKindOfClass:[UIButton class]]) {
+                buttonCount++;
+            }
+        }
+        if (index > buttonCount) {
+            return;
+        }
+        
         UIButton *origin = (UIButton *)[_categoryScrollView viewWithTag:self.selectedIndex];
         if ([origin isKindOfClass:[UIButton class]]) {
             //origin.transform = CGAffineTransformIdentity;

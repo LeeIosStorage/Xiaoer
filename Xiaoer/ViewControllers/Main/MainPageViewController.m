@@ -260,6 +260,7 @@
 
 ///刷新广告位
 - (void)refreshAdsScrollView {
+    [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     if (!_adsThemeArray.count) {
 //        self.tableView.tableHeaderView = nil;
         self.adsViewContainer = nil;
@@ -268,7 +269,6 @@
     //移除老view
     for (UIView *view in _adsViewContainer.subviews) {
         [view removeFromSuperview];
-        [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_STOP_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     }
     
     scrollPageView = [[XEScrollPage alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(_adsViewContainer.frame))];
