@@ -31,6 +31,7 @@
 #import "CardPackViewController.h"
 #import "StageSelectViewController.h"
 #import "TicketListViewController.h"
+#import "AppDelegate.h"
 
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     ODRefreshControl *_themeControl;
@@ -420,9 +421,11 @@
         }
             break;
         case 2:{
-            RecipesViewController *rVc = [[RecipesViewController alloc] init];
-            rVc.infoType = TYPE_EVALUATION;
-            [self.navigationController pushViewController:rVc animated:YES];
+//            RecipesViewController *rVc = [[RecipesViewController alloc] init];
+//            rVc.infoType = TYPE_EVALUATION;
+//            [self.navigationController pushViewController:rVc animated:YES];
+            AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+            [appDelegate.mainTabViewController.tabBar selectIndex:1];
         }
             break;
         case 1:{

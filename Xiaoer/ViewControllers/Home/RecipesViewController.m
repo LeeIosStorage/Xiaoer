@@ -88,7 +88,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
     }else if (self.infoType == TYPE_HABIT) {
         [self setTitle:@"好习惯"];
     }
-    [self setRightButtonWithImageName:@"common_collect_icon" selector:@selector(settingAction)];
+//    [self setRightButtonWithImageName:@"common_collect_icon" selector:@selector(settingAction)];
 }
 
 - (void)getCacheCategoryInfo{

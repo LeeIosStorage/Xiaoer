@@ -17,6 +17,7 @@
 #import "TopicDetailsViewController.h"
 #import "QuestionDetailsViewController.h"
 #import "ExpertListViewController.h"
+#import "XEPublicViewController.h"
 
 @interface TopicListViewController ()<UITableViewDelegate,UITableViewDataSource,QuestionDetailsViewControllerDelegate,TopicDetailsViewControllerDelegate>
 
@@ -169,6 +170,7 @@
         }else{
             [self setTitle:@"全部话题"];
         }
+        [self setRightButtonWithImageName:@"expert_public_icon" selector:@selector(publicTopic)];
     }
 }
 
@@ -429,6 +431,12 @@
     ExpertListViewController *elVc = [[ExpertListViewController alloc] init];
     elVc.isNeedSelect = YES;
     [self.navigationController pushViewController:elVc animated:YES];
+}
+
+- (void)publicTopic{
+    XEPublicViewController *pVc = [[XEPublicViewController alloc] init];
+    pVc.publicType = Public_Type_Topic;
+    [self.navigationController pushViewController:pVc animated:YES];
 }
 
 - (void)dealloc{
