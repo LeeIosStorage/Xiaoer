@@ -21,9 +21,10 @@
     if (topicTextSize.height < 16) {
         topicTextSize.height = 16;
     }
-    float height = topicTextSize.height;
-    height += 66;
-    height += 25;
+    float height = 0.0;
+//    height = topicTextSize.height;
+//    height += 66;
+//    height += 25;
     
     height = 145;
     return height;

@@ -89,7 +89,7 @@
             NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
             if (!jsonRet || errorMsg) {
                 if (!errorMsg.length) {
-                    errorMsg = @"请求失败";
+//                    errorMsg = @"请求失败";
                 }
                 return;
             }

@@ -75,6 +75,11 @@
 
 @implementation ExpertChatViewController
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self initNormalTitleNavBarSubviews];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -200,7 +205,7 @@
 }
 
 - (void)initNormalTitleNavBarSubviews{
-    if (![XEEngine shareInstance].bVisitor) {
+    if ([[XEEngine shareInstance] hasAccoutLoggedin]) {
         //[self setLeftButtonWithTitle:@"我的问答" selector:@selector(mineAction)];
         [self setLeft2ButtonWithImageName:@"expert_question_icon" selector:@selector(mineAction)];
     }
