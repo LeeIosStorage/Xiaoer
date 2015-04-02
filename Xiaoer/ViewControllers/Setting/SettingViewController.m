@@ -70,7 +70,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 4;
+        return 3;
     }
 #ifdef DEBUG
     return 2;
@@ -119,15 +119,16 @@
                     cell.rightLabel.hidden = NO;
                 }
                 break;
-            }else if (indexPath.row == 1){
-                cell.titleLabel.text = @"检查更新";
-                break;
             }
-            else if (indexPath.row == 2){
+//            }else if (indexPath.row == 1){
+//                cell.titleLabel.text = @"检查更新";
+//                break;
+//            }
+            else if (indexPath.row == 1){
                 cell.titleLabel.text = @"给我评分";
                 break;
             }
-            else if (indexPath.row == 3){
+            else if (indexPath.row == 2){
                 cell.titleLabel.text = @"关于我们";
                 break;
             }
@@ -168,12 +169,14 @@
             if (indexPath.row == 0) {
                 [self showClearCacheAction];
                 break;
-            }else if (indexPath.row == 1){
-                [self checkVersion];
-                break;
-            }else if (indexPath.row == 2){
+            }
+//            else if (indexPath.row == 1){
+//                [self checkVersion];
+//                break;
+//            }
+            else if (indexPath.row == 1){
                 [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id967105015"]];
-            }else if (indexPath.row == 3){
+            }else if (indexPath.row == 2){
                 AboutViewController *aVc = [[AboutViewController alloc] init];
                 [self.navigationController pushViewController:aVc animated:YES];
                 break;

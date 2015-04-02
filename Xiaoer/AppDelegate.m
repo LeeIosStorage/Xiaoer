@@ -129,7 +129,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     self.window.rootViewController = tabNavVc;
     
-    [self checkVersion];
+//    [self checkVersion];
     
 }
 
