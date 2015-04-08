@@ -2803,9 +2803,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMAnalytics",
-					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMFeedback",
-					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_4.2",
 					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
@@ -2837,9 +2834,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMAnalytics",
-					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMFeedback",
-					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_4.2",
 					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_Extra_Frameworks/Sina",
 					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/Xiaoer/External/UMeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
