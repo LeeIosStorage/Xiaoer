@@ -16,6 +16,8 @@
 #import "XEPublicViewController.h"
 #import "ODRefreshControl.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "PerfectInfoViewController.h"
+#import "XEAlertView.h"
 
 @interface ExpertListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -96,7 +98,7 @@
         [self refreshExpertList:YES];
     }else if (_vcType == VcType_Nurser){
         
-        if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        if ([[XEEngine shareInstance] needUserLogin:@"绑定育婴师需登录，请先登录"]) {
             
         }
         
@@ -417,7 +419,7 @@
 }
 
 -(void)bindNurser:(XEDoctorInfo *)doctorInfo{
-    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+    if ([[XEEngine shareInstance] needUserLogin:@"绑定育婴师需登录，请先登录"]) {
         return;
     }
     [XEProgressHUD AlertLoading:@"绑定中..." At:self.view];
@@ -430,7 +432,24 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            if([errorMsg isEqualToString:@"因为当前用户没有设置默认宝宝,请求发送失败"]){
+                __weak ExpertListViewController *weakSelf = self;
+                XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"绑定育婴师需有宝宝，请先添加宝宝" cancelButtonTitle:@"取消" cancelBlock:^{
+                } okButtonTitle:@"确定" okBlock:^{
+                    PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
+                    piVc.userInfo = [XEEngine shareInstance].userInfo;
+                    piVc.finishedCallBack = ^(BOOL isFinish){
+                        if (isFinish) {
+                            doctorInfo.status = 2;
+                            [weakSelf.tableView reloadData];
+                        }
+                    };
+                    [weakSelf.navigationController pushViewController:piVc animated:YES];
+                }];
+                [alertView show];
+            }else{
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            }
             return;
         }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];

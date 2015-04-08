@@ -22,6 +22,8 @@
 #import "WelcomeViewController.h"
 #import "XENavigationController.h"
 #import "PerfectInfoViewController.h"
+#import "ExpertListViewController.h"
+
 #define Tag_Stage_Previous   101
 #define Tag_Stage_Next       102
 
@@ -94,6 +96,7 @@
     
     [self setTitle:@"评测"];
     [self setRightButtonWithImageName:@"eva_recipes_icon" selector:@selector(showAction)];
+    [self setLeftButtonWithTitle:@"育婴师" selector:@selector(nurserAction)];
     if ([self isVisitor]) {
         [self.titleNavBarRightBtn setHidden:YES];
     }else{
@@ -375,6 +378,12 @@
     rVc.infoType = TYPE_EVALUATION;
     rVc.bSpecific = YES;
     [self.navigationController pushViewController:rVc animated:YES];
+}
+
+- (void)nurserAction{
+    ExpertListViewController *elVc = [[ExpertListViewController alloc] init];
+    elVc.vcType = VcType_Nurser;
+    [self.navigationController pushViewController:elVc animated:YES];
 }
 
 - (void)dealloc {

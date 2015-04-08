@@ -272,10 +272,10 @@
             [XEProgressHUD lightAlert:@"请输入您的地区"];
             return;
         }
-        if (_userInfo.address.length == 0) {
-            [XEProgressHUD lightAlert:@"请输入您的详细地址"];
-            return;
-        }
+//        if (_userInfo.address.length == 0) {
+//            [XEProgressHUD lightAlert:@"请输入您的详细地址"];
+//            return;
+//        }
         if (_userInfo.phone.length == 0) {
             [XEProgressHUD lightAlert:@"请输入您的常用手机"];
             return;
