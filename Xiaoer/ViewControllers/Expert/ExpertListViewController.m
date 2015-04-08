@@ -18,6 +18,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "PerfectInfoViewController.h"
 #import "XEAlertView.h"
+#import "BabyListViewController.h"
 
 @interface ExpertListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -98,9 +99,9 @@
         [self refreshExpertList:YES];
     }else if (_vcType == VcType_Nurser){
         
-        if ([[XEEngine shareInstance] needUserLogin:@"绑定育婴师需登录，请先登录"]) {
-            
-        }
+//        if ([[XEEngine shareInstance] needUserLogin:@"绑定育婴师需登录，请先登录"]) {
+//            
+//        }
         
         [self.tableView addInfiniteScrollingWithActionHandler:^{
             if (!weakSelf) {
@@ -418,8 +419,27 @@
     
 }
 
+-(XEUserInfo *)getBabyUserInfo:(NSInteger)index{
+    if ([XEEngine shareInstance].userInfo.babys.count > index) {
+        XEUserInfo *babyUserInfo = [[XEEngine shareInstance].userInfo.babys objectAtIndex:index];
+        return babyUserInfo;
+    }
+    return nil;
+}
+
 -(void)bindNurser:(XEDoctorInfo *)doctorInfo{
     if ([[XEEngine shareInstance] needUserLogin:@"绑定育婴师需登录，请先登录"]) {
+        return;
+    }
+    XEUserInfo *userInfo = [self getBabyUserInfo:0];
+    if (userInfo == nil || userInfo.babyId.length == 0) {
+        __weak ExpertListViewController *weakSelf = self;
+        XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"绑定育婴师需有宝宝，请先添加宝宝" cancelButtonTitle:@"取消" cancelBlock:^{
+        } okButtonTitle:@"确定" okBlock:^{
+            BabyListViewController *vc = [[BabyListViewController alloc] init];
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }];
+        [alertView show];
         return;
     }
     [XEProgressHUD AlertLoading:@"绑定中..." At:self.view];
@@ -432,24 +452,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            if([errorMsg isEqualToString:@"因为当前用户没有设置默认宝宝,请求发送失败"]){
-                __weak ExpertListViewController *weakSelf = self;
-                XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"绑定育婴师需有宝宝，请先添加宝宝" cancelButtonTitle:@"取消" cancelBlock:^{
-                } okButtonTitle:@"确定" okBlock:^{
-                    PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
-                    piVc.userInfo = [XEEngine shareInstance].userInfo;
-                    piVc.finishedCallBack = ^(BOOL isFinish){
-                        if (isFinish) {
-                            doctorInfo.status = 2;
-                            [weakSelf.tableView reloadData];
-                        }
-                    };
-                    [weakSelf.navigationController pushViewController:piVc animated:YES];
-                }];
-                [alertView show];
-            }else{
-                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];

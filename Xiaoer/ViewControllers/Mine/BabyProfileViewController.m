@@ -93,10 +93,10 @@
         [XEProgressHUD lightAlert:@"请填写宝宝资料"];
         return;
     }
-    if (babyUserInfo.babyAvatarId.length == 0) {
-        [XEProgressHUD lightAlert:@"请上传宝宝头像"];
-        return;
-    }
+//    if (babyUserInfo.babyAvatarId.length == 0) {
+//        [XEProgressHUD lightAlert:@"请上传宝宝头像"];
+//        return;
+//    }
     if (babyUserInfo.babyNick.length == 0) {
         [XEProgressHUD lightAlert:@"请输入宝宝昵称"];
         return;
@@ -390,7 +390,7 @@
 
 #pragma mark -XEInputViewControllerDelegate
 - (void)inputViewControllerWithText:(NSString*)text{
-    XELog(@"text==%@",text);
+//    XELog(@"text==%@",text);
     _selectBabyInfo.babyNick = text;
     [self.tableView reloadData];
 }

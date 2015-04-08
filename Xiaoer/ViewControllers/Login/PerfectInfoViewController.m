@@ -283,10 +283,10 @@
     }
     if (self.showType == 2 || self.showType == 3){
         XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
-        if (babyUserInfo.babyAvatarId.length == 0) {
-            [XEProgressHUD lightAlert:@"请上传宝宝头像"];
-            return;
-        }
+//        if (babyUserInfo.babyAvatarId.length == 0) {
+//            [XEProgressHUD lightAlert:@"请上传宝宝头像"];
+//            return;
+//        }
         if (babyUserInfo.babyNick.length == 0) {
             [XEProgressHUD lightAlert:@"请输入宝宝昵称"];
             return;
