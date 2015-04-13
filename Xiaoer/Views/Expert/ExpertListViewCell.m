@@ -47,7 +47,7 @@
 -(void)setDoctorInfo:(XEDoctorInfo *)doctorInfo{
     _doctorInfo = doctorInfo;
     
-    [_avatarImageView sd_setImageWithURL:doctorInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
+    [_avatarImageView sd_setImageWithURL:doctorInfo.largeAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
     
     
     float titleLength = [XECommonUtils widthWithText:_doctorInfo.title font:_doctorNameLabel.font lineBreakMode:NSLineBreakByCharWrapping]/16;

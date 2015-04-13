@@ -829,8 +829,13 @@
             cropSize.width = MIN(image.size.width, image.size.height);
             imageAfterScale = [image imageCroppedToFitSize:cropSize];
         }
-        
-        NSData* imageData = UIImageJPEGRepresentation(imageAfterScale, XE_IMAGE_COMPRESSION_QUALITY);
+        NSData* imageAfterData = UIImageJPEGRepresentation(imageAfterScale, 1);
+        float length = [imageAfterData length]/1024;
+        CGFloat compressionQuality = XE_IMAGE_COMPRESSION_QUALITY;
+        if (length < 70) {
+            compressionQuality = 1;
+        }
+        NSData* imageData = UIImageJPEGRepresentation(imageAfterScale, compressionQuality);
 //        XELog(@"imageData%@",imageData);
         
         if (_editTag == TAG_USER_AVATER) {

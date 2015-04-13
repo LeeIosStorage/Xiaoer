@@ -266,7 +266,7 @@
     self.avatarImageView.layer.masksToBounds = YES;
     self.avatarImageView.clipsToBounds = YES;
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.avatarImageView sd_setImageWithURL:_doctorInfo.mediumAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
+    [self.avatarImageView sd_setImageWithURL:_doctorInfo.largeAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
     
     
     float titleLength = [XECommonUtils widthWithText:_doctorInfo.title font:_doctorNameLabel.font lineBreakMode:NSLineBreakByCharWrapping]/16;
