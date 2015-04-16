@@ -24,7 +24,7 @@
         _hospital = [dic stringObjectForKey:@"hospital"];
     }
     if ([dic objectForKey:@"title"]) {
-        _title = [dic objectForKey:@"title"];
+        _title = [[dic objectForKey:@"title"] description];
     }
     if ([dic objectForKey:@"professional"]) {
         _professional = [[dic objectForKey:@"professional"] description];
