@@ -64,6 +64,7 @@
 -(IBAction)openStateAction:(id)sender;
 -(IBAction)photoAction:(id)sender;
 -(IBAction)expressionAction:(id)sender;
+-(IBAction)textViewResponderAction:(id)sender;
 
 @end
 
@@ -322,11 +323,18 @@
         self.topicTypeContainerView.hidden = YES;
 //        self.titleTextField.placeholder = @"请输入标题（必填）";
         self.placeHolderLabel.text = @"请尽可能详细描述宝宝的状态，以便得到最好的解答";
+        
+        CGRect frame = self.inputContainerView.frame;
+        frame.origin.y = self.topicTypeContainerView.frame.origin.y;
+        frame.size.height = (SCREEN_HEIGHT - _toolbarContainerView.frame.size.height - self.mainScrollView.contentInset.top);
+        self.inputContainerView.frame = frame;
+        
     }else if (_publicType == Public_Type_Topic){
         self.openStateButton.hidden = YES;
         self.topicTypeContainerView.hidden = NO;
         CGRect frame = self.inputContainerView.frame;
         frame.origin.y = self.topicTypeContainerView.frame.origin.y + self.topicTypeContainerView.frame.size.height;
+        frame.size.height = (SCREEN_HEIGHT - _toolbarContainerView.frame.size.height - self.mainScrollView.contentInset.top - self.topicTypeContainerView.frame.size.height);
         self.inputContainerView.frame = frame;
 //        self.titleTextField.placeholder = @"请输入标题（必填）";
         self.placeHolderLabel.text = @"请输入您要发布的内容";
@@ -334,6 +342,8 @@
     }
     
     [self.imageGridView reloadData];
+    
+    
     
     CGRect frame = self.contentContainerView.frame;
     frame.size.height = self.inputContainerView.frame.origin.y + self.inputContainerView.frame.size.height;
@@ -453,6 +463,9 @@
 -(IBAction)openStateAction:(id)sender{
     self.openStateButton.selected = !self.openStateButton.selected;
     [self refreshViewUI];
+}
+-(IBAction)textViewResponderAction:(id)sender{
+    [self.descriptionTextView becomeFirstResponder];
 }
 
 -(IBAction)photoAction:(id)sender{

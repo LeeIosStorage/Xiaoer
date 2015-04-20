@@ -103,7 +103,9 @@
         }else{
             _servicerInfoSucceed = YES;
             NSDictionary *dic = [jsonRet dictionaryObjectForKey:@"object"];
+            int status = weakSelf.activityInfo.status;
             [weakSelf.activityInfo setActivityInfoByJsonDic:dic];
+            weakSelf.activityInfo.status = status;
             
             [weakSelf refreshAdsScrollView];
             [weakSelf refreshActivityHeadShow];
@@ -518,6 +520,10 @@
         weakSelf.activityInfo.status = 3;
         weakSelf.activityInfo.regnum ++;
         [weakSelf refreshActivityHeadShow];
+        
+        if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(activityDetailsViewController:changeStatus:)]) {
+            [self.delegate activityDetailsViewController:self changeStatus:weakSelf.activityInfo];
+        }
         
         if (weakSelf.isTicketActivity) {
             [self stopTimer];

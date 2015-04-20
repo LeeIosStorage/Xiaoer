@@ -18,7 +18,7 @@
 #import "PerfectInfoViewController.h"
 #import "ApplyActivityViewController.h"
 
-@interface TicketListViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface TicketListViewController ()<UITableViewDataSource,UITableViewDelegate,ActivityDetailsViewControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *ticketList;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -219,6 +219,7 @@
     ActivityDetailsViewController *vc = [[ActivityDetailsViewController alloc] init];
     vc.activityInfo = activityInfo;
     vc.isTicketActivity = YES;
+    vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -291,6 +292,18 @@
     }
     [[NSUserDefaults standardUserDefaults] setInteger:count forKey:key];
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_TICKET_CHANGED_NOTIFICATION object:self];
+}
+
+#pragma mark - ActivityDetailsViewControllerDelegate
+- (void)activityDetailsViewController:(ActivityDetailsViewController*)controller changeStatus:(XEActivityInfo*)activityInfo{
+    for (XEActivityInfo *aInfo in _ticketList) {
+        if ([aInfo.aId isEqualToString:activityInfo.aId]) {
+            aInfo.status = activityInfo.status;
+            aInfo.regnum = activityInfo.regnum;
+            [self.tableView reloadData];
+            break;
+        }
+    }
 }
 
 @end
