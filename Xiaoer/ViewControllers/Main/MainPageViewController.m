@@ -476,7 +476,7 @@
     indexLabel.backgroundColor = [UIColor clearColor];
     indexLabel.textColor = [UIColor lightGrayColor];
     indexLabel.font = [UIFont systemFontOfSize:13];
-    indexLabel.text = @"注意力和好习惯";
+    indexLabel.text = @"专注力力和好习惯";
     [view addSubview:indexLabel];
     
     return view;
@@ -494,7 +494,7 @@
     }
     
     if (indexPath.row == 0) {
-        cell.titleLabel.text = @"注意力培养";
+        cell.titleLabel.text = @"专注力培养";
         cell.subTitleLabel.text = @"注意力不集中影响宝宝智力发育";
         cell.itemImageView.image = [UIImage imageNamed:@"home_attention_icon"];
     }else if (indexPath.row == 1) {
