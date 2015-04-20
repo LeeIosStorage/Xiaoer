@@ -372,6 +372,9 @@
 
 - (void)showAction{
     RecipesViewController *rVc = [[RecipesViewController alloc] init];
+    if (!_babyInfo) {
+        rVc.stage = 1;
+    }
     if (_babyInfo.stage > 0) {
         rVc.stage = _babyInfo.stage;
     }
