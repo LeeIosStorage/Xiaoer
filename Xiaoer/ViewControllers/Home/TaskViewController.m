@@ -206,7 +206,7 @@
     }
     [self addSubviewToScrollView:_containerScroll withIndex:0];
     //多算两屏,默认第二屏
-    _containerScroll.ContentSize = CGSizeMake(8*frame.size.width,frame.size.height);
+    _containerScroll.contentSize = CGSizeMake(8*frame.size.width,frame.size.height);
     [_containerScroll scrollRectToVisible:CGRectMake(frame.size.width, 0, frame.size.width, frame.size.height) animated:NO];
     //设置pageControl属性
     _pageControl.numberOfPages = 6;

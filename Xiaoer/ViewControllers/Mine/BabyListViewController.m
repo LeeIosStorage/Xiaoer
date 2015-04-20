@@ -113,7 +113,7 @@
     
     XEUserInfo *babyInfo = [self.babyInfos objectAtIndex:indexPath.section];
     [cell.avatarImageView sd_setImageWithURL:babyInfo.babySmallAvatarUrl placeholderImage:[UIImage imageNamed:@"home_placeholder_avatar"]];
-    cell.avatarImageView.layer.CornerRadius = 8;
+    cell.avatarImageView.layer.cornerRadius = 8;
     cell.avatarImageView.clipsToBounds = YES;
     cell.nickNameLabel.text = babyInfo.babyNick;
     cell.monthLabel.text = [XEUIUtils dateDiscription1FromNowBk:babyInfo.birthdayDate];

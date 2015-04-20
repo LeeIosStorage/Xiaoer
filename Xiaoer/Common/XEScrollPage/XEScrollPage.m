@@ -89,7 +89,7 @@
     [self addSubviewToScrollView:_adsScrollView withURL:theme.originalThemeImageUrl withTag:_dataArray.count];
     
     //多算两屏,默认第二屏
-    _adsScrollView.ContentSize = CGSizeMake((_dataArray.count + 2)*frame.size.width,frame.size.height);
+    _adsScrollView.contentSize = CGSizeMake((_dataArray.count + 2)*frame.size.width,frame.size.height);
     [_adsScrollView scrollRectToVisible:CGRectMake(frame.size.width, 0, frame.size.width, frame.size.height) animated:NO];
     //设置pageControl属性
     _adsPageControl.numberOfPages = _dataArray.count;

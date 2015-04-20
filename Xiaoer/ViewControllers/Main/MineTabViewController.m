@@ -131,7 +131,7 @@ enum TABLEVIEW_SECTION_INDEX {
     if ([self isVisitor]) {
         [self setTitle:@"未登录"];
         [self.visitorImageView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
-        self.visitorImageView.layer.CornerRadius = 8;
+        self.visitorImageView.layer.cornerRadius = 8;
         self.tableView.tableHeaderView = self.visitorHeadView;
     }else{
         XEUserInfo *userInfo = [self getBabyUserInfo:0];
@@ -149,7 +149,7 @@ enum TABLEVIEW_SECTION_INDEX {
         self.ownerbkImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.ownerbkImageView sd_setImageWithURL:_userInfo.bgImgUrl placeholderImage:[UIImage imageNamed:@"user_default_bg_img"]];
         [self.ownerHeadImageView sd_setImageWithURL:_userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
-        self.ownerHeadImageView.layer.CornerRadius = 8;
+        self.ownerHeadImageView.layer.cornerRadius = 8;
         NSString *babyNick = userInfo.babyNick;
         if (babyNick.length == 0) {
             babyNick = @"未设置宝宝信息";

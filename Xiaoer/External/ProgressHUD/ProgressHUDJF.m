@@ -53,7 +53,7 @@
 //////////////////////////////////////////////////////////////////////////////
 + (void)show:(NSString *)status Interaction:(BOOL)Interaction atView:(UIView *)view
 {
-    [self shared].Interaction = Interaction;
+    [self shared].interaction = Interaction;
     [[self shared] hudMake:status image:nil spin:YES hide:NO atView:view];
 }
 

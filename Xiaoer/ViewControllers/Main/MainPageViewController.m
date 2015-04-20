@@ -115,7 +115,7 @@
 - (void)refreshUserInfoShow{
     XEUserInfo *userInfo = [self getBabyUserInfo:0];
     [self.avatarImageView sd_setImageWithURL:userInfo.babySmallAvatarUrl placeholderImage:[UIImage imageNamed:@"home_placeholder_avatar"]];
-    self.avatarImageView.layer.CornerRadius = 8;
+    self.avatarImageView.layer.cornerRadius = 8;
     self.avatarImageView.clipsToBounds = YES;
     self.nickName.text = userInfo.babyNick;
     self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];

@@ -796,8 +796,8 @@
 {
     //判断是否在当前位置，改变按钮-返回当前位置的图标
     CLLocationCoordinate2D location = mapView1.centerCoordinate;
-    long changeLat = abs((_currentLocation.latitude - location.latitude)*50000);
-    long changeLong = abs((_currentLocation.longitude - location.longitude)*20000);
+    long changeLat = fabs((_currentLocation.latitude - location.latitude)*50000);
+    long changeLong = fabs((_currentLocation.longitude - location.longitude)*20000);
     
     if (changeLat == 0 && changeLong == 0) {
         //        return;

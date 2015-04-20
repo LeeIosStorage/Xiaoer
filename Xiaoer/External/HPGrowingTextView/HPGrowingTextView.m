@@ -111,7 +111,7 @@
 	CGRect r = [self resizeTextViewWithContentInset];
 
     //判断宽度是否变化
-    if (fabsf(internalTextView.frame.size.width - r.size.width) > 0.000001) {
+    if (fabs(internalTextView.frame.size.width - r.size.width) > 0.000001) {
         isWidthChanged = YES;
     }
     

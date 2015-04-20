@@ -172,7 +172,7 @@
     
     XEUserInfo *babyUserInfo = [self getBabyUserInfo:0];
     [self.avatarImageView sd_setImageWithURL:babyUserInfo.babySmallAvatarUrl placeholderImage:[UIImage imageNamed:@"home_placeholder_avatar"]];
-    self.avatarImageView.layer.CornerRadius = 8;
+    self.avatarImageView.layer.cornerRadius = 8;
     self.avatarImageView.clipsToBounds = YES;
     self.nickNameLabel.text = [NSString stringWithFormat:@"%@  %@",babyUserInfo.babyNick,[XEUIUtils dateDiscription1FromNowBk:babyUserInfo.birthdayDate]];
 }
