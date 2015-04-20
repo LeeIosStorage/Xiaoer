@@ -113,7 +113,7 @@
 }
 
 - (BOOL)isVisitor{
-    if ([XEEngine shareInstance].bVisitor) {
+    if (![[XEEngine shareInstance] hasAccoutLoggedin]) {
         return YES;
     }
     return NO;
