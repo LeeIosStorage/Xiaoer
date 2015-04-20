@@ -176,6 +176,7 @@
 //            }
             else if (indexPath.row == 1){
                 [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id967105015"]];
+                break;
             }else if (indexPath.row == 2){
                 AboutViewController *aVc = [[AboutViewController alloc] init];
                 [self.navigationController pushViewController:aVc animated:YES];
@@ -202,8 +203,8 @@
                     [sheet addButtonWithTitle:@"取消"];
                     sheet.cancelButtonIndex = sheet.numberOfButtons -1;
                     [sheet showInView:self.view];
-                    break;
                 }
+                break;
             }else if (indexPath.row == 1){
                 [self onLogoutWithError:nil];
                 break;
