@@ -523,7 +523,7 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
         }else if(offset < 0 && _selectedIndex > 1){
             relativeButton = (UIButton *)[_categoryScrollView viewWithTag:_selectedIndex-1];
         }
-        offset = fabsf(offset);
+        offset = fabs(offset);
         if (offset > 320) {
             //滑动太快算法有点问题，控制一下
             bOverspeed = YES;
@@ -533,8 +533,8 @@ static const CGFloat kNavbarButtonScaleFactor = 1.33333333f;
         if (relativeButton) {
             
             CGFloat scrollViewWidth = scrollView.frame.size.width;
-            CGFloat currentScaleFactor = (kNavbarButtonScaleFactor)-(kNavbarButtonScaleFactor-1)*fabsf(offset)/scrollViewWidth;
-            CGFloat relativeScaleFactor = (kNavbarButtonScaleFactor-1)*fabsf(offset)/scrollViewWidth+1.f;
+            CGFloat currentScaleFactor = (kNavbarButtonScaleFactor)-(kNavbarButtonScaleFactor-1)*fabs(offset)/scrollViewWidth;
+            CGFloat relativeScaleFactor = (kNavbarButtonScaleFactor-1)*fabs(offset)/scrollViewWidth+1.f;
             
             UIColor *currentColor = [UIColor colorWithRed:((self.unselectedLabelColor.red-self.selectedLabelColor.red)*offset/scrollViewWidth+self.selectedLabelColor.red)
                                                     green:((self.unselectedLabelColor.green-self.selectedLabelColor.green)*offset/scrollViewWidth+self.selectedLabelColor.green)
