@@ -130,10 +130,6 @@
     
     _maxTitleTextLength = 28;
     _maxDescriptionLength = 1000;
-    CGRect frame = self.placeHolderLabel.frame;
-    CGSize textSize = [XECommonUtils sizeWithText:self.placeHolderLabel.text font:self.placeHolderLabel.font width:SCREEN_WIDTH-13*2];
-    frame.size.height = textSize.height;
-    self.placeHolderLabel.frame = frame;
     
     self.selectTopicTypeDic = [NSMutableDictionary dictionary];
     self.openStateButton.selected = NO;
@@ -313,6 +309,7 @@
 #pragma mark - custom
 -(void)refreshViewUI{
     
+    NSString *placeHolderLabelText;
     if (_publicType == Public_Type_Expert) {
         self.openStateButton.hidden = NO;
         if (self.openStateButton.selected) {
@@ -322,7 +319,7 @@
         }
         self.topicTypeContainerView.hidden = YES;
 //        self.titleTextField.placeholder = @"请输入标题（必填）";
-        self.placeHolderLabel.text = @"请尽可能详细描述宝宝的状态，以便得到最好的解答";
+        placeHolderLabelText = @"请尽可能详细描述宝宝的状态，以便得到最好的解答";
         
         CGRect frame = self.inputContainerView.frame;
         frame.origin.y = self.topicTypeContainerView.frame.origin.y;
@@ -337,15 +334,20 @@
         frame.size.height = (SCREEN_HEIGHT - _toolbarContainerView.frame.size.height - self.mainScrollView.contentInset.top - self.topicTypeContainerView.frame.size.height);
         self.inputContainerView.frame = frame;
 //        self.titleTextField.placeholder = @"请输入标题（必填）";
-        self.placeHolderLabel.text = @"请输入您要发布的内容";
+        placeHolderLabelText = @"请输入您要发布的内容";
 //        [self refreshTypeButton];
     }
+    self.placeHolderLabel.text = placeHolderLabelText;
+    CGRect frame = self.placeHolderLabel.frame;
+    CGSize textSize = [XECommonUtils sizeWithText:placeHolderLabelText font:self.placeHolderLabel.font width:SCREEN_WIDTH-13*2];
+    frame.size.height = textSize.height;
+    self.placeHolderLabel.frame = frame;
     
     [self.imageGridView reloadData];
     
     
     
-    CGRect frame = self.contentContainerView.frame;
+    frame = self.contentContainerView.frame;
     frame.size.height = self.inputContainerView.frame.origin.y + self.inputContainerView.frame.size.height;
     self.contentContainerView.frame = frame;
     
