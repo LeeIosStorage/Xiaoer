@@ -28,6 +28,7 @@
 }
 @property (nonatomic, strong) NSMutableArray *expertList;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) IBOutlet UIImageView *nurserNoneTipView;
 @property (assign, nonatomic) SInt64  nextCursor;
 @property (assign, nonatomic) BOOL canLoadMore;
 
@@ -175,6 +176,28 @@
 }
 */
 
+-(void)refreshViewUI{
+    if (_vcType == VcType_Nurser) {
+        if (_expertList && _expertList.count == 0) {
+            self.nurserNoneTipView.hidden = NO;
+            self.tableView.hidden = YES;
+            self.nurserNoneTipView.clipsToBounds = YES;
+            self.nurserNoneTipView.contentMode = UIViewContentModeScaleAspectFill;
+            CGRect frame = self.view.bounds;
+            if (frame.size.height == 480) {
+                frame = self.nurserNoneTipView.frame;
+                frame.origin.y = 50;
+                self.nurserNoneTipView.frame = frame;
+            }
+        }else{
+            self.nurserNoneTipView.hidden = YES;
+            self.tableView.hidden = NO;
+        }
+    }else{
+        self.nurserNoneTipView.hidden = YES;
+    }
+}
+
 #pragma mark - 育婴师
 - (void)getCacheNurserInfo{
     __weak ExpertListViewController *weakSelf = self;
@@ -230,6 +253,7 @@
             weakSelf.tableView.showsInfiniteScrolling = YES;
             weakSelf.nextCursor ++;
         }
+        [weakSelf refreshViewUI];
         [weakSelf.tableView reloadData];
         
     }tag:tag];
