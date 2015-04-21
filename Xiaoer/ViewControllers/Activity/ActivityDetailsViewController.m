@@ -463,6 +463,7 @@
         if (_isTicketActivity) {
             message = @"您需要完善资料才能抢票";
         }
+        __weak ActivityDetailsViewController *weakSelf = self;
         XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:message cancelButtonTitle:@"取消" cancelBlock:^{
         } okButtonTitle:@"确定" okBlock:^{
             PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
@@ -471,10 +472,13 @@
             piVc.activityInfo = _activityInfo;
             piVc.finishedCallBack = ^(BOOL isFinish){
                 if (isFinish) {
-                    [self refreshActivityHeadShow];
+                    [weakSelf refreshActivityHeadShow];
+                    if (weakSelf.delegate !=nil && [weakSelf.delegate respondsToSelector:@selector(activityDetailsViewController:changeStatus:)]) {
+                        [weakSelf.delegate activityDetailsViewController:weakSelf changeStatus:weakSelf.activityInfo];
+                    }
                 }
             };
-            [self.navigationController pushViewController:piVc animated:YES];
+            [weakSelf.navigationController pushViewController:piVc animated:YES];
         }];
         [alertView show];
     }
@@ -512,7 +516,7 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [self refreshActivityHeadShow];
+            [weakSelf refreshActivityHeadShow];
             [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }
@@ -521,12 +525,12 @@
         weakSelf.activityInfo.regnum ++;
         [weakSelf refreshActivityHeadShow];
         
-        if (self.delegate !=nil && [self.delegate respondsToSelector:@selector(activityDetailsViewController:changeStatus:)]) {
-            [self.delegate activityDetailsViewController:self changeStatus:weakSelf.activityInfo];
+        if (weakSelf.delegate !=nil && [weakSelf.delegate respondsToSelector:@selector(activityDetailsViewController:changeStatus:)]) {
+            [weakSelf.delegate activityDetailsViewController:weakSelf changeStatus:weakSelf.activityInfo];
         }
         
         if (weakSelf.isTicketActivity) {
-            [self stopTimer];
+            [weakSelf stopTimer];
             [weakSelf refreshActivityInfo];
         }else{
             ApplyActivityViewController *applyVc = [[ApplyActivityViewController alloc] init];

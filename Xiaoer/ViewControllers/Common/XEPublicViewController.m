@@ -726,9 +726,11 @@
 //        _oldRect = supViewFrame;
 //    }
     
-    CGRect toolbarFrame = _toolbarContainerView.frame;
-    toolbarFrame.origin.y = self.view.bounds.size.height - keyboardBounds.size.height - toolbarFrame.size.height;
-    _toolbarContainerView.frame = toolbarFrame;
+    //toolbarContainerView随着键盘移动
+//    CGRect toolbarFrame = _toolbarContainerView.frame;
+//    toolbarFrame.origin.y = self.view.bounds.size.height - keyboardBounds.size.height - toolbarFrame.size.height;
+//    _toolbarContainerView.frame = toolbarFrame;
+    
     // commit animations
     [UIView commitAnimations];
 }
