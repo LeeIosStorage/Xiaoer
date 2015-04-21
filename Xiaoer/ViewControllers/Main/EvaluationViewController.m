@@ -285,7 +285,16 @@
             if (!errorMsg.length) {
                 errorMsg = @"请求失败";
             }
-            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            
+            //只在当前页面提示
+            if ([self.navigationController.visibleViewController isKindOfClass:[XETabBarViewController class]]) {
+                XETabBarViewController *tabBarViewController = (XETabBarViewController *)self.navigationController.visibleViewController;
+                UIViewController *currentVc = tabBarViewController.selectedViewController;
+                if ([currentVc isKindOfClass:[EvaluationViewController class]]) {
+                    [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+                }
+            }
+            
             [weakSelf refreshEvaWithStage:stageIndex];
             [_themeControl endRefreshing:NO];
             return;
