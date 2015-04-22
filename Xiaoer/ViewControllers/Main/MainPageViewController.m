@@ -473,7 +473,7 @@
     indexLabel.backgroundColor = [UIColor clearColor];
     indexLabel.textColor = [UIColor lightGrayColor];
     indexLabel.font = [UIFont systemFontOfSize:13];
-    indexLabel.text = @"专注力力和好习惯";
+    indexLabel.text = @"专注力和好习惯";
     [view addSubview:indexLabel];
     
     return view;
