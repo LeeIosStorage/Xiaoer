@@ -440,6 +440,8 @@
             [cell.infoImageView setImage:[UIImage imageNamed:@"recipes_load_icon"]];
         }
         cell.titleLabel.text = recipesInfo.title;
+        cell.readLabel.text = [NSString stringWithFormat:@"%d",recipesInfo.readNum];
+        cell.collectLabel.text = [NSString stringWithFormat:@"%d",recipesInfo.favNum];
         
         if (indexPath.row == 0) {
             cell.topline.hidden = NO;

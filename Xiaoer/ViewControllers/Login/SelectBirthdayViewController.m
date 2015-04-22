@@ -44,7 +44,11 @@
     compsNow.year -= 30;
     _datePicker.minimumDate = [calender dateFromComponents:compsNow];
     if (_maximumDateAddYear > 0) {
-        compsNow.year += 30 + _maximumDateAddYear;
+        
+        compsNow.year += 30;
+        _datePicker.minimumDate = [calender dateFromComponents:compsNow];
+        
+        compsNow.year += _maximumDateAddYear;
         _datePicker.maximumDate = [calender dateFromComponents:compsNow];
     }
     [self setValueByDate:_datePicker.date];
