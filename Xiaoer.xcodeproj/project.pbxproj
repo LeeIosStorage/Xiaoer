@@ -361,6 +361,12 @@
 		7E7241251A77C12A001E1F69 /* TopicCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E7241231A77C12A001E1F69 /* TopicCommentViewCell.xib */; };
 		7E72412B1A77D2F8001E1F69 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7241281A77D2F8001E1F69 /* HPGrowingTextView.m */; };
 		7E72412C1A77D2F8001E1F69 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E72412A1A77D2F8001E1F69 /* HPTextViewInternal.m */; };
+		AA8BA93E1B09D117004B2222 /* CardOfEastWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA93C1B09D117004B2222 /* CardOfEastWebViewController.m */; };
+		AA8BA93F1B09D117004B2222 /* CardOfEastWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8BA93D1B09D117004B2222 /* CardOfEastWebViewController.xib */; };
+		AA8BA9431B09E7A9004B2222 /* CardOfEastVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA9411B09E7A9004B2222 /* CardOfEastVerifyController.m */; };
+		AA8BA9441B09E7A9004B2222 /* CardOfEastVerifyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8BA9421B09E7A9004B2222 /* CardOfEastVerifyController.xib */; };
+		AA8BA9481B09EFC7004B2222 /* CardInfoVerifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA9461B09EFC7004B2222 /* CardInfoVerifyCell.m */; };
+		AA8BA9491B09EFC7004B2222 /* CardInfoVerifyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -957,6 +963,15 @@
 		7E7241281A77D2F8001E1F69 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPGrowingTextView.m; sourceTree = "<group>"; };
 		7E7241291A77D2F8001E1F69 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTextViewInternal.h; sourceTree = "<group>"; };
 		7E72412A1A77D2F8001E1F69 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
+		AA8BA93B1B09D117004B2222 /* CardOfEastWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardOfEastWebViewController.h; sourceTree = "<group>"; };
+		AA8BA93C1B09D117004B2222 /* CardOfEastWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardOfEastWebViewController.m; sourceTree = "<group>"; };
+		AA8BA93D1B09D117004B2222 /* CardOfEastWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardOfEastWebViewController.xib; sourceTree = "<group>"; };
+		AA8BA9401B09E7A9004B2222 /* CardOfEastVerifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardOfEastVerifyController.h; sourceTree = "<group>"; };
+		AA8BA9411B09E7A9004B2222 /* CardOfEastVerifyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardOfEastVerifyController.m; sourceTree = "<group>"; };
+		AA8BA9421B09E7A9004B2222 /* CardOfEastVerifyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardOfEastVerifyController.xib; sourceTree = "<group>"; };
+		AA8BA9451B09EFC7004B2222 /* CardInfoVerifyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardInfoVerifyCell.h; sourceTree = "<group>"; };
+		AA8BA9461B09EFC7004B2222 /* CardInfoVerifyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardInfoVerifyCell.m; sourceTree = "<group>"; };
+		AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardInfoVerifyCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1538,6 +1553,9 @@
 				07882C201A80675D003874FA /* CardViewCell.h */,
 				07882C211A80675D003874FA /* CardViewCell.m */,
 				07882C221A80675D003874FA /* CardViewCell.xib */,
+				AA8BA9451B09EFC7004B2222 /* CardInfoVerifyCell.h */,
+				AA8BA9461B09EFC7004B2222 /* CardInfoVerifyCell.m */,
+				AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */,
 				0783F6871AB819D600AAB5B0 /* BabyListViewCell.h */,
 				0783F6881AB819D600AAB5B0 /* BabyListViewCell.m */,
 				0783F6891AB819D600AAB5B0 /* BabyListViewCell.xib */,
@@ -2120,6 +2138,12 @@
 				0760E9341A81ACCD00BBEA3D /* CardPackViewController.h */,
 				0760E9351A81ACCD00BBEA3D /* CardPackViewController.m */,
 				0760E9361A81ACCD00BBEA3D /* CardPackViewController.xib */,
+				AA8BA9401B09E7A9004B2222 /* CardOfEastVerifyController.h */,
+				AA8BA9411B09E7A9004B2222 /* CardOfEastVerifyController.m */,
+				AA8BA9421B09E7A9004B2222 /* CardOfEastVerifyController.xib */,
+				AA8BA93B1B09D117004B2222 /* CardOfEastWebViewController.h */,
+				AA8BA93C1B09D117004B2222 /* CardOfEastWebViewController.m */,
+				AA8BA93D1B09D117004B2222 /* CardOfEastWebViewController.xib */,
 				077663931A80674E004C885B /* MineActivityListViewController.h */,
 				077663941A80674E004C885B /* MineActivityListViewController.m */,
 				077663951A80674E004C885B /* MineActivityListViewController.xib */,
@@ -2273,7 +2297,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 07508E7B1A51346300873B45 /* Build configuration list for PBXProject "xiaoer" */;
+			buildConfigurationList = 07508E7B1A51346300873B45 /* Build configuration list for PBXProject "Xiaoer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2307,6 +2331,7 @@
 				076CF5721A78AD8C00CDE21D /* XECateTopicViewCell.xib in Resources */,
 				078E88EF1AA1C32D008AD45A /* UMSCommentInputController.xib in Resources */,
 				078E89251AA1C32D008AD45A /* UMSocialUIDelegate.html in Resources */,
+				AA8BA9491B09EFC7004B2222 /* CardInfoVerifyCell.xib in Resources */,
 				078E89091AA1C32D008AD45A /* UMSocialQQData.html in Resources */,
 				078E89201AA1C32D008AD45A /* disclosure_open.png in Resources */,
 				078E89351AA1C32D008AD45A /* ios-social-sdk-share-quick.html in Resources */,
@@ -2318,6 +2343,7 @@
 				075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */,
 				074D4B591AB8107900C19972 /* TicketListViewController.xib in Resources */,
 				078E89101AA1C32D008AD45A /* UMSocialSnsPlatform.html in Resources */,
+				AA8BA9441B09E7A9004B2222 /* CardOfEastVerifyController.xib in Resources */,
 				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
 				0760E9301A81ACB300BBEA3D /* MineMsgViewController.xib in Resources */,
 				7E7241251A77C12A001E1F69 /* TopicCommentViewCell.xib in Resources */,
@@ -2404,6 +2430,7 @@
 				07508E941A51346300873B45 /* LaunchScreen.xib in Resources */,
 				078E88FD1AA1C32D008AD45A /* UMSocialControllerServiceComment.html in Resources */,
 				075E321E1A762F4A006037B3 /* XECustomerWindow.xib in Resources */,
+				AA8BA93F1B09D117004B2222 /* CardOfEastWebViewController.xib in Resources */,
 				0758CD1E1AA1BBCB0086F270 /* ReadyTestViewController.xib in Resources */,
 				070346701A64F8E200EDE251 /* WelcomeViewController.xib in Resources */,
 				076971AF1A77564E00FEA571 /* TopicListViewController.xib in Resources */,
@@ -2466,6 +2493,7 @@
 				075DD0381A78AC0C009A64B4 /* WSAssetWrapper.m in Sources */,
 				0752F7AE1A7B25C5008C0E0A /* MWZoomingScrollView.m in Sources */,
 				075E40971A59386C0062F6AD /* AFHTTPRequestOperation.m in Sources */,
+				AA8BA93E1B09D117004B2222 /* CardOfEastWebViewController.m in Sources */,
 				0752F7AB1A7B25C5008C0E0A /* MWPhotoBrowser.m in Sources */,
 				075DD04B1A78BA3F009A64B4 /* UIImageExtras.m in Sources */,
 				073F9F0B1A68B2B8009D94E3 /* XECategoryView.m in Sources */,
@@ -2480,6 +2508,7 @@
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
 				0752F7B31A7B2615008C0E0A /* DACircularProgressView.m in Sources */,
 				07FC6D1B1A675D3E001F34D8 /* XEScrollPage.m in Sources */,
+				AA8BA9481B09EFC7004B2222 /* CardInfoVerifyCell.m in Sources */,
 				079E42181A7611240056968E /* XEQuestionInfo.m in Sources */,
 				075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */,
 				07582D0D1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
@@ -2505,6 +2534,7 @@
 				077C98BB1A53C85C00E2985B /* XETitleNavBarView.m in Sources */,
 				075DD04A1A78BA3F009A64B4 /* UIImage+RoundedCorner.m in Sources */,
 				07AAB7FD1A8359CB0030D306 /* AboutViewController.m in Sources */,
+				AA8BA9431B09E7A9004B2222 /* CardOfEastVerifyController.m in Sources */,
 				075DD0341A78AC0C009A64B4 /* WSAssetPickerState.m in Sources */,
 				0774A8861A66705D00336465 /* XEAlertView.m in Sources */,
 				0712B3A61A5BD853000A1A7F /* NSData+ImageContentType.m in Sources */,
@@ -2885,7 +2915,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		07508E7B1A51346300873B45 /* Build configuration list for PBXProject "xiaoer" */ = {
+		07508E7B1A51346300873B45 /* Build configuration list for PBXProject "Xiaoer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07508EA11A51346300873B45 /* Debug */,

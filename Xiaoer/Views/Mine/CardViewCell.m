@@ -52,8 +52,8 @@
 }
 
 - (IBAction)receiveAction:(id)sender {
-    if (_delegate && [_delegate respondsToSelector:@selector(didTouchCellWithCardInfo:)]) {
-        [_delegate didTouchCellWithCardInfo:_cardInfo];
+    if (_delegate && [_delegate respondsToSelector:@selector(didTouchCellWithCardInfo:cardTitleLabelText:)]) {
+        [_delegate didTouchCellWithCardInfo:_cardInfo cardTitleLabelText:_cardTitleLabel.text];
     }
 }
 

@@ -13,7 +13,8 @@
 
 @optional
 
-- (void)didTouchCellWithCardInfo:(XECardInfo *)cardInfo;
+- (void)didTouchCellWithCardInfo:(XECardInfo *)cardInfo
+              cardTitleLabelText:(NSString *)titleText;
 
 @end
 

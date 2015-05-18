@@ -15,6 +15,9 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "CardDetailViewController.h"
 #import "PerfectInfoViewController.h"
+#import "XELinkerHandler.h"
+#import "CardOfEastWebViewController.h"
+#import "CardOfEastVerifyController.h"
 
 @interface CardPackViewController ()<UITableViewDelegate,UITableViewDataSource,XECardDelegate>
 
@@ -224,32 +227,50 @@
     
     CardDetailViewController *cdVc = [[CardDetailViewController alloc] init];
     XECardInfo *info = _cardInfos[indexPath.row];
+
     cdVc.cardInfo = info;
-    [self.navigationController pushViewController:cdVc animated:YES];
+    NSLog(@"%@",cdVc.cardInfo.title);
+    if ([cdVc.cardInfo.title isEqualToString:@"东方有线卡"]) {
+        CardOfEastWebViewController *eastWed = [[CardOfEastWebViewController alloc]init];
+        [self.navigationController pushViewController:eastWed animated:YES];
+        
+    }else{
+        [self.navigationController pushViewController:cdVc animated:YES];
+    }
+    
 }
 
 #pragma mark XECardDelegate
-- (void)didTouchCellWithCardInfo:(XECardInfo *)cardInfo{
-    if ([XEEngine shareInstance].userInfo.profileStatus == 0) {
-        [self receiveCardWithInfo:cardInfo];
+- (void)didTouchCellWithCardInfo:(XECardInfo *)cardInfo cardTitleLabelText:(NSString *)titleText{
+    
+    if ([titleText isEqualToString:@"东方有线卡"]) {
+        CardOfEastVerifyController *verify = [[CardOfEastVerifyController alloc]init];
+        [self.navigationController pushViewController:verify animated:YES];
+        
+        
     }else{
-        __weak CardPackViewController *weakSelf = self;
-        XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"您需要完善资料才能领取" cancelButtonTitle:@"取消" cancelBlock:^{
-        } okButtonTitle:@"确定" okBlock:^{
-            PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
-            piVc.userInfo = [XEEngine shareInstance].userInfo;
-            piVc.isFromCard = YES;
-            piVc.cardInfo = cardInfo;
-            piVc.finishedCallBack = ^(BOOL isFinish){
-                if (isFinish) {
-                    [weakSelf.cardTableView reloadData];
-                    [weakSelf refreshCardCount];
-                }
-            };
-            [weakSelf.navigationController pushViewController:piVc animated:YES];
-        }];
-        [alertView show];
+        if ([XEEngine shareInstance].userInfo.profileStatus == 0) {
+            [self receiveCardWithInfo:cardInfo];
+        }else{
+            __weak CardPackViewController *weakSelf = self;
+            XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"您需要完善资料才能领取" cancelButtonTitle:@"取消" cancelBlock:^{
+            } okButtonTitle:@"确定" okBlock:^{
+                PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
+                piVc.userInfo = [XEEngine shareInstance].userInfo;
+                piVc.isFromCard = YES;
+                piVc.cardInfo = cardInfo;
+                piVc.finishedCallBack = ^(BOOL isFinish){
+                    if (isFinish) {
+                        [weakSelf.cardTableView reloadData];
+                        [weakSelf refreshCardCount];
+                    }
+                };
+                [weakSelf.navigationController pushViewController:piVc animated:YES];
+            }];
+            [alertView show];
+        }
     }
+    
 }
 
 #pragma mark PullToRefreshViewDelegate
