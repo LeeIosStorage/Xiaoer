@@ -11,5 +11,5 @@
 @interface CardInfoVerifyCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *leftLable;
 @property (weak, nonatomic) IBOutlet UITextField *infoField;
-- (void)configureCellWith:(NSIndexPath *)indexPath;
+- (void)configureCellWith:(NSString *)string;
 @end

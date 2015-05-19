@@ -59,7 +59,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="市场价" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fmy-jk-OT9">
-                                    <rect key="frame" x="218" y="236" width="87.000000298023195" height="16"/>
+                                    <rect key="frame" x="218.0000002980232" y="236" width="87" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -92,7 +92,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lC1-sK-YIC">
-                            <rect key="frame" x="227.00000057978389" y="15" width="80" height="25"/>
+                            <rect key="frame" x="227.00000071087828" y="15" width="80" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="免费领取" backgroundImage="card_status_bg">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

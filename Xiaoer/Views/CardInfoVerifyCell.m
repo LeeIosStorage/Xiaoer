@@ -14,7 +14,7 @@
 
 
 - (void)configureCellWith:(NSString *)string{
-    self.infoField.backgroundColor = [UIColor blackColor];
+    
     self.leftLable.text = string;
 }
 - (void)awakeFromNib {

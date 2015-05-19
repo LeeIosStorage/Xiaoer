@@ -229,9 +229,9 @@
     XECardInfo *info = _cardInfos[indexPath.row];
 
     cdVc.cardInfo = info;
-    NSLog(@"%@",cdVc.cardInfo.title);
     if ([cdVc.cardInfo.title isEqualToString:@"东方有线卡"]) {
-        CardOfEastWebViewController *eastWed = [[CardOfEastWebViewController alloc]init];
+        CardOfEastWebViewController *eastWed = [[CardOfEastWebViewController alloc]initWithNibName:@"CardOfEastWebViewController" bundle:nil];
+        eastWed.hideCardInfo = YES;
         [self.navigationController pushViewController:eastWed animated:YES];
         
     }else{
