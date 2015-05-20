@@ -24,9 +24,9 @@
 #import "UMSocial.h"
 
 #define CONNECT_TIMEOUT 20
-
-//static NSString* API_URL = @"http://192.168.16.29/api";
-static NSString* API_URL = @"http://xiaor123.cn:801/api";
+//测试接口
+static NSString* API_URL = @"http://192.168.16.66/api";
+//static NSString* API_URL = @"http://xiaor123.cn:801/api";
 
 static XEEngine* s_ShareInstance = nil;
 
@@ -159,7 +159,7 @@ static XEEngine* s_ShareInstance = nil;
 - (void)serverInit{
 //    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
     if (self.serverPlatform == TestPlatform) {
-        API_URL = @"http://192.168.16.29/api";
+        API_URL = @"http://192.168.16.66/api";
     } else {
         API_URL = @"http://xiaor123.cn:801/api";
     }
@@ -442,6 +442,8 @@ static XEEngine* s_ShareInstance = nil;
 - (BOOL)reDirectXECommonWithFormatDic:(NSDictionary *)dic withData:(NSArray *)dataArray withTag:(int)tag withTimeout:(NSTimeInterval)timeout error:(NSError *)errPtr {
     
     NSString* url = [dic objectForKey:@"url"];
+    
+    
     NSString* method = @"POST";
     if ([[dic objectForKey:@"requestType"] integerValue] == 1) {
         method = @"GET";
@@ -1612,5 +1614,24 @@ static XEEngine* s_ShareInstance = nil;
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/eva/stage/history",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)activityEastCardWithKabaoid:(NSString*)kabaoid userid:(NSString *)userid eno:(NSString *)eno ekey:(NSString *)ekey tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+
+    [params setObject:kabaoid forKey:@"kabaoid"];
+    [params setObject:userid forKey:@"userid"];
+    [params setObject:eno forKey:@"eno"];
+    [params setObject:ekey forKey:@"ekey"];
+     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/cp/acteast",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)getEastCardInfomaitonWithuserid:(NSString *)userid kabaoid:(NSString *)kabaoid tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    [params setObject:kabaoid forKey:@"kabaoid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/cp/geteast",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+
 }
 @end

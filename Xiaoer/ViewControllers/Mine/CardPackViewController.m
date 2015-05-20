@@ -29,7 +29,10 @@
 @end
 
 @implementation CardPackViewController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self refreshCardList];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -39,7 +42,7 @@
     [self.cardTableView addSubview:self.pullRefreshView];
     
     [self getCacheCardList];
-    [self refreshCardList];
+//    [self refreshCardList];
     
     __weak CardPackViewController *weakSelf = self;
     [self.cardTableView addInfiniteScrollingWithActionHandler:^{
@@ -53,6 +56,7 @@
         }
         
         int tag = [[XEEngine shareInstance] getConnectTag];
+        [XEEngine shareInstance].serverPlatform = TestPlatform;
         [[XEEngine shareInstance] getCardListWithUid:[XEEngine shareInstance].uid pagenum:weakSelf.nextCursor tag:tag];
         [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
             if (!weakSelf) {
@@ -99,6 +103,7 @@
 
 - (void)getCacheCardList{
     __weak CardPackViewController *weakSelf = self;
+    [XEEngine shareInstance].serverPlatform = TestPlatform;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] addGetCacheTag:tag];
     [[XEEngine shareInstance] getCardListWithUid:[XEEngine shareInstance].uid pagenum:1 tag:tag];
@@ -126,6 +131,7 @@
     _nextCursor = 1;
     __weak CardPackViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
+    [XEEngine shareInstance].serverPlatform = TestPlatform;
     [[XEEngine shareInstance] getCardListWithUid:[XEEngine shareInstance].uid pagenum:_nextCursor tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         
@@ -145,6 +151,7 @@
         for (NSDictionary *dic in object) {
             XECardInfo *cardInfo = [[XECardInfo alloc] init];
             [cardInfo setCardInfoByJsonDic:dic];
+            NSLog(@"cardInfo.type === %d",cardInfo.type);
             [weakSelf.cardInfos addObject:cardInfo];
         }
         
@@ -231,7 +238,12 @@
     cdVc.cardInfo = info;
     if ([cdVc.cardInfo.title isEqualToString:@"东方有线卡"]) {
         CardOfEastWebViewController *eastWed = [[CardOfEastWebViewController alloc]initWithNibName:@"CardOfEastWebViewController" bundle:nil];
-        eastWed.hideCardInfo = YES;
+        if (info.status == 5) {
+            eastWed.hideCardInfo = YES;
+        }
+        if (info.status == 6) {
+            eastWed.hideCardInfo = NO;
+        }
         [self.navigationController pushViewController:eastWed animated:YES];
         
     }else{

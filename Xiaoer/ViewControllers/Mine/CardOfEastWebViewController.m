@@ -23,10 +23,16 @@
     [super viewDidLoad];
     self.title = @"卡券详情";
     [self loadWebViewWithUrlString:@"http://xiaor123.cn:801/api/info/detail?id=416"];
+
     [self configureBottomBtn];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(activityed) name:@"activity" object:nil];
 
     
 
+}
+- (void)activityed{
+    NSLog(@"接受通知");
+    self.activityBtn.userInteractionEnabled = NO;
 }
 - (void)configureBottomBtn{
     if (self.hideCardInfo) {
@@ -37,9 +43,39 @@
     }else{
         self.cardNumber.hidden = NO;
         self.password.hidden = NO;
+        [self getCardInfomation];
         [self.activityBtn setTitle:@"" forState:UIControlStateNormal];
         self.activityBtn.userInteractionEnabled = NO;
     }
+}
+/**
+ *  获取东方有线卡信息
+ */
+- (void)getCardInfomation{
+    __block UIViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [XEEngine shareInstance].serverPlatform = TestPlatform;
+    [[XEEngine shareInstance]getEastCardInfomaitonWithuserid:[XEEngine shareInstance].uid kabaoid:@"9" tag:tag];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSLog(@"jsonRet = %@",[[jsonRet objectForKey:@"objext"] objectForKey:@"eastcardNo"]);
+        /**
+         *  获取失败信息
+         */
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"激活失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }else{
+            self.cardNumber.text = [NSString stringWithFormat:@"券号:%@",[[jsonRet objectForKey:@"object"] objectForKey:@"eastcardNo"]];
+            self.password.text = [NSString stringWithFormat:@"密码:%@",[[jsonRet objectForKey:@"object"] objectForKey:@"eastcardKey"]];
+            
+        }
+    } tag:tag];
+    
+
 }
 
 - (IBAction)activityBtnTouched:(id)sender {

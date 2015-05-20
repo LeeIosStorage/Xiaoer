@@ -47,7 +47,20 @@
         [_statusBtn setTitle:@"已领取" forState:UIControlStateNormal];
         _statusBtn.enabled = NO;
         [_statusBtn setBackgroundImage:[UIImage imageNamed:@"card_staus_hover_bg"] forState:UIControlStateNormal];
+    }else if (cardInfo.status == 5){
+        /**
+         *  未激活
+         */
+            [_statusBtn setTitle:@"激活卡券" forState:UIControlStateNormal];
+            _statusBtn.enabled = YES;
+            [_statusBtn setBackgroundImage:[UIImage imageNamed:@"card_status_bg"] forState:UIControlStateNormal];
+        
+    }if (cardInfo.status == 6) {
+        [_statusBtn setTitle:@"已激活" forState:UIControlStateNormal];
+        _statusBtn.enabled = NO;
+        [_statusBtn setBackgroundImage:[UIImage imageNamed:@"card_staus_hover_bg"] forState:UIControlStateNormal];
     }
+
     _cardDes.text = cardInfo.des;
 }
 

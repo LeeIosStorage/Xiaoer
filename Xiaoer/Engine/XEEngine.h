@@ -227,5 +227,10 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getAllEvaHistoryWithBabyId:(NSString *)babyId uid:(NSString *)uid tag:(int)tag;
 //某关键期历史评测
 - (BOOL)getStageEvaHistoryWithBabyId:(NSString *)babyId uid:(NSString *)uid stage:(NSString *)stage tag:(int)tag;
-
+#pragma mark- 激活东方有线卡
+- (BOOL)activityEastCardWithKabaoid:(NSString*)kabaoid userid:(NSString *)userid eno:(NSString *)eno ekey:(NSString *)ekey tag:(int)tag;
+/**
+ *  获取东方有线卡信息
+ */
+- (BOOL)getEastCardInfomaitonWithuserid:(NSString *)userid kabaoid:(NSString *)kabaoid tag:(int)tag;
 @end

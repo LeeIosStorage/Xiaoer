@@ -7,7 +7,8 @@
 //
 
 #import "XESuperViewController.h"
-
+#import "XEEngine.h"
+#import "XEProgressHUD.h"
 @interface CardOfEastWebViewController : XESuperViewController
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIButton *activityBtn;
@@ -20,5 +21,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *cardNumber;
 @property (weak, nonatomic) IBOutlet UILabel *password;
 
-
+@property (nonatomic,assign)BOOL hideAllBtn;
 @end

@@ -11,5 +11,7 @@
 @interface CardOfEastSucceedController : XESuperViewController
 @property (weak, nonatomic) IBOutlet UILabel *cardNum;
 @property (weak, nonatomic) IBOutlet UILabel *cardPassWord;
+@property (nonatomic,strong)NSString *eno;
+@property (nonatomic,strong)NSString *ekey;
 
 @end

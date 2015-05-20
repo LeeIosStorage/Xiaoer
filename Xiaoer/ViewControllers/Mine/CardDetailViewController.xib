@@ -92,7 +92,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lC1-sK-YIC">
-                            <rect key="frame" x="227.00000071087828" y="15" width="80" height="25"/>
+                            <rect key="frame" x="227.00000084752389" y="15" width="80" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="免费领取" backgroundImage="card_status_bg">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

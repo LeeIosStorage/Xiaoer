@@ -26,7 +26,7 @@
                     </connections>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aQ1-dt-bcp">
-                    <rect key="frame" x="80" y="477.99999845400453" width="160" height="40"/>
+                    <rect key="frame" x="80" y="477.99999675878155" width="160" height="40"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <state key="normal" title="确认激活" backgroundImage="激活">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

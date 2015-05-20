@@ -7,8 +7,9 @@
 //
 
 #import "XESuperViewController.h"
-
-@interface CardOfEastVerifyController : XESuperViewController<UITableViewDataSource,UITableViewDelegate>
+#import "CardInfoVerifyCell.h"
+#import "XEUserInfo.h"
+@interface CardOfEastVerifyController : XESuperViewController<UITableViewDataSource,UITableViewDelegate,cellTextFieldEndEditing>
 /**
  *   展示的tableview
  */
@@ -17,4 +18,23 @@
  *  cell左边的填写信息提示
  */
 @property (nonatomic,strong)NSMutableArray *leftLableTextArr;
+
+@property (nonatomic,strong)XEUserInfo *userIn;
+/**
+ *  卡号
+ */
+@property (nonatomic,strong)NSString *cardNum;
+/**
+ *  密码
+ */
+@property(nonatomic,strong)NSString *passWord;
+/**
+ *   网络获取到的券号
+ */
+@property (nonatomic,strong)NSString *getCardNu;
+/**
+ *  网络获取到的密码
+ */
+@property (nonatomic,strong)NSString *getPassWor;
+
 @end

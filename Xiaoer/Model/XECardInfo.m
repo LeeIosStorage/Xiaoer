@@ -48,6 +48,11 @@
     if (objectForKey) {
         _leftNum = [objectForKey intValue];
     }
+    
+    objectForKey = [dic objectForKey:@"type"];
+    if (objectForKey) {
+        _type = [objectForKey intValue];
+    }
 }
 
 -(void)setCardInfoByJsonDic:(NSDictionary *)dic{
