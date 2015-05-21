@@ -244,6 +244,19 @@
         if (info.status == 6) {
             eastWed.hideCardInfo = NO;
         }
+        /**
+         *  保存kabaoid
+         */
+            NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+            if ([userDefaults objectForKey:[NSString stringWithFormat:@"kabaoid%@",[XEEngine shareInstance].uid]]) {
+            }else{
+                [userDefaults setObject:info.cid forKey:[NSString stringWithFormat:@"kabaoid%@",[XEEngine shareInstance].uid]];
+                //存储,如果不写默认隔一会存储一次或者退入到后台,或者关闭程序时往磁盘保存一次
+                [userDefaults synchronize];
+            }
+        
+        eastWed.kabaoid = info.cid;
+        eastWed.cardinfo = info;
         [self.navigationController pushViewController:eastWed animated:YES];
         
     }else{
@@ -257,6 +270,8 @@
     
     if ([titleText isEqualToString:@"东方有线卡"]) {
         CardOfEastVerifyController *verify = [[CardOfEastVerifyController alloc]init];
+        verify.kabaoid = cardInfo.cid;
+        verify.cardinfo = cardInfo;
         [self.navigationController pushViewController:verify animated:YES];
         
         

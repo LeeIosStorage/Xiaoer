@@ -8,7 +8,9 @@
 
 #import "CardOfEastWebViewController.h"
 #import "CardOfEastVerifyController.h"
-@interface CardOfEastWebViewController ()
+#import "UIImageView+WebCache.h"
+@interface CardOfEastWebViewController ()<UIWebViewDelegate>
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 /**
  *  网页数据请求
@@ -22,13 +24,38 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"卡券详情";
-    [self loadWebViewWithUrlString:@"http://xiaor123.cn:801/api/info/detail?id=416"];
+    NSLog(@"web.cardinfo.price = %@",self.cardinfo.img);
+    [self configureCardInfomationView];
+    
+    [(UIScrollView *)[[self.webView subviews] objectAtIndex:0] setBounces:NO];
+    [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT*2)];
+    
 
+
+    
+    NSURL *cardUrl = [NSURL URLWithString:self.cardinfo.cardActionUrl];
+    
+    [self loadWebViewWithUrl:cardUrl];
     [self configureBottomBtn];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(activityed) name:@"activity" object:nil];
 
     
 
+}
+- (void)configureCardInfomationView{
+    self.titleLab.text = self.cardinfo.title;
+    self.describe.text = self.cardinfo.des;
+    self.price.text = [NSString stringWithFormat:@"￥%@", self.cardinfo.price];
+    
+    if (![self.cardinfo.img isEqual:[NSNull null]]) {
+        NSLog(@"imageurl = %@",self.cardinfo.originalCardImageUrl );
+        [self.cardImage sd_setImageWithURL:self.cardinfo.originalCardImageUrl placeholderImage:[UIImage imageNamed:@"activity_load_icon"]];
+    }else{
+        [self.cardImage sd_setImageWithURL:nil];
+        [self.cardImage setImage:[UIImage imageNamed:@"topic_load_icon"]];
+    }
+    
+    [self.cardImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.cardinfo.img]] placeholderImage:nil];
 }
 - (void)activityed{
     NSLog(@"接受通知");
@@ -52,25 +79,26 @@
  *  获取东方有线卡信息
  */
 - (void)getCardInfomation{
-    __block UIViewController *weakSelf = self;
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *kabao = [userDefaults objectForKey:[NSString stringWithFormat:@"kabaoid%@",[XEEngine shareInstance].uid]];
+    __block CardOfEastWebViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [XEEngine shareInstance].serverPlatform = TestPlatform;
-    [[XEEngine shareInstance]getEastCardInfomaitonWithuserid:[XEEngine shareInstance].uid kabaoid:@"9" tag:tag];
+    [[XEEngine shareInstance]getEastCardInfomaitonWithuserid:[XEEngine shareInstance].uid kabaoid:kabao tag:tag];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        NSLog(@"jsonRet = %@",[[jsonRet objectForKey:@"objext"] objectForKey:@"eastcardNo"]);
+//        NSLog(@"jsonRet = %@",jsonRet);
         /**
          *  获取失败信息
          */
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-        if (!jsonRet || errorMsg) {
-            if (!errorMsg.length) {
-                errorMsg = @"激活失败";
-            }
-            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+//        NSLog(@"errorMsg = %@",errorMsg);
+        if (errorMsg) {
+//            NSLog(@"进入");
+        [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }else{
-            self.cardNumber.text = [NSString stringWithFormat:@"券号:%@",[[jsonRet objectForKey:@"object"] objectForKey:@"eastcardNo"]];
-            self.password.text = [NSString stringWithFormat:@"密码:%@",[[jsonRet objectForKey:@"object"] objectForKey:@"eastcardKey"]];
+            weakSelf.cardNumber.text = [NSString stringWithFormat:@"券号:%@",[[jsonRet objectForKey:@"object"] objectForKey:@"eastcardNo"]];
+            weakSelf.password.text = [NSString stringWithFormat:@"密码:%@",[[jsonRet objectForKey:@"object"] objectForKey:@"eastcardKey"]];
             
         }
     } tag:tag];
@@ -80,12 +108,13 @@
 
 - (IBAction)activityBtnTouched:(id)sender {
     CardOfEastVerifyController *verify = [[CardOfEastVerifyController alloc]init];
+    verify.kabaoid = self.kabaoid;
+    verify.cardinfo = self.cardinfo;
     [self.navigationController pushViewController:verify animated:YES];
 }
 
-- (void)loadWebViewWithUrlString:(NSString *)urlString {
+- (void)loadWebViewWithUrl:(NSURL *)url {
     
-    NSURL *url =[NSURL URLWithString:urlString];
     self.request =[NSURLRequest requestWithURL:url];
     [self.webView loadRequest:_request];
     
@@ -94,7 +123,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+#pragma web delegate
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    NSLog(@"webViewDidFinishLoad: ");
+    CGRect frame = webView.frame;
+    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
+    frame.size = fittingSize;
+    webView.frame = frame;
+    [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,265 + frame.size.height)];
+}
 /*
 #pragma mark - Navigation
 

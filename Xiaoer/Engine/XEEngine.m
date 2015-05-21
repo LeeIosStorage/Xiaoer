@@ -25,8 +25,8 @@
 
 #define CONNECT_TIMEOUT 20
 //测试接口
-static NSString* API_URL = @"http://192.168.16.66/api";
-//static NSString* API_URL = @"http://xiaor123.cn:801/api";
+//static NSString* API_URL = @"http://192.168.16.66/api";
+static NSString* API_URL = @"http://xiaor123.cn:801/api";
 
 static XEEngine* s_ShareInstance = nil;
 

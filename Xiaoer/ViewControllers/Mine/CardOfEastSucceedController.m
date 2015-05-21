@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"卡券详情";
+    NSLog(@"Succeedself.cardinfo---------- %@",self.cardinfo.price);
     
 }
 - (IBAction)howToUse:(id)sender {
@@ -27,10 +28,12 @@
     
     
     CardOfEastWebViewController *webView = [[CardOfEastWebViewController alloc]initWithNibName:@"CardOfEastWebViewController" bundle:nil];
+    webView.cardinfo = self.cardinfo;
+
     UILabel *lable1 = (UILabel *)[webView.view viewWithTag:1000];
     UILabel *lable2 = (UILabel *)[webView.view viewWithTag:1001];
-    webView.hideCardInfo = NO;
     [self.navigationController pushViewController:webView animated:YES];
+    webView.hideCardInfo = NO;
     webView.cardNumber.text = [NSString stringWithFormat:@"券号:%@",self.cardNum.text];
     webView.password.text = [NSString stringWithFormat:@"密码：%@",self.cardPassWord.text] ;
     

@@ -23,7 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    NSLog(@"self.kabaoid = %@",self.kabaoid);
+    NSLog(@"Verify.cardinfo.price%@",self.cardinfo.price);
     /**
      *  注册单元格
      */
@@ -171,10 +172,12 @@
  *  请求激活
  */
 - (void)activity{
+ 
     __weak CardOfEastVerifyController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [XEEngine shareInstance].serverPlatform = TestPlatform;
-    [[XEEngine shareInstance]activityEastCardWithKabaoid:@"9" userid:[XEEngine shareInstance].uid eno:@"1501000004" ekey:@"9385" tag:tag];
+#warning 测试数据卡号  上线需另外填写
+    [[XEEngine shareInstance]activityEastCardWithKabaoid:self.kabaoid userid:[XEEngine shareInstance].uid eno:@"1501000004" ekey:@"9385" tag:tag];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         /**
          *  获取失败信息
@@ -194,16 +197,17 @@
             [[NSNotificationCenter defaultCenter]postNotificationName:@"activity" object:nil];
             [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
 
-            CardOfEastSucceedController *succeed = [[CardOfEastSucceedController alloc]init];
+            CardOfEastSucceedController *succeed = [[CardOfEastSucceedController alloc]initWithNibName:@"CardOfEastSucceedController" bundle:nil];
+            succeed.cardinfo = self.cardinfo;
             UILabel *lable1 = (UILabel *)[succeed.view viewWithTag:1000];
             UILabel *lable2 = (UILabel *)[succeed.view viewWithTag:1001];
             [self.navigationController pushViewController:succeed animated:YES];
             succeed.cardNum.text = [NSString stringWithFormat:@"券号:%@",[[[jsonRet objectForKey:@"object"]objectForKey:@"cpe"] objectForKey:@"eastcardNo"]];
             succeed.cardPassWord.text = [NSString stringWithFormat:@"密码:%@",[[[jsonRet objectForKey:@"object"] objectForKey:@"cpe"] objectForKey:@"eastcardKey"]];
+            succeed.kabaoid = self.kabaoid;
         }
     } tag:tag];
     
-
 }
 
 

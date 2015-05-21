@@ -363,6 +363,8 @@
 		7E72412C1A77D2F8001E1F69 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E72412A1A77D2F8001E1F69 /* HPTextViewInternal.m */; };
 		AA8BA9481B09EFC7004B2222 /* CardInfoVerifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA9461B09EFC7004B2222 /* CardInfoVerifyCell.m */; };
 		AA8BA9491B09EFC7004B2222 /* CardInfoVerifyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */; };
+		AAAA94D31B0D804C0029E7E1 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA94D21B0D804B0029E7E1 /* BaseModel.m */; };
+		AAAA94D91B0D80F60029E7E1 /* XEEastCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA94D81B0D80F60029E7E1 /* XEEastCardInfo.m */; };
 		AAD8EC7F1B0ACF8E00B24F9A /* CardOfEastWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC7D1B0ACF8E00B24F9A /* CardOfEastWebViewController.m */; };
 		AAD8EC801B0ACF8E00B24F9A /* CardOfEastWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD8EC7E1B0ACF8E00B24F9A /* CardOfEastWebViewController.xib */; };
 		AAD8EC871B0AE7E600B24F9A /* CardOfEastVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC851B0AE7E600B24F9A /* CardOfEastVerifyController.m */; };
@@ -968,6 +970,10 @@
 		AA8BA9451B09EFC7004B2222 /* CardInfoVerifyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardInfoVerifyCell.h; sourceTree = "<group>"; };
 		AA8BA9461B09EFC7004B2222 /* CardInfoVerifyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardInfoVerifyCell.m; sourceTree = "<group>"; };
 		AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardInfoVerifyCell.xib; sourceTree = "<group>"; };
+		AAAA94D11B0D804B0029E7E1 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		AAAA94D21B0D804B0029E7E1 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		AAAA94D71B0D80F60029E7E1 /* XEEastCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XEEastCardInfo.h; path = ../../XEEastCardInfo.h; sourceTree = "<group>"; };
+		AAAA94D81B0D80F60029E7E1 /* XEEastCardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEEastCardInfo.m; path = ../../XEEastCardInfo.m; sourceTree = "<group>"; };
 		AAD8EC7C1B0ACF8E00B24F9A /* CardOfEastWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardOfEastWebViewController.h; sourceTree = "<group>"; };
 		AAD8EC7D1B0ACF8E00B24F9A /* CardOfEastWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardOfEastWebViewController.m; sourceTree = "<group>"; };
 		AAD8EC7E1B0ACF8E00B24F9A /* CardOfEastWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardOfEastWebViewController.xib; sourceTree = "<group>"; };
@@ -2026,6 +2032,8 @@
 		07E536111A528239005E1DA9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AAAA94D11B0D804B0029E7E1 /* BaseModel.h */,
+				AAAA94D21B0D804B0029E7E1 /* BaseModel.m */,
 				077C98AD1A53A11000E2985B /* XEUserInfo.h */,
 				077C98AE1A53A11000E2985B /* XEUserInfo.m */,
 				0774A8601A6663AD00336465 /* XEThemeInfo.h */,
@@ -2052,6 +2060,8 @@
 				076D73361AAD9E7A00C1A30A /* XEItemInfo.m */,
 				0710A22A1AB2B4820050DFB7 /* XETrainInfo.h */,
 				0710A22B1AB2B4820050DFB7 /* XETrainInfo.m */,
+				AAAA94D71B0D80F60029E7E1 /* XEEastCardInfo.h */,
+				AAAA94D81B0D80F60029E7E1 /* XEEastCardInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2529,6 +2539,7 @@
 				075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */,
 				07582D0D1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				078E87E61AA18934008AD45A /* StageSelectViewController.m in Sources */,
+				AAAA94D91B0D80F60029E7E1 /* XEEastCardInfo.m in Sources */,
 				07AAB8021A8367420030D306 /* LSReachability.m in Sources */,
 				075B031E1A6CAC28002B577D /* ApplyActivityViewController.m in Sources */,
 				0703466F1A64F8E200EDE251 /* WelcomeViewController.m in Sources */,
@@ -2646,6 +2657,7 @@
 				076F32681A5FA67700346F44 /* UIImage+ProportionalFill.m in Sources */,
 				7E72411F1A77C0E1001E1F69 /* XECommentInfo.m in Sources */,
 				075513901AAD7B5F00B1E513 /* BabyListViewController.m in Sources */,
+				AAAA94D31B0D804C0029E7E1 /* BaseModel.m in Sources */,
 				075DD0371A78AC0C009A64B4 /* WSAssetViewColumn.m in Sources */,
 				0712B3AC1A5BD853000A1A7F /* SDWebImageManager.m in Sources */,
 				075E409D1A59386C0062F6AD /* AFURLRequestSerialization.m in Sources */,
@@ -2861,6 +2873,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2892,6 +2905,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

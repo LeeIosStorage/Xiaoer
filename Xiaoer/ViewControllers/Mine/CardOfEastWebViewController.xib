@@ -9,10 +9,15 @@
             <connections>
                 <outlet property="activityBtn" destination="9LK-FY-klz" id="fKB-RF-Bn3"/>
                 <outlet property="bottomView" destination="J6E-k0-V7K" id="lF1-o2-ihz"/>
+                <outlet property="cardImage" destination="Uq4-ou-FIS" id="gyS-DH-h4L"/>
                 <outlet property="cardNumber" destination="07y-eW-HtZ" id="1S7-pl-5d1"/>
+                <outlet property="describe" destination="lDS-Ps-3Zc" id="hgP-Y3-mlm"/>
                 <outlet property="password" destination="M2w-gC-qUQ" id="zLh-gv-Ved"/>
+                <outlet property="price" destination="ybQ-OB-xx9" id="Z2l-aO-WVv"/>
+                <outlet property="scrollView" destination="biN-dJ-dc4" id="o8H-Sg-vUX"/>
+                <outlet property="titleLab" destination="vz2-sQ-fI8" id="p50-LC-h49"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="XLX-bs-x3P"/>
-                <outlet property="webView" destination="wwD-Fa-JZr" id="bnc-AV-fFH"/>
+                <outlet property="webView" destination="wwD-Fa-JZr" id="ZEy-bs-SDk"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -24,16 +29,60 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <webView contentMode="scaleToFill" id="wwD-Fa-JZr">
-                            <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="biN-dJ-dc4">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="508"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="LMn-pj-jab"/>
-                            </connections>
-                        </webView>
+                            <subviews>
+                                <webView contentMode="scaleToFill" id="wwD-Fa-JZr">
+                                    <rect key="frame" x="0.0" y="315" width="320" height="295"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="1yl-xs-nfL"/>
+                                    </connections>
+                                </webView>
+                                <view contentMode="scaleToFill" id="FD6-aF-331">
+                                    <rect key="frame" x="0.0" y="64" width="320" height="250"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Uq4-ou-FIS">
+                                            <rect key="frame" x="10" y="10" width="300" height="180"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lDS-Ps-3Zc">
+                                            <rect key="frame" x="10" y="215" width="150" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ybQ-OB-xx9">
+                                            <rect key="frame" x="250" y="190" width="60" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.40784313729999999" green="0.7843137255" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="市场价" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fvy-7D-osF">
+                                            <rect key="frame" x="250" y="215" width="60" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vz2-sQ-fI8">
+                                            <rect key="frame" x="10" y="190" width="150" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </view>
+                            </subviews>
+                        </scrollView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9LK-FY-klz">
-                            <rect key="frame" x="0.0" y="508" width="320" height="60"/>
+                            <rect key="frame" x="0.0" y="488" width="320" height="80"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <state key="normal" title="激活卡券" backgroundImage="激活">
@@ -45,16 +94,16 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="07y-eW-HtZ">
-                            <rect key="frame" x="30" y="523" width="90" height="30"/>
+                            <rect key="frame" x="30" y="510" width="120" height="40"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="21"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="M2w-gC-qUQ">
-                            <rect key="frame" x="199.99999880790702" y="523" width="90" height="30"/>
+                            <rect key="frame" x="170.00000096857548" y="513" width="120" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>

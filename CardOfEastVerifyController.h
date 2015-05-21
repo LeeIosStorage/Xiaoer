@@ -9,6 +9,7 @@
 #import "XESuperViewController.h"
 #import "CardInfoVerifyCell.h"
 #import "XEUserInfo.h"
+#import "XECardInfo.h"
 @interface CardOfEastVerifyController : XESuperViewController<UITableViewDataSource,UITableViewDelegate,cellTextFieldEndEditing>
 /**
  *   展示的tableview
@@ -37,4 +38,6 @@
  */
 @property (nonatomic,strong)NSString *getPassWor;
 
+@property (nonatomic,strong)NSString *kabaoid;
+@property (nonatomic,strong)XECardInfo *cardinfo;
 @end
