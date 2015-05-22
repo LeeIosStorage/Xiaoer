@@ -30,5 +30,6 @@
 //- (NSString*)getSmallCardImageUrl;
 //- (NSString*)getMediumCardImageUrl;
 //- (NSString*)getOriginalCardImageUrl;
-
+- (NSString *)returnCardOfEastDes;
+- (NSString *)returnCardOfOtherDes;
 @end

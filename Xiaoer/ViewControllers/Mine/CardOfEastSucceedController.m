@@ -22,6 +22,7 @@
 }
 - (IBAction)howToUse:(id)sender {
     NSLog(@"如何使用");
+    
 }
 
 - (IBAction)showCardWebView:(id)sender {
@@ -35,7 +36,7 @@
     [self.navigationController pushViewController:webView animated:YES];
     webView.hideCardInfo = NO;
     webView.cardNumber.text = [NSString stringWithFormat:@"券号:%@",self.cardNum.text];
-    webView.password.text = [NSString stringWithFormat:@"密码：%@",self.cardPassWord.text] ;
+    webView.password.text = [NSString stringWithFormat:@"密码：%@",self.cardPassWord.text];
     
 }
 

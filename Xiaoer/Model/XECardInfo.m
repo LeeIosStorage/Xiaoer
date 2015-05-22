@@ -108,5 +108,18 @@
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@/upload/%@", [[XEEngine shareInstance] baseUrl], _img]];
 }
 
-
+- (NSString *)returnCardOfEastDes{
+    if (_des == nil) {
+        return nil;
+    }
+    NSString *str = [_des stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
+    NSString *str2 = [str stringByReplacingOccurrencesOfString:@"</p>" withString:@""];
+    return str2;
+}
+- (NSString *)returnCardOfOtherDes{
+    if (_des == nil) {
+        return nil;
+    }
+    return _des;
+}
 @end

@@ -44,7 +44,7 @@
 }
 - (void)configureCardInfomationView{
     self.titleLab.text = self.cardinfo.title;
-    self.describe.text = self.cardinfo.des;
+    self.describe.text = [self.cardinfo returnCardOfEastDes];
     self.price.text = [NSString stringWithFormat:@"￥%@", self.cardinfo.price];
     
     if (![self.cardinfo.img isEqual:[NSNull null]]) {
@@ -55,7 +55,6 @@
         [self.cardImage setImage:[UIImage imageNamed:@"topic_load_icon"]];
     }
     
-    [self.cardImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.cardinfo.img]] placeholderImage:nil];
 }
 - (void)activityed{
     NSLog(@"接受通知");
@@ -103,11 +102,10 @@
         }
     } tag:tag];
     
-
 }
 
 - (IBAction)activityBtnTouched:(id)sender {
-    CardOfEastVerifyController *verify = [[CardOfEastVerifyController alloc]init];
+    CardOfEastVerifyController *verify = [[CardOfEastVerifyController alloc]initWithNibName:@"CardOfEastVerifyController" bundle:nil];
     verify.kabaoid = self.kabaoid;
     verify.cardinfo = self.cardinfo;
     [self.navigationController pushViewController:verify animated:YES];

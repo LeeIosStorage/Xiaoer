@@ -100,7 +100,8 @@
         [XEProgressHUD lightAlert:@"请输入地址"];
         return;
     }
-    [self saveInfo];
+    
+    [self activity];
 
 }
 /**
@@ -111,8 +112,9 @@
     
     if (![phone isPhone]) {
         [XEProgressHUD lightAlert:@"请输入正确的手机号"];
-        self.userIn.phone = phone;
         return;
+    }else{
+        self.userIn.phone = phone;
     }
 }
 
@@ -135,35 +137,32 @@
 - (void)saveInfo{
     __weak CardOfEastVerifyController *weakSelf = self;
 
-    XEUserInfo *babyUserInfo = [XEEngine shareInstance].userInfo;
+    XEUserInfo *UserInfo = [XEEngine shareInstance].userInfo;
+    
+    XEUserInfo *baby = [[XEEngine shareInstance].userInfo.babys objectAtIndex:0];
+
     [XEProgressHUD AlertLoading:@"保存中" At:self.view];
         int tag = [[XEEngine shareInstance] getConnectTag];
-        [[XEEngine shareInstance] editUserInfoWithUid:babyUserInfo.uid name:babyUserInfo.name nickname:babyUserInfo.nickName hasBaby:babyUserInfo.hasbaby desc:babyUserInfo.desc district:babyUserInfo.region address:self.userIn.address phone:self.userIn.phone bbId:babyUserInfo.babyId bbName:babyUserInfo.babyNick bbGender:babyUserInfo.babyGender bbBirthday:babyUserInfo.birthdayString bbAvatar:babyUserInfo.babyAvatarId userAvatar:babyUserInfo.avatar dueDate:babyUserInfo.dueDateString hospital:self.userIn.hospital tag:tag];
+        [[XEEngine shareInstance] editUserInfoWithUid:UserInfo.uid name:self.userIn.name nickname:UserInfo.nickName hasBaby:UserInfo.hasbaby desc:UserInfo.desc district:UserInfo.region address:self.userIn.address phone:self.userIn.phone bbId:baby.babyId bbName:UserInfo.babyNick bbGender:UserInfo.babyGender bbBirthday:UserInfo.birthdayString bbAvatar:UserInfo.babyAvatarId userAvatar:UserInfo.avatar dueDate:UserInfo.dueDateString hospital:UserInfo.hospital tag:tag];
         [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-            //        [XEProgressHUD AlertLoadDone];
+            
             NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
             if (!jsonRet || errorMsg) {
                 if (!errorMsg.length) {
-                    errorMsg = @"保存修好失败";
+                    errorMsg = @"保存修改失败";
                 }
                 [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
             
             [XEProgressHUD AlertSuccess:[XEEngine getSuccessMsgWithReponseDic:jsonRet] At:weakSelf.view];
-            [babyUserInfo setUserInfoByJsonDic:[[jsonRet objectForKey:@"object"] objectForKey:@"user"]];
-            babyUserInfo.phone = self.userIn.phone;
-            babyUserInfo.address = self.userIn.address;
-            babyUserInfo.name = self.userIn.name;
-            [XEEngine shareInstance].userInfo = babyUserInfo;
+            [UserInfo setUserInfoByJsonDic:[[jsonRet objectForKey:@"object"] objectForKey:@"user"]];
+            UserInfo.phone = self.userIn.phone;
+            UserInfo.address = self.userIn.address;
+            UserInfo.name = self.userIn.name;
+            [XEEngine shareInstance].userInfo = UserInfo;
 
         }tag:tag];
-    [self activity];
-
-
-    
-
-
 
 }
 
@@ -177,35 +176,44 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [XEEngine shareInstance].serverPlatform = TestPlatform;
 #warning 测试数据卡号  上线需另外填写
-    [[XEEngine shareInstance]activityEastCardWithKabaoid:self.kabaoid userid:[XEEngine shareInstance].uid eno:@"1501000004" ekey:@"9385" tag:tag];
+    [[XEEngine shareInstance]activityEastCardWithKabaoid:self.kabaoid userid:[XEEngine shareInstance].uid eno:self.cardNum ekey:self.passWord tag:tag];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         /**
          *  获取失败信息
          */
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-        if (!jsonRet || errorMsg) {
-            if (!errorMsg.length) {
-                errorMsg = @"激活失败";
-            }
+        
+        if (errorMsg) {
             [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-            return;
-        }else{
 
-            /**
-             *  通知web页面激活按钮不可点击
-             */
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"activity" object:nil];
-            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
-
-            CardOfEastSucceedController *succeed = [[CardOfEastSucceedController alloc]initWithNibName:@"CardOfEastSucceedController" bundle:nil];
-            succeed.cardinfo = self.cardinfo;
-            UILabel *lable1 = (UILabel *)[succeed.view viewWithTag:1000];
-            UILabel *lable2 = (UILabel *)[succeed.view viewWithTag:1001];
-            [self.navigationController pushViewController:succeed animated:YES];
-            succeed.cardNum.text = [NSString stringWithFormat:@"券号:%@",[[[jsonRet objectForKey:@"object"]objectForKey:@"cpe"] objectForKey:@"eastcardNo"]];
-            succeed.cardPassWord.text = [NSString stringWithFormat:@"密码:%@",[[[jsonRet objectForKey:@"object"] objectForKey:@"cpe"] objectForKey:@"eastcardKey"]];
-            succeed.kabaoid = self.kabaoid;
+            return ;
         }
+
+        if ([[jsonRet objectForKey:@"code"]  isEqual: @"5"]) {
+            NSLog(@"123123123%@",[jsonRet objectForKey:@"result"]);
+            [XEProgressHUD AlertError:[jsonRet objectForKey:@"result"] At:weakSelf.view];
+            return;
+
+        }else{
+           // 激活成功再保存
+            [self saveInfo];
+                        /**
+                         *  通知web页面激活按钮不可点击
+                         */
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"activity" object:nil];
+        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
+                    CardOfEastSucceedController *succeed = [[CardOfEastSucceedController alloc]initWithNibName:@"CardOfEastSucceedController" bundle:nil];
+                    succeed.cardinfo = self.cardinfo;
+                    UILabel *lable1 = (UILabel *)[succeed.view viewWithTag:1000];
+                    UILabel *lable2 = (UILabel *)[succeed.view viewWithTag:1001];
+                    [self.navigationController pushViewController:succeed animated:YES];
+                    succeed.cardNum.text = [NSString stringWithFormat:@"券号:%@",[[[jsonRet objectForKey:@"object"]objectForKey:@"cpe"] objectForKey:@"eastcardNo"]];
+                    succeed.cardPassWord.text = [NSString stringWithFormat:@"密码:%@",[[[jsonRet objectForKey:@"object"] objectForKey:@"cpe"] objectForKey:@"eastcardKey"]];
+                    succeed.kabaoid = self.kabaoid;
+
+        }
+
     } tag:tag];
     
 }

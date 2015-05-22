@@ -30,6 +30,7 @@
         [_cardImageView setImage:[UIImage imageNamed:@"topic_load_icon"]];
     }
     _priceLabel.text = [NSString stringWithFormat:@"￥%@",cardInfo.price];
+
     _cardTitleLabel.text = cardInfo.title;
     if (cardInfo.status == 1) {
         [_statusBtn setTitle:@"免费领取" forState:UIControlStateNormal];
@@ -60,8 +61,16 @@
         _statusBtn.enabled = NO;
         [_statusBtn setBackgroundImage:[UIImage imageNamed:@"card_staus_hover_bg"] forState:UIControlStateNormal];
     }
+    /**
+        处理描述字符串
+     */
+    if ([cardInfo.title isEqualToString:@"东方有线卡"]) {
+        _cardDes.text = [cardInfo returnCardOfEastDes];
+    }else{
+        _cardDes.text = [cardInfo returnCardOfOtherDes];
+        
+    }
 
-    _cardDes.text = cardInfo.des;
 }
 
 - (IBAction)receiveAction:(id)sender {

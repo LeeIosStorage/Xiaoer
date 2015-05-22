@@ -34,6 +34,7 @@
 @property (assign, nonatomic) SInt64  expertNextCursor;
 @property (assign, nonatomic) BOOL expertCanLoadMore;
 
+
 @end
 
 @implementation CollectionViewController
