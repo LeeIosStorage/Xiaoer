@@ -154,6 +154,7 @@
                 [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
                 return;
             }
+
             
             [XEProgressHUD AlertSuccess:[XEEngine getSuccessMsgWithReponseDic:jsonRet] At:weakSelf.view];
             [UserInfo setUserInfoByJsonDic:[[jsonRet objectForKey:@"object"] objectForKey:@"user"]];
@@ -175,7 +176,6 @@
     __weak CardOfEastVerifyController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [XEEngine shareInstance].serverPlatform = TestPlatform;
-#warning 测试数据卡号  上线需另外填写
     [[XEEngine shareInstance]activityEastCardWithKabaoid:self.kabaoid userid:[XEEngine shareInstance].uid eno:self.cardNum ekey:self.passWord tag:tag];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         /**
@@ -188,9 +188,10 @@
 
             return ;
         }
-
+        if (!jsonRet && !errorMsg) {
+            [XEProgressHUD AlertError:@"激活失败" At:self.view];
+        }
         if ([[jsonRet objectForKey:@"code"]  isEqual: @"5"]) {
-            NSLog(@"123123123%@",[jsonRet objectForKey:@"result"]);
             [XEProgressHUD AlertError:[jsonRet objectForKey:@"result"] At:weakSelf.view];
             return;
 

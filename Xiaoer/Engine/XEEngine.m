@@ -25,8 +25,8 @@
 
 #define CONNECT_TIMEOUT 20
 //测试接口
-//static NSString* API_URL = @"http://192.168.16.66/api";
-static NSString* API_URL = @"http://xiaor123.cn:801/api";
+//static NSString* API_URL = @"http://xiaor123.cn:801/api";
+static NSString* API_URL = @"http://test.xiaor123.cn:801/api";
 
 static XEEngine* s_ShareInstance = nil;
 
@@ -159,7 +159,7 @@ static XEEngine* s_ShareInstance = nil;
 - (void)serverInit{
 //    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
     if (self.serverPlatform == TestPlatform) {
-        API_URL = @"http://192.168.16.66/api";
+        API_URL = @"http://test.xiaor123.cn:801/api";
     } else {
         API_URL = @"http://xiaor123.cn:801/api";
     }
