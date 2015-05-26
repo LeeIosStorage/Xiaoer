@@ -34,7 +34,6 @@
 
     
     NSURL *cardUrl = [NSURL URLWithString:self.cardinfo.cardActionUrl];
-    
     [self loadWebViewWithUrl:cardUrl];
     [self configureBottomBtn];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(activityed) name:@"activity" object:nil];
@@ -83,7 +82,7 @@
     __block CardOfEastWebViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [XEEngine shareInstance].serverPlatform = TestPlatform;
-    [[XEEngine shareInstance]getEastCardInfomaitonWithuserid:[XEEngine shareInstance].uid kabaoid:kabao tag:tag];
+    [[XEEngine shareInstance]getEastCardInfomaitonWithuserid:[XEEngine shareInstance].uid kabaoid:self.cardinfo.cid tag:tag];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
 //        NSLog(@"jsonRet = %@",jsonRet);
         /**

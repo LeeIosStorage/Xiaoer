@@ -1629,6 +1629,8 @@ static XEEngine* s_ShareInstance = nil;
 - (BOOL)getEastCardInfomaitonWithuserid:(NSString *)userid kabaoid:(NSString *)kabaoid tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     [params setObject:userid forKey:@"userid"];
+    
+
     [params setObject:kabaoid forKey:@"kabaoid"];
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/cp/geteast",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];

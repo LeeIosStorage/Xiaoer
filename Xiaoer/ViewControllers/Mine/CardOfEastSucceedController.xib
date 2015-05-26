@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="星球" id="dZd-p7-U6Z">
-                    <rect key="frame" x="60" y="93.999997727112756" width="200" height="200"/>
+                    <rect key="frame" x="60" y="93.999992995775983" width="200" height="200"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   恭喜！激活成功！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JT5-YG-IZa">
@@ -42,24 +42,13 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JbF-Qt-1Fn">
-                    <rect key="frame" x="40" y="500" width="100" height="30"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wav-bt-Euq">
+                    <rect key="frame" x="110" y="500" width="100" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <state key="normal" title="如何使用" backgroundImage="激活small">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="highlighted" title="如何使用" backgroundImage="激活"/>
-                    <connections>
-                        <action selector="howToUse:" destination="-1" eventType="touchUpInside" id="Rog-f8-Ll0"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wav-bt-Euq">
-                    <rect key="frame" x="200" y="500" width="100" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                    <state key="normal" title="查看卡券" backgroundImage="激活small">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="highlighted" title="查看卡券" backgroundImage="激活small"/>
+                    <state key="highlighted" title="如何使用" backgroundImage="激活small"/>
                     <connections>
                         <action selector="showCardWebView:" destination="-1" eventType="touchUpInside" id="Ybh-DL-mzB"/>
                     </connections>
@@ -71,7 +60,6 @@
     </objects>
     <resources>
         <image name="星球" width="366" height="364"/>
-        <image name="激活" width="400" height="80"/>
         <image name="激活small" width="260" height="80"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

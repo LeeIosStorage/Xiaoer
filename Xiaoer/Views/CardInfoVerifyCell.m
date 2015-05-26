@@ -18,10 +18,15 @@
     self.infoField.delegate = self;
     if ([[array objectAtIndex:0] isEqualToString:@"卡号"]) {
         self.infoField.placeholder = @"请输入卡号";
+        self.infoField.keyboardType = UIKeyboardTypeNumberPad;
     }else if ([[array objectAtIndex:0] isEqualToString:@"密码"]){
         self.infoField.placeholder = @"请输入密码";
+        self.infoField.keyboardType = UIKeyboardTypeNumberPad;
+    }else if ([[array objectAtIndex:0] isEqualToString:@"常用手机"]){
+        self.infoField.keyboardType = UIKeyboardTypeNumberPad;
     }else{
         self.infoField.text = [array objectAtIndex:1];
+
     }
 }
 

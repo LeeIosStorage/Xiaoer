@@ -65,7 +65,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    NSLog(@"8===========================");
     if (_userInfo == nil || _userInfo.uid.length == 0) {
         [XEProgressHUD AlertError:@"用户不存在"];
     }

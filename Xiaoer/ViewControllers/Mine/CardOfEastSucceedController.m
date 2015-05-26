@@ -20,10 +20,6 @@
     NSLog(@"Succeedself.cardinfo---------- %@",self.cardinfo.price);
     
 }
-- (IBAction)howToUse:(id)sender {
-    NSLog(@"如何使用");
-    
-}
 
 - (IBAction)showCardWebView:(id)sender {
     
@@ -35,8 +31,8 @@
     UILabel *lable2 = (UILabel *)[webView.view viewWithTag:1001];
     [self.navigationController pushViewController:webView animated:YES];
     webView.hideCardInfo = NO;
-    webView.cardNumber.text = [NSString stringWithFormat:@"券号:%@",self.cardNum.text];
-    webView.password.text = [NSString stringWithFormat:@"密码：%@",self.cardPassWord.text];
+    lable1.text = [NSString stringWithFormat:@"券号:%@",self.cardNum.text];
+    lable2.text = [NSString stringWithFormat:@"密码：%@",self.cardPassWord.text];
     
 }
 

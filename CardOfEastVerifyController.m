@@ -14,6 +14,8 @@
 
 @interface CardOfEastVerifyController ()
 -(void)checkPhone:(NSString *)phone;
+@property(nonatomic, strong) NSMutableArray *babys;
+
 @end
 
 @implementation CardOfEastVerifyController
@@ -40,6 +42,17 @@
 
 - (void)getUserInfoInfomation{
     self.userIn = [XEEngine shareInstance].userInfo;
+
+    if (!self.userIn.name) {
+        self.userIn.name = [@"" mutableCopy];
+    }
+    if (!self.userIn.phone) {
+        self.userIn.phone = [@"" mutableCopy];
+    }
+    if (!self.userIn.address) {
+        self.userIn.address = [@"" mutableCopy];
+    }
+    
     self.leftLableTextArr = [NSMutableArray arrayWithObjects:@[@"卡号",@""],@[@"密码",@""],@[@"姓名",self.userIn.name],@[@"常用手机",self.userIn.phone],@[@"详细地址",self.userIn.address], nil];
 }
 
@@ -130,17 +143,29 @@
 
 }
 
-
+-(XEUserInfo *)getBabyUserInfo:(NSInteger)index{
+    
+    if (!self.userIn.babys) {
+        self.userIn.babys = [[NSMutableArray alloc] init];
+    }
+    if (self.userIn.babys.count == 0) {
+        XEUserInfo *babyInfo = [[XEUserInfo alloc] init];
+        [self.userIn.babys addObject:babyInfo];
+    }
+    if (self.userIn.babys.count > index) {
+        XEUserInfo *babyUserInfo = [self.userIn.babys objectAtIndex:index];
+        return babyUserInfo;
+    }
+    return nil;
+}
 /**
  *  保存修改过的用户信息到本地
  */
 - (void)saveInfo{
-    __weak CardOfEastVerifyController *weakSelf = self;
-
-    XEUserInfo *UserInfo = [XEEngine shareInstance].userInfo;
     
-    XEUserInfo *baby = [[XEEngine shareInstance].userInfo.babys objectAtIndex:0];
-
+    XEUserInfo *baby = [self getBabyUserInfo:0];
+    __weak CardOfEastVerifyController *weakSelf = self;
+    XEUserInfo *UserInfo = [XEEngine shareInstance].userInfo;
     [XEProgressHUD AlertLoading:@"保存中" At:self.view];
         int tag = [[XEEngine shareInstance] getConnectTag];
         [[XEEngine shareInstance] editUserInfoWithUid:UserInfo.uid name:self.userIn.name nickname:UserInfo.nickName hasBaby:UserInfo.hasbaby desc:UserInfo.desc district:UserInfo.region address:self.userIn.address phone:self.userIn.phone bbId:baby.babyId bbName:UserInfo.babyNick bbGender:UserInfo.babyGender bbBirthday:UserInfo.birthdayString bbAvatar:UserInfo.babyAvatarId userAvatar:UserInfo.avatar dueDate:UserInfo.dueDateString hospital:UserInfo.hospital tag:tag];
@@ -155,7 +180,6 @@
                 return;
             }
 
-            
             [XEProgressHUD AlertSuccess:[XEEngine getSuccessMsgWithReponseDic:jsonRet] At:weakSelf.view];
             [UserInfo setUserInfoByJsonDic:[[jsonRet objectForKey:@"object"] objectForKey:@"user"]];
             UserInfo.phone = self.userIn.phone;
@@ -196,8 +220,6 @@
             return;
 
         }else{
-           // 激活成功再保存
-            [self saveInfo];
                         /**
                          *  通知web页面激活按钮不可点击
                          */
@@ -212,6 +234,10 @@
                     succeed.cardNum.text = [NSString stringWithFormat:@"券号:%@",[[[jsonRet objectForKey:@"object"]objectForKey:@"cpe"] objectForKey:@"eastcardNo"]];
                     succeed.cardPassWord.text = [NSString stringWithFormat:@"密码:%@",[[[jsonRet objectForKey:@"object"] objectForKey:@"cpe"] objectForKey:@"eastcardKey"]];
                     succeed.kabaoid = self.kabaoid;
+            // 激活成功再保存
+
+            [self saveInfo];
+
 
         }
 
