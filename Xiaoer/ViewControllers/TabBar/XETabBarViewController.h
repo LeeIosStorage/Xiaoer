@@ -17,6 +17,7 @@
 @protocol XETabBarControllerDelegate;
 
 @interface XETabBarViewController : UIViewController
+@property (nonatomic, retain) NSMutableArray * badgeNums;
 
 @property (nonatomic, assign) id <XETabBarControllerDelegate> delegate;
 

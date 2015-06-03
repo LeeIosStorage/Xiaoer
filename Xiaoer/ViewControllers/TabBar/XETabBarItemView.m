@@ -53,8 +53,8 @@
 - (UIImageView *)redIconView {
     if (_redIconView == nil) {
         _redIconView = [[UIImageView alloc] init];
-        _redIconView.image = [UIImage imageNamed:@"s_n_round_red.png"];
-        _redIconView.hidden = YES;
+        _redIconView.image = [UIImage imageNamed:@"activity_ego_icon"];
+        _redIconView.hidden = NO;
     }
     return _redIconView;
 }

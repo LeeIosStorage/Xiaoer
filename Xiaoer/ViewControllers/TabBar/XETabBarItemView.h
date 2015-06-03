@@ -16,6 +16,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *itemIconImageView;
 @property (strong, nonatomic) IBOutlet UILabel *itemLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *bkImageView;
+//@property (weak, nonatomic) IBOutlet UIView *redView;
+@property (weak, nonatomic) IBOutlet UILabel *redLable;
 
 @property(nonatomic,assign) id<XETabBarItemViewProtocol> delegate;
 @property(nonatomic,assign) bool selected;

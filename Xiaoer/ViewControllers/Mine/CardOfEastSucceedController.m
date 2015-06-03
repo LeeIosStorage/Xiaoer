@@ -17,7 +17,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"卡券详情";
-    NSLog(@"Succeedself.cardinfo---------- %@",self.cardinfo.price);
     
 }
 

@@ -77,11 +77,11 @@ enum TABLEVIEW_SECTION_INDEX {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-//    [self refreshUserInfoShow];
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -89,8 +89,9 @@ enum TABLEVIEW_SECTION_INDEX {
 }
 
 - (void)initNormalTitleNavBarSubviews{
-//    [self setRightButtonWithTitle:@"设置" selector:@selector(settingAction)];
+    
     [self setRightButtonWithImageName:@"setting_mine_icon" selector:@selector(settingAction)];
+    
 }
 
 - (UINavigationController *)navigationController{

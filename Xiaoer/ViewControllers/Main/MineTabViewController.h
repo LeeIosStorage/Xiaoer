@@ -6,8 +6,9 @@
 //
 //
 
-#import "SuperMainViewController.h"
+//#import "SuperMainViewController.h"
+#import "XESuperViewController.h"
 
-@interface MineTabViewController : SuperMainViewController
+@interface MineTabViewController : XESuperViewController
 
 @end

@@ -24,7 +24,10 @@
 #import "WelcomeViewController.h"
 #import "LSReachability.h"
 #import "XEAlertView.h"
+#import "ShopViewController.h"
+
 //#import "APService.h"
+
 
 
 
@@ -118,8 +121,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     tabViewController.viewControllers = [NSArray arrayWithObjects:
                                          [[MainPageViewController alloc] init],
                                          [[EvaluationViewController alloc] init],
+                                         [[ShopViewController alloc]init],
                                          [[ExpertChatViewController alloc] init],
-                                         [[MineTabViewController alloc] init],
+//                                         [[MineTabViewController alloc] init],
                                          nil];
     
     _mainTabViewController = tabViewController;

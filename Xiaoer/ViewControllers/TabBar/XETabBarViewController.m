@@ -17,7 +17,6 @@
 @property (nonatomic, assign) CGFloat tabBarHeight;
 @property (nonatomic, assign) CGFloat tabTopGap;
 
-@property (nonatomic, retain) NSMutableArray* badgeNums;
 -(void) loadViewControllers;
 
 @end
@@ -76,6 +75,10 @@
     
     [self loadViewControllers];
     
+#warning 修改小红点  可接受通知来修改
+//    XETabBarItemView *tabitem =   [self.tabBar.items objectAtIndex:0];
+//    tabitem.redLable.text = @"2";
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -117,13 +120,13 @@
         }else if (tagIndex == 2){
             tabItem.itemIconImageView.image = [UIImage imageNamed:@"chat_tabbar_icon"];
             tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"chat_tabbar_icon_hover"];
-            tabItem.itemLabel.text = @"专家聊";
+            tabItem.itemLabel.text = @"商城";
         }else if (tagIndex == 3){
             tabItem.itemIconImageView.image = [UIImage imageNamed:@"mine_tabbar_icon"];
             tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"mine_tabbar_icon_hover"];
-            tabItem.itemLabel.text = @"我的";
+            tabItem.itemLabel.text = @"专家聊";
+
         }
-        
         
         [controllerTabs addObject:tabItem];
         controller.tabController = self;
@@ -136,6 +139,7 @@
     
 }
 - (void)refreshBottomBadgeForConversation:(id*)conversation {
+    
 //    if (conversation== nil) {
 //        [self refreshBadge:TAB_INDEX_MSG];
 //        [self refreshBadge:TAB_INDEX_MINE];
@@ -148,6 +152,7 @@
 //    } eXEe {
 //        [self refreshBadge:TAB_INDEX_MSG];
 //    }
+    
 }
 - (void)handleFriendTimelineUreadEvent {
     
@@ -164,6 +169,7 @@
     //redIconView.hidden = !([XESettingConfig staticInstance].friendTimelineUnreadEvent || [XEGroupsManager shareInstance].groupFeedTimelineUnreadEvent);
     
 }
+
 //#pragma msg listen
 //- (void)conversationUnreadedNumChange:(XEConversationInfo*)conversation{
 //    [self refreshBottomBadgeForConversation:conversation];

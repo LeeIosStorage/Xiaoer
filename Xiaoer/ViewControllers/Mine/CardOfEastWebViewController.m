@@ -10,7 +10,9 @@
 #import "CardOfEastVerifyController.h"
 #import "UIImageView+WebCache.h"
 @interface CardOfEastWebViewController ()<UIWebViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 /**
  *  网页数据请求
@@ -24,7 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"卡券详情";
-    NSLog(@"web.cardinfo.price = %@",self.cardinfo.img);
     [self configureCardInfomationView];
     
     [(UIScrollView *)[[self.webView subviews] objectAtIndex:0] setBounces:NO];
@@ -41,6 +42,7 @@
     
 
 }
+
 - (void)configureCardInfomationView{
     self.titleLab.text = self.cardinfo.title;
     self.describe.text = [self.cardinfo returnCardOfEastDes];
@@ -55,10 +57,11 @@
     }
     
 }
+
 - (void)activityed{
-    NSLog(@"接受通知");
     self.activityBtn.userInteractionEnabled = NO;
 }
+
 - (void)configureBottomBtn{
     if (self.hideCardInfo) {
         self.cardNumber.hidden = YES;
@@ -72,10 +75,14 @@
         [self.activityBtn setTitle:@"" forState:UIControlStateNormal];
         self.activityBtn.userInteractionEnabled = NO;
     }
+    
 }
+
+
 /**
  *  获取东方有线卡信息
  */
+
 - (void)getCardInfomation{
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *kabao = [userDefaults objectForKey:[NSString stringWithFormat:@"kabaoid%@",[XEEngine shareInstance].uid]];
@@ -95,6 +102,7 @@
         [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return;
         }else{
+            
             weakSelf.cardNumber.text = [NSString stringWithFormat:@"券号:%@",[[jsonRet objectForKey:@"object"] objectForKey:@"eastcardNo"]];
             weakSelf.password.text = [NSString stringWithFormat:@"密码:%@",[[jsonRet objectForKey:@"object"] objectForKey:@"eastcardKey"]];
             
@@ -116,10 +124,13 @@
     [self.webView loadRequest:_request];
     
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 #pragma web delegate
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     NSLog(@"webViewDidFinishLoad: ");
@@ -129,6 +140,8 @@
     webView.frame = frame;
     [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,265 + frame.size.height)];
 }
+
+
 /*
 #pragma mark - Navigation
 

@@ -31,7 +31,10 @@
 #import "CardPackViewController.h"
 #import "StageSelectViewController.h"
 #import "TicketListViewController.h"
+#import "InformationViewController.h"
+#import "MineTabViewController.h"
 #import "AppDelegate.h"
+
 
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     ODRefreshControl *_themeControl;
@@ -45,25 +48,44 @@
     NSString *_parklonUrl;  //爬行
     NSString *_intelUrl;    //智能
 }
-
+/**
+ *  每周 一练的ScrollView
+ */
+@property (weak, nonatomic) IBOutlet UIScrollView *oneWeekScrollView;
 @property (nonatomic, strong) NSMutableArray *adsThemeArray;
 @property (nonatomic, strong) XEUserInfo *userInfo;
 
 @property (nonatomic, strong) IBOutlet UIView *adsViewContainer;
 @property (strong, nonatomic) IBOutlet UIView *headView;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet UILabel *unreadLabel;
+/**
+ *  我的信箱未读消息
+ */
+//@property (strong, nonatomic) IBOutlet UILabel *unreadLabel;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet UILabel *nickName;
 @property (strong, nonatomic) IBOutlet UILabel *birthday;
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
-@property (strong, nonatomic) IBOutlet UIImageView *roundImageView;
+/**
+ *  我的信箱未读消息小红点
+ */
+//@property (strong, nonatomic) IBOutlet UIImageView *roundImageView;
 @property (strong, nonatomic) IBOutlet UIView *containerView;
-
-- (IBAction)mineMsgAction:(id)sender;
+/**
+ *  我的 信箱按钮
+ *
+ */
+//- (IBAction)mineMsgAction:(id)sender;
 - (IBAction)historyAction:(id)sender;
-- (IBAction)taskAction:(id)sender;
+/**
+ *  妈妈任务
+ */
+//- (IBAction)taskAction:(id)sender;
 
+/**
+ *  纪录每周一练下点击查看的button
+ */
+@property (nonatomic,strong)UIButton *btn;
 @end
 
 @implementation MainPageViewController
@@ -84,6 +106,8 @@
     
     //此句不加程序崩
     [self.collectionView registerClass:[XECollectionViewCell class] forCellWithReuseIdentifier:@"XECollectionViewCell"];
+    //配置每周一练的scrollview
+    [self configureOneWeekScrollview];
 
     _themeControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
     [_themeControl addTarget:self action:@selector(themeBeginPull:) forControlEvents:UIControlEventValueChanged];
@@ -91,11 +115,87 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMsgChanged:) name:XE_MSGINFO_CHANGED_NOTIFICATION object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMsgChanged:) name:XE_MSGINFO_CHANGED_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCardChanged:) name:XE_CARD_CHANGED_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTicketChanged:) name:XE_TICKET_CHANGED_NOTIFICATION object:nil];
+    
+
+  
+    
+    [self setLeftButtonWithTitle:@"我的" selector:@selector(pushToMine)];
+    [self configureSmallBtn];
+
 }
 
+- (void)configureSmallBtn{
+    for (int i = 0; i < 10; i++) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width / 10 ), 10, 20, 20);
+//        NSLog(@"%f %f",button.frame.origin.x,SCREEN_WIDTH * 2 / 10);
+        button.backgroundColor = [UIColor orangeColor];
+        button.tag = i;
+        [button setTitle:[NSString stringWithFormat:@"%d",i] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(touchSmallBtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(i * (self.oneWeekScrollView.contentSize.width / 10 ), 35, 60, 20)];
+        lable.font = [UIFont systemFontOfSize:12];
+        lable.text = [NSString stringWithFormat:@"第%d周",i+1];
+        
+        [self.oneWeekScrollView addSubview:button];
+        [self.oneWeekScrollView addSubview:lable];
+//        for (UIView *ii in self.btn.subviews) {
+//            
+//        }
+    }
+    
+}
+
+- (void)touchSmallBtn:(UIButton *)sender{
+    if (!self.btn) {
+        self.btn = sender;
+        [UIView animateWithDuration:0.5 animations:^{
+            self.btn.transform = CGAffineTransformMakeScale(1.2,1.2);
+        }];
+    }
+    if (self.btn != sender) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.btn.transform = CGAffineTransformMakeScale(1.0,1.0);
+        }];
+        self.btn = sender;
+        [UIView animateWithDuration:0.2 animations:^{
+            self.btn.transform = CGAffineTransformMakeScale(1.2,1.2);
+        }];
+    }
+    [self animationWithBtn];
+}
+
+- (void)animationWithBtn{
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        if (self.btn.tag > 2 && self.btn.tag <= 4) {
+            [self.oneWeekScrollView setContentOffset:CGPointMake(self.btn.frame.origin.x - (SCREEN_WIDTH  / 2), 0)];
+        }else if (self.btn.tag >= 5 && self.btn.tag <= 7){
+            [self.oneWeekScrollView setContentOffset:CGPointMake( SCREEN_WIDTH + ( self.btn.frame.origin.x)- (SCREEN_WIDTH + SCREEN_WIDTH / 2)  , 0)];
+        }
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (void)pushToMine{
+    MineTabViewController *MAIN = [[MineTabViewController alloc]init];
+
+    [self.navigationController pushViewController:MAIN animated:YES];
+}
+//配置每周一练的scrollview
+- (void)configureOneWeekScrollview{
+    self.oneWeekScrollView.showsHorizontalScrollIndicator = YES;
+    self.oneWeekScrollView.directionalLockEnabled = YES;
+    self.oneWeekScrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 2 + 40, 50);
+    self.oneWeekScrollView.alwaysBounceHorizontal = YES;
+    self.oneWeekScrollView.indicatorStyle = UIScrollViewIndicatorStyleBlack;
+//    self.oneWeekScrollView.pagingEnabled = NO;
+    
+}
 - (BOOL)isVisitor{
     if (![[XEEngine shareInstance] hasAccoutLoggedin]) {
         return YES;
@@ -137,7 +237,7 @@
         if (jsonRet == nil) {
             //...
         }else{
-            weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%@条新消息",[[jsonRet objectForKey:@"object"] objectForKey:@"msgnum"]];
+//            weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%@条新消息",[[jsonRet objectForKey:@"object"] objectForKey:@"msgnum"]];
             _mallurl = [[jsonRet objectForKey:@"object"] objectForKey:@"mallurl"];
         }
     }];
@@ -161,12 +261,12 @@
         
         int count = [[jsonRet objectForKey:@"object"] intValueForKey:@"msgnum"];
         if (count > 0) {
-            weakSelf.roundImageView.hidden = NO;
+//            weakSelf.roundImageView.hidden = NO;
         }
         
         NSString *key = [NSString stringWithFormat:@"%@_%@", mineMsgCountKey, [XEEngine shareInstance].uid];
         [[NSUserDefaults standardUserDefaults] setInteger:count forKey:key];
-        weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%d条新消息",count];
+//        weakSelf.unreadLabel.text = [NSString stringWithFormat:@"%d条新消息",count];
         
         _mallurl = [[jsonRet objectForKey:@"object"] objectForKey:@"mallurl"];
         if (![[[jsonRet objectForKey:@"object"] objectForKey:@"devices"] isEqual:[NSNull null]]) {
@@ -289,11 +389,11 @@
     self.titleNavImageView.hidden = NO;
     if (SCREEN_HEIGHT <= 568) {
         CGRect frame = self.containerView.frame;
-        frame.origin.y = frame.origin.y - 30;
+        frame.origin.y = frame.origin.y ;
         self.containerView.frame = frame;
         
         frame = self.headView.frame;
-        frame.size.height = 476;
+        frame.size.height = 391;
         self.headView.frame = frame;
     }
 }
@@ -309,7 +409,7 @@
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 8;
+    return 4;
 }
 //定义展示的Section的个数
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -319,33 +419,15 @@
 //每个UICollectionView展示的内容
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-
     XECollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XECollectionViewCell" forIndexPath:indexPath];
-    if(indexPath.row == 0){
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_recipes_icon"]];
-        cell.roundImgView.hidden = YES;
-        [cell.nameLabel setText:@"食谱"];
-    }else if(indexPath.row == 1){
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_nourish_icon"]];
-        cell.roundImgView.hidden = YES;
-        cell.nameLabel.text = @"养育";
-    }else if(indexPath.row == 2){
+    
+    if (indexPath.row == 0) {
+        //评测
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_evaluation_icon"]];
         cell.roundImgView.hidden = YES;
         cell.nameLabel.text = @"评测";
-    }else if(indexPath.row == 3){
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_expert_icon"]];
-        cell.roundImgView.hidden = YES;
-        cell.nameLabel.text = @"专家";
-    }else if(indexPath.row == 4){
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_activity_icon"]];
-        cell.roundImgView.hidden = YES;
-        cell.nameLabel.text = @"活动";
-    }else if(indexPath.row == 5){
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_mall_icon"]];
-        cell.roundImgView.hidden = YES;
-        cell.nameLabel.text = @"商城";
-    }else if(indexPath.row == 6){
+    } else if (indexPath.row == 1) {
+        //抢票
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
         cell.nameLabel.text = @"抢票";
         if (_ticketNum > 0) {
@@ -353,7 +435,8 @@
         }else{
             cell.roundImgView.hidden = YES;
         }
-    }else if(indexPath.row == 7){
+    }else if (indexPath.row == 2){
+      //卡券
         [cell.avatarImgView setImage:[UIImage imageNamed:@"home_card_icon"]];
         cell.nameLabel.text = @"卡券";
         if (_cardNum > 0) {
@@ -361,7 +444,54 @@
         }else{
             cell.roundImgView.hidden = YES;
         }
+    }else if (indexPath.row == 3){
+      //咨询
+        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
+        cell.nameLabel.text = @"资讯";
     }
+
+//    XECollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XECollectionViewCell" forIndexPath:indexPath];
+//    if(indexPath.row == 0){
+//        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_recipes_icon"]];
+//        cell.roundImgView.hidden = YES;
+//        [cell.nameLabel setText:@"食谱"];
+//    }else if(indexPath.row == 1){
+//        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_nourish_icon"]];
+//        cell.roundImgView.hidden = YES;
+//        cell.nameLabel.text = @"养育";
+//    }else if(indexPath.row == 2){
+//        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_evaluation_icon"]];
+//        cell.roundImgView.hidden = YES;
+//        cell.nameLabel.text = @"评测";
+//    }else if(indexPath.row == 3){
+//        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_expert_icon"]];
+//        cell.roundImgView.hidden = YES;
+//        cell.nameLabel.text = @"专家";
+//    }else if(indexPath.row == 4){
+//        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_activity_icon"]];
+//        cell.roundImgView.hidden = YES;
+//        cell.nameLabel.text = @"活动";
+//    }else if(indexPath.row == 5){
+//        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_mall_icon"]];
+//        cell.roundImgView.hidden = YES;
+//        cell.nameLabel.text = @"商城";
+//    }else if(indexPath.row == 6){
+//        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
+//        cell.nameLabel.text = @"抢票";
+//        if (_ticketNum > 0) {
+//            cell.roundImgView.hidden = NO;
+//        }else{
+//            cell.roundImgView.hidden = YES;
+//        }
+//    }else if(indexPath.row == 7){
+//        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_card_icon"]];
+//        cell.nameLabel.text = @"卡券";
+//        if (_cardNum > 0) {
+//            cell.roundImgView.hidden = NO;
+//        }else{
+//            cell.roundImgView.hidden = YES;
+//        }
+//    }
     
     return cell;
 }
@@ -384,40 +514,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.row) {
-        case 7:{
-            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
-                return;
-            }
-            CardPackViewController *vc = [[CardPackViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-            break;
-        case 6:{
-//            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能进行抢票"]) {
-//                return;
-//            }
-            TicketListViewController *vc = [[TicketListViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-            break;
-        }
-        case 5:{
-            id vc = [XELinkerHandler handleDealWithHref:_mallurl From:self.navigationController];
-            if (vc) {
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-            break;
-        }
-        case 4:{
-            ActivityViewController *vc = [[ActivityViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-            break;
-        case 3:{
-            ExpertListViewController *vc = [[ExpertListViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-            break;
-        case 2:{
+        case 0:{
 //            RecipesViewController *rVc = [[RecipesViewController alloc] init];
 //            rVc.infoType = TYPE_EVALUATION;
 //            [self.navigationController pushViewController:rVc animated:YES];
@@ -425,21 +522,90 @@
             [appDelegate.mainTabViewController.tabBar selectIndex:1];
         }
             break;
+
         case 1:{
-            RecipesViewController *rVc = [[RecipesViewController alloc] init];
-            rVc.infoType = TYPE_NOURISH;
-            [self.navigationController pushViewController:rVc animated:YES];
+//            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能进行抢票"]) {
+//            return;
+//            }
+            TicketListViewController *vc = [[TicketListViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
             break;
         }
-        case 0:{
-            RecipesViewController *rVc = [[RecipesViewController alloc] init];
-            rVc.infoType = TYPE_RECIPES;
-            [self.navigationController pushViewController:rVc animated:YES];
+        case 2:{
+            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
+                return;
+            }
+            CardPackViewController *vc = [[CardPackViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 3:{
+            InformationViewController *infomation = [[InformationViewController alloc]init];
+            [self.navigationController pushViewController:infomation  animated:YES];
             break;
         }
         default:
-            break;
+           break;
     }
+
+//    switch (indexPath.row) {
+//        case 7:{
+//            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
+//                return;
+//            }
+//            CardPackViewController *vc = [[CardPackViewController alloc] init];
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
+//            break;
+//        case 6:{
+////            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能进行抢票"]) {
+////                return;
+////            }
+//            TicketListViewController *vc = [[TicketListViewController alloc] init];
+//            [self.navigationController pushViewController:vc animated:YES];
+//            break;
+//        }
+//        case 5:{
+//            id vc = [XELinkerHandler handleDealWithHref:_mallurl From:self.navigationController];
+//            if (vc) {
+//                [self.navigationController pushViewController:vc animated:YES];
+//            }
+//            break;
+//        }
+//        case 4:{
+//            ActivityViewController *vc = [[ActivityViewController alloc] init];
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
+//            break;
+//        case 3:{
+//            ExpertListViewController *vc = [[ExpertListViewController alloc] init];
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }
+//            break;
+//        case 2:{
+////            RecipesViewController *rVc = [[RecipesViewController alloc] init];
+////            rVc.infoType = TYPE_EVALUATION;
+////            [self.navigationController pushViewController:rVc animated:YES];
+//            AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+//            [appDelegate.mainTabViewController.tabBar selectIndex:1];
+//        }
+//            break;
+//        case 1:{
+//            RecipesViewController *rVc = [[RecipesViewController alloc] init];
+//            rVc.infoType = TYPE_NOURISH;
+//            [self.navigationController pushViewController:rVc animated:YES];
+//            break;
+//        }
+//        case 0:{
+//            RecipesViewController *rVc = [[RecipesViewController alloc] init];
+//            rVc.infoType = TYPE_RECIPES;
+//            [self.navigationController pushViewController:rVc animated:YES];
+//            break;
+//        }
+//        default:
+//            break;
+//    }
+    
 }
 
 //返回这个UICollectionView是否可以被选择
@@ -473,7 +639,7 @@
     indexLabel.backgroundColor = [UIColor clearColor];
     indexLabel.textColor = [UIColor lightGrayColor];
     indexLabel.font = [UIFont systemFontOfSize:13];
-    indexLabel.text = @"专注力和好习惯";
+    indexLabel.text = @"育儿事项";
     [view addSubview:indexLabel];
     
     return view;
@@ -519,7 +685,13 @@
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    _isScrollViewDrag = YES;
+    if (scrollView == self.oneWeekScrollView) {
+        NSLog(@"oneweek");
+    }else{
+        _isScrollViewDrag = YES;
+        NSLog(@"yes");
+    }
+    
 }
 
 #pragma mark - ODRefreshControl
@@ -587,14 +759,20 @@
     [alertView show];
 }
 
-- (IBAction)mineMsgAction:(id)sender {
-    if ([self isVisitor]) {
-        [self showAlter];
-    }else{
-        MineMsgViewController *mmVc = [[MineMsgViewController alloc] init];
-        [self.navigationController pushViewController:mmVc animated:YES];
-    }
-}
+
+
+/**
+ *  我的信箱按钮
+ *
+ */
+//- (IBAction)mineMsgAction:(id)sender {
+//    if ([self isVisitor]) {
+//        [self showAlter];
+//    }else{
+//        MineMsgViewController *mmVc = [[MineMsgViewController alloc] init];
+//        [self.navigationController pushViewController:mmVc animated:YES];
+//    }
+//}
 
 - (IBAction)historyAction:(id)sender {
     if ([self isVisitor]) {
@@ -604,32 +782,35 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
-
-- (IBAction)taskAction:(id)sender {
-    if ([self isVisitor]) {
-        [self showAlter];
-    }else{
-        TaskViewController *tVc = [[TaskViewController alloc] init];
-        [self.navigationController pushViewController:tVc animated:YES];
-    }
-}
+/**
+ *  妈妈任务
+ *
+ */
+//- (IBAction)taskAction:(id)sender {
+//    if ([self isVisitor]) {
+//        [self showAlter];
+//    }else{
+//        TaskViewController *tVc = [[TaskViewController alloc] init];
+//        [self.navigationController pushViewController:tVc animated:YES];
+//    }
+//}
 
 - (void)handleUserInfoChanged:(NSNotification *)notification{
     [self refreshUserInfoShow];
     [self.tableView reloadData];
 }
 
-- (void)handleMsgChanged:(NSNotification *)notification{
-    NSString *key = [NSString stringWithFormat:@"%@_%@", mineMsgCountKey, [XEEngine shareInstance].uid];
-    NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:key];
-    if (count > 0) {
-        self.roundImageView.hidden = NO;
-    }else {
-        self.roundImageView.hidden = YES;
-    }
-    self.unreadLabel.text = [NSString stringWithFormat:@"%d条新消息",(int)count];
-    [self.tableView reloadData];
-}
+//- (void)handleMsgChanged:(NSNotification *)notification{
+//    NSString *key = [NSString stringWithFormat:@"%@_%@", mineMsgCountKey, [XEEngine shareInstance].uid];
+//    NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:key];
+//    if (count > 0) {
+//        self.roundImageView.hidden = NO;
+//    }else {
+//        self.roundImageView.hidden = YES;
+//    }
+//    self.unreadLabel.text = [NSString stringWithFormat:@"%d条新消息",(int)count];
+//    [self.tableView reloadData];
+//}
 
 - (void)handleCardChanged:(NSNotification *)notification{
     NSString *key = [NSString stringWithFormat:@"%@_%@", mineCardCountKey, [XEEngine shareInstance].uid];

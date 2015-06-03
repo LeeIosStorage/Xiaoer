@@ -117,8 +117,9 @@
     [self activity];
 
 }
+
 /**
- *  检测用户手机
+ *  检测用户手机号
  *
  */
 -(void)checkPhone:(NSString *)phone{
@@ -158,6 +159,7 @@
     }
     return nil;
 }
+
 /**
  *  保存修改过的用户信息到本地
  */

@@ -361,6 +361,12 @@
 		7E7241251A77C12A001E1F69 /* TopicCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E7241231A77C12A001E1F69 /* TopicCommentViewCell.xib */; };
 		7E72412B1A77D2F8001E1F69 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7241281A77D2F8001E1F69 /* HPGrowingTextView.m */; };
 		7E72412C1A77D2F8001E1F69 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E72412A1A77D2F8001E1F69 /* HPTextViewInternal.m */; };
+		AA70F2F21B1EBC7200122F57 /* InfomationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA70F2F01B1EBC7200122F57 /* InfomationViewCell.m */; };
+		AA70F2F31B1EBC7200122F57 /* InfomationViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */; };
+		AA7AAFB31B1F05B200158B9A /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7AAFB11B1F05B200158B9A /* ShopViewController.m */; };
+		AA7AAFB41B1F05B200158B9A /* ShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7AAFB21B1F05B200158B9A /* ShopViewController.xib */; };
+		AA7AE68A1B1EA91F00396699 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7AE6881B1EA91F00396699 /* InformationViewController.m */; };
+		AA7AE68B1B1EA91F00396699 /* InformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE6891B1EA91F00396699 /* InformationViewController.xib */; };
 		AA8BA9481B09EFC7004B2222 /* CardInfoVerifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA9461B09EFC7004B2222 /* CardInfoVerifyCell.m */; };
 		AA8BA9491B09EFC7004B2222 /* CardInfoVerifyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */; };
 		AAAA94D31B0D804C0029E7E1 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA94D21B0D804B0029E7E1 /* BaseModel.m */; };
@@ -967,6 +973,15 @@
 		7E7241281A77D2F8001E1F69 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPGrowingTextView.m; sourceTree = "<group>"; };
 		7E7241291A77D2F8001E1F69 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTextViewInternal.h; sourceTree = "<group>"; };
 		7E72412A1A77D2F8001E1F69 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
+		AA70F2EF1B1EBC7200122F57 /* InfomationViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationViewCell.h; sourceTree = "<group>"; };
+		AA70F2F01B1EBC7200122F57 /* InfomationViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationViewCell.m; sourceTree = "<group>"; };
+		AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationViewCell.xib; sourceTree = "<group>"; };
+		AA7AAFB01B1F05B200158B9A /* ShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopViewController.h; path = ../ShopViewController.h; sourceTree = "<group>"; };
+		AA7AAFB11B1F05B200158B9A /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopViewController.m; path = ../ShopViewController.m; sourceTree = "<group>"; };
+		AA7AAFB21B1F05B200158B9A /* ShopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShopViewController.xib; path = ../ShopViewController.xib; sourceTree = "<group>"; };
+		AA7AE6871B1EA91F00396699 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InformationViewController.h; path = Main/InformationViewController.h; sourceTree = "<group>"; };
+		AA7AE6881B1EA91F00396699 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InformationViewController.m; path = Main/InformationViewController.m; sourceTree = "<group>"; };
+		AA7AE6891B1EA91F00396699 /* InformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InformationViewController.xib; path = Main/InformationViewController.xib; sourceTree = "<group>"; };
 		AA8BA9451B09EFC7004B2222 /* CardInfoVerifyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardInfoVerifyCell.h; sourceTree = "<group>"; };
 		AA8BA9461B09EFC7004B2222 /* CardInfoVerifyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardInfoVerifyCell.m; sourceTree = "<group>"; };
 		AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardInfoVerifyCell.xib; sourceTree = "<group>"; };
@@ -1573,6 +1588,9 @@
 				0783F68C1AB819DF00AAB5B0 /* CollectActivityViewCell.h */,
 				0783F68D1AB819DF00AAB5B0 /* CollectActivityViewCell.m */,
 				0783F68E1AB819DF00AAB5B0 /* CollectActivityViewCell.xib */,
+				AA70F2EF1B1EBC7200122F57 /* InfomationViewCell.h */,
+				AA70F2F01B1EBC7200122F57 /* InfomationViewCell.m */,
+				AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */,
 			);
 			name = Mine;
 			sourceTree = "<group>";
@@ -2074,7 +2092,9 @@
 				07E536151A52828E005E1DA9 /* Base */,
 				07E284911A5A8F26005651EB /* Login */,
 				07E536161A52828E005E1DA9 /* Main */,
+				AA7AAFAF1B1F01FC00158B9A /* Shop */,
 				07FC6D251A67B161001F34D8 /* Home */,
+				AA7AAFAE1B1F01CD00158B9A /* infomation */,
 				07E536171A52828E005E1DA9 /* Mine */,
 				07C49F441A5E7C9800E1725C /* Common */,
 				07913F5B1A676F570083E8E5 /* Expert */,
@@ -2128,6 +2148,9 @@
 				07E5362E1A5290C9005E1DA9 /* EvaluationViewController.h */,
 				07E5362F1A5290C9005E1DA9 /* EvaluationViewController.m */,
 				07E536301A5290C9005E1DA9 /* EvaluationViewController.xib */,
+				AA7AAFB01B1F05B200158B9A /* ShopViewController.h */,
+				AA7AAFB11B1F05B200158B9A /* ShopViewController.m */,
+				AA7AAFB21B1F05B200158B9A /* ShopViewController.xib */,
 				07E536331A529210005E1DA9 /* ExpertChatViewController.h */,
 				07E536341A529210005E1DA9 /* ExpertChatViewController.m */,
 				07E536351A529210005E1DA9 /* ExpertChatViewController.xib */,
@@ -2249,6 +2272,23 @@
 				7E72412A1A77D2F8001E1F69 /* HPTextViewInternal.m */,
 			);
 			path = HPGrowingTextView;
+			sourceTree = "<group>";
+		};
+		AA7AAFAE1B1F01CD00158B9A /* infomation */ = {
+			isa = PBXGroup;
+			children = (
+				AA7AE6871B1EA91F00396699 /* InformationViewController.h */,
+				AA7AE6881B1EA91F00396699 /* InformationViewController.m */,
+				AA7AE6891B1EA91F00396699 /* InformationViewController.xib */,
+			);
+			name = infomation;
+			sourceTree = "<group>";
+		};
+		AA7AAFAF1B1F01FC00158B9A /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Shop;
 			sourceTree = "<group>";
 		};
 		AAD8EC891B0B076700B24F9A /* cardOfEast */ = {
@@ -2383,6 +2423,7 @@
 				079E421D1A762ABE0056968E /* XEQuestionViewCell.xib in Resources */,
 				078E88EE1AA1C32D008AD45A /* UMSCommentDetailController.xib in Resources */,
 				078E89371AA1C32D008AD45A /* markdown.css in Resources */,
+				AA7AAFB41B1F05B200158B9A /* ShopViewController.xib in Resources */,
 				078E89001AA1C32D008AD45A /* UMSocialDataService.html in Resources */,
 				07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */,
 				074644861A6CFFDA00CE2935 /* XECollectionViewCell.xib in Resources */,
@@ -2418,6 +2459,7 @@
 				078E88F11AA1C32D008AD45A /* UMShareEditViewController.xib in Resources */,
 				077663A11A809C01004C885B /* MineTopicListViewController.xib in Resources */,
 				078E89021AA1C32D008AD45A /* UMSocialEmailData.html in Resources */,
+				AA7AE68B1B1EA91F00396699 /* InformationViewController.xib in Resources */,
 				078E88F71AA1C32D008AD45A /* UMSocialAccountEntity.html in Resources */,
 				078E88F41AA1C32D008AD45A /* UMSnsAccountViewController.xib in Resources */,
 				078E89241AA1C32D008AD45A /* UMSocialDataDelegate.html in Resources */,
@@ -2467,6 +2509,7 @@
 				075B032A1A6E3892002B577D /* MapChooseViewController.xib in Resources */,
 				0783F6861AB8137A00AAB5B0 /* ToolCollectionCell.xib in Resources */,
 				078E891E1AA1C32D008AD45A /* class_grath.png in Resources */,
+				AA70F2F31B1EBC7200122F57 /* InfomationViewCell.xib in Resources */,
 				078E88FE1AA1C32D008AD45A /* UMSocialCustomAccount.html in Resources */,
 				078E89051AA1C32D008AD45A /* UMSocialIconActionSheet.html in Resources */,
 				078E89141AA1C32D008AD45A /* UMSocialTwitterData.html in Resources */,
@@ -2592,6 +2635,7 @@
 				0774A8741A666EAB00336465 /* GMGridViewCell.m in Sources */,
 				077663961A80674E004C885B /* MineActivityListViewController.m in Sources */,
 				0752F7D21A7B2638008C0E0A /* PSTCollectionView.m in Sources */,
+				AA7AE68A1B1EA91F00396699 /* InformationViewController.m in Sources */,
 				0712B3AA1A5BD853000A1A7F /* SDWebImageDownloader.m in Sources */,
 				0712B3AE1A5BD853000A1A7F /* UIButton+WebCache.m in Sources */,
 				0712B3A41A5BD853000A1A7F /* MKAnnotationView+WebCache.m in Sources */,
@@ -2632,8 +2676,10 @@
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
 				07AAB7F81A8330130030D306 /* SettingViewCell.m in Sources */,
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
+				AA7AAFB31B1F05B200158B9A /* ShopViewController.m in Sources */,
 				7E72412B1A77D2F8001E1F69 /* HPGrowingTextView.m in Sources */,
 				075B03351A6E4350002B577D /* MapChooseAnnotationView.m in Sources */,
+				AA70F2F21B1EBC7200122F57 /* InfomationViewCell.m in Sources */,
 				07EBF07B1A7A01080050B256 /* XEAMBlurView.m in Sources */,
 				7E72411B1A77BFA2001E1F69 /* TopicDetailsViewController.m in Sources */,
 				076380561AA9446400F449CD /* XEBabyInfo.m in Sources */,
