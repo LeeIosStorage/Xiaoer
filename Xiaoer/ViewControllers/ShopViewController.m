@@ -8,7 +8,9 @@
 
 #import "ShopViewController.h"
 
-@interface ShopViewController ()
+@interface ShopViewController ()<UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *headerView;
+@property (weak, nonatomic) IBOutlet UITableView *shopTabView;
 
 @end
 
@@ -16,9 +18,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.shopTabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     // Do any additional setup after loading the view from its nib.
+    self.shopTabView.tableHeaderView = self.headerView;
+    [self.view addSubview:self.shopTabView];
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 10;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 60;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 23;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor redColor];
+    return cell;
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

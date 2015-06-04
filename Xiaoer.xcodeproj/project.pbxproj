@@ -367,10 +367,14 @@
 		AA7AAFB41B1F05B200158B9A /* ShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7AAFB21B1F05B200158B9A /* ShopViewController.xib */; };
 		AA7AE68A1B1EA91F00396699 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7AE6881B1EA91F00396699 /* InformationViewController.m */; };
 		AA7AE68B1B1EA91F00396699 /* InformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE6891B1EA91F00396699 /* InformationViewController.xib */; };
+		AA8784BD1B2013A4005A11E8 /* MainTabScrollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8784BB1B2013A4005A11E8 /* MainTabScrollCell.m */; };
+		AA8784BE1B2013A4005A11E8 /* MainTabScrollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8784BC1B2013A4005A11E8 /* MainTabScrollCell.xib */; };
 		AA8BA9481B09EFC7004B2222 /* CardInfoVerifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA9461B09EFC7004B2222 /* CardInfoVerifyCell.m */; };
 		AA8BA9491B09EFC7004B2222 /* CardInfoVerifyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */; };
 		AAAA94D31B0D804C0029E7E1 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA94D21B0D804B0029E7E1 /* BaseModel.m */; };
 		AAAA94D91B0D80F60029E7E1 /* XEEastCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA94D81B0D80F60029E7E1 /* XEEastCardInfo.m */; };
+		AAD6372B1B202A7000D17763 /* MainTabScrollCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD637291B202A7000D17763 /* MainTabScrollCollectCell.m */; };
+		AAD6372C1B202A7000D17763 /* MainTabScrollCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD6372A1B202A7000D17763 /* MainTabScrollCollectCell.xib */; };
 		AAD8EC7F1B0ACF8E00B24F9A /* CardOfEastWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC7D1B0ACF8E00B24F9A /* CardOfEastWebViewController.m */; };
 		AAD8EC801B0ACF8E00B24F9A /* CardOfEastWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD8EC7E1B0ACF8E00B24F9A /* CardOfEastWebViewController.xib */; };
 		AAD8EC871B0AE7E600B24F9A /* CardOfEastVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC851B0AE7E600B24F9A /* CardOfEastVerifyController.m */; };
@@ -982,6 +986,9 @@
 		AA7AE6871B1EA91F00396699 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InformationViewController.h; path = Main/InformationViewController.h; sourceTree = "<group>"; };
 		AA7AE6881B1EA91F00396699 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InformationViewController.m; path = Main/InformationViewController.m; sourceTree = "<group>"; };
 		AA7AE6891B1EA91F00396699 /* InformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InformationViewController.xib; path = Main/InformationViewController.xib; sourceTree = "<group>"; };
+		AA8784BA1B2013A4005A11E8 /* MainTabScrollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabScrollCell.h; sourceTree = "<group>"; };
+		AA8784BB1B2013A4005A11E8 /* MainTabScrollCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabScrollCell.m; sourceTree = "<group>"; };
+		AA8784BC1B2013A4005A11E8 /* MainTabScrollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTabScrollCell.xib; sourceTree = "<group>"; };
 		AA8BA9451B09EFC7004B2222 /* CardInfoVerifyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardInfoVerifyCell.h; sourceTree = "<group>"; };
 		AA8BA9461B09EFC7004B2222 /* CardInfoVerifyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardInfoVerifyCell.m; sourceTree = "<group>"; };
 		AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardInfoVerifyCell.xib; sourceTree = "<group>"; };
@@ -989,6 +996,9 @@
 		AAAA94D21B0D804B0029E7E1 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		AAAA94D71B0D80F60029E7E1 /* XEEastCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XEEastCardInfo.h; path = ../../XEEastCardInfo.h; sourceTree = "<group>"; };
 		AAAA94D81B0D80F60029E7E1 /* XEEastCardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEEastCardInfo.m; path = ../../XEEastCardInfo.m; sourceTree = "<group>"; };
+		AAD637281B202A7000D17763 /* MainTabScrollCollectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabScrollCollectCell.h; sourceTree = "<group>"; };
+		AAD637291B202A7000D17763 /* MainTabScrollCollectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabScrollCollectCell.m; sourceTree = "<group>"; };
+		AAD6372A1B202A7000D17763 /* MainTabScrollCollectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTabScrollCollectCell.xib; sourceTree = "<group>"; };
 		AAD8EC7C1B0ACF8E00B24F9A /* CardOfEastWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardOfEastWebViewController.h; sourceTree = "<group>"; };
 		AAD8EC7D1B0ACF8E00B24F9A /* CardOfEastWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardOfEastWebViewController.m; sourceTree = "<group>"; };
 		AAD8EC7E1B0ACF8E00B24F9A /* CardOfEastWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardOfEastWebViewController.xib; sourceTree = "<group>"; };
@@ -1133,6 +1143,12 @@
 				071D51931A674FC6003D6752 /* MainTabCell.h */,
 				071D51941A674FC6003D6752 /* MainTabCell.m */,
 				071D51951A674FC6003D6752 /* MainTabCell.xib */,
+				AA8784BA1B2013A4005A11E8 /* MainTabScrollCell.h */,
+				AA8784BB1B2013A4005A11E8 /* MainTabScrollCell.m */,
+				AA8784BC1B2013A4005A11E8 /* MainTabScrollCell.xib */,
+				AAD637281B202A7000D17763 /* MainTabScrollCollectCell.h */,
+				AAD637291B202A7000D17763 /* MainTabScrollCollectCell.m */,
+				AAD6372A1B202A7000D17763 /* MainTabScrollCollectCell.xib */,
 				07FC6D1E1A679D22001F34D8 /* XEGridView.h */,
 				07FC6D1F1A679D22001F34D8 /* XEGridView.m */,
 				07FC6D231A679D4C001F34D8 /* XEGridView.xib */,
@@ -1588,9 +1604,6 @@
 				0783F68C1AB819DF00AAB5B0 /* CollectActivityViewCell.h */,
 				0783F68D1AB819DF00AAB5B0 /* CollectActivityViewCell.m */,
 				0783F68E1AB819DF00AAB5B0 /* CollectActivityViewCell.xib */,
-				AA70F2EF1B1EBC7200122F57 /* InfomationViewCell.h */,
-				AA70F2F01B1EBC7200122F57 /* InfomationViewCell.m */,
-				AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */,
 			);
 			name = Mine;
 			sourceTree = "<group>";
@@ -2110,6 +2123,7 @@
 			children = (
 				07AAB7F41A832FD00030D306 /* Setting */,
 				07882C1F1A806728003874FA /* Mine */,
+				AAD637271B201DA300D17763 /* infomation */,
 				075E32161A762C1C006037B3 /* Common */,
 				073F9F081A68B234009D94E3 /* Home */,
 				074DD0D61A5E33B80042B721 /* Main */,
@@ -2291,6 +2305,16 @@
 			name = Shop;
 			sourceTree = "<group>";
 		};
+		AAD637271B201DA300D17763 /* infomation */ = {
+			isa = PBXGroup;
+			children = (
+				AA70F2EF1B1EBC7200122F57 /* InfomationViewCell.h */,
+				AA70F2F01B1EBC7200122F57 /* InfomationViewCell.m */,
+				AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */,
+			);
+			name = infomation;
+			sourceTree = "<group>";
+		};
 		AAD8EC891B0B076700B24F9A /* cardOfEast */ = {
 			isa = PBXGroup;
 			children = (
@@ -2409,6 +2433,7 @@
 				075B031F1A6CAC28002B577D /* ApplyActivityViewController.xib in Resources */,
 				075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */,
 				074D4B591AB8107900C19972 /* TicketListViewController.xib in Resources */,
+				AA8784BE1B2013A4005A11E8 /* MainTabScrollCell.xib in Resources */,
 				078E89101AA1C32D008AD45A /* UMSocialSnsPlatform.html in Resources */,
 				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
 				0760E9301A81ACB300BBEA3D /* MineMsgViewController.xib in Resources */,
@@ -2490,6 +2515,7 @@
 				07E536371A529210005E1DA9 /* ExpertChatViewController.xib in Resources */,
 				078E89071AA1C32D008AD45A /* UMSocialLWSessionData.html in Resources */,
 				07AAB7FE1A8359CB0030D306 /* AboutViewController.xib in Resources */,
+				AAD6372C1B202A7000D17763 /* MainTabScrollCollectCell.xib in Resources */,
 				078E89231AA1C32D008AD45A /* index.html in Resources */,
 				0783F6921AB819FE00AAB5B0 /* XECategoryView.xib in Resources */,
 				078E88F51AA1C32D008AD45A /* UMSShareListController.xib in Resources */,
@@ -2574,10 +2600,12 @@
 				075DD0351A78AC0C009A64B4 /* WSAssetsTableViewCell.m in Sources */,
 				07457C901AC3F490009343FC /* HotUpButton.m in Sources */,
 				07FC6D201A679D22001F34D8 /* XEGridView.m in Sources */,
+				AAD6372B1B202A7000D17763 /* MainTabScrollCollectCell.m in Sources */,
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
 				0752F7B31A7B2615008C0E0A /* DACircularProgressView.m in Sources */,
 				07FC6D1B1A675D3E001F34D8 /* XEScrollPage.m in Sources */,
 				AA8BA9481B09EFC7004B2222 /* CardInfoVerifyCell.m in Sources */,
+				AA8784BD1B2013A4005A11E8 /* MainTabScrollCell.m in Sources */,
 				079E42181A7611240056968E /* XEQuestionInfo.m in Sources */,
 				075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */,
 				07582D0D1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m in Sources */,

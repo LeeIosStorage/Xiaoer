@@ -33,10 +33,11 @@
 #import "TicketListViewController.h"
 #import "InformationViewController.h"
 #import "MineTabViewController.h"
+#import "MainTabScrollCell.h"
 #import "AppDelegate.h"
 
 
-@interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
+@interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate,selestDelegate>{
     ODRefreshControl *_themeControl;
     XEScrollPage *scrollPageView;
     NSInteger  _cardNum;
@@ -52,6 +53,12 @@
  *  每周 一练的ScrollView
  */
 @property (weak, nonatomic) IBOutlet UIScrollView *oneWeekScrollView;
+
+/**
+ *  每周一练的月份数量
+ */
+@property (nonatomic,assign)NSInteger index;
+
 @property (nonatomic, strong) NSMutableArray *adsThemeArray;
 @property (nonatomic, strong) XEUserInfo *userInfo;
 
@@ -90,6 +97,8 @@
 
 @implementation MainPageViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -106,8 +115,7 @@
     
     //此句不加程序崩
     [self.collectionView registerClass:[XECollectionViewCell class] forCellWithReuseIdentifier:@"XECollectionViewCell"];
-    //配置每周一练的scrollview
-    [self configureOneWeekScrollview];
+
 
     _themeControl = [[ODRefreshControl alloc] initInScrollView:self.tableView];
     [_themeControl addTarget:self action:@selector(themeBeginPull:) forControlEvents:UIControlEventValueChanged];
@@ -123,79 +131,149 @@
   
     
     [self setLeftButtonWithTitle:@"我的" selector:@selector(pushToMine)];
+    self.index = 80;
+    //配置每周一练的scrollview
+    [self configureOneWeekScrollview];
+    //布局每周一练的scrollview小按钮
     [self configureSmallBtn];
+    
+
+
+    
+
+
+}
+//- (void)viewDidAppear:(BOOL)animated{
+//    [super viewDidAppear:YES];
+//
+//}
+- (void)calculateWeeks{
+    XEUserInfo *userInfo = [self getBabyUserInfo:0];
+    NSLog(@"----------%@",userInfo.birthdayDate);
+    self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
+    NSDate* nowDate = [NSDate date];
+    if (userInfo.birthdayDate == nil) {
+        return ;
+    }
+    NSInteger month = 0;
+    int distance = [nowDate timeIntervalSinceDate:userInfo.birthdayDate];
+    if (distance < 0) {
+        distance = 0 ;
+        month = 1;
+    }
+    NSLog(@"distance ===== %d",distance);
+    //大于一年
+    if (distance > 60*60*24*365) {
+        month = distance/(60*60*24*7) + 1;
+    }
+    //大于一个月 包括小于一年
+    if (distance < 60*60*24*365) {
+        month = distance/(60*60*24*7) + 1;
+    }
+    //小于一个月
+    if (distance < 60*60*24*30) {
+        month =distance/(60*60*24*7)+ 1;
+    }
+    //小于一周
+    if (distance < 60*60*24*7) {
+        month = 1;
+    }
+    //小于一天
+    if (distance < 60*60*24) {
+        month = 1;
+    }
+    for (UIButton *button in self.oneWeekScrollView.subviews) {
+        if (button.tag == month -1) {
+            self.btn = button;
+            [self touchSmallBtn:self.btn];
+        }
+    }
+    
 
 }
 
+#pragma mark 布局每周一练的scrollview小按钮
 - (void)configureSmallBtn{
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < self.index; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width / 10 ), 10, 20, 20);
-//        NSLog(@"%f %f",button.frame.origin.x,SCREEN_WIDTH * 2 / 10);
-        button.backgroundColor = [UIColor orangeColor];
+        button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width / self.index ) + 20, 10, 20, 20);
         button.tag = i;
+        button.backgroundColor = [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1];
         [button setTitle:[NSString stringWithFormat:@"%d",i] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(touchSmallBtn:) forControlEvents:UIControlEventTouchUpInside];
         
-        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(i * (self.oneWeekScrollView.contentSize.width / 10 ), 35, 60, 20)];
+        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(i * (self.oneWeekScrollView.contentSize.width / self.index ) , 35, 60, 20)];
+        lable.textAlignment = NSTextAlignmentCenter;
         lable.font = [UIFont systemFontOfSize:12];
-        lable.text = [NSString stringWithFormat:@"第%d周",i+1];
-        
+        lable.text = [NSString stringWithFormat:@"第%d周",i + 1];
         [self.oneWeekScrollView addSubview:button];
         [self.oneWeekScrollView addSubview:lable];
-//        for (UIView *ii in self.btn.subviews) {
-//            
-//        }
     }
-    
 }
+
+
+#pragma mark 点击每周一练上scrollview上的小按钮
 
 - (void)touchSmallBtn:(UIButton *)sender{
     if (!self.btn) {
         self.btn = sender;
-        [UIView animateWithDuration:0.5 animations:^{
-            self.btn.transform = CGAffineTransformMakeScale(1.2,1.2);
+        [UIView animateWithDuration:0.1 animations:^{
+            self.btn.transform = CGAffineTransformMakeScale(1.3,1.3);
         }];
     }
     if (self.btn != sender) {
-        [UIView animateWithDuration:0.2 animations:^{
+        [UIView animateWithDuration:0.1 animations:^{
             self.btn.transform = CGAffineTransformMakeScale(1.0,1.0);
         }];
         self.btn = sender;
-        [UIView animateWithDuration:0.2 animations:^{
+        [UIView animateWithDuration:0.1 animations:^{
+            self.btn.transform = CGAffineTransformMakeScale(1.3,1.3);
+        }];
+    }
+    if (self.btn == sender) {
+        [UIView animateWithDuration:0.1 animations:^{
             self.btn.transform = CGAffineTransformMakeScale(1.2,1.2);
         }];
     }
     [self animationWithBtn];
 }
 
+
+#pragma mark 小按钮偏移到屏幕中间
 - (void)animationWithBtn{
-    
     [UIView animateWithDuration:0.3 animations:^{
         if (self.btn.tag > 2 && self.btn.tag <= 4) {
             [self.oneWeekScrollView setContentOffset:CGPointMake(self.btn.frame.origin.x - (SCREEN_WIDTH  / 2), 0)];
-        }else if (self.btn.tag >= 5 && self.btn.tag <= 7){
-            [self.oneWeekScrollView setContentOffset:CGPointMake( SCREEN_WIDTH + ( self.btn.frame.origin.x)- (SCREEN_WIDTH + SCREEN_WIDTH / 2)  , 0)];
+        }else if (self.btn.tag > 4 && self.btn.tag < self.index - 3){
+//            [self.oneWeekScrollView setContentOffset:CGPointMake( SCREEN_WIDTH + ( self.btn.frame.origin.x)- (SCREEN_WIDTH + SCREEN_WIDTH / 2)  , 0)];
+            NSInteger inde =  self.oneWeekScrollView.contentOffset.x / SCREEN_WIDTH;
+            [self.oneWeekScrollView setContentOffset:CGPointMake(inde * SCREEN_WIDTH + ( self.btn.frame.origin.x)- (SCREEN_WIDTH * inde + SCREEN_WIDTH / 2), 0)];
+
         }
     } completion:^(BOOL finished) {
     }];
 }
 
+
+#pragma mark  leftBarItem响应方法
+
 - (void)pushToMine{
     MineTabViewController *MAIN = [[MineTabViewController alloc]init];
-
     [self.navigationController pushViewController:MAIN animated:YES];
 }
-//配置每周一练的scrollview
+
+#pragma mark  配置每周一练的scrollview
+
 - (void)configureOneWeekScrollview{
     self.oneWeekScrollView.showsHorizontalScrollIndicator = YES;
     self.oneWeekScrollView.directionalLockEnabled = YES;
-    self.oneWeekScrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 2 + 40, 50);
+    self.oneWeekScrollView.contentSize = CGSizeMake( 60 * self.index , 60);
     self.oneWeekScrollView.alwaysBounceHorizontal = YES;
-    self.oneWeekScrollView.indicatorStyle = UIScrollViewIndicatorStyleBlack;
-//    self.oneWeekScrollView.pagingEnabled = NO;
+    self.oneWeekScrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     
 }
+
+
 - (BOOL)isVisitor{
     if (![[XEEngine shareInstance] hasAccoutLoggedin]) {
         return YES;
@@ -222,10 +300,10 @@
 
     self.tableView.tableHeaderView = self.headView;
     ///底部加点间隙
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 19)];
-    footer.userInteractionEnabled = NO;
-    footer.backgroundColor = [UIColor clearColor];
-    _tableView.tableFooterView = footer;
+//    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 19)];
+//    footer.userInteractionEnabled = NO;
+//    footer.backgroundColor = [UIColor whiteColor];
+//    _tableView.tableFooterView = footer;
 }
 
 - (void)getCacheHomePageInfo{
@@ -409,46 +487,57 @@
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 4;
+    if (collectionView == self.collectionView) {
+        return 4;
+    }
+    return 0;
 }
 //定义展示的Section的个数
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
+    if (collectionView == self.collectionView) {
+        return 1;
+    }
     return 1;
 }
 //每个UICollectionView展示的内容
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    XECollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XECollectionViewCell" forIndexPath:indexPath];
-    
-    if (indexPath.row == 0) {
-        //评测
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_evaluation_icon"]];
-        cell.roundImgView.hidden = YES;
-        cell.nameLabel.text = @"评测";
-    } else if (indexPath.row == 1) {
-        //抢票
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
-        cell.nameLabel.text = @"抢票";
-        if (_ticketNum > 0) {
-            cell.roundImgView.hidden = NO;
-        }else{
+    if (collectionView == self.collectionView) {
+        XECollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XECollectionViewCell" forIndexPath:indexPath];
+        
+        if (indexPath.row == 0) {
+            //评测
+            [cell.avatarImgView setImage:[UIImage imageNamed:@"home_evaluation_icon"]];
             cell.roundImgView.hidden = YES;
+            cell.nameLabel.text = @"评测";
+        } else if (indexPath.row == 1) {
+            //抢票
+            [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
+            cell.nameLabel.text = @"抢票";
+            if (_ticketNum > 0) {
+                cell.roundImgView.hidden = NO;
+            }else{
+                cell.roundImgView.hidden = YES;
+            }
+        }else if (indexPath.row == 2){
+            //卡券
+            [cell.avatarImgView setImage:[UIImage imageNamed:@"home_card_icon"]];
+            cell.nameLabel.text = @"卡券";
+            if (_cardNum > 0) {
+                cell.roundImgView.hidden = NO;
+            }else{
+                cell.roundImgView.hidden = YES;
+            }
+        }else if (indexPath.row == 3){
+            //咨询
+            [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
+            cell.nameLabel.text = @"资讯";
         }
-    }else if (indexPath.row == 2){
-      //卡券
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_card_icon"]];
-        cell.nameLabel.text = @"卡券";
-        if (_cardNum > 0) {
-            cell.roundImgView.hidden = NO;
-        }else{
-            cell.roundImgView.hidden = YES;
-        }
-    }else if (indexPath.row == 3){
-      //咨询
-        [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
-        cell.nameLabel.text = @"资讯";
+        return cell;
+
     }
+    return nil;
 
 //    XECollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"XECollectionViewCell" forIndexPath:indexPath];
 //    if(indexPath.row == 0){
@@ -493,22 +582,28 @@
 //        }
 //    }
     
-    return cell;
 }
 
 #pragma mark --UICollectionViewDelegateFlowLayout
 //定义每个UICollectionView 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (collectionView == self.collectionView) {
+        return CGSizeMake((SCREEN_WIDTH - 120) / 4, (SCREEN_WIDTH - 120) / 4 + 17);
+
+    }
     return CGSizeMake((SCREEN_WIDTH - 120) / 4, (SCREEN_WIDTH - 120) / 4 + 17);
 }
 
 //定义每个UICollectionView 的 margin
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
+    if (collectionView == self.collectionView) {
+        return UIEdgeInsetsMake(20, 15, 15, 15);
+    }
     return UIEdgeInsetsMake(20, 15, 15, 15);
 }
-                       
+
 #pragma mark --UICollectionViewDelegate
 //UICollectionView被选中时调用的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -611,27 +706,40 @@
 //返回这个UICollectionView是否可以被选择
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (collectionView == self.collectionView) {
+        return YES;
+    }
     return YES;
 }
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    if (section == 0) {
+        return 2;
+    }else{
+        return 1;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
     return 23;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
+    if (indexPath.section == 0) {
+        return 44;
+    }
+        return 80;
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
+
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 23)];
     view.backgroundColor = [UIColor clearColor];
     
@@ -639,7 +747,11 @@
     indexLabel.backgroundColor = [UIColor clearColor];
     indexLabel.textColor = [UIColor lightGrayColor];
     indexLabel.font = [UIFont systemFontOfSize:13];
-    indexLabel.text = @"育儿事项";
+    if (section == 0) {
+        indexLabel.text = @"育儿事项";
+    }else if(section == 1){
+        indexLabel.text = @"热销商品";
+    }
     [view addSubview:indexLabel];
     
     return view;
@@ -647,37 +759,76 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"MainTabCell";
-    MainTabCell *cell;
-    
-    cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
-        cell = [cells objectAtIndex:0];
+    if (indexPath.section == 0) {
+        static NSString *CellIdentifier = @"MainTabCell";
+        MainTabCell *cell;
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
+            cell = [cells objectAtIndex:0];
+        }
+        
+        if (indexPath.row == 0) {
+            cell.titleLabel.text = @"专注力培养";
+            cell.subTitleLabel.text = @"注意力不集中影响宝宝智力发育";
+            cell.itemImageView.image = [UIImage imageNamed:@"home_attention_icon"];
+            return cell;
+            
+        }else if (indexPath.row == 1) {
+            cell.titleLabel.text = @"注意力和好习惯培养";
+            cell.subTitleLabel.text = @"当宝宝的好习惯行为指导老师";
+            cell.itemImageView.image = [UIImage imageNamed:@"home_parklon_icon"];
+            return cell;
+        }
+    }else{
+        
+        
+        if (indexPath.row == 0) {
+            static NSString *Identifier = @"cell";
+            MainTabScrollCell *cell1 = [tableView dequeueReusableCellWithIdentifier:Identifier];
+            if (cell1 == nil) {
+                NSArray* cells1 = [[NSBundle mainBundle] loadNibNamed:@"MainTabScrollCell" owner:nil options:nil];
+                cell1 = [cells1 objectAtIndex:0];
+                [cell1 configureCollectionViewWith:@""];
+            }
+            cell1.delegate = self;
+            cell1.backgroundColor = [UIColor whiteColor];
+            return cell1;
+        }
+        
+        
     }
-    
-    if (indexPath.row == 0) {
-        cell.titleLabel.text = @"专注力培养";
-        cell.subTitleLabel.text = @"注意力不集中影响宝宝智力发育";
-        cell.itemImageView.image = [UIImage imageNamed:@"home_attention_icon"];
-    }else if (indexPath.row == 1) {
-        cell.titleLabel.text = @"好习惯培养";
-        cell.subTitleLabel.text = @"当宝宝的好习惯行为指导老师";
-        cell.itemImageView.image = [UIImage imageNamed:@"home_parklon_icon"];
-    }
-    
-    return cell;
+
+    return nil;
 }
 
+
+#warning 商品展示的代理的点击相应方法，未完善
+- (void)pushToShopWith:(NSString *)string{
+    NSLog(@"string === %@",string);
+
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RecipesViewController *rVc = [[RecipesViewController alloc] init];
-    if (indexPath.row == 0) {
-        rVc.infoType = TYPE_ATTENTION;
-    } else if (indexPath.row == 1) {
-        rVc.infoType = TYPE_HABIT;
+    if (indexPath.section == 0) {
+        RecipesViewController *rVc = [[RecipesViewController alloc] init];
+        if (indexPath.row == 0) {
+            //        rVc.infoType = TYPE_ATTENTION;
+            //        [self.navigationController pushViewController:rVc animated:YES];
+            
+        } else if (indexPath.row == 1) {
+            rVc.infoType = TYPE_ATTENTION;
+            [self.navigationController pushViewController:rVc animated:YES];
+            //        rVc.infoType = TYPE_HABIT;
+            //        [self.navigationController pushViewController:rVc animated:YES];
+            
+        }
+    }else if (indexPath.section == 1){
+        
+        NSLog(@"跳转主页推荐商品");
+        
     }
-    [self.navigationController pushViewController:rVc animated:YES];
     
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
@@ -720,10 +871,13 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
-
+#pragma mark 在试图将要出现的时候 再次刷新宝宝的生日  防止更改之后之前现实的周没有改变
 - (void)viewDidAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     [super viewDidAppear:animated];
+    
+        [self calculateWeeks];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
