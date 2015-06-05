@@ -20,10 +20,14 @@
 
     // Configure the view for the selected state
 }
-- (void)configureCollectionViewWith:(NSString *)string{
-    
 
-    [self.tabScrollCollectionView registerClass:[MainTabScrollCollectCell class] forCellWithReuseIdentifier:@"item"];
+- (void)configureCollectionViewWith:(NSString *)string{
+    self.string = string;
+    self.backgroundColor = [UIColor clearColor];
+//    [self.tabScrollCollectionView registerClass:[MainTabScrollCollectCell class] forCellWithReuseIdentifier:@"items"];
+    [self.tabScrollCollectionView registerNib:[UINib nibWithNibName:@"MainTabScrollCollectCell" bundle:nil] forCellWithReuseIdentifier:@"item"];
+    
+//    [self.self.tabScrollCollectionView registerClass:[MainTabScrollCollectCell class] forCellWithReuseIdentifier:@"item"];
     self.tabScrollCollectionView.delegate = self;
     self.tabScrollCollectionView.dataSource = self;
     
@@ -41,13 +45,26 @@
 
 //布局
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    MainTabScrollCollectCell *cell1 = [collectionView dequeueReusableCellWithReuseIdentifier:@"item" forIndexPath:indexPath];
-    if (cell1 == nil) {
-        NSArray* cells1 = [[NSBundle mainBundle] loadNibNamed:@"MainTabScrollCollectCell" owner:nil options:nil];
-        cell1 = [cells1 objectAtIndex:0];
-    }
-    cell1.backgroundColor = [UIColor redColor];
-    return cell1;
+    
+    MainTabScrollCollectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"item" forIndexPath:indexPath];
+
+//    
+//    if (cell == nil) {
+//       NSArray* cells1 = [[NSBundle mainBundle] loadNibNamed:@"MainTabScrollCollectCell" owner:nil options:nil];
+//        cell = [cells1 objectAtIndex:0];
+//    }
+//    for (UIView *view in cell.subviews) {
+//        NSLog(@"___________%@",view);
+//        if (view.tag == 1000) {
+//            view.backgroundColor = [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1];
+//        }
+//
+//    }
+    UIColor *color = [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1];
+    NSString *string = [NSString stringWithFormat:@"%ld %ld",(long)indexPath.section,(long)indexPath.row];
+    [cell configure:self.string];
+    
+    return cell;
 }
 
 
@@ -63,6 +80,6 @@
 
 //每个item的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(60, 60);
+    return CGSizeMake(150, 180);
 }
 @end

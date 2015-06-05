@@ -34,6 +34,7 @@
 #import "InformationViewController.h"
 #import "MineTabViewController.h"
 #import "MainTabScrollCell.h"
+#import "focusAndHabitViewController.h"
 #import "AppDelegate.h"
 
 
@@ -736,7 +737,7 @@
     if (indexPath.section == 0) {
         return 44;
     }
-        return 80;
+        return 180;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 
@@ -785,15 +786,14 @@
         
         
         if (indexPath.row == 0) {
-            static NSString *Identifier = @"cell";
+            static NSString *Identifier = @"acell";
             MainTabScrollCell *cell1 = [tableView dequeueReusableCellWithIdentifier:Identifier];
             if (cell1 == nil) {
                 NSArray* cells1 = [[NSBundle mainBundle] loadNibNamed:@"MainTabScrollCell" owner:nil options:nil];
                 cell1 = [cells1 objectAtIndex:0];
-                [cell1 configureCollectionViewWith:@""];
             }
+            [cell1 configureCollectionViewWith:@"123"];
             cell1.delegate = self;
-            cell1.backgroundColor = [UIColor whiteColor];
             return cell1;
         }
         
@@ -818,10 +818,12 @@
             //        [self.navigationController pushViewController:rVc animated:YES];
             
         } else if (indexPath.row == 1) {
-            rVc.infoType = TYPE_ATTENTION;
-            [self.navigationController pushViewController:rVc animated:YES];
+//            rVc.infoType = TYPE_ATTENTION;
+//            [self.navigationController pushViewController:rVc animated:YES];
             //        rVc.infoType = TYPE_HABIT;
             //        [self.navigationController pushViewController:rVc animated:YES];
+            focusAndHabitViewController *focus = [[focusAndHabitViewController alloc]init];
+            [self.navigationController pushViewController:focus animated:YES];
             
         }
     }else if (indexPath.section == 1){

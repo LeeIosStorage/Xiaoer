@@ -10,4 +10,13 @@
 
 @interface MainTabScrollCollectCell : UICollectionViewCell
 
+
+@property (nonatomic,strong)UIImageView *imageView;
+@property (nonatomic,strong)UILabel *titleLable;
+@property (nonatomic,strong)UILabel *newPrices;
+@property (nonatomic,strong)UILabel *oldPrices;
+@property (nonatomic,strong)UILabel *selled;
+
+
+- (void)configure:(NSString *)color;
 @end

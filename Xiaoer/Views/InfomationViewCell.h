@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface InfomationViewCell : UICollectionViewCell
-
+@property (nonatomic,strong)UILabel *titleLable;
+- (void)configureInfoMationCellWith:(NSString *)string;
 @end

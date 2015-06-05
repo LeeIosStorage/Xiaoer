@@ -373,6 +373,8 @@
 		AA8BA9491B09EFC7004B2222 /* CardInfoVerifyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */; };
 		AAAA94D31B0D804C0029E7E1 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA94D21B0D804B0029E7E1 /* BaseModel.m */; };
 		AAAA94D91B0D80F60029E7E1 /* XEEastCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA94D81B0D80F60029E7E1 /* XEEastCardInfo.m */; };
+		AACD9F7C1B21A81D0093E21C /* focusAndHabitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD9F7A1B21A81D0093E21C /* focusAndHabitViewController.m */; };
+		AACD9F7D1B21A81D0093E21C /* focusAndHabitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACD9F7B1B21A81D0093E21C /* focusAndHabitViewController.xib */; };
 		AAD6372B1B202A7000D17763 /* MainTabScrollCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD637291B202A7000D17763 /* MainTabScrollCollectCell.m */; };
 		AAD6372C1B202A7000D17763 /* MainTabScrollCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD6372A1B202A7000D17763 /* MainTabScrollCollectCell.xib */; };
 		AAD8EC7F1B0ACF8E00B24F9A /* CardOfEastWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC7D1B0ACF8E00B24F9A /* CardOfEastWebViewController.m */; };
@@ -996,6 +998,9 @@
 		AAAA94D21B0D804B0029E7E1 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		AAAA94D71B0D80F60029E7E1 /* XEEastCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XEEastCardInfo.h; path = ../../XEEastCardInfo.h; sourceTree = "<group>"; };
 		AAAA94D81B0D80F60029E7E1 /* XEEastCardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XEEastCardInfo.m; path = ../../XEEastCardInfo.m; sourceTree = "<group>"; };
+		AACD9F791B21A81D0093E21C /* focusAndHabitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = focusAndHabitViewController.h; sourceTree = "<group>"; };
+		AACD9F7A1B21A81D0093E21C /* focusAndHabitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = focusAndHabitViewController.m; sourceTree = "<group>"; };
+		AACD9F7B1B21A81D0093E21C /* focusAndHabitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = focusAndHabitViewController.xib; sourceTree = "<group>"; };
 		AAD637281B202A7000D17763 /* MainTabScrollCollectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabScrollCollectCell.h; sourceTree = "<group>"; };
 		AAD637291B202A7000D17763 /* MainTabScrollCollectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabScrollCollectCell.m; sourceTree = "<group>"; };
 		AAD6372A1B202A7000D17763 /* MainTabScrollCollectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTabScrollCollectCell.xib; sourceTree = "<group>"; };
@@ -2250,6 +2255,9 @@
 				0727A5DC1A8C77A00037805A /* TaskViewController.h */,
 				0727A5DD1A8C77A00037805A /* TaskViewController.m */,
 				0727A5DE1A8C77A00037805A /* TaskViewController.xib */,
+				AACD9F791B21A81D0093E21C /* focusAndHabitViewController.h */,
+				AACD9F7A1B21A81D0093E21C /* focusAndHabitViewController.m */,
+				AACD9F7B1B21A81D0093E21C /* focusAndHabitViewController.xib */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -2464,6 +2472,7 @@
 				078E87ED1AA18CAE008AD45A /* StageSelectViewCell.xib in Resources */,
 				075DD03B1A78B42E009A64B4 /* WSAssetViewSelectionIndicator.png in Resources */,
 				078E892C1AA1C32D008AD45A /* iOS-social-analytics-releasenote.html in Resources */,
+				AACD9F7D1B21A81D0093E21C /* focusAndHabitViewController.xib in Resources */,
 				07E536321A5290C9005E1DA9 /* EvaluationViewController.xib in Resources */,
 				0760E93B1A81ACCD00BBEA3D /* CardDetailViewController.xib in Resources */,
 				077916711A5E64BA0047C17C /* PerfectInfoViewController.xib in Resources */,
@@ -2711,6 +2720,7 @@
 				07EBF07B1A7A01080050B256 /* XEAMBlurView.m in Sources */,
 				7E72411B1A77BFA2001E1F69 /* TopicDetailsViewController.m in Sources */,
 				076380561AA9446400F449CD /* XEBabyInfo.m in Sources */,
+				AACD9F7C1B21A81D0093E21C /* focusAndHabitViewController.m in Sources */,
 				074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */,
 				0774A8731A666EAB00336465 /* GMGridView.m in Sources */,
 				0712B3A51A5BD853000A1A7F /* NSData+GIF.m in Sources */,

@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @protocol selestDelegate <NSObject>
-
 - (void)pushToShopWith:(NSString *)string;
 @end
 @interface MainTabScrollCell : UITableViewCell<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UICollectionView *tabScrollCollectionView;
 - (void)configureCollectionViewWith:(NSString *)string;
 @property (nonatomic,assign)id <selestDelegate> delegate;
+@property (nonatomic,strong)NSString *string;
+
 
 @end

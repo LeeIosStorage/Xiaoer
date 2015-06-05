@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"分类查看";
+    self.title = @"资讯";
     [self.infomationCollection  registerNib:[UINib nibWithNibName:@"InfomationViewCell" bundle:nil] forCellWithReuseIdentifier:@"item"];
     
 }
@@ -43,6 +43,18 @@
 //布局
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     InfomationViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"item" forIndexPath:indexPath];
+    if (indexPath.row == 0) {
+        cell.titleLable.text = @"食谱";
+    }
+    if (indexPath.row == 1) {
+        cell.titleLable.text = @"养育";
+    }
+    if (indexPath.row == 2) {
+        cell.titleLable.text = @"专家";
+    }
+    if (indexPath.row == 3) {
+        cell.titleLable.text = @"活动";
+    }
     
     return cell;
 }
