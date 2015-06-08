@@ -55,7 +55,10 @@
     if (indexPath.row == 3) {
         cell.titleLable.text = @"活动";
     }
-    
+    /**
+     *  圆角
+     */
+    cell.layer.cornerRadius = 10;
     return cell;
 }
 

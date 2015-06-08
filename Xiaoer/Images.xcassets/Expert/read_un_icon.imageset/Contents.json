@@ -7,11 +7,12 @@
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "阅读数icon.png"
+      "filename" : "yanjing.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "yanjing-1.png"
     }
   ],
   "info" : {

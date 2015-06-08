@@ -2,17 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "tabbar2.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "评测-选中 iphone5.png"
+      "filename" : "tabbar2-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "评测-选中.png"
+      "filename" : "tabbar2-2.png"
     }
   ],
   "info" : {

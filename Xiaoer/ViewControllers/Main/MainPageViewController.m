@@ -35,6 +35,8 @@
 #import "MineTabViewController.h"
 #import "MainTabScrollCell.h"
 #import "focusAndHabitViewController.h"
+#import "EveryOneWeekController.h"
+#import "MotherLookController.h"
 #import "AppDelegate.h"
 
 
@@ -94,6 +96,8 @@
  *  纪录每周一练下点击查看的button
  */
 @property (nonatomic,strong)UIButton *btn;
+//点击每周一练下的小btn是否push
+@property (nonatomic,assign)BOOL  ifPush;
 @end
 
 @implementation MainPageViewController
@@ -131,8 +135,8 @@
 
   
     
-    [self setLeftButtonWithTitle:@"我的" selector:@selector(pushToMine)];
-    self.index = 80;
+    [self setLeftButtonWithImageName:@"个人" selector:@selector(pushToMine)];
+    self.index = 144;
     //配置每周一练的scrollview
     [self configureOneWeekScrollview];
     //布局每周一练的scrollview小按钮
@@ -144,16 +148,16 @@
 
 
 }
-//- (void)viewDidAppear:(BOOL)animated{
-//    [super viewDidAppear:YES];
-//
-//}
+
+
+#pragma mark  计算每周一练应当滑倒哪一周
 - (void)calculateWeeks{
     XEUserInfo *userInfo = [self getBabyUserInfo:0];
     NSLog(@"----------%@",userInfo.birthdayDate);
     self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
     NSDate* nowDate = [NSDate date];
     if (userInfo.birthdayDate == nil) {
+        self.ifPush = NO;
         return ;
     }
     NSInteger month = 0;
@@ -183,27 +187,45 @@
     if (distance < 60*60*24) {
         month = 1;
     }
+    self.ifPush = NO;
     for (UIButton *button in self.oneWeekScrollView.subviews) {
         if (button.tag == month -1) {
             self.btn = button;
-            [self touchSmallBtn:self.btn];
+            [self AutomaticMoveSmallBtn:self.btn];
         }
     }
     
 
 }
-
+- (void)AutomaticMoveSmallBtn:(UIButton *)sender{
+    if (self.btn == sender) {
+        [self.btn setBackgroundImage:[UIImage imageNamed:@"oneSmallBtn"] forState:UIControlStateNormal];
+        [UIView animateWithDuration:0.1 animations:^{
+            self.btn.transform = CGAffineTransformMakeScale(1.5,1.5);
+        }];
+    }
+    [self animationWithBtn];
+}
 #pragma mark 布局每周一练的scrollview小按钮
 - (void)configureSmallBtn{
+    /**
+     *  布局下面的横线
+     */
+    NSLog(@"self.oneWeekScrollView.contentSize.width --------------%f",self.oneWeekScrollView.contentSize.width);
+    CGFloat flo = self.oneWeekScrollView.contentSize.width;
+    UIScrollView *ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(20, 32, flo- 60, 2)];
+    ScrollView.userInteractionEnabled = NO;
+    ScrollView.backgroundColor = [UIColor colorWithRed:18/255.0 green:169/255.0 blue:229/255.0 alpha:1];
+    [self.oneWeekScrollView addSubview:ScrollView];
+    
     for (int i = 0; i < self.index; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width / self.index ) + 20, 10, 20, 20);
+        button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width / self.index ) + 20, 23, 20, 20);
         button.tag = i;
-        button.backgroundColor = [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1];
-        [button setTitle:[NSString stringWithFormat:@"%d",i] forState:UIControlStateNormal];
+        button.layer.cornerRadius = 10;
+        button.backgroundColor = [UIColor colorWithRed:18/255.0 green:169/255.0 blue:229/255.0 alpha:1];
         [button addTarget:self action:@selector(touchSmallBtn:) forControlEvents:UIControlEventTouchUpInside];
-        
-        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(i * (self.oneWeekScrollView.contentSize.width / self.index ) , 35, 60, 20)];
+        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(i * (self.oneWeekScrollView.contentSize.width / self.index ) , 50, 60, 10)];
         lable.textAlignment = NSTextAlignmentCenter;
         lable.font = [UIFont systemFontOfSize:12];
         lable.text = [NSString stringWithFormat:@"第%d周",i + 1];
@@ -216,29 +238,36 @@
 #pragma mark 点击每周一练上scrollview上的小按钮
 
 - (void)touchSmallBtn:(UIButton *)sender{
+    self.ifPush = YES;
     if (!self.btn) {
         self.btn = sender;
+        
+        [self.btn setBackgroundImage:[UIImage imageNamed:@"oneSmallBtn"] forState:UIControlStateNormal];
+        
         [UIView animateWithDuration:0.1 animations:^{
-            self.btn.transform = CGAffineTransformMakeScale(1.3,1.3);
+            self.btn.transform = CGAffineTransformMakeScale(1.5,1.5);
         }];
     }
     if (self.btn != sender) {
+        [self.btn setBackgroundImage:nil forState:UIControlStateNormal];
         [UIView animateWithDuration:0.1 animations:^{
             self.btn.transform = CGAffineTransformMakeScale(1.0,1.0);
         }];
         self.btn = sender;
+        [self.btn setBackgroundImage:[UIImage imageNamed:@"oneSmallBtn"] forState:UIControlStateNormal];
+
         [UIView animateWithDuration:0.1 animations:^{
-            self.btn.transform = CGAffineTransformMakeScale(1.3,1.3);
+            self.btn.transform = CGAffineTransformMakeScale(1.5,1.5);
+        }];
+    }else if (self.btn == sender){
+        [self.btn setBackgroundImage:[UIImage imageNamed:@"oneSmallBtn"] forState:UIControlStateNormal];
+        [UIView animateWithDuration:0.1 animations:^{
+            self.btn.transform = CGAffineTransformMakeScale(1.5,1.5);
         }];
     }
-    if (self.btn == sender) {
-        [UIView animateWithDuration:0.1 animations:^{
-            self.btn.transform = CGAffineTransformMakeScale(1.2,1.2);
-        }];
-    }
+
     [self animationWithBtn];
 }
-
 
 #pragma mark 小按钮偏移到屏幕中间
 - (void)animationWithBtn{
@@ -252,6 +281,14 @@
 
         }
     } completion:^(BOOL finished) {
+        if (self.ifPush == NO) {
+            
+        }else{
+            EveryOneWeekController *everyOne= [[EveryOneWeekController alloc]init];
+            [self.navigationController pushViewController:everyOne animated:YES];
+            self.ifPush = NO;
+        }
+
     }];
 }
 
@@ -274,7 +311,6 @@
     
 }
 
-
 - (BOOL)isVisitor{
     if (![[XEEngine shareInstance] hasAccoutLoggedin]) {
         return YES;
@@ -293,7 +329,7 @@
 
 - (void)refreshUserInfoShow{
     XEUserInfo *userInfo = [self getBabyUserInfo:0];
-    [self.avatarImageView sd_setImageWithURL:userInfo.babySmallAvatarUrl placeholderImage:[UIImage imageNamed:@"home_placeholder_avatar"]];
+    [self.avatarImageView sd_setImageWithURL:userInfo.babySmallAvatarUrl placeholderImage:[UIImage imageNamed:@"首页默认头像"]];
     self.avatarImageView.layer.cornerRadius = 8;
     self.avatarImageView.clipsToBounds = YES;
     self.nickName.text = userInfo.babyNick;
@@ -513,26 +549,30 @@
             cell.roundImgView.hidden = YES;
             cell.nameLabel.text = @"评测";
         } else if (indexPath.row == 1) {
-            //抢票
-            [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
-            cell.nameLabel.text = @"抢票";
-            if (_ticketNum > 0) {
-                cell.roundImgView.hidden = NO;
-            }else{
-                cell.roundImgView.hidden = YES;
-            }
-        }else if (indexPath.row == 2){
+            
             //卡券
-            [cell.avatarImgView setImage:[UIImage imageNamed:@"home_card_icon"]];
+            [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
+
             cell.nameLabel.text = @"卡券";
             if (_cardNum > 0) {
                 cell.roundImgView.hidden = NO;
             }else{
                 cell.roundImgView.hidden = YES;
             }
+            
+        }else if (indexPath.row == 2){
+            //抢票
+            [cell.avatarImgView setImage:[UIImage imageNamed:@"home_card_icon"]];
+            cell.nameLabel.text = @"抢票";
+            if (_ticketNum > 0) {
+                cell.roundImgView.hidden = NO;
+            }else{
+                cell.roundImgView.hidden = YES;
+            }
+
         }else if (indexPath.row == 3){
             //咨询
-            [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
+            [cell.avatarImgView setImage:[UIImage imageNamed:@"资讯"]];
             cell.nameLabel.text = @"资讯";
         }
         return cell;
@@ -620,21 +660,24 @@
             break;
 
         case 1:{
-//            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能进行抢票"]) {
-//            return;
-//            }
-            TicketListViewController *vc = [[TicketListViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-            break;
-        }
-        case 2:{
+            
             if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
                 return;
             }
             CardPackViewController *vc = [[CardPackViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
+//            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能进行抢票"]) {
+//            return;
+//            }
             break;
+        case 2:{
+
+            TicketListViewController *vc = [[TicketListViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
+            break;
+        }
         case 3:{
             InformationViewController *infomation = [[InformationViewController alloc]init];
             [self.navigationController pushViewController:infomation  animated:YES];
@@ -771,14 +814,14 @@
         }
         
         if (indexPath.row == 0) {
-            cell.titleLabel.text = @"专注力培养";
-            cell.subTitleLabel.text = @"注意力不集中影响宝宝智力发育";
+            cell.titleLabel.text = @"妈妈必看";
+            cell.subTitleLabel.text = @"当宝宝的好习惯和注意力指导老师";
             cell.itemImageView.image = [UIImage imageNamed:@"home_attention_icon"];
             return cell;
             
         }else if (indexPath.row == 1) {
-            cell.titleLabel.text = @"注意力和好习惯培养";
-            cell.subTitleLabel.text = @"当宝宝的好习惯行为指导老师";
+            cell.titleLabel.text = @"好习惯指导和注意力指导";
+            cell.subTitleLabel.text = @"当宝宝的好习惯和注意力指导老师";
             cell.itemImageView.image = [UIImage imageNamed:@"home_parklon_icon"];
             return cell;
         }
@@ -812,8 +855,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        RecipesViewController *rVc = [[RecipesViewController alloc] init];
+//        RecipesViewController *rVc = [[RecipesViewController alloc] init];
         if (indexPath.row == 0) {
+            MotherLookController *mother = [[MotherLookController alloc]init];
+            [self.navigationController pushViewController:mother animated:YES];
+            
+            
             //        rVc.infoType = TYPE_ATTENTION;
             //        [self.navigationController pushViewController:rVc animated:YES];
             
@@ -877,8 +924,13 @@
 - (void)viewDidAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     [super viewDidAppear:animated];
-    
+    //判断全局变量btn存在与否，存在的话不计算，不存在计算
+    if (self.btn) {
+        
+    }else{
         [self calculateWeeks];
+    }
+    
 
 }
 

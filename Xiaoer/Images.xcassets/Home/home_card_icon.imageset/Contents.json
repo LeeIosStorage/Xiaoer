@@ -2,17 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "icon3.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "卡券.png"
+      "filename" : "icon3-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "卡券 3X.png"
+      "filename" : "icon3-2.png"
     }
   ],
   "info" : {

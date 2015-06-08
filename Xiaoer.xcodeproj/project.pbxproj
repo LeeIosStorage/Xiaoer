@@ -361,6 +361,10 @@
 		7E7241251A77C12A001E1F69 /* TopicCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E7241231A77C12A001E1F69 /* TopicCommentViewCell.xib */; };
 		7E72412B1A77D2F8001E1F69 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7241281A77D2F8001E1F69 /* HPGrowingTextView.m */; };
 		7E72412C1A77D2F8001E1F69 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E72412A1A77D2F8001E1F69 /* HPTextViewInternal.m */; };
+		AA0C68011B259C8100478A72 /* MotherLookController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0C67FF1B259C8100478A72 /* MotherLookController.m */; };
+		AA0C68021B259C8100478A72 /* MotherLookController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA0C68001B259C8100478A72 /* MotherLookController.xib */; };
+		AA0C68071B259D1400478A72 /* MotherLookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0C68051B259D1400478A72 /* MotherLookCell.m */; };
+		AA0C68081B259D1400478A72 /* MotherLookCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA0C68061B259D1400478A72 /* MotherLookCell.xib */; };
 		AA70F2F21B1EBC7200122F57 /* InfomationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA70F2F01B1EBC7200122F57 /* InfomationViewCell.m */; };
 		AA70F2F31B1EBC7200122F57 /* InfomationViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */; };
 		AA7AAFB31B1F05B200158B9A /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7AAFB11B1F05B200158B9A /* ShopViewController.m */; };
@@ -371,6 +375,10 @@
 		AA8784BE1B2013A4005A11E8 /* MainTabScrollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8784BC1B2013A4005A11E8 /* MainTabScrollCell.xib */; };
 		AA8BA9481B09EFC7004B2222 /* CardInfoVerifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA9461B09EFC7004B2222 /* CardInfoVerifyCell.m */; };
 		AA8BA9491B09EFC7004B2222 /* CardInfoVerifyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */; };
+		AAA3DE771B2564B60008275D /* EveryOneWeekController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA3DE751B2564B60008275D /* EveryOneWeekController.m */; };
+		AAA3DE781B2564B60008275D /* EveryOneWeekController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA3DE761B2564B60008275D /* EveryOneWeekController.xib */; };
+		AAA3DE7D1B2568110008275D /* OneWeakCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA3DE7B1B2568110008275D /* OneWeakCell.m */; };
+		AAA3DE7E1B2568110008275D /* OneWeakCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA3DE7C1B2568110008275D /* OneWeakCell.xib */; };
 		AAAA94D31B0D804C0029E7E1 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA94D21B0D804B0029E7E1 /* BaseModel.m */; };
 		AAAA94D91B0D80F60029E7E1 /* XEEastCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA94D81B0D80F60029E7E1 /* XEEastCardInfo.m */; };
 		AACD9F7C1B21A81D0093E21C /* focusAndHabitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD9F7A1B21A81D0093E21C /* focusAndHabitViewController.m */; };
@@ -979,6 +987,12 @@
 		7E7241281A77D2F8001E1F69 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPGrowingTextView.m; sourceTree = "<group>"; };
 		7E7241291A77D2F8001E1F69 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTextViewInternal.h; sourceTree = "<group>"; };
 		7E72412A1A77D2F8001E1F69 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
+		AA0C67FE1B259C8100478A72 /* MotherLookController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotherLookController.h; sourceTree = "<group>"; };
+		AA0C67FF1B259C8100478A72 /* MotherLookController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotherLookController.m; sourceTree = "<group>"; };
+		AA0C68001B259C8100478A72 /* MotherLookController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MotherLookController.xib; sourceTree = "<group>"; };
+		AA0C68041B259D1400478A72 /* MotherLookCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotherLookCell.h; sourceTree = "<group>"; };
+		AA0C68051B259D1400478A72 /* MotherLookCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotherLookCell.m; sourceTree = "<group>"; };
+		AA0C68061B259D1400478A72 /* MotherLookCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MotherLookCell.xib; sourceTree = "<group>"; };
 		AA70F2EF1B1EBC7200122F57 /* InfomationViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationViewCell.h; sourceTree = "<group>"; };
 		AA70F2F01B1EBC7200122F57 /* InfomationViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationViewCell.m; sourceTree = "<group>"; };
 		AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationViewCell.xib; sourceTree = "<group>"; };
@@ -994,6 +1008,12 @@
 		AA8BA9451B09EFC7004B2222 /* CardInfoVerifyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardInfoVerifyCell.h; sourceTree = "<group>"; };
 		AA8BA9461B09EFC7004B2222 /* CardInfoVerifyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardInfoVerifyCell.m; sourceTree = "<group>"; };
 		AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardInfoVerifyCell.xib; sourceTree = "<group>"; };
+		AAA3DE741B2564B60008275D /* EveryOneWeekController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EveryOneWeekController.h; sourceTree = "<group>"; };
+		AAA3DE751B2564B60008275D /* EveryOneWeekController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EveryOneWeekController.m; sourceTree = "<group>"; };
+		AAA3DE761B2564B60008275D /* EveryOneWeekController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EveryOneWeekController.xib; sourceTree = "<group>"; };
+		AAA3DE7A1B2568110008275D /* OneWeakCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneWeakCell.h; sourceTree = "<group>"; };
+		AAA3DE7B1B2568110008275D /* OneWeakCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneWeakCell.m; sourceTree = "<group>"; };
+		AAA3DE7C1B2568110008275D /* OneWeakCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OneWeakCell.xib; sourceTree = "<group>"; };
 		AAAA94D11B0D804B0029E7E1 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		AAAA94D21B0D804B0029E7E1 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		AAAA94D71B0D80F60029E7E1 /* XEEastCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XEEastCardInfo.h; path = ../../XEEastCardInfo.h; sourceTree = "<group>"; };
@@ -2111,6 +2131,8 @@
 				07E284911A5A8F26005651EB /* Login */,
 				07E536161A52828E005E1DA9 /* Main */,
 				AA7AAFAF1B1F01FC00158B9A /* Shop */,
+				AA0C67FD1B259C5400478A72 /* MotherLook */,
+				AAA3DE731B2564650008275D /* oneWeek */,
 				07FC6D251A67B161001F34D8 /* Home */,
 				AA7AAFAE1B1F01CD00158B9A /* infomation */,
 				07E536171A52828E005E1DA9 /* Mine */,
@@ -2131,6 +2153,8 @@
 				AAD637271B201DA300D17763 /* infomation */,
 				075E32161A762C1C006037B3 /* Common */,
 				073F9F081A68B234009D94E3 /* Home */,
+				AA0C68031B259CEF00478A72 /* MotherLook */,
+				AAA3DE791B2567DB0008275D /* oneWeak */,
 				074DD0D61A5E33B80042B721 /* Main */,
 				07913F611A67805B0083E8E5 /* Expert */,
 				075AA03F1A68DEDB000B6302 /* Activity */,
@@ -2296,6 +2320,27 @@
 			path = HPGrowingTextView;
 			sourceTree = "<group>";
 		};
+		AA0C67FD1B259C5400478A72 /* MotherLook */ = {
+			isa = PBXGroup;
+			children = (
+				AA0C67FE1B259C8100478A72 /* MotherLookController.h */,
+				AA0C67FF1B259C8100478A72 /* MotherLookController.m */,
+				AA0C68001B259C8100478A72 /* MotherLookController.xib */,
+			);
+			name = MotherLook;
+			sourceTree = "<group>";
+		};
+		AA0C68031B259CEF00478A72 /* MotherLook */ = {
+			isa = PBXGroup;
+			children = (
+				AA0C68041B259D1400478A72 /* MotherLookCell.h */,
+				AA0C68051B259D1400478A72 /* MotherLookCell.m */,
+				AA0C68061B259D1400478A72 /* MotherLookCell.xib */,
+			);
+			name = MotherLook;
+			path = Main;
+			sourceTree = "<group>";
+		};
 		AA7AAFAE1B1F01CD00158B9A /* infomation */ = {
 			isa = PBXGroup;
 			children = (
@@ -2311,6 +2356,28 @@
 			children = (
 			);
 			name = Shop;
+			sourceTree = "<group>";
+		};
+		AAA3DE731B2564650008275D /* oneWeek */ = {
+			isa = PBXGroup;
+			children = (
+				AAA3DE741B2564B60008275D /* EveryOneWeekController.h */,
+				AAA3DE751B2564B60008275D /* EveryOneWeekController.m */,
+				AAA3DE761B2564B60008275D /* EveryOneWeekController.xib */,
+			);
+			name = oneWeek;
+			path = Main;
+			sourceTree = "<group>";
+		};
+		AAA3DE791B2567DB0008275D /* oneWeak */ = {
+			isa = PBXGroup;
+			children = (
+				AAA3DE7A1B2568110008275D /* OneWeakCell.h */,
+				AAA3DE7B1B2568110008275D /* OneWeakCell.m */,
+				AAA3DE7C1B2568110008275D /* OneWeakCell.xib */,
+			);
+			name = oneWeak;
+			path = Main;
 			sourceTree = "<group>";
 		};
 		AAD637271B201DA300D17763 /* infomation */ = {
@@ -2454,6 +2521,7 @@
 				078E890E1AA1C32D008AD45A /* UMSocialSmsData.html in Resources */,
 				075B03371A6F71DF002B577D /* Pin_Ios7@2x.png in Resources */,
 				079E421D1A762ABE0056968E /* XEQuestionViewCell.xib in Resources */,
+				AAA3DE7E1B2568110008275D /* OneWeakCell.xib in Resources */,
 				078E88EE1AA1C32D008AD45A /* UMSCommentDetailController.xib in Resources */,
 				078E89371AA1C32D008AD45A /* markdown.css in Resources */,
 				AA7AAFB41B1F05B200158B9A /* ShopViewController.xib in Resources */,
@@ -2542,6 +2610,7 @@
 				0727A5E01A8C77A00037805A /* TaskViewController.xib in Resources */,
 				078E89331AA1C32D008AD45A /* ios-social-sdk-shake.html in Resources */,
 				075B032A1A6E3892002B577D /* MapChooseViewController.xib in Resources */,
+				AA0C68081B259D1400478A72 /* MotherLookCell.xib in Resources */,
 				0783F6861AB8137A00AAB5B0 /* ToolCollectionCell.xib in Resources */,
 				078E891E1AA1C32D008AD45A /* class_grath.png in Resources */,
 				AA70F2F31B1EBC7200122F57 /* InfomationViewCell.xib in Resources */,
@@ -2551,6 +2620,7 @@
 				073F9F141A68B38F009D94E3 /* CategoryItemCell.xib in Resources */,
 				075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */,
 				AAD8EC8E1B0B0A8E00B24F9A /* CardOfEastSucceedController.xib in Resources */,
+				AAA3DE781B2564B60008275D /* EveryOneWeekController.xib in Resources */,
 				079F5A701AA0540F00069EB7 /* PushConfig.plist in Resources */,
 				076F32591A5F806200346F44 /* XEInputViewController.xib in Resources */,
 				078E89061AA1C32D008AD45A /* UMSocialInstagramData.html in Resources */,
@@ -2569,6 +2639,7 @@
 				078E892D1AA1C32D008AD45A /* iOS-social-releasenote.html in Resources */,
 				07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */,
 				078E87E71AA18934008AD45A /* StageSelectViewController.xib in Resources */,
+				AA0C68021B259C8100478A72 /* MotherLookController.xib in Resources */,
 				078E892E1AA1C32D008AD45A /* ios-social-sdk-comment-detail.html in Resources */,
 				0760E93D1A81ACCD00BBEA3D /* CardPackViewController.xib in Resources */,
 				0776639C1A80779A004C885B /* ActivityApplyViewCell.xib in Resources */,
@@ -2611,6 +2682,7 @@
 				07FC6D201A679D22001F34D8 /* XEGridView.m in Sources */,
 				AAD6372B1B202A7000D17763 /* MainTabScrollCollectCell.m in Sources */,
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
+				AA0C68071B259D1400478A72 /* MotherLookCell.m in Sources */,
 				0752F7B31A7B2615008C0E0A /* DACircularProgressView.m in Sources */,
 				07FC6D1B1A675D3E001F34D8 /* XEScrollPage.m in Sources */,
 				AA8BA9481B09EFC7004B2222 /* CardInfoVerifyCell.m in Sources */,
@@ -2678,6 +2750,7 @@
 				0712B3A41A5BD853000A1A7F /* MKAnnotationView+WebCache.m in Sources */,
 				0752F7DD1A7B2638008C0E0A /* PSTGridLayoutSection.m in Sources */,
 				073F9F1A1A68E1D5009D94E3 /* UIColor+bit.m in Sources */,
+				AAA3DE7D1B2568110008275D /* OneWeakCell.m in Sources */,
 				07913F5F1A676F840083E8E5 /* ExpertListViewController.m in Sources */,
 				077C98B51A53A6B300E2985B /* XENavigationController.m in Sources */,
 				07E536311A5290C9005E1DA9 /* EvaluationViewController.m in Sources */,
@@ -2715,6 +2788,7 @@
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
 				AA7AAFB31B1F05B200158B9A /* ShopViewController.m in Sources */,
 				7E72412B1A77D2F8001E1F69 /* HPGrowingTextView.m in Sources */,
+				AAA3DE771B2564B60008275D /* EveryOneWeekController.m in Sources */,
 				075B03351A6E4350002B577D /* MapChooseAnnotationView.m in Sources */,
 				AA70F2F21B1EBC7200122F57 /* InfomationViewCell.m in Sources */,
 				07EBF07B1A7A01080050B256 /* XEAMBlurView.m in Sources */,
@@ -2762,6 +2836,7 @@
 				0774A8761A666EAB00336465 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				0783F68F1AB819DF00AAB5B0 /* CollectActivityViewCell.m in Sources */,
 				07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */,
+				AA0C68011B259C8100478A72 /* MotherLookController.m in Sources */,
 				07508E861A51346300873B45 /* main.m in Sources */,
 				073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */,
 				0752F7D11A7B2638008C0E0A /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,

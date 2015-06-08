@@ -24,10 +24,7 @@
 - (void)configureCollectionViewWith:(NSString *)string{
     self.string = string;
     self.backgroundColor = [UIColor clearColor];
-//    [self.tabScrollCollectionView registerClass:[MainTabScrollCollectCell class] forCellWithReuseIdentifier:@"items"];
     [self.tabScrollCollectionView registerNib:[UINib nibWithNibName:@"MainTabScrollCollectCell" bundle:nil] forCellWithReuseIdentifier:@"item"];
-    
-//    [self.self.tabScrollCollectionView registerClass:[MainTabScrollCollectCell class] forCellWithReuseIdentifier:@"item"];
     self.tabScrollCollectionView.delegate = self;
     self.tabScrollCollectionView.dataSource = self;
     
@@ -48,18 +45,11 @@
     
     MainTabScrollCollectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"item" forIndexPath:indexPath];
 
-//    
-//    if (cell == nil) {
-//       NSArray* cells1 = [[NSBundle mainBundle] loadNibNamed:@"MainTabScrollCollectCell" owner:nil options:nil];
-//        cell = [cells1 objectAtIndex:0];
-//    }
-//    for (UIView *view in cell.subviews) {
-//        NSLog(@"___________%@",view);
-//        if (view.tag == 1000) {
-//            view.backgroundColor = [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1];
-//        }
-//
-//    }
+    if (cell == nil) {
+        NSArray* cells1 = [[NSBundle mainBundle] loadNibNamed:@"MainTabScrollCollectCell" owner:nil options:nil];
+        cell = [cells1 objectAtIndex:0];
+    }
+
     UIColor *color = [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1];
     NSString *string = [NSString stringWithFormat:@"%ld %ld",(long)indexPath.section,(long)indexPath.row];
     [cell configure:self.string];
