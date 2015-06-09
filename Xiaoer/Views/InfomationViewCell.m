@@ -20,8 +20,23 @@
 //    return _titleLable;
 //}
 
-- (void)configureInfoMationCellWith:(NSString *)string{
-    
+- (void)configureInfoMationCellWith:(NSIndexPath *)indexPath{
+    switch (indexPath.row) {
+        case 0:
+            
+            break;
+        case 1:
+            
+            break;
+        case 2:
+            
+            break;
+        case 3:
+            
+            break;
+        default:
+            break;
+    }
 }
 - (void)awakeFromNib {
     // Initialization code

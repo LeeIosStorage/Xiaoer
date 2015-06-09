@@ -43,17 +43,37 @@
 //布局
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     InfomationViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"item" forIndexPath:indexPath];
+    cell.titleLable.frame = CGRectMake(cell.contentView.frame.size.width/2 - 30, cell.contentView.frame.size.height/2 - 6, cell.contentView.frame.size.width - 60 , 12);
+    cell.titleLable.backgroundColor = [UIColor redColor];
     if (indexPath.row == 0) {
         cell.titleLable.text = @"食谱";
+        cell.imageView.image = [UIImage imageNamed:@"infomation_shiPu"];
+                cell.titleLable.backgroundColor = [UIColor colorWithRed:248/255.0 green:193/255.0 blue:71/255.0 alpha:1];
+
+
     }
     if (indexPath.row == 1) {
         cell.titleLable.text = @"养育";
+        cell.imageView.image = [UIImage imageNamed:@"infomation_yangyu"];
+        cell.titleLable.backgroundColor = [UIColor colorWithRed:31/255.0 green:170/255.0 blue:225/255.0 alpha:1];
+
+
+
     }
     if (indexPath.row == 2) {
         cell.titleLable.text = @"专家";
+        cell.imageView.image = [UIImage imageNamed:@"infomation_zhuanjia"];
+        cell.titleLable.backgroundColor = [UIColor colorWithRed:113/255.0 green:81/255.0 blue:154/255.0 alpha:1];
+
     }
     if (indexPath.row == 3) {
         cell.titleLable.text = @"活动";
+        cell.imageView.image = [UIImage imageNamed:@"infomation_huodong"];
+
+        cell.titleLable.backgroundColor = [UIColor colorWithRed:103/255.0 green:181/255.0 blue:68/255.0 alpha:1];
+
+
+
     }
     /**
      *  圆角

@@ -284,6 +284,7 @@
         if (self.ifPush == NO) {
             
         }else{
+            NSLog(@"%ld",self.btn.tag);
             EveryOneWeekController *everyOne= [[EveryOneWeekController alloc]init];
             [self.navigationController pushViewController:everyOne animated:YES];
             self.ifPush = NO;

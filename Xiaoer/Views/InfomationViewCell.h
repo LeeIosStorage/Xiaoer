@@ -13,5 +13,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 //@property (nonatomic,strong)UILabel *titleLable;
-- (void)configureInfoMationCellWith:(NSString *)string;
+- (void)configureInfoMationCellWith:(NSIndexPath *)indexPath;
 @end

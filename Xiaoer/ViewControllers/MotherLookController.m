@@ -58,6 +58,7 @@
     }
     return lable;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MotherLookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     /**
@@ -66,7 +67,10 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell configureCellWith:indexPath];
     return cell;
+    
 }
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
 }

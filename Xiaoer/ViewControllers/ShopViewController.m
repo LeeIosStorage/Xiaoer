@@ -7,6 +7,7 @@
 //
 
 #import "ShopViewController.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 
 @interface ShopViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *headerView;
@@ -18,6 +19,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.pullRefreshView = [[PullToRefreshView alloc] initWithScrollView:self.shopTabView];
+    self.pullRefreshView.delegate = self;
+    [self.shopTabView addSubview:self.pullRefreshView];
+    [self.shopTabView addInfiniteScrollingWithActionHandler:^{
+        
+    }];
+    
     [self.shopTabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     // Do any additional setup after loading the view from its nib.
     self.shopTabView.tableHeaderView = self.headerView;
