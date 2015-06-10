@@ -8,6 +8,7 @@
 
 #import "EveryOneWeekController.h"
 #import "OneWeakCell.h"
+#import "MJRefresh.h"
 @interface EveryOneWeekController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *mainTabView;
 
@@ -28,9 +29,23 @@
     self.mainTabView.dataSource = self;
     self.mainTabView.delegate = self;
     self.mainTabView.tableHeaderView = self.headerView;
+    [self.mainTabView addHeaderWithTarget:self action:@selector(headerRefreshing)];
 
     
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)headerRefreshing{
+    //添加数据（刷新一次，新添加5个数据）
+    
+    // 2.2秒后刷新表格UI
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 刷新表格
+        [self.mainTabView reloadData];
+        // 调用endRefreshing可以结束刷新状态
+        [self.mainTabView headerEndRefreshing];
+    });
+    
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 10;
