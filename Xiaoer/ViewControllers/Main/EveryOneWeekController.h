@@ -9,5 +9,5 @@
 #import "XESuperViewController.h"
 
 @interface EveryOneWeekController : XESuperViewController
-
+@property (nonatomic,assign)NSInteger cweek;
 @end

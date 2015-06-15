@@ -399,6 +399,8 @@
 		AAD8EC881B0AE7E600B24F9A /* CardOfEastVerifyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD8EC861B0AE7E600B24F9A /* CardOfEastVerifyController.xib */; };
 		AAD8EC8D1B0B0A8E00B24F9A /* CardOfEastSucceedController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC8B1B0B0A8E00B24F9A /* CardOfEastSucceedController.m */; };
 		AAD8EC8E1B0B0A8E00B24F9A /* CardOfEastSucceedController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD8EC8C1B0B0A8E00B24F9A /* CardOfEastSucceedController.xib */; };
+		AAD9C60D1B2EA1C9007C9235 /* XEMotherLook.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD9C60C1B2EA1C9007C9235 /* XEMotherLook.m */; };
+		AAD9C6101B2EA44C007C9235 /* XEOneWeekInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD9C60F1B2EA44C007C9235 /* XEOneWeekInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1057,6 +1059,10 @@
 		AAD8EC8A1B0B0A8E00B24F9A /* CardOfEastSucceedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardOfEastSucceedController.h; sourceTree = "<group>"; };
 		AAD8EC8B1B0B0A8E00B24F9A /* CardOfEastSucceedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardOfEastSucceedController.m; sourceTree = "<group>"; };
 		AAD8EC8C1B0B0A8E00B24F9A /* CardOfEastSucceedController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardOfEastSucceedController.xib; sourceTree = "<group>"; };
+		AAD9C60B1B2EA1C9007C9235 /* XEMotherLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEMotherLook.h; sourceTree = "<group>"; };
+		AAD9C60C1B2EA1C9007C9235 /* XEMotherLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEMotherLook.m; sourceTree = "<group>"; };
+		AAD9C60E1B2EA44C007C9235 /* XEOneWeekInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEOneWeekInfo.h; sourceTree = "<group>"; };
+		AAD9C60F1B2EA44C007C9235 /* XEOneWeekInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEOneWeekInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2143,6 +2149,10 @@
 				0710A22B1AB2B4820050DFB7 /* XETrainInfo.m */,
 				AAAA94D71B0D80F60029E7E1 /* XEEastCardInfo.h */,
 				AAAA94D81B0D80F60029E7E1 /* XEEastCardInfo.m */,
+				AAD9C60B1B2EA1C9007C9235 /* XEMotherLook.h */,
+				AAD9C60C1B2EA1C9007C9235 /* XEMotherLook.m */,
+				AAD9C60E1B2EA44C007C9235 /* XEOneWeekInfo.h */,
+				AAD9C60F1B2EA44C007C9235 /* XEOneWeekInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2862,6 +2872,7 @@
 				074594061A5BB52C008F4665 /* NewIntroView.m in Sources */,
 				0752F7AD1A7B25C5008C0E0A /* MWTapDetectingView.m in Sources */,
 				0712B3B41A5BD853000A1A7F /* UIView+WebCacheOperation.m in Sources */,
+				AAD9C60D1B2EA1C9007C9235 /* XEMotherLook.m in Sources */,
 				075CAF721A5D338F005CF4B6 /* NSString+Value.m in Sources */,
 				0746446D1A6C9F7200CE2935 /* XECommonWebVc.m in Sources */,
 				071D51961A674FC6003D6752 /* MainTabCell.m in Sources */,
@@ -2930,6 +2941,7 @@
 				07C49F591A5E7E9900E1725C /* DDExpandableButton.m in Sources */,
 				07B650571A67AC7E00DEDE4E /* XETopicViewCell.m in Sources */,
 				0752F7D81A7B2638008C0E0A /* PSTCollectionViewLayout.m in Sources */,
+				AAD9C6101B2EA44C007C9235 /* XEOneWeekInfo.m in Sources */,
 				0752F7A71A7B25C5008C0E0A /* MWCaptionView.m in Sources */,
 				0752F7D61A7B2638008C0E0A /* PSTCollectionViewFlowLayout.m in Sources */,
 			);

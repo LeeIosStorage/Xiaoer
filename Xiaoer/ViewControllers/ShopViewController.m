@@ -30,7 +30,7 @@
     [self.shopTabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     // Do any additional setup after loading the view from its nib.
     self.shopTabView.tableHeaderView = self.headerView;
-    [self.view addSubview:self.shopTabView];
+//    [self.view addSubview:self.shopTabView];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 10;

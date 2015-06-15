@@ -123,7 +123,7 @@ void uncaughtExceptionHandler(NSException *exception) {
                                          [[EvaluationViewController alloc] init],
                                          [[ShopViewController alloc]init],
                                          [[ExpertChatViewController alloc] init],
-//                                         [[MineTabViewController alloc] init],
+                                         [[MineTabViewController alloc] init],
                                          nil];
     
     _mainTabViewController = tabViewController;

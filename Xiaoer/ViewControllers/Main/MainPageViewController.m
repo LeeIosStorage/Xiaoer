@@ -37,6 +37,7 @@
 #import "focusAndHabitViewController.h"
 #import "EveryOneWeekController.h"
 #import "MotherLookController.h"
+#import "BabyProfileViewController.h"
 #import "AppDelegate.h"
 
 
@@ -75,6 +76,7 @@
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet UILabel *nickName;
 @property (strong, nonatomic) IBOutlet UILabel *birthday;
+@property (weak, nonatomic) IBOutlet UILabel *historyLab;
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
 /**
  *  我的信箱未读消息小红点
@@ -135,7 +137,6 @@
 
   
     
-    [self setLeftButtonWithImageName:@"个人" selector:@selector(pushToMine)];
     self.index = 144;
     //配置每周一练的scrollview
     [self configureOneWeekScrollview];
@@ -286,6 +287,7 @@
         }else{
             NSLog(@"%ld",self.btn.tag);
             EveryOneWeekController *everyOne= [[EveryOneWeekController alloc]init];
+            everyOne.cweek = self.btn.tag;
             [self.navigationController pushViewController:everyOne animated:YES];
             self.ifPush = NO;
         }
@@ -294,12 +296,6 @@
 }
 
 
-#pragma mark  leftBarItem响应方法
-
-- (void)pushToMine{
-    MineTabViewController *MAIN = [[MineTabViewController alloc]init];
-    [self.navigationController pushViewController:MAIN animated:YES];
-}
 
 #pragma mark  配置每周一练的scrollview
 
@@ -333,7 +329,14 @@
     [self.avatarImageView sd_setImageWithURL:userInfo.babySmallAvatarUrl placeholderImage:[UIImage imageNamed:@"首页默认头像"]];
     self.avatarImageView.layer.cornerRadius = 8;
     self.avatarImageView.clipsToBounds = YES;
-    self.nickName.text = userInfo.babyNick;
+    if (!userInfo.babyNick) {
+        self.nickName.text = @"暂无宝宝信息";
+        self.historyLab.text = @"添加宝宝";
+    }else{
+        self.nickName.text = userInfo.babyNick;
+        self.historyLab.text = @"历史评测成绩";
+
+    }
     self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
 
     self.tableView.tableHeaderView = self.headView;
@@ -667,6 +670,7 @@
             }
             CardPackViewController *vc = [[CardPackViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
+
         }
 //            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能进行抢票"]) {
 //            return;
@@ -760,7 +764,7 @@
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -987,8 +991,16 @@
     if ([self isVisitor]) {
         [self showAlter];
     }else {
-        StageSelectViewController *vc = [[StageSelectViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
+        XEUserInfo *userInfo = [self getBabyUserInfo:0];
+        if (!userInfo.babyNick) {
+            BabyProfileViewController *babyProfile = [[BabyProfileViewController alloc]init];
+            [self.navigationController pushViewController:babyProfile animated:YES];
+        }else{
+            StageSelectViewController *vc = [[StageSelectViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        }
+
     }
 }
 /**

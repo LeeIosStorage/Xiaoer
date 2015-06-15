@@ -7,7 +7,7 @@
 //
 
 #import "OneWeakCell.h"
-
+#import "UIImageView+WebCache.h"
 @implementation OneWeakCell
 
 - (void)awakeFromNib {
@@ -19,7 +19,9 @@
 
     // Configure the view for the selected state
 }
-- (void)configureCellWith{
-    
+- (void)configureCellWithModel:(XEOneWeekInfo *)model{
+    [self.leftImage sd_setImageWithURL:model.totalImageUrl placeholderImage:nil];
+    self.title.text = model.title;
+    self.belowTitle.text = model.des;
 }
 @end

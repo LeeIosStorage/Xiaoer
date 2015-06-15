@@ -126,6 +126,10 @@
             tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"chat_tabbar_icon_hover"];
             tabItem.itemLabel.text = @"专家聊";
 
+        }if (tagIndex == 4) {
+            tabItem.itemIconImageView.image = [UIImage imageNamed:@"wode_normal"];
+            tabItem.itemIconImageView.highlightedImage = [UIImage imageNamed:@"wode_checked"];
+            tabItem.itemLabel.text = @"我的";
         }
         
         [controllerTabs addObject:tabItem];
@@ -279,7 +283,7 @@
 
 #pragma mark - <UINavigationControllerDelegate>
 
--(void) navigationController:(UINavigationController *)nvc wilXEhowViewController:(UIViewController *)vc animated:(BOOL)animated {
+-(void)navigationController:(UINavigationController *)nvc wilXEhowViewController:(UIViewController *)vc animated:(BOOL)animated {
     
     if (nvc.viewControllers.count > 2) {
         return;

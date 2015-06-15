@@ -233,4 +233,13 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
  *  获取东方有线卡信息
  */
 - (BOOL)getEastCardInfomaitonWithuserid:(NSString *)userid kabaoid:(NSString *)kabaoid tag:(int)tag;
+/**
+ *  首页妈妈必看
+ */
+- (BOOL)getMotherLookListWithTag:(int)tag;
+
+/**
+ *  每周一练
+ */
+- (BOOL)getOneWeekListWith:(int)cweek Tag:(int)tag;
 @end

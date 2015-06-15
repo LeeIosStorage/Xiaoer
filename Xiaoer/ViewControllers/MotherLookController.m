@@ -9,13 +9,22 @@
 #import "MotherLookController.h"
 #import "MotherLookCell.h"
 #import "MJRefresh.h"
+#import "XEEngine.h"
+#import "XEProgressHUD.h"
+#import "XEMotherLook.h"
 @interface MotherLookController ()<UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic,strong)NSMutableArray *dataSources;
 @property (weak, nonatomic) IBOutlet UITableView *motherLookTab;
 
 @end
 
 @implementation MotherLookController
-
+- (NSMutableArray *)dataSources{
+    if (!_dataSources) {
+        self.dataSources = [NSMutableArray array];
+    }
+    return _dataSources;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"妈妈必看";
@@ -23,11 +32,41 @@
     self.motherLookTab.dataSource = self;
     [self.motherLookTab registerNib:[UINib nibWithNibName:@"MotherLookCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     [self.motherLookTab addHeaderWithTarget:self action:@selector(headerRefreshing)];
+
+    [self headerRefreshing];
+
     // Do any additional setup after loading the view from its nib.
+}
+- (void)loadData{
+    __weak MotherLookController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [XEEngine shareInstance].serverPlatform = TestPlatform;
+    [[XEEngine shareInstance]getMotherLookListWithTag:tag];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+
+        //获取失败信息
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+        }
+        if (self.dataSources.count > 0) {
+            [self.dataSources removeAllObjects];
+        }
+        for (NSDictionary *dic in jsonRet[@"object"]) {
+            [self.dataSources addObject:dic];
+        }
+        NSLog(@"%@",jsonRet);
+    } tag:tag];
+    
 }
 - (void)headerRefreshing{
     //添加数据（刷新一次，新添加5个数据）
-
+    [self loadData];
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 刷新表格
@@ -85,7 +124,8 @@
      *  选中样式
      */
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell configureCellWith:indexPath];
+//    XEMotherLook *motherLook = [XEMotherLook modelWithDictioanry:[self.dataSources objectAtIndex:indexPath.section]];
+    [cell configureCellWith:indexPath motherLook:nil];
     return cell;
     
 }

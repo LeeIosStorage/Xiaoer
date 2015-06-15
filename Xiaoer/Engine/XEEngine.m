@@ -1636,4 +1636,14 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 
 }
+- (BOOL)getMotherLookListWithTag:(int)tag{
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/mumLook/list",API_URL] type:1 parameters:nil];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)getOneWeekListWith:(int )cweek Tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:[NSNumber numberWithInt:cweek] forKey:@"cweek"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/weekExe/list",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
 @end
