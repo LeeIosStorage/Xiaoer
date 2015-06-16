@@ -19,18 +19,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"商城";
     self.pullRefreshView = [[PullToRefreshView alloc] initWithScrollView:self.shopTabView];
     self.pullRefreshView.delegate = self;
     [self.shopTabView addSubview:self.pullRefreshView];
     [self.shopTabView addInfiniteScrollingWithActionHandler:^{
-        
     }];
     
     [self.shopTabView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     // Do any additional setup after loading the view from its nib.
     self.shopTabView.tableHeaderView = self.headerView;
-//    [self.view addSubview:self.shopTabView];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height- 64)];
+    imageView.image = [UIImage imageNamed:@"正在建设中6p"];
+    [self.view addSubview:imageView];
+    
+    self.navigationItem.leftBarButtonItem = nil;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 10;

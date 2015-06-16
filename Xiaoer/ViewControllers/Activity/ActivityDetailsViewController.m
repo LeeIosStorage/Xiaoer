@@ -61,9 +61,11 @@
     [self getCacheActivityInfo];//cache
     [self refreshActivityInfo];
     [self refreshActivityHeadShow];
+    NSLog(@"activityInfo ======  %@",self.activityInfo);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {

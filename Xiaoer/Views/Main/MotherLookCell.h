@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "XEMotherLook.h"
+
+@protocol MotherLookBtnDelegate <NSObject>
+
+- (void)touchMotherLookCellBtn:(UIButton *)sender;
+
+
+@end
 @interface MotherLookCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLab;
 @property (weak, nonatomic) IBOutlet UILabel *numLab;
@@ -16,4 +23,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *rightImageView;
 - (void)configureCellWith:(NSIndexPath *)indexpath
                motherLook:(XEMotherLook *)motherLook;
+@property (nonatomic,strong)id<MotherLookBtnDelegate> delegate;
 @end

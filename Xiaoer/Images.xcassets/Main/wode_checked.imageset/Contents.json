@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "tabbar5-22px.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "mine_checked.png"
+      "filename" : "tabbar5-44px.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "tabbar5.png"
     }
   ],
   "info" : {

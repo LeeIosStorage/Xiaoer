@@ -7,6 +7,7 @@
 //
 
 #import "EveryOneWeekController.h"
+#import "UIImageView+WebCache.h"
 #import "OneWeakCell.h"
 #import "MJRefresh.h"
 #import "XEEngine.h"
@@ -16,7 +17,11 @@
 @property (weak, nonatomic) IBOutlet UITableView *mainTabView;
 
 @property (strong, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 
+;
+@property (weak, nonatomic) IBOutlet UILabel *headerLab;
+@property (weak, nonatomic) IBOutlet UILabel *headerLaab;
 @property (nonatomic,strong)NSMutableArray *dataSources;
 
 @end
@@ -32,25 +37,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"每周一练";
     [self.mainTabView registerNib:[UINib nibWithNibName:@"OneWeakCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"cells"];
     self.mainTabView.dataSource = self;
     self.mainTabView.delegate = self;
     self.mainTabView.tableHeaderView = self.headerView;
-    [self headerRefreshing];
     [self.mainTabView addHeaderWithTarget:self action:@selector(headerRefreshing)];
-    NSLog(@"self.cweek = %ld",(long)self.cweek);
+    [self headerRefreshing];
 
-    
 }
 - (void)getOneWeekData{
     __weak EveryOneWeekController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [XEEngine shareInstance].serverPlatform = TestPlatform;
-    NSString *week = [NSString stringWithFormat:@"%ld",self.cweek + 1];
+//    [XEEngine shareInstance].serverPlatform = TestPlatform;
+    NSString *week = [NSString stringWithFormat:@"%ld",(long)self.cweek];
     int we = [week intValue];
     [[XEEngine shareInstance]getOneWeekListWith:we Tag:tag];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        
         //获取失败信息
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (errorMsg) {
@@ -67,6 +70,13 @@
         for (NSDictionary *dic in jsonRet[@"object"]) {
             [self.dataSources  addObject:dic];
         }
+        if (self.dataSources) {
+            XEOneWeekInfo *oneWeek = [XEOneWeekInfo modelWithDictioanry:[self.dataSources objectAtIndex:0]];
+            NSLog(@"totalImageUrl = %@",oneWeek.totalImageUrl);
+            [self.headerImageView sd_setImageWithURL:oneWeek.totalImageUrl placeholderImage:nil];
+            self.headerLaab.text = oneWeek.title;
+        }
+        NSLog(@"self.dataSources.count = %ld",(unsigned long)self.dataSources.count);
     } tag:tag];
 }
 - (void)headerRefreshing{
@@ -82,7 +92,7 @@
     
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return self.dataSources.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0;
@@ -96,14 +106,18 @@
         NSArray *array = [[NSBundle mainBundle]loadNibNamed:@"OneWeakCell" owner:self options:nil];
         cell = array.lastObject;
     }
-   // XEOneWeekInfo *oneWeek = [XEOneWeekInfo modelWithDictioanry:[self.dataSources objectAtIndex:indexPath.row]];
-//    [cell configureCellWithModel:oneWeek];
+    XEOneWeekInfo *oneWeek = [XEOneWeekInfo modelWithDictioanry:[self.dataSources objectAtIndex:indexPath.row]];
+   [cell configureCellWithModel:oneWeek];
     return cell;
 }
-
+/**
+ *  点击headerView 的btn
+ *
+ */
 - (IBAction)touchHeaderBtn:(id)sender {
-    NSLog(@"点击头部");
+    NSLog(@"点击头部按钮");
 }
+
 
 
 - (void)didReceiveMemoryWarning {

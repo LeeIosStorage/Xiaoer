@@ -31,4 +31,5 @@
  */
 @property (nonatomic,strong)NSString *totalNum;
 @property (nonatomic,strong)NSURL *totalImageUrl;
+
 @end

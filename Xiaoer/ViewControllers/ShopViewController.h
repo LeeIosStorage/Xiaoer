@@ -7,7 +7,6 @@
 //
 
 #import "SuperMainViewController.h"
-
 @interface ShopViewController : SuperMainViewController
 
 @end

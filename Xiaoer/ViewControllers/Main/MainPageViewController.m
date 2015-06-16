@@ -100,11 +100,20 @@
 @property (nonatomic,strong)UIButton *btn;
 //点击每周一练下的小btn是否push
 @property (nonatomic,assign)BOOL  ifPush;
+
+@property (nonatomic,strong)NSMutableArray *allWeeksConclude;
+
+@property (nonatomic,assign)NSInteger month;
 @end
 
 @implementation MainPageViewController
 
-
+- (NSMutableArray *)allWeeksConclude{
+    if (!_allWeeksConclude) {
+        self.allWeeksConclude = [NSMutableArray array];
+    }
+    return _allWeeksConclude;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -135,21 +144,51 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTicketChanged:) name:XE_TICKET_CHANGED_NOTIFICATION object:nil];
     
 
-  
-    
-    self.index = 144;
-    //配置每周一练的scrollview
-    [self configureOneWeekScrollview];
-    //布局每周一练的scrollview小按钮
-    [self configureSmallBtn];
-    
-
-
-    
-
+  //获取每周一练线条的数据
+    [self getOneWeekScrollviewInfomation];
 
 }
+- (void)getOneWeekScrollviewInfomation{
+    __weak MainPageViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [XEEngine shareInstance].serverPlatform = TestPlatform;
+    NSString *userid = [XEEngine shareInstance].uid;
+    [[XEEngine shareInstance]getOneWeekScrollviewInfomationWith:userid tag:tag];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        /**
+         *  获取失败信息
+         */
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
 
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"每周一练数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+        }
+        NSLog(@" jsonRet =======  %@",jsonRet);
+        NSLog(@"jsonRet   == %@",jsonRet[@"object"][@"cweeks"]);
+        /**
+         * 该用户的默认宝宝所处周数
+         */
+        NSString *index = jsonRet[@"object"][@"defaultWeek"];
+        /**
+         *  后台包含了哪些周
+         */
+        NSMutableString *string = jsonRet[@"object"][@"cweeks"];
+        NSLog(@"string === %@",string);
+        NSArray *array  = [string componentsSeparatedByString:@","];
+        for (NSString *string in array) {
+            [self.allWeeksConclude addObject:string];
+        }
+        NSLog(@" = %@",[self.allWeeksConclude objectAtIndex:0]);
+        [self configureOneWeekScrollviewwith:self.allWeeksConclude.count];
+
+    } tag:tag];
+
+}
 
 #pragma mark  计算每周一练应当滑倒哪一周
 - (void)calculateWeeks{
@@ -161,42 +200,44 @@
         self.ifPush = NO;
         return ;
     }
-    NSInteger month = 0;
+    self.month = 0;
     int distance = [nowDate timeIntervalSinceDate:userInfo.birthdayDate];
     if (distance < 0) {
         distance = 0 ;
-        month = 1;
+        self.month = 1;
     }
     NSLog(@"distance ===== %d",distance);
     //大于一年
     if (distance > 60*60*24*365) {
-        month = distance/(60*60*24*7) + 1;
+        self.month = distance/(60*60*24*7) + 1;
     }
     //大于一个月 包括小于一年
     if (distance < 60*60*24*365) {
-        month = distance/(60*60*24*7) + 1;
+        self.month = distance/(60*60*24*7) + 1;
     }
     //小于一个月
     if (distance < 60*60*24*30) {
-        month =distance/(60*60*24*7)+ 1;
+        self.month =distance/(60*60*24*7)+ 1;
     }
     //小于一周
     if (distance < 60*60*24*7) {
-        month = 1;
+        self.month = 1;
     }
     //小于一天
     if (distance < 60*60*24) {
-        month = 1;
+        self.month = 1;
     }
     self.ifPush = NO;
-    for (UIButton *button in self.oneWeekScrollView.subviews) {
-        if (button.tag == month -1) {
-            self.btn = button;
-            [self AutomaticMoveSmallBtn:self.btn];
-        }
-    }
+    /**
+     *  如果已经布局过了，在此处再次写一遍
+     */
+//    for (UIButton *button in self.oneWeekScrollView.subviews) {
+//        if (button.tag == self.month ) {
+//            self.btn = button;
+//            [self AutomaticMoveSmallBtn:self.btn];
+//        }
+//    }
     
-
 }
 - (void)AutomaticMoveSmallBtn:(UIButton *)sender{
     if (self.btn == sender) {
@@ -208,31 +249,40 @@
     [self animationWithBtn];
 }
 #pragma mark 布局每周一练的scrollview小按钮
-- (void)configureSmallBtn{
+- (void)configureSmallBtnWith:(NSInteger) index{
     /**
      *  布局下面的横线
      */
-    NSLog(@"self.oneWeekScrollView.contentSize.width --------------%f",self.oneWeekScrollView.contentSize.width);
     CGFloat flo = self.oneWeekScrollView.contentSize.width;
     UIScrollView *ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(20, 32, flo- 60, 2)];
     ScrollView.userInteractionEnabled = NO;
     ScrollView.backgroundColor = [UIColor colorWithRed:18/255.0 green:169/255.0 blue:229/255.0 alpha:1];
     [self.oneWeekScrollView addSubview:ScrollView];
     
-    for (int i = 0; i < self.index; i++) {
+    for (int i = 0; i < index; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width / self.index ) + 20, 23, 20, 20);
-        button.tag = i;
+        button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) + 20, 23, 20, 20);
+        NSString *string = (NSString *)[self.allWeeksConclude objectAtIndex:i];
+        button.tag = [string integerValue];
         button.layer.cornerRadius = 10;
         button.backgroundColor = [UIColor colorWithRed:18/255.0 green:169/255.0 blue:229/255.0 alpha:1];
         [button addTarget:self action:@selector(touchSmallBtn:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(i * (self.oneWeekScrollView.contentSize.width / self.index ) , 50, 60, 10)];
+        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) , 50, 60, 10)];
         lable.textAlignment = NSTextAlignmentCenter;
         lable.font = [UIFont systemFontOfSize:12];
-        lable.text = [NSString stringWithFormat:@"第%d周",i + 1];
+        lable.text = [NSString stringWithFormat:@"第%d周",button.tag];
         [self.oneWeekScrollView addSubview:button];
         [self.oneWeekScrollView addSubview:lable];
     }
+    /**
+     *  虽然在视图将要出现的时候已经计算好的 ，但是scrollview还没布局好，所以移到这里进行移动
+     */
+//    for (UIButton *button in self.oneWeekScrollView.subviews) {
+//        if (button.tag == self.month ) {
+//            self.btn = button;
+//            [self AutomaticMoveSmallBtn:self.btn];
+//        }
+//    }
 }
 
 
@@ -275,7 +325,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         if (self.btn.tag > 2 && self.btn.tag <= 4) {
             [self.oneWeekScrollView setContentOffset:CGPointMake(self.btn.frame.origin.x - (SCREEN_WIDTH  / 2), 0)];
-        }else if (self.btn.tag > 4 && self.btn.tag < self.index - 3){
+        }else if (self.btn.tag > 4 && self.btn.tag < self.allWeeksConclude.count - 3){
 //            [self.oneWeekScrollView setContentOffset:CGPointMake( SCREEN_WIDTH + ( self.btn.frame.origin.x)- (SCREEN_WIDTH + SCREEN_WIDTH / 2)  , 0)];
             NSInteger inde =  self.oneWeekScrollView.contentOffset.x / SCREEN_WIDTH;
             [self.oneWeekScrollView setContentOffset:CGPointMake(inde * SCREEN_WIDTH + ( self.btn.frame.origin.x)- (SCREEN_WIDTH * inde + SCREEN_WIDTH / 2), 0)];
@@ -285,7 +335,7 @@
         if (self.ifPush == NO) {
             
         }else{
-            NSLog(@"%ld",self.btn.tag);
+            NSLog(@"%ld",(long)self.btn.tag);
             EveryOneWeekController *everyOne= [[EveryOneWeekController alloc]init];
             everyOne.cweek = self.btn.tag;
             [self.navigationController pushViewController:everyOne animated:YES];
@@ -299,12 +349,14 @@
 
 #pragma mark  配置每周一练的scrollview
 
-- (void)configureOneWeekScrollview{
+- (void)configureOneWeekScrollviewwith:(NSInteger)index{
+    NSLog(@"index =====  %ld",(long)index);
     self.oneWeekScrollView.showsHorizontalScrollIndicator = YES;
     self.oneWeekScrollView.directionalLockEnabled = YES;
-    self.oneWeekScrollView.contentSize = CGSizeMake( 60 * self.index , 60);
+    self.oneWeekScrollView.contentSize = CGSizeMake( 60 *index , 60);
     self.oneWeekScrollView.alwaysBounceHorizontal = YES;
     self.oneWeekScrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    [self configureSmallBtnWith:index];
     
 }
 
@@ -930,11 +982,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:XE_MAIN_SHOW_ADS_VIEW_NOTIFICATION object:[NSNumber numberWithBool:YES]];
     [super viewDidAppear:animated];
     //判断全局变量btn存在与否，存在的话不计算，不存在计算
-    if (self.btn) {
-        
-    }else{
-        [self calculateWeeks];
-    }
+//    if (self.btn) {
+//        
+//    }else{
+//        [self calculateWeeks];
+//    }
     
 
 }

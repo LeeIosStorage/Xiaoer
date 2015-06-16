@@ -56,7 +56,7 @@
         }
         
         int tag = [[XEEngine shareInstance] getConnectTag];
-        [XEEngine shareInstance].serverPlatform = TestPlatform;
+//        [XEEngine shareInstance].serverPlatform = TestPlatform;
         [[XEEngine shareInstance] getCardListWithUid:[XEEngine shareInstance].uid pagenum:weakSelf.nextCursor tag:tag];
         [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
             if (!weakSelf) {
@@ -103,7 +103,7 @@
 
 - (void)getCacheCardList{
     __weak CardPackViewController *weakSelf = self;
-    [XEEngine shareInstance].serverPlatform = TestPlatform;
+//    [XEEngine shareInstance].serverPlatform = TestPlatform;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] addGetCacheTag:tag];
     [[XEEngine shareInstance] getCardListWithUid:[XEEngine shareInstance].uid pagenum:1 tag:tag];
@@ -131,7 +131,7 @@
     _nextCursor = 1;
     __weak CardPackViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [XEEngine shareInstance].serverPlatform = TestPlatform;
+//    [XEEngine shareInstance].serverPlatform = TestPlatform;
     [[XEEngine shareInstance] getCardListWithUid:[XEEngine shareInstance].uid pagenum:_nextCursor tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         

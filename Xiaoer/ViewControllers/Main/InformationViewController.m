@@ -43,7 +43,7 @@
 //布局
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     InfomationViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"item" forIndexPath:indexPath];
-    cell.titleLable.frame = CGRectMake(cell.contentView.frame.size.width/2 - 30, cell.contentView.frame.size.height/2 - 6, cell.contentView.frame.size.width - 60 , 12);
+    cell.titleLable.frame = CGRectMake(cell.contentView.frame.size.width/2 - 30, cell.contentView.frame.size.height/2 - 10, cell.contentView.frame.size.width - 60 , 20);
     cell.titleLable.backgroundColor = [UIColor redColor];
     if (indexPath.row == 0) {
         cell.titleLable.text = @"食谱";

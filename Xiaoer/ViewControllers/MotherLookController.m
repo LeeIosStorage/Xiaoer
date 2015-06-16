@@ -12,7 +12,11 @@
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
 #import "XEMotherLook.h"
-@interface MotherLookController ()<UITableViewDataSource,UITableViewDelegate>
+#import "shopOtherViewController.h"
+#import "ActivityDetailsViewController.h"
+#import "XEActivityInfo.h"
+
+@interface MotherLookController ()<UITableViewDataSource,UITableViewDelegate,MotherLookBtnDelegate>
 @property (nonatomic,strong)NSMutableArray *dataSources;
 @property (weak, nonatomic) IBOutlet UITableView *motherLookTab;
 
@@ -37,6 +41,31 @@
 
     // Do any additional setup after loading the view from its nib.
 }
+- (void)touchMotherLookCellBtn:(UIButton *)sender{
+    NSLog(@"%@",sender.titleLabel.text);
+    NSString *string = sender.titleLabel.text;
+    if ([string isEqualToString:@"去抢票"]) {
+
+        ActivityDetailsViewController *detail = [[ActivityDetailsViewController alloc]init];
+        XEMotherLook *model = [XEMotherLook modelWithDictioanry:[self.dataSources objectAtIndex:1]];
+        XEActivityInfo *info = [[XEActivityInfo alloc]init];
+        info.aId = model.IDNum;
+        detail.activityInfo = info;
+        [self.navigationController pushViewController:detail animated:YES];
+    } else if ([string isEqualToString:@"去看看"]) {
+        ActivityDetailsViewController *vc = [[ActivityDetailsViewController alloc] init];
+        XEActivityInfo *activityInfo = [[XEActivityInfo alloc]init];
+        activityInfo.aType = 1;
+        XEMotherLook *model = [XEMotherLook modelWithDictioanry:[self.dataSources objectAtIndex:0]];
+        activityInfo.aId = model.IDNum;
+        vc.activityInfo = activityInfo;
+        vc.isTicketActivity = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if ([string isEqualToString:@"去逛逛"]){
+        shopOtherViewController *shop = [[shopOtherViewController alloc]init];
+        [self.navigationController pushViewController:shop animated:YES];
+    }
+}
 - (void)loadData{
     __weak MotherLookController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
@@ -54,13 +83,15 @@
             [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
             return;
         }
+
         if (self.dataSources.count > 0) {
             [self.dataSources removeAllObjects];
         }
         for (NSDictionary *dic in jsonRet[@"object"]) {
-            [self.dataSources addObject:dic];
+            [self.dataSources  addObject:dic];
         }
-        NSLog(@"%@",jsonRet);
+        NSLog(@"self.dataSources.count == %ld",self.dataSources.count);
+        [self.motherLookTab reloadData];
     } tag:tag];
     
 }
@@ -70,7 +101,6 @@
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 刷新表格
-        [self.motherLookTab reloadData];
         // 调用endRefreshing可以结束刷新状态
         [self.motherLookTab headerEndRefreshing];
     });
@@ -85,10 +115,10 @@
     return 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return self.dataSources.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 140;
+    return 160;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 40;
@@ -123,17 +153,49 @@
     /**
      *  选中样式
      */
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    XEMotherLook *motherLook = [XEMotherLook modelWithDictioanry:[self.dataSources objectAtIndex:indexPath.section]];
-    [cell configureCellWith:indexPath motherLook:nil];
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    if (self.dataSources) {
+        NSDictionary *dic = [self.dataSources objectAtIndex:indexPath.section];
+        NSLog(@"dic === %@",[self.dataSources objectAtIndex:indexPath.section]);
+        XEMotherLook *motherLook = [XEMotherLook modelWithDictioanry:dic];
+        [cell configureCellWith:indexPath motherLook:motherLook];
+        cell.delegate = self;
+    }
     return cell;
     
 }
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    /*
+    if (indexPath.section == 2) {
+        shopOtherViewController *shop = [[shopOtherViewController alloc]init];
+        [self.navigationController pushViewController:shop animated:YES];
+    }
+    if (indexPath.section == 1) {
+        ActivityDetailsViewController *detail = [[ActivityDetailsViewController alloc]init];
+        XEMotherLook *model = [XEMotherLook modelWithDictioanry:[self.dataSources objectAtIndex:indexPath.section]];
+        XEActivityInfo *info = [[XEActivityInfo alloc]init];
+        info.aId = model.IDNum;
+        detail.activityInfo = info;
+        [self.navigationController pushViewController:detail animated:YES];
+    }
     
+    if (indexPath.section == 0) {
+        ActivityDetailsViewController *vc = [[ActivityDetailsViewController alloc] init];
+        XEActivityInfo *activityInfo = [[XEActivityInfo alloc]init];
+        activityInfo.aType = 1;
+        XEMotherLook *model = [XEMotherLook modelWithDictioanry:[self.dataSources objectAtIndex:indexPath.section]];
+        activityInfo.aId = model.IDNum;
+        vc.activityInfo = activityInfo;
+        vc.isTicketActivity = YES;
+        
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    */
+    [self.motherLookTab deselectRowAtIndexPath:indexPath animated:YES];
 }
+
 /*
 #pragma mark - Navigation
 

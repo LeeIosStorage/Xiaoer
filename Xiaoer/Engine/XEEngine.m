@@ -1646,4 +1646,11 @@ static XEEngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/weekExe/list",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
+
+- (BOOL)getOneWeekScrollviewInfomationWith:(NSString *)userID tag:(int)tag{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userID forKey:@"userid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/weekExe/index",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
 @end

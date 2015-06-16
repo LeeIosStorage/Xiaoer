@@ -13,8 +13,16 @@
     if (self == [super initWithDictionary:dictionary]) {
         self.imageUrl = dictionary[@"imgUrl"] ;
         self.IDNum = [dictionary[@"id"] stringValue];
-        self.title = dictionary[@"totalNum"];
-        self.objid = [dictionary[@"objId"] stringValue];
+        if ([dictionary[@"objId"] isKindOfClass:[NSNull class]]) {
+            self.objid = @"0";
+        }else{
+            self.objid = dictionary[@"objId"];
+        }
+        if ([dictionary[@"totalNum"] isKindOfClass:[NSNull class]]) {
+            self.totalNum = @"0";
+        }else{
+            self.totalNum = [dictionary[@"totalNum"] stringValue];
+        }
         self.title = dictionary[@"title"];
         self.type = [dictionary[@"type"] stringValue];
     }

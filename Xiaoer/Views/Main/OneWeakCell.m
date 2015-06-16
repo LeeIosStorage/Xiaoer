@@ -20,6 +20,8 @@
     // Configure the view for the selected state
 }
 - (void)configureCellWithModel:(XEOneWeekInfo *)model{
+    self.leftImage.layer.cornerRadius = 10;
+    self.leftImage.layer.masksToBounds = YES;
     [self.leftImage sd_setImageWithURL:model.totalImageUrl placeholderImage:nil];
     self.title.text = model.title;
     self.belowTitle.text = model.des;

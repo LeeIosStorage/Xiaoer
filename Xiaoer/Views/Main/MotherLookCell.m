@@ -53,8 +53,18 @@
     }
     
     self.titleLab.text = motherLook.title;
+    self.rightImageView.layer.cornerRadius = 10;
+    self.rightImageView.layer.masksToBounds = YES;
     [self.rightImageView sd_setImageWithURL:motherLook.totalImageUrl placeholderImage:nil];
     
+}
+- (IBAction)cellBtn:(id)sender {
+    UIButton *btn = sender;
+    NSString *string = btn.titleLabel.text;
+//    NSLog(@"%@",string);
+    if (string && self.delegate && [self.delegate respondsToSelector:@selector(touchMotherLookCellBtn:)]) {
+        [self.delegate touchMotherLookCellBtn:btn];
+    }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

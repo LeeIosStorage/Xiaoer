@@ -239,7 +239,11 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getMotherLookListWithTag:(int)tag;
 
 /**
- *  每周一练
+ *  每周一练界面信息
  */
 - (BOOL)getOneWeekListWith:(int)cweek Tag:(int)tag;
+/**
+ *  首页每周一练的周数信息
+ */
+- (BOOL)getOneWeekScrollviewInfomationWith:(NSString *)userID tag:(int)tag;
 @end
