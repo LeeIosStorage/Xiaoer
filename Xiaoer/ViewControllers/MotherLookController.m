@@ -69,7 +69,7 @@
 - (void)loadData{
     __weak MotherLookController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [XEEngine shareInstance].serverPlatform = TestPlatform;
+    [XEEngine shareInstance].serverPlatform = OnlinePlatform;
     [[XEEngine shareInstance]getMotherLookListWithTag:tag];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
 
@@ -83,7 +83,12 @@
             [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
             return;
         }
-
+        NSDictionary *dic = jsonRet[@"object"];
+        if ([dic count] == 0) {
+            NSLog(@"无数据");
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+        }
         if (self.dataSources.count > 0) {
             [self.dataSources removeAllObjects];
         }

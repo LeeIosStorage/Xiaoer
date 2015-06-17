@@ -120,12 +120,13 @@
     }else{
         acquiesce = @"1";
     }
-    
+    NSLog(@"babyUserInfo.babyAvatarId === %@",babyUserInfo.babyNick);
     [XEProgressHUD AlertLoading:@"资料保存中" At:self.view];
     __weak BabyProfileViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] editBabyInfoWithUserId:[XEEngine shareInstance].uid bbId:babyUserInfo.babyId bbName:babyUserInfo.babyNick bbGender:babyUserInfo.babyGender bbBirthday:babyUserInfo.birthdayString bbAvatar:babyUserInfo.babyAvatarId acquiesce:acquiesce tag:tag];
     [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSLog(@"jsonRet === %@",jsonRet);
 //        [XEProgressHUD AlertLoadDone];
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (!jsonRet || errorMsg) {

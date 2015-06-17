@@ -49,7 +49,7 @@
 - (void)getOneWeekData{
     __weak EveryOneWeekController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-//    [XEEngine shareInstance].serverPlatform = TestPlatform;
+  //  [XEEngine shareInstance].serverPlatform = TestPlatform;
     NSString *week = [NSString stringWithFormat:@"%ld",(long)self.cweek];
     int we = [week intValue];
     [[XEEngine shareInstance]getOneWeekListWith:we Tag:tag];
@@ -92,7 +92,7 @@
     
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataSources.count;
+    return self.dataSources.count - 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0;
@@ -106,7 +106,7 @@
         NSArray *array = [[NSBundle mainBundle]loadNibNamed:@"OneWeakCell" owner:self options:nil];
         cell = array.lastObject;
     }
-    XEOneWeekInfo *oneWeek = [XEOneWeekInfo modelWithDictioanry:[self.dataSources objectAtIndex:indexPath.row]];
+    XEOneWeekInfo *oneWeek = [XEOneWeekInfo modelWithDictioanry:[self.dataSources objectAtIndex:indexPath.row + 1]];
    [cell configureCellWithModel:oneWeek];
     return cell;
 }

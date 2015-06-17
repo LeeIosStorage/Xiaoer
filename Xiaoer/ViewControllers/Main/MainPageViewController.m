@@ -104,10 +104,23 @@
 @property (nonatomic,strong)NSMutableArray *allWeeksConclude;
 
 @property (nonatomic,assign)NSInteger month;
+@property (nonatomic,strong)UIButton *oneWeekBtn;
 @end
 
 @implementation MainPageViewController
-
+- (UIButton *)oneWeekBtn{
+    if (!_oneWeekBtn) {
+        self.oneWeekBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _oneWeekBtn.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width - 250)/2, 12, 250, 40);
+        _oneWeekBtn.backgroundColor = [UIColor colorWithRed:27/255.0 green:184/255.0 blue:231/255.0 alpha:1];
+        _oneWeekBtn.titleLabel.textColor = [UIColor whiteColor];
+        _oneWeekBtn.layer.cornerRadius = 10;
+        _oneWeekBtn.layer.masksToBounds = YES;
+        [_oneWeekBtn addTarget:self action:@selector(dengLu) forControlEvents:UIControlEventTouchUpInside];
+        [_oneWeekBtn setTitle:@"查看每周一练内容" forState:UIControlStateNormal];
+    }
+    return _oneWeekBtn;
+}
 - (NSMutableArray *)allWeeksConclude{
     if (!_allWeeksConclude) {
         self.allWeeksConclude = [NSMutableArray array];
@@ -151,45 +164,71 @@
 - (void)getOneWeekScrollviewInfomation{
     __weak MainPageViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [XEEngine shareInstance].serverPlatform = TestPlatform;
+    [XEEngine shareInstance].serverPlatform = OnlinePlatform;
     NSString *userid = [XEEngine shareInstance].uid;
-    [[XEEngine shareInstance]getOneWeekScrollviewInfomationWith:userid tag:tag];
-    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        /**
-         *  获取失败信息
-         */
-        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-        if (errorMsg) {
-            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-            return;
-        }
+    if (!userid) {
+        self.oneWeekBtn.hidden = NO;
+        NSInteger index = 5;
+        [self configureOneWeekScrollviewwith:index];
+        
+    }else{
+        self.oneWeekBtn.hidden = YES;
+        [XEEngine shareInstance].serverPlatform = OnlinePlatform;
+        [[XEEngine shareInstance]getOneWeekScrollviewInfomationWith:userid tag:tag];
+        [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+            /**
+             *  获取失败信息
+             */
+            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+            if (errorMsg) {
+                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+                return;
+            }
+            
+            if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+                [XEProgressHUD AlertError:@"每周一练数据获取失败，请检查网络设置" At:weakSelf.view];
 
-        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
-            [XEProgressHUD AlertError:@"每周一练数据获取失败，请检查网络设置" At:weakSelf.view];
-            return;
-        }
-        NSLog(@" jsonRet =======  %@",jsonRet);
-        NSLog(@"jsonRet   == %@",jsonRet[@"object"][@"cweeks"]);
-        /**
-         * 该用户的默认宝宝所处周数
-         */
-        NSString *index = jsonRet[@"object"][@"defaultWeek"];
-        /**
-         *  后台包含了哪些周
-         */
-        NSMutableString *string = jsonRet[@"object"][@"cweeks"];
-        NSLog(@"string === %@",string);
-        NSArray *array  = [string componentsSeparatedByString:@","];
-        for (NSString *string in array) {
-            [self.allWeeksConclude addObject:string];
-        }
-        NSLog(@" = %@",[self.allWeeksConclude objectAtIndex:0]);
-        [self configureOneWeekScrollviewwith:self.allWeeksConclude.count];
+                return;
+            }
+            /**
+             * 该用户的默认宝宝所处周数
+             */
+            NSString *index = jsonRet[@"object"][@"defaultWeek"];
+            /**
+             *  后台包含了哪些周
+             */
+            NSMutableString *string = jsonRet[@"object"][@"cweeks"];
+            NSLog(@"string === %@",string);
+            if ([string isKindOfClass:[NSNull class]]) {
+                [XEProgressHUD AlertError:@"每周一练数据获取失败，请检查网络设置" At:weakSelf.view];
+                NSInteger indes = 5;
+                [self configureOneWeekScrollviewwith:indes];
 
-    } tag:tag];
+                return;
+            }
+            NSArray *array  = [string componentsSeparatedByString:@","];
+            if (self.allWeeksConclude.count > 0) {
+                [self.allWeeksConclude removeAllObjects];
+            }
+            for (NSString *string in array) {
+                [self.allWeeksConclude addObject:string];
+            }
+            NSLog(@" = %@",[self.allWeeksConclude objectAtIndex:0]);
+            [self configureOneWeekScrollviewwith:self.allWeeksConclude.count];
+            
+        } tag:tag];
+  
+    }
 
 }
-
+/**
+ *  每周一练没有用户的时候需要登录
+ */
+- (void)dengLu{
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
+}
 #pragma mark  计算每周一练应当滑倒哪一周
 - (void)calculateWeeks{
     XEUserInfo *userInfo = [self getBabyUserInfo:0];
@@ -261,16 +300,32 @@
     
     for (int i = 0; i < index; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) + 20, 23, 20, 20);
-        NSString *string = (NSString *)[self.allWeeksConclude objectAtIndex:i];
-        button.tag = [string integerValue];
+        XEUserInfo *userInfo = [self getBabyUserInfo:0];
+        if (!userInfo.babyNick) {
+            NSString *str = [NSString stringWithFormat:@"%d",i + 1];
+            NSInteger inde = [str integerValue];
+            button.tag = inde;
+            button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) + 20, 23, 20, 20);
+
+        }else{
+//            for (UIView *view in self.oneWeekScrollView.subviews) {
+//                [view removeFromSuperview];
+////                [self.oneWeekScrollView removeConstraints:self.oneWeekScrollView.subviews];
+//            }
+            button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) + 20, 23, 20, 20);
+//            NSString *string = (NSString *)[self.allWeeksConclude objectAtIndex:i];
+            NSString *string = [NSString stringWithFormat:@"%d",i + 1];
+            button.tag = [string integerValue];
+        }
+//        NSString *string = (NSString *)[self.allWeeksConclude objectAtIndex:i];
+//        button.tag = [string integerValue];
         button.layer.cornerRadius = 10;
         button.backgroundColor = [UIColor colorWithRed:18/255.0 green:169/255.0 blue:229/255.0 alpha:1];
         [button addTarget:self action:@selector(touchSmallBtn:) forControlEvents:UIControlEventTouchUpInside];
         UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) , 50, 60, 10)];
         lable.textAlignment = NSTextAlignmentCenter;
         lable.font = [UIFont systemFontOfSize:12];
-        lable.text = [NSString stringWithFormat:@"第%d周",button.tag];
+        lable.text = [NSString stringWithFormat:@"第%ld周",(long)button.tag];
         [self.oneWeekScrollView addSubview:button];
         [self.oneWeekScrollView addSubview:lable];
     }
@@ -282,6 +337,13 @@
 //            self.btn = button;
 //            [self AutomaticMoveSmallBtn:self.btn];
 //        }
+//    }
+//    XEUserInfo *userInfo = [self getBabyUserInfo:0];
+//    if (!userInfo.babyNick) {
+//        //用户不存在 scrollview居中显示
+//        [self.oneWeekScrollView setContentOffset:CGPointMake(([UIScreen mainScreen].bounds.size.width - 60* 4)/2 - 60, 0)];
+//    } else {
+//        
 //    }
 }
 
@@ -316,8 +378,17 @@
             self.btn.transform = CGAffineTransformMakeScale(1.5,1.5);
         }];
     }
-
     [self animationWithBtn];
+//    XEUserInfo *userInfo = [self getBabyUserInfo:0];
+//    if (!userInfo.babyNick) {
+//        //用户不存在  不偏移
+//        if ([[XEEngine shareInstance] needUserLogin:nil]) {
+//            return;
+//        }
+//    } else {
+//        
+//        [self animationWithBtn];
+//    }
 }
 
 #pragma mark 小按钮偏移到屏幕中间
@@ -335,11 +406,17 @@
         if (self.ifPush == NO) {
             
         }else{
-            NSLog(@"%ld",(long)self.btn.tag);
-            EveryOneWeekController *everyOne= [[EveryOneWeekController alloc]init];
-            everyOne.cweek = self.btn.tag;
-            [self.navigationController pushViewController:everyOne animated:YES];
-            self.ifPush = NO;
+            if ([[XEEngine shareInstance] needUserLogin:nil]) {
+                    return;
+            }else{
+                
+                NSLog(@"%ld",(long)self.btn.tag);
+                EveryOneWeekController *everyOne= [[EveryOneWeekController alloc]init];
+                everyOne.cweek = self.btn.tag;
+                [self.navigationController pushViewController:everyOne animated:YES];
+                self.ifPush = NO;
+            }
+
         }
 
     }];
@@ -387,6 +464,7 @@
     }else{
         self.nickName.text = userInfo.babyNick;
         self.historyLab.text = @"历史评测成绩";
+        [self getOneWeekScrollviewInfomation];
 
     }
     self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
