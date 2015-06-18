@@ -308,17 +308,16 @@
             button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) + 20, 23, 20, 20);
 
         }else{
-//            for (UIView *view in self.oneWeekScrollView.subviews) {
-//                [view removeFromSuperview];
-////                [self.oneWeekScrollView removeConstraints:self.oneWeekScrollView.subviews];
-//            }
+
             button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) + 20, 23, 20, 20);
-//            NSString *string = (NSString *)[self.allWeeksConclude objectAtIndex:i];
-            NSString *string = [NSString stringWithFormat:@"%d",i + 1];
-            button.tag = [string integerValue];
+            if (self.allWeeksConclude.count > 0) {
+                 NSString *string = (NSString *)[self.allWeeksConclude objectAtIndex:i];
+                button.tag = [string integerValue];
+            }else{
+                NSString *string = [NSString stringWithFormat:@"%d",i + 1];
+                button.tag = [string integerValue];
+            }
         }
-//        NSString *string = (NSString *)[self.allWeeksConclude objectAtIndex:i];
-//        button.tag = [string integerValue];
         button.layer.cornerRadius = 10;
         button.backgroundColor = [UIColor colorWithRed:18/255.0 green:169/255.0 blue:229/255.0 alpha:1];
         [button addTarget:self action:@selector(touchSmallBtn:) forControlEvents:UIControlEventTouchUpInside];

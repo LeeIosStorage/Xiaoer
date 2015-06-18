@@ -378,8 +378,6 @@
 		AA6E8FB11B300C8C0087B754 /* shopOtherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA6E8FAF1B300C8C0087B754 /* shopOtherViewController.xib */; };
 		AA70F2F21B1EBC7200122F57 /* InfomationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA70F2F01B1EBC7200122F57 /* InfomationViewCell.m */; };
 		AA70F2F31B1EBC7200122F57 /* InfomationViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */; };
-		AA7AAFB31B1F05B200158B9A /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7AAFB11B1F05B200158B9A /* ShopViewController.m */; };
-		AA7AAFB41B1F05B200158B9A /* ShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7AAFB21B1F05B200158B9A /* ShopViewController.xib */; };
 		AA7AE68A1B1EA91F00396699 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7AE6881B1EA91F00396699 /* InformationViewController.m */; };
 		AA7AE68B1B1EA91F00396699 /* InformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE6891B1EA91F00396699 /* InformationViewController.xib */; };
 		AA8784BD1B2013A4005A11E8 /* MainTabScrollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8784BB1B2013A4005A11E8 /* MainTabScrollCell.m */; };
@@ -404,6 +402,25 @@
 		AAD8EC8E1B0B0A8E00B24F9A /* CardOfEastSucceedController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD8EC8C1B0B0A8E00B24F9A /* CardOfEastSucceedController.xib */; };
 		AAD9C60D1B2EA1C9007C9235 /* XEMotherLook.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD9C60C1B2EA1C9007C9235 /* XEMotherLook.m */; };
 		AAD9C6101B2EA44C007C9235 /* XEOneWeekInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD9C60F1B2EA44C007C9235 /* XEOneWeekInfo.m */; };
+		AAE0F1321B3270A6005C4B3D /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F1301B3270A6005C4B3D /* ShopViewController.m */; };
+		AAE0F1331B3270A6005C4B3D /* ShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE0F1311B3270A6005C4B3D /* ShopViewController.xib */; };
+		AAE0F13D1B328560005C4B3D /* ShopHeaderCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F13B1B328560005C4B3D /* ShopHeaderCollectCell.m */; };
+		AAE0F13E1B328560005C4B3D /* ShopHeaderCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE0F13C1B328560005C4B3D /* ShopHeaderCollectCell.xib */; };
+		AAE0F1411B32A73F005C4B3D /* WaterFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F1401B32A73F005C4B3D /* WaterFlowLayout.m */; };
+		AAE0F1451B32A7B6005C4B3D /* ShopViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F1431B32A7B6005C4B3D /* ShopViewCell.m */; };
+		AAE0F1461B32A7B6005C4B3D /* ShopViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE0F1441B32A7B6005C4B3D /* ShopViewCell.xib */; };
+		AAE0F14A1B32AD7B005C4B3D /* WaterCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F1481B32AD7B005C4B3D /* WaterCollectionCell.m */; };
+		AAE0F14B1B32AD7B005C4B3D /* WaterCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE0F1491B32AD7B005C4B3D /* WaterCollectionCell.xib */; };
+		AAE0F1511B32BF0F005C4B3D /* CycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F14F1B32BF0F005C4B3D /* CycleScrollView.m */; };
+		AAE0F1521B32BF0F005C4B3D /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F1501B32BF0F005C4B3D /* NSTimer+Addition.m */; };
+		AAE0F1551B32BFC6005C4B3D /* CycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F1541B32BFC6005C4B3D /* CycleView.m */; };
+		AAE0F1591B32C0B0005C4B3D /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE0F1561B32C0B0005C4B3D /* 3.png */; };
+		AAE0F15B1B32C0B0005C4B3D /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE0F1581B32C0B0005C4B3D /* 2.png */; };
+		AAE0F15D1B32C15C005C4B3D /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE0F15C1B32C15C005C4B3D /* 1.png */; };
+		AAE0F1611B32C83C005C4B3D /* ToyMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F15F1B32C83C005C4B3D /* ToyMainViewController.m */; };
+		AAE0F1621B32C83C005C4B3D /* ToyMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE0F1601B32C83C005C4B3D /* ToyMainViewController.xib */; };
+		AAE0F1661B32CB8E005C4B3D /* ToyMainTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F1641B32CB8E005C4B3D /* ToyMainTabCell.m */; };
+		AAE0F1671B32CB8E005C4B3D /* ToyMainTabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE0F1651B32CB8E005C4B3D /* ToyMainTabCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1029,9 +1046,6 @@
 		AA70F2EF1B1EBC7200122F57 /* InfomationViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationViewCell.h; sourceTree = "<group>"; };
 		AA70F2F01B1EBC7200122F57 /* InfomationViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationViewCell.m; sourceTree = "<group>"; };
 		AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationViewCell.xib; sourceTree = "<group>"; };
-		AA7AAFB01B1F05B200158B9A /* ShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopViewController.h; path = ../ShopViewController.h; sourceTree = "<group>"; };
-		AA7AAFB11B1F05B200158B9A /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopViewController.m; path = ../ShopViewController.m; sourceTree = "<group>"; };
-		AA7AAFB21B1F05B200158B9A /* ShopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShopViewController.xib; path = ../ShopViewController.xib; sourceTree = "<group>"; };
 		AA7AE6871B1EA91F00396699 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InformationViewController.h; path = Main/InformationViewController.h; sourceTree = "<group>"; };
 		AA7AE6881B1EA91F00396699 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InformationViewController.m; path = Main/InformationViewController.m; sourceTree = "<group>"; };
 		AA7AE6891B1EA91F00396699 /* InformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InformationViewController.xib; path = Main/InformationViewController.xib; sourceTree = "<group>"; };
@@ -1070,6 +1084,35 @@
 		AAD9C60C1B2EA1C9007C9235 /* XEMotherLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEMotherLook.m; sourceTree = "<group>"; };
 		AAD9C60E1B2EA44C007C9235 /* XEOneWeekInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEOneWeekInfo.h; sourceTree = "<group>"; };
 		AAD9C60F1B2EA44C007C9235 /* XEOneWeekInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEOneWeekInfo.m; sourceTree = "<group>"; };
+		AAE0F12F1B3270A6005C4B3D /* ShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopViewController.h; sourceTree = "<group>"; };
+		AAE0F1301B3270A6005C4B3D /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
+		AAE0F1311B3270A6005C4B3D /* ShopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopViewController.xib; sourceTree = "<group>"; };
+		AAE0F13A1B328560005C4B3D /* ShopHeaderCollectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopHeaderCollectCell.h; sourceTree = "<group>"; };
+		AAE0F13B1B328560005C4B3D /* ShopHeaderCollectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopHeaderCollectCell.m; sourceTree = "<group>"; };
+		AAE0F13C1B328560005C4B3D /* ShopHeaderCollectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopHeaderCollectCell.xib; sourceTree = "<group>"; };
+		AAE0F13F1B32A73F005C4B3D /* WaterFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaterFlowLayout.h; path = ../ViewControllers/WaterFlowLayout.h; sourceTree = "<group>"; };
+		AAE0F1401B32A73F005C4B3D /* WaterFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaterFlowLayout.m; path = ../ViewControllers/WaterFlowLayout.m; sourceTree = "<group>"; };
+		AAE0F1421B32A7B6005C4B3D /* ShopViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopViewCell.h; sourceTree = "<group>"; };
+		AAE0F1431B32A7B6005C4B3D /* ShopViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewCell.m; sourceTree = "<group>"; };
+		AAE0F1441B32A7B6005C4B3D /* ShopViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopViewCell.xib; sourceTree = "<group>"; };
+		AAE0F1471B32AD7B005C4B3D /* WaterCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterCollectionCell.h; sourceTree = "<group>"; };
+		AAE0F1481B32AD7B005C4B3D /* WaterCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterCollectionCell.m; sourceTree = "<group>"; };
+		AAE0F1491B32AD7B005C4B3D /* WaterCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaterCollectionCell.xib; sourceTree = "<group>"; };
+		AAE0F14D1B32BF0F005C4B3D /* CycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleScrollView.h; sourceTree = "<group>"; };
+		AAE0F14E1B32BF0F005C4B3D /* NSTimer+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addition.h"; sourceTree = "<group>"; };
+		AAE0F14F1B32BF0F005C4B3D /* CycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CycleScrollView.m; sourceTree = "<group>"; };
+		AAE0F1501B32BF0F005C4B3D /* NSTimer+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addition.m"; sourceTree = "<group>"; };
+		AAE0F1531B32BFC6005C4B3D /* CycleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleView.h; sourceTree = "<group>"; };
+		AAE0F1541B32BFC6005C4B3D /* CycleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CycleView.m; sourceTree = "<group>"; };
+		AAE0F1561B32C0B0005C4B3D /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		AAE0F1581B32C0B0005C4B3D /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		AAE0F15C1B32C15C005C4B3D /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		AAE0F15E1B32C83C005C4B3D /* ToyMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToyMainViewController.h; sourceTree = "<group>"; };
+		AAE0F15F1B32C83C005C4B3D /* ToyMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToyMainViewController.m; sourceTree = "<group>"; };
+		AAE0F1601B32C83C005C4B3D /* ToyMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToyMainViewController.xib; sourceTree = "<group>"; };
+		AAE0F1631B32CB8E005C4B3D /* ToyMainTabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToyMainTabCell.h; sourceTree = "<group>"; };
+		AAE0F1641B32CB8E005C4B3D /* ToyMainTabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToyMainTabCell.m; sourceTree = "<group>"; };
+		AAE0F1651B32CB8E005C4B3D /* ToyMainTabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToyMainTabCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1246,6 +1289,9 @@
 				07508E871A51346300873B45 /* AppDelegate.h */,
 				07508E881A51346300873B45 /* AppDelegate.m */,
 				AA6E8FA81B2FDCDF0087B754 /* 正在建设中6p.png */,
+				AAE0F1561B32C0B0005C4B3D /* 3.png */,
+				AAE0F15C1B32C15C005C4B3D /* 1.png */,
+				AAE0F1581B32C0B0005C4B3D /* 2.png */,
 				07E536101A528239005E1DA9 /* Engine */,
 				07E536111A528239005E1DA9 /* Model */,
 				07E536131A528239005E1DA9 /* ViewControllers */,
@@ -2085,6 +2131,7 @@
 		07E5360F1A528203005E1DA9 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				AAE0F14C1B32BED3005C4B3D /* lunBoScrollView */,
 				AA125DC61B2811D1000163A7 /* MJRefresh */,
 				079F5A6B1AA02FEA00069EB7 /* JPush */,
 				07AAB7FF1A8367420030D306 /* LSReachability */,
@@ -2191,6 +2238,7 @@
 		07E536141A528239005E1DA9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AAE0F1341B32840D005C4B3D /* shop */,
 				07AAB7F41A832FD00030D306 /* Setting */,
 				07882C1F1A806728003874FA /* Mine */,
 				AAD637271B201DA300D17763 /* infomation */,
@@ -2234,12 +2282,12 @@
 				07E5362E1A5290C9005E1DA9 /* EvaluationViewController.h */,
 				07E5362F1A5290C9005E1DA9 /* EvaluationViewController.m */,
 				07E536301A5290C9005E1DA9 /* EvaluationViewController.xib */,
-				AA7AAFB01B1F05B200158B9A /* ShopViewController.h */,
-				AA7AAFB11B1F05B200158B9A /* ShopViewController.m */,
-				AA7AAFB21B1F05B200158B9A /* ShopViewController.xib */,
 				07E536331A529210005E1DA9 /* ExpertChatViewController.h */,
 				07E536341A529210005E1DA9 /* ExpertChatViewController.m */,
 				07E536351A529210005E1DA9 /* ExpertChatViewController.xib */,
+				AAE0F12F1B3270A6005C4B3D /* ShopViewController.h */,
+				AAE0F1301B3270A6005C4B3D /* ShopViewController.m */,
+				AAE0F1311B3270A6005C4B3D /* ShopViewController.xib */,
 				07E536381A529259005E1DA9 /* MineTabViewController.h */,
 				07E536391A529259005E1DA9 /* MineTabViewController.m */,
 				07E5363A1A529259005E1DA9 /* MineTabViewController.xib */,
@@ -2424,6 +2472,11 @@
 		AA7AAFAF1B1F01FC00158B9A /* Shop */ = {
 			isa = PBXGroup;
 			children = (
+				AAE0F1531B32BFC6005C4B3D /* CycleView.h */,
+				AAE0F1541B32BFC6005C4B3D /* CycleView.m */,
+				AAE0F15E1B32C83C005C4B3D /* ToyMainViewController.h */,
+				AAE0F15F1B32C83C005C4B3D /* ToyMainViewController.m */,
+				AAE0F1601B32C83C005C4B3D /* ToyMainViewController.xib */,
 			);
 			name = Shop;
 			sourceTree = "<group>";
@@ -2474,6 +2527,38 @@
 				AAD8EC8C1B0B0A8E00B24F9A /* CardOfEastSucceedController.xib */,
 			);
 			name = cardOfEast;
+			sourceTree = "<group>";
+		};
+		AAE0F1341B32840D005C4B3D /* shop */ = {
+			isa = PBXGroup;
+			children = (
+				AAE0F13F1B32A73F005C4B3D /* WaterFlowLayout.h */,
+				AAE0F1401B32A73F005C4B3D /* WaterFlowLayout.m */,
+				AAE0F1471B32AD7B005C4B3D /* WaterCollectionCell.h */,
+				AAE0F1481B32AD7B005C4B3D /* WaterCollectionCell.m */,
+				AAE0F1491B32AD7B005C4B3D /* WaterCollectionCell.xib */,
+				AAE0F13A1B328560005C4B3D /* ShopHeaderCollectCell.h */,
+				AAE0F13B1B328560005C4B3D /* ShopHeaderCollectCell.m */,
+				AAE0F13C1B328560005C4B3D /* ShopHeaderCollectCell.xib */,
+				AAE0F1421B32A7B6005C4B3D /* ShopViewCell.h */,
+				AAE0F1431B32A7B6005C4B3D /* ShopViewCell.m */,
+				AAE0F1441B32A7B6005C4B3D /* ShopViewCell.xib */,
+				AAE0F1631B32CB8E005C4B3D /* ToyMainTabCell.h */,
+				AAE0F1641B32CB8E005C4B3D /* ToyMainTabCell.m */,
+				AAE0F1651B32CB8E005C4B3D /* ToyMainTabCell.xib */,
+			);
+			name = shop;
+			sourceTree = "<group>";
+		};
+		AAE0F14C1B32BED3005C4B3D /* lunBoScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				AAE0F14D1B32BF0F005C4B3D /* CycleScrollView.h */,
+				AAE0F14E1B32BF0F005C4B3D /* NSTimer+Addition.h */,
+				AAE0F14F1B32BF0F005C4B3D /* CycleScrollView.m */,
+				AAE0F1501B32BF0F005C4B3D /* NSTimer+Addition.m */,
+			);
+			name = lunBoScrollView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2561,6 +2646,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAE0F1591B32C0B0005C4B3D /* 3.png in Resources */,
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
 				0783F68B1AB819D600AAB5B0 /* BabyListViewCell.xib in Resources */,
 				076CF5721A78AD8C00CDE21D /* XECateTopicViewCell.xib in Resources */,
@@ -2576,6 +2662,7 @@
 				0760E92E1A81ACB300BBEA3D /* CollectionViewController.xib in Resources */,
 				078E89191AA1C32D008AD45A /* UMSocialYXTimelineData.html in Resources */,
 				0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */,
+				AAE0F14B1B32AD7B005C4B3D /* WaterCollectionCell.xib in Resources */,
 				075B031F1A6CAC28002B577D /* ApplyActivityViewController.xib in Resources */,
 				075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */,
 				074D4B591AB8107900C19972 /* TicketListViewController.xib in Resources */,
@@ -2585,6 +2672,7 @@
 				0760E9301A81ACB300BBEA3D /* MineMsgViewController.xib in Resources */,
 				7E7241251A77C12A001E1F69 /* TopicCommentViewCell.xib in Resources */,
 				078623761A84529900B17230 /* BabyProfileViewController.xib in Resources */,
+				AAE0F1461B32A7B6005C4B3D /* ShopViewCell.xib in Resources */,
 				078E88F61AA1C32D008AD45A /* UMSocialSDKResourcesNew.bundle in Resources */,
 				078E88EC1AA1C32D008AD45A /* UMSocialLocalizable.strings in Resources */,
 				078E89321AA1C32D008AD45A /* ios-social-sdk-login-quick.html in Resources */,
@@ -2595,7 +2683,6 @@
 				AAA3DE7E1B2568110008275D /* OneWeakCell.xib in Resources */,
 				078E88EE1AA1C32D008AD45A /* UMSCommentDetailController.xib in Resources */,
 				078E89371AA1C32D008AD45A /* markdown.css in Resources */,
-				AA7AAFB41B1F05B200158B9A /* ShopViewController.xib in Resources */,
 				078E89001AA1C32D008AD45A /* UMSocialDataService.html in Resources */,
 				07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */,
 				074644861A6CFFDA00CE2935 /* XECollectionViewCell.xib in Resources */,
@@ -2622,6 +2709,7 @@
 				078E89181AA1C32D008AD45A /* UMSocialYXSessionData.html in Resources */,
 				075DD03C1A78B42E009A64B4 /* WSAssetViewSelectionIndicator@2x.png in Resources */,
 				074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */,
+				AAE0F1331B3270A6005C4B3D /* ShopViewController.xib in Resources */,
 				078E89361AA1C32D008AD45A /* ios-social-sdk-socialBar.html in Resources */,
 				07AAB7F91A8330130030D306 /* SettingViewCell.xib in Resources */,
 				07FC6D241A679D4C001F34D8 /* XEGridView.xib in Resources */,
@@ -2649,6 +2737,7 @@
 				078E89301AA1C32D008AD45A /* ios-social-sdk-like.html in Resources */,
 				07882C241A80675D003874FA /* CardViewCell.xib in Resources */,
 				AA6E8FB11B300C8C0087B754 /* shopOtherViewController.xib in Resources */,
+				AAE0F1671B32CB8E005C4B3D /* ToyMainTabCell.xib in Resources */,
 				07C988121A63AAEA003A2B30 /* SelectBirthdayViewController.xib in Resources */,
 				078E88F31AA1C32D008AD45A /* UMSLoginViewController.xib in Resources */,
 				077C98BD1A53CC0600E2985B /* XETitleNavBarView.xib in Resources */,
@@ -2674,6 +2763,7 @@
 				07FC6D2A1A67B317001F34D8 /* RecipesViewController.xib in Resources */,
 				07508E941A51346300873B45 /* LaunchScreen.xib in Resources */,
 				078E88FD1AA1C32D008AD45A /* UMSocialControllerServiceComment.html in Resources */,
+				AAE0F15D1B32C15C005C4B3D /* 1.png in Resources */,
 				075E321E1A762F4A006037B3 /* XECustomerWindow.xib in Resources */,
 				0758CD1E1AA1BBCB0086F270 /* ReadyTestViewController.xib in Resources */,
 				070346701A64F8E200EDE251 /* WelcomeViewController.xib in Resources */,
@@ -2696,6 +2786,7 @@
 				AAA3DE781B2564B60008275D /* EveryOneWeekController.xib in Resources */,
 				079F5A701AA0540F00069EB7 /* PushConfig.plist in Resources */,
 				076F32591A5F806200346F44 /* XEInputViewController.xib in Resources */,
+				AAE0F13E1B328560005C4B3D /* ShopHeaderCollectCell.xib in Resources */,
 				078E89061AA1C32D008AD45A /* UMSocialInstagramData.html in Resources */,
 				078E88FF1AA1C32D008AD45A /* UMSocialData.html in Resources */,
 				078E89341AA1C32D008AD45A /* ios-social-sdk-share-detail.html in Resources */,
@@ -2710,6 +2801,7 @@
 				078E89211AA1C32D008AD45A /* library_background.png in Resources */,
 				078E890F1AA1C32D008AD45A /* UMSocialSnsData.html in Resources */,
 				078E892D1AA1C32D008AD45A /* iOS-social-releasenote.html in Resources */,
+				AAE0F1621B32C83C005C4B3D /* ToyMainViewController.xib in Resources */,
 				07E5363C1A529259005E1DA9 /* MineTabViewController.xib in Resources */,
 				078E87E71AA18934008AD45A /* StageSelectViewController.xib in Resources */,
 				AA0C68021B259C8100478A72 /* MotherLookController.xib in Resources */,
@@ -2722,6 +2814,7 @@
 				07C7C5121A70E336003E1272 /* arrow@2x.png in Resources */,
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
 				0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */,
+				AAE0F15B1B32C0B0005C4B3D /* 2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2749,6 +2842,7 @@
 				0774A8771A666EAB00336465 /* UIView+GMGridViewAdditions.m in Sources */,
 				0776639B1A80779A004C885B /* ActivityApplyViewCell.m in Sources */,
 				073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */,
+				AAE0F1411B32A73F005C4B3D /* WaterFlowLayout.m in Sources */,
 				077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */,
 				075DD0351A78AC0C009A64B4 /* WSAssetsTableViewCell.m in Sources */,
 				07457C901AC3F490009343FC /* HotUpButton.m in Sources */,
@@ -2774,6 +2868,7 @@
 				0783F68A1AB819D600AAB5B0 /* BabyListViewCell.m in Sources */,
 				075AA03E1A68D5EC000B6302 /* XEActivityInfo.m in Sources */,
 				077C98B81A53BEAE00E2985B /* XEBaseSuperViewController.m in Sources */,
+				AAE0F14A1B32AD7B005C4B3D /* WaterCollectionCell.m in Sources */,
 				0712B3B11A5BD853000A1A7F /* UIImage+WebP.m in Sources */,
 				077663A01A809C01004C885B /* MineTopicListViewController.m in Sources */,
 				0712B3A91A5BD853000A1A7F /* SDWebImageDecoder.m in Sources */,
@@ -2824,6 +2919,7 @@
 				0712B3A41A5BD853000A1A7F /* MKAnnotationView+WebCache.m in Sources */,
 				AA125DDD1B2811D1000163A7 /* UIScrollView+MJRefresh.m in Sources */,
 				0752F7DD1A7B2638008C0E0A /* PSTGridLayoutSection.m in Sources */,
+				AAE0F1551B32BFC6005C4B3D /* CycleView.m in Sources */,
 				073F9F1A1A68E1D5009D94E3 /* UIColor+bit.m in Sources */,
 				AAA3DE7D1B2568110008275D /* OneWeakCell.m in Sources */,
 				07913F5F1A676F840083E8E5 /* ExpertListViewController.m in Sources */,
@@ -2842,6 +2938,7 @@
 				07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */,
 				0752F7D71A7B2638008C0E0A /* PSTCollectionViewItemKey.m in Sources */,
 				075E409B1A59386C0062F6AD /* AFSecurityPolicy.m in Sources */,
+				AAE0F1611B32C83C005C4B3D /* ToyMainViewController.m in Sources */,
 				AA125DDE1B2811D1000163A7 /* UIView+MJExtension.m in Sources */,
 				075B03231A6DECE2002B577D /* XEPublicViewController.m in Sources */,
 				AA125DDB1B2811D1000163A7 /* MJRefreshHeaderView.m in Sources */,
@@ -2850,6 +2947,7 @@
 				0760E93C1A81ACCD00BBEA3D /* CardPackViewController.m in Sources */,
 				0712B3AB1A5BD853000A1A7F /* SDWebImageDownloaderOperation.m in Sources */,
 				076CF5711A78AD8C00CDE21D /* XECateTopicViewCell.m in Sources */,
+				AAE0F1661B32CB8E005C4B3D /* ToyMainTabCell.m in Sources */,
 				073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */,
 				AA125DD81B2811D1000163A7 /* MJRefreshBaseView.m in Sources */,
 				0752F7D41A7B2638008C0E0A /* PSTCollectionViewController.m in Sources */,
@@ -2865,14 +2963,15 @@
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
 				07AAB7F81A8330130030D306 /* SettingViewCell.m in Sources */,
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
-				AA7AAFB31B1F05B200158B9A /* ShopViewController.m in Sources */,
 				7E72412B1A77D2F8001E1F69 /* HPGrowingTextView.m in Sources */,
 				AAA3DE771B2564B60008275D /* EveryOneWeekController.m in Sources */,
 				075B03351A6E4350002B577D /* MapChooseAnnotationView.m in Sources */,
 				AA70F2F21B1EBC7200122F57 /* InfomationViewCell.m in Sources */,
 				07EBF07B1A7A01080050B256 /* XEAMBlurView.m in Sources */,
 				7E72411B1A77BFA2001E1F69 /* TopicDetailsViewController.m in Sources */,
+				AAE0F1511B32BF0F005C4B3D /* CycleScrollView.m in Sources */,
 				076380561AA9446400F449CD /* XEBabyInfo.m in Sources */,
+				AAE0F1451B32A7B6005C4B3D /* ShopViewCell.m in Sources */,
 				AACD9F7C1B21A81D0093E21C /* focusAndHabitViewController.m in Sources */,
 				074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */,
 				0774A8731A666EAB00336465 /* GMGridView.m in Sources */,
@@ -2919,6 +3018,7 @@
 				07E5362C1A52905F005E1DA9 /* MainPageViewController.m in Sources */,
 				AA0C68011B259C8100478A72 /* MotherLookController.m in Sources */,
 				07508E861A51346300873B45 /* main.m in Sources */,
+				AAE0F1521B32BF0F005C4B3D /* NSTimer+Addition.m in Sources */,
 				073FD9851A53C3A000FF0EFD /* EGOCache.m in Sources */,
 				0752F7D11A7B2638008C0E0A /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				075DD0481A78BA3F009A64B4 /* UIImage+Alpha.m in Sources */,
@@ -2931,6 +3031,7 @@
 				073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */,
 				0760E9421A81D93100BBEA3D /* XEMsgInfo.m in Sources */,
 				0752F7A81A7B25C5008C0E0A /* MWGridCell.m in Sources */,
+				AAE0F13D1B328560005C4B3D /* ShopHeaderCollectCell.m in Sources */,
 				0760E92D1A81ACB300BBEA3D /* CollectionViewController.m in Sources */,
 				0727A5DF1A8C77A00037805A /* TaskViewController.m in Sources */,
 				07C49F561A5E7E9900E1725C /* AVCamCaptureManager.m in Sources */,
@@ -2957,6 +3058,7 @@
 				0752F7D81A7B2638008C0E0A /* PSTCollectionViewLayout.m in Sources */,
 				AAD9C6101B2EA44C007C9235 /* XEOneWeekInfo.m in Sources */,
 				0752F7A71A7B25C5008C0E0A /* MWCaptionView.m in Sources */,
+				AAE0F1321B3270A6005C4B3D /* ShopViewController.m in Sources */,
 				0752F7D61A7B2638008C0E0A /* PSTCollectionViewFlowLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
