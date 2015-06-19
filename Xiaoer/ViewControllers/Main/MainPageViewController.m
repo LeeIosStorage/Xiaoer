@@ -203,7 +203,6 @@
                 [XEProgressHUD AlertError:@"每周一练数据获取失败，请检查网络设置" At:weakSelf.view];
                 NSInteger indes = 5;
                 [self configureOneWeekScrollviewwith:indes];
-
                 return;
             }
             NSArray *array  = [string componentsSeparatedByString:@","];
@@ -213,7 +212,6 @@
             for (NSString *string in array) {
                 [self.allWeeksConclude addObject:string];
             }
-            NSLog(@" = %@",[self.allWeeksConclude objectAtIndex:0]);
             [self configureOneWeekScrollviewwith:self.allWeeksConclude.count];
             
         } tag:tag];
@@ -467,7 +465,6 @@
 
     }
     self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
-
     self.tableView.tableHeaderView = self.headView;
     ///底部加点间隙
 //    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 19)];
@@ -1064,7 +1061,8 @@
 //    }else{
 //        [self calculateWeeks];
 //    }
-    
+    [self refreshUserInfoShow];
+
 
 }
 

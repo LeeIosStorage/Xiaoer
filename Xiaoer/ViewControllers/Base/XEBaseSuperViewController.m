@@ -119,6 +119,7 @@
         _titleNavBarRightBtn2 = ((XETitleNavBarView *) _titleNavBar).toolBarRightButton2;
         _segmentedControl = ((XETitleNavBarView *) _titleNavBar).segmentedControl;
         _titleNavImageView = ((XETitleNavBarView *) _titleNavBar).navImageView;
+        _titleBackGroundImageView = ((XETitleNavBarView *) _titleNavBar).backgroundImageView;
         _segmentedControl.hidden = YES;
     }
 }
@@ -357,4 +358,13 @@
     [scrollview setScrollIndicatorInsets:inset];
 }
 
+- (void)setbackGroundImageColor:(UIColor *)color{
+    if (![_titleNavBar isMemberOfClass:[XETitleNavBarView class]]) {
+        return;
+    }
+    XETitleNavBarView *aa= [[XETitleNavBarView alloc] init:self];
+    if (_titleBackGroundImageView) {
+   [aa setbackImageColor:color];
+    }
+}
 @end

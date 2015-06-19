@@ -469,7 +469,7 @@ CGFloat const SGProgressBarHeight = 2.5;
         }
     
         BOOL status = [jsonRet boolValueForKey:@"object"];
-        
+        NSLog(@"请求成功");
         _shareAction = [[XEShareActionSheet alloc] init];
         _shareAction.owner = self;
         _shareAction.selectShareType = XEShareType_Web;
@@ -485,7 +485,6 @@ CGFloat const SGProgressBarHeight = 2.5;
 -(void) deleteTopicAction:(id)info{
     [super backAction:nil];
 }
-
 - (void)dealloc
 {
     [self.mainWebView stopLoading];

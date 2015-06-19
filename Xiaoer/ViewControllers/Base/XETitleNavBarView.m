@@ -14,7 +14,7 @@
 //titleLabel
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 //background image
-@property (nonatomic, strong) IBOutlet UIImageView *backgroundImageView;
+//@property (nonatomic, strong) IBOutlet UIImageView *backgroundImageView;
 
 @end
 
@@ -50,5 +50,13 @@
     _titleLabel.font = font;
     return _titleLabel;
 }
-
+- (void)setbackImageColor:(UIColor *)color{
+//    self.backgroundImageView.backgroundColor = [UIColor clearColor];
+    XETitleNavBarView *aa = [[[NSBundle mainBundle] loadNibNamed:@"XETitleNavBarView" owner:nil options:nil] objectAtIndex:0];
+    if (aa) {
+        //load view
+        NSLog(@"存在");
+        self.backgroundImageView.backgroundColor = [UIColor redColor];
+    }
+}
 @end

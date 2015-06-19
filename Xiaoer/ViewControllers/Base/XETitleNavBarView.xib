@@ -77,7 +77,7 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="backgroundImageView" destination="G5i-Xf-wzB" id="azf-48-4LR"/>
+                <outlet property="backgroundImageView" destination="G5i-Xf-wzB" id="06V-nb-OW1"/>
                 <outlet property="navImageView" destination="lEK-Jn-y8L" id="IFq-Z4-de6"/>
                 <outlet property="segmentedControl" destination="XZO-OD-Gjb" id="ZIU-Qf-tDf"/>
                 <outlet property="titleLabel" destination="RTC-8c-yMk" id="JgM-oy-s9s"/>

@@ -21,6 +21,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *titleNavBarRightBtn2;
 @property (nonatomic, strong) IBOutlet UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) UIImageView *titleNavImageView;
+@property (nonatomic,strong)UIImageView *titleBackGroundImageView;
 
 /*! @brief Pull View
  *
@@ -71,5 +72,8 @@
  */
 -(void) setContentInsetForScrollView:(UIScrollView *) scrollview;
 -(void) setContentInsetForScrollView:(UIScrollView *) scrollview inset:(UIEdgeInsets) inset;
+
+//设置背景颜色
+- (void)setbackGroundImageColor:(UIColor *)color;
 
 @end

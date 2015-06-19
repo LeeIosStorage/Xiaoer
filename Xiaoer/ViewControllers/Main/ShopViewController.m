@@ -48,12 +48,13 @@
     //布局tableView
     [self configureShopTableView];
     
-
-    
     //布局轮播图
     [self configureLunBoBackView];
-    //布局searchView
-    [self configuresearchView];
+//    //布局searchView
+//    [self configuresearchView];
+    UIImageView *ImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    ImageView.image = [UIImage imageNamed:@"正在建设中6p"];
+    [self.view addSubview:ImageView];
     
 }
 - (IBAction)backToMainPage:(id)sender {
@@ -94,6 +95,7 @@
     [self.shopTabView registerNib:[UINib nibWithNibName:@"ShopViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.shopTabView.tableHeaderView = self.headerView;
     [self.shopTabView addHeaderWithTarget:self action:@selector(headerLoadData)];
+    self.shopTabView.userInteractionEnabled = NO;
     
 }
 

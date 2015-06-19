@@ -8,6 +8,7 @@
 
 #import "ToyMainViewController.h"
 #import "ToyMainTabCell.h"
+#import "ToyListViewController.h"
 #define changeLabeY 105
 
 @interface ToyMainViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
@@ -76,11 +77,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = YES;
+    self.title = @"玩具";
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.touchChangeScro = NO;
     //布局backScrollView
     [self configurebackScrollView];
-    
     [self.view addSubview:self.changeOther];
     [self.view addSubview:self.changeEvaluat];
     [self.view addSubview:self.changeOther];
@@ -136,16 +137,27 @@
 
 #pragma mark 布局backScrollView
 - (void)configurebackScrollView{
-    self.backScrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width * 3, [UIScreen mainScreen].bounds.size.height);
+    self.backScrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width * 3, 0);
     self.backScrollView.delegate = self;
-    
-    self.backScrollView.showsHorizontalScrollIndicator =  NO;
-    self.backScrollView.showsVerticalScrollIndicator = NO;
+//    self.backScrollView.showsHorizontalScrollIndicator =  NO;
+//    self.backScrollView.showsVerticalScrollIndicator = NO;
     self.backScrollView.directionalLockEnabled = YES;
     self.backScrollView.pagingEnabled = YES;
-    self.evaluatingView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 68 );
-    self.trainvView.frame = CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 68);
-    self.otherBuyView.frame = CGRectMake(SCREEN_WIDTH * 2, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 68);
+    self.backScrollView.scrollEnabled = YES;
+//    self.backScrollView.alwaysBounceHorizontal  = YES;
+    
+    CGRect ecalutF = self.evaluatingView.frame;
+    ecalutF.origin.x = 0;
+    self.evaluatingView.frame = ecalutF;
+    
+    CGRect trainvF = self.trainvView.frame;
+    trainvF.origin.x = SCREEN_WIDTH;
+    self.trainvView.frame = trainvF;
+    
+    CGRect otherBuyF = self.otherBuyView.frame;
+    otherBuyF.origin.x = SCREEN_WIDTH * 2;
+    self.otherBuyView.frame = otherBuyF;
+
     
     [self.backScrollView addSubview:self.evaluatingView];
     [self.backScrollView addSubview:self.trainvView];
@@ -154,7 +166,6 @@
     [self.evaluatingTab registerNib:[UINib nibWithNibName:@"ToyMainTabCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     [self.trainTab registerNib:[UINib nibWithNibName:@"ToyMainTabCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     [self.otherBuyTab registerNib:[UINib nibWithNibName:@"ToyMainTabCell" bundle:nil] forCellReuseIdentifier:@"cell"];
-    
     
     self.evaluatingTab.delegate = self;
     self.trainTab.delegate = self;
@@ -171,7 +182,7 @@
 #pragma mark tableView  代理方法
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -180,12 +191,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    ToyMainTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    return cell;
+    ToyMainTabCell *cell1 = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    if (cell1) {
+        return cell1;
+    }
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    ToyListViewController *list = [[ToyListViewController alloc]init];
+    [self.navigationController pushViewController:list animated:YES];
     NSLog(@"%@",self.navigationController);
     
 }
@@ -214,6 +229,7 @@
         [self changeContentOfSet:self.changeOther];
         self.touchChangeScro = NO;
     }
+    
 }
 /*
 #pragma mark - Navigation

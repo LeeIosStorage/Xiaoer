@@ -373,6 +373,16 @@
 		AA125DDC1B2811D1000163A7 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = AA125DD21B2811D1000163A7 /* UIScrollView+MJExtension.m */; };
 		AA125DDD1B2811D1000163A7 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = AA125DD41B2811D1000163A7 /* UIScrollView+MJRefresh.m */; };
 		AA125DDE1B2811D1000163A7 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = AA125DD61B2811D1000163A7 /* UIView+MJExtension.m */; };
+		AA4FC52A1B33C132007F90B5 /* ToyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FC5281B33C132007F90B5 /* ToyListViewController.m */; };
+		AA4FC52B1B33C132007F90B5 /* ToyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4FC5291B33C132007F90B5 /* ToyListViewController.xib */; };
+		AA4FC52F1B33E15D007F90B5 /* ToyCollectionHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FC52D1B33E15D007F90B5 /* ToyCollectionHeaderCell.m */; };
+		AA4FC5301B33E15D007F90B5 /* ToyCollectionHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4FC52E1B33E15D007F90B5 /* ToyCollectionHeaderCell.xib */; };
+		AA4FC5341B33E17C007F90B5 /* ToyListCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FC5321B33E17C007F90B5 /* ToyListCollectionCell.m */; };
+		AA4FC5351B33E17C007F90B5 /* ToyListCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4FC5331B33E17C007F90B5 /* ToyListCollectionCell.xib */; };
+		AA4FC5391B33ECF6007F90B5 /* ToyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FC5371B33ECF6007F90B5 /* ToyDetailViewController.m */; };
+		AA4FC53A1B33ECF6007F90B5 /* ToyDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4FC5381B33ECF6007F90B5 /* ToyDetailViewController.xib */; };
+		AA4FC53E1B33F027007F90B5 /* ToyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FC53C1B33F027007F90B5 /* ToyDetailCell.m */; };
+		AA4FC53F1B33F027007F90B5 /* ToyDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4FC53D1B33F027007F90B5 /* ToyDetailCell.xib */; };
 		AA6E8FA91B2FDCDF0087B754 /* 正在建设中6p.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6E8FA81B2FDCDF0087B754 /* 正在建设中6p.png */; };
 		AA6E8FB01B300C8C0087B754 /* shopOtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6E8FAE1B300C8C0087B754 /* shopOtherViewController.m */; };
 		AA6E8FB11B300C8C0087B754 /* shopOtherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA6E8FAF1B300C8C0087B754 /* shopOtherViewController.xib */; };
@@ -1039,6 +1049,21 @@
 		AA125DD41B2811D1000163A7 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		AA125DD51B2811D1000163A7 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		AA125DD61B2811D1000163A7 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		AA4FC5271B33C132007F90B5 /* ToyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToyListViewController.h; sourceTree = "<group>"; };
+		AA4FC5281B33C132007F90B5 /* ToyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToyListViewController.m; sourceTree = "<group>"; };
+		AA4FC5291B33C132007F90B5 /* ToyListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToyListViewController.xib; sourceTree = "<group>"; };
+		AA4FC52C1B33E15D007F90B5 /* ToyCollectionHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToyCollectionHeaderCell.h; sourceTree = "<group>"; };
+		AA4FC52D1B33E15D007F90B5 /* ToyCollectionHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToyCollectionHeaderCell.m; sourceTree = "<group>"; };
+		AA4FC52E1B33E15D007F90B5 /* ToyCollectionHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToyCollectionHeaderCell.xib; sourceTree = "<group>"; };
+		AA4FC5311B33E17C007F90B5 /* ToyListCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToyListCollectionCell.h; sourceTree = "<group>"; };
+		AA4FC5321B33E17C007F90B5 /* ToyListCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToyListCollectionCell.m; sourceTree = "<group>"; };
+		AA4FC5331B33E17C007F90B5 /* ToyListCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToyListCollectionCell.xib; sourceTree = "<group>"; };
+		AA4FC5361B33ECF6007F90B5 /* ToyDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToyDetailViewController.h; sourceTree = "<group>"; };
+		AA4FC5371B33ECF6007F90B5 /* ToyDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToyDetailViewController.m; sourceTree = "<group>"; };
+		AA4FC5381B33ECF6007F90B5 /* ToyDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToyDetailViewController.xib; sourceTree = "<group>"; };
+		AA4FC53B1B33F027007F90B5 /* ToyDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToyDetailCell.h; sourceTree = "<group>"; };
+		AA4FC53C1B33F027007F90B5 /* ToyDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToyDetailCell.m; sourceTree = "<group>"; };
+		AA4FC53D1B33F027007F90B5 /* ToyDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToyDetailCell.xib; sourceTree = "<group>"; };
 		AA6E8FA81B2FDCDF0087B754 /* 正在建设中6p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "正在建设中6p.png"; sourceTree = "<group>"; };
 		AA6E8FAD1B300C8C0087B754 /* shopOtherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shopOtherViewController.h; sourceTree = "<group>"; };
 		AA6E8FAE1B300C8C0087B754 /* shopOtherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = shopOtherViewController.m; sourceTree = "<group>"; };
@@ -2477,6 +2502,12 @@
 				AAE0F15E1B32C83C005C4B3D /* ToyMainViewController.h */,
 				AAE0F15F1B32C83C005C4B3D /* ToyMainViewController.m */,
 				AAE0F1601B32C83C005C4B3D /* ToyMainViewController.xib */,
+				AA4FC5271B33C132007F90B5 /* ToyListViewController.h */,
+				AA4FC5281B33C132007F90B5 /* ToyListViewController.m */,
+				AA4FC5291B33C132007F90B5 /* ToyListViewController.xib */,
+				AA4FC5361B33ECF6007F90B5 /* ToyDetailViewController.h */,
+				AA4FC5371B33ECF6007F90B5 /* ToyDetailViewController.m */,
+				AA4FC5381B33ECF6007F90B5 /* ToyDetailViewController.xib */,
 			);
 			name = Shop;
 			sourceTree = "<group>";
@@ -2546,6 +2577,15 @@
 				AAE0F1631B32CB8E005C4B3D /* ToyMainTabCell.h */,
 				AAE0F1641B32CB8E005C4B3D /* ToyMainTabCell.m */,
 				AAE0F1651B32CB8E005C4B3D /* ToyMainTabCell.xib */,
+				AA4FC52C1B33E15D007F90B5 /* ToyCollectionHeaderCell.h */,
+				AA4FC52D1B33E15D007F90B5 /* ToyCollectionHeaderCell.m */,
+				AA4FC52E1B33E15D007F90B5 /* ToyCollectionHeaderCell.xib */,
+				AA4FC5311B33E17C007F90B5 /* ToyListCollectionCell.h */,
+				AA4FC5321B33E17C007F90B5 /* ToyListCollectionCell.m */,
+				AA4FC5331B33E17C007F90B5 /* ToyListCollectionCell.xib */,
+				AA4FC53B1B33F027007F90B5 /* ToyDetailCell.h */,
+				AA4FC53C1B33F027007F90B5 /* ToyDetailCell.m */,
+				AA4FC53D1B33F027007F90B5 /* ToyDetailCell.xib */,
 			);
 			name = shop;
 			sourceTree = "<group>";
@@ -2664,6 +2704,7 @@
 				0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */,
 				AAE0F14B1B32AD7B005C4B3D /* WaterCollectionCell.xib in Resources */,
 				075B031F1A6CAC28002B577D /* ApplyActivityViewController.xib in Resources */,
+				AA4FC53A1B33ECF6007F90B5 /* ToyDetailViewController.xib in Resources */,
 				075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */,
 				074D4B591AB8107900C19972 /* TicketListViewController.xib in Resources */,
 				AA8784BE1B2013A4005A11E8 /* MainTabScrollCell.xib in Resources */,
@@ -2696,6 +2737,7 @@
 				078E891A1AA1C32D008AD45A /* styles.css in Resources */,
 				075B032C1A6E3BB7002B577D /* Pin.png in Resources */,
 				078E87ED1AA18CAE008AD45A /* StageSelectViewCell.xib in Resources */,
+				AA4FC5301B33E15D007F90B5 /* ToyCollectionHeaderCell.xib in Resources */,
 				075DD03B1A78B42E009A64B4 /* WSAssetViewSelectionIndicator.png in Resources */,
 				078E892C1AA1C32D008AD45A /* iOS-social-analytics-releasenote.html in Resources */,
 				AACD9F7D1B21A81D0093E21C /* focusAndHabitViewController.xib in Resources */,
@@ -2707,6 +2749,7 @@
 				078E88F91AA1C32D008AD45A /* UMSocialBar.html in Resources */,
 				071D51971A674FC6003D6752 /* MainTabCell.xib in Resources */,
 				078E89181AA1C32D008AD45A /* UMSocialYXSessionData.html in Resources */,
+				AA4FC5351B33E17C007F90B5 /* ToyListCollectionCell.xib in Resources */,
 				075DD03C1A78B42E009A64B4 /* WSAssetViewSelectionIndicator@2x.png in Resources */,
 				074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */,
 				AAE0F1331B3270A6005C4B3D /* ShopViewController.xib in Resources */,
@@ -2778,6 +2821,7 @@
 				078E891E1AA1C32D008AD45A /* class_grath.png in Resources */,
 				AA70F2F31B1EBC7200122F57 /* InfomationViewCell.xib in Resources */,
 				078E88FE1AA1C32D008AD45A /* UMSocialCustomAccount.html in Resources */,
+				AA4FC53F1B33F027007F90B5 /* ToyDetailCell.xib in Resources */,
 				078E89051AA1C32D008AD45A /* UMSocialIconActionSheet.html in Resources */,
 				078E89141AA1C32D008AD45A /* UMSocialTwitterData.html in Resources */,
 				073F9F141A68B38F009D94E3 /* CategoryItemCell.xib in Resources */,
@@ -2815,6 +2859,7 @@
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
 				0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */,
 				AAE0F15B1B32C0B0005C4B3D /* 2.png in Resources */,
+				AA4FC52B1B33C132007F90B5 /* ToyListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2940,6 +2985,7 @@
 				075E409B1A59386C0062F6AD /* AFSecurityPolicy.m in Sources */,
 				AAE0F1611B32C83C005C4B3D /* ToyMainViewController.m in Sources */,
 				AA125DDE1B2811D1000163A7 /* UIView+MJExtension.m in Sources */,
+				AA4FC53E1B33F027007F90B5 /* ToyDetailCell.m in Sources */,
 				075B03231A6DECE2002B577D /* XEPublicViewController.m in Sources */,
 				AA125DDB1B2811D1000163A7 /* MJRefreshHeaderView.m in Sources */,
 				073F9F171A68D0CB009D94E3 /* XERecipesInfo.m in Sources */,
@@ -2981,6 +3027,7 @@
 				075E321C1A762E7C006037B3 /* XECustomerWindow.m in Sources */,
 				075B03321A6E4090002B577D /* CLLocation+Sino.m in Sources */,
 				07882C271A80753D003874FA /* XECardInfo.m in Sources */,
+				AA4FC5341B33E17C007F90B5 /* ToyListCollectionCell.m in Sources */,
 				074594061A5BB52C008F4665 /* NewIntroView.m in Sources */,
 				0752F7AD1A7B25C5008C0E0A /* MWTapDetectingView.m in Sources */,
 				0712B3B41A5BD853000A1A7F /* UIView+WebCacheOperation.m in Sources */,
@@ -3029,6 +3076,7 @@
 				074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */,
 				0752F7D51A7B2638008C0E0A /* PSTCollectionViewData.m in Sources */,
 				073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */,
+				AA4FC52A1B33C132007F90B5 /* ToyListViewController.m in Sources */,
 				0760E9421A81D93100BBEA3D /* XEMsgInfo.m in Sources */,
 				0752F7A81A7B25C5008C0E0A /* MWGridCell.m in Sources */,
 				AAE0F13D1B328560005C4B3D /* ShopHeaderCollectCell.m in Sources */,
@@ -3040,6 +3088,7 @@
 				07FC6D291A67B317001F34D8 /* RecipesViewController.m in Sources */,
 				0760E92F1A81ACB300BBEA3D /* MineMsgViewController.m in Sources */,
 				07882C231A80675D003874FA /* CardViewCell.m in Sources */,
+				AA4FC5391B33ECF6007F90B5 /* ToyDetailViewController.m in Sources */,
 				073FD96E1A53A2E000FF0EFD /* XEEngine.m in Sources */,
 				07582CF71A6E37F200CDCA13 /* ODRefreshControl.m in Sources */,
 				07E536211A528C4B005E1DA9 /* XETabBarItemView.m in Sources */,
@@ -3052,6 +3101,7 @@
 				076CF5791A78CFE300CDE21D /* XEPublishMenu.m in Sources */,
 				0712B37E1A5BC0DE000A1A7F /* RetrievePwdViewController.m in Sources */,
 				AA6E8FB01B300C8C0087B754 /* shopOtherViewController.m in Sources */,
+				AA4FC52F1B33E15D007F90B5 /* ToyCollectionHeaderCell.m in Sources */,
 				075DD0321A78AC0C009A64B4 /* WSAlbumTableViewController.m in Sources */,
 				07C49F591A5E7E9900E1725C /* DDExpandableButton.m in Sources */,
 				07B650571A67AC7E00DEDE4E /* XETopicViewCell.m in Sources */,

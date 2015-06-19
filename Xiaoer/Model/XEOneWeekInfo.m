@@ -18,6 +18,8 @@
         self.type = [dictionary[@"type"] stringValue];
         self.objid = [dictionary[@"objId"] stringValue];
         self.des = dictionary[@"des"];
+        self.objCat = dictionary[@"objCat"];
+        self.objName = dictionary[@"objName"];
     }
     return self;
 }

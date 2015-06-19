@@ -78,7 +78,6 @@ enum TABLEVIEW_SECTION_INDEX {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
 }
 

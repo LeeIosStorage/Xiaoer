@@ -198,6 +198,7 @@ float labelColor = 170/255.0;
             }else if (indexP.row == 1){
                 action = @"deleteButtonAction";
             }
+            
         }
         [_sheetDelg customerWindowClickAt:indexP action:action];
     }

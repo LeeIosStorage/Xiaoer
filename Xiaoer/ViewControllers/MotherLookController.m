@@ -32,6 +32,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"妈妈必看";
+    NSLog(@"%@",self.navigationController);
+
     self.motherLookTab.delegate = self;
     self.motherLookTab.dataSource = self;
     [self.motherLookTab registerNib:[UINib nibWithNibName:@"MotherLookCell" bundle:nil] forCellReuseIdentifier:@"cell"];

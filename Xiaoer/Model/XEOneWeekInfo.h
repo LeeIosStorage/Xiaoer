@@ -27,7 +27,11 @@
 /**
  *  简介
  */
+
 @property (nonatomic,strong)NSString *des;
 @property (nonatomic,strong)NSURL *totalImageUrl;
+
+@property (nonatomic,strong)NSString *objCat;
+@property (nonatomic,strong)NSString *objName;
 
 @end

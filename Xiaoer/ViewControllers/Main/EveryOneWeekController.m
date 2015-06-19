@@ -13,7 +13,12 @@
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
 #import "XEOneWeekInfo.h"
-@interface EveryOneWeekController ()<UITableViewDataSource,UITableViewDelegate>
+#import "XEBabyInfo.h"
+#import "RecipesViewController.h"
+#import "XELinkerHandler.h"
+
+#import "XERecipesInfo.h"
+@interface EveryOneWeekController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *mainTabView;
 
 @property (strong, nonatomic) IBOutlet UIView *headerView;
@@ -63,7 +68,6 @@
         if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
             [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
         }
-        NSLog(@"jsonRet ＝＝＝＝＝＝＝ %@",jsonRet);
         if (self.dataSources.count > 0) {
             [self.dataSources removeAllObjects];
         }
@@ -72,13 +76,14 @@
         }
         if (self.dataSources) {
             XEOneWeekInfo *oneWeek = [XEOneWeekInfo modelWithDictioanry:[self.dataSources objectAtIndex:0]];
-            NSLog(@"totalImageUrl = %@",oneWeek.totalImageUrl);
             [self.headerImageView sd_setImageWithURL:oneWeek.totalImageUrl placeholderImage:nil];
             self.headerLaab.text = oneWeek.title;
         }
         NSLog(@"self.dataSources.count = %ld",(unsigned long)self.dataSources.count);
     } tag:tag];
 }
+
+
 - (void)headerRefreshing{
     //添加数据（刷新一次，新添加5个数据）
     [self getOneWeekData];
@@ -92,7 +97,7 @@
     
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataSources.count - 1;
+    return self.dataSources.count -1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0;
@@ -111,12 +116,65 @@
    [cell configureCellWithModel:oneWeek];
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+        XEOneWeekInfo *oneWeek = [XEOneWeekInfo modelWithDictioanry:[self.dataSources objectAtIndex:indexPath.row + 1]];
+
+    if ([oneWeek.type isEqualToString:@"3"]) {
+        
+        NSString *url = [NSString stringWithFormat:@"%@/info/detail?id=%@", [[XEEngine shareInstance] baseUrl], oneWeek.objid];
+        id vc = [XELinkerHandler handleDealWithHref:url From:self.navigationController];
+        if (vc) {
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+    }else if ([oneWeek.type isEqualToString:@"2"]){
+        UIAlertView *aler = [[UIAlertView alloc]initWithTitle:@"商城正在建设中" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [aler show];
+        
+    }else if ([oneWeek.type isEqualToString:@"1"]){
+        
+         NSString *string =  [NSString stringWithFormat:@"%@/info/detail?id=%@", [[XEEngine shareInstance] baseUrl], oneWeek.objid];
+        id vc = [XELinkerHandler handleDealWithHref:string From:self.navigationController];
+        if (vc) {
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+    }
+}
+
 /**
  *  点击headerView 的btn
  *
  */
 - (IBAction)touchHeaderBtn:(id)sender {
+    
     NSLog(@"点击头部按钮");
+    if (self.dataSources.count == 0) {
+        return;
+    }
+    XEOneWeekInfo *info = [XEOneWeekInfo modelWithDictioanry:[self.dataSources objectAtIndex:0]];
+    if ([info.type isEqualToString:@"3"]) {
+        NSString *url = [NSString stringWithFormat:@"%@/info/detail?id=%@", [[XEEngine shareInstance] baseUrl], info.objid];
+        id vc = [XELinkerHandler handleDealWithHref:url From:self.navigationController];
+        if (vc) {
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+    }else if ([info.type isEqualToString:@"2"]){
+        UIAlertView *aler = [[UIAlertView alloc]initWithTitle:@"商城正在建设中" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [aler show];
+        
+    }else if ([info.type isEqualToString:@"1"]){
+        //评测
+        NSString *string =  [NSString stringWithFormat:@"%@/info/detail?id=%@", [[XEEngine shareInstance] baseUrl], info.objid];
+        id vc = [XELinkerHandler handleDealWithHref:string From:self.navigationController];
+        if (vc) {
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+    }
+    
 }
 
 
