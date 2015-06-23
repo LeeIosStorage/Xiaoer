@@ -11,6 +11,7 @@
 #import "ToyListCollectionCell.h"
 #import "ToyCollectionHeaderCell.h"
 #import "ToyDetailViewController.h"
+#import "MJRefresh.h"
 @interface ToyListViewController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) IBOutlet UIView *naviLable;
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
@@ -31,6 +32,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.toyListCollection.backgroundColor = [UIColor whiteColor];
 //    布局导航条
     [self confugureNaviTitle];
     self.toyListCollection.delegate = self;
@@ -38,15 +40,54 @@
     
     [self.toyListCollection registerNib:[UINib nibWithNibName:@"ToyCollectionHeaderCell" bundle:nil] forCellWithReuseIdentifier:@"header"];
     [self.toyListCollection registerNib:[UINib nibWithNibName:@"ToyListCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
-}
 
+    [self setupRefresh];//调用刷新方法
+
+    
+    
+    
+    
+}
+//刷新
+- (void)setupRefresh{
+    //下拉刷新(头部控件刷新的2种方法)
+    //    [self.tableView addHeaderWithTarget:self action:@selector(headerRefreshing)];
+    
+    [self.toyListCollection addHeaderWithCallback:^{[self headerRefreshing];}];
+    
+    //自动刷新(一进入程序就下拉刷新)
+    [self.toyListCollection headerBeginRefreshing];
+    
+}
+- (void)headerRefreshing{
+    //添加数据（刷新一次，新添加5个数据）
+//    [self getOneWeekData];
+    
+    // 2.2秒后刷新表格UI
+    NSLog(@"SHUAIXN");
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 刷新表格
+        [self.toyListCollection reloadData];
+        NSLog(@"SHUAIXN");
+        // 调用endRefreshing可以结束刷新状态
+        [self.toyListCollection headerEndRefreshing];
+    });
+    
+}
 #pragma mark 布局导航条
 - (void)confugureNaviTitle{
     self.titleNavBar.alpha = 0;
-    self.view.backgroundColor = [UIColor purpleColor];
-    self.naviLable.frame = CGRectMake(0, 20, SCREEN_WIDTH, 40);
+    self.titleLable.backgroundColor = [UIColor clearColor];
+    CGRect tframe = self.titleNavBar.frame;
+    self.naviLable.center = self.titleNavBar.center;
+    CGRect frame = self.naviLable.frame;
+    frame.origin.y = tframe.size.height - frame.size.height;
+    self.naviLable.frame = frame;
     self.titleLable.text = @"玩具专场";
+
     [self.view addSubview:self.naviLable];
+    
 }
 
 - (IBAction)back:(id)sender {

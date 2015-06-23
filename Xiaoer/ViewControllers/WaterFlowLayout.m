@@ -30,14 +30,19 @@
 }
 
 - (void)configureItem{
-    //通过collectionView获取item的数量
-    self.numberOfItems = [self.collectionView numberOfItemsInSection:0];
+    if (self.itemAttributes.count >0 ) {
+        [self.itemAttributes removeAllObjects];
+    }
     
-    //计算出内容视图的有效宽度
-    CGFloat contentWidth = self.collectionView.frame.size.width - self.sectionInsets.left - self.sectionInsets.right;
     
     //计算item的列间距
     self.interitemSpacing = 0;
+    
+    //计算出内容视图的有效宽度
+    CGFloat contentWidth = self.collectionView.frame.size.width - self.sectionInsets.left - self.sectionInsets.right - self.interitemSpacing;
+    
+    //通过collectionView获取item的数量
+    self.numberOfItems = [self.collectionView numberOfItemsInSection:0];
     
     //根据item的数量来计算item的大小位置，以及所存在的列
     for (NSInteger i = 0; i < self.numberOfItems; i++) {
@@ -50,6 +55,52 @@
         }
         CGFloat delta_x = 0;
         CGFloat delta_y = 0;
+
+
+        NSLog(@"self.numberOfItems == %ld",self.numberOfItems);
+    if (self.numberOfItems == 2) {
+        switch (self.indexPath.row) {
+            case 0:
+            {
+                delta_x = self.sectionInsets.left;
+                delta_y = self.sectionInsets.top;
+                //保存在我们创建的专门用于保存布局的item的相关属性的layoutAttributes对象中
+                UICollectionViewLayoutAttributes *layoutAttributes1 = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:self.indexPath];
+                //为layoutAttributes的frame属性赋值
+                layoutAttributes1.frame = CGRectMake(delta_x, delta_y,contentWidth/2, itemHeigth);
+                //将得到的layoutAttributes放入对应的数组中
+                [self.itemAttributes addObject:layoutAttributes1];
+            }
+
+                break;
+            case 1:
+            {
+                delta_x = self.sectionInsets.left + contentWidth/2;
+                delta_y = self.sectionInsets.top;
+                //保存在我们创建的专门用于保存布局的item的相关属性的layoutAttributes对象中
+                UICollectionViewLayoutAttributes *layoutAttributes1 = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:self.indexPath];
+                //为layoutAttributes的frame属性赋值
+                layoutAttributes1.frame = CGRectMake(delta_x, delta_y,contentWidth/2, itemHeigth);
+                //将得到的layoutAttributes放入对应的数组中
+                [self.itemAttributes addObject:layoutAttributes1];
+            }
+                
+                break;
+            default:
+                break;
+        }
+    }else if (self.numberOfItems == 1){
+        delta_x = self.sectionInsets.left;
+        delta_y = self.sectionInsets.top;
+        //保存在我们创建的专门用于保存布局的item的相关属性的layoutAttributes对象中
+        UICollectionViewLayoutAttributes *layoutAttributes1 = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:self.indexPath];
+        //为layoutAttributes的frame属性赋值
+        layoutAttributes1.frame = CGRectMake(delta_x, delta_y, contentWidth, itemHeigth);
+        //将得到的layoutAttributes放入对应的数组中
+        [self.itemAttributes addObject:layoutAttributes1];
+        
+        
+    }else  if (self.numberOfItems == 3){
         switch (self.indexPath.row) {
             case 0:
             {
@@ -60,9 +111,9 @@
                 //为layoutAttributes的frame属性赋值
                 layoutAttributes1.frame = CGRectMake(delta_x, delta_y, self.itemSize.width, itemHeigth);
                 //将得到的layoutAttributes放入对应的数组中
-                 [self.itemAttributes addObject:layoutAttributes1];
+                [self.itemAttributes addObject:layoutAttributes1];
             }
-
+                
                 break;
             case 1:
                 
@@ -76,7 +127,7 @@
                 //将得到的layoutAttributes放入对应的数组中
                 [self.itemAttributes addObject:layoutAttributes2];
             }
-
+                
                 break;
             case 2:
             {
@@ -95,6 +146,8 @@
         }
         
     }
+}
+        
 
 }
 

@@ -9,6 +9,7 @@
 #import "ToyMainViewController.h"
 #import "ToyMainTabCell.h"
 #import "ToyListViewController.h"
+#import "MJRefresh.h"
 #define changeLabeY 105
 
 @interface ToyMainViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
@@ -19,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *trainTab;
 @property (strong, nonatomic) IBOutlet UIView *otherBuyView;
 @property (weak, nonatomic) IBOutlet UITableView *otherBuyTab;
+
+@property (nonatomic,strong)UITableView *tableView;
 //评测玩具
 @property (nonatomic,strong)UIButton *changeEvaluat;
 //训练玩具
@@ -29,6 +32,7 @@
 @property (nonatomic,strong)UIButton *button;
 
 @property (nonatomic,strong)UILabel *changeLable;
+
 @property (nonatomic,assign)BOOL touchChangeScro;
 @property (nonatomic,assign)int type;
 
@@ -87,8 +91,41 @@
     [self.view addSubview:self.changeOther];
     [self.view addSubview:self.changeTrain];
     [self.view addSubview:self.changeLable];
+    
+    self.tableView = self.evaluatingTab;
+
+    [self setupRefresh];//调用刷新方法
+    
 }
 
+//刷新
+- (void)setupRefresh{
+    //下拉刷新(头部控件刷新的2种方法)
+    //    [self.tableView addHeaderWithTarget:self action:@selector(headerRefreshing)];
+    
+    [self.tableView addHeaderWithTarget:self action:@selector(headerRefreshing)];
+    
+    //自动刷新(一进入程序就下拉刷新)
+    [self.tableView headerBeginRefreshing];
+    
+}
+
+#pragma mark 头部刷新
+- (void)headerRefreshing{
+    //添加数据（刷新一次，新添加5个数据）
+    //    [self getOneWeekData];
+    
+    // 2.2秒后刷新表格UI
+    NSLog(@"SHUAIXN");
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 刷新表格
+        [self.tableView reloadData];
+        // 调用endRefreshing可以结束刷新状态
+        [self.tableView headerEndRefreshing];
+    });
+    
+}
 
 #pragma mark changerBtn 点击
 - (void)changeContentOfSet:(UIButton *)sender{
@@ -102,16 +139,19 @@
     
     if ([sender.titleLabel.text isEqualToString:@"评测玩具"]) {
         NSLog(@"评测玩具");
+        self.tableView = self.evaluatingTab;
         self.type = 0;
 
     }
     if ([sender.titleLabel.text isEqualToString:@"训练玩具"]) {
         NSLog(@"训练玩具");
+        self.tableView = self.trainTab;
         self.type = 1;
 
     }
     if ([sender.titleLabel.text isEqualToString:@"另购玩具"]) {
         NSLog(@"另购玩具");
+        self.tableView = self.otherBuyTab;
         self.type = 2;
     }
     
@@ -131,7 +171,9 @@
             }else{
                 [self.backScrollView setContentOffset:CGPointMake(self.type * SCREEN_WIDTH, 0)];
             }
+           
         }];
+    [self setupRefresh];
     
 }
 
@@ -139,12 +181,9 @@
 - (void)configurebackScrollView{
     self.backScrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width * 3, 0);
     self.backScrollView.delegate = self;
-//    self.backScrollView.showsHorizontalScrollIndicator =  NO;
-//    self.backScrollView.showsVerticalScrollIndicator = NO;
     self.backScrollView.directionalLockEnabled = YES;
     self.backScrollView.pagingEnabled = YES;
     self.backScrollView.scrollEnabled = YES;
-//    self.backScrollView.alwaysBounceHorizontal  = YES;
     
     CGRect ecalutF = self.evaluatingView.frame;
     ecalutF.origin.x = 0;

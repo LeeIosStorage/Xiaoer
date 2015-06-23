@@ -14,7 +14,8 @@
 
 @interface ShopViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionview;
-- (void)configureCellWith:(NSIndexPath *)indexPath;
+- (void)configureCellWith:(NSIndexPath *)indexPath andNumberOfItemsInCell:(NSInteger)number;
 @property (nonatomic,assign)id<TableViewCellDelegate> delegate;
+@property (nonatomic,assign)NSInteger num;
 @property (nonatomic,assign)CGFloat itemHeight;
 @end

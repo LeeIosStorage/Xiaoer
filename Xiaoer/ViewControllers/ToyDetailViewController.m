@@ -9,6 +9,8 @@
 #import "ToyDetailViewController.h"
 #import "ToyDetailCell.h"
 #import "ToyListViewController.h"
+#import "VerifyIndentViewController.h"
+#import "ShopCarViewController.h"
 @interface ToyDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UIView *naviLable;
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
@@ -54,10 +56,14 @@
 }
 - (IBAction)bottomAddToShopCar:(id)sender {
     NSLog(@"底部点击添加到购物车");
+    ShopCarViewController *car = [[ShopCarViewController alloc]init];
+    [self.navigationController pushViewController:car animated:YES];
 
 }
 - (IBAction)buy:(id)sender {
     NSLog(@"购买");
+    VerifyIndentViewController *verify = [[VerifyIndentViewController alloc]init];
+    [self.navigationController pushViewController:verify animated:YES];
 }
 
 //收藏按钮

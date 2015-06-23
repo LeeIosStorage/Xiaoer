@@ -34,7 +34,7 @@
         </view>
         <view contentMode="scaleToFill" id="mwL-x7-F9X">
             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="asd" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7ui-tn-RAJ">
                     <rect key="frame" x="100" y="0.0" width="120" height="40"/>
@@ -45,7 +45,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AJS-dh-lKL">
-                    <rect key="frame" x="-19" y="8" width="79" height="24"/>
+                    <rect key="frame" x="0.0" y="8" width="40" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <state key="normal" image="backtoMain">

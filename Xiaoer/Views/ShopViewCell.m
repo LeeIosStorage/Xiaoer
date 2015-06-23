@@ -20,7 +20,8 @@
 - (void)awakeFromNib {
     // Initialization code
 }
-- (void)configureCellWith:(NSIndexPath *)indexPath{
+- (void)configureCellWith:(NSIndexPath *)indexPath andNumberOfItemsInCell:(NSInteger)number{
+    self.num = number;
     if (indexPath.section == 0) {
         self.flowOut.itemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width/2, 0);
     }else{
@@ -52,8 +53,8 @@
     return 1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
-    return 3;
+
+    return self.num;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -61,6 +62,7 @@
     cell.waterImage.backgroundColor = [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1];
     return cell;
 }
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = (UITableViewCell *)collectionView.superview.superview;
     NSLog(@" tag = %ld",collectionView.superview.superview.tag);

@@ -14,6 +14,7 @@
 #import "CycleView.h"
 #import "AppDelegate.h"
 #import "ToyMainViewController.h"
+#import "SearchListViewController.h"
 @interface ShopViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,TableViewCellDelegate,XEScrollPageDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *shopTabView;
 @property (strong, nonatomic) IBOutlet UIView *headerView;
@@ -50,11 +51,11 @@
     
     //布局轮播图
     [self configureLunBoBackView];
-//    //布局searchView
-//    [self configuresearchView];
-    UIImageView *ImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    ImageView.image = [UIImage imageNamed:@"正在建设中6p"];
-    [self.view addSubview:ImageView];
+    //布局searchView
+    [self configuresearchView];
+//    UIImageView *ImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//    ImageView.image = [UIImage imageNamed:@"正在建设中6p"];
+//    [self.view addSubview:ImageView];
     
 }
 - (IBAction)backToMainPage:(id)sender {
@@ -75,6 +76,9 @@
 #pragma mark 搜索按钮
 - (IBAction)searchBtnTouched:(id)sender {
     NSLog(@"搜索");
+    SearchListViewController *search = [[SearchListViewController alloc]init];
+    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate.mainTabViewController.navigationController pushViewController:search animated:YES];
 }
 
 #pragma mark 布局searchView
@@ -95,7 +99,6 @@
     [self.shopTabView registerNib:[UINib nibWithNibName:@"ShopViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.shopTabView.tableHeaderView = self.headerView;
     [self.shopTabView addHeaderWithTarget:self action:@selector(headerLoadData)];
-    self.shopTabView.userInteractionEnabled = NO;
     
 }
 
@@ -210,7 +213,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ShopViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.delegate = self;
-    [cell configureCellWith:indexPath];
+    if (indexPath.section == 0) {
+        [cell configureCellWith:indexPath andNumberOfItemsInCell:2];
+
+    }else if (indexPath.section == 1){
+        if (indexPath.row == 1) {
+            [cell configureCellWith:indexPath andNumberOfItemsInCell:3];
+
+        } else {
+            [cell configureCellWith:indexPath andNumberOfItemsInCell:1];
+
+        }
+    }
     cell.tag = indexPath.section * 1000 + indexPath.row;
     return cell;
 }

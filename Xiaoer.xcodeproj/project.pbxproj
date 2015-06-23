@@ -390,10 +390,24 @@
 		AA70F2F31B1EBC7200122F57 /* InfomationViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */; };
 		AA7AE68A1B1EA91F00396699 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7AE6881B1EA91F00396699 /* InformationViewController.m */; };
 		AA7AE68B1B1EA91F00396699 /* InformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE6891B1EA91F00396699 /* InformationViewController.xib */; };
+		AA7C6D3A1B39309D0035103D /* VerifyIndentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7C6D381B39309D0035103D /* VerifyIndentCell.m */; };
+		AA7C6D3B1B39309D0035103D /* VerifyIndentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7C6D391B39309D0035103D /* VerifyIndentCell.xib */; };
+		AA7C6D3F1B394A530035103D /* AddressManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7C6D3D1B394A530035103D /* AddressManagerController.m */; };
+		AA7C6D401B394A530035103D /* AddressManagerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7C6D3E1B394A530035103D /* AddressManagerController.xib */; };
+		AA7C6D441B394B580035103D /* AddressManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7C6D421B394B580035103D /* AddressManagerCell.m */; };
+		AA7C6D451B394B580035103D /* AddressManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7C6D431B394B580035103D /* AddressManagerCell.xib */; };
 		AA8784BD1B2013A4005A11E8 /* MainTabScrollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8784BB1B2013A4005A11E8 /* MainTabScrollCell.m */; };
 		AA8784BE1B2013A4005A11E8 /* MainTabScrollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8784BC1B2013A4005A11E8 /* MainTabScrollCell.xib */; };
 		AA8BA9481B09EFC7004B2222 /* CardInfoVerifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8BA9461B09EFC7004B2222 /* CardInfoVerifyCell.m */; };
 		AA8BA9491B09EFC7004B2222 /* CardInfoVerifyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */; };
+		AA8EE0F01B37AE6E003D8FFB /* SearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8EE0EE1B37AE6E003D8FFB /* SearchListViewController.m */; };
+		AA8EE0F11B37AE6E003D8FFB /* SearchListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8EE0EF1B37AE6E003D8FFB /* SearchListViewController.xib */; };
+		AA8EE0F61B37B54A003D8FFB /* ShopCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8EE0F41B37B54A003D8FFB /* ShopCarViewController.m */; };
+		AA8EE0F71B37B54A003D8FFB /* ShopCarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8EE0F51B37B54A003D8FFB /* ShopCarViewController.xib */; };
+		AA8EE0FC1B37B723003D8FFB /* ShopCarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8EE0FA1B37B723003D8FFB /* ShopCarCell.m */; };
+		AA8EE0FD1B37B723003D8FFB /* ShopCarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8EE0FB1B37B723003D8FFB /* ShopCarCell.xib */; };
+		AA8EE1081B380D3E003D8FFB /* SearchListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8EE1061B380D3E003D8FFB /* SearchListCell.m */; };
+		AA8EE1091B380D3E003D8FFB /* SearchListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8EE1071B380D3E003D8FFB /* SearchListCell.xib */; };
 		AAA3DE771B2564B60008275D /* EveryOneWeekController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA3DE751B2564B60008275D /* EveryOneWeekController.m */; };
 		AAA3DE781B2564B60008275D /* EveryOneWeekController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA3DE761B2564B60008275D /* EveryOneWeekController.xib */; };
 		AAA3DE7D1B2568110008275D /* OneWeakCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA3DE7B1B2568110008275D /* OneWeakCell.m */; };
@@ -402,6 +416,19 @@
 		AAAA94D91B0D80F60029E7E1 /* XEEastCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA94D81B0D80F60029E7E1 /* XEEastCardInfo.m */; };
 		AACD9F7C1B21A81D0093E21C /* focusAndHabitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD9F7A1B21A81D0093E21C /* focusAndHabitViewController.m */; };
 		AACD9F7D1B21A81D0093E21C /* focusAndHabitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACD9F7B1B21A81D0093E21C /* focusAndHabitViewController.xib */; };
+		AAD5EF901B365766006C17FC /* VerifyIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD5EF8E1B365766006C17FC /* VerifyIndentViewController.m */; };
+		AAD5EF911B365766006C17FC /* VerifyIndentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD5EF8F1B365766006C17FC /* VerifyIndentViewController.xib */; };
+		AAD5EF951B36846B006C17FC /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD5EF931B36846B006C17FC /* AddAddressViewController.m */; };
+		AAD5EF961B36846B006C17FC /* AddAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD5EF941B36846B006C17FC /* AddAddressViewController.xib */; };
+		AAD5EF9A1B36888C006C17FC /* AddAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD5EF981B36888C006C17FC /* AddAddressCell.m */; };
+		AAD5EF9B1B36888C006C17FC /* AddAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD5EF991B36888C006C17FC /* AddAddressCell.xib */; };
+		AAD5EFD41B36AAC6006C17FC /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAD5EFD31B36AAC6006C17FC /* area.plist */; };
+		AAD5EFD81B36BC7B006C17FC /* PayAndDistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD5EFD61B36BC7B006C17FC /* PayAndDistributionViewController.m */; };
+		AAD5EFD91B36BC7B006C17FC /* PayAndDistributionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD5EFD71B36BC7B006C17FC /* PayAndDistributionViewController.xib */; };
+		AAD5EFDD1B36C3C4006C17FC /* GoToPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD5EFDB1B36C3C4006C17FC /* GoToPayViewController.m */; };
+		AAD5EFDE1B36C3C4006C17FC /* GoToPayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD5EFDC1B36C3C4006C17FC /* GoToPayViewController.xib */; };
+		AAD5EFE21B36C489006C17FC /* GoToPayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD5EFE01B36C489006C17FC /* GoToPayCell.m */; };
+		AAD5EFE31B36C489006C17FC /* GoToPayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD5EFE11B36C489006C17FC /* GoToPayCell.xib */; };
 		AAD6372B1B202A7000D17763 /* MainTabScrollCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD637291B202A7000D17763 /* MainTabScrollCollectCell.m */; };
 		AAD6372C1B202A7000D17763 /* MainTabScrollCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD6372A1B202A7000D17763 /* MainTabScrollCollectCell.xib */; };
 		AAD8EC7F1B0ACF8E00B24F9A /* CardOfEastWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD8EC7D1B0ACF8E00B24F9A /* CardOfEastWebViewController.m */; };
@@ -1074,12 +1101,33 @@
 		AA7AE6871B1EA91F00396699 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InformationViewController.h; path = Main/InformationViewController.h; sourceTree = "<group>"; };
 		AA7AE6881B1EA91F00396699 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InformationViewController.m; path = Main/InformationViewController.m; sourceTree = "<group>"; };
 		AA7AE6891B1EA91F00396699 /* InformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InformationViewController.xib; path = Main/InformationViewController.xib; sourceTree = "<group>"; };
+		AA7C6D371B39309D0035103D /* VerifyIndentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyIndentCell.h; sourceTree = "<group>"; };
+		AA7C6D381B39309D0035103D /* VerifyIndentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyIndentCell.m; sourceTree = "<group>"; };
+		AA7C6D391B39309D0035103D /* VerifyIndentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyIndentCell.xib; sourceTree = "<group>"; };
+		AA7C6D3C1B394A530035103D /* AddressManagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressManagerController.h; sourceTree = "<group>"; };
+		AA7C6D3D1B394A530035103D /* AddressManagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressManagerController.m; sourceTree = "<group>"; };
+		AA7C6D3E1B394A530035103D /* AddressManagerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressManagerController.xib; sourceTree = "<group>"; };
+		AA7C6D411B394B580035103D /* AddressManagerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressManagerCell.h; sourceTree = "<group>"; };
+		AA7C6D421B394B580035103D /* AddressManagerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressManagerCell.m; sourceTree = "<group>"; };
+		AA7C6D431B394B580035103D /* AddressManagerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressManagerCell.xib; sourceTree = "<group>"; };
 		AA8784BA1B2013A4005A11E8 /* MainTabScrollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabScrollCell.h; sourceTree = "<group>"; };
 		AA8784BB1B2013A4005A11E8 /* MainTabScrollCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabScrollCell.m; sourceTree = "<group>"; };
 		AA8784BC1B2013A4005A11E8 /* MainTabScrollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTabScrollCell.xib; sourceTree = "<group>"; };
 		AA8BA9451B09EFC7004B2222 /* CardInfoVerifyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardInfoVerifyCell.h; sourceTree = "<group>"; };
 		AA8BA9461B09EFC7004B2222 /* CardInfoVerifyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardInfoVerifyCell.m; sourceTree = "<group>"; };
 		AA8BA9471B09EFC7004B2222 /* CardInfoVerifyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardInfoVerifyCell.xib; sourceTree = "<group>"; };
+		AA8EE0ED1B37AE6E003D8FFB /* SearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchListViewController.h; sourceTree = "<group>"; };
+		AA8EE0EE1B37AE6E003D8FFB /* SearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchListViewController.m; sourceTree = "<group>"; };
+		AA8EE0EF1B37AE6E003D8FFB /* SearchListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchListViewController.xib; sourceTree = "<group>"; };
+		AA8EE0F31B37B54A003D8FFB /* ShopCarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarViewController.h; sourceTree = "<group>"; };
+		AA8EE0F41B37B54A003D8FFB /* ShopCarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarViewController.m; sourceTree = "<group>"; };
+		AA8EE0F51B37B54A003D8FFB /* ShopCarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCarViewController.xib; sourceTree = "<group>"; };
+		AA8EE0F91B37B723003D8FFB /* ShopCarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCarCell.h; sourceTree = "<group>"; };
+		AA8EE0FA1B37B723003D8FFB /* ShopCarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCarCell.m; sourceTree = "<group>"; };
+		AA8EE0FB1B37B723003D8FFB /* ShopCarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCarCell.xib; sourceTree = "<group>"; };
+		AA8EE1051B380D3E003D8FFB /* SearchListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchListCell.h; sourceTree = "<group>"; };
+		AA8EE1061B380D3E003D8FFB /* SearchListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchListCell.m; sourceTree = "<group>"; };
+		AA8EE1071B380D3E003D8FFB /* SearchListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchListCell.xib; sourceTree = "<group>"; };
 		AAA3DE741B2564B60008275D /* EveryOneWeekController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EveryOneWeekController.h; sourceTree = "<group>"; };
 		AAA3DE751B2564B60008275D /* EveryOneWeekController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EveryOneWeekController.m; sourceTree = "<group>"; };
 		AAA3DE761B2564B60008275D /* EveryOneWeekController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EveryOneWeekController.xib; sourceTree = "<group>"; };
@@ -1093,6 +1141,25 @@
 		AACD9F791B21A81D0093E21C /* focusAndHabitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = focusAndHabitViewController.h; sourceTree = "<group>"; };
 		AACD9F7A1B21A81D0093E21C /* focusAndHabitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = focusAndHabitViewController.m; sourceTree = "<group>"; };
 		AACD9F7B1B21A81D0093E21C /* focusAndHabitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = focusAndHabitViewController.xib; sourceTree = "<group>"; };
+		AAD5EF8D1B365766006C17FC /* VerifyIndentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyIndentViewController.h; sourceTree = "<group>"; };
+		AAD5EF8E1B365766006C17FC /* VerifyIndentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyIndentViewController.m; sourceTree = "<group>"; };
+		AAD5EF8F1B365766006C17FC /* VerifyIndentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyIndentViewController.xib; sourceTree = "<group>"; };
+		AAD5EF921B36846B006C17FC /* AddAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAddressViewController.h; sourceTree = "<group>"; };
+		AAD5EF931B36846B006C17FC /* AddAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAddressViewController.m; sourceTree = "<group>"; };
+		AAD5EF941B36846B006C17FC /* AddAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAddressViewController.xib; sourceTree = "<group>"; };
+		AAD5EF971B36888C006C17FC /* AddAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAddressCell.h; sourceTree = "<group>"; };
+		AAD5EF981B36888C006C17FC /* AddAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAddressCell.m; sourceTree = "<group>"; };
+		AAD5EF991B36888C006C17FC /* AddAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAddressCell.xib; sourceTree = "<group>"; };
+		AAD5EFD31B36AAC6006C17FC /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
+		AAD5EFD51B36BC7B006C17FC /* PayAndDistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayAndDistributionViewController.h; sourceTree = "<group>"; };
+		AAD5EFD61B36BC7B006C17FC /* PayAndDistributionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayAndDistributionViewController.m; sourceTree = "<group>"; };
+		AAD5EFD71B36BC7B006C17FC /* PayAndDistributionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayAndDistributionViewController.xib; sourceTree = "<group>"; };
+		AAD5EFDA1B36C3C4006C17FC /* GoToPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoToPayViewController.h; sourceTree = "<group>"; };
+		AAD5EFDB1B36C3C4006C17FC /* GoToPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoToPayViewController.m; sourceTree = "<group>"; };
+		AAD5EFDC1B36C3C4006C17FC /* GoToPayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoToPayViewController.xib; sourceTree = "<group>"; };
+		AAD5EFDF1B36C489006C17FC /* GoToPayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoToPayCell.h; sourceTree = "<group>"; };
+		AAD5EFE01B36C489006C17FC /* GoToPayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoToPayCell.m; sourceTree = "<group>"; };
+		AAD5EFE11B36C489006C17FC /* GoToPayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoToPayCell.xib; sourceTree = "<group>"; };
 		AAD637281B202A7000D17763 /* MainTabScrollCollectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabScrollCollectCell.h; sourceTree = "<group>"; };
 		AAD637291B202A7000D17763 /* MainTabScrollCollectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabScrollCollectCell.m; sourceTree = "<group>"; };
 		AAD6372A1B202A7000D17763 /* MainTabScrollCollectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTabScrollCollectCell.xib; sourceTree = "<group>"; };
@@ -1337,6 +1404,7 @@
 		07508E831A51346300873B45 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AAD5EFD31B36AAC6006C17FC /* area.plist */,
 				079F5A6F1AA0540F00069EB7 /* PushConfig.plist */,
 				07508E841A51346300873B45 /* Info.plist */,
 				074593FF1A5B8391008F4665 /* Xiaoer-Prefx.pch */,
@@ -2499,6 +2567,44 @@
 			children = (
 				AAE0F1531B32BFC6005C4B3D /* CycleView.h */,
 				AAE0F1541B32BFC6005C4B3D /* CycleView.m */,
+				AA7C6D471B3950F00035103D /* Address */,
+				AA8EE0F21B37B532003D8FFB /* shopCar */,
+				AA8EE0EC1B37AE46003D8FFB /* search */,
+				AA8EE0E81B37AD92003D8FFB /* pay */,
+				AA8EE0E71B37AD75003D8FFB /* toy */,
+			);
+			name = Shop;
+			sourceTree = "<group>";
+		};
+		AA7C6D461B3950D80035103D /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				AAD5EF971B36888C006C17FC /* AddAddressCell.h */,
+				AAD5EF981B36888C006C17FC /* AddAddressCell.m */,
+				AAD5EF991B36888C006C17FC /* AddAddressCell.xib */,
+				AA7C6D411B394B580035103D /* AddressManagerCell.h */,
+				AA7C6D421B394B580035103D /* AddressManagerCell.m */,
+				AA7C6D431B394B580035103D /* AddressManagerCell.xib */,
+			);
+			name = Address;
+			sourceTree = "<group>";
+		};
+		AA7C6D471B3950F00035103D /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				AAD5EF921B36846B006C17FC /* AddAddressViewController.h */,
+				AAD5EF931B36846B006C17FC /* AddAddressViewController.m */,
+				AAD5EF941B36846B006C17FC /* AddAddressViewController.xib */,
+				AA7C6D3C1B394A530035103D /* AddressManagerController.h */,
+				AA7C6D3D1B394A530035103D /* AddressManagerController.m */,
+				AA7C6D3E1B394A530035103D /* AddressManagerController.xib */,
+			);
+			name = Address;
+			sourceTree = "<group>";
+		};
+		AA8EE0E71B37AD75003D8FFB /* toy */ = {
+			isa = PBXGroup;
+			children = (
 				AAE0F15E1B32C83C005C4B3D /* ToyMainViewController.h */,
 				AAE0F15F1B32C83C005C4B3D /* ToyMainViewController.m */,
 				AAE0F1601B32C83C005C4B3D /* ToyMainViewController.xib */,
@@ -2509,7 +2615,107 @@
 				AA4FC5371B33ECF6007F90B5 /* ToyDetailViewController.m */,
 				AA4FC5381B33ECF6007F90B5 /* ToyDetailViewController.xib */,
 			);
-			name = Shop;
+			name = toy;
+			sourceTree = "<group>";
+		};
+		AA8EE0E81B37AD92003D8FFB /* pay */ = {
+			isa = PBXGroup;
+			children = (
+				AAD5EF8D1B365766006C17FC /* VerifyIndentViewController.h */,
+				AAD5EF8E1B365766006C17FC /* VerifyIndentViewController.m */,
+				AAD5EF8F1B365766006C17FC /* VerifyIndentViewController.xib */,
+				AAD5EFD51B36BC7B006C17FC /* PayAndDistributionViewController.h */,
+				AAD5EFD61B36BC7B006C17FC /* PayAndDistributionViewController.m */,
+				AAD5EFD71B36BC7B006C17FC /* PayAndDistributionViewController.xib */,
+				AAD5EFDA1B36C3C4006C17FC /* GoToPayViewController.h */,
+				AAD5EFDB1B36C3C4006C17FC /* GoToPayViewController.m */,
+				AAD5EFDC1B36C3C4006C17FC /* GoToPayViewController.xib */,
+			);
+			name = pay;
+			sourceTree = "<group>";
+		};
+		AA8EE0E91B37ADB3003D8FFB /* toy */ = {
+			isa = PBXGroup;
+			children = (
+				AAE0F1631B32CB8E005C4B3D /* ToyMainTabCell.h */,
+				AAE0F1641B32CB8E005C4B3D /* ToyMainTabCell.m */,
+				AAE0F1651B32CB8E005C4B3D /* ToyMainTabCell.xib */,
+				AA4FC52C1B33E15D007F90B5 /* ToyCollectionHeaderCell.h */,
+				AA4FC52D1B33E15D007F90B5 /* ToyCollectionHeaderCell.m */,
+				AA4FC52E1B33E15D007F90B5 /* ToyCollectionHeaderCell.xib */,
+				AA4FC5311B33E17C007F90B5 /* ToyListCollectionCell.h */,
+				AA4FC5321B33E17C007F90B5 /* ToyListCollectionCell.m */,
+				AA4FC5331B33E17C007F90B5 /* ToyListCollectionCell.xib */,
+				AA4FC53B1B33F027007F90B5 /* ToyDetailCell.h */,
+				AA4FC53C1B33F027007F90B5 /* ToyDetailCell.m */,
+				AA4FC53D1B33F027007F90B5 /* ToyDetailCell.xib */,
+			);
+			name = toy;
+			sourceTree = "<group>";
+		};
+		AA8EE0EA1B37ADED003D8FFB /* pay */ = {
+			isa = PBXGroup;
+			children = (
+				AA7C6D371B39309D0035103D /* VerifyIndentCell.h */,
+				AA7C6D381B39309D0035103D /* VerifyIndentCell.m */,
+				AA7C6D391B39309D0035103D /* VerifyIndentCell.xib */,
+				AAD5EFDF1B36C489006C17FC /* GoToPayCell.h */,
+				AAD5EFE01B36C489006C17FC /* GoToPayCell.m */,
+				AAD5EFE11B36C489006C17FC /* GoToPayCell.xib */,
+			);
+			name = pay;
+			sourceTree = "<group>";
+		};
+		AA8EE0EB1B37ADFF003D8FFB /* water */ = {
+			isa = PBXGroup;
+			children = (
+				AAE0F13F1B32A73F005C4B3D /* WaterFlowLayout.h */,
+				AAE0F1401B32A73F005C4B3D /* WaterFlowLayout.m */,
+				AAE0F1471B32AD7B005C4B3D /* WaterCollectionCell.h */,
+				AAE0F1481B32AD7B005C4B3D /* WaterCollectionCell.m */,
+				AAE0F1491B32AD7B005C4B3D /* WaterCollectionCell.xib */,
+			);
+			name = water;
+			sourceTree = "<group>";
+		};
+		AA8EE0EC1B37AE46003D8FFB /* search */ = {
+			isa = PBXGroup;
+			children = (
+				AA8EE0ED1B37AE6E003D8FFB /* SearchListViewController.h */,
+				AA8EE0EE1B37AE6E003D8FFB /* SearchListViewController.m */,
+				AA8EE0EF1B37AE6E003D8FFB /* SearchListViewController.xib */,
+			);
+			name = search;
+			sourceTree = "<group>";
+		};
+		AA8EE0F21B37B532003D8FFB /* shopCar */ = {
+			isa = PBXGroup;
+			children = (
+				AA8EE0F31B37B54A003D8FFB /* ShopCarViewController.h */,
+				AA8EE0F41B37B54A003D8FFB /* ShopCarViewController.m */,
+				AA8EE0F51B37B54A003D8FFB /* ShopCarViewController.xib */,
+			);
+			name = shopCar;
+			sourceTree = "<group>";
+		};
+		AA8EE0F81B37B6F9003D8FFB /* shopCar */ = {
+			isa = PBXGroup;
+			children = (
+				AA8EE0F91B37B723003D8FFB /* ShopCarCell.h */,
+				AA8EE0FA1B37B723003D8FFB /* ShopCarCell.m */,
+				AA8EE0FB1B37B723003D8FFB /* ShopCarCell.xib */,
+			);
+			name = shopCar;
+			sourceTree = "<group>";
+		};
+		AA8EE1041B380D1A003D8FFB /* search */ = {
+			isa = PBXGroup;
+			children = (
+				AA8EE1051B380D3E003D8FFB /* SearchListCell.h */,
+				AA8EE1061B380D3E003D8FFB /* SearchListCell.m */,
+				AA8EE1071B380D3E003D8FFB /* SearchListCell.xib */,
+			);
+			name = search;
 			sourceTree = "<group>";
 		};
 		AAA3DE731B2564650008275D /* oneWeek */ = {
@@ -2563,29 +2769,18 @@
 		AAE0F1341B32840D005C4B3D /* shop */ = {
 			isa = PBXGroup;
 			children = (
-				AAE0F13F1B32A73F005C4B3D /* WaterFlowLayout.h */,
-				AAE0F1401B32A73F005C4B3D /* WaterFlowLayout.m */,
-				AAE0F1471B32AD7B005C4B3D /* WaterCollectionCell.h */,
-				AAE0F1481B32AD7B005C4B3D /* WaterCollectionCell.m */,
-				AAE0F1491B32AD7B005C4B3D /* WaterCollectionCell.xib */,
 				AAE0F13A1B328560005C4B3D /* ShopHeaderCollectCell.h */,
 				AAE0F13B1B328560005C4B3D /* ShopHeaderCollectCell.m */,
 				AAE0F13C1B328560005C4B3D /* ShopHeaderCollectCell.xib */,
 				AAE0F1421B32A7B6005C4B3D /* ShopViewCell.h */,
 				AAE0F1431B32A7B6005C4B3D /* ShopViewCell.m */,
 				AAE0F1441B32A7B6005C4B3D /* ShopViewCell.xib */,
-				AAE0F1631B32CB8E005C4B3D /* ToyMainTabCell.h */,
-				AAE0F1641B32CB8E005C4B3D /* ToyMainTabCell.m */,
-				AAE0F1651B32CB8E005C4B3D /* ToyMainTabCell.xib */,
-				AA4FC52C1B33E15D007F90B5 /* ToyCollectionHeaderCell.h */,
-				AA4FC52D1B33E15D007F90B5 /* ToyCollectionHeaderCell.m */,
-				AA4FC52E1B33E15D007F90B5 /* ToyCollectionHeaderCell.xib */,
-				AA4FC5311B33E17C007F90B5 /* ToyListCollectionCell.h */,
-				AA4FC5321B33E17C007F90B5 /* ToyListCollectionCell.m */,
-				AA4FC5331B33E17C007F90B5 /* ToyListCollectionCell.xib */,
-				AA4FC53B1B33F027007F90B5 /* ToyDetailCell.h */,
-				AA4FC53C1B33F027007F90B5 /* ToyDetailCell.m */,
-				AA4FC53D1B33F027007F90B5 /* ToyDetailCell.xib */,
+				AA7C6D461B3950D80035103D /* Address */,
+				AA8EE1041B380D1A003D8FFB /* search */,
+				AA8EE0F81B37B6F9003D8FFB /* shopCar */,
+				AA8EE0EB1B37ADFF003D8FFB /* water */,
+				AA8EE0EA1B37ADED003D8FFB /* pay */,
+				AA8EE0E91B37ADB3003D8FFB /* toy */,
 			);
 			name = shop;
 			sourceTree = "<group>";
@@ -2697,9 +2892,12 @@
 				AAD8EC881B0AE7E600B24F9A /* CardOfEastVerifyController.xib in Resources */,
 				078E89091AA1C32D008AD45A /* UMSocialQQData.html in Resources */,
 				078E89201AA1C32D008AD45A /* disclosure_open.png in Resources */,
+				AAD5EF961B36846B006C17FC /* AddAddressViewController.xib in Resources */,
 				078E89351AA1C32D008AD45A /* ios-social-sdk-share-quick.html in Resources */,
 				07AAB7F31A8306460030D306 /* SettingViewController.xib in Resources */,
 				0760E92E1A81ACB300BBEA3D /* CollectionViewController.xib in Resources */,
+				AAD5EFD41B36AAC6006C17FC /* area.plist in Resources */,
+				AAD5EFE31B36C489006C17FC /* GoToPayCell.xib in Resources */,
 				078E89191AA1C32D008AD45A /* UMSocialYXTimelineData.html in Resources */,
 				0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */,
 				AAE0F14B1B32AD7B005C4B3D /* WaterCollectionCell.xib in Resources */,
@@ -2723,6 +2921,7 @@
 				079E421D1A762ABE0056968E /* XEQuestionViewCell.xib in Resources */,
 				AAA3DE7E1B2568110008275D /* OneWeakCell.xib in Resources */,
 				078E88EE1AA1C32D008AD45A /* UMSCommentDetailController.xib in Resources */,
+				AAD5EFD91B36BC7B006C17FC /* PayAndDistributionViewController.xib in Resources */,
 				078E89371AA1C32D008AD45A /* markdown.css in Resources */,
 				078E89001AA1C32D008AD45A /* UMSocialDataService.html in Resources */,
 				07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */,
@@ -2750,11 +2949,13 @@
 				071D51971A674FC6003D6752 /* MainTabCell.xib in Resources */,
 				078E89181AA1C32D008AD45A /* UMSocialYXSessionData.html in Resources */,
 				AA4FC5351B33E17C007F90B5 /* ToyListCollectionCell.xib in Resources */,
+				AA7C6D451B394B580035103D /* AddressManagerCell.xib in Resources */,
 				075DD03C1A78B42E009A64B4 /* WSAssetViewSelectionIndicator@2x.png in Resources */,
 				074DD0DB1A5E33B80042B721 /* MineTabCell.xib in Resources */,
 				AAE0F1331B3270A6005C4B3D /* ShopViewController.xib in Resources */,
 				078E89361AA1C32D008AD45A /* ios-social-sdk-socialBar.html in Resources */,
 				07AAB7F91A8330130030D306 /* SettingViewCell.xib in Resources */,
+				AAD5EF9B1B36888C006C17FC /* AddAddressCell.xib in Resources */,
 				07FC6D241A679D4C001F34D8 /* XEGridView.xib in Resources */,
 				7E72411C1A77BFA2001E1F69 /* TopicDetailsViewController.xib in Resources */,
 				07E284961A5A8F26005651EB /* LoginViewController.xib in Resources */,
@@ -2767,6 +2968,7 @@
 				078E88F71AA1C32D008AD45A /* UMSocialAccountEntity.html in Resources */,
 				078E88F41AA1C32D008AD45A /* UMSnsAccountViewController.xib in Resources */,
 				078E89241AA1C32D008AD45A /* UMSocialDataDelegate.html in Resources */,
+				AA8EE0F71B37B54A003D8FFB /* ShopCarViewController.xib in Resources */,
 				078E89291AA1C32D008AD45A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				078E891F1AA1C32D008AD45A /* disclosure.png in Resources */,
 				078E891D1AA1C32D008AD45A /* button_bar_background.png in Resources */,
@@ -2821,14 +3023,17 @@
 				078E891E1AA1C32D008AD45A /* class_grath.png in Resources */,
 				AA70F2F31B1EBC7200122F57 /* InfomationViewCell.xib in Resources */,
 				078E88FE1AA1C32D008AD45A /* UMSocialCustomAccount.html in Resources */,
+				AA7C6D401B394A530035103D /* AddressManagerController.xib in Resources */,
 				AA4FC53F1B33F027007F90B5 /* ToyDetailCell.xib in Resources */,
 				078E89051AA1C32D008AD45A /* UMSocialIconActionSheet.html in Resources */,
 				078E89141AA1C32D008AD45A /* UMSocialTwitterData.html in Resources */,
 				073F9F141A68B38F009D94E3 /* CategoryItemCell.xib in Resources */,
 				075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */,
 				AAD8EC8E1B0B0A8E00B24F9A /* CardOfEastSucceedController.xib in Resources */,
+				AA8EE0F11B37AE6E003D8FFB /* SearchListViewController.xib in Resources */,
 				AAA3DE781B2564B60008275D /* EveryOneWeekController.xib in Resources */,
 				079F5A701AA0540F00069EB7 /* PushConfig.plist in Resources */,
+				AA7C6D3B1B39309D0035103D /* VerifyIndentCell.xib in Resources */,
 				076F32591A5F806200346F44 /* XEInputViewController.xib in Resources */,
 				AAE0F13E1B328560005C4B3D /* ShopHeaderCollectCell.xib in Resources */,
 				078E89061AA1C32D008AD45A /* UMSocialInstagramData.html in Resources */,
@@ -2840,6 +3045,7 @@
 				075AA0441A68DEFA000B6302 /* ActivityViewCell.xib in Resources */,
 				07B650581A67AC7E00DEDE4E /* XETopicViewCell.xib in Resources */,
 				074D4B5E1AB8192200C19972 /* TicketListViewCell.xib in Resources */,
+				AAD5EF911B365766006C17FC /* VerifyIndentViewController.xib in Resources */,
 				0797A32A1A7F106C00D5650A /* XEScrollPage.xib in Resources */,
 				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
 				078E89211AA1C32D008AD45A /* library_background.png in Resources */,
@@ -2850,13 +3056,16 @@
 				078E87E71AA18934008AD45A /* StageSelectViewController.xib in Resources */,
 				AA0C68021B259C8100478A72 /* MotherLookController.xib in Resources */,
 				078E892E1AA1C32D008AD45A /* ios-social-sdk-comment-detail.html in Resources */,
+				AA8EE1091B380D3E003D8FFB /* SearchListCell.xib in Resources */,
 				0760E93D1A81ACCD00BBEA3D /* CardPackViewController.xib in Resources */,
 				0776639C1A80779A004C885B /* ActivityApplyViewCell.xib in Resources */,
 				078E89221AA1C32D008AD45A /* title_background.png in Resources */,
 				078E890D1AA1C32D008AD45A /* UMSocialSinaData.html in Resources */,
+				AA8EE0FD1B37B723003D8FFB /* ShopCarCell.xib in Resources */,
 				078E89151AA1C32D008AD45A /* UMSocialUrlResource.html in Resources */,
 				07C7C5121A70E336003E1272 /* arrow@2x.png in Resources */,
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
+				AAD5EFDE1B36C3C4006C17FC /* GoToPayViewController.xib in Resources */,
 				0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */,
 				AAE0F15B1B32C0B0005C4B3D /* 2.png in Resources */,
 				AA4FC52B1B33C132007F90B5 /* ToyListViewController.xib in Resources */,
@@ -2913,6 +3122,8 @@
 				0783F68A1AB819D600AAB5B0 /* BabyListViewCell.m in Sources */,
 				075AA03E1A68D5EC000B6302 /* XEActivityInfo.m in Sources */,
 				077C98B81A53BEAE00E2985B /* XEBaseSuperViewController.m in Sources */,
+				AA7C6D3A1B39309D0035103D /* VerifyIndentCell.m in Sources */,
+				AA8EE0F61B37B54A003D8FFB /* ShopCarViewController.m in Sources */,
 				AAE0F14A1B32AD7B005C4B3D /* WaterCollectionCell.m in Sources */,
 				0712B3B11A5BD853000A1A7F /* UIImage+WebP.m in Sources */,
 				077663A01A809C01004C885B /* MineTopicListViewController.m in Sources */,
@@ -2930,6 +3141,7 @@
 				07AAB7FD1A8359CB0030D306 /* AboutViewController.m in Sources */,
 				075DD0341A78AC0C009A64B4 /* WSAssetPickerState.m in Sources */,
 				0774A8861A66705D00336465 /* XEAlertView.m in Sources */,
+				AAD5EFE21B36C489006C17FC /* GoToPayCell.m in Sources */,
 				0712B3A61A5BD853000A1A7F /* NSData+ImageContentType.m in Sources */,
 				073F9F131A68B38F009D94E3 /* CategoryItemCell.m in Sources */,
 				0752F7DA1A7B2638008C0E0A /* PSTGridLayoutInfo.m in Sources */,
@@ -2945,6 +3157,7 @@
 				07B6505B1A67B85200DEDE4E /* XEDoctorInfo.m in Sources */,
 				07C49F4A1A5E7CD000E1725C /* XEImagePickerController.m in Sources */,
 				0712B3B21A5BD853000A1A7F /* UIImageView+HighlightedWebCache.m in Sources */,
+				AA8EE0FC1B37B723003D8FFB /* ShopCarCell.m in Sources */,
 				0752F7DC1A7B2638008C0E0A /* PSTGridLayoutRow.m in Sources */,
 				075B032F1A6E3CC7002B577D /* XELocationServiceUtil.m in Sources */,
 				075E40981A59386C0062F6AD /* AFHTTPRequestOperationManager.m in Sources */,
@@ -2958,14 +3171,18 @@
 				0774A8741A666EAB00336465 /* GMGridViewCell.m in Sources */,
 				077663961A80674E004C885B /* MineActivityListViewController.m in Sources */,
 				0752F7D21A7B2638008C0E0A /* PSTCollectionView.m in Sources */,
+				AAD5EF951B36846B006C17FC /* AddAddressViewController.m in Sources */,
 				AA7AE68A1B1EA91F00396699 /* InformationViewController.m in Sources */,
 				0712B3AA1A5BD853000A1A7F /* SDWebImageDownloader.m in Sources */,
 				0712B3AE1A5BD853000A1A7F /* UIButton+WebCache.m in Sources */,
+				AA7C6D3F1B394A530035103D /* AddressManagerController.m in Sources */,
+				AAD5EFD81B36BC7B006C17FC /* PayAndDistributionViewController.m in Sources */,
 				0712B3A41A5BD853000A1A7F /* MKAnnotationView+WebCache.m in Sources */,
 				AA125DDD1B2811D1000163A7 /* UIScrollView+MJRefresh.m in Sources */,
 				0752F7DD1A7B2638008C0E0A /* PSTGridLayoutSection.m in Sources */,
 				AAE0F1551B32BFC6005C4B3D /* CycleView.m in Sources */,
 				073F9F1A1A68E1D5009D94E3 /* UIColor+bit.m in Sources */,
+				AA7C6D441B394B580035103D /* AddressManagerCell.m in Sources */,
 				AAA3DE7D1B2568110008275D /* OneWeakCell.m in Sources */,
 				07913F5F1A676F840083E8E5 /* ExpertListViewController.m in Sources */,
 				077C98B51A53A6B300E2985B /* XENavigationController.m in Sources */,
@@ -2976,6 +3193,7 @@
 				076F32581A5F806200346F44 /* XEInputViewController.m in Sources */,
 				0774A8621A6663AD00336465 /* XEThemeInfo.m in Sources */,
 				07B6505E1A67B88000DEDE4E /* XETopicInfo.m in Sources */,
+				AA8EE0F01B37AE6E003D8FFB /* SearchListViewController.m in Sources */,
 				0752F7A91A7B25C5008C0E0A /* MWGridViewController.m in Sources */,
 				07C7C5141A70E336003E1272 /* PullToRefreshView.m in Sources */,
 				075E409F1A59386C0062F6AD /* AFURLSessionManager.m in Sources */,
@@ -3006,6 +3224,7 @@
 				075E409A1A59386C0062F6AD /* AFNetworkReachabilityManager.m in Sources */,
 				079E421C1A762ABE0056968E /* XEQuestionViewCell.m in Sources */,
 				074D4B5D1AB8192200C19972 /* TicketListViewCell.m in Sources */,
+				AAD5EF9A1B36888C006C17FC /* AddAddressCell.m in Sources */,
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
 				07AAB7F81A8330130030D306 /* SettingViewCell.m in Sources */,
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
@@ -3072,6 +3291,8 @@
 				075AA0431A68DEFA000B6302 /* ActivityViewCell.m in Sources */,
 				7E7241241A77C12A001E1F69 /* TopicCommentViewCell.m in Sources */,
 				075AA0481A690C58000B6302 /* ActivityDetailsViewController.m in Sources */,
+				AAD5EF901B365766006C17FC /* VerifyIndentViewController.m in Sources */,
+				AA8EE1081B380D3E003D8FFB /* SearchListCell.m in Sources */,
 				0712B3B31A5BD853000A1A7F /* UIImageView+WebCache.m in Sources */,
 				074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */,
 				0752F7D51A7B2638008C0E0A /* PSTCollectionViewData.m in Sources */,
@@ -3085,6 +3306,7 @@
 				07C49F561A5E7E9900E1725C /* AVCamCaptureManager.m in Sources */,
 				075E40B31A5940920062F6AD /* URLHelper.m in Sources */,
 				075CAF4C1A5D0E6A005CF4B6 /* SetPwdViewController.m in Sources */,
+				AAD5EFDD1B36C3C4006C17FC /* GoToPayViewController.m in Sources */,
 				07FC6D291A67B317001F34D8 /* RecipesViewController.m in Sources */,
 				0760E92F1A81ACB300BBEA3D /* MineMsgViewController.m in Sources */,
 				07882C231A80675D003874FA /* CardViewCell.m in Sources */,
