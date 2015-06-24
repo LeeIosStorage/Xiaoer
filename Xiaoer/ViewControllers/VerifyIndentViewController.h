@@ -27,5 +27,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *bottomSetAddressBtn;
 @property (weak, nonatomic) IBOutlet UITableView *tabView;
 @property (weak, nonatomic) IBOutlet UIButton *verifyBtn;
+@property (weak, nonatomic) IBOutlet UITextView *noteTextField;
 
 @end

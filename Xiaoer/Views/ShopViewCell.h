@@ -2,20 +2,27 @@
 //  ShopViewCell.h
 //  Xiaoer
 //
-//  Created by 王鹏 on 15/6/18.
+//  Created by 王鹏 on 15/6/24.
 //
 //
 
 #import <UIKit/UIKit.h>
-@protocol TableViewCellDelegate <NSObject>
-- (void)touchCellWithSection:(NSInteger )section row:(NSInteger )row;
 
+@protocol TouchCellDelegate <NSObject>
+
+//- (void)touchCellWithSection:(NSInteger)section row:(NSInteger)row;
+
+- (void)touchCellWithCellTag:(NSInteger)cellTag btnTag:(NSInteger)btnTag;
 @end
 
+
+
 @interface ShopViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionview;
-- (void)configureCellWith:(NSIndexPath *)indexPath andNumberOfItemsInCell:(NSInteger)number;
-@property (nonatomic,assign)id<TableViewCellDelegate> delegate;
-@property (nonatomic,assign)NSInteger num;
-@property (nonatomic,assign)CGFloat itemHeight;
+- (void)configureCellWith:(NSIndexPath *)indexPath andNumberOfItemsInCell:(NSInteger)num;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnA;
+@property (weak, nonatomic) IBOutlet UIButton *btnB;
+@property (weak, nonatomic) IBOutlet UIButton *btnC;
+@property (nonatomic,assign)id<TouchCellDelegate>delegate;
+
 @end

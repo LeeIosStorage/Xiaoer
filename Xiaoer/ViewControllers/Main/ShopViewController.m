@@ -15,7 +15,7 @@
 #import "AppDelegate.h"
 #import "ToyMainViewController.h"
 #import "SearchListViewController.h"
-@interface ShopViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,TableViewCellDelegate,XEScrollPageDelegate>
+@interface ShopViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,XEScrollPageDelegate,TouchCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *shopTabView;
 @property (strong, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *headerCollection;
@@ -25,6 +25,12 @@
 
 @property (nonatomic,strong)UICollectionViewFlowLayout *headerLayOut;
 @property (nonatomic,strong)XEScrollPage *scrollPageView;
+
+
+@property (nonatomic,assign)NSInteger numActivity;
+@property (nonatomic,assign)NSInteger numNew;
+@property (nonatomic,assign)BOOL addActivity;
+@property (nonatomic,assign)BOOL addNew;
 
 @end
 
@@ -56,6 +62,13 @@
 //    UIImageView *ImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
 //    ImageView.image = [UIImage imageNamed:@"正在建设中6p"];
 //    [self.view addSubview:ImageView];
+    
+    self.numActivity = 6;
+    self.numNew = 20;
+    self.addActivity = NO;
+    self.addNew = NO;
+//    NSMutableArray *arrau = [NSMutableArray array];
+//    arrau.count
     
 }
 - (IBAction)backToMainPage:(id)sender {
@@ -104,7 +117,6 @@
 
 #pragma mark HeaderCollectionView
 - (void)configureHeaderCollectionView{
-    
     [self.headerCollection registerNib:[UINib nibWithNibName:@"ShopHeaderCollectCell" bundle:nil] forCellWithReuseIdentifier:@"item"];
     self.headerCollection.delegate = self;
     self.headerCollection.dataSource = self;
@@ -191,11 +203,27 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return 1;
+          NSUInteger numRow = self.numActivity/3;
+        NSInteger yushu = self.numActivity%3;
+        if (yushu > 0) {
+            self.addActivity = YES;
+            return numRow + 1;
+        }else{
+            return numRow;
+        }
+        
+      
         
     } else if (section == 1) {
         
-        return 2;
+        NSUInteger numRow = self.numNew/3;
+        NSInteger yushu = self.numNew%3;
+        if (yushu > 0) {
+            self.addNew = YES;
+            return numRow + 1;
+        }else{
+            return numRow;
+        }
     }
     return 0;
 }
@@ -214,26 +242,45 @@
     ShopViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.delegate = self;
     if (indexPath.section == 0) {
-        [cell configureCellWith:indexPath andNumberOfItemsInCell:2];
+
+        if (self.addActivity == NO) {
+            [cell configureCellWith:indexPath andNumberOfItemsInCell:3];
+        }else if (self.addActivity == YES){
+            if (indexPath.row == self.numActivity/3) {
+                [cell configureCellWith:indexPath andNumberOfItemsInCell:self.numActivity%3];
+            }else{
+                [cell configureCellWith:indexPath andNumberOfItemsInCell:3];
+            }
+            
+        }
 
     }else if (indexPath.section == 1){
-        if (indexPath.row == 1) {
+
+        if (self.addNew == NO) {
             [cell configureCellWith:indexPath andNumberOfItemsInCell:3];
-
-        } else {
-            [cell configureCellWith:indexPath andNumberOfItemsInCell:1];
-
+        }else if (self.addNew == YES){
+            if (indexPath.row == self.numNew/3) {
+                NSLog(@"%ld",self.numNew%3);
+                [cell configureCellWith:indexPath andNumberOfItemsInCell:self.numNew%3];
+            }else{
+                [cell configureCellWith:indexPath andNumberOfItemsInCell:3];
+            }
         }
     }
     cell.tag = indexPath.section * 1000 + indexPath.row;
-    return cell;
+    cell.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];    return cell;
+}
+- (void)touchCellWithCellTag:(NSInteger)cellTag btnTag:(NSInteger)btnTag{
+    if (cellTag < 1000) {
+        
+    }else if (cellTag >= 1000){
+        cellTag = cellTag%1000;
+    }
+    
+    NSLog(@"%ld %ld ",cellTag,btnTag);
+
 }
 
-#pragma mark 瀑布流的点击回调
-- (void)touchCellWithSection:(NSInteger)section row:(NSInteger)row{
-    NSLog(@"tag = %ld %ld ",section,row);
-    
-}
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];

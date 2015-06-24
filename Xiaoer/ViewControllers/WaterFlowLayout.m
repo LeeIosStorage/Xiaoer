@@ -31,7 +31,12 @@
 
 - (void)configureItem{
     if (self.itemAttributes.count >0 ) {
+        NSLog(@"大雨0");
         [self.itemAttributes removeAllObjects];
+    }
+    for (UIView *view in self.collectionView.subviews) {
+        NSLog(@"%@",self.collectionView.subviews);
+        [view removeFromSuperview];
     }
     
     

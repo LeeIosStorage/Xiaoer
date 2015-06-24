@@ -388,6 +388,8 @@
 		AA6E8FB11B300C8C0087B754 /* shopOtherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA6E8FAF1B300C8C0087B754 /* shopOtherViewController.xib */; };
 		AA70F2F21B1EBC7200122F57 /* InfomationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA70F2F01B1EBC7200122F57 /* InfomationViewCell.m */; };
 		AA70F2F31B1EBC7200122F57 /* InfomationViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */; };
+		AA79B9391B3AB4700046A326 /* ShopViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA79B9371B3AB4700046A326 /* ShopViewCell.m */; };
+		AA79B93A1B3AB4700046A326 /* ShopViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA79B9381B3AB4700046A326 /* ShopViewCell.xib */; };
 		AA7AE68A1B1EA91F00396699 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7AE6881B1EA91F00396699 /* InformationViewController.m */; };
 		AA7AE68B1B1EA91F00396699 /* InformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7AE6891B1EA91F00396699 /* InformationViewController.xib */; };
 		AA7C6D3A1B39309D0035103D /* VerifyIndentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7C6D381B39309D0035103D /* VerifyIndentCell.m */; };
@@ -444,8 +446,6 @@
 		AAE0F13D1B328560005C4B3D /* ShopHeaderCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F13B1B328560005C4B3D /* ShopHeaderCollectCell.m */; };
 		AAE0F13E1B328560005C4B3D /* ShopHeaderCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE0F13C1B328560005C4B3D /* ShopHeaderCollectCell.xib */; };
 		AAE0F1411B32A73F005C4B3D /* WaterFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F1401B32A73F005C4B3D /* WaterFlowLayout.m */; };
-		AAE0F1451B32A7B6005C4B3D /* ShopViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F1431B32A7B6005C4B3D /* ShopViewCell.m */; };
-		AAE0F1461B32A7B6005C4B3D /* ShopViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE0F1441B32A7B6005C4B3D /* ShopViewCell.xib */; };
 		AAE0F14A1B32AD7B005C4B3D /* WaterCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F1481B32AD7B005C4B3D /* WaterCollectionCell.m */; };
 		AAE0F14B1B32AD7B005C4B3D /* WaterCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE0F1491B32AD7B005C4B3D /* WaterCollectionCell.xib */; };
 		AAE0F1511B32BF0F005C4B3D /* CycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0F14F1B32BF0F005C4B3D /* CycleScrollView.m */; };
@@ -1098,6 +1098,9 @@
 		AA70F2EF1B1EBC7200122F57 /* InfomationViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationViewCell.h; sourceTree = "<group>"; };
 		AA70F2F01B1EBC7200122F57 /* InfomationViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationViewCell.m; sourceTree = "<group>"; };
 		AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationViewCell.xib; sourceTree = "<group>"; };
+		AA79B9361B3AB4700046A326 /* ShopViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopViewCell.h; sourceTree = "<group>"; };
+		AA79B9371B3AB4700046A326 /* ShopViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewCell.m; sourceTree = "<group>"; };
+		AA79B9381B3AB4700046A326 /* ShopViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopViewCell.xib; sourceTree = "<group>"; };
 		AA7AE6871B1EA91F00396699 /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InformationViewController.h; path = Main/InformationViewController.h; sourceTree = "<group>"; };
 		AA7AE6881B1EA91F00396699 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InformationViewController.m; path = Main/InformationViewController.m; sourceTree = "<group>"; };
 		AA7AE6891B1EA91F00396699 /* InformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InformationViewController.xib; path = Main/InformationViewController.xib; sourceTree = "<group>"; };
@@ -1184,9 +1187,6 @@
 		AAE0F13C1B328560005C4B3D /* ShopHeaderCollectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopHeaderCollectCell.xib; sourceTree = "<group>"; };
 		AAE0F13F1B32A73F005C4B3D /* WaterFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaterFlowLayout.h; path = ../ViewControllers/WaterFlowLayout.h; sourceTree = "<group>"; };
 		AAE0F1401B32A73F005C4B3D /* WaterFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaterFlowLayout.m; path = ../ViewControllers/WaterFlowLayout.m; sourceTree = "<group>"; };
-		AAE0F1421B32A7B6005C4B3D /* ShopViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopViewCell.h; sourceTree = "<group>"; };
-		AAE0F1431B32A7B6005C4B3D /* ShopViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewCell.m; sourceTree = "<group>"; };
-		AAE0F1441B32A7B6005C4B3D /* ShopViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopViewCell.xib; sourceTree = "<group>"; };
 		AAE0F1471B32AD7B005C4B3D /* WaterCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterCollectionCell.h; sourceTree = "<group>"; };
 		AAE0F1481B32AD7B005C4B3D /* WaterCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterCollectionCell.m; sourceTree = "<group>"; };
 		AAE0F1491B32AD7B005C4B3D /* WaterCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaterCollectionCell.xib; sourceTree = "<group>"; };
@@ -2772,9 +2772,9 @@
 				AAE0F13A1B328560005C4B3D /* ShopHeaderCollectCell.h */,
 				AAE0F13B1B328560005C4B3D /* ShopHeaderCollectCell.m */,
 				AAE0F13C1B328560005C4B3D /* ShopHeaderCollectCell.xib */,
-				AAE0F1421B32A7B6005C4B3D /* ShopViewCell.h */,
-				AAE0F1431B32A7B6005C4B3D /* ShopViewCell.m */,
-				AAE0F1441B32A7B6005C4B3D /* ShopViewCell.xib */,
+				AA79B9361B3AB4700046A326 /* ShopViewCell.h */,
+				AA79B9371B3AB4700046A326 /* ShopViewCell.m */,
+				AA79B9381B3AB4700046A326 /* ShopViewCell.xib */,
 				AA7C6D461B3950D80035103D /* Address */,
 				AA8EE1041B380D1A003D8FFB /* search */,
 				AA8EE0F81B37B6F9003D8FFB /* shopCar */,
@@ -2911,7 +2911,6 @@
 				0760E9301A81ACB300BBEA3D /* MineMsgViewController.xib in Resources */,
 				7E7241251A77C12A001E1F69 /* TopicCommentViewCell.xib in Resources */,
 				078623761A84529900B17230 /* BabyProfileViewController.xib in Resources */,
-				AAE0F1461B32A7B6005C4B3D /* ShopViewCell.xib in Resources */,
 				078E88F61AA1C32D008AD45A /* UMSocialSDKResourcesNew.bundle in Resources */,
 				078E88EC1AA1C32D008AD45A /* UMSocialLocalizable.strings in Resources */,
 				078E89321AA1C32D008AD45A /* ios-social-sdk-login-quick.html in Resources */,
@@ -3060,6 +3059,7 @@
 				0760E93D1A81ACCD00BBEA3D /* CardPackViewController.xib in Resources */,
 				0776639C1A80779A004C885B /* ActivityApplyViewCell.xib in Resources */,
 				078E89221AA1C32D008AD45A /* title_background.png in Resources */,
+				AA79B93A1B3AB4700046A326 /* ShopViewCell.xib in Resources */,
 				078E890D1AA1C32D008AD45A /* UMSocialSinaData.html in Resources */,
 				AA8EE0FD1B37B723003D8FFB /* ShopCarCell.xib in Resources */,
 				078E89151AA1C32D008AD45A /* UMSocialUrlResource.html in Resources */,
@@ -3236,7 +3236,6 @@
 				7E72411B1A77BFA2001E1F69 /* TopicDetailsViewController.m in Sources */,
 				AAE0F1511B32BF0F005C4B3D /* CycleScrollView.m in Sources */,
 				076380561AA9446400F449CD /* XEBabyInfo.m in Sources */,
-				AAE0F1451B32A7B6005C4B3D /* ShopViewCell.m in Sources */,
 				AACD9F7C1B21A81D0093E21C /* focusAndHabitViewController.m in Sources */,
 				074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */,
 				0774A8731A666EAB00336465 /* GMGridView.m in Sources */,
@@ -3275,6 +3274,7 @@
 				AAD8EC871B0AE7E600B24F9A /* CardOfEastVerifyController.m in Sources */,
 				07C49F571A5E7E9900E1725C /* AVCamRecorder.m in Sources */,
 				0752F7D31A7B2638008C0E0A /* PSTCollectionViewCell.m in Sources */,
+				AA79B9391B3AB4700046A326 /* ShopViewCell.m in Sources */,
 				0774A8851A66705D00336465 /* XEActionSheet.m in Sources */,
 				07E5363B1A529259005E1DA9 /* MineTabViewController.m in Sources */,
 				078E87EC1AA18CAE008AD45A /* StageSelectViewCell.m in Sources */,
