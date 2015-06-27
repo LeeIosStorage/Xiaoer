@@ -11,14 +11,37 @@
 @interface VerifyIndentViewController : XESuperViewController
 //底部的设置地址
 @property (strong, nonatomic) IBOutlet UIView *firstSetAddressView;
+
 //头部添加地址
 @property (strong, nonatomic) IBOutlet UIView *addAddressView;
+@property (strong, nonatomic) IBOutlet UIView *addAddressViewB;
+
+
+
 //支付和配送方式
 @property (strong, nonatomic) IBOutlet UIView *payAndGiveView;
+@property (strong, nonatomic) IBOutlet UIView *payAndGiveViewB;
+
 //发票
 @property (strong, nonatomic) IBOutlet UIView *debitView;
+//备注留言
 @property (strong, nonatomic) IBOutlet UIView *noteView;
-@property (strong, nonatomic) IBOutlet UIView *tabFooterView;
+@property (strong, nonatomic) IBOutlet UIView *noteViewB;
+
+@property (strong, nonatomic) IBOutlet UIView *footer;
+/**
+ *  优惠券
+ */
+@property (strong, nonatomic) IBOutlet UIView *coupon;
+/**
+ *  选择优惠券按钮
+ */
+@property (weak, nonatomic) IBOutlet UIButton *chooseCouponBtn;
+/**
+ *  使用优惠券按钮
+ */
+@property (weak, nonatomic) IBOutlet UIButton *useCouponBtn;
+
 //底部的支付界面
 @property (strong, nonatomic) IBOutlet UIView *bottomPayView;
 
@@ -26,7 +49,18 @@
 //底部提示添加地址按钮
 @property (weak, nonatomic) IBOutlet UIButton *bottomSetAddressBtn;
 @property (weak, nonatomic) IBOutlet UITableView *tabView;
-@property (weak, nonatomic) IBOutlet UIButton *verifyBtn;
 @property (weak, nonatomic) IBOutlet UITextView *noteTextField;
+//footview总价
+@property (weak, nonatomic) IBOutlet UILabel *totalPrice;
+//优惠
+@property (weak, nonatomic) IBOutlet UILabel *favorableLab;
+//运费
+@property (weak, nonatomic) IBOutlet UILabel *freightLab;
+//footerView 需支付
+@property (weak, nonatomic) IBOutlet UILabel *needPayLab;
+@property (weak, nonatomic) IBOutlet UILabel *bottomNeedPay;
+//选择优惠券的界面
+@property (strong, nonatomic) IBOutlet UIView *pickeBackView;
+@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
 @end

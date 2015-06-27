@@ -11,6 +11,7 @@
                 <outlet property="chooseDataView" destination="8Xe-FN-kvN" id="zyx-t4-Mb9"/>
                 <outlet property="dataPicker" destination="ASa-k6-9pc" id="vrU-62-6ct"/>
                 <outlet property="footerView" destination="MM7-zl-dZV" id="gwL-qX-N7q"/>
+                <outlet property="setCommonAddress" destination="FuZ-Ek-OZV" id="3Vc-wW-Vzd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

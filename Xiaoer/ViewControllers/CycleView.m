@@ -43,7 +43,8 @@
 
 
 
-- (void)configureHeader {
+- (void)configureHeaderWith:(NSInteger)type{
+    self.type = type;
   
     NSMutableArray *imageArray = [NSMutableArray array];
     for (int i = 1; i < 4; i++) {
@@ -60,15 +61,22 @@
     };
     
     self.cycleScrollView.TapActionBlock = ^(NSInteger pageIndex){
-        NSLog(@"点击了第%ld个",pageIndex);
+        NSLog(@"点击了第%ld个",(long)pageIndex);
     };
+    
 }
 
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     CGFloat width = self.frame.size.width;
-    CGFloat heigh = 150;
+    CGFloat heigh = 0;
+
+    if (self.type == 0) {
+        heigh = 150;
+    }else{
+        heigh = 250;
+    }
     self.cycleScrollView.frame = CGRectMake(0, 0, width, heigh);
 }
 

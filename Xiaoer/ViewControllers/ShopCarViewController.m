@@ -17,17 +17,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"购物车";
-    [self configureTabView];
     
-
+    self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+    [self configureTabView];
+    [self configurePatBtn];
+    
     // Do any additional setup after loading the view from its nib.
 }
+- (IBAction)payBtnTouched:(id)sender {
+    NSLog(@"去结算按钮点击");
+}
 
+#pragma mark 布局支付按钮的layer
+- (void)configurePatBtn{
+
+    self.payBtn.layer.cornerRadius = 10;
+    self.payBtn.layer.masksToBounds = YES;
+
+}
 #pragma mark 布局添加tableview属性
 
 - (void)configureTabView{
+    
     self.shopCarTab.delegate = self;
     self.shopCarTab.dataSource = self;
+    self.shopCarTab.backgroundColor = [UIColor clearColor];
     [self.shopCarTab registerNib:[UINib nibWithNibName:@"ShopCarCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     
     self.shopCarTab.tableFooterView = self.tabFooterView;
@@ -38,23 +52,25 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 2;
 }
-
+//暂定的一个分区 隐藏区头
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 1;
 }
 
+#warning 暂时隐藏区头
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 60;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 200;
+    return 120;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 60;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//    return 0;
+//}
 
+#warning 隐藏了区头
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *header = [self returnSectionHeader];
     for (UIView *obj in header.subviews) {
@@ -68,9 +84,21 @@
     return header;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    return [self returnSectionFooter];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    ShopCarCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    [cell configureCellWith:indexPath];
+    return cell;
+    
+}
+#warning  暂时不要区尾
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+//    return [self returnSectionFooter];
+//}
 
 - (UIView *)returnSectionHeader{
     UIView *SectionHeader = [[UIView alloc]init];
@@ -140,11 +168,7 @@
     
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    ShopCarCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    return cell;
-    
-}
+
 
 
 - (void)didReceiveMemoryWarning {

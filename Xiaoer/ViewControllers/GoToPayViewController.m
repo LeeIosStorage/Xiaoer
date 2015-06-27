@@ -7,6 +7,7 @@
 //
 
 #import "GoToPayViewController.h"
+#import "PaySuccessViewController.h"
 #import "GoToPayCell.h"
 @interface GoToPayViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -27,6 +28,8 @@
 }
 - (IBAction)payBtnTouched:(id)sender {
     NSLog(@"去支付");
+    PaySuccessViewController *success = [[PaySuccessViewController alloc]init];
+    [self.navigationController pushViewController:success animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 60;

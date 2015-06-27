@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "ToyMainViewController.h"
 #import "SearchListViewController.h"
+#import "ActivityMainViewController.h"
 @interface ShopViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,XEScrollPageDelegate,TouchCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *shopTabView;
 @property (strong, nonatomic) IBOutlet UIView *headerView;
@@ -81,7 +82,7 @@
     //轮播图
     CycleView *cycleView = [[CycleView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 150)];
     cycleView.backgroundColor = [UIColor redColor];
-    [cycleView configureHeader];
+    [cycleView configureHeaderWith:0];
     [self.lunboBackView addSubview:cycleView];
     
 }
@@ -175,11 +176,16 @@
 
 //点击item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%ld %ld",indexPath.section,indexPath.row);
-    NSLog(@"%@",self.navigationController);
-    ToyMainViewController *toy = [[ToyMainViewController alloc]init];
     AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate.mainTabViewController.navigationController pushViewController:toy animated:YES];
+    ToyMainViewController *toy = [[ToyMainViewController alloc]init];
+
+    if (indexPath.row == 0) {
+        [appDelegate.mainTabViewController.navigationController pushViewController:toy animated:YES];
+
+    }else if (indexPath.row == 1){
+        ActivityMainViewController *activity = [[ActivityMainViewController alloc]init];
+        [appDelegate.mainTabViewController.navigationController pushViewController:activity animated:YES];
+    }
 
 }
 
@@ -281,10 +287,14 @@
 
 }
 
+
+
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
 }
+
+
 
 /*
 #pragma mark - Navigation

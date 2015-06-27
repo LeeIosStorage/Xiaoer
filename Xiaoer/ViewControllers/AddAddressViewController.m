@@ -8,6 +8,7 @@
 
 #import "AddAddressViewController.h"
 #import "AddAddressCell.h"
+#define saveColor [UIColor colorWithRed:43/255.0 green:186/255.0 blue:230/255.0 alpha:1]
 @interface AddAddressViewController ()<UITableViewDataSource,UITableViewDelegate,cellTextFieldEndEditing>
 @property (nonatomic,strong)NSMutableArray *leftArray;
 @property (nonatomic,strong)NSMutableDictionary *areaDic;
@@ -34,10 +35,28 @@
     
     [self configureTabView];
     [self configurePickerView];
+    [self configureCommonAddressBtn];
     
     
 
 }
+#pragma mark 布局设为常用地址按钮
+- (void)configureCommonAddressBtn{
+    self.setCommonAddress.layer.borderColor = [UIColor colorWithRed:43/255.0 green:186/255.0 blue:230/255.0 alpha:1].CGColor;
+    self.setCommonAddress.layer.cornerRadius = 10;
+    self.setCommonAddress.layer.borderWidth = 1;
+    self.setCommonAddress.backgroundColor = [UIColor whiteColor];
+    [self.setCommonAddress addTarget:self action:@selector(saveCommonAddress) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)saveCommonAddress{
+    if ([self.setCommonAddress.backgroundColor isEqual:[UIColor whiteColor]]) {
+        self.setCommonAddress.backgroundColor = saveColor;
+         }else{
+             self.setCommonAddress.backgroundColor = [UIColor whiteColor];
+         }
+}
+
 #pragma mark 布局tableview
 - (void)configureTabView{
     self.addAddressTab.delegate = self;
@@ -45,8 +64,6 @@
     [self.addAddressTab registerNib:[UINib nibWithNibName:@"AddAddressCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.addAddressTab.tableFooterView = self.footerView;
     self.addAddressTab.backgroundColor = [UIColor clearColor];
-    
-
 }
 
 #pragma mark 布局pickView

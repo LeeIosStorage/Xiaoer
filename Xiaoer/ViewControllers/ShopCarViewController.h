@@ -11,6 +11,7 @@
 @interface ShopCarViewController : XESuperViewController
 @property (weak, nonatomic) IBOutlet UITableView *shopCarTab;
 @property (strong, nonatomic) IBOutlet UIView *tabFooterView;
+@property (weak, nonatomic) IBOutlet UIButton *payBtn;
 
 
 

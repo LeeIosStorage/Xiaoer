@@ -11,12 +11,14 @@
 #import "ToyListViewController.h"
 #import "VerifyIndentViewController.h"
 #import "ShopCarViewController.h"
+#import "ToyLunBoView.h"
 @interface ToyDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UIView *naviLable;
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
 @property (strong, nonatomic) IBOutlet UIView *tabHeaderView;
 @property (weak, nonatomic) IBOutlet UITableView *detailTabView;
 @property (strong, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UILabel *lunboLab;
 
 @end
 
@@ -32,8 +34,19 @@
     self.detailTabView.tableHeaderView = self.tabHeaderView;
     self.bottomView.frame = CGRectMake(0, SCREEN_HEIGHT - 40, SCREEN_WIDTH, 40);
     [self.view addSubview:self.bottomView];
+    [self configureLunBoView];
     // Do any additional setup after loading the view from its nib.
 }
+- (void)configureLunBoView{
+    //轮播图
+    ToyLunBoView *cycleView = [[ToyLunBoView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 250)];
+    cycleView.userInteractionEnabled = YES;
+    cycleView.backgroundColor = [UIColor redColor];
+    [cycleView configureHeaderWith:1];
+    [self.lunboLab addSubview:cycleView];
+ 
+}
+
 #pragma mark 布局导航条
 - (void)confugureNaviTitle{
     self.titleNavBar.alpha = 0;

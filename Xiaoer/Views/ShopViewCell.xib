@@ -49,6 +49,7 @@
                     </button>
                 </subviews>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="btnA" destination="Xeg-bF-4IY" id="QbA-Dr-lDk"/>
                 <outlet property="btnB" destination="V2E-FQ-SBI" id="OYd-eF-Vht"/>

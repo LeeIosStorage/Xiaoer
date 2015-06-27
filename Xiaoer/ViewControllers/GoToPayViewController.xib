@@ -30,7 +30,7 @@
         </view>
         <view contentMode="scaleToFill" id="RdR-Ad-ltn">
             <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
-            <autoresizingMask key="autoresizingMask"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hxn-NO-5ph">
                     <rect key="frame" x="10" y="15" width="40" height="20"/>
@@ -123,7 +123,7 @@
         </view>
         <view contentMode="scaleToFill" id="uyM-dK-pdX">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oRD-to-S76">
                     <rect key="frame" x="60" y="10" width="200" height="40"/>
@@ -139,7 +139,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="882" y="314"/>
+            <point key="canvasLocation" x="877" y="353"/>
         </view>
     </objects>
     <resources>

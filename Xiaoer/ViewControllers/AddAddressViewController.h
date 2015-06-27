@@ -24,4 +24,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *chooseDataView;
 @property (nonatomic,strong)NSString *chooseedAddRess;
+
+@property (weak, nonatomic) IBOutlet UIButton *setCommonAddress;
+
+
 @end

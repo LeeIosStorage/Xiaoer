@@ -373,6 +373,10 @@
 		AA125DDC1B2811D1000163A7 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = AA125DD21B2811D1000163A7 /* UIScrollView+MJExtension.m */; };
 		AA125DDD1B2811D1000163A7 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = AA125DD41B2811D1000163A7 /* UIScrollView+MJRefresh.m */; };
 		AA125DDE1B2811D1000163A7 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = AA125DD61B2811D1000163A7 /* UIView+MJExtension.m */; };
+		AA4E1E7C1B3E7691003043F4 /* PaySuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E1E7A1B3E7691003043F4 /* PaySuccessViewController.m */; };
+		AA4E1E7D1B3E7691003043F4 /* PaySuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4E1E7B1B3E7691003043F4 /* PaySuccessViewController.xib */; };
+		AA4E1E811B3E774C003043F4 /* PaySuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E1E7F1B3E774C003043F4 /* PaySuccessCell.m */; };
+		AA4E1E821B3E774C003043F4 /* PaySuccessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4E1E801B3E774C003043F4 /* PaySuccessCell.xib */; };
 		AA4FC52A1B33C132007F90B5 /* ToyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FC5281B33C132007F90B5 /* ToyListViewController.m */; };
 		AA4FC52B1B33C132007F90B5 /* ToyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4FC5291B33C132007F90B5 /* ToyListViewController.xib */; };
 		AA4FC52F1B33E15D007F90B5 /* ToyCollectionHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FC52D1B33E15D007F90B5 /* ToyCollectionHeaderCell.m */; };
@@ -383,6 +387,19 @@
 		AA4FC53A1B33ECF6007F90B5 /* ToyDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4FC5381B33ECF6007F90B5 /* ToyDetailViewController.xib */; };
 		AA4FC53E1B33F027007F90B5 /* ToyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FC53C1B33F027007F90B5 /* ToyDetailCell.m */; };
 		AA4FC53F1B33F027007F90B5 /* ToyDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4FC53D1B33F027007F90B5 /* ToyDetailCell.xib */; };
+		AA6556A81B3BCC3800817DF6 /* ShopActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6556A61B3BCC3800817DF6 /* ShopActivityController.m */; };
+		AA6556A91B3BCC3800817DF6 /* ShopActivityController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA6556A71B3BCC3800817DF6 /* ShopActivityController.xib */; };
+		AA6556AE1B3BCC5C00817DF6 /* ShopActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6556AC1B3BCC5C00817DF6 /* ShopActivityCell.m */; };
+		AA6556AF1B3BCC5C00817DF6 /* ShopActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA6556AD1B3BCC5C00817DF6 /* ShopActivityCell.xib */; };
+		AA6556B31B3BD47D00817DF6 /* ActivityMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6556B11B3BD47D00817DF6 /* ActivityMainViewController.m */; };
+		AA6556B41B3BD47D00817DF6 /* ActivityMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA6556B21B3BD47D00817DF6 /* ActivityMainViewController.xib */; };
+		AA6556B81B3BD4CD00817DF6 /* ActivityMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6556B61B3BD4CD00817DF6 /* ActivityMainCell.m */; };
+		AA6556B91B3BD4CD00817DF6 /* ActivityMainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA6556B71B3BD4CD00817DF6 /* ActivityMainCell.xib */; };
+		AA6556BD1B3BE82F00817DF6 /* ActivityDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6556BB1B3BE82F00817DF6 /* ActivityDetailController.m */; };
+		AA6556BE1B3BE82F00817DF6 /* ActivityDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA6556BC1B3BE82F00817DF6 /* ActivityDetailController.xib */; };
+		AA6556C21B3BEBBE00817DF6 /* ActivityDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6556C01B3BEBBE00817DF6 /* ActivityDetailCell.m */; };
+		AA6556C31B3BEBBE00817DF6 /* ActivityDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA6556C11B3BEBBE00817DF6 /* ActivityDetailCell.xib */; };
+		AA6556C61B3BFF0100817DF6 /* ToyLunBoView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6556C51B3BFF0100817DF6 /* ToyLunBoView.m */; };
 		AA6E8FA91B2FDCDF0087B754 /* 正在建设中6p.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6E8FA81B2FDCDF0087B754 /* 正在建设中6p.png */; };
 		AA6E8FB01B300C8C0087B754 /* shopOtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6E8FAE1B300C8C0087B754 /* shopOtherViewController.m */; };
 		AA6E8FB11B300C8C0087B754 /* shopOtherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA6E8FAF1B300C8C0087B754 /* shopOtherViewController.xib */; };
@@ -1076,6 +1093,12 @@
 		AA125DD41B2811D1000163A7 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		AA125DD51B2811D1000163A7 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		AA125DD61B2811D1000163A7 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		AA4E1E791B3E7691003043F4 /* PaySuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySuccessViewController.h; sourceTree = "<group>"; };
+		AA4E1E7A1B3E7691003043F4 /* PaySuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySuccessViewController.m; sourceTree = "<group>"; };
+		AA4E1E7B1B3E7691003043F4 /* PaySuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaySuccessViewController.xib; sourceTree = "<group>"; };
+		AA4E1E7E1B3E774C003043F4 /* PaySuccessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySuccessCell.h; sourceTree = "<group>"; };
+		AA4E1E7F1B3E774C003043F4 /* PaySuccessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySuccessCell.m; sourceTree = "<group>"; };
+		AA4E1E801B3E774C003043F4 /* PaySuccessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaySuccessCell.xib; sourceTree = "<group>"; };
 		AA4FC5271B33C132007F90B5 /* ToyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToyListViewController.h; sourceTree = "<group>"; };
 		AA4FC5281B33C132007F90B5 /* ToyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToyListViewController.m; sourceTree = "<group>"; };
 		AA4FC5291B33C132007F90B5 /* ToyListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToyListViewController.xib; sourceTree = "<group>"; };
@@ -1091,6 +1114,26 @@
 		AA4FC53B1B33F027007F90B5 /* ToyDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToyDetailCell.h; sourceTree = "<group>"; };
 		AA4FC53C1B33F027007F90B5 /* ToyDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToyDetailCell.m; sourceTree = "<group>"; };
 		AA4FC53D1B33F027007F90B5 /* ToyDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToyDetailCell.xib; sourceTree = "<group>"; };
+		AA6556A51B3BCC3800817DF6 /* ShopActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopActivityController.h; sourceTree = "<group>"; };
+		AA6556A61B3BCC3800817DF6 /* ShopActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopActivityController.m; sourceTree = "<group>"; };
+		AA6556A71B3BCC3800817DF6 /* ShopActivityController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopActivityController.xib; sourceTree = "<group>"; };
+		AA6556AB1B3BCC5C00817DF6 /* ShopActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopActivityCell.h; sourceTree = "<group>"; };
+		AA6556AC1B3BCC5C00817DF6 /* ShopActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopActivityCell.m; sourceTree = "<group>"; };
+		AA6556AD1B3BCC5C00817DF6 /* ShopActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopActivityCell.xib; sourceTree = "<group>"; };
+		AA6556B01B3BD47D00817DF6 /* ActivityMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityMainViewController.h; sourceTree = "<group>"; };
+		AA6556B11B3BD47D00817DF6 /* ActivityMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityMainViewController.m; sourceTree = "<group>"; };
+		AA6556B21B3BD47D00817DF6 /* ActivityMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityMainViewController.xib; sourceTree = "<group>"; };
+		AA6556B51B3BD4CD00817DF6 /* ActivityMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityMainCell.h; sourceTree = "<group>"; };
+		AA6556B61B3BD4CD00817DF6 /* ActivityMainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityMainCell.m; sourceTree = "<group>"; };
+		AA6556B71B3BD4CD00817DF6 /* ActivityMainCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityMainCell.xib; sourceTree = "<group>"; };
+		AA6556BA1B3BE82F00817DF6 /* ActivityDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailController.h; sourceTree = "<group>"; };
+		AA6556BB1B3BE82F00817DF6 /* ActivityDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailController.m; sourceTree = "<group>"; };
+		AA6556BC1B3BE82F00817DF6 /* ActivityDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityDetailController.xib; sourceTree = "<group>"; };
+		AA6556BF1B3BEBBE00817DF6 /* ActivityDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailCell.h; sourceTree = "<group>"; };
+		AA6556C01B3BEBBE00817DF6 /* ActivityDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailCell.m; sourceTree = "<group>"; };
+		AA6556C11B3BEBBE00817DF6 /* ActivityDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityDetailCell.xib; sourceTree = "<group>"; };
+		AA6556C41B3BFF0100817DF6 /* ToyLunBoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToyLunBoView.h; sourceTree = "<group>"; };
+		AA6556C51B3BFF0100817DF6 /* ToyLunBoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToyLunBoView.m; sourceTree = "<group>"; };
 		AA6E8FA81B2FDCDF0087B754 /* 正在建设中6p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "正在建设中6p.png"; sourceTree = "<group>"; };
 		AA6E8FAD1B300C8C0087B754 /* shopOtherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shopOtherViewController.h; sourceTree = "<group>"; };
 		AA6E8FAE1B300C8C0087B754 /* shopOtherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = shopOtherViewController.m; sourceTree = "<group>"; };
@@ -2552,6 +2595,38 @@
 			path = ../Views/Expert/MJRefresh;
 			sourceTree = "<group>";
 		};
+		AA6556A41B3BCC1000817DF6 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				AA6556B01B3BD47D00817DF6 /* ActivityMainViewController.h */,
+				AA6556B11B3BD47D00817DF6 /* ActivityMainViewController.m */,
+				AA6556B21B3BD47D00817DF6 /* ActivityMainViewController.xib */,
+				AA6556A51B3BCC3800817DF6 /* ShopActivityController.h */,
+				AA6556A61B3BCC3800817DF6 /* ShopActivityController.m */,
+				AA6556A71B3BCC3800817DF6 /* ShopActivityController.xib */,
+				AA6556BA1B3BE82F00817DF6 /* ActivityDetailController.h */,
+				AA6556BB1B3BE82F00817DF6 /* ActivityDetailController.m */,
+				AA6556BC1B3BE82F00817DF6 /* ActivityDetailController.xib */,
+			);
+			name = Activity;
+			sourceTree = "<group>";
+		};
+		AA6556AA1B3BCC3D00817DF6 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				AA6556B51B3BD4CD00817DF6 /* ActivityMainCell.h */,
+				AA6556B61B3BD4CD00817DF6 /* ActivityMainCell.m */,
+				AA6556B71B3BD4CD00817DF6 /* ActivityMainCell.xib */,
+				AA6556AB1B3BCC5C00817DF6 /* ShopActivityCell.h */,
+				AA6556AC1B3BCC5C00817DF6 /* ShopActivityCell.m */,
+				AA6556AD1B3BCC5C00817DF6 /* ShopActivityCell.xib */,
+				AA6556BF1B3BEBBE00817DF6 /* ActivityDetailCell.h */,
+				AA6556C01B3BEBBE00817DF6 /* ActivityDetailCell.m */,
+				AA6556C11B3BEBBE00817DF6 /* ActivityDetailCell.xib */,
+			);
+			name = Activity;
+			sourceTree = "<group>";
+		};
 		AA7AAFAE1B1F01CD00158B9A /* infomation */ = {
 			isa = PBXGroup;
 			children = (
@@ -2567,6 +2642,7 @@
 			children = (
 				AAE0F1531B32BFC6005C4B3D /* CycleView.h */,
 				AAE0F1541B32BFC6005C4B3D /* CycleView.m */,
+				AA6556A41B3BCC1000817DF6 /* Activity */,
 				AA7C6D471B3950F00035103D /* Address */,
 				AA8EE0F21B37B532003D8FFB /* shopCar */,
 				AA8EE0EC1B37AE46003D8FFB /* search */,
@@ -2605,6 +2681,8 @@
 		AA8EE0E71B37AD75003D8FFB /* toy */ = {
 			isa = PBXGroup;
 			children = (
+				AA6556C41B3BFF0100817DF6 /* ToyLunBoView.h */,
+				AA6556C51B3BFF0100817DF6 /* ToyLunBoView.m */,
 				AAE0F15E1B32C83C005C4B3D /* ToyMainViewController.h */,
 				AAE0F15F1B32C83C005C4B3D /* ToyMainViewController.m */,
 				AAE0F1601B32C83C005C4B3D /* ToyMainViewController.xib */,
@@ -2630,6 +2708,9 @@
 				AAD5EFDA1B36C3C4006C17FC /* GoToPayViewController.h */,
 				AAD5EFDB1B36C3C4006C17FC /* GoToPayViewController.m */,
 				AAD5EFDC1B36C3C4006C17FC /* GoToPayViewController.xib */,
+				AA4E1E791B3E7691003043F4 /* PaySuccessViewController.h */,
+				AA4E1E7A1B3E7691003043F4 /* PaySuccessViewController.m */,
+				AA4E1E7B1B3E7691003043F4 /* PaySuccessViewController.xib */,
 			);
 			name = pay;
 			sourceTree = "<group>";
@@ -2662,6 +2743,9 @@
 				AAD5EFDF1B36C489006C17FC /* GoToPayCell.h */,
 				AAD5EFE01B36C489006C17FC /* GoToPayCell.m */,
 				AAD5EFE11B36C489006C17FC /* GoToPayCell.xib */,
+				AA4E1E7E1B3E774C003043F4 /* PaySuccessCell.h */,
+				AA4E1E7F1B3E774C003043F4 /* PaySuccessCell.m */,
+				AA4E1E801B3E774C003043F4 /* PaySuccessCell.xib */,
 			);
 			name = pay;
 			sourceTree = "<group>";
@@ -2775,6 +2859,7 @@
 				AA79B9361B3AB4700046A326 /* ShopViewCell.h */,
 				AA79B9371B3AB4700046A326 /* ShopViewCell.m */,
 				AA79B9381B3AB4700046A326 /* ShopViewCell.xib */,
+				AA6556AA1B3BCC3D00817DF6 /* Activity */,
 				AA7C6D461B3950D80035103D /* Address */,
 				AA8EE1041B380D1A003D8FFB /* search */,
 				AA8EE0F81B37B6F9003D8FFB /* shopCar */,
@@ -2883,6 +2968,7 @@
 			files = (
 				AAE0F1591B32C0B0005C4B3D /* 3.png in Resources */,
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
+				AA6556AF1B3BCC5C00817DF6 /* ShopActivityCell.xib in Resources */,
 				0783F68B1AB819D600AAB5B0 /* BabyListViewCell.xib in Resources */,
 				076CF5721A78AD8C00CDE21D /* XECateTopicViewCell.xib in Resources */,
 				078E88EF1AA1C32D008AD45A /* UMSCommentInputController.xib in Resources */,
@@ -2894,15 +2980,18 @@
 				078E89201AA1C32D008AD45A /* disclosure_open.png in Resources */,
 				AAD5EF961B36846B006C17FC /* AddAddressViewController.xib in Resources */,
 				078E89351AA1C32D008AD45A /* ios-social-sdk-share-quick.html in Resources */,
+				AA4E1E821B3E774C003043F4 /* PaySuccessCell.xib in Resources */,
 				07AAB7F31A8306460030D306 /* SettingViewController.xib in Resources */,
 				0760E92E1A81ACB300BBEA3D /* CollectionViewController.xib in Resources */,
 				AAD5EFD41B36AAC6006C17FC /* area.plist in Resources */,
 				AAD5EFE31B36C489006C17FC /* GoToPayCell.xib in Resources */,
 				078E89191AA1C32D008AD45A /* UMSocialYXTimelineData.html in Resources */,
 				0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */,
+				AA6556BE1B3BE82F00817DF6 /* ActivityDetailController.xib in Resources */,
 				AAE0F14B1B32AD7B005C4B3D /* WaterCollectionCell.xib in Resources */,
 				075B031F1A6CAC28002B577D /* ApplyActivityViewController.xib in Resources */,
 				AA4FC53A1B33ECF6007F90B5 /* ToyDetailViewController.xib in Resources */,
+				AA6556B41B3BD47D00817DF6 /* ActivityMainViewController.xib in Resources */,
 				075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */,
 				074D4B591AB8107900C19972 /* TicketListViewController.xib in Resources */,
 				AA8784BE1B2013A4005A11E8 /* MainTabScrollCell.xib in Resources */,
@@ -2918,6 +3007,7 @@
 				078E890E1AA1C32D008AD45A /* UMSocialSmsData.html in Resources */,
 				075B03371A6F71DF002B577D /* Pin_Ios7@2x.png in Resources */,
 				079E421D1A762ABE0056968E /* XEQuestionViewCell.xib in Resources */,
+				AA6556A91B3BCC3800817DF6 /* ShopActivityController.xib in Resources */,
 				AAA3DE7E1B2568110008275D /* OneWeakCell.xib in Resources */,
 				078E88EE1AA1C32D008AD45A /* UMSCommentDetailController.xib in Resources */,
 				AAD5EFD91B36BC7B006C17FC /* PayAndDistributionViewController.xib in Resources */,
@@ -2991,6 +3081,7 @@
 				078E88FA1AA1C32D008AD45A /* UMSocialButton.html in Resources */,
 				078E89121AA1C32D008AD45A /* UMSocialSnsService.html in Resources */,
 				078E891B1AA1C32D008AD45A /* stylesPrint.css in Resources */,
+				AA4E1E7D1B3E7691003043F4 /* PaySuccessViewController.xib in Resources */,
 				077663971A80674E004C885B /* MineActivityListViewController.xib in Resources */,
 				078E88F81AA1C32D008AD45A /* UMSocialAccountManager.html in Resources */,
 				075AA03B1A68B85D000B6302 /* ActivityViewController.xib in Resources */,
@@ -3029,6 +3120,7 @@
 				073F9F141A68B38F009D94E3 /* CategoryItemCell.xib in Resources */,
 				075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */,
 				AAD8EC8E1B0B0A8E00B24F9A /* CardOfEastSucceedController.xib in Resources */,
+				AA6556B91B3BD4CD00817DF6 /* ActivityMainCell.xib in Resources */,
 				AA8EE0F11B37AE6E003D8FFB /* SearchListViewController.xib in Resources */,
 				AAA3DE781B2564B60008275D /* EveryOneWeekController.xib in Resources */,
 				079F5A701AA0540F00069EB7 /* PushConfig.plist in Resources */,
@@ -3065,6 +3157,7 @@
 				078E89151AA1C32D008AD45A /* UMSocialUrlResource.html in Resources */,
 				07C7C5121A70E336003E1272 /* arrow@2x.png in Resources */,
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
+				AA6556C31B3BEBBE00817DF6 /* ActivityDetailCell.xib in Resources */,
 				AAD5EFDE1B36C3C4006C17FC /* GoToPayViewController.xib in Resources */,
 				0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */,
 				AAE0F15B1B32C0B0005C4B3D /* 2.png in Resources */,
@@ -3112,6 +3205,7 @@
 				079E42181A7611240056968E /* XEQuestionInfo.m in Sources */,
 				075E409E1A59386C0062F6AD /* AFURLResponseSerialization.m in Sources */,
 				07582D0D1A6E566100CDCA13 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
+				AA6556C61B3BFF0100817DF6 /* ToyLunBoView.m in Sources */,
 				078E87E61AA18934008AD45A /* StageSelectViewController.m in Sources */,
 				AAAA94D91B0D80F60029E7E1 /* XEEastCardInfo.m in Sources */,
 				07AAB8021A8367420030D306 /* LSReachability.m in Sources */,
@@ -3161,6 +3255,7 @@
 				0752F7DC1A7B2638008C0E0A /* PSTGridLayoutRow.m in Sources */,
 				075B032F1A6E3CC7002B577D /* XELocationServiceUtil.m in Sources */,
 				075E40981A59386C0062F6AD /* AFHTTPRequestOperationManager.m in Sources */,
+				AA6556B31B3BD47D00817DF6 /* ActivityMainViewController.m in Sources */,
 				07508E8C1A51346300873B45 /* ViewController.m in Sources */,
 				0758CD1D1AA1BBCB0086F270 /* ReadyTestViewController.m in Sources */,
 				07508E891A51346300873B45 /* AppDelegate.m in Sources */,
@@ -3184,6 +3279,7 @@
 				073F9F1A1A68E1D5009D94E3 /* UIColor+bit.m in Sources */,
 				AA7C6D441B394B580035103D /* AddressManagerCell.m in Sources */,
 				AAA3DE7D1B2568110008275D /* OneWeakCell.m in Sources */,
+				AA6556B81B3BD4CD00817DF6 /* ActivityMainCell.m in Sources */,
 				07913F5F1A676F840083E8E5 /* ExpertListViewController.m in Sources */,
 				077C98B51A53A6B300E2985B /* XENavigationController.m in Sources */,
 				07E536311A5290C9005E1DA9 /* EvaluationViewController.m in Sources */,
@@ -3226,6 +3322,7 @@
 				074D4B5D1AB8192200C19972 /* TicketListViewCell.m in Sources */,
 				AAD5EF9A1B36888C006C17FC /* AddAddressCell.m in Sources */,
 				07E5361E1A528C28005E1DA9 /* XETabBarView.m in Sources */,
+				AA6556A81B3BCC3800817DF6 /* ShopActivityController.m in Sources */,
 				07AAB7F81A8330130030D306 /* SettingViewCell.m in Sources */,
 				075E40991A59386C0062F6AD /* AFHTTPSessionManager.m in Sources */,
 				7E72412B1A77D2F8001E1F69 /* HPGrowingTextView.m in Sources */,
@@ -3234,6 +3331,7 @@
 				AA70F2F21B1EBC7200122F57 /* InfomationViewCell.m in Sources */,
 				07EBF07B1A7A01080050B256 /* XEAMBlurView.m in Sources */,
 				7E72411B1A77BFA2001E1F69 /* TopicDetailsViewController.m in Sources */,
+				AA6556BD1B3BE82F00817DF6 /* ActivityDetailController.m in Sources */,
 				AAE0F1511B32BF0F005C4B3D /* CycleScrollView.m in Sources */,
 				076380561AA9446400F449CD /* XEBabyInfo.m in Sources */,
 				AACD9F7C1B21A81D0093E21C /* focusAndHabitViewController.m in Sources */,
@@ -3265,6 +3363,7 @@
 				075E409D1A59386C0062F6AD /* AFURLRequestSerialization.m in Sources */,
 				0783F6851AB8137A00AAB5B0 /* ToolCollectionCell.m in Sources */,
 				0712B3AD1A5BD853000A1A7F /* SDWebImagePrefetcher.m in Sources */,
+				AA6556AE1B3BCC5C00817DF6 /* ShopActivityCell.m in Sources */,
 				07582D0E1A6E566100CDCA13 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				075E32191A762C49006037B3 /* XEShareActionSheet.m in Sources */,
 				07C988161A63B44B003A2B30 /* ChooseLocationViewController.m in Sources */,
@@ -3296,6 +3395,7 @@
 				0712B3B31A5BD853000A1A7F /* UIImageView+WebCache.m in Sources */,
 				074594031A5BB4FD008F4665 /* NewIntroViewController.m in Sources */,
 				0752F7D51A7B2638008C0E0A /* PSTCollectionViewData.m in Sources */,
+				AA6556C21B3BEBBE00817DF6 /* ActivityDetailCell.m in Sources */,
 				073FD99A1A53E18E00FF0EFD /* NSDictionary+ObjectForKey.m in Sources */,
 				AA4FC52A1B33C132007F90B5 /* ToyListViewController.m in Sources */,
 				0760E9421A81D93100BBEA3D /* XEMsgInfo.m in Sources */,
@@ -3324,6 +3424,8 @@
 				0712B37E1A5BC0DE000A1A7F /* RetrievePwdViewController.m in Sources */,
 				AA6E8FB01B300C8C0087B754 /* shopOtherViewController.m in Sources */,
 				AA4FC52F1B33E15D007F90B5 /* ToyCollectionHeaderCell.m in Sources */,
+				AA4E1E811B3E774C003043F4 /* PaySuccessCell.m in Sources */,
+				AA4E1E7C1B3E7691003043F4 /* PaySuccessViewController.m in Sources */,
 				075DD0321A78AC0C009A64B4 /* WSAlbumTableViewController.m in Sources */,
 				07C49F591A5E7E9900E1725C /* DDExpandableButton.m in Sources */,
 				07B650571A67AC7E00DEDE4E /* XETopicViewCell.m in Sources */,

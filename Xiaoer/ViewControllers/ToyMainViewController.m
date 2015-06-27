@@ -36,6 +36,8 @@
 @property (nonatomic,assign)BOOL touchChangeScro;
 @property (nonatomic,assign)int type;
 
+@property (nonatomic,assign)CGFloat begianSetX;
+
 @end
 
 @implementation ToyMainViewController
@@ -106,7 +108,8 @@
     [self.tableView addHeaderWithTarget:self action:@selector(headerRefreshing)];
     
     //自动刷新(一进入程序就下拉刷新)
-    [self.tableView headerBeginRefreshing];
+//    [self.tableView headerBeginRefreshing];
+    [self headerRefreshing];
     
 }
 
@@ -166,7 +169,8 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.changeLable.frame = CGRectMake(self.type * SCREEN_WIDTH/3  + 10, changeLabeY, SCREEN_WIDTH/3 - 20, 5);
             if (self.touchChangeScro == YES) {
-            
+                [self.backScrollView setContentOffset:CGPointMake(self.type * SCREEN_WIDTH, 0)];
+
                 return ;
             }else{
                 [self.backScrollView setContentOffset:CGPointMake(self.type * SCREEN_WIDTH, 0)];
@@ -247,27 +251,33 @@
 #pragma mark scrollViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    NSLog(@"%f",self.backScrollView.contentOffset.x);
+    self.begianSetX = self.backScrollView.contentOffset.x;
     self.touchChangeScro = YES;
     NSLog(@"开始拖拽scrollView");
 
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    
-    NSInteger index = SCREEN_WIDTH/self.backScrollView.contentOffset.x;
-    if (index < 0 || index >(long) 1) {
-        NSLog(@"11  index == %ld",(long)index);
-        [self changeContentOfSet:self.changeEvaluat];
-        self.touchChangeScro = NO;
-
-    } else if (index == 1) {
-        [self changeContentOfSet:self.changeTrain];
-        self.touchChangeScro = NO;
-
-    }else if (index == 0){
-        [self changeContentOfSet:self.changeOther];
-        self.touchChangeScro = NO;
+    if (self.begianSetX != self.backScrollView.contentOffset.x) {
+        NSInteger index = SCREEN_WIDTH/self.backScrollView.contentOffset.x;
+        if (index < 0 || index >(long) 1) {
+            NSLog(@"11  index == %ld",(long)index);
+            [self changeContentOfSet:self.changeEvaluat];
+            self.touchChangeScro = NO;
+            
+        } else if (index == 1) {
+            [self changeContentOfSet:self.changeTrain];
+            self.touchChangeScro = NO;
+            
+        }else if (index == 0){
+            [self changeContentOfSet:self.changeOther];
+            self.touchChangeScro = NO;
+        }
+    }else{
+        NSLog(@"不做任何处理");
     }
+    
     
 }
 /*
