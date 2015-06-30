@@ -1653,4 +1653,60 @@ static XEEngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/weekExe/index",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
+
+#pragma mark 商品系列
+
+//获取商品主页信息 （只有今日上新）
+- (BOOL)getShopMainListInfomationWith:(int)tag types:(NSString *)types pageNum:(NSString *)pageNum{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:types forKey:@"types"];
+    [params setObject:pageNum forKey:@"pagenum"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/shopHome/list",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+    
+}
+//获取商品主页的信息 （选择性输入types）
+- (BOOL)getShopMainListInfomationWith:(int)tag types:(NSString *)types{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:types forKey:@"types"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/shopHome/list",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+
+/**
+ *  商品系列列表
+ *
+ */
+- (BOOL)getShopSeriousInfomationWithType:(NSString *)type tag:(int)tag category:(NSString *)category pagenum:(NSString *)pagenum{
+    
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:type  forKey:@"type"];
+    [params setObject:category forKey:@"category"];
+    [params setObject:pagenum forKey:@"pagenum"];
+    
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/serie/list",API_URL] type:1 parameters:params];
+    
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+
+/**
+ *  获取商品列表
+ */
+- (BOOL)getShopListInfoMationWith:(int)tag category:(NSString *)category pagenum:(NSString *)pagenum type:(NSString *)typeStr name:(NSString *)name serieid:(NSString *)serieid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+//    [params setObject:typeStr forKey:@"type"];
+//    [params setObject:category forKey:@"category"];
+//    [params setObject:pagenum forKey:@"pagenum"];
+//    if ([name isEqualToString:@""]) {
+//        
+//    }else{
+//        [params setObject:name forKey:@"name"];
+//    }
+//    [params setObject:serieid forKey:@"serieid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/goods/list",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
 @end

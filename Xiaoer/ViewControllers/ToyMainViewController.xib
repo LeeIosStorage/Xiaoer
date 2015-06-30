@@ -8,6 +8,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ToyMainViewController">
             <connections>
                 <outlet property="backScrollView" destination="YjY-mj-k6Y" id="sXa-KO-HtI"/>
+                <outlet property="changeEvaluat" destination="Mo7-ax-7u8" id="UPn-Mi-gZt"/>
+                <outlet property="changeLable" destination="d2W-FZ-Q04" id="f16-xs-NTF"/>
+                <outlet property="changeOther" destination="hgJ-5k-ilY" id="Jtd-2x-sfn"/>
+                <outlet property="changeTrain" destination="jWu-3r-blw" id="mTR-VW-p6h"/>
                 <outlet property="evaluatingTab" destination="vRL-Et-jy0" id="fZk-eP-mGb"/>
                 <outlet property="evaluatingView" destination="sIv-rk-MSX" id="U4w-nu-qBM"/>
                 <outlet property="otherBuyTab" destination="Owd-Hn-bgh" id="5WL-L9-Y7u"/>
@@ -23,19 +27,63 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="YjY-mj-k6Y">
-                    <rect key="frame" x="0.0" y="90" width="320" height="478"/>
+                    <rect key="frame" x="0.0" y="85" width="320" height="483"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mo7-ax-7u8">
+                    <rect key="frame" x="0.0" y="44" width="106" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="评测玩具">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="pingceBtnTouched:" destination="-1" eventType="touchUpInside" id="6GZ-cz-2AU"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jWu-3r-blw">
+                    <rect key="frame" x="106" y="44" width="108" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="训练玩具">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="trainBtnTouched:" destination="-1" eventType="touchUpInside" id="lkc-4m-sIS"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hgJ-5k-ilY">
+                    <rect key="frame" x="214" y="44" width="106" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="另购玩具">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="otherBuyBtnTouched:" destination="-1" eventType="touchUpInside" id="A8J-FU-z5h"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d2W-FZ-Q04">
+                    <rect key="frame" x="10" y="80" width="20" height="5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.1215686275" green="0.6705882353" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="282" y="358"/>
         </view>
         <view contentMode="scaleToFill" id="sIv-rk-MSX">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="478"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="483"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vRL-Et-jy0">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="478"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vRL-Et-jy0">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="463"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -49,11 +97,11 @@
             <point key="canvasLocation" x="667" y="340"/>
         </view>
         <view contentMode="scaleToFill" id="XDm-0G-Y9y">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="478"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="483"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="f9n-wG-oD5">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="478"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="f9n-wG-oD5">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="463"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -67,11 +115,11 @@
             <point key="canvasLocation" x="1081" y="363"/>
         </view>
         <view contentMode="scaleToFill" id="Cyg-1K-EEs">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="478"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="483"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Owd-Hn-bgh">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="478"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Owd-Hn-bgh">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="463"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>

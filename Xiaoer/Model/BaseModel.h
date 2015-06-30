@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "XEEngine.h"
 
 @interface BaseModel : NSObject
 - (id)initWithDictionary:(NSDictionary *)dictionary;

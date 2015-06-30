@@ -30,11 +30,13 @@
 #import "StageSelectViewController.h"
 #import "XEWebViewWithEvaluationVc.h"
 #import "BabyListViewController.h"
+#import "OrderViewController.h"
 
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
     kMyBaby,
     kMyCard,
+    kMyOrder,
     kSectionNumber,
 };
 
@@ -311,6 +313,13 @@ static CGFloat beginImageH = 64;
 //                break;
 //            }
         }
+        case kMyOrder:{
+            if (indexPath.row == 0) {
+                cell.titleLabel.text = @"我的订单";
+                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_baby_icon"]];
+                break;
+            }
+        }
         default:
             break;
     }
@@ -394,6 +403,12 @@ static CGFloat beginImageH = 64;
 //                break;
 //            }
 //            //暂时放下
+        }
+        case kMyOrder:
+        {
+            OrderViewController *order = [[OrderViewController alloc]init];
+            [self.navigationController pushViewController:order animated:YES];
+            
         }
         default:
             break;

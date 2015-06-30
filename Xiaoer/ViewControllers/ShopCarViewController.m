@@ -8,7 +8,7 @@
 
 #import "ShopCarViewController.h"
 #import "ShopCarCell.h"
-@interface ShopCarViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface ShopCarViewController ()<UITableViewDataSource,UITableViewDelegate,changeNumShopDelegate>
 
 @end
 
@@ -24,6 +24,13 @@
     
     // Do any additional setup after loading the view from its nib.
 }
+
+#pragma mark cellDelagate
+- (void)returnIndexOfShop:(NSInteger)index andNumberText:(NSString *)numText{
+    NSLog(@"%ld %@ ",(long)index,numText);
+}
+
+
 - (IBAction)payBtnTouched:(id)sender {
     NSLog(@"去结算按钮点击");
 }
@@ -52,6 +59,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 2;
 }
+
 //暂定的一个分区 隐藏区头
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -91,6 +99,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ShopCarCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.tag = indexPath.row;
+    cell.delegate = self;
+    cell.selectionStyle  = UITableViewCellSelectionStyleNone;
     [cell configureCellWith:indexPath];
     return cell;
     

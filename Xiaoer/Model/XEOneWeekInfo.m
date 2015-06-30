@@ -7,7 +7,6 @@
 //
 
 #import "XEOneWeekInfo.h"
-#import "XEEngine.h"
 @implementation XEOneWeekInfo
 - (id)initWithDictionary:(NSDictionary *)dictionary{
     if (self == [super initWithDictionary:dictionary]) {

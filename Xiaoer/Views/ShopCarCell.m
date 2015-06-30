@@ -44,14 +44,14 @@
 - (NSString *)returnAddResultWith:(ShopCarCell *)cell{
     NSInteger indexAdd = [cell.numShopLab.text integerValue];
     indexAdd ++;
-    NSString *addResult = [NSString stringWithFormat:@"%ld",indexAdd];
+    NSString *addResult = [NSString stringWithFormat:@"%ld",(long)indexAdd];
     return addResult;
 }
 - (IBAction)reduce:(id)sender {
     UIButton *button = (UIButton *)sender;
     ShopCarCell *cell = (ShopCarCell *)button.superview.superview;
     cell.numShopLab.text = [self reduceResultWith:cell];
-    NSLog(@"%@ %ld",cell.numShopLab.text,cell.tag);
+    NSLog(@"%@ %ld",cell.numShopLab.text,(long)cell.tag);
     if (self.delegate && [self.delegate respondsToSelector:@selector(returnIndexOfShop:andNumberText:)]) {
         [self.delegate returnIndexOfShop:cell.tag andNumberText:cell.numShopLab.text];
     }

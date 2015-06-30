@@ -11,16 +11,29 @@
 #import "ToyListCollectionCell.h"
 #import "ToyCollectionHeaderCell.h"
 #import "ToyDetailViewController.h"
+#import "XEEngine.h"
 #import "MJRefresh.h"
+#import "XEProgressHUD.h"
+#import "XEShopListInfo.h"
 @interface ToyListViewController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) IBOutlet UIView *naviLable;
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
 @property (weak, nonatomic) IBOutlet UICollectionView *toyListCollection;
 @property (nonatomic,strong)UICollectionViewFlowLayout *layOut;
+@property (nonatomic,assign)NSInteger pageNum;
+@property (nonatomic,strong)NSMutableArray *dataSources;
+
+@property (nonatomic,assign)BOOL ifToEnd;
 
 @end
 
 @implementation ToyListViewController
+- (NSMutableArray *)dataSources{
+    if (!_dataSources) {
+        self.dataSources = [NSMutableArray array];
+    }
+    return _dataSources;
+}
 - (UICollectionViewFlowLayout *)layOut{
     if (!_layOut) {
         self.layOut = [[UICollectionViewFlowLayout alloc]init];
@@ -32,40 +45,59 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.toyListCollection.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+    
 //    布局导航条
     [self confugureNaviTitle];
-    self.toyListCollection.delegate = self;
-    self.toyListCollection.dataSource = self;
     
-    [self.toyListCollection registerNib:[UINib nibWithNibName:@"ToyCollectionHeaderCell" bundle:nil] forCellWithReuseIdentifier:@"header"];
-    [self.toyListCollection registerNib:[UINib nibWithNibName:@"ToyListCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+    [self configureCollectionView];
 
-    [self setupRefresh];//调用刷新方法
+    self.pageNum = 1;
+    self.ifToEnd = NO;
+    [self setupRefresh];
+    
+    //获取数据
+    [self getToyListData];
 
     
     
     
     
 }
-//刷新
+
+#pragma mark 布局collectionview
+- (void)configureCollectionView{
+    self.toyListCollection.delegate = self;
+    self.toyListCollection.dataSource = self;
+    self.toyListCollection.backgroundColor = [UIColor clearColor];
+
+    [self.toyListCollection registerNib:[UINib nibWithNibName:@"ToyCollectionHeaderCell" bundle:nil] forCellWithReuseIdentifier:@"header"];
+    [self.toyListCollection registerNib:[UINib nibWithNibName:@"ToyListCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+}
+
+#pragma mark 设置刷新
 - (void)setupRefresh{
     //下拉刷新(头部控件刷新的2种方法)
     //    [self.tableView addHeaderWithTarget:self action:@selector(headerRefreshing)];
     
     [self.toyListCollection addHeaderWithCallback:^{[self headerRefreshing];}];
+    [self.toyListCollection addFooterWithTarget:self action:@selector(footerGetData)];
     
     //自动刷新(一进入程序就下拉刷新)
-    [self.toyListCollection headerBeginRefreshing];
+//    [self.toyListCollection headerBeginRefreshing];
     
 }
+
+#pragma mark  头部刷新
 - (void)headerRefreshing{
     //添加数据（刷新一次，新添加5个数据）
-//    [self getOneWeekData];
+    self.ifToEnd = NO;
+    self.pageNum = 1;
+    [self getToyListData];
     
     // 2.2秒后刷新表格UI
     NSLog(@"SHUAIXN");
-
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 刷新表格
         [self.toyListCollection reloadData];
@@ -75,6 +107,72 @@
     });
     
 }
+
+#pragma mark 尾部刷新
+- (void)footerGetData{
+    if (self.ifToEnd == NO) {
+        self.pageNum ++;
+        [self getToyListData];
+    }else{
+        [XEProgressHUD lightAlert:@"已经到最后一页"];
+
+    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 刷新表格
+        [self.toyListCollection reloadData];
+        // 调用endRefreshing可以结束刷新状态
+        [self.toyListCollection footerEndRefreshing];
+    });
+}
+#pragma mark 获取数据
+- (void)getToyListData{
+    __weak ToyListViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    if (!self.name) {
+        self.name = @"";
+    }
+    [[XEEngine shareInstance]getShopListInfoMationWith:tag category:self.category pagenum:[NSString stringWithFormat:@"%ld",(long)self.pageNum    ] type:self.type name:self.name serieid:self.serieid];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        
+        
+        
+        //获取失败信息
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+            
+        }
+        if ([jsonRet[@"object"][@"goodses"] isKindOfClass:[NSNull class]]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+        }
+        NSString *endStr = [jsonRet[@"object"][@"end"]stringValue];
+        if ([endStr isEqualToString:@"0"]) {
+            self.ifToEnd = YES;
+        }
+        NSArray *array = jsonRet[@"object"][@"goodses"];
+        NSLog(@"array ==== %@",array);
+        if (array.count <= 0) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+        }
+        
+        if (self.pageNum == 1) {
+            [self.dataSources removeAllObjects];
+        }
+        for (NSDictionary *dic in array) {
+            XEShopListInfo *info = [XEShopListInfo modelWithDictioanry:dic];
+            [self.dataSources addObject:info];
+        }
+        [self.toyListCollection reloadData];
+    } tag:tag];
+}
+
 #pragma mark 布局导航条
 - (void)confugureNaviTitle{
     self.titleNavBar.alpha = 0;
@@ -85,7 +183,6 @@
     frame.origin.y = tframe.size.height - frame.size.height;
     self.naviLable.frame = frame;
     self.titleLable.text = @"玩具专场";
-
     [self.view addSubview:self.naviLable];
     
 }
@@ -101,7 +198,7 @@
 
 #pragma mark collection delegate 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 10;
+    return self.dataSources.count;
     
 }
 //设置分区数量
@@ -113,9 +210,11 @@
     if (indexPath.row == 0) {
         
         ToyCollectionHeaderCell *header = [collectionView dequeueReusableCellWithReuseIdentifier:@"header" forIndexPath:indexPath];
+        [header configureHeaderCellWith:[self.dataSources objectAtIndex:indexPath.row] leftDay:self.leftDay];
         return header;
     }else{
         ToyListCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+        [cell configureOtherCellWith:[self.dataSources objectAtIndex:indexPath.row]];
         return cell;
         
     }
@@ -132,9 +231,7 @@
 
 //每个Item的间距
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    
     return UIEdgeInsetsMake(10, 10, 10, 10);
-    
 }
 
 //区头的大小

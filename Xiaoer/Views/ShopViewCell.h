@@ -18,7 +18,8 @@
 
 
 @interface ShopViewCell : UITableViewCell
-- (void)configureCellWith:(NSIndexPath *)indexPath andNumberOfItemsInCell:(NSInteger)num;
+- (void)configureCellWith:(NSIndexPath *)indexPath andNumberOfItemsInCell:(NSInteger)num
+               moledArray:(NSArray *)array;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnA;
 @property (weak, nonatomic) IBOutlet UIButton *btnB;

@@ -8,7 +8,8 @@
 
 #import "CycleView.h"
 #import "CycleScrollView.h"
-
+#import "UIImageView+WebCache.h"
+#import "XEShopHomeInfo.h"
 @interface CycleView ()
 @property (nonatomic, strong) CycleScrollView *cycleScrollView;
 @property (nonatomic, strong) NSMutableArray *imageURLArray;
@@ -43,14 +44,17 @@
 
 
 
-- (void)configureHeaderWith:(NSInteger)type{
-    self.type = type;
+- (void)configureHeaderWith:(NSMutableArray *)array{
+    self.type = 0;
   
     NSMutableArray *imageArray = [NSMutableArray array];
-    for (int i = 1; i < 4; i++) {
+    for (int i = 0; i < array.count; i++) {
+        XEShopHomeInfo *info = (XEShopHomeInfo *)array[i];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        NSString *str = [NSString stringWithFormat:@"%d.png",i];
-        imageView.image = [UIImage imageNamed:str];
+        NSLog(@"%@",info.totalImageUrl);
+        NSString *imgUrl = [NSString stringWithFormat:@"%@",info.totalImageUrl];
+        
+        [imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:nil];
         [imageArray addObject:imageView];
     }
     self.cycleScrollView.fetchContentViewAtIndex = ^UIView *(NSInteger pageIndex){

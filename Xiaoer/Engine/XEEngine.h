@@ -246,4 +246,37 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
  *  首页每周一练的周数信息
  */
 - (BOOL)getOneWeekScrollviewInfomationWith:(NSString *)userID tag:(int)tag;
+
+
+#pragma mark 商品系列借口
+//获取商品主页信息 （只有今日上新）
+- (BOOL)getShopMainListInfomationWith:(int)tag
+                                types:(NSString *)types
+                              pageNum:(NSString *)pageNum;
+//获取商品主页的信息 （选择性输入types）
+- (BOOL)getShopMainListInfomationWith:(int)tag
+                                types:(NSString *)types;
+
+
+
+/**
+ *  商品系列列表
+ *
+ */
+- (BOOL)getShopSeriousInfomationWithType:(NSString *)type
+                                     tag:(int)tag
+                                category:(NSString *)category
+                                 pagenum:(NSString *)pagenum;
+/**
+ *  获取商品列表
+ */
+- (BOOL)getShopListInfoMationWith:(int)tag
+                               category:(NSString *)category
+                                pagenum:(NSString *)pagenum
+                             type:(NSString *)typeStr
+                             name:(NSString *)name
+                          serieid:(NSString *)serieid;
+
+
+
 @end
