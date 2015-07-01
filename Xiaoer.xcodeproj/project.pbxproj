@@ -2696,8 +2696,7 @@
 		AA7AAFAF1B1F01FC00158B9A /* Shop */ = {
 			isa = PBXGroup;
 			children = (
-				AAE0F1531B32BFC6005C4B3D /* CycleView.h */,
-				AAE0F1541B32BFC6005C4B3D /* CycleView.m */,
+				AAB965661B43E24F00F84911 /* lunbo */,
 				AA6556A41B3BCC1000817DF6 /* Activity */,
 				AA7C6D471B3950F00035103D /* Address */,
 				AA8EE0F21B37B532003D8FFB /* shopCar */,
@@ -2891,6 +2890,15 @@
 			);
 			name = oneWeak;
 			path = Main;
+			sourceTree = "<group>";
+		};
+		AAB965661B43E24F00F84911 /* lunbo */ = {
+			isa = PBXGroup;
+			children = (
+				AAE0F1531B32BFC6005C4B3D /* CycleView.h */,
+				AAE0F1541B32BFC6005C4B3D /* CycleView.m */,
+			);
+			name = lunbo;
 			sourceTree = "<group>";
 		};
 		AAD637271B201DA300D17763 /* infomation */ = {

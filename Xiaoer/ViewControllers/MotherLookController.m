@@ -45,32 +45,36 @@
 - (void)touchMotherLookCellBtn:(UIButton *)sender{
     NSString *string = sender.titleLabel.text;
     if ([string isEqualToString:@"去抢票"]) {
-
-        ActivityDetailsViewController *detail = [[ActivityDetailsViewController alloc]init];
-        for (NSDictionary *dic in self.dataSources) {
-            if ([[dic[@"type"] stringValue] isEqualToString:@"1"]) {
-                XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
-                XEActivityInfo *info = [[XEActivityInfo alloc]init];
-                info.aId = model.IDNum;
-                detail.activityInfo = info;
-                [self.navigationController pushViewController:detail animated:YES];
-            }
-        }
-
-    } else if ([string isEqualToString:@"去看看"]) {
+        NSLog(@"去抢票");
+        
         ActivityDetailsViewController *vc = [[ActivityDetailsViewController alloc] init];
         XEActivityInfo *activityInfo = [[XEActivityInfo alloc]init];
-        activityInfo.aType = 1;
+    
         for (NSDictionary *dic in self.dataSources) {
-            if ([[dic[@"type"] stringValue] isEqualToString:@"2"]) {
+            
+            if ([[dic[@"type"] stringValue] isEqualToString:@"1"]) {
                 XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
-                activityInfo.aId = model.IDNum;
+                activityInfo.aId = model.objid;
+                activityInfo.aType = 1;
                 vc.activityInfo = activityInfo;
                 vc.isTicketActivity = YES;
                 [self.navigationController pushViewController:vc animated:YES];
             }
         }
 
+    } else if ([string isEqualToString:@"去看看"]) {
+
+
+        ActivityDetailsViewController *vc = [[ActivityDetailsViewController alloc]init];
+        XEActivityInfo *activityInfo = [[XEActivityInfo alloc]init];
+        for (NSDictionary *dic in self.dataSources) {
+            if ([[dic[@"type"] stringValue] isEqualToString:@"2"]) {
+                XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
+                activityInfo.aId = model.objid;
+                vc.activityInfo = activityInfo;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+        }
     }else if ([string isEqualToString:@"去逛逛"]){
         shopOtherViewController *shop = [[shopOtherViewController alloc]init];
         [self.navigationController pushViewController:shop animated:YES];

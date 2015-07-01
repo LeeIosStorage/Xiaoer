@@ -12,7 +12,14 @@
 @property (weak, nonatomic) IBOutlet UITableView *shopCarTab;
 @property (strong, nonatomic) IBOutlet UIView *tabFooterView;
 @property (weak, nonatomic) IBOutlet UIButton *payBtn;
-
+/**
+ *  小记
+ */
+@property (weak, nonatomic) IBOutlet UILabel *totalPrice;
+/**
+ *  优惠
+ */
+@property (weak, nonatomic) IBOutlet UILabel *privilegeLab;
 
 
 @end

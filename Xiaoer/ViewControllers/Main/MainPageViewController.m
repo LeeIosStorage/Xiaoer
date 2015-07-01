@@ -193,7 +193,7 @@
             /**
              * 该用户的默认宝宝所处周数
              */
-            NSString *index = jsonRet[@"object"][@"defaultWeek"];
+//            NSString *index = jsonRet[@"object"][@"defaultWeek"];
             /**
              *  后台包含了哪些周
              */

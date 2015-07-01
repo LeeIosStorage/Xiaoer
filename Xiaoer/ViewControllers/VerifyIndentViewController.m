@@ -345,9 +345,9 @@
     cell.tag = indexPath.row;
     cell.delegate = self;
     cell.numShopLab.text = [self.NumberArray objectAtIndex:indexPath.row];
-    NSString *formText = [NSString stringWithFormat:@"%.2f",[[self.formerPricArray objectAtIndex:indexPath.row] floatValue] * [cell.numShopLab.text floatValue]];
+    NSString *formText = [NSString stringWithFormat:@"¥%.2f",[[self.formerPricArray objectAtIndex:indexPath.row] floatValue] * [cell.numShopLab.text floatValue]];
     cell.formerPrice.text = formText;
-    NSString *afterText = [NSString stringWithFormat:@"%.2f",[[self.afterPricArray objectAtIndex:indexPath.row] floatValue]*[cell.numShopLab.text floatValue]];
+    NSString *afterText = [NSString stringWithFormat:@"¥%.2f",[[self.afterPricArray objectAtIndex:indexPath.row] floatValue]*[cell.numShopLab.text floatValue]];
     cell.afterPrice.text = afterText;
     [cell configureCellWith:indexPath];
 

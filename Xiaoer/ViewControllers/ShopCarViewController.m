@@ -9,16 +9,62 @@
 #import "ShopCarViewController.h"
 #import "ShopCarCell.h"
 @interface ShopCarViewController ()<UITableViewDataSource,UITableViewDelegate,changeNumShopDelegate>
+/**
+ *  保存现价的数组
+ */
+@property (nonatomic,strong)NSMutableArray *afterPrice;
+/**
+ *  保存原价的数组
+ */
+@property (nonatomic,strong)NSMutableArray *fommerPrice;
+/**
+ *  保存是否被点击的数组 0 代表没有被点击  1代表被点击了
+ */
+@property (nonatomic,strong)NSMutableArray *touchedArray;
+/**
+ *  保存数量的数组
+ */
+@property (nonatomic,strong)NSMutableArray *numShop;
 
 @end
 
 @implementation ShopCarViewController
 
+- (NSMutableArray *)afterPrice{
+    if (!_afterPrice) {
+        self.afterPrice = [NSMutableArray arrayWithObjects:@"12",@"40", nil];
+    }
+    return _afterPrice;
+}
+
+- (NSMutableArray *)fommerPrice{
+    if (!_fommerPrice) {
+        self.fommerPrice = [NSMutableArray arrayWithObjects:@"15",@"60", nil];
+    }
+    return _fommerPrice;
+}
+
+- (NSMutableArray *)touchedArray{
+    if (!_touchedArray) {
+        self.touchedArray = [NSMutableArray arrayWithObjects:@"0",@"0", nil];
+    }
+    return _touchedArray;
+}
+- (NSMutableArray *)numShop{
+    if (!_numShop) {
+        self.numShop = [NSMutableArray arrayWithObjects:@"1",@"1", nil];
+    }
+    return _numShop;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"购物车";
     
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+    //初始化优惠和小记的现实树木
+    self.privilegeLab.text = @"0.00元";
+    self.totalPrice.text = @"0.00元";
+    
     [self configureTabView];
     [self configurePatBtn];
     
@@ -27,10 +73,52 @@
 
 #pragma mark cellDelagate
 - (void)returnIndexOfShop:(NSInteger)index andNumberText:(NSString *)numText{
-    NSLog(@"%ld %@ ",(long)index,numText);
+    self.numShop[index] = numText;
+    self.totalPrice.text = [self calculateTotalPrice];
+    self.privilegeLab.text = [self calculatePrivilege];
+    [self.shopCarTab reloadData];
+}
+- (void)returnIndexOfShop:(NSInteger)index andIfTouchedWith:(NSString *)string{
+    self.touchedArray[index] = string;
+    self.totalPrice.text = [self calculateTotalPrice];
+    self.privilegeLab.text = [self calculatePrivilege];
+    [self.shopCarTab reloadData];
 }
 
-
+#pragma mark 计算小记价格
+- (NSString *)calculateTotalPrice{
+    CGFloat totalPric = 0;
+    for (int i = 0; i < self.touchedArray.count; i++) {
+        if ([self.touchedArray[i] isEqualToString:@"0"]) {
+            //没有被点击加入结算不尽兴任何操作
+        }else{
+            CGFloat pric = [self.afterPrice[i] floatValue];
+            CGFloat num = [self.numShop[i] floatValue];
+            CGFloat onePric = pric*num;
+            totalPric+= onePric;
+        }
+    }
+    return [NSString stringWithFormat:@"%.2f元",totalPric];
+    
+}
+#pragma mark  计算优惠价格
+- (NSString *)calculatePrivilege{
+    CGFloat totalPric = 0;
+    for (int i = 0; i < self.touchedArray.count; i++) {
+        if ([self.touchedArray[i] isEqualToString:@"0"]) {
+            //没有被点击加入结算不尽兴任何操作
+        }else{
+            CGFloat fommerPric = [self.fommerPrice[i] floatValue];
+            CGFloat afterPric = [self.afterPrice[i] floatValue];
+            CGFloat cha = fommerPric - afterPric;
+            CGFloat num = [self.numShop[i] floatValue];
+            CGFloat onePric = cha*num;
+            totalPric+= onePric;
+        }
+    }
+    return [NSString stringWithFormat:@"%.2f元",totalPric];
+}
+#pragma mark  结算按钮点击
 - (IBAction)payBtnTouched:(id)sender {
     NSLog(@"去结算按钮点击");
 }
@@ -57,7 +145,7 @@
 #pragma mark tableView delegate datasources
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return self.fommerPrice.count;
 }
 
 //暂定的一个分区 隐藏区头
@@ -78,19 +166,19 @@
 //    return 0;
 //}
 
-#warning 隐藏了区头
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *header = [self returnSectionHeader];
-    for (UIView *obj in header.subviews) {
-        if (obj.tag == 2) {
-            UILabel *lable = (UILabel *)obj;
-            lable.text = @"满22件";
-            
-        }
-    }
-    
-    return header;
-}
+//#warning 隐藏了区头
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    UIView *header = [self returnSectionHeader];
+//    for (UIView *obj in header.subviews) {
+//        if (obj.tag == 2) {
+//            UILabel *lable = (UILabel *)obj;
+//            lable.text = @"满22件";
+//            
+//        }
+//    }
+//    
+//    return header;
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -102,10 +190,22 @@
     cell.tag = indexPath.row;
     cell.delegate = self;
     cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+    
+    cell.numShopLab.text = [self.numShop objectAtIndex:indexPath.row];
+    CGFloat formerPric = [[self.fommerPrice objectAtIndex:indexPath.row] floatValue] * [[self.numShop objectAtIndex:indexPath.row] floatValue];
+    cell.formerPrice.text = [NSString stringWithFormat:@"¥%.2f",formerPric];
+    CGFloat afterPric = [[self.afterPrice objectAtIndex:indexPath.row] floatValue] * [[self.numShop objectAtIndex:indexPath.row] floatValue];
+    cell.afterPrice.text = [NSString stringWithFormat:@"¥%.2f",afterPric];
+    cell.numShopLab.text = [self.numShop objectAtIndex:indexPath.row];
+    
     [cell configureCellWith:indexPath];
+    [cell configureCellBackBtnWithString:[self.touchedArray objectAtIndex:indexPath.row]];
     return cell;
     
 }
+//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//}
 #warning  暂时不要区尾
 //- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
 //    return [self returnSectionFooter];
