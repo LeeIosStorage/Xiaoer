@@ -2,17 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "tabbar4-1-2.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "专家聊.png"
+      "filename" : "tabbar4-1-1.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "专家聊-未选择.png"
+      "filename" : "tabbar4-1.png"
     }
   ],
   "info" : {

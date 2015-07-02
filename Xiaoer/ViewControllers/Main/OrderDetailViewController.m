@@ -8,6 +8,7 @@
 
 #import "OrderDetailViewController.h"
 #import "OrderCell.h"
+#import "OrderInfomationController.h"
 
 @interface OrderDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -26,12 +27,26 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+/**
+ *  联系客服
+ */
+#pragma mark  联系客服
 - (IBAction)contactServiceBtnTouched:(id)sender {
     NSLog(@"联系客服");
 }
+/**
+ *  拨打电弧
+ */
+#pragma mark  拨打电话
 
 - (IBAction)phoneBtnTouched:(id)sender {
     NSLog(@"拨打电话");
+}
+#pragma mark  预约信息按钮点击
+- (IBAction)toOrderInfoMation:(id)sender {
+    NSLog(@"预约信息");
+    OrderInfomationController *infomation = [[OrderInfomationController alloc]init];
+    [self.navigationController pushViewController:infomation animated:YES];
 }
 
 #pragma mark 布局button的layer
@@ -57,6 +72,10 @@
     self.delateOrder.layer.masksToBounds = YES;
     self.delateOrder.layer.borderWidth = 1;
     self.delateOrder.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    
+    
+    self.cardOrder.layer.cornerRadius = 5;
+    self.cardOrder.layer.masksToBounds = YES;
     
 }
 #pragma mark 布局tableview属性

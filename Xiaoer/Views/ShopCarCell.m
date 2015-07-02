@@ -27,6 +27,26 @@
     }
 }
 
+
+/**
+ *  用在购物车内的布局方法
+ */
+- (void)configureCellWith:(NSIndexPath *)indexPth andStateStr:(NSString *)string{
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:self.formerPrice.font forKey:NSFontAttributeName];
+    CGSize rect = [self.formerPrice.text sizeWithAttributes:attributes];
+    CGRect formerrect = self.setLineLab.frame;
+    formerrect.size.width = rect.width;
+    NSLog(@"width == %f",formerrect.size.width);
+    self.setLineLab.frame = formerrect;
+    self.backBtn.layer.borderWidth = 1;
+    self.backBtn.userInteractionEnabled = NO;
+    if ([string isEqualToString:@"0"]) {
+        self.backBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    }else{
+        self.backBtn.layer.borderColor = [UIColor orangeColor].CGColor;
+    }
+    
+}
 - (void)configureCellWith:(NSIndexPath *)indexPth{
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:self.formerPrice.font forKey:NSFontAttributeName];
     CGSize rect = [self.formerPrice.text sizeWithAttributes:attributes];
@@ -34,25 +54,24 @@
     formerrect.size.width = rect.width;
     NSLog(@"width == %f",formerrect.size.width);
     self.setLineLab.frame = formerrect;
-    self.backBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     self.backBtn.layer.borderWidth = 1;
-    
+    self.backBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.backBtn.userInteractionEnabled = NO;
 }
-
 #pragma mark  边框按钮点击
 - (IBAction)backButtonTouched:(id)sender {
     UIButton *button = (UIButton *)sender;
     ShopCarCell *cell = (ShopCarCell *)button.superview.superview;
     if (button.layer.borderColor == [UIColor whiteColor].CGColor) {
         button.layer.borderColor = [UIColor orangeColor].CGColor;
-        if (self.delegate && [self.delegate respondsToSelector:@selector(returnIndexOfShop:andIfTouchedWith:)]) {
-            [self.delegate returnIndexOfShop:cell.tag andIfTouchedWith:@"1"];
-        }
+//        if (self.delegate && [self.delegate respondsToSelector:@selector(returnIndexOfShop:andIfTouchedWith:)]) {
+//            [self.delegate returnIndexOfShop:cell.tag andIfTouchedWith:@"1"];
+//        }
     }else{
         button.layer.borderColor = [UIColor whiteColor].CGColor;
-        if (self.delegate && [self.delegate respondsToSelector:@selector(returnIndexOfShop:andIfTouchedWith:)]) {
-            [self.delegate returnIndexOfShop:cell.tag andIfTouchedWith:@"0"];
-        }
+//        if (self.delegate && [self.delegate respondsToSelector:@selector(returnIndexOfShop:andIfTouchedWith:)]) {
+//            [self.delegate returnIndexOfShop:cell.tag andIfTouchedWith:@"0"];
+//        }
     }
     
     

@@ -14,6 +14,7 @@
 #import "XEEngine.h"
 #import "XEShopSerieInfo.h"
 #import "ToyMainTabCell.h"
+#import "ToyListViewController.h"
 
 @interface ActivityMainViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,assign)NSInteger pageNum;
@@ -31,7 +32,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
-    self.title = @"活动";
+    [self congigureTitle];
+
+    
     
     self.pageNum = 1;
     self.ifToEnd = NO;
@@ -43,12 +46,24 @@
 
     // Do any additional setup after loading the view from its nib.
 }
+#pragma mark 布局title
+
+- (void)congigureTitle{
+    if ([self.type isEqualToString:@"2"] && [self.category isEqualToString:@"1"]) {
+        self.title = @"活动";
+    }else if ([self.type isEqualToString:@"2"] && [self.category isEqualToString:@"2"]){
+        self.title = @"家政";
+    }else if ([self.type isEqualToString:@"3"] && [self.category isEqualToString:@"1"]){
+        self.title = @"祈福";
+    }
+}
 #pragma mark 获取数据
 - (void)getAvtivityData{
     __weak ActivityMainViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance]getShopSeriousInfomationWithType:self.type tag:tag category:self.category pagenum:[NSString stringWithFormat:@"%ld",(long)self.pageNum]];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        
         //获取失败信息
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (errorMsg) {
@@ -162,13 +177,28 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    XEShopSerieInfo *info = [self.dataSources objectAtIndex:indexPath.row];
-    ShopActivityController *activityList = [[ShopActivityController alloc]init];
-    activityList.type = @"2";
-    activityList.category = @"1";
-    activityList.serieInfo = info;
 
-    [self.navigationController pushViewController:activityList animated:YES];
+    
+    if ([self.type isEqualToString:@"3"] && [self.category isEqualToString:@"1"]) {
+        //祈福
+        ToyListViewController *list = [[ToyListViewController alloc]init];
+        list.type =  @"3";
+        list.category = @"1";
+        XEShopSerieInfo *serie = (XEShopSerieInfo *)[self.dataSources objectAtIndex:indexPath.row];
+        list.leftDay = serie.leftDay;
+        list.serieid = serie.idNum;
+        [self.navigationController pushViewController:list animated:YES];
+    } else {
+        XEShopSerieInfo *info = [self.dataSources objectAtIndex:indexPath.row];
+        ShopActivityController *activityList = [[ShopActivityController alloc]init];
+        activityList.type = self.type;
+        activityList.category = self.category;
+        activityList.serieInfo = info;
+        activityList.name = @"";
+        [self.navigationController pushViewController:activityList animated:YES];
+    }
+
+
 }
 
 - (void)didReceiveMemoryWarning {

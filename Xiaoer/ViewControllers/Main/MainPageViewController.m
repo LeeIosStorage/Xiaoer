@@ -1061,7 +1061,7 @@
 //    }else{
 //        [self calculateWeeks];
 //    }
-    [self refreshUserInfoShow];
+//    [self refreshUserInfoShow];
 
 
 }

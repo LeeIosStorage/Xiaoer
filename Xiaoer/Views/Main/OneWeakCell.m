@@ -22,7 +22,7 @@
 - (void)configureCellWithModel:(XEOneWeekInfo *)model{
     self.leftImage.layer.cornerRadius = 10;
     self.leftImage.layer.masksToBounds = YES;
-    [self.leftImage sd_setImageWithURL:model.totalImageUrl placeholderImage:nil];
+    [self.leftImage sd_setImageWithURL:model.totalImageUrl placeholderImage:[UIImage imageNamed:@"首页默认头像"]];
     self.title.text = model.title;
     self.belowTitle.text = model.des;
 }

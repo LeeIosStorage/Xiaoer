@@ -134,8 +134,6 @@
     [[XEEngine shareInstance]getShopListInfoMationWith:tag category:self.category pagenum:[NSString stringWithFormat:@"%ld",(long)self.pageNum    ] type:self.type name:self.name serieid:self.serieid];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         
-        
-        
         //获取失败信息
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (errorMsg) {

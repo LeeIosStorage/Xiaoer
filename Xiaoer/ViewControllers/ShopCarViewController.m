@@ -26,10 +26,20 @@
  */
 @property (nonatomic,strong)NSMutableArray *numShop;
 
+/**
+ *  保留分区的数量的数组
+ */
+@property (nonatomic,strong)NSMutableArray *sectionNum;
+
 @end
 
 @implementation ShopCarViewController
-
+- (NSMutableArray *)sectionNum{
+    if (!_sectionNum){
+        self.sectionNum = [NSMutableArray arrayWithObjects:@"1", nil];
+    }
+    return _sectionNum;
+}
 - (NSMutableArray *)afterPrice{
     if (!_afterPrice) {
         self.afterPrice = [NSMutableArray arrayWithObjects:@"12",@"40", nil];
@@ -78,12 +88,12 @@
     self.privilegeLab.text = [self calculatePrivilege];
     [self.shopCarTab reloadData];
 }
-- (void)returnIndexOfShop:(NSInteger)index andIfTouchedWith:(NSString *)string{
-    self.touchedArray[index] = string;
-    self.totalPrice.text = [self calculateTotalPrice];
-    self.privilegeLab.text = [self calculatePrivilege];
-    [self.shopCarTab reloadData];
-}
+//- (void)returnIndexOfShop:(NSInteger)index andIfTouchedWith:(NSString *)string{
+//    self.touchedArray[index] = string;
+//    self.totalPrice.text = [self calculateTotalPrice];
+//    self.privilegeLab.text = [self calculatePrivilege];
+//    [self.shopCarTab reloadData];
+//}
 
 #pragma mark 计算小记价格
 - (NSString *)calculateTotalPrice{
@@ -145,18 +155,18 @@
 #pragma mark tableView delegate datasources
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.fommerPrice.count;
+    return self.touchedArray.count;
 }
 
 //暂定的一个分区 隐藏区头
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return self.sectionNum.count;
 }
 
 #warning 暂时隐藏区头
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return 0;
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 120;
@@ -181,8 +191,15 @@
 //}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if ([self.touchedArray[indexPath.row] isEqualToString:@"0"]) {
+        self.touchedArray[indexPath.row] = @"1";
+    }else{
+        self.touchedArray[indexPath.row] = @"0";
+    }
+    NSLog(@"%@",self.touchedArray[indexPath.row]);
+    self.totalPrice.text = [self calculateTotalPrice];
+    self.privilegeLab.text = [self calculatePrivilege];
+    [self.shopCarTab reloadData];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -197,15 +214,44 @@
     CGFloat afterPric = [[self.afterPrice objectAtIndex:indexPath.row] floatValue] * [[self.numShop objectAtIndex:indexPath.row] floatValue];
     cell.afterPrice.text = [NSString stringWithFormat:@"¥%.2f",afterPric];
     cell.numShopLab.text = [self.numShop objectAtIndex:indexPath.row];
+    NSLog(@"self.touchedArray[indexPath.row] ===== %@",self.touchedArray[indexPath.row]);
     
-    [cell configureCellWith:indexPath];
-    [cell configureCellBackBtnWithString:[self.touchedArray objectAtIndex:indexPath.row]];
+    [cell configureCellWith:indexPath andStateStr:self.touchedArray[indexPath.row]];
     return cell;
     
 }
-//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+    
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+
+        if (self.touchedArray.count > 1) {
+            [self.afterPrice removeObjectAtIndex:indexPath.row];
+            [self.fommerPrice removeObjectAtIndex:indexPath.row];
+            [self.numShop removeObjectAtIndex:indexPath.row];
+            [self.touchedArray removeObjectAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        }else{
+            [self.afterPrice removeObjectAtIndex:indexPath.row];
+            [self.fommerPrice removeObjectAtIndex:indexPath.row];
+            [self.numShop removeObjectAtIndex:indexPath.row];
+            [self.touchedArray removeObjectAtIndex:indexPath.row];
+            [self.sectionNum removeObjectAtIndex:indexPath.section];
+            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationTop];
+            
+        }
+
+        //删除结束的时候tableview的footerView不会重新计算价格，这里需要重新赋值，然后再roloadData
+        self.totalPrice.text = [self calculateTotalPrice];
+        self.privilegeLab.text = [self calculatePrivilege];
+        [tableView reloadData];
+        
+    }
+}
+
 #warning  暂时不要区尾
 //- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
 //    return [self returnSectionFooter];

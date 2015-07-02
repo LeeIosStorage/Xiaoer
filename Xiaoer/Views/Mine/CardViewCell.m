@@ -61,6 +61,7 @@
         _statusBtn.enabled = NO;
         [_statusBtn setBackgroundImage:[UIImage imageNamed:@"card_staus_hover_bg"] forState:UIControlStateNormal];
     }
+    
     /**
         处理描述字符串
      */

@@ -76,7 +76,8 @@
         }
         if (self.dataSources) {
             XEOneWeekInfo *oneWeek = [XEOneWeekInfo modelWithDictioanry:[self.dataSources objectAtIndex:0]];
-            [self.headerImageView sd_setImageWithURL:oneWeek.totalImageUrl placeholderImage:nil];
+            [self.headerImageView sd_setImageWithURL:oneWeek.totalImageUrl placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+            NSLog(@"self.headerImageView.image.size.height === %f",self.headerImageView.image.size.height);
             self.headerLaab.text = oneWeek.title;
         }
         NSLog(@"self.dataSources.count = %ld",(unsigned long)self.dataSources.count);

@@ -1696,15 +1696,15 @@ static XEEngine* s_ShareInstance = nil;
  */
 - (BOOL)getShopListInfoMationWith:(int)tag category:(NSString *)category pagenum:(NSString *)pagenum type:(NSString *)typeStr name:(NSString *)name serieid:(NSString *)serieid{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-//    [params setObject:typeStr forKey:@"type"];
-//    [params setObject:category forKey:@"category"];
-//    [params setObject:pagenum forKey:@"pagenum"];
-//    if ([name isEqualToString:@""]) {
-//        
-//    }else{
-//        [params setObject:name forKey:@"name"];
-//    }
-//    [params setObject:serieid forKey:@"serieid"];
+    [params setObject:typeStr forKey:@"type"];
+    [params setObject:category forKey:@"category"];
+    [params setObject:pagenum forKey:@"pagenum"];
+    if ([name isEqualToString:@""]) {
+        
+    }else{
+        [params setObject:name forKey:@"name"];
+    }
+    [params setObject:serieid forKey:@"serieid"];
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/goods/list",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }

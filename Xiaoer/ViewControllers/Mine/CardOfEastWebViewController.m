@@ -32,8 +32,6 @@
     [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT*2)];
     
 
-
-    
     NSURL *cardUrl = [NSURL URLWithString:self.cardinfo.cardActionUrl];
     [self loadWebViewWithUrl:cardUrl];
     [self configureBottomBtn];
@@ -63,7 +61,7 @@
 }
 
 - (void)configureBottomBtn{
-    if (self.hideCardInfo) {
+    if (self.hideCardInfo == YES) {
         self.cardNumber.hidden = YES;
         self.password.hidden = YES;
         [self.activityBtn setTitle:@"激活卡券" forState:UIControlStateNormal];
@@ -138,7 +136,9 @@
     CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
     frame.size = fittingSize;
     webView.frame = frame;
-    [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,265 + frame.size.height)];
+  //  [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,265 + frame.size.height)];
+    [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH,310 + frame.size.height)];
+
 }
 
 

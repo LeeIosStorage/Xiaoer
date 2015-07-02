@@ -391,6 +391,10 @@
 		AA4FC53A1B33ECF6007F90B5 /* ToyDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4FC5381B33ECF6007F90B5 /* ToyDetailViewController.xib */; };
 		AA4FC53E1B33F027007F90B5 /* ToyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FC53C1B33F027007F90B5 /* ToyDetailCell.m */; };
 		AA4FC53F1B33F027007F90B5 /* ToyDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4FC53D1B33F027007F90B5 /* ToyDetailCell.xib */; };
+		AA5C52481B4520990039900E /* OrderInfomationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5C52461B4520990039900E /* OrderInfomationController.m */; };
+		AA5C52491B4520990039900E /* OrderInfomationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA5C52471B4520990039900E /* OrderInfomationController.xib */; };
+		AA5C524D1B4522870039900E /* OrderInfomationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5C524B1B4522870039900E /* OrderInfomationCell.m */; };
+		AA5C524E1B4522870039900E /* OrderInfomationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA5C524C1B4522870039900E /* OrderInfomationCell.xib */; };
 		AA6556A81B3BCC3800817DF6 /* ShopActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6556A61B3BCC3800817DF6 /* ShopActivityController.m */; };
 		AA6556A91B3BCC3800817DF6 /* ShopActivityController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA6556A71B3BCC3800817DF6 /* ShopActivityController.xib */; };
 		AA6556AE1B3BCC5C00817DF6 /* ShopActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6556AC1B3BCC5C00817DF6 /* ShopActivityCell.m */; };
@@ -1130,6 +1134,12 @@
 		AA4FC53B1B33F027007F90B5 /* ToyDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToyDetailCell.h; sourceTree = "<group>"; };
 		AA4FC53C1B33F027007F90B5 /* ToyDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToyDetailCell.m; sourceTree = "<group>"; };
 		AA4FC53D1B33F027007F90B5 /* ToyDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToyDetailCell.xib; sourceTree = "<group>"; };
+		AA5C52451B4520990039900E /* OrderInfomationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderInfomationController.h; sourceTree = "<group>"; };
+		AA5C52461B4520990039900E /* OrderInfomationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderInfomationController.m; sourceTree = "<group>"; };
+		AA5C52471B4520990039900E /* OrderInfomationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderInfomationController.xib; sourceTree = "<group>"; };
+		AA5C524A1B4522870039900E /* OrderInfomationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderInfomationCell.h; sourceTree = "<group>"; };
+		AA5C524B1B4522870039900E /* OrderInfomationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderInfomationCell.m; sourceTree = "<group>"; };
+		AA5C524C1B4522870039900E /* OrderInfomationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderInfomationCell.xib; sourceTree = "<group>"; };
 		AA6556A51B3BCC3800817DF6 /* ShopActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopActivityController.h; sourceTree = "<group>"; };
 		AA6556A61B3BCC3800817DF6 /* ShopActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopActivityController.m; sourceTree = "<group>"; };
 		AA6556A71B3BCC3800817DF6 /* ShopActivityController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopActivityController.xib; sourceTree = "<group>"; };
@@ -2668,6 +2678,9 @@
 				AA1696171B3FC18F008BF027 /* OrderDetailViewController.h */,
 				AA1696181B3FC18F008BF027 /* OrderDetailViewController.m */,
 				AA1696191B3FC18F008BF027 /* OrderDetailViewController.xib */,
+				AA5C52451B4520990039900E /* OrderInfomationController.h */,
+				AA5C52461B4520990039900E /* OrderInfomationController.m */,
+				AA5C52471B4520990039900E /* OrderInfomationController.xib */,
 			);
 			name = Order;
 			path = Main;
@@ -2679,6 +2692,9 @@
 				AA70D9761B3EF05F0013FD96 /* OrderCell.h */,
 				AA70D9771B3EF05F0013FD96 /* OrderCell.m */,
 				AA70D9781B3EF05F0013FD96 /* OrderCell.xib */,
+				AA5C524A1B4522870039900E /* OrderInfomationCell.h */,
+				AA5C524B1B4522870039900E /* OrderInfomationCell.m */,
+				AA5C524C1B4522870039900E /* OrderInfomationCell.xib */,
 			);
 			name = order;
 			sourceTree = "<group>";
@@ -3088,6 +3104,7 @@
 				078E89001AA1C32D008AD45A /* UMSocialDataService.html in Resources */,
 				07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */,
 				074644861A6CFFDA00CE2935 /* XECollectionViewCell.xib in Resources */,
+				AA5C52491B4520990039900E /* OrderInfomationController.xib in Resources */,
 				078E890B1AA1C32D008AD45A /* UMSocialRenrenData.html in Resources */,
 				07913F661A67808F0083E8E5 /* ExpertListViewCell.xib in Resources */,
 				078E89131AA1C32D008AD45A /* UMSocialTencentData.html in Resources */,
@@ -3182,6 +3199,7 @@
 				0727A5E01A8C77A00037805A /* TaskViewController.xib in Resources */,
 				078E89331AA1C32D008AD45A /* ios-social-sdk-shake.html in Resources */,
 				075B032A1A6E3892002B577D /* MapChooseViewController.xib in Resources */,
+				AA5C524E1B4522870039900E /* OrderInfomationCell.xib in Resources */,
 				AA0C68081B259D1400478A72 /* MotherLookCell.xib in Resources */,
 				0783F6861AB8137A00AAB5B0 /* ToolCollectionCell.xib in Resources */,
 				078E891E1AA1C32D008AD45A /* class_grath.png in Resources */,
@@ -3328,6 +3346,7 @@
 				07C49F4A1A5E7CD000E1725C /* XEImagePickerController.m in Sources */,
 				0712B3B21A5BD853000A1A7F /* UIImageView+HighlightedWebCache.m in Sources */,
 				AA8EE0FC1B37B723003D8FFB /* ShopCarCell.m in Sources */,
+				AA5C524D1B4522870039900E /* OrderInfomationCell.m in Sources */,
 				0752F7DC1A7B2638008C0E0A /* PSTGridLayoutRow.m in Sources */,
 				075B032F1A6E3CC7002B577D /* XELocationServiceUtil.m in Sources */,
 				075E40981A59386C0062F6AD /* AFHTTPRequestOperationManager.m in Sources */,
@@ -3416,6 +3435,7 @@
 				076380561AA9446400F449CD /* XEBabyInfo.m in Sources */,
 				AACD9F7C1B21A81D0093E21C /* focusAndHabitViewController.m in Sources */,
 				074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */,
+				AA5C52481B4520990039900E /* OrderInfomationController.m in Sources */,
 				0774A8731A666EAB00336465 /* GMGridView.m in Sources */,
 				0712B3A51A5BD853000A1A7F /* NSData+GIF.m in Sources */,
 				076971AE1A77564E00FEA571 /* TopicListViewController.m in Sources */,

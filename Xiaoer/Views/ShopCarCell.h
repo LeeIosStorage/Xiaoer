@@ -12,8 +12,8 @@
 
 - (void)returnIndexOfShop:(NSInteger )index
             andNumberText:(NSString *)numText;
-- (void)returnIndexOfShop:(NSInteger )index
-         andIfTouchedWith:(NSString *)string;
+//- (void)returnIndexOfShop:(NSInteger )index
+//         andIfTouchedWith:(NSString *)string;
 
 @end
 
@@ -49,6 +49,7 @@
  *  底部的按钮，用来显示点击与否
  */
 @property (weak, nonatomic) IBOutlet UIButton *backBtn;
+- (void)configureCellWith:(NSIndexPath *)indexPth
+              andStateStr:(NSString *)string;
 - (void)configureCellWith:(NSIndexPath *)indexPth;
-- (void)configureCellBackBtnWithString:(NSString *)string;
 @end

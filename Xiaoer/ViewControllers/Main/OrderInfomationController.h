@@ -1,0 +1,30 @@
+//
+//  OrderInfomationController.h
+//  Xiaoer
+//
+//  Created by 王鹏 on 15/7/2.
+//
+//
+
+#import "XESuperViewController.h"
+
+@interface OrderInfomationController : XESuperViewController
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+/**
+ *  动画的视图
+ */
+@property (strong, nonatomic) IBOutlet UIView *dataBackView;
+/**
+ *  取消按钮
+ */
+@property (weak, nonatomic) IBOutlet UIButton *cancleBtn;
+/**
+ *  确定按钮
+ */
+@property (weak, nonatomic) IBOutlet UIButton *dataVetifyBtn;
+/**
+ *  选择器
+ */
+@property (weak, nonatomic) IBOutlet UIDatePicker *dataPickerView;
+
+@end

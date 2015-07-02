@@ -90,15 +90,15 @@
     self.searchBtn.layer.borderWidth = 1;
     self.searchBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     //布局heaerview的collectionview
-//    [self configureHeaderCollectionView];
+    [self configureHeaderCollectionView];
     
-    //布局tableView
-//    [self configureShopTableView];
+//    布局tableView
+    [self configureShopTableView];
     
-    //布局轮播图
-//    [self configureLunBoBackView];
-    //布局searchView
-//    [self configuresearchView];
+//    布局轮播图
+  //  [self configureLunBoBackView];
+ //   布局searchView
+    [self configuresearchView];
 
     
 //    self.numActivity = 6;
@@ -107,12 +107,12 @@
     self.addNew = NO;
     self.ifToEnd = NO;
     self.pageNum = 1;
-//    [self getChooseDataWithTypeString:@"1,2"];
-//    [self getHomeShopNewDataWithTypeString:@"3"];
+    [self getChooseDataWithTypeString:@"1,2"];
+    [self getHomeShopNewDataWithTypeString:@"3"];
     
-        UIImageView *ImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        ImageView.image = [UIImage imageNamed:@"正在建设中6p"];
-        [self.view addSubview:ImageView];
+//        UIImageView *ImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//        ImageView.image = [UIImage imageNamed:@"正在建设中6p"];
+//        [self.view addSubview:ImageView];
 
     
 }
@@ -439,7 +439,19 @@
 
     }else if (indexPath.row == 1){
         ActivityMainViewController *activity = [[ActivityMainViewController alloc]init];
-        activity.type = @"1";
+        activity.type = @"2";
+        activity.category = @"1";
+        
+        [appDelegate.mainTabViewController.navigationController pushViewController:activity animated:YES];
+    }else if (indexPath.row == 2){
+        ActivityMainViewController *activity = [[ActivityMainViewController alloc]init];
+        activity.type = @"2";
+        activity.category = @"2";
+        
+        [appDelegate.mainTabViewController.navigationController pushViewController:activity animated:YES];
+    }else if (indexPath.row == 3){
+        ActivityMainViewController *activity = [[ActivityMainViewController alloc]init];
+        activity.type = @"3";
         activity.category = @"1";
         
         [appDelegate.mainTabViewController.navigationController pushViewController:activity animated:YES];

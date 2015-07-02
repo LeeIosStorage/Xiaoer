@@ -125,13 +125,13 @@
 
 #pragma mark 上移动画
 - (void)animationChooseDataView{
-    if (self.chooseDataView.frame.origin.y == (SCREEN_HEIGHT - 352)) {
+    if (self.chooseDataView.frame.origin.y == (SCREEN_HEIGHT - 300)) {
             [UIView animateWithDuration:0.8 animations:^{
-                self.chooseDataView.frame = CGRectMake(0, SCREEN_HEIGHT + 352, SCREEN_WIDTH, 352);
+                self.chooseDataView.frame = CGRectMake(0, SCREEN_HEIGHT + 300, SCREEN_WIDTH, 300);
             }];
     }else{
             [UIView animateWithDuration:0.8 animations:^{
-                self.chooseDataView.frame = CGRectMake(0, SCREEN_HEIGHT - 352, SCREEN_WIDTH, 352);
+                self.chooseDataView.frame = CGRectMake(0, SCREEN_HEIGHT - 300, SCREEN_WIDTH, 300);
             }];
         }
 }

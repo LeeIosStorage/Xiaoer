@@ -236,10 +236,10 @@ static CGFloat beginImageH = 64;
     else if (section == kMyCard){
         return 1;
     }
-    return 0;
-//    else {
-//        return 1;
-//    }
+//    return 0;
+    else {
+        return 1;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

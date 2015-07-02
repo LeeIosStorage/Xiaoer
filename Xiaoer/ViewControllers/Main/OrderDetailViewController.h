@@ -35,6 +35,13 @@
  *  区头显示商城的按钮
  */
 @property (weak, nonatomic) IBOutlet UIButton *shopSectionHeaderBtn;
+/**
+ *  删除订单
+ */
 @property (weak, nonatomic) IBOutlet UIButton *delateOrder;
+/**
+ *  预约信息
+ */
+@property (weak, nonatomic) IBOutlet UIButton *cardOrder;
 
 @end
