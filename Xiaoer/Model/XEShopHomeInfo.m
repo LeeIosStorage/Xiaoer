@@ -26,7 +26,7 @@
         }else{
             self.objId = [dictionary[@"objId"] stringValue];
         }
-        self.IdNum = [dictionary[@"id"] stringValue];
+        self.id = [dictionary[@"id"] stringValue];
     }
     return self;
 }

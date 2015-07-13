@@ -7,19 +7,26 @@
 //
 
 #import "ToyDetailViewController.h"
-#import "ToyDetailCell.h"
 #import "ToyListViewController.h"
 #import "VerifyIndentViewController.h"
 #import "ShopCarViewController.h"
 #import "ToyLunBoView.h"
+#import "XEEngine.h"
+#import "XEProgressHUD.h"
+#import "XEShopDetailInfo.h"
+#import "MJExtension.h"
+#import "UIImageView+WebCache.h"
+#import "ToyDetailCollectiCell.h"
+#import "ToyDetailCollectHeaderView.h"
+#import "ToyDetailCollectTopCell.h"
+#import "ToyDetailCollectionFooterView.h"
+#define collectH 350
 
-#define chooseHeight self.chooseView.frame.size.height
 
-@interface ToyDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface ToyDetailViewController ()<UIWebViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UICollectionViewDelegate,btnTouchDelegate,topCancleBtnTouched>
 @property (strong, nonatomic) IBOutlet UIView *naviLable;
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
 @property (strong, nonatomic) IBOutlet UIView *tabHeaderView;
-//@property (weak, nonatomic) IBOutlet UITableView *detailTabView;
 @property (strong, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UILabel *lunboLab;
 
@@ -28,18 +35,14 @@
  */
 @property (nonatomic,strong)UIView *hideView;
 
-
-
-
 /**
- *  选择的tableview
+ *  选择的view
  */
 @property (strong, nonatomic) IBOutlet UIView *chooseView;
 
-/**
- *  选择的tableview
- */
-@property (weak, nonatomic) IBOutlet UITableView *chooseTab;
+@property (weak, nonatomic) IBOutlet UICollectionView *chooseCollectView;
+@property (nonatomic,strong)UICollectionViewFlowLayout *layOut;
+
 /**
  *  choose的tableview的headerview
  */
@@ -54,13 +57,78 @@
  */
 @property (weak, nonatomic) IBOutlet UILabel *priceLab;
 
-@property (weak, nonatomic) IBOutlet UIButton *chooseVerifyBtn;
+/**
+ *  网页数据请求
+ */
+@property (nonatomic, retain) NSURLRequest *request;
 
+/**
+ *  用户ID
+ */
+@property (nonatomic,strong)NSString *userID;
+
+/**
+ *  左边的数组（例如：颜色，尺寸，材质）
+ */
+@property (nonatomic,strong)NSMutableArray *leftArray;
+/**
+ *  右边的数组（红色,蓝色,白色,卡其色,水洗蓝 ／ S,M,L,XL,XXL,XXXL）
+ */
+@property (nonatomic,strong)NSMutableArray *rightArray;
+
+
+/**
+ *  保存每一个分区点击了那个button
+ */
+@property (nonatomic,strong)NSMutableArray *strArray;
+
+
+@property (nonatomic,strong)XEShopDetailInfo *detailInfo;
+/**
+ *  区尾显示购买数量的lable
+ */
+@property (nonatomic,strong)UILabel *buyNum;
+
+
+@property (nonatomic,strong)NSMutableString *standardStr;
 
 @end
 
 @implementation ToyDetailViewController
-
+- (UILabel *)buyNum{
+    if (!_buyNum) {
+        self.buyNum = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2 - 20, 40, 40, 20)];
+        _buyNum.textAlignment = NSTextAlignmentCenter;
+    }
+    return _buyNum;
+}
+- (NSMutableArray *)strArray{
+    if (!_strArray) {
+        self.strArray = [NSMutableArray array];
+    }
+    return _strArray;
+}
+- (UICollectionViewFlowLayout *)layOut{
+        if (!_layOut) {
+            self.layOut = [[UICollectionViewFlowLayout alloc]init];
+            _layOut.scrollDirection =  UICollectionViewScrollDirectionVertical;
+            _layOut.minimumLineSpacing = 10;
+            _layOut.minimumInteritemSpacing = 15;
+        }
+        return _layOut;
+}
+- (NSMutableArray *)leftArray{
+    if (!_leftArray) {
+        self.leftArray = [NSMutableArray array];
+    }
+    return _leftArray;
+}
+- (NSMutableArray *)rightArray{
+    if (!_rightArray) {
+        self.rightArray = [NSMutableArray array];
+    }
+    return _rightArray;
+}
 - (UIView *)hideView{
     if (!_hideView) {
         self.hideView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -74,13 +142,12 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+    self.webView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+    self.webView.delegate = self;
 //    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"正在建设中6p"]];
 //    imageView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 120);
 //    [self.view addSubview:imageView];
-    
-#warning 修改版的详情，使用html5做，暂时去掉tableview
-//    [self configureLunBoView];
-//    [self configureTableView];
+
 
     
     
@@ -91,46 +158,269 @@
     //    布局导航条
     [self confugureNaviTitle];
     [self addBottomView];
-    [self configureChooseTabView];
+
+    //网页加载
+    NSString *url = [NSString stringWithFormat:@"%@/goods/h5detail/%@",[[XEEngine shareInstance] baseUrl],self.shopId];
+    [self loadWebViewWithUrl:[NSURL URLWithString:url]];
+    //获取商品详情
+    [self getShopDetailInfomation];
+    
+    //添加登陆通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfo:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
+
+
+}
+/*
+- (UIView *)creatFooterView{
+
+    UIView *footerView = [[UIView alloc]init];
+    footerView.backgroundColor = [UIColor redColor];
+    
+    //确定按钮
+    UIButton *VerifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [VerifyBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [VerifyBtn setBackgroundColor:SKIN_COLOR];
+    [VerifyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [VerifyBtn addTarget:self action:@selector(toucheChooseVerifyBtn) forControlEvents:UIControlEventTouchUpInside];
+    if (self.leftArray.count == 0) {
+        NSLog(@"无选项");
+        footerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50);
+        VerifyBtn.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50);
+    }else{
+        
+        for (int i = 0; i < self.leftArray.count; i++) {
+            UILabel *titleLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 10, 60, 20)];
+            titleLab.text = self.leftArray[i];
+            
+            UICollectionView *collectView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:self.layOut];
+            collectView.delegate = self;
+            collectView.dataSource = self;
+            [collectView registerNib:[UINib nibWithNibName:@"ToyDetailCollectiCell" bundle:nil] forCellWithReuseIdentifier:@"item"];
+            collectView.backgroundColor = [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1];
+            collectView.tag = i + 10;
+            collectView.frame = CGRectMake(0, 20, SCREEN_WIDTH, 80);
+            
+            
+            UIView *collectBack = [[UIView alloc]initWithFrame:CGRectMake(0, i * 100, SCREEN_WIDTH, 100)];
+            collectBack.backgroundColor = [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1];
+            [collectBack addSubview:titleLab];
+            [collectBack addSubview:collectView];
+            
+            [footerView addSubview:collectBack];
+            
+        }
+        footerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 350);
+        VerifyBtn.frame = CGRectMake(0, 300, SCREEN_WIDTH, 50);
+
+        
+        
+    }
+    
+    
+
+//    if (self.leftArray.count == 0) {
+//        
+//        NSLog(@"无选项");
+//        footerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50);
+//        VerifyBtn.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50);
+//        [footerView addSubview:VerifyBtn];
+//    }else{
+//        
+//        for (int i = 0; i < self.leftArray.count; i++) {
+//            UIView *view = [[UIView alloc]init];
+//            UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(15, 10, 60, 20)];
+//            lable.text = self.leftArray[i];
+//            lable.textColor = [UIColor blackColor];
+//            lable.font = [UIFont systemFontOfSize:15];
+//            NSArray *comRightArr = [self.rightArray[i] componentsSeparatedByString:@","];
+//            [view addSubview:lable];
+//            
+//            for (int j = 0; j < comRightArr.count; j++) {
+//                NSLog(@"%@",comRightArr[j]);
+//                UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//                [button setBackgroundColor:SKIN_COLOR];
+//                [button setTitle:comRightArr[j] forState:UIControlStateNormal];
+//                button.frame = CGRectMake(15 + (smBtnW + 10) * j, 40, smBtnW, smBtnH);
+//                view.frame = CGRectMake(0, 100 * i, SCREEN_WIDTH, 100);
+//                [view addSubview:button];
+//                [footerView addSubview:view];
+//                if (j == comRightArr.count - 1) {
+//                    footerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 350);
+//                    VerifyBtn.frame = CGRectMake(0, 300,SCREEN_WIDTH ,50);
+//                    [footerView addSubview:VerifyBtn];
+//                }
+//            }
+//            
+//            
+//            
+//        }
+//
+//    }
+//
+    [footerView addSubview:VerifyBtn];
+
+    return footerView;
+}
+*/
+
+- (void)toucheChooseVerifyBtn{
+    [self animationChooseView];
+}
+
+#pragma mark 添加到购物车
+- (void)addShopInfoToShopCar{
+    __weak ToyDetailViewController *weakSelf = self;
+    
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    if (![XEEngine shareInstance].uid) {
+        self.userID = @"";
+    } else {
+        self.userID = [XEEngine shareInstance].uid;
+    }
+    if (!self.standardStr) {
+        self.standardStr = [NSMutableString stringWithFormat:@""];
+    }
+    if (!self.buyNum) {
+        [self buyNum];
+        self.buyNum.text = @"";
+    }
+    
+    [[XEEngine shareInstance]refreshShopCarWithTag:tag del:@"0" idNum:@"" num:self.buyNum.text userid:self.userID goodsid:self.detailInfo.id standard:self.standardStr];
+    
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        //获取失败信息
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        
+    } tag:tag];
+    
+    
+}
+#pragma mark  获取商品详情
+- (void)getShopDetailInfomation{
+    __weak ToyDetailViewController *weakSelf = self;
+    
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    if (![XEEngine shareInstance].uid) {
+        self.userID = @"";
+    } else {
+        self.userID = [XEEngine shareInstance].uid;
+    }
+
+    [[XEEngine shareInstance]getShopDetailInfomationWithTag:tag shopId:self.shopId userId:self.userID];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        //获取失败信息
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+            
+        }
+        if ([jsonRet[@"object"][@"goods"] isKindOfClass:[NSNull class]]) {
+            [XEProgressHUD AlertError:@"获取商品详情失败，请检查网络设置" At:weakSelf.view];
+            return;
+        }
+        
+        self.detailInfo = [XEShopDetailInfo objectWithKeyValues:jsonRet[@"object"][@"goods"]];
+//        if (detailInfo.url) {
+//            [self.chooseHeaderImage sd_setImageWithURL:[detailInfo totalImageUrl] placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+//        }else{
+//            self.chooseHeaderImage.image = [UIImage imageNamed:@"shopCellHolder"];
+//        }
+//        if (detailInfo.price) {
+//            NSString *prcie = [NSString stringWithFormat:@"￥%@",[detailInfo resultPrice]];
+//            self.priceLab.text = prcie;
+//        }else{
+//            
+//            self.priceLab.text = @"";
+//        }
+        
+        NSLog(@"%@",jsonRet[@"object"][@"standard"][@"颜色"]);
+        
+        NSMutableString *muStr = [self.detailInfo.standard copy];
+        NSArray *array = [muStr componentsSeparatedByString:@";"];
+        for (NSString *str in array) {
+            NSMutableString * muStrB = [str copy];
+            NSArray *arrayB = [muStrB componentsSeparatedByString:@":"];
+            [self.leftArray addObject:arrayB[0]];
+            [self.rightArray addObject:arrayB[1]];
+            
+        }
+        for (NSString * str in self.rightArray) {
+            NSLog(@"self.rightArray == %@",str);
+        }
+        for (NSString * str in self.leftArray) {
+            NSLog(@"self.leftArray = %@",str);
+        }
+        [self configureChoosecollectionView];
+        
+    } tag:tag];
+
 
 }
 
-#pragma mark 布局choosetableview
+#pragma mark 布局collectionView
 
-- (void)configureChooseTabView{
-    self.chooseTab.delegate = self;
-    self.chooseTab.dataSource = self;
-    [self.chooseTab registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    self.chooseView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, chooseHeight);
-    self.chooseTab.tableHeaderView = self.chooseTabHeader;
+- (void)configureChoosecollectionView{
+    self.chooseCollectView.delegate = self;
+    self.chooseCollectView.dataSource = self;
+    self.chooseCollectView.collectionViewLayout = self.layOut;
     self.chooseHeaderImage.layer.cornerRadius = 10;
+    
+    [self.chooseCollectView registerNib:[UINib nibWithNibName:@"ToyDetailCollectiCell" bundle:nil] forCellWithReuseIdentifier:@"item"];
+    
+    [self.chooseCollectView registerNib:[UINib nibWithNibName:@"ToyDetailCollectTopCell" bundle:nil] forCellWithReuseIdentifier:@"top"];
+
+    [self.chooseCollectView registerNib:[UINib nibWithNibName:@"ToyDetailCollectHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+    
+
+    [self.chooseCollectView registerClass:[ToyDetailCollectionFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
+    
     self.chooseHeaderImage.layer.masksToBounds = YES;
+    
+//    if (self.leftArray.count > 0) {
+//        
+//    }else{
+//        
+//    }
+    
+    self.chooseView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, collectH + 50);
+    
+    UIButton *verifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    verifyBtn.frame = CGRectMake(0, collectH, SCREEN_WIDTH, 50);
+    verifyBtn.backgroundColor = SKIN_COLOR;
+    [verifyBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [verifyBtn addTarget:self action:@selector(chooseVetifyBtnTouched) forControlEvents:UIControlEventTouchUpInside];
+    [self.chooseView addSubview:verifyBtn];
+    
+    
     [self.view addSubview:self.chooseView];
-}
-#pragma mark 添加底部的视图 （收藏，加入购物车，立即购买）
-- (void)addBottomView{
-    self.bottomView.frame = CGRectMake(0, SCREEN_HEIGHT - 40, SCREEN_WIDTH, 40);
-    [self.view addSubview:self.bottomView];
-}
-
-#pragma mark 布局tableview属性
-- (void)configureTableView{
-//    self.detailTabView.delegate = self;
-//    self.detailTabView.dataSource = self;
-//    [self.detailTabView registerNib:[UINib nibWithNibName:@"ToyDetailCell" bundle:nil] forCellReuseIdentifier:@"detail"];
-//    self.detailTabView.tableHeaderView = self.tabHeaderView;
-
+    
+    if (self.leftArray.count > 0) {
+        for (int i = 0; i < self.leftArray.count; i++) {
+            NSMutableString *str = [NSMutableString stringWithFormat:@""];
+            [self.strArray addObject:str];
+        }
+    }
 }
 
-#pragma mark 布局轮播图
-- (void)configureLunBoView{
-    //轮播图
-    ToyLunBoView *cycleView = [[ToyLunBoView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 250)];
-    cycleView.userInteractionEnabled = YES;
-    cycleView.backgroundColor = [UIColor redColor];
-    [cycleView configureHeaderWith:1];
-    [self.lunboLab addSubview:cycleView];
+
+- (void)chooseVetifyBtnTouched{
+    NSLog(@"确定");
+    if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
+        return;
+    }
+    [self addShopInfoToShopCar];
 }
+
+
 
 #pragma mark 布局导航条
 - (void)confugureNaviTitle{
@@ -154,9 +444,15 @@
 }
 
 
-#pragma mark  前往购物车按钮
+#pragma mark 右上角前往购物车按钮
 - (void)toShopCar{
     NSLog(@"添加到购物车");
+
+    if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
+        return;
+    }
+    NSLog(@"%@",[XEEngine shareInstance].uid);
+
     ShopCarViewController *car = [[ShopCarViewController alloc]init];
     [self.navigationController pushViewController:car animated:YES];
 }
@@ -167,9 +463,12 @@
     NSLog(@"收藏");
 }
 
-#pragma mark  底部点击加入到购物车
+#pragma mark  web下面点击加入到购物车
 - (IBAction)bottomAddToShopCar:(id)sender {
-    NSLog(@"底部点击加入到购物车");
+    if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
+        return;
+    }
+    NSLog(@"底部弹出添加到购物车");
     [self animationChooseView];
 
 }
@@ -179,19 +478,201 @@
 #pragma mark  立即购买
 - (IBAction)buy:(id)sender {
     NSLog(@"购买");
+    if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
+        return;
+    }
     VerifyIndentViewController *verify = [[VerifyIndentViewController alloc]init];
     [self.navigationController pushViewController:verify animated:YES];
 }
 
-#pragma mark 取消按钮点击
-
+#pragma mark 选择界面取消按钮点击
 - (IBAction)cancleBtnTouched:(id)sender {
     NSLog(@"取消按钮点击");
     [self animationChooseView];
 }
 
-- (IBAction)vetifyBtnTouched:(id)sender {
+
+
+
+#pragma mark 选择界面透明头部点击之后执行动画
+- (IBAction)headerClearBtnTouched:(id)sender {
+    
     [self animationChooseView];
+}
+
+#pragma mark collection delegate
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    if (section == 0) {
+        return 1;
+    }
+
+    if (self.rightArray.count > 0) {
+        NSArray *array = [self.rightArray[section - 1] componentsSeparatedByString:@","];
+        return array.count;
+    }
+
+    return 0;
+}
+//设置分区数量
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    
+    return self.leftArray.count + 1;
+}
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 0) {
+        
+        ToyDetailCollectTopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"top" forIndexPath:indexPath];
+        self.standardStr = [NSMutableString string];
+        for (int i = 0; i < self.strArray.count; i++) {
+            
+            if ([self.strArray[i] isEqualToString:@""]) {
+                
+            }else{
+                
+            NSString *str = [NSString stringWithFormat:@"%@:%@ ",self.leftArray[i],self.strArray[i]];
+            [self.standardStr appendString:str];
+                
+            }
+        }
+        [cell configureCellWithmodel:self.detailInfo chooseStr:self.standardStr];
+        cell.delegate = self;
+        return cell;
+        
+        
+    }
+        ToyDetailCollectiCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"item" forIndexPath:indexPath];
+        
+        cell.delegate = self;
+        NSArray *com = [self.rightArray[indexPath.section - 1] componentsSeparatedByString:@","];
+        cell.tag = indexPath.section;
+        if ( self.strArray &&[self.strArray[indexPath.section - 1] isEqualToString:com[indexPath.row]] ) {
+            [cell configureCellWithStr:com[indexPath.row]indexPath:indexPath ifChangeBackColorToSkc:YES];
+        }else{
+            [cell configureCellWithStr:com[indexPath.row]indexPath:indexPath ifChangeBackColorToSkc:NO];
+        }
+        
+        return cell;
+    
+}
+
+//每个Item的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return CGSizeMake(SCREEN_WIDTH, 150);
+    }
+    return CGSizeMake(80, 30);
+}
+
+//每个Item的间距
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    if (section == 0) {
+      return UIEdgeInsetsMake(0, 10, 0, 10);
+
+    }
+    return UIEdgeInsetsMake(10 , 15, 10, 10);
+}
+
+//区头的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return CGSizeMake(SCREEN_WIDTH, 0);
+    }
+    return CGSizeMake(0, 30);
+}
+//区尾的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
+    if (section == self.rightArray.count ) {
+        return CGSizeMake(SCREEN_WIDTH, 70);
+    }else{
+        return CGSizeMake(SCREEN_WIDTH, 0);
+    }
+    
+}
+
+
+
+//点击item
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+
+
+}
+//定义 header Footer
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        ToyDetailCollectHeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+        NSString *str = self.leftArray[indexPath.section -  1];
+        for ( UIView *view  in header.subviews) {
+            if (view.tag  == 100) {
+                for (UIView *vi in view.subviews) {
+                    if (vi.tag == 101) {
+                        UILabel *lable = (UILabel *)vi;
+                        lable.textColor = [UIColor blackColor];
+                        lable.text = str;
+                    }
+                }
+
+            }
+        }
+        return header;
+    }else if ([kind isEqualToString:UICollectionElementKindSectionFooter]){
+        
+    }
+
+    ToyDetailCollectionFooterView *reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer" forIndexPath:indexPath];
+    
+    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [addBtn setBackgroundImage:[UIImage imageNamed:@"jian-6p"] forState:UIControlStateNormal];
+    addBtn.frame = CGRectMake(SCREEN_WIDTH/2 - 55, 35, 30, 30);
+    [addBtn addTarget:self action:@selector(addBtnTouched) forControlEvents:UIControlEventTouchUpInside];
+    UIImageView *deleImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"jian"]];
+    deleImage.frame = CGRectMake(SCREEN_WIDTH/2 + 55 - 30, 49, 30, 2);
+    UIButton *deleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    deleBtn.backgroundColor = [UIColor clearColor];
+    deleBtn.frame = CGRectMake(SCREEN_WIDTH/2 + 55 - 30, 35, 30, 30);
+    [deleBtn addTarget:self action:@selector(deleteBtnTouched) forControlEvents:UIControlEventTouchUpInside];
+    [reusableview addSubview:deleImage];
+    [reusableview addSubview:addBtn];
+    [reusableview addSubview:deleBtn];
+    [reusableview configureFooterView];
+    [reusableview addSubview:self.buyNum];
+    self.buyNum.text = @"1";
+
+    return reusableview;
+    
+}
+- (void)addBtnTouched{
+    NSInteger index = [self.buyNum.text integerValue];
+    index++;
+    self.buyNum.text = [NSString stringWithFormat:@"%ld",index];
+}
+- (void)deleteBtnTouched{
+    NSInteger index = [self.buyNum.text integerValue];
+    if (index == 1) {
+        return;
+    }else{
+        index--;
+    }
+    self.buyNum.text = [NSString stringWithFormat:@"%ld",index];
+
+}
+
+#pragma mark item delegate
+- (void)touchBtnwith:(NSString *)btnTitle btnTag:(NSInteger)btnTag{
+    self.strArray[btnTag - 1] = btnTitle;
+    [self.chooseCollectView reloadData];
+}
+- (void)TopCancleBtnTouched{
+    [self animationChooseView];
+}
+
+#pragma  mark 登陆完成执行操作
+- (void)handleUserInfo:(NSNotification *)notification{
+    [self getShopDetailInfomation];
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 
@@ -199,65 +680,42 @@
 - (void)animationChooseView{
     NSLog(@"执行动画");
     CGRect rect = self.chooseView.frame;
-    if (rect.origin.y == [UIScreen mainScreen].bounds.size.height) {
+    if (rect.origin.y == SCREEN_HEIGHT) {
         self.hideView.hidden = NO;
-
+        
         [UIView animateWithDuration:0.5 animations:^{
-                        self.chooseView.frame = CGRectMake(0, 0, SCREEN_WIDTH, chooseHeight);
+            self.chooseView.frame = CGRectMake(0, SCREEN_HEIGHT - collectH - 50, SCREEN_WIDTH, collectH + 50);
         } completion:^(BOOL finished) {
         }];
     }else{
         self.hideView.hidden  = YES;
-
+        
         [UIView animateWithDuration:0.5 animations:^{
-            self.chooseView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, chooseHeight);
+            self.chooseView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH,collectH + 50);
         } completion:^(BOOL finished) {
         }];
-        
-
     }
 }
-- (IBAction)headerClearBtnTouched:(id)sender {
+#pragma mark  web delegate
+
+- (void)loadWebViewWithUrl:(NSURL *)url {
     
-    NSLog(@"嗨噢是否 i 哦发 i 哦好");
-    [self animationChooseView];
-}
-
-
-
-#pragma mark tableView delegate 
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    self.request =[NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:_request];
     
-    return 0;
-}
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//        return self.chooseTabHeader;
-// 
-//}
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
-}
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return 180;
-    return 100;
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-//   . ToyDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"detail" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor redColor];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    NSLog(@"webViewDidFinishLoad: ");
+
+    
 }
 
+#pragma mark 添加底部的视图 （收藏，加入购物车，立即购买）
+- (void)addBottomView{
+    self.bottomView.frame = CGRectMake(0, SCREEN_HEIGHT - 40, SCREEN_WIDTH, 40);
+    [self.view addSubview:self.bottomView];
+}
 /*
 #pragma mark - Navigation
 

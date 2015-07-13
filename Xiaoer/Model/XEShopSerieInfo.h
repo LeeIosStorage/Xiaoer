@@ -47,12 +47,12 @@
 /**
  *  series的Id 唯一标识号
  */
-@property (nonatomic,strong)NSString *idNum;
+@property (nonatomic,strong)NSString *id;
 
 /**
  *  完整的图片地址
  */
-@property (nonatomic,strong)NSURL *totalImageUrl;
+- (NSURL *)totalImageUrl;
 
 /**
  *  剩余时间

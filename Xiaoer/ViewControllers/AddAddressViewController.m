@@ -8,11 +8,21 @@
 
 #import "AddAddressViewController.h"
 #import "AddAddressCell.h"
+#import "ChooseLocationViewController.h"
+#import "XEProgressHUD.h"
+#import "NSString+Value.h"
+#import "XEEngine.h"
+#import "AddressInfoManager.h"
 #define saveColor [UIColor colorWithRed:43/255.0 green:186/255.0 blue:230/255.0 alpha:1]
-@interface AddAddressViewController ()<UITableViewDataSource,UITableViewDelegate,cellTextFieldEndEditing>
+@interface AddAddressViewController ()<UITableViewDataSource,UITableViewDelegate,cellTextFieldEndEditing,ChooseLocationDelegate>
 @property (nonatomic,strong)NSMutableArray *leftArray;
 @property (nonatomic,strong)NSMutableDictionary *areaDic;
 @property (nonatomic,strong)NSArray *province;
+//是否删除
+@property (nonatomic,strong)NSString *ifDelete;
+@property (nonatomic,strong)NSString *localStr;
+
+@property (nonatomic,assign)BOOL ifRightPhone;
 @end
 
 @implementation AddAddressViewController
@@ -32,14 +42,53 @@
     [super viewDidLoad];
     self.title = @"新增地址";
     self.view.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
+    self.ifRightPhone = YES;
+    self.ifDelete = @"0";
     
     [self configureTabView];
     [self configurePickerView];
     [self configureCommonAddressBtn];
     
+    //注册最后一层  县区的通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(comeDistric:) name:@"distric" object:nil];
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(comeCity:) name:@"city" object:nil];
 
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(comeProvince:) name:@"province" object:nil];
+    if (!self.info) {
+        self.info = [[XEAddressListInfo alloc]init];
+    }
+    [self setRightButtonWithTitle:@"删除" selector:@selector(deleteAddressInfo)];
 }
+
+#pragma mark  删除地址按钮
+- (void)deleteAddressInfo{
+    NSLog(@"删除地址");
+    self.ifDelete = @"1";
+    [self saveBtnTouched:self.saveBtn];
+}
+- (void)comeDistric:(NSNotification *)sender{
+    NSLog(@"最后选择的区 == %@",sender.object);
+    self.info.districtName = sender.object[@"name"];
+    self.info.districtId = sender.object[@"id"];
+    self.localStr = [NSString stringWithFormat:@"%@ %@ %@",self.info.districtName,self.info.cityName,self.info.districtName];
+    [self.addAddressTab reloadData];
+}
+- (void)comeCity:(NSNotification *)sender{
+    NSLog(@"最后选择的市 == %@",sender.object);
+    if ([sender.object[@"name"] isEqualToString:@"市辖区"] || [sender.object[@"name"] isEqualToString:@"县"]) {
+        self.info.cityName = @"";
+    }else{
+        self.info.cityName = sender.object[@"name"];
+    }
+    self.info.cityId = sender.object[@"id"];
+}
+- (void)comeProvince:(NSNotification *)sender{
+    NSLog(@"最后选择的省会 == %@",sender.object);
+    self.info.provinceName = sender.object[@"name"];
+    self.info.provinceId = sender.object[@"id"];
+}
+
 #pragma mark 布局设为常用地址按钮
 - (void)configureCommonAddressBtn{
     self.setCommonAddress.layer.borderColor = [UIColor colorWithRed:43/255.0 green:186/255.0 blue:230/255.0 alpha:1].CGColor;
@@ -117,12 +166,179 @@
 
 #pragma mark cell的textfield 的代理方法
 - (void)passLeftLableText:(NSString *)string textFieldtext:(NSString *)str{
-    NSLog(@"%@ %@",string,str);
+    if ([string isEqualToString:@"收件人姓名"]) {
+        [self checkNameWith:str];
+    } else if([string isEqualToString:@"详细地址"]) {
+        [self checkAddressWith:str];
+    }else if ([string isEqualToString:@"手机号码"]){
+        [self checkPhoneWith:str];
+    }else if ([string isEqualToString:@"固定号码(选填)"]){
+        if ([str isEqualToString:@""]) {
+            self.info.tel = str;
+        }else{
+            self.info.tel = str;
+        }
+    }
+}
+#pragma mark  判断输入合法
+- (void)checkAddressWith:(NSString *)str{
+    if ([str isEqualToString:@""]) {
+        [XEProgressHUD lightAlert:@"请输入地址"];
+        return;
+    }else{
+        self.info.address = str;
+    }
+}
+- (void)checkNameWith:(NSString *)str{
+    if ([str isEqualToString:@""]) {
+        
+        [XEProgressHUD lightAlert:@"请输入姓名"];
+        return;
+    }else{
+        
+        self.info.name = str;
+    }
+    
+}
+- (void)checkPhoneWith:(NSString *)str{
+    NSLog(@"str ============  %@",str);
+    if (![str isPhone]) {
+        self.ifRightPhone = NO;
+        [XEProgressHUD lightAlert:@"请输入正确的手机号"];
+        return;
+    }else{
+        self.ifRightPhone = YES;
+        self.info.phone = str;
+    }
+}
+- (void)checkAddAddressViewPickviewState{
+    if (self.chooseDataView.frame.origin.y == (SCREEN_HEIGHT - 300)) {
+        [self animationChooseDataView];
+    }
 }
 
+#pragma mark 保存
+- (IBAction)saveBtnTouched:(id)sender {
+    [self.view endEditing:YES];
+    [self scrollViewDidScroll:self.addAddressTab];
+    NSLog(@"%@",self.info.phone);
+    
+    //设置是否是默认地址
+    if ([self.setCommonAddress.backgroundColor isEqual: saveColor]) {
+        self.info.def = @"1";
+        NSLog(@"是默认");
+    } else {
+        self.info.def = @"0";
+        NSLog(@"no 是默认");
+
+    }
+    
+    //判断是否适合点击保存
+
+    if (!self.info.provinceId) {
+        [XEProgressHUD lightAlert:@"请输入正确的省会名称"];
+
+        return;
+    }
+    if (!self.info.cityId) {
+        [XEProgressHUD lightAlert:@"请输入正确的城市名称"];
+
+        return;
+    }
+    if (!self.info.districtId) {
+        [XEProgressHUD lightAlert:@"请输入正确的区名称"];
+
+        return;
+    }
+    if (!self.info.name) {
+        [XEProgressHUD lightAlert:@"请输入姓名"];
+
+        return;
+    }
+    
+    if (self.ifRightPhone == NO) {
+      [XEProgressHUD lightAlert:@"请输入正确的手机号"];
+        return;
+    }
+    
+    
+    if (!self.info.address) {
+        [XEProgressHUD lightAlert:@"请输详细地址"];
+        return;
+    }
+    
+    
+    if (!self.info.tel) {
+        self.info.tel = @"";
+    }
+    
+    
+    if (!self.info.id) {
+        self.info.id = @"";
+    }
+    
+    XEAddressListInfo *info = [[AddressInfoManager manager]getTheDictionary];
+    //没有任何本子数据，直接设置成默认地址
+    if (!info.phone) {
+        self.info.def = @"1";
+    }
 
 
+    __weak AddAddressViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance]saveEditorAddressWith:tag userid:[XEEngine shareInstance].uid provinceid:self.info.provinceId cityid:self.info.cityId districtid:self.info.districtId name:self.info.name phone:self.info.phone address:self.info.address tel:self.info.tel def:self.info.def del:self.ifDelete idnum:self.info.id];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        
+        //获取失败信息
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+            
+        }
+        if (jsonRet[@"object"]) {
+            NSArray *array = jsonRet[@"object"];
+            if (array.count == 0) {
+                [XEProgressHUD AlertError:@"没有获取到数据" At:weakSelf.view];
+                return;
+            }
+        }
 
+        if ([jsonRet[@"result"] isEqualToString:@"保存成功"]) {
+            [XEProgressHUD AlertSuccess:@"保存成功" At:weakSelf.view];
+            if ( [self.info.def isEqualToString: @"1"]) {
+                [[AddressInfoManager manager]addDictionaryWith:self.info];
+            }
+
+            [self performSelector:@selector(performPop) withObject:self afterDelay:1.5];
+
+        } else  if ([jsonRet[@"result"] isEqualToString:@"用户地址已更新"]){
+            [XEProgressHUD AlertSuccess:@"保存成功" At:weakSelf.view];
+            if ( [self.info.def isEqualToString: @"1"]) {
+                [[AddressInfoManager manager]addDictionaryWith:self.info];
+            }
+            [self performSelector:@selector(performPop) withObject:self afterDelay:1.5];
+
+        }else if ([jsonRet[@"result"] isEqualToString:@"用户地址已删除"]){
+            [XEProgressHUD AlertSuccess:@"用户地址已删除" At:weakSelf.view];
+            if (self.ifCanDelete == YES) {
+                NSLog(@"本质执行操作");
+             [[AddressInfoManager manager]deleteTheDictionary];
+            }
+            [self performSelector:@selector(performPop) withObject:self afterDelay:1.5];
+        }
+    } tag:tag];
+    
+}
+#pragma mark  延迟pop到上一级页面
+- (void)performPop{
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 #pragma mark 上移动画
 - (void)animationChooseDataView{
     if (self.chooseDataView.frame.origin.y == (SCREEN_HEIGHT - 300)) {
@@ -169,6 +385,10 @@
 
 
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+}
+
 
 #pragma mark 实现协议UIPickerViewDataSource方法
 //确定Picker的轮子的个数
@@ -198,35 +418,45 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
     return 50;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.leftArray.count;
+
+    return self.leftArray.count ;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     AddAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    [cell configureCellWith:indexPath AndString:[self.leftArray objectAtIndex:indexPath.row]];
+    [cell configureCellWithLeftStr:self.leftArray[indexPath.row] model:self.info indexPath:indexPath];
     cell.delegate = self;
-    if (indexPath.row == 1) {
-        cell.rightTextField.text = self.chooseedAddRess;
-    }
+
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 1) {
-        AddAddressCell *cell = [[AddAddressCell alloc]init];
-        
-        [cell.rightTextField resignFirstResponder];
-        NSLog(@"%@",cell.rightTextField);
-        [self animationChooseDataView];
+//        AddAddressCell *cell = [[AddAddressCell alloc]init];
+//        
+//        [cell.rightTextField resignFirstResponder];
+//        NSLog(@"%@",cell.rightTextField);
+        [self.view endEditing:YES];
+//        [self animationChooseDataView];
+        ChooseLocationViewController *chooseLocationVc=[[ChooseLocationViewController alloc] initWithLoactionType:ChooseLoactionTypeProvince WithCode:nil];
+        chooseLocationVc.delegate=self;
+        [self.navigationController pushViewController:chooseLocationVc animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark - ChooseLocationDelegate
+-(void) didSelectLocation:(NSDictionary *)location
+{
 
+    NSLog(@"最后返回的数据 === %@",location);
+    [self.addAddressTab reloadData];
+}
 #pragma mark- Picker Delegate Methods
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
@@ -350,6 +580,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 /*
 #pragma mark - Navigation
 

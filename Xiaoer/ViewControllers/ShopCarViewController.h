@@ -21,5 +21,10 @@
  */
 @property (weak, nonatomic) IBOutlet UILabel *privilegeLab;
 
+/**
+ *  刷新购物车
+ */
+- (void)refreshShopCarWithDel:(NSString *)del
+                withIndoIndex:(NSInteger )index;
 
 @end

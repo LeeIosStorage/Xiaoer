@@ -15,10 +15,27 @@
         self.title = dictionary[@"title"];
         self.cweek = [dictionary[@"cweek"] stringValue];
         self.type = [dictionary[@"type"] stringValue];
-        self.objid = [dictionary[@"objId"] stringValue];
+        if ([dictionary[@"objId"] isKindOfClass:[NSNull class]]) {
+            self.objid = @"";
+        }else{
+            self.objid = [dictionary[@"objId"] stringValue];
+
+        }
+        
+        if ([dictionary[@"objCat"] isKindOfClass:[NSNull class]]) {
+            self.objCat = @"";
+        }else{
+            self.objCat = [dictionary[@"objCat"] stringValue];
+            
+        }
+        
+        if ([dictionary[@"objName"] isKindOfClass:[NSNull class]]) {
+            self.objName = @"";
+        }else{
+            self.objName = dictionary[@"objName"] ;
+            
+        }
         self.des = dictionary[@"des"];
-        self.objCat = dictionary[@"objCat"];
-        self.objName = dictionary[@"objName"];
     }
     return self;
 }

@@ -31,7 +31,7 @@
  *  series的Id 唯一标识号
 
 */
-@property (nonatomic,strong)NSString *idNum;
+@property (nonatomic,strong)NSString *id;
 
 /**
  *  价格单位分
@@ -62,7 +62,7 @@
 /**
  *  图片完整url
  */
-@property (nonatomic,strong)NSURL *totalImageUrl;
+-(NSURL *)totalImageUrl;
 
 
 /**

@@ -44,6 +44,8 @@
 }
 - (void)touchMotherLookCellBtn:(UIButton *)sender{
     NSString *string = sender.titleLabel.text;
+    
+    UIAlertView *aletr = [[UIAlertView alloc]initWithTitle:@"您查看的内容不存在，晓儿正在找回中" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     if ([string isEqualToString:@"去抢票"]) {
         NSLog(@"去抢票");
         
@@ -54,11 +56,19 @@
             
             if ([[dic[@"type"] stringValue] isEqualToString:@"1"]) {
                 XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
+                NSLog(@"model.objid === %@",model.objid);
                 activityInfo.aId = model.objid;
                 activityInfo.aType = 1;
                 vc.activityInfo = activityInfo;
                 vc.isTicketActivity = YES;
-                [self.navigationController pushViewController:vc animated:YES];
+                if ([model.objid isEqualToString:@""]) {
+
+                    [aletr show];
+                    return;
+                }else{
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+
             }
         }
 
@@ -72,7 +82,14 @@
                 XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
                 activityInfo.aId = model.objid;
                 vc.activityInfo = activityInfo;
-                [self.navigationController pushViewController:vc animated:YES];
+                if ([model.objid isEqualToString:@""]) {
+                    
+                    [aletr show];
+                    return;
+                }else{
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+
             }
         }
     }else if ([string isEqualToString:@"去逛逛"]){
@@ -85,9 +102,16 @@
                 XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
                 NSString *url = [NSString stringWithFormat:@"%@/info/detail?id=%@", [[XEEngine shareInstance] baseUrl],model.objid];
                 id vc = [XELinkerHandler handleDealWithHref:url From:self.navigationController];
-                if (vc) {
-                    [self.navigationController pushViewController:vc animated:YES];
+                if ([model.objid isEqualToString:@""]) {
+                    
+                    [aletr show];
+                    return;
+                }else{
+                    if (vc) {
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
                 }
+  
             }
         }
         

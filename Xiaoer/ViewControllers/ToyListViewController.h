@@ -7,6 +7,7 @@
 //
 
 #import "XESuperViewController.h"
+#import "XEShopSerieInfo.h"
 
 @interface ToyListViewController : XESuperViewController
 /**
@@ -21,14 +22,7 @@
  *  商品名称
  */
 @property (nonatomic,strong)NSString *name;
-/**
- *  商品系列Id
- */
-@property (nonatomic,strong)NSString *serieid;
 
-
-@property (nonatomic,strong)NSString *leftDay;
-
-
+@property (nonatomic,strong)XEShopSerieInfo *serieInfo;
 
 @end

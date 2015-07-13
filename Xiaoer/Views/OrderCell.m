@@ -19,5 +19,9 @@
 
     // Configure the view for the selected state
 }
+- (void)configureCellWith:(NSIndexPath *)indexPath addHeaderViewWith:(UIView *)HeaderView{
+    
+}
+
 
 @end

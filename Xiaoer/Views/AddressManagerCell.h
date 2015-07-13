@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XEAddressListInfo.h"
+@protocol AddressManagerCellDelegate <NSObject>
+
+-(void)touchedIndexOfCell:(NSInteger)index;
+
+@end
+
 
 @interface AddressManagerCell : UITableViewCell
-
 /**
  *  收货人
  */
@@ -25,7 +31,11 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *editBtn;
 
-- (void)configureCellWith:(NSIndexPath *)indexPath;
+
+@property (nonatomic,assign)id<AddressManagerCellDelegate>delegate;
+
+- (void)configureCellWith:(NSIndexPath *)indexPath
+                     info:(XEAddressListInfo *)info;
 @property (nonatomic,strong)UIButton *button;
 @property (nonatomic,strong)UITableViewCell *cell;
 

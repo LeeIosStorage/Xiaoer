@@ -12,8 +12,13 @@
 - (id)initWithDictionary:(NSDictionary *)dictionary{
     if (self == [super initWithDictionary:dictionary]) {
         self.isrec = [dictionary[@"isrec"]stringValue];
-        self.idNum = [dictionary[@"id"]stringValue];
-        self.sortno = [dictionary[@"sortno"] stringValue];
+        self.id = [dictionary[@"id"]stringValue];
+        if ([dictionary[@"sortno"] isKindOfClass:[NSNull class]]) {
+            
+        }else{
+            self.sortno = [dictionary[@"sortno"] stringValue];
+
+        }
         self.des = dictionary[@"des"];
         self.price = [dictionary[@"price"]stringValue];
         self.sales = [dictionary[@"sales"] stringValue];
@@ -34,7 +39,7 @@
     return @"";
 }
 - (NSString *)resultPrice{
-    if (self.origPrice) {
+    if (self.price) {
         CGFloat price = [self.price floatValue];
         return [NSString stringWithFormat:@"%.2f",price/100];
     }

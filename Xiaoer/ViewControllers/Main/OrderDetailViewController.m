@@ -9,7 +9,8 @@
 #import "OrderDetailViewController.h"
 #import "OrderCell.h"
 #import "OrderInfomationController.h"
-
+#import "OrderApplyReimburseController.h"
+#import "OrderDreailCardCell.h"
 @interface OrderDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
@@ -20,8 +21,8 @@
     [super viewDidLoad];
     self.title = @"订单详情";
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+    self.tableView.tableHeaderView = self.dealState;
     [self congigureTableView];
-    [self creatTableViewHeadeView];
     [self configureBtnLayer];
 
     // Do any additional setup after loading the view from its nib.
@@ -54,11 +55,11 @@
     self.surplusLab.layer.cornerRadius = 5;
     self.surplusLab.layer.masksToBounds = YES;
     
-    self.contactService.layer.borderColor = [UIColor darkTextColor].CGColor;
+    self.contactService.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.contactService.layer.borderWidth = 1;
     self.contactService.layer.cornerRadius = 10;
     
-    self.phoneBtn.layer.borderColor = [UIColor darkTextColor].CGColor;
+    self.phoneBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.phoneBtn.layer.borderWidth = 1;
     self.phoneBtn.layer.cornerRadius = 10;
     
@@ -77,35 +78,50 @@
     self.cardOrder.layer.cornerRadius = 5;
     self.cardOrder.layer.masksToBounds = YES;
     
+    
+    self.applyReimburseBtn.layer.cornerRadius = 5;
+    self.applyReimburseBtn.layer.masksToBounds = YES;
+    self.applyReimburseBtn.layer.borderWidth = 1;
+    self.applyReimburseBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
 }
+
 #pragma mark 布局tableview属性
 - (void)congigureTableView{
     self.tableView.delegate = self;
     self.tableView.dataSource  =self;
     [self.tableView registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"OrderDreailCardCell" bundle:nil] forCellReuseIdentifier:@"cardCell"];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = self.footerView;
 
 }
 
 #pragma mark 创建tableHeaderView
-- (void)creatTableViewHeadeView{
-    UIView *headerView = [[UIView alloc]init];
-    UIView *resultAddressView = [self returnResultAddressView];
-    
-    resultAddressView.frame = CGRectMake(0, self.dealState.frame.size.height, SCREEN_WIDTH, resultAddressView.frame.size.height);
-    headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, self.dealState.frame.size.height + resultAddressView.frame.size.height);
-    headerView.backgroundColor = [UIColor whiteColor];
-    self.dealState.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100);
-    [headerView addSubview:self.dealState];
-    [headerView addSubview:resultAddressView];
-    self.tableView.tableHeaderView = headerView;
-    
+//- (void)creatTableViewHeadeView{
+//    UIView *headerView = [[UIView alloc]init];
+//    UIView *resultAddressView = [self returnResultAddressView];
+//    
+//    resultAddressView.frame = CGRectMake(0, self.dealState.frame.size.height, SCREEN_WIDTH, resultAddressView.frame.size.height);
+//    headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, self.dealState.frame.size.height + resultAddressView.frame.size.height);
+//    headerView.backgroundColor = [UIColor whiteColor];
+//    self.dealState.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100);
+//    [headerView addSubview:self.dealState];
+//    [headerView addSubview:resultAddressView];
+//    self.tableView.tableHeaderView = headerView;
+//    
+//}
+
+//- (UIView *)returnResultAddressView{
+//    return self.cardAddressView;
+//}
+#pragma mark  申请退款
+- (IBAction)applyReimburseBtnTouched:(id)sender {
+    OrderApplyReimburseController  *apply = [[OrderApplyReimburseController alloc]init];
+    [self.navigationController pushViewController:apply animated:YES];
+
 }
 
-- (UIView *)returnResultAddressView{
-    return self.cardAddressView;
-}
+
 #pragma mark  tableview delegate
 
 - (NSInteger )numberOfSectionsInTableView:(UITableView *)tableView{
@@ -116,7 +132,11 @@
     return 2;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    if (indexPath.section == 0) {
+        return 140;
+    }else{
+        return 220;
+    }
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -125,9 +145,13 @@
     }
     return 40;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 10;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//    if (section == 0) {
+//        return 10;
+//    }else{
+//        return 75;
+//    }
+//}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 50)];
@@ -139,10 +163,23 @@
         return self.shopSectionHeader;
     }
 }
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+//    if (section == 1) {
+//        return self.cardAddressView;
+//    }
+//    return nil;
+//}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+    if (indexPath.section == 0) {
+        OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else if (indexPath.section == 1){
+        OrderDreailCardCell *card = [tableView dequeueReusableCellWithIdentifier:@"cardCell" forIndexPath:indexPath];
+        return card;
+    }
+    return nil;
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

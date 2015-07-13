@@ -52,13 +52,16 @@
 
 }
 - (void)getOneWeekData{
+    [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+
     __weak EveryOneWeekController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-  //  [XEEngine shareInstance].serverPlatform = TestPlatform;
+    
     NSString *week = [NSString stringWithFormat:@"%ld",(long)self.cweek];
     int we = [week intValue];
     [[XEEngine shareInstance]getOneWeekListWith:we Tag:tag];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        
         //获取失败信息
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         if (errorMsg) {
@@ -76,8 +79,8 @@
         }
         if (self.dataSources) {
             XEOneWeekInfo *oneWeek = [XEOneWeekInfo modelWithDictioanry:[self.dataSources objectAtIndex:0]];
+            NSLog(@"oneWeek.objid ==== %@",oneWeek.objid);
             [self.headerImageView sd_setImageWithURL:oneWeek.totalImageUrl placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
-            NSLog(@"self.headerImageView.image.size.height === %f",self.headerImageView.image.size.height);
             self.headerLaab.text = oneWeek.title;
         }
         NSLog(@"self.dataSources.count = %ld",(unsigned long)self.dataSources.count);
@@ -105,14 +108,15 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80;
-    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     OneWeakCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cells"];
     if (!cell) {
         NSArray *array = [[NSBundle mainBundle]loadNibNamed:@"OneWeakCell" owner:self options:nil];
         cell = array.lastObject;
     }
+    
     XEOneWeekInfo *oneWeek = [XEOneWeekInfo modelWithDictioanry:[self.dataSources objectAtIndex:indexPath.row + 1]];
    [cell configureCellWithModel:oneWeek];
     return cell;

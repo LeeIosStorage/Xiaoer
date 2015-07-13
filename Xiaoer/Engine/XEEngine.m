@@ -1709,4 +1709,133 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
+
+//获取收获地址列表
+- (BOOL)getAddressListWithTag:(int)tag userId:(NSString *)userid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/userAddress/list",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+//保存修改地址
+- (BOOL)saveEditorAddressWith:(int)tag userid:(NSString *)userid provinceid:(NSString *)provinceid cityid:(NSString *)cityid districtid:(NSString *)districtid name:(NSString *)name phone:(NSString *)phone address:(NSString *)address tel:(NSString *)tel def:(NSString *)def del:(NSString *)del idnum:(NSString *)idnum{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    
+    [params setObject:userid forKey:@"userid"];
+    [params setObject:provinceid forKey:@"provinceid"];
+    [params setObject:cityid forKey:@"cityid"];
+    [params setObject:districtid forKey:@"districtid"];
+    [params setObject:name forKey:@"name"];
+    [params setObject:phone forKey:@"phone"];
+    [params setObject:address forKey:@"address"];
+    
+    if ([tel isEqualToString:@""]) {
+    }else{
+        [params setObject:tel forKey:@"tel"];
+    }
+    
+    if ([def isEqualToString:@""]) {
+    } else {
+        [params setObject:def forKey:@"def"];
+    }
+    
+//    if ([del isEqualToString:@"0"]) {
+        [params setObject:del forKey:@"del"];
+//
+//    } else {
+//        [params setObject:del forKey:@"del"];
+//    }
+    
+    if([idnum isEqualToString:@""]){
+        
+    }else{
+        [params setObject:idnum forKey:@"id"];
+    }
+    
+    
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/userAddress/addOrUpdateOrDel",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)getShopDetailInfomationWithTag:(int)tag shopId:(NSString *)shopId userId:(NSString *)userId{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:shopId forKey:@"id"];
+    if ([userId isEqualToString:@""]) {
+        
+    }else{
+        [params setObject:userId forKey:@"userId"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/goods/detail",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)refreshShopCarWithTag:(int)tag del:(NSString *)del idNum:(NSString *)idNum num:(NSString *)num userid:(NSString *)userid goodsid:(NSString *)goodsid standard:(NSString *)standard{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:del forKey:@"del"];
+    
+    if ([idNum isEqualToString:@""]) {
+        
+    }else{
+        [params setObject:idNum forKey:@"id"];
+    }
+    
+    if ([num isEqualToString:@""]) {
+        
+    }else{
+        [params setObject:num forKey:@"num"];
+    }
+    
+    if ([userid isEqualToString:@""]) {
+        
+    }else{
+        [params setObject:userid forKey:@"userid"];
+    }
+    
+    if ([goodsid isEqualToString:@""]) {
+        
+    }else{
+        [params setObject:goodsid forKey:@"goodsid"];
+    }
+    
+    if ([standard isEqualToString:@""]) {
+        
+    }else{
+        [params setObject:standard forKey:@"standard"];
+    }
+
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/cart/addOrUpdateOrDel",API_URL] type:1 parameters:params];
+    
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+    
+}
+- (BOOL)getShopCarListInfomationWith:(int)tag userid:(NSString *)userid onlygoods:(NSString *)onlygoods pagenum:(NSString *)pagenum{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    [params setObject:onlygoods forKey:@"onlygoods"];
+    [params setObject:pagenum forKey:@"pagenum"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/cart/list",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)getCouponListInfomationWith:(int)tag userid:(NSString *)userid pagenum:(NSString *)pagenum goodsids:(NSString *)goodsids{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    
+    [params setObject:userid forKey:@"userid"];
+    
+    if ([pagenum isEqualToString:@""]) {
+        
+    }else{
+        [params setObject:pagenum forKey:@"pagenum"];
+    }
+    
+    if ([goodsids isEqualToString:@""]) {
+        
+    }else{
+        [params setObject:goodsids forKey:@"goodsid"];
+    }
+
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/coupon/list",API_URL] type:1 parameters:params];
+    
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+    
+}
 @end

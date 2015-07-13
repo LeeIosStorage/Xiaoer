@@ -8,15 +8,13 @@
 
 #import "ShopActivityController.h"
 #import "SearchListViewController.h"
-//#import "ActivityDetailController.h"
 #import "ToyDetailViewController.h"
 #import "ShopActivityCell.h"
 #import "MJRefresh.h"
-
 #import "XEEngine.h"
-
 #import "XEProgressHUD.h"
 #import "XEShopListInfo.h"
+#import "MJExtension.h"
 
 @interface ShopActivityController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,assign)BOOL ifToEnd;
@@ -49,7 +47,7 @@
 - (void)getAvtivityListData{
     __weak ShopActivityController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance]getShopListInfoMationWith:tag category:self.category pagenum:[NSString stringWithFormat:@"%ld",(long)self.pageNum] type:self.type name:self.name serieid:self.serieInfo.idNum];
+    [[XEEngine shareInstance]getShopListInfoMationWith:tag category:self.category pagenum:[NSString stringWithFormat:@"%ld",(long)self.pageNum] type:self.type name:self.name serieid:self.serieInfo.id];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         //获取失败信息
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -80,7 +78,7 @@
             [self.dataSources removeAllObjects];
         }
         for (NSDictionary *dic in array) {
-            XEShopListInfo *info = [XEShopListInfo modelWithDictioanry:dic];
+            XEShopListInfo *info = [XEShopListInfo objectWithKeyValues:dic];
             [self.dataSources addObject:info];
         }
         [self.tabView reloadData];
@@ -160,6 +158,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    ActivityDetailController *detail = [[ActivityDetailController alloc]init];
     ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
+    
+    XEShopSerieInfo *info = (XEShopSerieInfo *)[self.dataSources objectAtIndex:indexPath.section];
+    detail.shopId = info.id;
     [self.navigationController pushViewController:detail animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

@@ -15,6 +15,7 @@
 #import "XEShopSerieInfo.h"
 #import "ToyMainTabCell.h"
 #import "ToyListViewController.h"
+#import "MJExtension.h"
 
 @interface ActivityMainViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,assign)NSInteger pageNum;
@@ -95,7 +96,7 @@
             [self.dataSources removeAllObjects];
         }
         for (NSDictionary *dic in array) {
-            XEShopSerieInfo *info = [XEShopSerieInfo modelWithDictioanry:dic];
+            XEShopSerieInfo *info = [XEShopSerieInfo objectWithKeyValues:dic];
             [self.dataSources addObject:info];
         }
         [self.tabView reloadData];
@@ -185,8 +186,7 @@
         list.type =  @"3";
         list.category = @"1";
         XEShopSerieInfo *serie = (XEShopSerieInfo *)[self.dataSources objectAtIndex:indexPath.row];
-        list.leftDay = serie.leftDay;
-        list.serieid = serie.idNum;
+        list.serieInfo = serie;
         [self.navigationController pushViewController:list animated:YES];
     } else {
         XEShopSerieInfo *info = [self.dataSources objectAtIndex:indexPath.row];

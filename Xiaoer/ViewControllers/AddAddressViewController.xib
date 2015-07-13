@@ -11,6 +11,7 @@
                 <outlet property="chooseDataView" destination="8Xe-FN-kvN" id="zyx-t4-Mb9"/>
                 <outlet property="dataPicker" destination="ASa-k6-9pc" id="vrU-62-6ct"/>
                 <outlet property="footerView" destination="MM7-zl-dZV" id="gwL-qX-N7q"/>
+                <outlet property="saveBtn" destination="B5R-Bb-FvN" id="WPC-Aa-ZvJ"/>
                 <outlet property="setCommonAddress" destination="FuZ-Ek-OZV" id="3Vc-wW-Vzd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -45,7 +46,7 @@
                     <rect key="frame" x="220" y="10" width="90" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="B5R-Bb-FvN">
@@ -54,6 +55,9 @@
                     <state key="normal" title="保存" backgroundImage="激活">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="saveBtnTouched:" destination="-1" eventType="touchUpInside" id="C9E-Mk-0qt"/>
+                    </connections>
                 </button>
             </subviews>
             <nil key="simulatedStatusBarMetrics"/>

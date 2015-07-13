@@ -18,7 +18,7 @@
         self.endTime = dictionary[@"endTime"] ;
         self.tip = [dictionary[@"tip"] stringValue];
         self.lmt = [dictionary[@"lmt"] stringValue];
-        self.idNum = [dictionary[@"id"] stringValue];
+        self.id = [dictionary[@"id"] stringValue];
         self.leftDay = [dictionary[@"leftDay"] stringValue];
     }
     return self;

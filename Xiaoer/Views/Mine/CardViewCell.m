@@ -65,12 +65,14 @@
     /**
         处理描述字符串
      */
-    if ([cardInfo.title isEqualToString:@"东方有线卡"]) {
-        _cardDes.text = [cardInfo returnCardOfEastDes];
-    }else{
-        _cardDes.text = [cardInfo returnCardOfOtherDes];
-        
-    }
+    _cardDes.text = @"";
+//    if ([cardInfo.title isEqualToString:@"东方有线卡"]) {
+//        _cardDes.text = [cardInfo returnCardOfEastDes];
+//        _cardDes.text = @"";
+//    }else{
+//        _cardDes.text = [cardInfo returnCardOfOtherDes];
+//        
+//    }
 
 }
 

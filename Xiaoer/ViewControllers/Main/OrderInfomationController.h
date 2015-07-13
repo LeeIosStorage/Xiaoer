@@ -27,4 +27,14 @@
  */
 @property (weak, nonatomic) IBOutlet UIDatePicker *dataPickerView;
 
+//卡券选择器背景图
+@property (strong, nonatomic) IBOutlet UIView *cardPickerBackView;
+//卡券取消按钮
+@property (weak, nonatomic) IBOutlet UIButton *cardCancleBtn;
+//卡券确定按钮
+@property (weak, nonatomic) IBOutlet UIButton *cardVerifyBtn;
+//卡券pickerview
+@property (weak, nonatomic) IBOutlet UIPickerView *cardPickerView;
+
+
 @end

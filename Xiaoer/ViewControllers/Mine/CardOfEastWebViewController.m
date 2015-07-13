@@ -43,7 +43,7 @@
 
 - (void)configureCardInfomationView{
     self.titleLab.text = self.cardinfo.title;
-    self.describe.text = [self.cardinfo returnCardOfEastDes];
+//    self.describe.text = [self.cardinfo returnCardOfEastDes];
     self.price.text = [NSString stringWithFormat:@"￥%@", self.cardinfo.price];
     
     if (![self.cardinfo.img isEqual:[NSNull null]]) {

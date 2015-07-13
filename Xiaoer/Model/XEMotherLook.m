@@ -10,10 +10,22 @@
 @implementation XEMotherLook
 - (id)initWithDictionary:(NSDictionary *)dictionary{
     if (self == [super initWithDictionary:dictionary]) {
-        self.imageUrl = dictionary[@"imgUrl"] ;
-        self.IDNum = [dictionary[@"id"] stringValue];
+        
+        if ([dictionary[@"imgUrl"] isKindOfClass:[NSNull class]]) {
+            self.imageUrl = @"";
+        }else{
+            self.imageUrl = dictionary[@"imgUrl"];
+        }
+        
+        
+        if ([dictionary[@"id"] isKindOfClass:[NSNull class]]) {
+            self.IDNum = @"";
+        }else{
+            self.IDNum = [dictionary[@"id"] stringValue];
+        }
+        
         if ([dictionary[@"objId"] isKindOfClass:[NSNull class]]) {
-            self.objid = @"0";
+            self.objid = @"";
         }else{
             self.objid = dictionary[@"objId"];
         }
@@ -22,7 +34,11 @@
         }else{
             self.totalNum = [dictionary[@"totalNum"] stringValue];
         }
-        self.title = dictionary[@"title"];
+        if ([dictionary[@"title"] isKindOfClass:[NSNull class]]) {
+            self.title = @"";
+        }else{
+            self.title = dictionary[@"title"];
+        }
         self.type = [dictionary[@"type"] stringValue];
     }
     return self;

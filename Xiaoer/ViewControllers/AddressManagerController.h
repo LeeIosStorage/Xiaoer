@@ -10,5 +10,5 @@
 
 @interface AddressManagerController : XESuperViewController
 @property (weak, nonatomic) IBOutlet UITableView *tabView;
-
+@property (nonatomic,assign)BOOL ifCanDelete;
 @end

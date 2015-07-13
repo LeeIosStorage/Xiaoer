@@ -64,5 +64,25 @@
  *  退款单Tab
  */
 @property (weak, nonatomic) IBOutlet UITableView *reimburseTab;
+//删除订单view
+@property (strong, nonatomic) IBOutlet UIView *deleteOrderView;
+//删除订单页面 取消按钮
+@property (weak, nonatomic) IBOutlet UIButton *deleteOrderCancleBtn;
+//删除订单页面 确定按钮
+@property (weak, nonatomic) IBOutlet UIButton *deleteOrderVerifyBtn;
+
+
+//取消订单原因view
+@property (strong, nonatomic) IBOutlet UIView *cancleOrderReasonView;
+//取消订单的pickerview
+@property (weak, nonatomic) IBOutlet UIPickerView *canclePickerView;
+//取消订单界面 取消按钮
+@property (weak, nonatomic) IBOutlet UIButton *cancleReasonCanlceBtn;
+//取消订单界面 确定按钮
+@property (weak, nonatomic) IBOutlet UIButton *cancaleReasonVerifyBtn;
+
+//即将过期view
+@property (strong, nonatomic) IBOutlet UIView *outOfDateView;
+
 
 @end

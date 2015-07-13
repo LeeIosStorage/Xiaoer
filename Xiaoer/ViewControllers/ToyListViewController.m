@@ -15,6 +15,7 @@
 #import "MJRefresh.h"
 #import "XEProgressHUD.h"
 #import "XEShopListInfo.h"
+#import "MJExtension.h"
 @interface ToyListViewController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) IBOutlet UIView *naviLable;
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
@@ -131,7 +132,8 @@
     if (!self.name) {
         self.name = @"";
     }
-    [[XEEngine shareInstance]getShopListInfoMationWith:tag category:self.category pagenum:[NSString stringWithFormat:@"%ld",(long)self.pageNum    ] type:self.type name:self.name serieid:self.serieid];
+    [[XEEngine shareInstance]getShopListInfoMationWith:tag category:self.category pagenum:[NSString stringWithFormat:@"%ld",(long)self.pageNum    ] type:self.type name:self.name serieid:self.serieInfo.id];
+    
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         
         //获取失败信息
@@ -164,7 +166,7 @@
             [self.dataSources removeAllObjects];
         }
         for (NSDictionary *dic in array) {
-            XEShopListInfo *info = [XEShopListInfo modelWithDictioanry:dic];
+            XEShopListInfo *info = [XEShopListInfo objectWithKeyValues:dic];
             [self.dataSources addObject:info];
         }
         [self.toyListCollection reloadData];
@@ -196,7 +198,7 @@
 
 #pragma mark collection delegate 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.dataSources.count;
+    return self.dataSources.count + 1;
     
 }
 //设置分区数量
@@ -208,11 +210,11 @@
     if (indexPath.row == 0) {
         
         ToyCollectionHeaderCell *header = [collectionView dequeueReusableCellWithReuseIdentifier:@"header" forIndexPath:indexPath];
-        [header configureHeaderCellWith:[self.dataSources objectAtIndex:indexPath.row] leftDay:self.leftDay];
+        [header configureHeaderCellWith:self.serieInfo];
         return header;
     }else{
         ToyListCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-        [cell configureOtherCellWith:[self.dataSources objectAtIndex:indexPath.row]];
+        [cell configureOtherCellWith:[self.dataSources objectAtIndex:indexPath.row - 1]];
         return cell;
         
     }
@@ -240,8 +242,12 @@
 //点击item
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%ld %ld",(long)indexPath.section,(long)indexPath.row);
-    ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
-    [self.navigationController pushViewController:detail animated:YES];
+    if (indexPath.row != 0) {
+        ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
+        XEShopListInfo *info = (XEShopListInfo *)self.dataSources[indexPath.row - 1];
+        detail.shopId = info.id;
+        [self.navigationController pushViewController:detail animated:YES];
+    }
     
 }
 

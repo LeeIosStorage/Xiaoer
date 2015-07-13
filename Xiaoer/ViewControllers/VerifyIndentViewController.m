@@ -10,19 +10,18 @@
 #import "AddAddressViewController.h"
 #import "PayAndDistributionViewController.h"
 #import "GoToPayViewController.h"
-//#import "VerifyIndentCell.h"
 #import "ShopCarCell.h"
 #import "AddressManagerController.h"
-@interface VerifyIndentViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UITextFieldDelegate,changeNumShopDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
+#import "AddressInfoManager.h"
+#import "XEAddressListInfo.h"
+#import "XEShopCarInfo.h"
+#import "XEEngine.h"
+#import "XEProgressHUD.h"
+#import "MJExtension.h"
+#import "XECouponsInfo.h"
+#import "VerifyIndentCell.h"
 
-//保存每个商品有多少个的数组
-@property (nonatomic,strong)NSMutableArray *NumberArray;
-
-//之前的价钱的数组
-@property (nonatomic,strong)NSMutableArray *formerPricArray;
-
-//之后的价钱的数组
-@property (nonatomic,strong)NSMutableArray *afterPricArray;
+@interface VerifyIndentViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UITextFieldDelegate,NumShopDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong)NSMutableArray *pickerArray;
 
@@ -35,48 +34,100 @@
 
 @property (nonatomic,assign)BOOL haveAddress;
 
+@property (nonatomic,strong)XEAddressListInfo *info;
+
+/**
+ *  保存解析到的优惠券数组
+ */
+@property (nonatomic,strong)NSMutableArray *couponsArray;
+
+@property (nonatomic,strong)UIButton *senderBtn;
+
+/**
+ *  选择的优惠券数组
+ */
+@property  (nonatomic,strong)NSMutableArray *selectPickerAtr;
+
+
+/**
+ *  保存再次展示的pickerview 在selecrarr中那一个与之前的相同
+ */
+@property (nonatomic,assign)NSInteger sameIndex;
+
+/**
+ *  保存优惠券是否已经使用 0 代表未使用 1 代表已经使用
+ */
+@property (nonatomic,strong)NSMutableArray *usedArray;
+
+
+
 @end
 
 @implementation VerifyIndentViewController
-
-
-- (NSMutableArray *)NumberArray{
-    if (!_NumberArray) {
-        self.NumberArray = [NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
+- (NSMutableArray *)usedArray{
+    if (!_usedArray) {
+        self.usedArray = [NSMutableArray array];
     }
-    return _NumberArray;
+    return _usedArray;
 }
-
--(NSMutableArray *)formerPricArray{
-    if (!_formerPricArray) {
-        self.formerPricArray = [NSMutableArray arrayWithObjects:@"20",@"30",@"40",@"50.8",@"60", nil];
+- (NSMutableArray *)selectPickerAtr{
+    if (!_selectPickerAtr) {
+        self.selectPickerAtr = [NSMutableArray array];
     }
-    return _formerPricArray;
+    return _selectPickerAtr;
 }
-
-- (NSMutableArray *)afterPricArray{
-    if (!_afterPricArray) {
-        self.afterPricArray = [NSMutableArray arrayWithObjects:@"10",@"20",@"30",@"40",@"50", nil];
+- (NSMutableArray *)couponsArray{
+    if (!_couponsArray) {
+        self.couponsArray = [NSMutableArray array];
     }
-    return _afterPricArray;
+    return _couponsArray;
 }
 
 - (NSMutableArray *)pickerArray{
     if (!_pickerArray) {
-        self.pickerArray = [NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
+        self.pickerArray = [NSMutableArray array];
     }
     return _pickerArray;
 }
+
+
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    
+    //判断是否先设置地址
+    self.firstSetAddressView.frame = CGRectMake(0, SCREEN_HEIGHT - 80, SCREEN_WIDTH, 80);
+    [self.view addSubview:self.firstSetAddressView];
+    
+    self.info = [[AddressInfoManager manager]getTheDictionary];
+    
+    if (!self.info.phone) {
+        
+        self.firstSetAddressView.hidden = NO;
+    }
+    else{
+        
+        self.firstSetAddressView.hidden = YES;
+    }
+    
+    [self creatTabViewHeaderView];
+
+
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"确认订单";
+    self.noteTextField.layer.borderColor = [UIColor blackColor].CGColor;
+    self.noteTextField.layer.borderWidth = 1;
     self.noteTextField.delegate = self;
+    self.noteTextField.layer.cornerRadius =10;
     
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     
     self.firstSetAddressView.frame = CGRectMake(0, SCREEN_HEIGHT - 80, SCREEN_WIDTH, 80);
-//    [self.view addSubview:self.firstSetAddressView];
     
     
     [self configureTabview];
@@ -97,16 +148,85 @@
     
     self.haveAddress = NO;
 
+    
+    if (self.shopArray.count > 0) {
+        //请求优惠券数据
+        [self getCouponListData];
+    }
+    
+
+
 }
+
+#pragma mark  请求优惠券数据
+- (void)getCouponListData{
+    
+    NSMutableString *goodsIdStr = [NSMutableString string];
+    for (int i = 0; i < self.shopArray.count; i++) {
+        XEShopCarInfo *info = (XEShopCarInfo *)self.shopArray[i];
+        
+        if (i == self.shopArray.count-1) {
+            
+            [goodsIdStr appendString:[NSString stringWithFormat:@"%@",info.goodsId]];
+            
+        }else{
+            
+            [goodsIdStr appendString:[NSString stringWithFormat:@"%@,",info.goodsId]];
+        }
+        
+    }
+    __weak VerifyIndentViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    
+    [[XEEngine shareInstance]getCouponListInfomationWith:tag userid:[XEEngine shareInstance].uid pagenum:@"" goodsids:goodsIdStr];
+    
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+            
+        }
+        
+
+        if ([jsonRet[@"object"][@"coupons"] isKindOfClass:[NSNull class]]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+        }
+        
+        NSArray *couponsArr = jsonRet[@"object"][@"coupons"];
+        for (NSDictionary *dic  in couponsArr) {
+            XECouponsInfo *info = [XECouponsInfo objectWithKeyValues:dic];
+            [self.couponsArray addObject:info];
+        }
+        
+        for (int i = 0; i < self.shopArray.count; i++) {
+            [self.selectPickerAtr addObject:@""];
+        }
+        for (int i = 0 ; i < self.shopArray.count; i++) {
+            [self.usedArray addObject:@"0"];
+        }
+        
+        //请求完数据 要重新刷新一下 否则显示不正确
+        [self.tabView reloadData];
+    } tag:tag];
+    
+}
+
 #pragma mark 布局tableview属性
 
 - (void)configureTabview{
     
     
-    [self.tabView registerNib:[UINib nibWithNibName:@"ShopCarCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    [self.tabView registerNib:[UINib nibWithNibName:@"VerifyIndentCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.tabView.delegate = self;
     self.tabView.dataSource = self;
     self.tabView.backgroundColor = [UIColor clearColor];
+
     
 }
 
@@ -147,29 +267,85 @@
 #pragma mark cell 代理
 - (void)returnIndexOfShop:(NSInteger)index andNumberText:(NSString *)numText{
     //替换对应下标的商品数目数组
-    self.NumberArray[index] = numText;
-    
+    XEShopCarInfo *info = self.shopArray[index];
+    info.num = numText;
     [self changeAllPrice];
 
+}
+- (void)showPickerViewWithBtn:(UIButton *)button{
+    if (!self.senderBtn) {
+        self.senderBtn = button;
+    }else{
+        self.senderBtn = button;
+    }
+    XEShopCarInfo *info = self.shopArray[button.tag];
+    NSMutableArray *array = [NSMutableArray array];
+    for (int i = 0 ; i < self.couponsArray.count; i++) {
+        XECouponsInfo *CouponInfo = self.couponsArray[i];
+        if ([CouponInfo.objId isEqualToString:info.serieId]) {
+            [array addObject:CouponInfo.cardNo];
+        }
+        if ([CouponInfo.objId isEqualToString:info.goodsId]) {
+            [array addObject:CouponInfo.cardNo];
+        }
+    }
+    if ([button.titleLabel.text isEqualToString:@"请选择促销活动优惠券"]) {
+        
+    }else{
+        
+    }
+    self.pickerArray = array;
+    [self.pickerView reloadAllComponents];
+    [self.pickerView selectRow:0 inComponent:0 animated:0];
+    [self pickerView:self.pickerView didSelectRow:0 inComponent:0];
+    [self animATionPickerBackView];
     
 }
 
+- (void)useCouponWith:(UIButton *)button chooseBtnText:(NSString *)choosetBtnText{
+    NSLog(@"%ld %@",button.tag ,choosetBtnText);
+    if (self.usedArray.count > 0) {
+        self.usedArray[button.tag] = @"1";
+        NSLog(@"%ld",self.usedArray.count);
+        [self changeAllPrice];
+    }
+
+
+
+}
 - (void)changeAllPrice{
+    
     self.totalPrice.text = [self calculateTotalPrice];
     self.favorableLab.text = [self calculateFavorablePrice];
-    self.needPayLab.text = [self calculateNeedToPayPrice];
-    self.bottomNeedPay.text = [self calculateNeedToPayPrice];
+    self.freightLab.text = [self calculateCarriage];
+    self.bottomNeedPay.text = [NSString stringWithFormat:@"%.2f",[[self calculateTotalPrice] floatValue] + [self.freightLab.text floatValue]];
     [self.tabView reloadData];
+    
+}
+#pragma mark 计算运费
+- (NSString *)calculateCarriage{
+    CGFloat totalCarriage = 0;
+    for (int i = 0 ; i < self.shopArray.count; i++) {
+        XEShopCarInfo *info = self.shopArray[i];
+        CGFloat floa =  [info.num floatValue] * [info.carriage floatValue];
+
+        totalCarriage += floa ;
+    }
+    return [NSString stringWithFormat:@"%.2f",totalCarriage/100];
+
 }
 #pragma 计算商品优惠前总金额
 - (NSString *)calculateTotalPrice{
     CGFloat totalPri = 0;
-    for (int i = 0; i < self.NumberArray.count; i++) {
-        CGFloat floa =  [[self.NumberArray objectAtIndex:i] floatValue] * [[self.formerPricArray objectAtIndex:i] floatValue];
+    for (int i = 0; i < self.shopArray.count; i++) {
+        XEShopCarInfo *info = self.shopArray[i];
+        CGFloat floa =  [info.num floatValue] * [info.price floatValue];
         totalPri += floa;
     }
     
-    return [NSString stringWithFormat:@"%.2f",totalPri];
+
+    
+    return [NSString stringWithFormat:@"%.2f",totalPri/100];
 }
 
 #pragma 计算优惠的金额
@@ -177,13 +353,28 @@
     
     CGFloat Favora = 0;
     
-    for (int i = 0; i < self.NumberArray.count; i++) {
-        
-        CGFloat diff = [[self.NumberArray objectAtIndex:i] floatValue] * ([[self.formerPricArray objectAtIndex:i] floatValue] - [[self.afterPricArray objectAtIndex:i]floatValue]);
+    for (int i = 0; i < self.shopArray.count; i++) {
+        XEShopCarInfo *info = self.shopArray[i];
+        CGFloat diff = [info.num floatValue] * ([info.origPrice floatValue] - [info.price floatValue]);
         Favora += diff;
     }
+    for (int i = 0;i< self.usedArray.count; i++) {
+        if ([self.usedArray[i] isEqualToString:@"0"]) {
+            //未使用
+        }else{
+            //使用了
+            for (int j = 0; j< self.couponsArray.count; j++) {
+                XECouponsInfo *couponInfo = self.couponsArray[j];
+                if ([self.selectPickerAtr[i] isEqualToString:couponInfo.cardNo]) {
+                    NSLog(@"找到卡券号相等的了");
+                    Favora -= [couponInfo.price floatValue];
+                }
+            }
+        }
+    }
     
-    return [NSString stringWithFormat:@"%.2f",Favora];;
+
+    return [NSString stringWithFormat:@"%.2f",Favora/100];;
 }
 
 - (NSString *)calculateNeedToPayPrice{
@@ -202,76 +393,32 @@
     [self.navigationController pushViewController:toPay animated:YES];
 }
 
-#pragma mark 收获地址按钮点击A
+#pragma mark 收获地址按钮点击A (有默认地址情况)
 - (IBAction)addAddressBtn:(id)sender {
 
     NSLog(@"收获地址按钮点击A");
-//    AddressManagerController *manager = [[AddressManagerController alloc]init];
-//    [self.navigationController pushViewController:manager animated:YES];
-    AddAddressViewController *addAddress = [[AddAddressViewController alloc]init];
-    [self.navigationController pushViewController:addAddress animated:YES];
+    AddressManagerController *manager = [[AddressManagerController alloc]init];
+    manager.ifCanDelete = YES;
+    [self.navigationController pushViewController:manager animated:YES];
+    
 }
 
-#pragma mark 收获地址按钮点击B
+#pragma mark 收获地址按钮点击B( 没有 默认收获地址)
 - (IBAction)addAddressBtnB:(id)sender {
-    
-    AddAddressViewController *addAddress = [[AddAddressViewController alloc]init];
-    [self.navigationController pushViewController:addAddress animated:YES];
     NSLog(@"收获地址按钮点击B");
+    AddAddressViewController *addAddress = [[AddAddressViewController alloc]init];
+    addAddress.info = [[AddressInfoManager manager] getTheDictionary];
+    [self.navigationController pushViewController:addAddress animated:YES];
 }
-
-#pragma mark 支付和配送方式A
-- (IBAction)payAndGiveBtn:(id)sender {
-    NSLog(@"支付和配送方式A");
-
-    PayAndDistributionViewController *pay = [[PayAndDistributionViewController alloc]init];
-    [self.navigationController pushViewController:pay animated:YES];
-}
-
-#pragma mark 支付和配送方式B
-- (IBAction)payAndGiveBtnB:(id)sender {
-    NSLog(@"支付和配送方式B");
-
-    PayAndDistributionViewController *pay = [[PayAndDistributionViewController alloc]init];
-    [self.navigationController pushViewController:pay animated:YES];
-
-}
-
-
-#pragma mark 发票按钮
-- (IBAction)debitBtn:(id)sender {
-    NSLog(@"发票");
-}
-
-
-#pragma mark 使用优惠券按钮
-- (IBAction)useCouponBtnTouched:(id)sender {
-    NSLog(@"使用优惠券按钮点击");
-}
-
-
-#pragma mark 选择优惠券按钮
-- (IBAction)chooseCouponBtnTouched:(id)sender {
-    
-    NSLog(@"选择优惠券按钮点击");
-    
-    if (!self.pickerStr) {
-        [self  pickerView:self.pickerView didSelectRow:0 inComponent:0];
-    }else{
-        
-        [self  pickerView:self.pickerView didSelectRow:self.pickerFinalIndex inComponent:0];
-    }
-    [self animATionPickerBackView];
-}
-
 
 
 #pragma mark pickerView 下面的按钮点击了
 - (IBAction)pickVerifyBtnTouched:(id)sender {
-    self.chooseCouponBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    self.chooseCouponBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-    self.chooseCouponBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    [self.chooseCouponBtn setTitle:self.pickerStr forState:UIControlStateNormal];
+    NSLog(@"确定");
+    
+    self.selectPickerAtr[self.senderBtn.tag] = self.pickerStr;
+    NSLog(@"self.selectPickerAtr[button.tag] == %@  & %ld",self.selectPickerAtr[self.senderBtn.tag],self.senderBtn.tag);
+    [self.tabView reloadData];
     [self animATionPickerBackView];
 }
 
@@ -282,89 +429,143 @@
     AddAddressViewController *addAddress = [[AddAddressViewController alloc]init];
     [self.navigationController pushViewController:addAddress animated:YES];
 }
+- (BOOL)ifHaveSectionFooterWith:(NSInteger )section{
 
-#pragma mark tableview 的代理方法
+    for (int i = 0; i < self.couponsArray.count; i++) {
+        XEShopCarInfo *CarInfo = (XEShopCarInfo *)self.shopArray[section];
+        XECouponsInfo * couponInfo = self.couponsArray[i];
+        
+        if (i == self.couponsArray.count - 1) {
+            if ([CarInfo.goodsId isEqualToString:couponInfo.objId] || [couponInfo.objId isEqualToString:CarInfo.serieId]) {
+                return YES;
+            }else{
+                return NO;
+            }
+        }
+        
+        if ([CarInfo.goodsId isEqualToString:couponInfo.objId] || [couponInfo.objId isEqualToString:CarInfo.serieId]) {
+            return YES;
+        }
 
-- (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.NumberArray.count;
+}
+    
+    return NO;
+    
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+#pragma mark tableview 的代理方法
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+//    
+//
+//    
+//    
+//    UIView *view = [[UIView alloc]init];
+//    view.frame  =CGRectMake(0, 0, SCREEN_WIDTH, 50);
+//    view.backgroundColor = [UIColor whiteColor];
+//    view.userInteractionEnabled = YES;
+//    
+//    UIButton *couponBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    couponBtn.tag = section;
+//    couponBtn.frame = CGRectMake(15, 10, SCREEN_WIDTH - 15 - 60 - 35, 30);
+//    [couponBtn setTitle:@"请选择促销活动优惠券" forState:UIControlStateNormal];
+//    [couponBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [couponBtn setBackgroundColor:[UIColor redColor]];
+//    [couponBtn addTarget:self action:@selector(couponChooseBtnTouched:) forControlEvents:UIControlEventTouchUpInside];
+//    couponBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+//    couponBtn.layer.cornerRadius = 8;
+//    couponBtn.layer.masksToBounds = YES;
+//    couponBtn.userInteractionEnabled = YES;
+//    
+//    UIButton *verifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    verifyBtn.frame = CGRectMake(SCREEN_WIDTH -60 - 20, 10, 60 , 30);
+//    [verifyBtn setTitle:@"使用" forState:UIControlStateNormal];
+//    [verifyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [verifyBtn setBackgroundColor:[UIColor colorWithRed:180/255.0 green:211/255.0 blue:107/255.0 alpha:1]];
+//    [verifyBtn addTarget:self action:@selector(couponVerifyBtnTouched:) forControlEvents:UIControlEventTouchUpInside];
+//    verifyBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+//    verifyBtn.layer.cornerRadius = 5;
+//    verifyBtn.layer.masksToBounds = YES;
+//    verifyBtn.userInteractionEnabled = YES;
+//    
+//    [view addSubview:verifyBtn];
+//    [view addSubview:couponBtn];
+//    if ([self ifHaveSectionFooterWith:section] == YES) {
+//        return view;
+//    }
+//    return nil;
+//}
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//    if ([self ifHaveSectionFooterWith:section] == YES) {
+//        return 50;
+//    }else{
+//        return 0;
+//    }
+//    return 0;
+//}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0;
+}
+- (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.shopArray.count;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    //    if (indexPath.row == 0) {
-    //        return 155;
-    //    }else if (indexPath.row == 1 ){
-    //        return 150;
-    //    }else if (indexPath.row == 2){
-    //        return 50;
-    //    }else if (indexPath.row == 3){
-    //        return 115;
-    //    }
-    return 120;
+    
+    if ([self ifHaveSectionFooterWith:indexPath.section] == YES) {
+        return 160;
+    }else{
+        return 120;
+    }
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    /*
-     VerifyIndentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-     if (indexPath.row == 0) {
-     
-     self.addAddressView.frame = CGRectMake(0,0, [UIScreen mainScreen].bounds.size.width, 140);
-     
-     [cell configureCellWith:self.addAddressView andIndesPath:indexPath];
-     
-     }else if (indexPath.row == 1 ){
-     
-     self.payAndGiveView.frame = CGRectMake(0, 15, [UIScreen mainScreen].bounds.size.width, 135);
-     
-     [cell configureCellWith:self.payAndGiveView andIndesPath:indexPath];
-     
-     }else if (indexPath.row == 2){
-     
-     self.debitView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
-     
-     [cell configureCellWith:self.debitView andIndesPath:indexPath];
-     
-     }else if (indexPath.row == 3){
-     
-     self.noteView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100);
-     [cell configureCellWith:self.noteView andIndesPath:indexPath];
-     
-     }else{
-     
-     cell.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
-     [cell configureCellWith:nil andIndesPath:indexPath];
-     
-     }
-     */
-    //    cell.backgroundColor = [UIColor clearColor];
-    ShopCarCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.tag = indexPath.row;
+
+    VerifyIndentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.selectionStyle = 0;
     cell.delegate = self;
-    cell.numShopLab.text = [self.NumberArray objectAtIndex:indexPath.row];
-    NSString *formText = [NSString stringWithFormat:@"¥%.2f",[[self.formerPricArray objectAtIndex:indexPath.row] floatValue] * [cell.numShopLab.text floatValue]];
-    cell.formerPrice.text = formText;
-    NSString *afterText = [NSString stringWithFormat:@"¥%.2f",[[self.afterPricArray objectAtIndex:indexPath.row] floatValue]*[cell.numShopLab.text floatValue]];
-    cell.afterPrice.text = afterText;
-    [cell configureCellWith:indexPath];
+    cell.tag = indexPath.section;
+    if (self.selectPickerAtr.count > 0) {
+    
+        if ([self.selectPickerAtr[indexPath.section] isEqualToString:@""]) {
+            cell.chooseCouponBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+            cell.chooseCouponBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+            cell.chooseCouponBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+            [cell.chooseCouponBtn setTitle:@"请选择促销活动优惠券" forState:UIControlStateNormal];
+        }else{
+
+            cell.chooseCouponBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            cell.chooseCouponBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+            cell.chooseCouponBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+            [cell.chooseCouponBtn setTitle:self.selectPickerAtr[indexPath.section] forState:UIControlStateNormal];
+        }
+    }else{
+        cell.chooseCouponBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        cell.chooseCouponBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+        cell.chooseCouponBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        [cell.chooseCouponBtn setTitle:@"请选择促销活动优惠券" forState:UIControlStateNormal];
+    }
+    
+
 
     
+
+
+    [cell configureCellWith:indexPath andStateStr:@"" info:self.shopArray[indexPath.section] ifHavePicker:[self ifHaveSectionFooterWith:indexPath.section]];
+
+//    cell.selectionStyle = 0;
+//    ShopCarCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+//    cell.tag = indexPath.section;
+//    [cell configureCellWith:indexPath andStateStr:@"0" info:self.shopArray[indexPath.section]];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    //    if (indexPath.row == 0) {
-    //        AddressManagerController *manager = [[AddressManagerController alloc]init];
-    //        [self.navigationController pushViewController:manager animated:YES];
-    //    }else if (indexPath.row == 1){
-    //        PayAndDistributionViewController *pay = [[PayAndDistributionViewController alloc]init];
-    //       [self.navigationController pushViewController:pay animated:YES];
-    //    }
-    //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
 }
 
 
@@ -386,27 +587,52 @@
 
 //监听轮子的移动
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    self.pickerFinalIndex = row;
-    NSLog(@"%@",self.pickerArray[row]);
+
+    
+    if (self.selectPickerAtr.count > 0) {
+        for (int i = 0 ; i < self.selectPickerAtr.count; i++) {
+            if ([self.pickerArray[row] isEqualToString:self.selectPickerAtr[i]] && ![self.senderBtn.titleLabel.text isEqualToString:self.pickerArray[row]]) {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"该优惠券刚已经被您使用于其他商品了，确定改用在这个商品么？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                self.sameIndex = i;
+                [alert show];
+                return;
+            }else{
+
+            }
+        }
+    }
+    
     self.pickerStr = self.pickerArray[row];
-//    if (component == 0) {
-//        NSString *seletedProvince = self.provinceArray[row];
-//        self.cityArray = self.dict[seletedProvince];
-//        //更新第二个轮子的数据
-//        [pickerView reloadComponent:1];
-//        NSInteger selectedCityIndex = [pickerView selectedRowInComponent:1];
-//        NSString *seletedCity =self.cityArray[selectedCityIndex];
-//        NSString *msg = [NSString stringWithFormat:@"province=%@,city=%@", seletedProvince,seletedCity];
-//        NSLog(@"%@",msg);
-//    }
-//    else {
-//        NSInteger selectedProvinceIndex = [pickerView selectedRowInComponent:0];
-//        NSString *seletedProvince = self.provinceArray[selectedProvinceIndex];
-//        NSString *seletedCity = self.cityArray[row];
-//        NSString *msg = [NSString stringWithFormat:@"province=%@,city=%@", seletedProvince,seletedCity];
-//        NSLog(@"%@",msg);
-//    }
+
+
 }
+
+#pragma mark alertView delagate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+
+
+        
+    }else if (buttonIndex == 1){
+    for (int  j = 0; j < self.selectPickerAtr.count; j++) {
+        for (int i = 0 ; i < self.pickerArray.count; i++) {
+
+                if ([self.pickerArray[i] isEqualToString:self.selectPickerAtr[j]]) {
+                    self.usedArray[self.senderBtn.tag] = @"0";
+                    self.usedArray[j] = @"0";
+                    self.selectPickerAtr[j] = @"";
+                    self.selectPickerAtr[self.senderBtn.tag] = self.pickerArray[i];
+                    [self changeAllPrice];
+                    [self.tabView reloadData];
+                }
+            }
+        }
+    }
+    [self animATionPickerBackView];
+    
+    NSLog(@"buttonIndex === %ld",buttonIndex);
+}
+
 #pragma mark pickerView 的动画
 - (void)animATionPickerBackView{
     if (self.pickeBackView.frame.origin.y == SCREEN_HEIGHT - 200) {
@@ -421,6 +647,15 @@
     [self.pickerView reloadComponent:0];
 
 }
+
+#pragma mark 手动取消键盘
+- (void)manualDisappearKtyBoard{
+    //如果备注框时第一响应者，就释放第一响应，同时键盘就会自动消失，执行消失键盘的通知动画
+    if (self.noteTextField.isFirstResponder) {
+        [self.noteTextField resignFirstResponder];
+    }
+}
+
 #pragma mark 键盘将要消失的监听
 - (void)keyBoardEndChangeFrame:(NSNotification *)note{
     
@@ -433,16 +668,7 @@
     }];
 }
 
-#pragma mark 手动取消键盘
-- (void)manualDisappearKtyBoard{
-    //如果备注框时第一响应者，就释放第一响应，同时键盘就会自动消失，执行消失键盘的通知动画
-    if (self.noteTextField.isFirstResponder) {
-        [self.noteTextField resignFirstResponder];
-        
-    }
-    
-    
-}
+
 
 #pragma mark 键盘将要出现的监听
 - (void)keyBoardWillChangeFrame:(NSNotification *)note{
@@ -482,14 +708,20 @@
     }
     UIView *tabFooterView = [[UIView alloc]init];
     tabFooterView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+    
+#warning tableview 的footer 的末尾不要只选一个优惠券，暂时隐藏 暂时让高度为0
     UIView *copyCoupon = [self returnResultCoupon];
+    copyCoupon.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
     
-    
+#warning 此版本支付和配送方式不要 暂时让高度为0
     UIView *copyPayAndGive = [self returnResultPayAndGiveView];
-    copyPayAndGive.frame = CGRectMake(0, copyCoupon.frame.size.height, SCREEN_WIDTH, copyPayAndGive.frame.size.height);
+    copyPayAndGive.frame = CGRectMake(0, copyCoupon.frame.size.height, SCREEN_WIDTH, 0);
     
+#warning 此版本发票功能暂时舍弃 暂时让高度为0
+
     UIView *copyDebitView = [self returnResultDebitView];
-    copyDebitView.frame = CGRectMake(0, copyPayAndGive.frame.size.height + copyCoupon.frame.size.height, SCREEN_WIDTH, copyDebitView.frame.size.height);
+    copyDebitView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
+//    copyDebitView.frame = CGRectMake(0, copyPayAndGive.frame.size.height + copyCoupon.frame.size.height, SCREEN_WIDTH, copyDebitView.frame.size.height);
     
     UIView *copyNoteView = [self returnResultNoteView];
     copyNoteView.frame = CGRectMake(0, copyPayAndGive.frame.size.height + copyDebitView.frame.size.height + copyCoupon.frame.size.height, SCREEN_WIDTH, copyNoteView.frame.size.height);
@@ -530,11 +762,16 @@
 #pragma mark 返回收获地址视图
 - (UIView *)returnResultAddAddressView{
     
-    if (self.haveAddress == NO) {
+    //无参数
+    if (self.firstSetAddressView.hidden == NO) {
         self.addAddressViewB.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100);
         return self.addAddressViewB;
     }else{
+        //有参数
         self.addAddressView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 150);
+        self.InfoName.text = self.info.name;
+        self.infoPhone.text = self.info.phone;
+        self.infoAddress.text = [NSString stringWithFormat:@"%@ %@ %@ %@",self.info.provinceName,self.info.cityName,self.info.districtName,self.info.address];
         return self.addAddressView;
     }
     
@@ -558,7 +795,7 @@
 #pragma mark 返回备注留言
 - (UIView *)returnResultNoteView{
     
-    self.noteView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100);
+    self.noteView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 140);
     return self.noteView;
 }
 
@@ -576,7 +813,62 @@
         }];
     }
     
+//    if (scrollView == self.tabView)
+//    {
+//        CGFloat sectionHeaderHeight = 50;
+//        if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+//            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+//        } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+//            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+//        }
+//    }
+    
 }
+
+#pragma mark 发票按钮
+- (IBAction)debitBtn:(id)sender {
+    NSLog(@"发票");
+}
+
+
+
+//#pragma mark 使用优惠券按钮
+//- (IBAction)useCouponBtnTouched:(id)sender {
+//    NSLog(@"使用优惠券按钮点击");
+//}
+//
+//
+//#pragma mark 选择优惠券按钮
+//- (IBAction)chooseCouponBtnTouched:(id)sender {
+//    
+//    NSLog(@"选择优惠券按钮点击");
+//    
+//    if (!self.pickerStr) {
+//        [self  pickerView:self.pickerView didSelectRow:0 inComponent:0];
+//    }else{
+//        
+//        [self  pickerView:self.pickerView didSelectRow:self.pickerFinalIndex inComponent:0];
+//    }
+//    [self animATionPickerBackView];
+//}
+
+#pragma mark 支付和配送方式A
+- (IBAction)payAndGiveBtn:(id)sender {
+    NSLog(@"支付和配送方式A");
+    
+    PayAndDistributionViewController *pay = [[PayAndDistributionViewController alloc]init];
+    [self.navigationController pushViewController:pay animated:YES];
+}
+
+#pragma mark 支付和配送方式B
+- (IBAction)payAndGiveBtnB:(id)sender {
+    NSLog(@"支付和配送方式B");
+    
+    PayAndDistributionViewController *pay = [[PayAndDistributionViewController alloc]init];
+    [self.navigationController pushViewController:pay animated:YES];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

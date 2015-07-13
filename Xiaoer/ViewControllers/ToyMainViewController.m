@@ -497,6 +497,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     if (tableView == self.evaluatingTab) {
         ToyMainTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"evaluat" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -534,9 +535,7 @@
             list.type =  @"1";
             list.category = @"1";
             XEShopSerieInfo *ser = (XEShopSerieInfo *)[self.evaluatArray objectAtIndex:indexPath.row];
-
-            list.serieid = ser.idNum;
-            list.leftDay = ser.leftDay;
+            list.serieInfo = ser;
 
 
         } else if (index == 1) {
@@ -544,17 +543,16 @@
             list.type =  @"1";
             list.category = @"2";
             XEShopSerieInfo *ser = (XEShopSerieInfo *)[self.trainArray objectAtIndex:indexPath.row];
-            list.leftDay = ser.leftDay;
 
-            list.serieid = ser.idNum;
+            list.serieInfo = ser;
+
 
         }else if (index == 0){
             self.tableView = self.otherBuyTab;
             list.type =  @"1";
             list.category = @"3";
             XEShopSerieInfo *ser = (XEShopSerieInfo *)[self.otherArray objectAtIndex:indexPath.row];
-            list.leftDay = ser.leftDay;
-            list.serieid = ser.idNum;
+            list.serieInfo = ser;
 
         }
     

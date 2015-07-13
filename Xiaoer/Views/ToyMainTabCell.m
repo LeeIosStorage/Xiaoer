@@ -28,7 +28,7 @@
     self.bottonLab.layer.masksToBounds = YES;
     
     
-    [self.mainImage sd_setImageWithURL:model.totalImageUrl placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+    [self.mainImage sd_setImageWithURL:[model totalImageUrl] placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
     
     self.titleLab.text = model.title;
     

@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "XEShopCarInfo.h"
 @protocol changeNumShopDelegate <NSObject>
 
 - (void)returnIndexOfShop:(NSInteger )index
             andNumberText:(NSString *)numText;
-//- (void)returnIndexOfShop:(NSInteger )index
-//         andIfTouchedWith:(NSString *)string;
+
 
 @end
 
@@ -31,6 +30,7 @@
  *  显示数量按钮
  */
 @property (weak, nonatomic) IBOutlet UILabel *numShopLab;
+@property (weak, nonatomic) IBOutlet UIImageView *mainImageView;
 
 /**
  *  减少数量按钮
@@ -48,8 +48,14 @@
 /**
  *  底部的按钮，用来显示点击与否
  */
+
+@property (weak, nonatomic) IBOutlet UILabel *standardLab;
+
+@property (weak, nonatomic) IBOutlet UILabel *desLab;
 @property (weak, nonatomic) IBOutlet UIButton *backBtn;
 - (void)configureCellWith:(NSIndexPath *)indexPth
-              andStateStr:(NSString *)string;
+              andStateStr:(NSString *)string
+                     info:(XEShopCarInfo *)info;
+
 - (void)configureCellWith:(NSIndexPath *)indexPth;
 @end

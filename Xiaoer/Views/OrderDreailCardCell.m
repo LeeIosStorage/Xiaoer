@@ -1,14 +1,14 @@
 //
-//  ToyDetailCell.m
+//  OrderDreailCardCell.m
 //  Xiaoer
 //
-//  Created by 王鹏 on 15/6/19.
+//  Created by 王鹏 on 15/7/7.
 //
 //
 
-#import "ToyDetailCell.h"
+#import "OrderDreailCardCell.h"
 
-@implementation ToyDetailCell
+@implementation OrderDreailCardCell
 
 - (void)awakeFromNib {
     // Initialization code

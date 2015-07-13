@@ -278,5 +278,58 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
                           serieid:(NSString *)serieid;
 
 
+//获取收获地址列表
+- (BOOL)getAddressListWithTag:(int)tag
+                       userId:(NSString *)userid;
+
+//保存修改地址
+- (BOOL)saveEditorAddressWith:(int)tag
+                       userid:(NSString *)userid
+                   provinceid:(NSString *)provinceid
+                       cityid:(NSString *)cityid
+                   districtid:(NSString *)districtid
+                         name:(NSString *)name
+                        phone:(NSString *)phone
+                      address:(NSString *)address
+                          tel:(NSString *)tel
+                          def:(NSString *)def
+                          del:(NSString *)del
+                           idnum:(NSString *)idnum;
+
+/**
+ *  获取商品详情页列表
+ */
+- (BOOL)getShopDetailInfomationWithTag:(int)tag
+                                shopId:(NSString *)shopId
+                                userId:(NSString *)userId;
+
+/**
+ *   添加更新删除购物车商品 del是否删除 1是 其它为否
+ */
+- (BOOL)refreshShopCarWithTag:(int)tag
+                          del:(NSString *)del
+                        idNum:(NSString *)idNum
+                          num:(NSString *)num
+                       userid:(NSString *)userid
+                      goodsid:(NSString *)goodsid
+                     standard:(NSString *)standard;
+/**
+ *  获取购物车列表
+ */
+- (BOOL)getShopCarListInfomationWith:(int)tag
+                              userid:(NSString *)userid
+                           onlygoods:(NSString *)onlygoods
+                             pagenum:(NSString *)pagenum;
+
+/**
+ *  获取优惠券列表
+ */
+- (BOOL)getCouponListInfomationWith:(int)tag
+                             userid:(NSString *)userid
+                            pagenum:(NSString *)pagenum
+                           goodsids:(NSString *)goodsids;
+
+
+
 
 @end

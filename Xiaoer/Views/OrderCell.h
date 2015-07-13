@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OrderCell : UITableViewCell
 
+
+@interface OrderCell : UITableViewCell
+/**
+ *  申请退款
+ */
+
+
+- (void)configureCellWith:(NSIndexPath *)indexPath addHeaderViewWith:(UIView *)HeaderView;
 @end

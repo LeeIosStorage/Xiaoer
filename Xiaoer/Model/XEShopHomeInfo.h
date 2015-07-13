@@ -16,7 +16,8 @@
 /**
  *  shopName的Id 唯一标识号
  */
-@property (nonatomic,strong)NSString *IdNum;
+@property (nonatomic,strong)NSString *id;
+
 /**
  *  对应于objType的类型的对象的id(如 objType == 2 objId=1 则表示 id为1的商品)
  */
@@ -38,5 +39,5 @@
 /**
  *  完整的图片地址
  */
-@property (nonatomic,strong)NSURL *totalImageUrl;
+- (NSURL *)totalImageUrl;
 @end

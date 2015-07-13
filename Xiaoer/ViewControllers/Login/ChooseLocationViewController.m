@@ -175,7 +175,10 @@
 //        
 //    }
     if (_locationType == ChooseLoactionTypeCountry) {
+
         
+        //注册通知
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"distric" object:location];
         NSString *codeName = [location objectForKey:@"name"];
         if ([[location objectForKey:@"name"] isEqualToString:@"市辖区"] || [[location objectForKey:@"name"] isEqualToString:@"县"]){
             codeName = @"";
@@ -196,6 +199,11 @@
             NSString *codeName = [location objectForKey:@"name"];
             chooseLocationVc.searchLocationCodeName = codeName!=nil?[NSString stringWithFormat:@" %@",codeName]:@"";
             chooseLocationVc.delegate = self.delegate;
+            
+            NSLog(@"location ==11   %@",location);
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"province" object:location];
+
+            
             [self.navigationController pushViewController:chooseLocationVc animated:YES];
             return;
         }if (_locationType==ChooseLoactionTypeLocal) {
@@ -205,11 +213,18 @@
             if ([[location objectForKey:@"name"] isEqualToString:@"市辖区"] || [[location objectForKey:@"name"] isEqualToString:@"县"]){
                 codeName = @"";
             }
+            NSLog(@"location === 222  %@",location);
+//            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(comeCity:) name:@"city" object:nil];
+//市
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"city" object:location];
+
+            
             chooseLocationVc.searchLocationCodeName = [NSString stringWithFormat:@"%@ %@",_searchLocationCodeName,codeName];
             chooseLocationVc.delegate = self.delegate;
             [self.navigationController pushViewController:chooseLocationVc animated:YES];
             return;
         }else{
+            
             [self.delegate didSelectLocation:location];
             [self.navigationController popToViewController:self.delegate animated:YES];
         }

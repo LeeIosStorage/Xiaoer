@@ -7,14 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-//enum LunBoType {
-//    shopMain = 0,
-//    toyDetail,
-//    activityDetail,
-//}Luntype;
+
+@protocol lunboDelegate <NSObject>
+
+- (void)lunboTouchIndexOfImage:(NSInteger )index;
+
+@end
+
 @interface CycleView : UIView
 
-//type 是0 的时候让高度为150，其他的话代表商品详情界面高度为250；
 - (void)configureHeaderWith:(NSMutableArray *)array;
 @property (nonatomic,assign)NSInteger type;
+
+@property (nonatomic,assign)id<lunboDelegate>delegate;
 @end

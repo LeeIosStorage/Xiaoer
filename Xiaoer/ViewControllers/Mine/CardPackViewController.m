@@ -241,6 +241,7 @@
         if (info.status == 5) {
             eastWed.hideCardInfo = YES;
         }
+        
         if (info.status == 6) {
             eastWed.hideCardInfo = NO;
         }

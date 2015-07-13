@@ -15,7 +15,6 @@
  */
 @property (strong, nonatomic) IBOutlet UIView *dealState;
 @property (strong, nonatomic) IBOutlet UIView *cardAddressView;
-@property (strong, nonatomic) IBOutlet UIView *otherAddressView;
 @property (strong, nonatomic) IBOutlet UIView *footerView;
 @property (strong, nonatomic) IBOutlet UIView *cardSectionHeader;
 @property (strong, nonatomic) IBOutlet UIView *shopSectionHeader;
@@ -43,5 +42,10 @@
  *  预约信息
  */
 @property (weak, nonatomic) IBOutlet UIButton *cardOrder;
+//申请退款
+@property (weak, nonatomic) IBOutlet UIButton *applyReimburseBtn;
+
+
+
 
 @end

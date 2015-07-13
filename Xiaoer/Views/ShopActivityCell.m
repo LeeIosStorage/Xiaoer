@@ -26,7 +26,7 @@
     self.addImage.hidden = YES;
     self.mainImage.layer.cornerRadius = 10;
     self.mainImage.layer.masksToBounds = YES;
-    [self.mainImage sd_setImageWithURL:info.totalImageUrl placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+    [self.mainImage sd_setImageWithURL:[info totalImageUrl] placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
     self.desLab.text = info.des;
     self.shopName.text = [NSString stringWithFormat:@"%@人付款",info.sales];
     self.afterPric.text = info.resultPrice;

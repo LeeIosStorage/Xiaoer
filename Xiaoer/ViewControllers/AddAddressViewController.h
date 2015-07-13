@@ -9,7 +9,7 @@
 #define CITY_COMPONENT      1
 #define DISTRICT_COMPONENT  2
 #import "XESuperViewController.h"
-
+#import "XEAddressListInfo.h"
 @interface AddAddressViewController : XESuperViewController<UIPickerViewDelegate, UIPickerViewDataSource>
 {
     UIButton *button;
@@ -26,6 +26,9 @@
 @property (nonatomic,strong)NSString *chooseedAddRess;
 
 @property (weak, nonatomic) IBOutlet UIButton *setCommonAddress;
+@property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 
-
+@property (nonatomic,strong)XEAddressListInfo *info;
+//是否可以删除默认的地址
+@property (nonatomic,assign)BOOL ifCanDelete;
 @end

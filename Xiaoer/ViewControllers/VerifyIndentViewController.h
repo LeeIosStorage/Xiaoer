@@ -13,9 +13,16 @@
 @property (strong, nonatomic) IBOutlet UIView *firstSetAddressView;
 
 //头部添加地址
+//有详情
 @property (strong, nonatomic) IBOutlet UIView *addAddressView;
+//无详情
 @property (strong, nonatomic) IBOutlet UIView *addAddressViewB;
 
+@property (weak, nonatomic) IBOutlet UILabel *InfoName;
+
+@property (weak, nonatomic) IBOutlet UILabel *infoPhone;
+
+@property (weak, nonatomic) IBOutlet UILabel *infoAddress;
 
 
 //支付和配送方式
@@ -57,10 +64,14 @@
 //运费
 @property (weak, nonatomic) IBOutlet UILabel *freightLab;
 //footerView 需支付
-@property (weak, nonatomic) IBOutlet UILabel *needPayLab;
 @property (weak, nonatomic) IBOutlet UILabel *bottomNeedPay;
 //选择优惠券的界面
 @property (strong, nonatomic) IBOutlet UIView *pickeBackView;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
+
+/**
+ *  shopArray
+ */
+@property (nonatomic,strong)NSMutableArray *shopArray;
 @end

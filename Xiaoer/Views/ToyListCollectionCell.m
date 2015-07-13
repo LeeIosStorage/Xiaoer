@@ -17,8 +17,8 @@
 }
 - (void)configureOtherCellWith:(XEShopListInfo *)info{
     
-    [self.imageView sd_setImageWithURL:info.totalImageUrl placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
-    self.titleLab.text = info.des;
+    [self.imageView sd_setImageWithURL:[info totalImageUrl] placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+    self.titleLab.text = info.name;
     self.afterPrice.text = info.resultPrice;
     self.formerPrice.text = [NSString stringWithFormat:@"￥%@",info.resultOrigPric];
     /**

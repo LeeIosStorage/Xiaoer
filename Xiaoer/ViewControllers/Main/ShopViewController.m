@@ -20,13 +20,16 @@
 #import "XEProgressHUD.h"
 #import "XEShopHomeInfo.h"
 #import "UIButton+WebCache.h"
-@interface ShopViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,XEScrollPageDelegate,TouchCellDelegate>
+#import "ToyDetailViewController.h"
+#import "MJExtension.h"
+@interface ShopViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,XEScrollPageDelegate,TouchCellDelegate,lunboDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *shopTabView;
 @property (strong, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *headerCollection;
 @property (strong, nonatomic) IBOutlet UIView *searchView;
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
-@property (weak, nonatomic) IBOutlet UIView *lunboBackView;
+
+@property (strong, nonatomic) IBOutlet UIView *lunboBackView;
 
 @property (nonatomic,strong)UICollectionViewFlowLayout *headerLayOut;
 @property (nonatomic,strong)XEScrollPage *scrollPageView;
@@ -56,6 +59,7 @@
 @end
 
 @implementation ShopViewController
+
 - (UICollectionViewFlowLayout *)headerLayOut{
     if (!_headerLayOut) {
         self.headerLayOut = [[UICollectionViewFlowLayout alloc]init];
@@ -66,50 +70,52 @@
     return _headerLayOut;
 }
 
+
 - (NSMutableArray *)bannerArray{
     if (!_bannerArray) {
         self.bannerArray = [NSMutableArray array];
     }
     return _bannerArray;
 }
+
+
 - (NSMutableArray *)activityArray{
     if (!_activityArray) {
         self.activityArray = [NSMutableArray array];
     }
     return _activityArray;
 }
+
 - (NSMutableArray *)NewShopArray{
     if (!_NewShopArray) {
         self.NewShopArray = [NSMutableArray array];
     }
     return _NewShopArray;
 }
+
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.searchBtn.layer.cornerRadius = 10;
     self.searchBtn.layer.borderWidth = 1;
     self.searchBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-    //布局heaerview的collectionview
+//布局heaerview的collectionview
     [self configureHeaderCollectionView];
     
-//    布局tableView
+//布局tableView
     [self configureShopTableView];
     
-//    布局轮播图
-  //  [self configureLunBoBackView];
- //   布局searchView
+//布局searchView
     [self configuresearchView];
 
-    
-//    self.numActivity = 6;
-//    self.numNew = 20;
+
     self.addActivity = NO;
     self.addNew = NO;
     self.ifToEnd = NO;
     self.pageNum = 1;
     [self getChooseDataWithTypeString:@"1,2"];
     [self getHomeShopNewDataWithTypeString:@"3"];
-    
+//    
 //        UIImageView *ImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
 //        ImageView.image = [UIImage imageNamed:@"正在建设中6p"];
 //        [self.view addSubview:ImageView];
@@ -128,6 +134,7 @@
     //轮播图
     CycleView *cycleView = [[CycleView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 150)];
     cycleView.backgroundColor = [UIColor redColor];
+    cycleView.delegate = self;
     if (self.bannerArray.count > 0) {
         [cycleView configureHeaderWith:array];
     }else{
@@ -137,7 +144,17 @@
 
     
 }
-
+#pragma mark 轮播图点击
+- (void)lunboTouchIndexOfImage:(NSInteger)index{
+    NSLog(@"点击了轮播图index  %ld",index);
+    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    XEShopHomeInfo *info = (XEShopHomeInfo *)self.bannerArray[index];
+    if (self.bannerArray.count > 0) {
+        ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
+        detail.shopId = info.id;
+        [appDelegate.mainTabViewController.navigationController pushViewController:detail animated:YES];
+    }
+}
 #pragma mark 搜索按钮
 - (IBAction)searchBtnTouched:(id)sender {
     NSLog(@"搜索");
@@ -176,6 +193,8 @@
     self.headerCollection.collectionViewLayout = self.headerLayOut;
     
 }
+
+
 #pragma mark 请求数据
 //请求今日上新数据
 - (void)getHomeShopNewDataWithTypeString:(NSString *)typeString{
@@ -219,7 +238,9 @@
                     }else{
                         if ([type isEqualToString:@"3"]) {
                             //判断是今日上新
-                            XEShopHomeInfo *info = [[XEShopHomeInfo alloc]initWithDictionary:dic];
+//                            XEShopHomeInfo *info = [[XEShopHomeInfo alloc]initWithDictionary:dic];
+                            XEShopHomeInfo *info = [XEShopHomeInfo objectWithKeyValues:dic];
+
                             [self.NewShopArray addObject:info];
                             NSLog(@"%ld",self.NewShopArray.count);
                         } else {
@@ -248,12 +269,14 @@
 }
 
 - (void)getChooseDataWithTypeString:(NSString *)types{
+    
     __weak ShopViewController *weakSelf = self;
     [XEEngine shareInstance].serverPlatform = TestPlatform;
     int tag = [[XEEngine shareInstance] getConnectTag];
 
     [[XEEngine shareInstance]getShopMainListInfomationWith:tag types:types];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        
         //获取失败信息
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
         
@@ -291,19 +314,19 @@
                     NSString *typeStr = [dic[@"type"] stringValue];
                     if ([typeStr isEqualToString:@"1"]) {
                         
-                        XEShopHomeInfo *info = [[XEShopHomeInfo alloc]initWithDictionary:dic];
+                        XEShopHomeInfo *info = [XEShopHomeInfo objectWithKeyValues:dic];
                         [self.bannerArray addObject:info];
                         
                     }
                     if ([typeStr isEqualToString:@"2"]) {
                         
-                        XEShopHomeInfo *info = [[XEShopHomeInfo alloc]initWithDictionary:dic];
+                        XEShopHomeInfo *info = [XEShopHomeInfo objectWithKeyValues:dic];
                         [self.activityArray addObject:info];
                         
                     }
                     if ([typeStr isEqualToString:@"3"]) {
                         
-                        XEShopHomeInfo *info = [[XEShopHomeInfo alloc]initWithDictionary:dic];
+                        XEShopHomeInfo *info = [XEShopHomeInfo objectWithKeyValues:dic];
                         [self.NewShopArray addObject:info];
                         
                     }
@@ -336,12 +359,12 @@
                     NSLog(@"type不存在");
                 }else{
                     if ([typeStr isEqualToString:@"1"]) {
-                        XEShopHomeInfo *info = [[XEShopHomeInfo alloc]initWithDictionary:dic];
+                        XEShopHomeInfo *info = [XEShopHomeInfo objectWithKeyValues:dic];
 
                         [self.bannerArray addObject:info];
                     }
                     if ([typeStr isEqualToString:@"2"]) {
-                        XEShopHomeInfo *info = [[XEShopHomeInfo alloc]initWithDictionary:dic];
+                        XEShopHomeInfo *info = [XEShopHomeInfo objectWithKeyValues:dic];
 
                         [self.activityArray addObject:info];
                     }
@@ -356,7 +379,6 @@
             
         }
 
-
     } tag:tag];
 
     
@@ -369,9 +391,6 @@
     [self getChooseDataWithTypeString:@"1,2,3"];
     // 2.2秒后刷新表格UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        // 刷新表格
-//        [self.shopTabView reloadData];
-        // 调用endRefreshing可以结束刷新状态
         [self.shopTabView headerEndRefreshing];
     });
     
@@ -523,7 +542,6 @@
     ShopViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.delegate = self;
     if (indexPath.section == 0) {
-
         if (self.addActivity == NO) {
             [cell configureCellWith:indexPath andNumberOfItemsInCell:3 moledArray:[NSArray arrayWithObjects:[self.activityArray objectAtIndex:indexPath.row*3],[self.activityArray objectAtIndex:indexPath.row*3 + 1],[self.activityArray objectAtIndex:indexPath.row*3 + 2], nil]];
         }else if (self.addActivity == YES){
@@ -564,16 +582,29 @@
         }
     }
     cell.tag = indexPath.section * 1000 + indexPath.row;
-    cell.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];    return cell;
+    cell.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
+    return cell;
 }
 - (void)touchCellWithCellTag:(NSInteger)cellTag btnTag:(NSInteger)btnTag{
+    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
     if (cellTag < 1000) {
+        //第一个分区
+        NSLog(@"cellTag == %ld btnTag == %ld ",cellTag,btnTag);
+        XEShopHomeInfo *info = self.activityArray[cellTag*3+ btnTag - 1];
         
+        NSLog(@"activity.IdNum === %@",info.id);
+        detail.shopId = info.id;
     }else if (cellTag >= 1000){
+        NSLog(@"%ld %ld ",cellTag,btnTag);
+        //第二个分区
         cellTag = cellTag%1000;
+        XEShopHomeInfo *info = self.NewShopArray[cellTag*3+ btnTag - 1];
+        NSLog(@"info.IdNum === %@",info.id);
+        detail.shopId = info.id;
+
     }
-    
-    NSLog(@"%ld %ld ",cellTag,btnTag);
+    [appDelegate.mainTabViewController.navigationController pushViewController:detail animated:YES];
 
 }
 

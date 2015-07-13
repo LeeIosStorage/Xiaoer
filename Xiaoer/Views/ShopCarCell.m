@@ -7,7 +7,7 @@
 //
 
 #import "ShopCarCell.h"
-
+#import "UIImageView+WebCache.h"
 @implementation ShopCarCell
 
 - (void)awakeFromNib {
@@ -31,12 +31,11 @@
 /**
  *  用在购物车内的布局方法
  */
-- (void)configureCellWith:(NSIndexPath *)indexPth andStateStr:(NSString *)string{
+- (void)configureCellWith:(NSIndexPath *)indexPth andStateStr:(NSString *)string info:(XEShopCarInfo *)info{
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:self.formerPrice.font forKey:NSFontAttributeName];
     CGSize rect = [self.formerPrice.text sizeWithAttributes:attributes];
     CGRect formerrect = self.setLineLab.frame;
     formerrect.size.width = rect.width;
-    NSLog(@"width == %f",formerrect.size.width);
     self.setLineLab.frame = formerrect;
     self.backBtn.layer.borderWidth = 1;
     self.backBtn.userInteractionEnabled = NO;
@@ -45,6 +44,12 @@
     }else{
         self.backBtn.layer.borderColor = [UIColor orangeColor].CGColor;
     }
+    self.numShopLab.text = info.num;;
+    self.formerPrice.text = [NSString stringWithFormat:@"%@",info.resultOrigPric];
+    self.afterPrice.text = [NSString stringWithFormat:@"%@",info.resultPrice];
+    [self.mainImageView sd_setImageWithURL:[info totalImageUrl] placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+    self.standardLab.text = info.standard;
+    self.desLab.text = info.name;
     
 }
 - (void)configureCellWith:(NSIndexPath *)indexPth{

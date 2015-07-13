@@ -59,7 +59,7 @@
                 NSLog(@"array == %@",array);
                 XEShopHomeInfo *info = (XEShopHomeInfo *)[array firstObject];
                 self.btnA.frame  = CGRectMake(0, 0, width , height - jianju);
-                [self.btnA sd_setBackgroundImageWithURL:info.totalImageUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+                [self.btnA sd_setBackgroundImageWithURL:[info totalImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
                 self.btnB.frame = CGRectMake(0, 0, 0, 0);
                 self.btnC.frame = CGRectMake(0, 0, 0, 0);
  
@@ -75,8 +75,8 @@
                 
                 XEShopHomeInfo *infoA = (XEShopHomeInfo *)array[0];
                 XEShopHomeInfo *infoB = (XEShopHomeInfo *)array[1];
-                [self.btnA sd_setBackgroundImageWithURL:infoA.totalImageUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
-                [self.btnB sd_setBackgroundImageWithURL:infoB.totalImageUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+                [self.btnA sd_setBackgroundImageWithURL:[infoA totalImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+                [self.btnB sd_setBackgroundImageWithURL:[infoB totalImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
             }
 
                 break;
@@ -91,11 +91,11 @@
                 XEShopHomeInfo *infoC = (XEShopHomeInfo *)array[2];
 //                NSLog(@"infoA.IdNum == %@",infoA.IdNum);
 //                NSLog(@" image == %@",infoA.totalImageUrl);
-                [self.btnA sd_setBackgroundImageWithURL:infoA.totalImageUrl forState:UIControlStateNormal placeholderImage:nil];
+                [self.btnA sd_setBackgroundImageWithURL:[infoA totalImageUrl] forState:UIControlStateNormal placeholderImage:nil];
 
-                [self.btnB sd_setBackgroundImageWithURL:infoB.totalImageUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+                [self.btnB sd_setBackgroundImageWithURL:[infoB totalImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
 
-                [self.btnC sd_setBackgroundImageWithURL:infoC.totalImageUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+                [self.btnC sd_setBackgroundImageWithURL:[infoC totalImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
 
 
                 
@@ -113,7 +113,7 @@
                 XEShopHomeInfo *info = (XEShopHomeInfo *)array[0];
                 
                 self.btnA.frame  = CGRectMake(0, 0, width , height - jianju);
-                [self.btnA sd_setBackgroundImageWithURL:info.totalImageUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+                [self.btnA sd_setBackgroundImageWithURL:[info totalImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
                 
                 self.btnB.frame = CGRectMake(0, 0, 0, 0);
                 self.btnC.frame = CGRectMake(0, 0, 0, 0);
@@ -129,9 +129,9 @@
                 self.btnA.frame  = CGRectMake(0, 0, halfWidth - jianju , height - jianju);
                 self.btnB.frame = CGRectMake(halfWidth , 0,halfWidth, height - jianju);
                 self.btnC.frame = CGRectMake(0, 0, 0, 0);
-                [self.btnA sd_setBackgroundImageWithURL:infoA.totalImageUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+                [self.btnA sd_setBackgroundImageWithURL:[infoA totalImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
                 
-                [self.btnB sd_setBackgroundImageWithURL:infoB.totalImageUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+                [self.btnB sd_setBackgroundImageWithURL:[infoB totalImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
             }
 
                 break;
@@ -146,11 +146,11 @@
                 self.btnC.frame = CGRectMake(halfWidth + 50, halfHeight, halfWidth - 50, halfHeight - jianju);
 
                 
-                [self.btnA sd_setBackgroundImageWithURL:infoA.totalImageUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+                [self.btnA sd_setBackgroundImageWithURL:[infoA totalImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
                 
-                [self.btnB sd_setBackgroundImageWithURL:infoB.totalImageUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+                [self.btnB sd_setBackgroundImageWithURL:[infoB totalImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
                 
-                [self.btnC sd_setBackgroundImageWithURL:infoC.totalImageUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
+                [self.btnC sd_setBackgroundImageWithURL:[infoC totalImageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
             }
 
 

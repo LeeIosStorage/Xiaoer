@@ -19,9 +19,10 @@
 
     // Configure the view for the selected state
 }
-- (void)configurcellwithIndexPath:(NSIndexPath *)indexPath leftStr:(NSString *)leftStr{
+- (void)configurcellwithIndexPath:(NSIndexPath *)indexPath leftStr:(NSString *)leftStr rightStr:(NSString *)rightStr{
     self.textField.delegate = self;
     self.leftLab.text = leftStr;
+    self.textField.text = rightStr;
     
     switch (indexPath.section) {
         case 0:
@@ -38,6 +39,9 @@
             self.textField.userInteractionEnabled = NO;
             break;
         case 4:
+            self.textField.userInteractionEnabled = NO;
+            break;
+        case 5:
             self.rightImg.hidden = YES;
             break;
         default:
@@ -56,5 +60,11 @@
         [self.delegate passOrderInfocellLeftLableText:self.leftLab.text textFieldtext:self.textField.text];
     }
     
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(checkOrderInfomationPickerViewState)]) {
+        [self.delegate checkOrderInfomationPickerViewState];
+    }
 }
 @end

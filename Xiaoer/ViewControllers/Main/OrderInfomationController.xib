@@ -8,6 +8,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrderInfomationController">
             <connections>
                 <outlet property="cancleBtn" destination="JiV-mO-DND" id="j9o-Mw-wPB"/>
+                <outlet property="cardCancleBtn" destination="Fde-vj-uEK" id="68K-zh-C7X"/>
+                <outlet property="cardPickerBackView" destination="dax-tY-e62" id="H7b-0a-3EE"/>
+                <outlet property="cardPickerView" destination="Zj1-Pd-6Qz" id="y5l-Nt-fhX"/>
+                <outlet property="cardVerifyBtn" destination="1Sv-ca-O78" id="4IB-4G-p03"/>
                 <outlet property="dataBackView" destination="fMm-7F-Q3N" id="LcH-Vv-j4P"/>
                 <outlet property="dataPickerView" destination="KbG-qa-pcF" id="yDu-bi-4OI"/>
                 <outlet property="dataVetifyBtn" destination="pVY-EV-q1w" id="8A4-4z-bUi"/>
@@ -31,7 +35,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ZlT-DR-4fI">
@@ -92,6 +96,46 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="857" y="443"/>
+        </view>
+        <view contentMode="scaleToFill" id="dax-tY-e62">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Fde-vj-uEK">
+                    <rect key="frame" x="30" y="10" width="40" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="取消">
+                        <color key="titleColor" red="0.1215686275" green="0.6705882353" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="cardCancleBtnTouched:" destination="-1" eventType="touchUpInside" id="JF2-6f-gXk"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1Sv-ca-O78">
+                    <rect key="frame" x="250" y="10" width="40" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="确定">
+                        <color key="titleColor" red="0.1215686275" green="0.6705882353" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="cardVerifyBtnTouched:" destination="-1" eventType="touchUpInside" id="wFq-FV-cMr"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="Pfu-IV-tdp">
+                    <rect key="frame" x="0.0" y="48" width="320" height="2"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <pickerView contentMode="scaleToFill" id="Zj1-Pd-6Qz">
+                    <rect key="frame" x="0.0" y="50" width="320" height="200"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                </pickerView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="857" y="153"/>
         </view>
     </objects>
     <resources>

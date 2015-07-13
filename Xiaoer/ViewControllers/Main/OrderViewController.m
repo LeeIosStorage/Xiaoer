@@ -7,12 +7,13 @@
 //
 
 #import "OrderViewController.h"
-#import "ShopActivityCell.h"
 #import "OrderCell.h"
 #import "OrderDetailViewController.h"
+#import "OrderApplyReimburseController.h"
 #import "MJRefresh.h"
 #import "XEProgressHUD.h"
-@interface OrderViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,PullToRefreshViewDelegate>
+#import "OrderCardCell.h"
+@interface OrderViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,PullToRefreshViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 /**
  *  保存点击的按钮
  */
@@ -99,10 +100,34 @@
  */
 @property (nonatomic,assign)BOOL ifReimburseToEnd;
 
+//取消原因array
+@property (nonatomic,strong)NSMutableArray *cancleReasonArr;
+
+//取消原因纪录选择了哪一个
+@property (nonatomic,assign)NSInteger canclePickerFinalIndex;
+
+//遮罩
+@property (nonatomic,strong)UIView *hideView;
 
 @end
 
 @implementation OrderViewController
+- (UIView *)hideView{
+    if (!_hideView) {
+        self.hideView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _hideView.backgroundColor = [UIColor lightGrayColor];
+        _hideView.alpha = 0.3;
+        [self.view addSubview:self.hideView];
+    }
+    return _hideView;
+}
+- (NSMutableArray *)cancleReasonArr{
+    if (!_cancleReasonArr) {
+        self.cancleReasonArr = [NSMutableArray arrayWithObjects:@"我不想买了",@"信息填写错误，重新拍",@"买家缺货",@"见面同城交易",@"其他原因", nil];
+    }
+    return _cancleReasonArr;
+}
+
 - (NSMutableArray *)allArray{
     if (!_allArray) {
         self.allArray = [NSMutableArray array];
@@ -141,6 +166,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self calculateLableFrame];
     [self configureBackScrollview];
+    [self configureCancleOrderReasonView];
+    [self configurehideView];
     self.tableView = self.allTab;
     
     self.allPageNum = 1;
@@ -155,8 +182,29 @@
     self.ifReimburseToEnd = NO;
     
 
-}
 
+}
+#pragma mark  布局删除按钮界面和遮罩
+- (void)configurehideView{
+    [self hideView];
+    self.hideView.hidden = YES;
+    self.deleteOrderView.layer.cornerRadius = 10;
+    self.deleteOrderView.layer.masksToBounds = YES;
+    
+    self.deleteOrderView.frame = CGRectMake((SCREEN_WIDTH - 250)/2, (SCREEN_HEIGHT - 130)/2, 250, 130);
+    [self.view addSubview:self.deleteOrderView];
+    self.deleteOrderView.hidden = YES;
+
+    
+}
+#pragma mark 布局取消原因view
+- (void)configureCancleOrderReasonView{
+    self.cancleOrderReasonView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 200);
+    self.canclePickerView.dataSource = self;
+    self.canclePickerView.delegate = self;
+    [self.view addSubview:self.cancleOrderReasonView];
+    
+}
 #pragma mark 布局backscrollview
 - (void)configureBackScrollview{
     self.backScrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 5, 0);
@@ -208,6 +256,7 @@
     [self.backScrollView addSubview:self.reimburseView];
     
     [self.allTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"allCell"];
+    
     [self.allTab addHeaderWithTarget:self action:@selector(headerRefresh)];
     [self.allTab addFooterWithTarget:self action:@selector(footerLoadData)];
     
@@ -215,11 +264,12 @@
     [self.needPayTab addHeaderWithTarget:self action:@selector(headerRefresh)];
     [self.needPayTab addFooterWithTarget:self action:@selector(footerLoadData)];
 
-    [self.electronTab registerNib:[UINib nibWithNibName:@"ShopActivityCell" bundle:nil] forCellReuseIdentifier:@"electronCell"];
+    [self.electronTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"electronCell"];
     [self.electronTab addHeaderWithTarget:self action:@selector(headerRefresh)];
     [self.electronTab addFooterWithTarget:self action:@selector(footerLoadData)];
 
-    [self.orderTab registerNib:[UINib nibWithNibName:@"ShopActivityCell" bundle:nil] forCellReuseIdentifier:@"orderCell"];
+    
+    [self.orderTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"orderCell"];
     [self.orderTab addHeaderWithTarget:self action:@selector(headerRefresh)];
     [self.orderTab addFooterWithTarget:self action:@selector(footerLoadData)];
 
@@ -232,11 +282,11 @@
 - (UIView *)creatSectionHeaderView{
     UIView *headerView = [[UIView alloc]init];
     //灰色背景色
-    UIView *grayColorView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
+    UIView *grayColorView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 5)];
     grayColorView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     //白色背景色
-    UIView *whithBack = [[UIView alloc]initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, 40)];
-    UILabel *layerlable = [[UILabel alloc]initWithFrame:CGRectMake(10, 20, 40, 20)];
+    UIView *whithBack = [[UIView alloc]initWithFrame:CGRectMake(0, 5, SCREEN_WIDTH, 40)];
+    UILabel *layerlable = [[UILabel alloc]initWithFrame:CGRectMake(10, 15, 40, 20)];
     layerlable.layer.borderColor = [UIColor orangeColor].CGColor;
     layerlable.layer.borderWidth = 1;
     layerlable.layer.cornerRadius = 8;
@@ -247,27 +297,27 @@
     layerlable.font = [UIFont systemFontOfSize:12];
     
     UILabel *desLab = [[UILabel alloc]init];
-    desLab.frame = CGRectMake(65, 10, 150, 40);
+    desLab.frame = CGRectMake(65, 5, 150, 40);
     desLab.textColor = [UIColor blackColor];
     desLab.font = [UIFont systemFontOfSize:14];
     desLab.text = @"牧童积木儿童专卖场";
     
 
-    UILabel *stateLab = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 95, 10, 80, 40)];
+    UILabel *stateLab = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 95, 5, 80, 40)];
     stateLab.textAlignment = NSTextAlignmentRight;
     stateLab.textColor = [UIColor orangeColor];
     stateLab.font = [UIFont systemFontOfSize:14];
     stateLab.text = @"交易成功";
 
     UIImageView *setLine = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"s_n_set_line"]];
-    setLine.frame = CGRectMake(0, 49, SCREEN_WIDTH, 1);
+    setLine.frame = CGRectMake(0, 44, SCREEN_WIDTH, 1);
     
     [headerView addSubview:grayColorView];
     [headerView addSubview:layerlable];
     [headerView addSubview:desLab];
     [headerView addSubview:stateLab];
     [headerView addSubview:setLine];
-    headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, whithBack.frame.size.height +
+    headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, grayColorView.frame.size.height +
                                   desLab.frame.size.height);
     headerView.backgroundColor = [UIColor whiteColor];
     return headerView;
@@ -281,7 +331,6 @@
     footerView.backgroundColor = [UIColor whiteColor];
     
 
-    
     UIImageView *setLineA = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"s_n_set_line"]];
     setLineA.frame = CGRectMake(0, 39, SCREEN_HEIGHT, 1);
     
@@ -371,6 +420,7 @@
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [deleteBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [deleteBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+    [deleteBtn addTarget:self action:@selector(deleteOrder:) forControlEvents:UIControlEventTouchUpInside];
     deleteBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     deleteBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     deleteBtn.layer.borderWidth = 1;
@@ -388,6 +438,75 @@
     againBuy.layer.cornerRadius = 8;
     return againBuy;
 }
+#pragma mark    创建申请退款按钮
+- (UIButton *)creatApplyReimburseBtn{
+    UIButton *ApplyReimburseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [ApplyReimburseBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [ApplyReimburseBtn setTitle:@"申请退款" forState:UIControlStateNormal];
+    ApplyReimburseBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    ApplyReimburseBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [ApplyReimburseBtn addTarget:self action:@selector(ApplyReimburseBtnTouchTo:) forControlEvents:UIControlEventTouchUpInside];
+    ApplyReimburseBtn.layer.borderWidth = 1;
+    ApplyReimburseBtn.layer.cornerRadius = 8;
+    return ApplyReimburseBtn;
+}
+#pragma mark 申请退款按钮点击
+- (void)ApplyReimburseBtnTouchTo:(UIButton *)sender{
+    OrderApplyReimburseController *apply = [[OrderApplyReimburseController alloc]init];
+    [self.navigationController pushViewController:apply animated:YES];
+}
+#pragma mark  创建取消订单按钮
+- (UIButton *)creatCancleOrderBtn{
+    UIButton *CancleOrderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [CancleOrderBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [CancleOrderBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+    CancleOrderBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    CancleOrderBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    CancleOrderBtn.layer.borderWidth = 1;
+    CancleOrderBtn.layer.cornerRadius = 8;
+    [CancleOrderBtn addTarget:self action:@selector(CancleOrderBtnTouched) forControlEvents:UIControlEventTouchUpInside];
+    return CancleOrderBtn;
+}
+
+#pragma mark 区尾取消订单按钮点击
+- (void)CancleOrderBtnTouched{
+    [self animationCancleReasonView];
+    
+    
+}
+#pragma mark 取消原因界面 取消按钮点击
+- (IBAction)calcaleReasonViewCancleBtnTouched:(id)sender {
+    [self animationCancleReasonView];
+}
+
+#pragma mark 取消原因界面  确定按钮点击
+- (IBAction)calcleReasonViewVerifyBtnTouched:(id)sender {
+    NSLog(@"self.cancleReasonStr === %@",self.cancleReasonArr[self.canclePickerFinalIndex]);
+    [self animationCancleReasonView];
+}
+
+
+#pragma mark  删除订单按钮点击
+- (void)deleteOrder:(UIButton *)sender{
+    self.hideView.hidden = NO;
+    self.deleteOrderView.hidden = NO;
+
+    
+
+}
+#pragma mark   删除订单界面取消按钮点击
+- (IBAction)deleteOrderCancleBtnTouched:(id)sender {
+    self.hideView.hidden = YES;
+    self.deleteOrderView.hidden = YES;
+}
+#pragma mark   删除订单界面确定按钮点击
+
+- (IBAction)cancaleReasonVerifyBtnTouched:(id)sender {
+    self.hideView.hidden = YES;
+    self.deleteOrderView.hidden = YES;
+    
+}
+
 #pragma mark  创建付款按钮
 - (UIButton *)creatFooterLayerPayBtn{
     UIButton *Buy = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -399,27 +518,26 @@
     Buy.layer.cornerRadius = 8;
     return Buy;
 }
-#pragma mark 创建footerView   的第二行左边的卡券图片
-- (UIImageView *)creatSectionFooterBoottomLeftCardImageView{
-    UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 40)];
+- (void)outOfDataBtnToouched:(UIButton *)sender{
     
-    UIImageView *leftImage  = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 30, 20)];
-//    leftImage.image = [UIImage imageNamed:]
-    leftImage.backgroundColor = [UIColor redColor];
-    
-
-    return leftImage;
 }
-
-#pragma mark 创建footerView  的卡券使用状态lable
-- (UILabel *)creatSectionFooterLeftCardStateLab{
-    UILabel *stateDes = [[UILabel alloc]initWithFrame:CGRectMake(50, 10, 60, 20)];
-        stateDes.text = @"已使用";
-        stateDes.textColor = [UIColor lightGrayColor];
-        stateDes.textAlignment = NSTextAlignmentLeft;
-    stateDes.font = [UIFont systemFontOfSize:14];
-    return stateDes;
-}
+//#pragma mark 创建footerView   的第二行左边的卡券图片
+//- (UIImageView *)creatSectionFooterBoottomLeftCardImageView{
+//    UIImageView *leftImage  = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 30, 20)];
+//    leftImage.backgroundColor = [UIColor redColor];
+//
+//    return leftImage;
+//}
+//
+//#pragma mark 创建footerView  的卡券使用状态lable
+//- (UILabel *)creatSectionFooterLeftCardStateLab{
+//    UILabel *stateDes = [[UILabel alloc]initWithFrame:CGRectMake(50, 10, 60, 20)];
+//        stateDes.text = @"已使用";
+//        stateDes.textColor = [UIColor lightGrayColor];
+//        stateDes.textAlignment = NSTextAlignmentLeft;
+//    stateDes.font = [UIFont systemFontOfSize:14];
+//    return stateDes;
+//}
 #pragma mark 头部刷新
 - (void)headerRefresh{
     
@@ -585,7 +703,23 @@
     
 }
 
-
+#pragma mark  取消订单原因动画
+- (void)animationCancleReasonView{
+    if (self.canclePickerFinalIndex) {
+        [self pickerView:self.canclePickerView didSelectRow:self.canclePickerFinalIndex inComponent:0];
+    }else{
+        [self pickerView:self.canclePickerView didSelectRow:0 inComponent:0];
+    }
+    if (self.cancleOrderReasonView.frame.origin.y == SCREEN_HEIGHT) {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.cancleOrderReasonView.frame = CGRectMake(0, SCREEN_HEIGHT - 200, SCREEN_WIDTH, 200);
+        }];
+    }else if (self.cancleOrderReasonView.frame.origin.y == (SCREEN_HEIGHT - 200)){
+        [UIView animateWithDuration:0.5 animations:^{
+            self.cancleOrderReasonView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 200);
+        }];
+    }
+}
 #pragma mark 头部按钮点击
 - (IBAction)allBtnTouched:(id)sender {
     NSLog(@"全部");
@@ -625,36 +759,88 @@
 
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+//    if (tableView == self.electronTab) {
+//        return 120;
+//    }else if (tableView == self.orderTab){
+//        return 120;
+//    }else{
+        return 140;
+//    }
+    
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//    if (tableView == self.electronTab) {
+//        return 0;
+//    }else if (tableView == self.orderTab){
+//        return 0;
+//    }else{
+    
+        return [self creatFooterView].frame.size.height;
+//    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (tableView == self.electronTab) {
-        return 10;
+        if (section == 0) {
+            return 50 + [self creatSectionHeaderView].frame.size.height;
+        }else{
+            return [self creatSectionHeaderView].frame.size.height;
+        }
     }else if (tableView == self.orderTab){
-        return 10;
+        if (section == 0) {
+            return 50 + [self creatSectionHeaderView].frame.size.height;
+        }else{
+            return [self creatSectionHeaderView].frame.size.height;
+        }
     }else{
         return [self creatSectionHeaderView].frame.size.height;
     }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UILabel *lightGray = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 30, 10)];
-    lightGray.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
-
+    UIView *cardHeader = [[UIView alloc]init];
+    cardHeader.backgroundColor = [UIColor clearColor];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.backgroundColor = SKIN_COLOR;
+    [btn setTitle:@"您有3张券即将过期" forState:UIControlStateNormal];
+    btn.layer.cornerRadius = 7;
+    btn.layer.masksToBounds = YES;
+    [btn addTarget:self action:@selector(outOfDataBtnToouched:) forControlEvents:UIControlEventTouchUpInside];
+    btn.frame = CGRectMake(40, 10, SCREEN_WIDTH - 80, 30);
+    
+    
+    UIView *otherHeader = [self creatSectionHeaderView];
+    otherHeader.frame = CGRectMake(0, 50, SCREEN_WIDTH, [self creatSectionHeaderView].frame.size.height);
+    [cardHeader addSubview:otherHeader];
+    [cardHeader addSubview:btn];
+    cardHeader.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50 + otherHeader.frame.size.height);
     if (tableView == self.electronTab) {
-        return lightGray;
+        if (section == 0) {
+            return cardHeader;
+            
+        }else{
+            
+            return [self creatSectionHeaderView];
+        }
     }else if (tableView == self.orderTab){
-        return lightGray;
+        if (section == 0) {
+            return  cardHeader;
+        }else{
+            return [self creatSectionHeaderView];
+        }
     }else{
+        
         return [self creatSectionHeaderView];
     }
+    return nil;
+    
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (tableView == self.electronTab) {
-        return 0;
-    }else if (tableView == self.orderTab){
-        return 0;
-    }else{
-        return [self creatFooterView].frame.size.height;
-    }
-}
+
+
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *footerView = [self creatFooterView];
     //商品数量
@@ -662,18 +848,20 @@
     numLab.text = @"共一件商品";
     //运费
     UILabel *freightLab  = [self creatFreightLable];
-    freightLab.frame = CGRectMake((SCREEN_WIDTH - 100)/2, 5, 100, 30);
+    freightLab.frame = CGRectMake((SCREEN_WIDTH - 100)/2 - 20, 5, 100, 30);
     freightLab.attributedText = [self creeatFreightLableTextWith:@"运费：¥123.00"];
     //支付款项
     UILabel *price = [self creatPriceLable];
     price.frame =CGRectMake(SCREEN_WIDTH - 130 , 5, 115,30);
     price.attributedText = [self creatPriceTextWith:@"合计：¥123.00"];
     //卡片
-    UIImageView *cardState = [self creatSectionFooterBoottomLeftCardImageView];
-    cardState.frame = CGRectMake(15, 50, 40, 20);
+//    UIImageView *cardState = [self creatSectionFooterBoottomLeftCardImageView];
+//    cardState.frame = CGRectMake(15, 50, 40, 20);
+    
     //卡片使用情况
-    UILabel *cardUsed = [self creatSectionFooterLeftCardStateLab];
-    cardUsed.frame = CGRectMake(60, 50, 60, 20);
+//    UILabel *cardUsed = [self creatSectionFooterLeftCardStateLab];
+//    cardUsed.frame = CGRectMake(60, 50, 60, 20);
+    
     //删除按钮
     UIButton *delete = [self creatFooterLayerDeleteBtn];
     //支付按钮
@@ -683,20 +871,35 @@
     //重新购买
     UIButton *againPay = [self creatFooterLayerAgainBuyBtn];
     
+    //申请退款
+    UIButton *applyReimburse = [self creatApplyReimburseBtn];
+    
+    //取消订单
+    UIButton *cancleOrder = [self creatCancleOrderBtn];
+    
+    
     if (tableView == self.allTab) {
         delete.frame = CGRectMake(SCREEN_WIDTH - 95, 45, 80, 30);
-        [footerView addSubview:cardState];
-        [footerView addSubview:cardUsed];
+        applyReimburse.frame = CGRectMake(SCREEN_WIDTH - 95 -100 , 45, 85, 30);
+        [footerView addSubview:applyReimburse];
         [footerView addSubview:delete];
     }else if (tableView == self.needPayTab){
-        delete.frame = CGRectMake(SCREEN_WIDTH - 190, 45, 90, 30);
+        cancleOrder.frame = CGRectMake(SCREEN_WIDTH - 190, 45, 90, 30);
+        [footerView addSubview:freightLab];
         [footerView  addSubview:payBtn];
-        [footerView addSubview:delete];
+        [footerView addSubview:price];
+        [footerView addSubview:cancleOrder];
     }else if (tableView == self.electronTab){
-        return nil;
+        delete.frame = CGRectMake(SCREEN_WIDTH - 95, 45, 80, 30);
+        applyReimburse.frame = CGRectMake(SCREEN_WIDTH - 95 -100 , 45, 85, 30);
+        [footerView addSubview:applyReimburse];
+        [footerView addSubview:delete];
     }else if (tableView == self.orderTab){
-        return nil;
-    }else if (tableView == self.reimburseTab){
+        delete.frame = CGRectMake(SCREEN_WIDTH - 95, 45, 80, 30);
+        applyReimburse.frame = CGRectMake(SCREEN_WIDTH - 95 -100 , 45, 85, 30);
+        [footerView addSubview:applyReimburse];
+        [footerView addSubview:delete];
+        }else if (tableView == self.reimburseTab){
         againPay.frame = CGRectMake(SCREEN_WIDTH - 105, 45, 90, 30);
         [footerView addSubview:freightLab];
         [footerView addSubview:price];
@@ -707,9 +910,9 @@
 }
 - (NSInteger )numberOfSectionsInTableView:(UITableView *)tableView{
     if (tableView == self.electronTab) {
-        return 10;
+        return 2;
     }else if (tableView == self.orderTab){
-        return 10;
+        return 2;
     }else{
         return 5;
     }
@@ -719,44 +922,38 @@
         return 1;
     }else if (tableView == self.orderTab){
         return 1;
-    }
-    return 3;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView == self.electronTab) {
-        return 150;
-    }else if (tableView == self.orderTab){
-        return 150;
     }else{
-        return 100;
+        return 2;
     }
-
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.allTab) {
         OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+        
         return cell;
     } else if(tableView == self.needPayTab) {
         OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"needPayCell" forIndexPath:indexPath];
+
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         return cell;
     
     }else if (tableView == self.electronTab){
-        ShopActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"electronCell" forIndexPath:indexPath];
+        OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"electronCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         return cell;
     }else if (tableView == self.orderTab){
-            ShopActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderCell" forIndexPath:indexPath];
+        OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         return cell;
     }else if (tableView == self.reimburseTab){
         OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reimburseCell" forIndexPath:indexPath];
+
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         return cell;
@@ -770,15 +967,22 @@
     [self.navigationController pushViewController:detail animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+
 #pragma mark scrollViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     self.begianSetX = self.backScrollView.contentOffset.x;
     self.touchChangeLab = NO;
     NSLog(@"开始拖拽scrollView");
+    if (self.cancleOrderReasonView.frame.origin.y  == SCREEN_HEIGHT - 200 ) {
+        [self animationCancleReasonView];
+    }
     
 }
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 
+}
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if (self.begianSetX != self.backScrollView.contentOffset.x) {
         NSLog(@"进来");
@@ -809,6 +1013,31 @@
     
     
 }
+
+#pragma mark pickerVidew  dataSources
+//确定Picker的轮子的个数
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+
+//确定picker的每个轮子的item数
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.cancleReasonArr.count;
+}
+
+
+#pragma mark 实现协议UIPickerViewDelegate方法
+//显示每个轮子的内容
+-  (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return self.cancleReasonArr[row];
+}
+//监听轮子的移动
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self.canclePickerFinalIndex = row;
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

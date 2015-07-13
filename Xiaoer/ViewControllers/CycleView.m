@@ -63,8 +63,11 @@
     self.cycleScrollView.totalPagesCount = ^NSInteger(void){
         return imageArray.count;
     };
-    
+    __block CycleView *view = self;
     self.cycleScrollView.TapActionBlock = ^(NSInteger pageIndex){
+        if (view.delegate && [self.delegate respondsToSelector:@selector(lunboTouchIndexOfImage:)]) {
+            [view.delegate lunboTouchIndexOfImage:pageIndex];
+        }
         NSLog(@"点击了第%ld个",(long)pageIndex);
     };
     
