@@ -1696,15 +1696,33 @@ static XEEngine* s_ShareInstance = nil;
  */
 - (BOOL)getShopListInfoMationWith:(int)tag category:(NSString *)category pagenum:(NSString *)pagenum type:(NSString *)typeStr name:(NSString *)name serieid:(NSString *)serieid{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:typeStr forKey:@"type"];
-    [params setObject:category forKey:@"category"];
-    [params setObject:pagenum forKey:@"pagenum"];
+    if ([typeStr isEqualToString:@""]) {
+        
+    }else{
+        [params setObject:typeStr forKey:@"type"];
+    }
+    if ([category isEqualToString:@""]) {
+        
+    } else {
+        [params setObject:category forKey:@"category"];
+    }
+    if ([pagenum isEqualToString:@""]) {
+        
+    } else {
+        [params setObject:pagenum forKey:@"pagenum"];
+    }
     if ([name isEqualToString:@""]) {
         
     }else{
         [params setObject:name forKey:@"name"];
     }
-    [params setObject:serieid forKey:@"serieid"];
+    
+    if ([serieid isEqualToString:@""]) {
+        
+    }else{
+        [params setObject:serieid forKey:@"serieid"];
+    }
+    
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/goods/list",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
@@ -1837,5 +1855,62 @@ static XEEngine* s_ShareInstance = nil;
     
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
     
+}
+- (BOOL)getDiscountInfomationWith:(int)tag userid:(NSString *)userid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/discount",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)getOrderToPlaceAnOrderWith:(int)tag userid:(NSString *)userid orderjson:(NSString *)orderjson useraddressid:(NSString *)useraddressid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    [params setObject:orderjson forKey:@"orderjson"];
+    [params setObject:useraddressid forKey:@"useraddressid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/order/order",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)getOrderListInfomationWith:(int)tag etickettype:(NSString *)etickettype pagenum:(NSString *)pagenum statuses:(NSString *)statuses userid:(NSString *)userid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    if ([userid isEqualToString:@""]) {
+    }else{
+        [params setObject:userid forKey:@"userid"];
+    }
+    
+    
+    if ([etickettype isEqualToString:@""]) {
+        
+    }else{
+        
+        [params setObject:etickettype forKey:@"etickettype"];
+    }
+    
+    if ([pagenum isEqualToString:@""]) {
+        
+    }else{
+        
+        [params setObject:pagenum forKey:@"pagenum"];
+
+    }
+    
+    if ([statuses isEqualToString:@""]) {
+        
+        
+    }else{
+        [params setObject:statuses forKey:@"statuses"];
+
+    }
+    
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/order/list",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+    
+}
+
+- (BOOL)getOrderDetailInfomationWith:(int)tag orderproviderid:(NSString *)orderproviderid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:orderproviderid forKey:@"orderproviderid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/order/detail",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 @end

@@ -26,6 +26,8 @@
 #import "XEAlertView.h"
 #import "ShopViewController.h"
 
+#import <AlipaySDK/AlipaySDK.h>
+
 //#import "APService.h"
 
 
@@ -89,6 +91,16 @@ void uncaughtExceptionHandler(NSException *exception) {
         [self signOut];
     }
     [NSThread sleepForTimeInterval:2.0];
+    
+    
+    
+    NSDictionary *plist = [[NSBundle mainBundle]infoDictionary];
+    
+    self.seller = [plist objectForKey:@"seller"];
+    self.patener = [plist objectForKey:@"patener"];
+    self.privateKey = [plist objectForKey:@"privateKey"];
+    
+    
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -202,7 +214,18 @@ void uncaughtExceptionHandler(NSException *exception) {
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    return  [UMSocialSnsService handleOpenURL:url];
+    
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            
+        }];
+
+        return YES;
+    } else {
+        return  [UMSocialSnsService handleOpenURL:url];
+    }
+    
 }
 
 #pragma mark -LSIntroduceVcDelegate

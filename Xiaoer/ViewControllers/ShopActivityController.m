@@ -156,9 +156,7 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    ActivityDetailController *detail = [[ActivityDetailController alloc]init];
     ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
-    
     XEShopSerieInfo *info = (XEShopSerieInfo *)[self.dataSources objectAtIndex:indexPath.section];
     detail.shopId = info.id;
     [self.navigationController pushViewController:detail animated:YES];

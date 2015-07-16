@@ -26,7 +26,7 @@
  */
 @property (nonatomic,strong)NSString *price;
 /**
- *
+ *  
  */
 @property (nonatomic,strong)NSString *orderNo;
 /**
@@ -65,7 +65,10 @@
  *  运费
  */
 @property (nonatomic,strong)NSString *carriage;
-
+/**
+ *  供货商id
+ */
+@property (nonatomic,strong)NSString *providerId;
 
 /**
  *  返回原价

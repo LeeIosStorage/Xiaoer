@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "XEShopListInfo.h"
 @interface SearchListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *leftLable;
-
+- (void)configureCellWith:(XEShopListInfo *)info;
 @end

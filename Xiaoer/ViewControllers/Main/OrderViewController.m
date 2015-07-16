@@ -13,6 +13,9 @@
 #import "MJRefresh.h"
 #import "XEProgressHUD.h"
 #import "OrderCardCell.h"
+#import "XEEngine.h"
+#import "XEOrderInfo.h"
+#import "MJExtension.h"
 @interface OrderViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,PullToRefreshViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 /**
  *  保存点击的按钮
@@ -108,6 +111,10 @@
 
 //遮罩
 @property (nonatomic,strong)UIView *hideView;
+/**
+ *  预约券将要过期数量
+ */
+@property (nonatomic,strong)NSString *electronPassCount;
 
 @end
 
@@ -181,30 +188,162 @@
     self.ifOrderToEnd = NO;
     self.ifReimburseToEnd = NO;
     
-
-
+    self.electronPassCount = @"0";
+    
+    //请求全部的页面的数据
+    [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.allPageNum] statuses:@"" tableview:self.allTab];
+    //请求待付款页面的数据
+    [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.needPayNum] statuses:@"1" tableview:self.needPayTab];
+    //请求电子券页面的数据
+    [self getOrderDataWithEtickettype:@"1" pagenum:[NSString stringWithFormat:@"%ld",(long)self.electronCardNum] statuses:@"" tableview:self.electronTab];
+    //请求预约券数据
+    [self getOrderDataWithEtickettype:@"2" pagenum:[NSString stringWithFormat:@"%ld",(long)self.orderNum] statuses:@"" tableview:self.orderTab];
+    //请求退款单页面数据
+    [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.reimburseNum] statuses:@"5,6,7" tableview:self.reimburseTab];
+    
 }
+#pragma mark 请求数据
+- (void)getOrderDataWithEtickettype:(NSString *)etickettype pagenum:(NSString *)pagenum statuses:(NSString *)statuses tableview:(UITableView *)tableView{
+    __weak OrderViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [XEEngine shareInstance].serverPlatform = TestPlatform;
+    [[XEEngine shareInstance]getOrderListInfomationWith:tag etickettype:etickettype pagenum:pagenum statuses:statuses userid:[XEEngine shareInstance].uid];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+        }
+        if (tableView == self.allTab) {
+            
+            if ([[jsonRet[@"object"][@"end"]stringValue] isEqualToString:@"0"]) {
+                self.ifAllToEnd = YES;
+            }
+            if (self.allArray.count > 0 && self.allPageNum == 1) {
+                [self.allArray removeAllObjects];
+            }
+            
+            NSArray *array = jsonRet[@"object"][@"list"];
+            for (NSDictionary *dic in array) {
+                XEOrderInfo *orderInfo = [XEOrderInfo objectWithKeyValues:dic];
+                [self.allArray addObject:orderInfo];
+            }
+            [self.allTab reloadData];
+        }
+        
+        
+        if (tableView == self.needPayTab) {
+            
+            if ([[jsonRet[@"object"][@"end"]stringValue] isEqualToString:@"0"]) {
+                self.ifNeedPayToEnd = YES;
+            }
+            if (self.needPayArray.count > 0&& self.needPayNum == 1) {
+                [self.needPayArray removeAllObjects];
+            }
+            
+            NSArray *array = jsonRet[@"object"][@"list"];
+            for (NSDictionary *dic in array) {
+                XEOrderInfo *orderInfo = [XEOrderInfo objectWithKeyValues:dic];
+                [self.needPayArray addObject:orderInfo];
+            }
+            [self.needPayTab reloadData];
+        }
+        
+        
+        
+        if (tableView == self.electronTab) {
+            
+            if ([[jsonRet[@"object"][@"end"]stringValue] isEqualToString:@"0"]) {
+                self.ifElectronCardToEnd = YES;
+            }
+            if (self.electronCardArray.count > 0 &&  self.electronCardNum == 1) {
+                [self.electronCardArray removeAllObjects];
+            }
+            if (jsonRet[@"object"][@"willPassCount"]) {
+                self.electronPassCount = [NSString stringWithFormat:@"%@",jsonRet[@"object"][@"willPassCount"]];
+            }
+            NSArray *array = jsonRet[@"object"][@"list"];
+            for (NSDictionary *dic in array) {
+                XEOrderInfo *orderInfo = [XEOrderInfo objectWithKeyValues:dic];
+                [self.electronCardArray addObject:orderInfo];
+            }
+            [self.electronTab reloadData];
+        }
+        
+        
+        
+        if (tableView == self.orderTab) {
+            
+            if ([[jsonRet[@"object"][@"end"]stringValue] isEqualToString:@"0"]) {
+                self.ifOrderToEnd = YES;
+            }
+            if (self.orderArray.count > 0 &&  self.orderNum == 1) {
+                [self.orderArray removeAllObjects];
+            }
+            
+            NSArray *array = jsonRet[@"object"][@"list"];
+            for (NSDictionary *dic in array) {
+                XEOrderInfo *orderInfo = [XEOrderInfo objectWithKeyValues:dic];
+                [self.orderArray addObject:orderInfo];
+            }
+            [self.orderTab reloadData];
+        }
+        
+        
+        
+        if (tableView == self.reimburseTab) {
+            
+            if ([[jsonRet[@"object"][@"end"]stringValue] isEqualToString:@"0"]) {
+                self.ifReimburseToEnd = YES;
+            }
+            if (self.reimburseArray.count > 0 &&  self.reimburseNum == 1) {
+                [self.reimburseArray removeAllObjects];
+            }
+            
+            NSArray *array = jsonRet[@"object"][@"list"];
+            for (NSDictionary *dic in array) {
+                XEOrderInfo *orderInfo = [XEOrderInfo objectWithKeyValues:dic];
+                [self.reimburseArray addObject:orderInfo];
+            }
+            [self.reimburseTab reloadData];
+        }
+        
+        
+
+        NSLog(@"self.allArray.count === %ld",(unsigned long)self.allArray.count);
+    } tag:tag];
+    
+}
+
+
+
 #pragma mark  布局删除按钮界面和遮罩
 - (void)configurehideView{
+    
     [self hideView];
     self.hideView.hidden = YES;
     self.deleteOrderView.layer.cornerRadius = 10;
     self.deleteOrderView.layer.masksToBounds = YES;
-    
     self.deleteOrderView.frame = CGRectMake((SCREEN_WIDTH - 250)/2, (SCREEN_HEIGHT - 130)/2, 250, 130);
     [self.view addSubview:self.deleteOrderView];
     self.deleteOrderView.hidden = YES;
-
     
 }
+
 #pragma mark 布局取消原因view
 - (void)configureCancleOrderReasonView{
+    
     self.cancleOrderReasonView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 200);
     self.canclePickerView.dataSource = self;
     self.canclePickerView.delegate = self;
     [self.view addSubview:self.cancleOrderReasonView];
     
 }
+
 #pragma mark 布局backscrollview
 - (void)configureBackScrollview{
     self.backScrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 5, 0);
@@ -276,6 +415,15 @@
     [self.reimburseTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"reimburseCell"];
     [self.reimburseTab addHeaderWithTarget:self action:@selector(headerRefresh)];
     [self.reimburseTab addFooterWithTarget:self action:@selector(footerLoadData)];
+    self.allTab.sectionFooterHeight = 100;
+    self.needPayTab.sectionFooterHeight = 100;
+    
+    self.reimburseTab.sectionFooterHeight = 100;
+    self.reimburseTab.sectionHeaderHeight = 40;
+    
+    self.orderTab.sectionFooterHeight = 100;
+    self.orderTab.sectionHeaderHeight = 40;
+
     
 }
 #pragma mark 创建sectionHeaderView
@@ -352,7 +500,6 @@
 #pragma mark  创建商品数量lable
 - (UILabel *)creatNumLab{
     UILabel *numShop = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH, 40)];
-//    numShop.text = @"共1件商品";
     numShop.textColor = [UIColor blackColor];
     numShop.textAlignment = NSTextAlignmentLeft;
     numShop.font = [UIFont systemFontOfSize:14];
@@ -364,7 +511,7 @@
      *  运费：
      */
     UILabel *freightLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 100)/2, 0, 100, 40)];
-    freightLab.text = @"运费：¥123.00";
+//    freightLab.text = @"运费：¥123.00";
     freightLab.textAlignment = NSTextAlignmentCenter;
     freightLab.font = [UIFont systemFontOfSize:14];
 //    NSString *douB = @"：";
@@ -543,24 +690,32 @@
     
     NSInteger index = self.backScrollView.contentOffset.x/SCREEN_WIDTH;
     if (index == 0 || index >(long) 4) {
-        self.allPageNum = 0;
+        self.allPageNum = 1;
         self.ifAllToEnd = NO;
+        [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.allPageNum] statuses:@"" tableview:self.allTab];
         
     } else if (index == 1) {
         self.needPayNum = 1;
         self.ifNeedPayToEnd = NO;
+        [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.needPayNum] statuses:@"1" tableview:self.needPayTab];
         
     }else if (index == 2){
         self.electronCardNum = 1;
         self.ifElectronCardToEnd = NO;
+        [self getOrderDataWithEtickettype:@"1" pagenum:[NSString stringWithFormat:@"%ld",(long)self.electronCardNum] statuses:@"" tableview:self.electronTab];
+
         
     }else if (index == 3){
         self.orderNum= 1;
         self.ifOrderToEnd = NO;
+        [self getOrderDataWithEtickettype:@"2" pagenum:[NSString stringWithFormat:@"%ld",(long)self.orderNum] statuses:@"" tableview:self.orderTab];
+
         
     }else if (index == 4){
         self.reimburseNum = 1;
         self.ifReimburseToEnd = NO;
+        [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.reimburseNum] statuses:@"5,6,7" tableview:self.reimburseTab];
+
     }
 
 //获取数据
@@ -581,7 +736,8 @@
         if (self.ifAllToEnd == NO) {
             self.allPageNum ++;
             //获取数据
-            
+        [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.allPageNum] statuses:@"" tableview:self.allTab];
+
         }else{
             //如果是最后一页的话提示已经是最后一页，不在请求数据了
             [XEProgressHUD lightAlert:@"已经到最后一页"];
@@ -591,7 +747,8 @@
         if (self.ifNeedPayToEnd == NO) {
             self.needPayNum ++;
             //获取数据
-            
+            [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.needPayNum] statuses:@"1" tableview:self.needPayTab];
+
         }else{
             //如果是最后一页的话提示已经是最后一页，不在请求数据了
             [XEProgressHUD lightAlert:@"已经到最后一页"];
@@ -601,7 +758,8 @@
         if (self.ifElectronCardToEnd == NO) {
             self.electronCardNum ++;
             //获取数据
-            
+            [self getOrderDataWithEtickettype:@"1" pagenum:[NSString stringWithFormat:@"%ld",(long)self.electronCardNum] statuses:@"" tableview:self.electronTab];
+
         }else{
             //如果是最后一页的话提示已经是最后一页，不在请求数据了
             [XEProgressHUD lightAlert:@"已经到最后一页"];
@@ -611,6 +769,8 @@
         if (self.ifOrderToEnd == NO) {
             self.orderNum ++;
             //获取数据
+            [self getOrderDataWithEtickettype:@"2" pagenum:[NSString stringWithFormat:@"%ld",(long)self.orderNum] statuses:@"" tableview:self.orderTab];
+
             
         }else{
             //如果是最后一页的话提示已经是最后一页，不在请求数据了
@@ -621,7 +781,8 @@
         if (self.ifReimburseToEnd == NO) {
             self.reimburseNum ++;
             //获取数据
-            
+            [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.reimburseNum] statuses:@"5,6,7" tableview:self.reimburseTab];
+
         }else{
             //如果是最后一页的话提示已经是最后一页，不在请求数据了
             [XEProgressHUD lightAlert:@"已经到最后一页"];
@@ -758,55 +919,174 @@
 
 
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (tableView == self.electronTab) {
+
+        if (section == 0) {
+            if ([self.electronPassCount isEqualToString:@"0"]) {
+                return 5;
+            }else{
+                return 50 ;
+            }
+            
+        }else{
+            return 5;
+        }
+
+    }else if (tableView == self.orderTab){
+        if (section == 0) {
+            return 50 ;
+        }else{
+            return 5;
+        }
+    }else{
+        if (section == 0) {
+            return 5;
+        }else{
+            return 5;
+        }
+    }
+
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    if (tableView == self.allTab) {
+        
+        if (self.allArray.count > 0 ) {
+            XEOrderInfo *order = (XEOrderInfo *)self.allArray[indexPath.section];
+            NSArray *array = order.series;
+            for (NSDictionary *seri in array) {
+                XEOrderGoodInfo *goods = [self.allArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row];
+                if ([[seri[@"goodses"][0][@"id"]stringValue] isEqualToString:goods.id]) {
+                    return 180;
+                    
+                }else {
+                    
+                    return 120;
+                    
+                }
+                
+            }
+        }
+        
+    }
     
-//    if (tableView == self.electronTab) {
-//        return 120;
-//    }else if (tableView == self.orderTab){
-//        return 120;
-//    }else{
-        return 140;
-//    }
+    if (tableView == self.needPayTab) {
+        if (self.needPayArray.count > 0 ) {
+            XEOrderInfo *order = (XEOrderInfo *)self.needPayArray[indexPath.section];
+            NSArray *array = order.series;
+            for (NSDictionary *seri in array) {
+                XEOrderGoodInfo *goods = [self.needPayArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row];
+                if ([[seri[@"goodses"][0][@"id"]stringValue] isEqualToString:goods.id]) {
+                    return 180;
+                    
+                }else {
+                    
+                    return 120;
+                    
+                }
+                
+            }
+        }
+    }
     
+    if (tableView == self.electronTab) {
+        if (self.electronCardArray.count > 0 ) {
+            XEOrderInfo *order = (XEOrderInfo *)self.electronCardArray[indexPath.section];
+            NSArray *array = order.series;
+            for (NSDictionary *seri in array) {
+                XEOrderGoodInfo *goods = [self.electronCardArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row];
+                if ([[seri[@"goodses"][0][@"id"]stringValue] isEqualToString:goods.id]) {
+                    return 180;
+                    
+                }else {
+                    
+                    return 120;
+                    
+                }
+                
+            }
+        }
+    }
+    
+    
+    
+    
+    if (tableView == self.orderTab) {
+        if (self.orderArray.count > 0 ) {
+            XEOrderInfo *order = (XEOrderInfo *)self.orderArray[indexPath.section];
+            NSArray *array = order.series;
+            for (NSDictionary *seri in array) {
+                XEOrderGoodInfo *goods = [self.orderArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row];
+                if ([[seri[@"goodses"][0][@"id"]stringValue] isEqualToString:goods.id]) {
+                    return 180;
+                    
+                }else {
+                    
+                    return 120;
+                    
+                }
+                
+            }
+        }
+    }
+    
+    
+    if (tableView == self.reimburseTab) {
+        if (self.reimburseArray.count > 0 ) {
+            XEOrderInfo *order = (XEOrderInfo *)self.reimburseArray[indexPath.section];
+            NSArray *array = order.series;
+            for (NSDictionary *seri in array) {
+                XEOrderGoodInfo *goods = [self.reimburseArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row];
+                if ([[seri[@"goodses"][0][@"id"]stringValue] isEqualToString:goods.id]) {
+                    return 180;
+                    
+                }else {
+                    
+                    return 120;
+                    
+                }
+                
+            }
+        }
+    }
+    
+    
+
+
+    return 180;
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-//    if (tableView == self.electronTab) {
-//        return 0;
-//    }else if (tableView == self.orderTab){
-//        return 0;
-//    }else{
     
         return [self creatFooterView].frame.size.height;
-//    }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (tableView == self.electronTab) {
-        if (section == 0) {
-            return 50 + [self creatSectionHeaderView].frame.size.height;
-        }else{
-            return [self creatSectionHeaderView].frame.size.height;
-        }
-    }else if (tableView == self.orderTab){
-        if (section == 0) {
-            return 50 + [self creatSectionHeaderView].frame.size.height;
-        }else{
-            return [self creatSectionHeaderView].frame.size.height;
-        }
-    }else{
-        return [self creatSectionHeaderView].frame.size.height;
-    }
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    if (tableView == self.electronTab) {
+//        if (section == 0) {
+//            return 50 + [self creatSectionHeaderView].frame.size.height;
+//        }else{
+//            return [self creatSectionHeaderView].frame.size.height;
+//        }
+//    }else if (tableView == self.orderTab){
+//        if (section == 0) {
+//            return 50 + [self creatSectionHeaderView].frame.size.height;
+//        }else{
+//            return [self creatSectionHeaderView].frame.size.height;
+//        }
+//    }else{
+//        return [self creatSectionHeaderView].frame.size.height;
+//    }
+//}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *cardHeader = [[UIView alloc]init];
     cardHeader.backgroundColor = [UIColor clearColor];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.backgroundColor = SKIN_COLOR;
-    [btn setTitle:@"您有3张券即将过期" forState:UIControlStateNormal];
     btn.layer.cornerRadius = 7;
     btn.layer.masksToBounds = YES;
     [btn addTarget:self action:@selector(outOfDataBtnToouched:) forControlEvents:UIControlEventTouchUpInside];
@@ -815,26 +1095,31 @@
     
     UIView *otherHeader = [self creatSectionHeaderView];
     otherHeader.frame = CGRectMake(0, 50, SCREEN_WIDTH, [self creatSectionHeaderView].frame.size.height);
-    [cardHeader addSubview:otherHeader];
+//    [cardHeader addSubview:otherHeader];
     [cardHeader addSubview:btn];
     cardHeader.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50 + otherHeader.frame.size.height);
     if (tableView == self.electronTab) {
+        if (section == 0) {
+            if ([self.electronPassCount isEqualToString:@"0"]) {
+                return nil;
+            }else{
+                [btn setTitle:[NSString stringWithFormat:@"您有%@张券即将过期",self.electronPassCount] forState:UIControlStateNormal];
+                return cardHeader;
+            }
+            
+        }else{
+            
+        }
+    }else if (tableView == self.orderTab){
         if (section == 0) {
             return cardHeader;
             
         }else{
             
-            return [self creatSectionHeaderView];
-        }
-    }else if (tableView == self.orderTab){
-        if (section == 0) {
-            return  cardHeader;
-        }else{
-            return [self creatSectionHeaderView];
         }
     }else{
         
-        return [self creatSectionHeaderView];
+        return nil;
     }
     return nil;
     
@@ -845,15 +1130,13 @@
     UIView *footerView = [self creatFooterView];
     //商品数量
     UILabel *numLab = [self creatNumLab];
-    numLab.text = @"共一件商品";
+//    numLab.text = @"共一件商品";
     //运费
     UILabel *freightLab  = [self creatFreightLable];
     freightLab.frame = CGRectMake((SCREEN_WIDTH - 100)/2 - 20, 5, 100, 30);
-    freightLab.attributedText = [self creeatFreightLableTextWith:@"运费：¥123.00"];
     //支付款项
     UILabel *price = [self creatPriceLable];
     price.frame =CGRectMake(SCREEN_WIDTH - 130 , 5, 115,30);
-    price.attributedText = [self creatPriceTextWith:@"合计：¥123.00"];
     //卡片
 //    UIImageView *cardState = [self creatSectionFooterBoottomLeftCardImageView];
 //    cardState.frame = CGRectMake(15, 50, 40, 20);
@@ -878,53 +1161,180 @@
     UIButton *cancleOrder = [self creatCancleOrderBtn];
     
     
+    
     if (tableView == self.allTab) {
         delete.frame = CGRectMake(SCREEN_WIDTH - 95, 45, 80, 30);
         applyReimburse.frame = CGRectMake(SCREEN_WIDTH - 95 -100 , 45, 85, 30);
+        XEOrderInfo *good = self.allArray[section];
+        if (good.total) {
+            numLab.text = [NSString stringWithFormat:@"共%@件商品",good.total];
+        }
+        if (good.carriage) {
+            freightLab.attributedText =  [self creeatFreightLableTextWith:[NSString stringWithFormat:@"运费：¥%.2f",[good.carriage floatValue]/100]];
+        }
+        price.attributedText = [self creatPriceTextWith:[NSString stringWithFormat:@"合计：%.2f",[good.money floatValue]/100]];
+        [footerView addSubview:freightLab];
+        [footerView addSubview:numLab];
         [footerView addSubview:applyReimburse];
         [footerView addSubview:delete];
+        [footerView addSubview:price];
     }else if (tableView == self.needPayTab){
         cancleOrder.frame = CGRectMake(SCREEN_WIDTH - 190, 45, 90, 30);
+        XEOrderInfo *good = self.needPayArray[section];
+        if (good.total) {
+        numLab.text = [NSString stringWithFormat:@"共%@件商品",good.total];
+        }
+        if (good.carriage) {
+            freightLab.attributedText =  [self creeatFreightLableTextWith:[NSString stringWithFormat:@"运费：¥%.2f",[good.carriage floatValue]/100]];
+        }
+        price.attributedText = [self creatPriceTextWith:[NSString stringWithFormat:@"合计：%.2f",[good.money floatValue]/100]];
+        [footerView addSubview:numLab];
         [footerView addSubview:freightLab];
         [footerView  addSubview:payBtn];
         [footerView addSubview:price];
         [footerView addSubview:cancleOrder];
     }else if (tableView == self.electronTab){
+        XEOrderInfo *good = self.electronCardArray[section];
+        if (good.total) {
+
+        numLab.text = [NSString stringWithFormat:@"共%@件商品",good.total];
+        }
         delete.frame = CGRectMake(SCREEN_WIDTH - 95, 45, 80, 30);
         applyReimburse.frame = CGRectMake(SCREEN_WIDTH - 95 -100 , 45, 85, 30);
+        if (good.carriage) {
+            freightLab.attributedText =  [self creeatFreightLableTextWith:[NSString stringWithFormat:@"运费：¥%.2f",[good.carriage floatValue]/100]];
+        }
+        price.attributedText = [self creatPriceTextWith:[NSString stringWithFormat:@"合计：%.2f",[good.money floatValue]/100]];
+        [footerView addSubview:freightLab];
         [footerView addSubview:applyReimburse];
         [footerView addSubview:delete];
+        [footerView addSubview:numLab];
+        [footerView addSubview:price];
     }else if (tableView == self.orderTab){
         delete.frame = CGRectMake(SCREEN_WIDTH - 95, 45, 80, 30);
         applyReimburse.frame = CGRectMake(SCREEN_WIDTH - 95 -100 , 45, 85, 30);
+        XEOrderInfo *good = self.orderArray[section];
+        if (good.total) {
+
+        numLab.text = [NSString stringWithFormat:@"共%@件商品",good.total];
+        }
+        if (good.carriage) {
+            freightLab.attributedText =  [self creeatFreightLableTextWith:[NSString stringWithFormat:@"运费：¥%.2f",[good.carriage floatValue]/100]];
+        }
+        price.attributedText = [self creatPriceTextWith:[NSString stringWithFormat:@"合计：%.2f",[good.money floatValue]/100]];
+        [footerView addSubview:freightLab];
         [footerView addSubview:applyReimburse];
         [footerView addSubview:delete];
+        [footerView addSubview:numLab];
+        [footerView addSubview:price];
         }else if (tableView == self.reimburseTab){
         againPay.frame = CGRectMake(SCREEN_WIDTH - 105, 45, 90, 30);
+        XEOrderInfo *good = self.reimburseArray[section];
+            if (good.total) {
+        numLab.text = [NSString stringWithFormat:@"共%@件商品",good.total];
+            }
+        if (good.carriage) {
+                freightLab.attributedText =  [self creeatFreightLableTextWith:[NSString stringWithFormat:@"运费：¥%.2f",[good.carriage floatValue]/100]];
+        }
+        price.attributedText = [self creatPriceTextWith:[NSString stringWithFormat:@"合计：%.2f",[good.money floatValue]/100]];
         [footerView addSubview:freightLab];
         [footerView addSubview:price];
         [footerView addSubview:againPay];
+        [footerView addSubview:numLab];
+
     }
-    [footerView addSubview:numLab];
     return footerView;
 }
 - (NSInteger )numberOfSectionsInTableView:(UITableView *)tableView{
-    if (tableView == self.electronTab) {
-        return 2;
+//    if (tableView == self.electronTab) {
+//        return 2;
+//    }else if (tableView == self.orderTab){
+//        return 2;
+//    }else{
+//        return 5;
+//    }
+    
+    if (tableView == self.allTab) {
+        return self.allArray.count;
+    } else  if(tableView == self.needPayTab){
+        return self.needPayArray.count;
+    }else if (tableView == self.electronTab){
+        return self.electronCardArray.count;
     }else if (tableView == self.orderTab){
-        return 2;
-    }else{
-        return 5;
+        return self.orderArray.count;
+    }if (tableView == self.reimburseTab) {
+        return self.reimburseArray.count;
     }
+    return 0;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (tableView == self.electronTab) {
-        return 1;
+//
+//    if (tableView == self.allTab) {
+//        
+//    } else  if(tableView == self.needPayTab){
+//        
+//    }else if (tableView == self.electronTab){
+//        
+//    }else if (tableView == self.orderTab){
+//        
+//    }if (tableView == self.reimburseTab) {
+//        
+//    }
+    
+    if (tableView == self.allTab) {
+        CGFloat num = 0;
+        XEOrderInfo *orderInfo =  self.allArray[section];
+        for (XEOrderSeriesInfo *seriesIndo in [orderInfo returnSeriesInfoArray]) {
+            num += [seriesIndo returnGoodsInfo].count;
+        }
+        return num;
+    } else  if(tableView == self.needPayTab){
+        CGFloat num = 0;
+        XEOrderInfo *orderInfo =  self.needPayArray[section];
+        for (XEOrderSeriesInfo *seriesIndo in [orderInfo returnSeriesInfoArray]) {
+            num += [seriesIndo returnGoodsInfo].count;
+        }
+        return num;
+    }else if (tableView == self.electronTab){
+        CGFloat num = 0;
+        if (self.electronCardArray.count > 0) {
+            XEOrderInfo *orderInfo =  self.electronCardArray[section];
+            for (XEOrderSeriesInfo *seriesIndo in [orderInfo returnSeriesInfoArray]) {
+                num += [seriesIndo returnGoodsInfo].count;
+            }
+            return num;
+        }else{
+            return 0;
+        }
+
     }else if (tableView == self.orderTab){
-        return 1;
-    }else{
-        return 2;
+        CGFloat num = 0;
+        if (self.orderArray.count > 0) {
+            XEOrderInfo *orderInfo =  self.orderArray[section];
+            for (XEOrderSeriesInfo *seriesIndo in [orderInfo returnSeriesInfoArray]) {
+                num += [seriesIndo returnGoodsInfo].count;
+            }
+            return num;
+        }else{
+            return 0;
+        }
+    
+    }if (tableView == self.reimburseTab) {
+        
+        CGFloat num = 0;
+        if (self.reimburseArray.count > 0) {
+            XEOrderInfo *orderInfo =  self.reimburseArray[section];
+            for (XEOrderSeriesInfo *seriesIndo in [orderInfo returnSeriesInfoArray]) {
+                num += [seriesIndo returnGoodsInfo].count;
+            }
+            return num;
+        }else{
+            return 0;
+        }
+        
     }
+    
+    return 0;
 }
 
 
@@ -932,30 +1342,31 @@
     if (tableView == self.allTab) {
         OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        [cell configureCellWith:indexPath goodesInfo:[self.allArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row] orderInfo:self.allArray[indexPath.section]];
+
         return cell;
     } else if(tableView == self.needPayTab) {
         OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"needPayCell" forIndexPath:indexPath];
 
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+        [cell configureCellWith:indexPath goodesInfo:[self.needPayArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row] orderInfo:self.needPayArray[indexPath.section]];
         return cell;
     
     }else if (tableView == self.electronTab){
         OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"electronCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+        [cell configureCellWith:indexPath goodesInfo:[self.electronCardArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row] orderInfo:self.electronCardArray[indexPath.section]];
         return cell;
     }else if (tableView == self.orderTab){
         OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"orderCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+        [cell configureCellWith:indexPath goodesInfo:[self.orderArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row] orderInfo:self.orderArray[indexPath.section]];
         return cell;
     }else if (tableView == self.reimburseTab){
         OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reimburseCell" forIndexPath:indexPath];
 
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+        [cell configureCellWith:indexPath goodesInfo:[self.reimburseArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row] orderInfo:self.reimburseArray[indexPath.section]];
         return cell;
 
     }
@@ -964,6 +1375,36 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderDetailViewController *detail = [[OrderDetailViewController alloc]init];
+
+    if (tableView == self.allTab) {
+        XEOrderGoodInfo *good = [self.allArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row];
+        NSLog(@"%@",good.orderProviderId);
+        detail.orderproviderid = good.orderProviderId;
+    }
+    if (tableView == self.needPayTab) {
+        XEOrderGoodInfo *good = [self.needPayArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row];
+        NSLog(@"%@",good.orderProviderId);
+        detail.orderproviderid = good.orderProviderId;
+
+    }
+    if (tableView == self.electronTab) {
+        XEOrderGoodInfo *good = [self.electronCardArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row];
+        NSLog(@"%@",good.orderProviderId);
+        detail.orderproviderid = good.orderProviderId;
+
+    }
+    if (tableView == self.orderTab) {
+        XEOrderGoodInfo *good = [self.orderArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row];
+        NSLog(@"%@",good.orderProviderId);
+        detail.orderproviderid = good.orderProviderId;
+
+    }
+    if (tableView == self.reimburseTab) {
+        XEOrderGoodInfo *good = [self.reimburseArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row];
+        NSLog(@"%@",good.orderProviderId);
+        detail.orderproviderid = good.orderProviderId;
+
+    }
     [self.navigationController pushViewController:detail animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

@@ -23,6 +23,16 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string></string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>xiaoerPay</string>
+			</array>
+		</dict>
+		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
@@ -72,6 +82,14 @@
 				<string>tencent1104351020</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>xiaoerPay</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>2015070301</string>
@@ -104,5 +122,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>patener</key>
+	<string>2088911224712375</string>
+	<key>privateKey</key>
+	<string>MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALXRNY6KJ5VLc4CWBznu7dOD/32rUDffeoOxQU2IVDV3qUDnOkOjiqineZJBTMI7buurLWfNILs3MxsNIJD2gRZcZxmo0z7daWwdT0Ff/gFAY0P+VSawN3ELvqDgsCazNCUKUwOSS+7h/UK/cnLO5+kN8tSf23LPAnjciIG79PnRAgMBAAECgYAZZf9ISS5cYazh4pNh2WmpqX/QS1UqaPKRYPqRXSD+Uxf2tBZkinz9MGAAOVUCsRC+pSvzmykeXgiql7vb5EOF4s8qHNcfbVQBi546DmiadgciHZArt4IHskooOVPE9ZMJ+A/8XOxomW700bI4H8PNIH/oyJIU6UN9eR6efJHJLQJBAOFgHhghkLfZNd0+GVWTj+KLEiFZi183OCuWihCZsM3AjhxTv4M7F7sIpj5Gy+k9DCyFveGMNPxqs4K6uuC3eRcCQQDOheFdJuSiPNSH03q8sEUORgdlZ9fWR2jvUQpT7s0aVE/YYhMgWmyP6Z1outrTGih0rXOREcQBuh3dOggzSaVXAkBeqaeaTSbjAdoNBpNPjX5nEjDYTysqICB4tm9hT5yin1lRbp/HOB/ckGJ7T/NAEUM2xCogPWrYBt1FcLcjwgybAkBGxUYXH87Vcbb63JOAuX7Qh1rdexpRiaMB72l0na6XSTEbW3Bmc9Yj8tBIJU/7a0lVwmKJ4eajGN5HAy3wNVp9AkEAiUIuCKpz4JoCxwSAfoJzETLaOj+1x/1ZKghAalUyZOd1Wak9jBFI1/pgOK17W7UXClTbx2GYDuFAn/uHitSbGA==</string>
+	<key>seller</key>
+	<string>13310180257@163.com</string>
 </dict>
 </plist>

@@ -99,6 +99,16 @@
 @property (nonatomic,strong)NSString *lmt;
 
 /**
+ *  运费
+ */
+@property (nonatomic,strong)NSString *carriage;
+
+
+/**
+ *  供货商ID
+ */
+@property (nonatomic,strong)NSString *providerId;
+/**
  *  返回原价
  * */
 - (NSString *)resultOrigPric;

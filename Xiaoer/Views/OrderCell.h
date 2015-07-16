@@ -9,12 +9,55 @@
 #import <UIKit/UIKit.h>
 
 
+#import "XEOrderInfo.h"
+
+
+#import "XEOrderSeriesInfo.h"
 
 @interface OrderCell : UITableViewCell
+
 /**
- *  申请退款
+ *  头部描述区头的lable
  */
+@property (weak, nonatomic) IBOutlet UILabel *topDesLab;
+/**
+ *  头部显示交易状态的label
+ */
+@property (weak, nonatomic) IBOutlet UILabel *shopState;
 
+/**
+ *  主要的图片
+ */
+@property (weak, nonatomic) IBOutlet UIImageView *mainImage;
+/**
+ *  titleLab
+ */
+@property (weak, nonatomic) IBOutlet UILabel *titleLab;
+/**
+ *  数量
+ */
+@property (weak, nonatomic) IBOutlet UILabel *numLab;
+/**
+ *  现价
+ */
+@property (weak, nonatomic) IBOutlet UILabel *priceLab;
+/**
+ *  原价
+ */
+@property (weak, nonatomic) IBOutlet UILabel *orignalPrice;
+/**
+ *  规格
+ */
+@property (weak, nonatomic) IBOutlet UILabel *standard;
+/**
+ *  显示波浪的图片
+ */
+@property (weak, nonatomic) IBOutlet UIImageView *langImgView;
 
-- (void)configureCellWith:(NSIndexPath *)indexPath addHeaderViewWith:(UIView *)HeaderView;
+@property (weak, nonatomic) IBOutlet UIImageView *cardImage;
+@property (weak, nonatomic) IBOutlet UILabel *cardUsedLab;
+
+- (void)configureCellWith:(NSIndexPath *)indexPath
+               goodesInfo:(XEOrderGoodInfo *)goodInfo
+                orderInfo:(XEOrderInfo *)orderInfo;
 @end

@@ -18,5 +18,17 @@
 - (void)signIn;
 - (void)signOut;
 
+/**
+ *  合作商户ID
+ */
+@property (nonatomic,strong)NSString *patener;
+/**
+ *  账户
+ */
+@property (nonatomic,strong)NSString *seller;
+/**
+ *  商户私钥
+ */
+@property (nonatomic,strong)NSString *privateKey;
 @end
 

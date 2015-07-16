@@ -89,6 +89,13 @@
     return _numShop;
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    [self configureTabView];
+    
+    [self getShopCarInfomation];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"购物车";
@@ -104,9 +111,7 @@
     
     self.shopCarPage = 1;
     
-    [self configureTabView];
-    
-    [self getShopCarInfomation];
+
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -183,10 +188,12 @@
             self.ifToEnd = YES;
         }
         
-        NSArray *array = jsonRet[@"object"][@"goodses"];
         
+        NSArray *array = jsonRet[@"object"][@"goodses"];
         if (array.count <= 0) {
             [XEProgressHUD lightAlert:@"购物车暂无商品"];
+            [self.dataSources removeAllObjects];
+            [self.shopCarTab reloadData];
             return;
         }
         
@@ -197,7 +204,6 @@
         }
         
         for (NSDictionary *dic in array) {
-            
             XEShopCarInfo *info = [XEShopCarInfo objectWithKeyValues:dic];
             [self.dataSources addObject:info];
             [self.touchedArray addObject:@"0"];

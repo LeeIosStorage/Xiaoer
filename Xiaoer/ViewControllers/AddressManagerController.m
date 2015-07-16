@@ -11,7 +11,6 @@
 #import "AddAddressViewController.h"
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
-#import "XEAddressListInfo.h"
 #import "MJExtension.h"
 #import "MJRefresh.h"
 #import "AddressInfoManager.h"
@@ -28,6 +27,8 @@
 }
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
+    //防止编辑地址界面编辑过之后 这边没有反应，所以在viewDidAppear 中仙配置下
+    [self configureTableView];
     [self getAddressList];
 }
 - (void)viewDidLoad {
@@ -35,12 +36,12 @@
     self.title = @"地址管理";
     self.view.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
     [self setRightButtonWithImageName:@"AddAddress" selector:@selector(addAddressBtn)];
-    [self configureTableView];
-    [self getAddressList];
+
     // Do any additional setup after loading the view from its nib.
 }
 #pragma mark 布局tableview
 - (void)configureTableView{
+    
     [self.tabView registerNib:[UINib nibWithNibName:@"AddressManagerCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.tabView.delegate = self;
     self.tabView.dataSource = self;
@@ -99,6 +100,7 @@
     } tag:tag];
 
 }
+
 - (void)addAddressBtn{
     AddAddressViewController *add = [[AddAddressViewController alloc]init];
     [self.navigationController pushViewController:add animated:YES];
@@ -106,45 +108,71 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return self.dataSources.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataSources.count;
+    return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 160;
+    return 130;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        return 0;
+    }else{
+        return 20;
+    }
+    
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, 20)];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     AddressManagerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.tag = indexPath.section;
     cell.delegate = self;
-    [cell configureCellWith:indexPath info:self.dataSources[indexPath.row]];
+    [cell configureCellWith:indexPath info:self.dataSources[indexPath.section]];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    XEAddressListInfo *info = self.dataSources[indexPath.section];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSLog(@"%@ %@ ",info.phone,info.id);
+    if (self.delegate && [self.delegate respondsToSelector:@selector(refreshAddressInfoWith:)]) {
+        [self.delegate refreshAddressInfoWith:info];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 
 #pragma mark cell delagete
 - (void)touchedIndexOfCell:(NSInteger)index{
-    XEAddressListInfo *info = (XEAddressListInfo *)self.dataSources[index - 1];
+    XEAddressListInfo *Addinfo = (XEAddressListInfo *)self.dataSources[index];
     
     AddAddressViewController *add = [[AddAddressViewController alloc]init];
-    add.info = info;
-//    if ([[[AddressInfoManager manager]getTheDictionary] isEqual:info]) {
-//        add.ifCanDelete = YES;
-//        NSLog(@"可以删除");
-//    }else{
-//        add.ifCanDelete = NO;
-//        NSLog(@"11可以删除");
-//
-//    }
-    if ([info.def isEqualToString:@"1"]) {
-       add.ifCanDelete = YES;
-        NSLog(@"可以删除");
+    add.info = Addinfo;
+    if (self.fromVerifyInfo) {
+        
+        if ([Addinfo.id isEqualToString:self.fromVerifyInfo.id]) {
+            NSLog(@"来自上一层选择的info");
+            NSLog(@"%@   %@",self.fromVerifyInfo.id,Addinfo.id);
+
+            add.ifCanDelete = YES;
+        }else{
+            NSLog(@"不是自上一层选择的info");
+            NSLog(@"%@   %@",self.fromVerifyInfo.id,Addinfo.id);
+            add.ifCanDelete = NO;
+        }
+        
     }else{
         add.ifCanDelete = NO;
-        NSLog(@"不可以删除");
     }
+
     [self.navigationController pushViewController:add animated:YES];
 }
 - (void)didReceiveMemoryWarning {

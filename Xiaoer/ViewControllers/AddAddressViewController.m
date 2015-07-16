@@ -277,11 +277,11 @@
         self.info.id = @"";
     }
     
-    XEAddressListInfo *info = [[AddressInfoManager manager]getTheDictionary];
-    //没有任何本子数据，直接设置成默认地址
-    if (!info.phone) {
-        self.info.def = @"1";
-    }
+//    XEAddressListInfo *info = [[AddressInfoManager manager]getTheDictionary];
+//    //没有任何本子数据，直接设置成默认地址
+//    if (!info.phone) {
+//        self.info.def = @"1";
+//    }
 
 
     __weak AddAddressViewController *weakSelf = self;
@@ -310,24 +310,45 @@
 
         if ([jsonRet[@"result"] isEqualToString:@"保存成功"]) {
             [XEProgressHUD AlertSuccess:@"保存成功" At:weakSelf.view];
-            if ( [self.info.def isEqualToString: @"1"]) {
-                [[AddressInfoManager manager]addDictionaryWith:self.info];
+            self.info.id = [jsonRet[@"object"][@"id"]stringValue];
+            if (self.ifCanDelete == YES) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"editVerifyInfo" object:nil];
+                NSLog(@"发送通知");
             }
-
             [self performSelector:@selector(performPop) withObject:self afterDelay:1.5];
 
         } else  if ([jsonRet[@"result"] isEqualToString:@"用户地址已更新"]){
             [XEProgressHUD AlertSuccess:@"保存成功" At:weakSelf.view];
-            if ( [self.info.def isEqualToString: @"1"]) {
-                [[AddressInfoManager manager]addDictionaryWith:self.info];
+            if ([[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid]) {
+                self.info.id = [jsonRet[@"object"][@"id"]stringValue];
+                XEAddressListInfo *addInfo = [[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid];
+                if ([addInfo.id  isEqualToString:self.info.id]) {
+                    [[AddressInfoManager manager]addDictionaryWith:addInfo With:[XEEngine shareInstance].uid];
+                }
+                
+            }
+
+            if (self.ifCanDelete == YES) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"editVerifyInfo" object:nil];
+                NSLog(@"发送通知");
             }
             [self performSelector:@selector(performPop) withObject:self afterDelay:1.5];
 
         }else if ([jsonRet[@"result"] isEqualToString:@"用户地址已删除"]){
             [XEProgressHUD AlertSuccess:@"用户地址已删除" At:weakSelf.view];
+            self.info.id = [jsonRet[@"object"][@"id"]stringValue];
+
             if (self.ifCanDelete == YES) {
-                NSLog(@"本质执行操作");
-             [[AddressInfoManager manager]deleteTheDictionary];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"editVerifyInfo" object:nil];
+                NSLog(@"发送通知");
+            }
+            ;
+            if ([[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid]) {
+                XEAddressListInfo *addInfo = [[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid];
+                if ([addInfo.id  isEqualToString:self.info.id]) {
+                    [[AddressInfoManager manager]deleteTheDictionaryWith:[XEEngine shareInstance].uid];
+                }
+                
             }
             [self performSelector:@selector(performPop) withObject:self afterDelay:1.5];
         }
@@ -336,6 +357,9 @@
 }
 #pragma mark  延迟pop到上一级页面
 - (void)performPop{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(postInfoWith:)]) {
+        [self.delegate postInfoWith:self.info];
+    }
     [self.navigationController popViewControllerAnimated:YES];
     
 }

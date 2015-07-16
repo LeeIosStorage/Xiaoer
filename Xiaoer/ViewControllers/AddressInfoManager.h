@@ -13,15 +13,14 @@
 //单例方法
 - (void)deleteTheInfo;
 - (NSInteger)returnTheCountOfInfo;
-- (void)addDictionaryWith:(XEAddressListInfo *)info;
+- (void)addDictionaryWith:(XEAddressListInfo *)info
+                     With:(NSString *)userID;
 +(id)manager;
--(XEAddressListInfo *)getTheDictionary;
--(XEAddressListInfo *)getTheDictionaryWithBenDi;
 - (NSString *)filePath;
-
+- (XEAddressListInfo *)getTheAddressInfoWith:(NSString *)userID;
 -(void)save;
 
-- (void)deleteTheDictionary;
+- (void)deleteTheDictionaryWith:(NSString *)userId;
 - (void)deleteFile;
 
 @end

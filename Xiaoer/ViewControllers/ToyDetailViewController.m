@@ -20,15 +20,14 @@
 #import "ToyDetailCollectHeaderView.h"
 #import "ToyDetailCollectTopCell.h"
 #import "ToyDetailCollectionFooterView.h"
+#import "XEShopCarInfo.h"
 #define collectH 350
 
 
 @interface ToyDetailViewController ()<UIWebViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UICollectionViewDelegate,btnTouchDelegate,topCancleBtnTouched>
 @property (strong, nonatomic) IBOutlet UIView *naviLable;
 @property (weak, nonatomic) IBOutlet UILabel *titleLable;
-@property (strong, nonatomic) IBOutlet UIView *tabHeaderView;
 @property (strong, nonatomic) IBOutlet UIView *bottomView;
-@property (weak, nonatomic) IBOutlet UILabel *lunboLab;
 
 /**
  *    遮罩
@@ -114,7 +113,8 @@
             _layOut.scrollDirection =  UICollectionViewScrollDirectionVertical;
             _layOut.minimumLineSpacing = 10;
             _layOut.minimumInteritemSpacing = 15;
-        }
+        
+    }
         return _layOut;
 }
 - (NSMutableArray *)leftArray{
@@ -134,6 +134,13 @@
         self.hideView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _hideView.backgroundColor = [UIColor lightGrayColor];
         _hideView.alpha = 0.3;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideViewTapAction:)];
+        //设置点击次数
+        tap.numberOfTapsRequired = 1;
+        //这是点击的手指个数
+        tap.numberOfTouchesRequired = 1;
+        //添加手势
+        [_hideView addGestureRecognizer:tap];
     }
     return _hideView;
 }
@@ -144,11 +151,14 @@
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     self.webView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     self.webView.delegate = self;
+    
+    
+    
 //    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"正在建设中6p"]];
 //    imageView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 120);
 //    [self.view addSubview:imageView];
 
-
+    self.buyNum.text = @"1";
     
     
     //注意添加顺序
@@ -169,6 +179,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfo:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
 
 
+}
+- (void)hideViewTapAction:(UITapGestureRecognizer *)sender{
+    [self animationChooseView];
 }
 /*
 - (UIView *)creatFooterView{
@@ -280,10 +293,7 @@
     if (!self.standardStr) {
         self.standardStr = [NSMutableString stringWithFormat:@""];
     }
-    if (!self.buyNum) {
-        [self buyNum];
-        self.buyNum.text = @"";
-    }
+
     
     [[XEEngine shareInstance]refreshShopCarWithTag:tag del:@"0" idNum:@"" num:self.buyNum.text userid:self.userID goodsid:self.detailInfo.id standard:self.standardStr];
     
@@ -293,6 +303,12 @@
         if (errorMsg) {
             [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
             return ;
+        }
+        
+        if ([[jsonRet[@"code"] stringValue] isEqualToString:@"0"]) {
+            [XEProgressHUD AlertSuccess:@"加入购物车成功" At:self.view];
+        }else{
+            [XEProgressHUD AlertError:@"加入购物车失败" At:self.view];
         }
         
     } tag:tag];
@@ -329,20 +345,7 @@
         }
         
         self.detailInfo = [XEShopDetailInfo objectWithKeyValues:jsonRet[@"object"][@"goods"]];
-//        if (detailInfo.url) {
-//            [self.chooseHeaderImage sd_setImageWithURL:[detailInfo totalImageUrl] placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
-//        }else{
-//            self.chooseHeaderImage.image = [UIImage imageNamed:@"shopCellHolder"];
-//        }
-//        if (detailInfo.price) {
-//            NSString *prcie = [NSString stringWithFormat:@"￥%@",[detailInfo resultPrice]];
-//            self.priceLab.text = prcie;
-//        }else{
-//            
-//            self.priceLab.text = @"";
-//        }
-        
-        NSLog(@"%@",jsonRet[@"object"][@"standard"][@"颜色"]);
+
         
         NSMutableString *muStr = [self.detailInfo.standard copy];
         NSArray *array = [muStr componentsSeparatedByString:@";"];
@@ -353,12 +356,7 @@
             [self.rightArray addObject:arrayB[1]];
             
         }
-        for (NSString * str in self.rightArray) {
-            NSLog(@"self.rightArray == %@",str);
-        }
-        for (NSString * str in self.leftArray) {
-            NSLog(@"self.leftArray = %@",str);
-        }
+
         [self configureChoosecollectionView];
         
     } tag:tag];
@@ -384,12 +382,7 @@
     [self.chooseCollectView registerClass:[ToyDetailCollectionFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
     
     self.chooseHeaderImage.layer.masksToBounds = YES;
-    
-//    if (self.leftArray.count > 0) {
-//        
-//    }else{
-//        
-//    }
+
     
     self.chooseView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, collectH + 50);
     
@@ -446,12 +439,11 @@
 
 #pragma mark 右上角前往购物车按钮
 - (void)toShopCar{
-    NSLog(@"添加到购物车");
+    NSLog(@"前往购物车");
 
     if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
         return;
     }
-    NSLog(@"%@",[XEEngine shareInstance].uid);
 
     ShopCarViewController *car = [[ShopCarViewController alloc]init];
     [self.navigationController pushViewController:car animated:YES];
@@ -468,7 +460,7 @@
     if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
         return;
     }
-    NSLog(@"底部弹出添加到购物车");
+    
     [self animationChooseView];
 
 }
@@ -477,11 +469,29 @@
 
 #pragma mark  立即购买
 - (IBAction)buy:(id)sender {
-    NSLog(@"购买");
     if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
         return;
     }
     VerifyIndentViewController *verify = [[VerifyIndentViewController alloc]init];
+    
+    XEShopCarInfo *carInfo = [[XEShopCarInfo alloc]init];
+    carInfo.origPrice = self.detailInfo.origPrice;
+    carInfo.goodsId = self.detailInfo.id;
+    carInfo.num = [NSString stringWithFormat:@"%ld",[self.buyNum.text integerValue]];
+    carInfo.price = self.detailInfo.price;
+    if (self.standardStr) {
+        carInfo.standard = self.standardStr;
+    }
+    carInfo.serieId = self.detailInfo.serieId;
+    carInfo.name = self.detailInfo.name;
+    carInfo.userId = [XEEngine shareInstance].uid;
+    carInfo.url = self.detailInfo.url;
+    carInfo.carriage = self.detailInfo.carriage;
+    carInfo.providerId = self.detailInfo.providerId;
+    
+    verify.shopArray = [NSMutableArray arrayWithObjects:carInfo, nil];
+    
+    
     [self.navigationController pushViewController:verify animated:YES];
 }
 

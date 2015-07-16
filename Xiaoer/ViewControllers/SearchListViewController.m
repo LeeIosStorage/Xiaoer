@@ -8,12 +8,23 @@
 
 #import "SearchListViewController.h"
 #import "SearchListCell.h"
+#import "XEEngine.h"
+#import "XEShopListInfo.h"
+#import "XEProgressHUD.h"
+#import "MJExtension.h"
+#import "ToyDetailViewController.h"
 @interface SearchListViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic,strong)NSMutableArray *dataSources;
 
 @end
 
 @implementation SearchListViewController
-
+- (NSMutableArray *)dataSources{
+    if (!_dataSources) {
+        self.dataSources = [NSMutableArray array];
+    }
+    return _dataSources;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configuresearchView];
@@ -27,9 +38,42 @@
     self.searchTab.delegate = self;
     self.searchTab.dataSource = self;
     [self.searchTab registerNib:[UINib nibWithNibName:@"SearchListCell" bundle:nil] forCellReuseIdentifier:@"cell"];
-    self.searchTab.tableHeaderView = self.searchHeader;
+//    self.searchTab.tableHeaderView = self.searchHeader;
 }
+#pragma mark 请求搜索数据
+- (void)getSearchDataWith:(NSString *)string{
+    __weak SearchListViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance]getShopListInfoMationWith:tag category:@"" pagenum:@"" type:@"" name:string serieid:@""];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+            
+        }
+        NSArray *array = jsonRet[@"object"][@"goodses"];
+        if (self.dataSources.count > 0) {
+            [self.dataSources removeAllObjects];
+        }
 
+        if (array.count > 0) {
+
+            for (NSDictionary *dic in array) {
+                XEShopListInfo *info = [XEShopListInfo objectWithKeyValues:dic];
+                [self.dataSources addObject:info];
+            }
+            
+        }
+        
+        [self.searchTab reloadData];
+        
+    } tag:tag];
+}
 
 #pragma mark 布局searchView
 
@@ -76,6 +120,20 @@
     
 }
 
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    return YES;
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
+    return YES;
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    NSLog(@"%@",searchText);
+    [self getSearchDataWith:searchText];
+    
+    
+}
 
 #pragma marksearchbar背景色
 
@@ -107,11 +165,19 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return self.dataSources.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SearchListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    [cell configureCellWith:self.dataSources[indexPath.row]];
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    XEShopListInfo *info = self.dataSources[indexPath.row];
+    ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
+    detail.shopId = info.id;
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.navigationController pushViewController:detail animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

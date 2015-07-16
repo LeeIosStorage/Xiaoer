@@ -27,7 +27,7 @@
 /**
  *  收货地址
  */
-@property (weak, nonatomic) IBOutlet UITextField *addRess;
+@property (weak, nonatomic) IBOutlet UILabel *addRess;
 
 @property (weak, nonatomic) IBOutlet UIButton *editBtn;
 

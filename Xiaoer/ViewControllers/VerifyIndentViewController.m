@@ -20,8 +20,10 @@
 #import "MJExtension.h"
 #import "XECouponsInfo.h"
 #import "VerifyIndentCell.h"
+#import "JSONKit.h"
+#import "AppDelegate.h"
 
-@interface VerifyIndentViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UITextFieldDelegate,NumShopDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate>
+@interface VerifyIndentViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UITextFieldDelegate,NumShopDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIAlertViewDelegate,refreshAddtessInfoDelegate,postInfoDelegate>
 
 @property (nonatomic,strong)NSMutableArray *pickerArray;
 
@@ -60,6 +62,11 @@
 @property (nonatomic,strong)NSMutableArray *usedArray;
 
 
+/**
+ *  折扣
+ */
+@property (nonatomic,assign)CGFloat discount;
+
 
 @end
 
@@ -90,32 +97,6 @@
     return _pickerArray;
 }
 
-
-
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:YES];
-    
-    //判断是否先设置地址
-    self.firstSetAddressView.frame = CGRectMake(0, SCREEN_HEIGHT - 80, SCREEN_WIDTH, 80);
-    [self.view addSubview:self.firstSetAddressView];
-    
-    self.info = [[AddressInfoManager manager]getTheDictionary];
-    
-    if (!self.info.phone) {
-        
-        self.firstSetAddressView.hidden = NO;
-    }
-    else{
-        
-        self.firstSetAddressView.hidden = YES;
-    }
-    
-    [self creatTabViewHeaderView];
-
-
-
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -127,15 +108,28 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     
+    //判断是否先设置地址
     self.firstSetAddressView.frame = CGRectMake(0, SCREEN_HEIGHT - 80, SCREEN_WIDTH, 80);
-    
-    
+    if ([[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid]) {
+        self.info = [[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid];
+        self.firstSetAddressView.hidden = YES;
+
+    }else{
+        self.firstSetAddressView.hidden = NO;
+
+    }
+    NSString *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+    NSLog(@"默认地址 ： %@",[documentPath  stringByAppendingPathComponent:@"AddressManagers.arc"]);
     [self configureTabview];
+    [self creatTabViewHeaderView];
+    
     [self configureVerifyView];
     [self configureCouponView];
-    [self creatTabViewHeaderView];
     [self creatTabFooterView];
     [self configurePickerBackView];
+    [self.view addSubview:self.firstSetAddressView];
+
+    
     /**
      *  键盘将要出现的监听
      */
@@ -144,6 +138,9 @@
      *  键盘将要消失的监听
      */
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyBoardEndChangeFrame:) name:UIKeyboardWillHideNotification object:nil];
+    
+    //编辑界面编辑了之后 刷新地址栏
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(editVerifyInfoAndRefreshHeaderView:) name:@"editVerifyInfo" object:nil];
     [self changeAllPrice];
     
     self.haveAddress = NO;
@@ -154,10 +151,81 @@
         [self getCouponListData];
     }
     
-
-
+    
+    
+    
+    self.discount = 10;
+    [self getDiscountInfomation];
+    
+}
+- (void)editVerifyInfoAndRefreshHeaderView:(NSNotificationCenter *)sender{
+    NSLog(@"受到通知");
+    self.firstSetAddressView.hidden = NO;
+    self.firstSetAddressView.frame = CGRectMake(0, SCREEN_HEIGHT - 80, SCREEN_WIDTH, 80);
+    [self creatTabViewHeaderView];
 }
 
+#pragma mark  把商品转化成jason字符串
+- (NSString *)creatShopArrToJsonStr{
+    
+    NSMutableArray  *jstonArray = [NSMutableArray array];
+    
+    for (int i = 0; i < self.shopArray.count; i++) {
+        XEShopCarInfo *shopCar = self.shopArray[i];
+        NSMutableDictionary *shopDic = [NSMutableDictionary dictionary];
+        NSNumber *num = [NSNumber numberWithLong:(long)[shopCar.num doubleValue]];
+        [shopDic setObject:num forKey:@"num"];
+        
+        NSNumber *providerid = [NSNumber numberWithLong:(long)[shopCar.providerId doubleValue]];
+        [shopDic setObject:providerid forKey:@"providerid"];
+        
+        if (shopCar.standard) {
+            [shopDic setObject:shopCar.standard forKey:@"standard"];
+        }
+        
+        NSNumber *goodsid = [NSNumber numberWithLong:(long)[shopCar.goodsId doubleValue]];
+        [shopDic setObject:goodsid forKey:@"goodsid"];
+        
+        
+        if (self.selectPickerAtr.count > 0) {
+            
+            
+            //商品优惠券ID
+            if ([self.selectPickerAtr[i] isEqualToString:@""]) {
+                
+            }else{
+                
+                for (int j = 0; j < self.couponsArray.count; j++) {
+                    XECouponsInfo *couponInfo = (XECouponsInfo *)self.couponsArray[j];
+                    if ([self.selectPickerAtr[i] isEqualToString:couponInfo.cardNo]) {
+                        NSNumber *couponid = [NSNumber numberWithLong:(long)[couponInfo.id doubleValue]];
+                        [shopDic setObject:couponid forKey:@"couponid"];
+                    }
+                }
+                
+            }
+            
+ 
+        }
+        
+        NSNumber *serieid= [NSNumber numberWithLong:(long)[shopCar.serieId doubleValue]];
+        [shopDic setObject:serieid forKey:@"serieid"];
+        
+        
+        if (shopCar.id) {
+            NSNumber *cartid = [NSNumber numberWithDouble:(long)[shopCar.id doubleValue]];
+            [shopDic setObject:cartid forKey:@"cartid"];
+        }
+
+        
+        [jstonArray addObject:shopDic];
+        
+    }
+    
+    NSLog(@"jstonArray === %@",[jstonArray JSONString]);
+    return [jstonArray JSONString];
+    
+}
 #pragma mark  请求优惠券数据
 - (void)getCouponListData{
     
@@ -216,7 +284,68 @@
     } tag:tag];
     
 }
+#pragma mark  折扣信息
+- (void)getDiscountInfomation{
+    __weak VerifyIndentViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    
+    [[XEEngine shareInstance]getDiscountInfomationWith:tag userid:[XEEngine shareInstance].uid];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"数据折扣信息失败，请检查网络设置" At:weakSelf.view];
+            return;
+            
+        }
+        
+        
+        if ([jsonRet[@"object"] isKindOfClass:[NSNull class]]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+        }
+        self.discount = [jsonRet[@"object"] floatValue];
+        NSLog(@"self.discount === %.2f",self.discount);
+        [self.tabView reloadData];
+        [self changeAllPrice];
 
+    } tag:tag];
+}
+
+#pragma mark  下单
+- (void)getOrderToPlaceAnOrder{
+    __weak VerifyIndentViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    
+    [[XEEngine shareInstance]getOrderToPlaceAnOrderWith:tag userid:[XEEngine shareInstance].uid orderjson:[self creatShopArrToJsonStr] useraddressid:self.info.id];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:jsonRet[@"result"] At:weakSelf.view];
+            return;
+            
+        }
+        
+        [XEProgressHUD AlertSuccess:@"下单成功"];
+        
+        GoToPayViewController *goToPay = [[GoToPayViewController alloc]init];
+        goToPay.orderPrice = [NSString stringWithFormat:@"%.2f",[jsonRet[@"object"][@"money"] floatValue]/100];
+        goToPay.orderNum = [NSString stringWithFormat:@"%@",jsonRet[@"object"][@"orderNo"]];
+        [[AddressInfoManager manager]addDictionaryWith:self.info With:[XEEngine shareInstance].uid];
+        
+        [self.navigationController pushViewController:goToPay animated:YES];
+
+    } tag:tag];
+}
 #pragma mark 布局tableview属性
 
 - (void)configureTabview{
@@ -269,9 +398,43 @@
     //替换对应下标的商品数目数组
     XEShopCarInfo *info = self.shopArray[index];
     info.num = numText;
+//    [self refreshShopCarWithDel:@"0" withIndoIndex:index];
+
     [self changeAllPrice];
 
 }
+#pragma mark 刷新购物车
+
+- (void)refreshShopCarWithDel:(NSString *)del withIndoIndex:(NSInteger)index{
+    __weak VerifyIndentViewController *weakSelf = self;
+    
+    XEShopCarInfo *info = (XEShopCarInfo *)self.shopArray[index];
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    if (info.standard) {
+        
+    } else {
+        info.standard = @"";
+    }
+    
+    
+    [[XEEngine shareInstance]refreshShopCarWithTag:tag del:del idNum:info.id num:info.num userid:[XEEngine shareInstance].uid goodsid:info.serieId standard:info.standard];
+    
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        //获取失败信息
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"加载失败 请重试" At:weakSelf.view];
+            return;
+        }
+        
+    } tag:tag];
+    
+}
+
 - (void)showPickerViewWithBtn:(UIButton *)button{
     if (!self.senderBtn) {
         self.senderBtn = button;
@@ -281,14 +444,25 @@
     XEShopCarInfo *info = self.shopArray[button.tag];
     NSMutableArray *array = [NSMutableArray array];
     for (int i = 0 ; i < self.couponsArray.count; i++) {
+        
         XECouponsInfo *CouponInfo = self.couponsArray[i];
         if ([CouponInfo.objId isEqualToString:info.serieId]) {
+            NSLog(@"1");
             [array addObject:CouponInfo.cardNo];
         }
-        if ([CouponInfo.objId isEqualToString:info.goodsId]) {
-            [array addObject:CouponInfo.cardNo];
+        
+        if (info.serieId == info.goodsId) {
+            NSLog(@"IDyiyang ");
+        }else{
+            if ([CouponInfo.objId isEqualToString:info.goodsId]) {
+                [array addObject:CouponInfo.cardNo];
+                NSLog(@"2");
+            }
         }
+        
+
     }
+    
     if ([button.titleLabel.text isEqualToString:@"请选择促销活动优惠券"]) {
         
     }else{
@@ -313,12 +487,18 @@
 
 
 }
+
+
 - (void)changeAllPrice{
     
     self.totalPrice.text = [self calculateTotalPrice];
     self.favorableLab.text = [self calculateFavorablePrice];
     self.freightLab.text = [self calculateCarriage];
-    self.bottomNeedPay.text = [NSString stringWithFormat:@"%.2f",[[self calculateTotalPrice] floatValue] + [self.freightLab.text floatValue]];
+    
+    CGFloat dazhe = [self calculateDazhe]/100;
+    CGFloat youhuiquan = [self calculateYouHuiQuan]/100;
+    
+    self.bottomNeedPay.text = [NSString stringWithFormat:@"%.2f",[[self calculateTotalPrice] floatValue] + [self.freightLab.text floatValue] - dazhe - youhuiquan] ;
     [self.tabView reloadData];
     
 }
@@ -352,12 +532,48 @@
 - (NSString *)calculateFavorablePrice{
     
     CGFloat Favora = 0;
-    
+    //普通优惠
     for (int i = 0; i < self.shopArray.count; i++) {
         XEShopCarInfo *info = self.shopArray[i];
         CGFloat diff = [info.num floatValue] * ([info.origPrice floatValue] - [info.price floatValue]);
         Favora += diff;
     }
+//    //优惠券优惠
+//    for (int i = 0;i< self.usedArray.count; i++) {
+//        if ([self.usedArray[i] isEqualToString:@"0"]) {
+//            //未使用
+//        }else{
+//            //使用了
+//            for (int j = 0; j< self.couponsArray.count; j++) {
+//                XECouponsInfo *couponInfo = self.couponsArray[j];
+//                if ([self.selectPickerAtr[i] isEqualToString:couponInfo.cardNo]) {
+//                    NSLog(@"找到卡券号相等的了");
+//                    Favora += [couponInfo.price floatValue];
+//                }
+//            }
+//        }
+//    }
+    //优惠券优惠
+    Favora += [self calculateYouHuiQuan];
+    //计算打折优惠
+    
+    Favora += [self calculateDazhe];
+    
+//    CGFloat totalPri = 0;
+//    for (int i = 0; i < self.shopArray.count; i++) {
+//        XEShopCarInfo *info = self.shopArray[i];
+//        CGFloat floa =  [info.num floatValue] * [info.price floatValue];
+//        totalPri += floa;
+//    }
+//    totalPri = totalPri * (1 - self.discount*0.1);
+    
+    return [NSString stringWithFormat:@"%.2f",Favora/100];
+    
+}
+#pragma mark 优惠券优惠
+- (CGFloat)calculateYouHuiQuan{
+    CGFloat quan = 0;
+    //优惠券优惠
     for (int i = 0;i< self.usedArray.count; i++) {
         if ([self.usedArray[i] isEqualToString:@"0"]) {
             //未使用
@@ -367,30 +583,42 @@
                 XECouponsInfo *couponInfo = self.couponsArray[j];
                 if ([self.selectPickerAtr[i] isEqualToString:couponInfo.cardNo]) {
                     NSLog(@"找到卡券号相等的了");
-                    Favora -= [couponInfo.price floatValue];
+                    quan += [couponInfo.price floatValue];
                 }
             }
         }
     }
-    
-
-    return [NSString stringWithFormat:@"%.2f",Favora/100];;
+    return quan;
 }
-
+#pragma mark 打折优惠
+- (CGFloat)calculateDazhe{
+    CGFloat totalPri = 0;
+    for (int i = 0; i < self.shopArray.count; i++) {
+        XEShopCarInfo *info = self.shopArray[i];
+        CGFloat floa =  [info.num floatValue] * [info.price floatValue];
+        totalPri += floa;
+    }
+    totalPri = totalPri * (1 - self.discount*0.1);
+    return totalPri;
+}
 - (NSString *)calculateNeedToPayPrice{
     CGFloat total = [[self calculateTotalPrice] floatValue];
     CGFloat Favorable = [[self calculateFavorablePrice] floatValue];
     
     return [NSString stringWithFormat:@"%.2f",total - Favorable];
 }
-#pragma mark 确定按钮点击
 
+#pragma mark 确定按钮点击
 - (void)veryBtnTouched{
     
+    //
     [self manualDisappearKtyBoard];
-    NSLog(@"确定按钮点击");
-    GoToPayViewController *toPay = [[GoToPayViewController alloc]init];
-    [self.navigationController pushViewController:toPay animated:YES];
+    //下单
+    [self getOrderToPlaceAnOrder];
+
+
+//    GoToPayViewController *toPay = [[GoToPayViewController alloc]init];
+//    [self.navigationController pushViewController:toPay animated:YES];
 }
 
 #pragma mark 收获地址按钮点击A (有默认地址情况)
@@ -398,26 +626,41 @@
 
     NSLog(@"收获地址按钮点击A");
     AddressManagerController *manager = [[AddressManagerController alloc]init];
-    manager.ifCanDelete = YES;
+    manager.delegate = self;
+    manager.fromVerifyInfo = self.info;
     [self.navigationController pushViewController:manager animated:YES];
     
 }
 
+#pragma mark AddressManagerController delegate 
+- (void)refreshAddressInfoWith:(XEAddressListInfo *)info{
+    NSLog(@"执行代理 %@",info.phone);
+    self.info = info;
+    self.firstSetAddressView.hidden = YES;
+    [self creatTabViewHeaderView];
+    
+}
 #pragma mark 收获地址按钮点击B( 没有 默认收获地址)
 - (IBAction)addAddressBtnB:(id)sender {
     NSLog(@"收获地址按钮点击B");
     AddAddressViewController *addAddress = [[AddAddressViewController alloc]init];
-    addAddress.info = [[AddressInfoManager manager] getTheDictionary];
+    addAddress.delegate = self;
     [self.navigationController pushViewController:addAddress animated:YES];
 }
 
+- (void)postInfoWith:(XEAddressListInfo *)info{
+    self.info = info;
+    
+    
+    NSLog(@"self.info.id === 代理收到的%@",self.info.id);
+    self.firstSetAddressView.hidden = YES;
+    [self creatTabViewHeaderView];
+}
 
 #pragma mark pickerView 下面的按钮点击了
 - (IBAction)pickVerifyBtnTouched:(id)sender {
-    NSLog(@"确定");
     
     self.selectPickerAtr[self.senderBtn.tag] = self.pickerStr;
-    NSLog(@"self.selectPickerAtr[button.tag] == %@  & %ld",self.selectPickerAtr[self.senderBtn.tag],self.senderBtn.tag);
     [self.tabView reloadData];
     [self animATionPickerBackView];
 }
@@ -556,11 +799,6 @@
 
 
     [cell configureCellWith:indexPath andStateStr:@"" info:self.shopArray[indexPath.section] ifHavePicker:[self ifHaveSectionFooterWith:indexPath.section]];
-
-//    cell.selectionStyle = 0;
-//    ShopCarCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-//    cell.tag = indexPath.section;
-//    [cell configureCellWith:indexPath andStateStr:@"0" info:self.shopArray[indexPath.section]];
     return cell;
 }
 
@@ -612,7 +850,6 @@
     if (buttonIndex == 0) {
 
 
-        
     }else if (buttonIndex == 1){
     for (int  j = 0; j < self.selectPickerAtr.count; j++) {
         for (int i = 0 ; i < self.pickerArray.count; i++) {
@@ -667,7 +904,6 @@
         self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     }];
 }
-
 
 
 #pragma mark 键盘将要出现的监听
@@ -756,6 +992,7 @@
     tabHeaderView.frame = CGRectMake(0, 0, SCREEN_WIDTH, copyAddressView.frame.size.height);
     [tabHeaderView addSubview:copyAddressView];
     self.tabView.tableHeaderView = tabHeaderView;
+    [self.tabView reloadData];
     
 }
 

@@ -27,14 +27,15 @@
             self.rightDescribe.text= @"快捷支付,推荐支付宝注册用户使用";
             break;
         case 1:
-            self.leftImg.image = [UIImage imageNamed:@"Alipay"];
-            self.rightTitle.text = @"支付宝手机网页支付";
-            self.rightDescribe.text= @"快捷支付,推荐支付宝注册用户使用";
-            break;
-        case 2:
             self.leftImg.image = [UIImage imageNamed:@"weixin"];
             self.rightTitle.text = @"微信支付";
             self.rightDescribe.text= @"微信支付";
+//            self.leftImg.image = [UIImage imageNamed:@"Alipay"];
+//            self.rightTitle.text = @"支付宝手机网页支付";
+//            self.rightDescribe.text= @"快捷支付,推荐支付宝注册用户使用";
+            break;
+        case 2:
+
             break;
             
         default:

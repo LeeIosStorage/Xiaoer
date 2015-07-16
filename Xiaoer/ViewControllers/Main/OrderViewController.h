@@ -84,5 +84,8 @@
 //即将过期view
 @property (strong, nonatomic) IBOutlet UIView *outOfDateView;
 
-
+- (void)getOrderDataWithEtickettype:(NSString *)etickettype
+                            pagenum:(NSString *)pagenum
+                           statuses:(NSString *)statuses
+                          tableview:(UITableView *)tableView;
 @end

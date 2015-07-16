@@ -10,6 +10,14 @@
 #define DISTRICT_COMPONENT  2
 #import "XESuperViewController.h"
 #import "XEAddressListInfo.h"
+
+
+@protocol postInfoDelegate <NSObject>
+//发送编辑成功的地址模型
+- (void)postInfoWith:(XEAddressListInfo *)info;
+
+@end
+
 @interface AddAddressViewController : XESuperViewController<UIPickerViewDelegate, UIPickerViewDataSource>
 {
     UIButton *button;
@@ -17,6 +25,7 @@
     NSArray *district;
     NSString *selectedProvince;
 }
+
 
 @property (weak, nonatomic) IBOutlet UITableView *addAddressTab;
 @property (strong, nonatomic) IBOutlet UIView *footerView;
@@ -31,4 +40,5 @@
 @property (nonatomic,strong)XEAddressListInfo *info;
 //是否可以删除默认的地址
 @property (nonatomic,assign)BOOL ifCanDelete;
+@property (nonatomic,assign)id<postInfoDelegate>delegate;
 @end

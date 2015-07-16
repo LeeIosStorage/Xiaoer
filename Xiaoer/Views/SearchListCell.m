@@ -19,5 +19,7 @@
 
     // Configure the view for the selected state
 }
-
+- (void)configureCellWith:(XEShopListInfo *)info{
+    self.leftLable.text = info.des;
+}
 @end

@@ -330,6 +330,29 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
                            goodsids:(NSString *)goodsids;
 
 
-
-
+/**
+ *  获取折扣信息
+ */
+- (BOOL)getDiscountInfomationWith:(int)tag
+                           userid:(NSString *)userid;
+/**
+ *  下单
+ */
+- (BOOL)getOrderToPlaceAnOrderWith:(int)tag
+                            userid:(NSString *)userid
+                         orderjson:(NSString *)orderjson
+                     useraddressid:(NSString *)useraddressid;
+/**
+ *  获取订单列表
+ */
+- (BOOL)getOrderListInfomationWith:(int)tag
+                       etickettype:(NSString *)etickettype
+                           pagenum:(NSString *)pagenum
+                          statuses:(NSString *)statuses
+                            userid:(NSString *)userid;
+/**
+ *  获取订单详情
+ */
+- (BOOL)getOrderDetailInfomationWith:(int)tag
+                     orderproviderid:(NSString *)orderproviderid;
 @end

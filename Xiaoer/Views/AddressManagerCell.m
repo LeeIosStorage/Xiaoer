@@ -21,11 +21,10 @@
 }
 
 - (void)configureCellWith:(NSIndexPath *)indexPath info:(XEAddressListInfo *)info{
-    self.editBtn.tag = indexPath.row + 1;
-    self.consignee.userInteractionEnabled = NO;
-    self.phoneNum.userInteractionEnabled = NO;
-    self.addRess.userInteractionEnabled = NO;
     
+    self.editBtn.tag = indexPath.section;
+    self.consignee.userInteractionEnabled = NO;
+    self.phoneNum.userInteractionEnabled = NO;    
     self.consignee.text = info.name;
     self.phoneNum.text = info.phone;
     self.addRess.text = info.address;
@@ -64,7 +63,7 @@
 //        }
 //        
 //    }
-    NSLog(@"cell.tag == %ld",btn.tag);
+    NSLog(@"cell.tag == %ld",(long)btn.tag);
     if (self.delegate && [self.delegate respondsToSelector:@selector(touchedIndexOfCell:)]) {
         [self.delegate touchedIndexOfCell:btn.tag];
     }
