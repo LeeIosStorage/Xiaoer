@@ -23,7 +23,6 @@
     self.textField.delegate = self;
     self.leftLab.text = leftStr;
     self.textField.text = rightStr;
-    
     switch (indexPath.section) {
         case 0:
             
@@ -43,6 +42,7 @@
             break;
         case 5:
             self.rightImg.hidden = YES;
+            self.textField.userInteractionEnabled = NO;
             break;
         default:
             break;
@@ -56,8 +56,10 @@
 
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    if (self.delegate || [self.delegate respondsToSelector:@selector(passOrderInfocellLeftLableText:textFieldtext:)]) {
-        [self.delegate passOrderInfocellLeftLableText:self.leftLab.text textFieldtext:self.textField.text];
+    NSLog(@"%@  %ld",textField.superview.superview,textField.superview.superview.tag);
+    UITableViewCell *cell = (UITableViewCell *)textField.superview.superview;
+    if (self.delegate || [self.delegate respondsToSelector:@selector(passOrderInfocellLeftLableText:textFieldtext:textFieldTag:)]) {
+        [self.delegate passOrderInfocellLeftLableText:self.leftLab.text textFieldtext:self.textField.text textFieldTag:cell.tag];
     }
     
 }

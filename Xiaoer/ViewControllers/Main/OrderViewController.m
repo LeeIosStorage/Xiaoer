@@ -16,7 +16,15 @@
 #import "XEEngine.h"
 #import "XEOrderInfo.h"
 #import "MJExtension.h"
-@interface OrderViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,PullToRefreshViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
+
+#import "VerifyIndentViewController.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "DataSigner.h"
+#import "Order.h"
+#import "AppDelegate.h"
+#import "OrderWillPassController.h"
+
+@interface OrderViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,PullToRefreshViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,refreshDataDelegate,detailRrfreshData>
 /**
  *  保存点击的按钮
  */
@@ -112,10 +120,17 @@
 //遮罩
 @property (nonatomic,strong)UIView *hideView;
 /**
- *  预约券将要过期数量
+ *  电子券将要过期数量
  */
 @property (nonatomic,strong)NSString *electronPassCount;
-
+/**
+ *  预约券将要过期数量
+ */
+@property (nonatomic,strong)NSString *orderPassCount;
+/**
+ *  保存删除订单ID
+ */
+@property (nonatomic,strong)NSString *deleteOrderID;
 @end
 
 @implementation OrderViewController
@@ -189,6 +204,7 @@
     self.ifReimburseToEnd = NO;
     
     self.electronPassCount = @"0";
+    self.orderPassCount = @"0";
     
     //请求全部的页面的数据
     [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.allPageNum] statuses:@"" tableview:self.allTab];
@@ -201,8 +217,80 @@
     //请求退款单页面数据
     [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.reimburseNum] statuses:@"5,6,7" tableview:self.reimburseTab];
     
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(applySuccess:) name:@"apply" object:nil];
+    
 }
-#pragma mark 请求数据
+
+#pragma mark  即将过期
+- (void)outOfDataBtnToouched:(UIButton *)sender{
+    OrderWillPassController *pass = [[OrderWillPassController alloc]init];
+
+    if (self.tableView == self.electronTab) {
+        NSLog(@"ele");
+        pass.type = @"1";
+    }
+    if (self.tableView == self.orderTab) {
+        NSLog(@"order");
+        pass.type = @"2";
+    }
+    [self.navigationController pushViewController:pass animated:YES];
+    
+    
+}
+#pragma mark 申请退款通知
+- (void)applySuccess:(NSNotificationCenter *)sender{
+    [self sucessRefreshData];
+}
+#pragma mark 删除订单数据
+- (void)deleteOrderDataWith:(NSString *)orderproviderid{
+    NSLog(@"orderproviderid=== %@",orderproviderid);
+    __weak OrderViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance]deleteOrderWith:tag orderproviderid:orderproviderid];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"删除订单失败" At:weakSelf.view];
+            return;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertSuccess:@"删除订单成功" At:weakSelf.view];
+            return;
+        }
+
+        if (self.tableView == self.allTab) {
+            self.allPageNum = 1;
+            [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.allPageNum] statuses:@"" tableview:self.allTab];
+        }
+        if (self.tableView == self.needPayTab) {
+            self.needPayNum = 1;
+            
+            [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.needPayNum] statuses:@"1" tableview:self.needPayTab];
+        }
+        if (self.tableView == self.electronTab) {
+            self.electronCardNum = 1;
+            [self getOrderDataWithEtickettype:@"1" pagenum:[NSString stringWithFormat:@"%ld",(long)self.electronCardNum] statuses:@"" tableview:self.electronTab];
+        }
+        if (self.tableView == self.orderTab) {
+            self.orderNum = 1;
+            [self getOrderDataWithEtickettype:@"2" pagenum:[NSString stringWithFormat:@"%ld",(long)self.orderNum] statuses:@"" tableview:self.orderTab];
+        }
+        if (self.tableView == self.reimburseTab) {
+            self.reimburseNum = 1;
+            [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.reimburseNum] statuses:@"5,6,7" tableview:self.reimburseTab];
+        }
+
+        
+    
+    } tag:tag];
+}
+#pragma mark 界面请求数据
 - (void)getOrderDataWithEtickettype:(NSString *)etickettype pagenum:(NSString *)pagenum statuses:(NSString *)statuses tableview:(UITableView *)tableView{
     __weak OrderViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
@@ -241,7 +329,7 @@
             if ([[jsonRet[@"object"][@"end"]stringValue] isEqualToString:@"0"]) {
                 self.ifNeedPayToEnd = YES;
             }
-            if (self.needPayArray.count > 0&& self.needPayNum == 1) {
+            if (self.needPayArray.count > 0 && self.needPayNum == 1) {
                 [self.needPayArray removeAllObjects];
             }
             
@@ -284,7 +372,9 @@
             if (self.orderArray.count > 0 &&  self.orderNum == 1) {
                 [self.orderArray removeAllObjects];
             }
-            
+            if (jsonRet[@"object"][@"willPassCount"]) {
+                self.orderPassCount = [NSString stringWithFormat:@"%@",jsonRet[@"object"][@"willPassCount"]];
+            }
             NSArray *array = jsonRet[@"object"][@"list"];
             for (NSDictionary *dic in array) {
                 XEOrderInfo *orderInfo = [XEOrderInfo objectWithKeyValues:dic];
@@ -320,305 +410,371 @@
 }
 
 
+#pragma mark  申请退款代理
+- (void)sucessRefreshData{
 
-#pragma mark  布局删除按钮界面和遮罩
-- (void)configurehideView{
-    
-    [self hideView];
-    self.hideView.hidden = YES;
-    self.deleteOrderView.layer.cornerRadius = 10;
-    self.deleteOrderView.layer.masksToBounds = YES;
-    self.deleteOrderView.frame = CGRectMake((SCREEN_WIDTH - 250)/2, (SCREEN_HEIGHT - 130)/2, 250, 130);
-    [self.view addSubview:self.deleteOrderView];
-    self.deleteOrderView.hidden = YES;
-    
-}
 
-#pragma mark 布局取消原因view
-- (void)configureCancleOrderReasonView{
-    
-    self.cancleOrderReasonView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 200);
-    self.canclePickerView.dataSource = self;
-    self.canclePickerView.delegate = self;
-    [self.view addSubview:self.cancleOrderReasonView];
-    
-}
-
-#pragma mark 布局backscrollview
-- (void)configureBackScrollview{
-    self.backScrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 5, 0);
-    self.backScrollView.delegate = self;
-    self.backScrollView.directionalLockEnabled = YES;
-    self.backScrollView.pagingEnabled = YES;
-    self.backScrollView.scrollEnabled = YES;
-    
-    self.allTab.delegate = self;
-    self.allTab.dataSource = self;
-    
-    self.needPayTab.delegate = self;
-    self.needPayTab.dataSource = self;
-    
-    self.electronTab.delegate = self;
-    self.electronTab.dataSource = self;
-    
-    self.orderTab.delegate = self;
-    self.orderTab.dataSource = self;
-    
-    self.reimburseTab.delegate = self;
-    self.reimburseTab.dataSource = self;
-
-    
-    CGRect allFrame = self.allView.frame;
-    allFrame.origin.x = 0;
-    self.allView.frame = allFrame;
-    
-    CGRect needPayFrame = self.needPayView.frame;
-    needPayFrame.origin.x = SCREEN_WIDTH;
-    self.needPayView.frame = needPayFrame;
-    
-    CGRect electronFrame = self.electronView.frame;
-    electronFrame.origin.x = SCREEN_WIDTH * 2;
-    self.electronView.frame = electronFrame;
-    
-    CGRect orderFrame = self.orderView.frame;
-    orderFrame.origin.x = SCREEN_WIDTH * 3;
-    self.orderView.frame = orderFrame;
-    
-    CGRect reimburseFrame = self.reimburseView.frame;
-    reimburseFrame.origin.x = SCREEN_WIDTH * 4;
-    self.reimburseView.frame = reimburseFrame;
-    
-    [self.backScrollView addSubview:self.allView];
-    [self.backScrollView addSubview:self.needPayView];
-    [self.backScrollView addSubview:self.electronView];
-    [self.backScrollView addSubview:self.orderView];
-    [self.backScrollView addSubview:self.reimburseView];
-    
-    [self.allTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"allCell"];
-    
-    [self.allTab addHeaderWithTarget:self action:@selector(headerRefresh)];
-    [self.allTab addFooterWithTarget:self action:@selector(footerLoadData)];
-    
-    [self.needPayTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"needPayCell"];
-    [self.needPayTab addHeaderWithTarget:self action:@selector(headerRefresh)];
-    [self.needPayTab addFooterWithTarget:self action:@selector(footerLoadData)];
-
-    [self.electronTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"electronCell"];
-    [self.electronTab addHeaderWithTarget:self action:@selector(headerRefresh)];
-    [self.electronTab addFooterWithTarget:self action:@selector(footerLoadData)];
-
-    
-    [self.orderTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"orderCell"];
-    [self.orderTab addHeaderWithTarget:self action:@selector(headerRefresh)];
-    [self.orderTab addFooterWithTarget:self action:@selector(footerLoadData)];
-
-    [self.reimburseTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"reimburseCell"];
-    [self.reimburseTab addHeaderWithTarget:self action:@selector(headerRefresh)];
-    [self.reimburseTab addFooterWithTarget:self action:@selector(footerLoadData)];
-    self.allTab.sectionFooterHeight = 100;
-    self.needPayTab.sectionFooterHeight = 100;
-    
-    self.reimburseTab.sectionFooterHeight = 100;
-    self.reimburseTab.sectionHeaderHeight = 40;
-    
-    self.orderTab.sectionFooterHeight = 100;
-    self.orderTab.sectionHeaderHeight = 40;
-
-    
-}
-#pragma mark 创建sectionHeaderView
-- (UIView *)creatSectionHeaderView{
-    UIView *headerView = [[UIView alloc]init];
-    //灰色背景色
-    UIView *grayColorView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 5)];
-    grayColorView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
-    //白色背景色
-    UIView *whithBack = [[UIView alloc]initWithFrame:CGRectMake(0, 5, SCREEN_WIDTH, 40)];
-    UILabel *layerlable = [[UILabel alloc]initWithFrame:CGRectMake(10, 15, 40, 20)];
-    layerlable.layer.borderColor = [UIColor orangeColor].CGColor;
-    layerlable.layer.borderWidth = 1;
-    layerlable.layer.cornerRadius = 8;
-    layerlable.layer.masksToBounds = YES;
-    layerlable.text = @"商城";
-    layerlable.textColor = [UIColor orangeColor];
-    layerlable.textAlignment = NSTextAlignmentCenter;
-    layerlable.font = [UIFont systemFontOfSize:12];
-    
-    UILabel *desLab = [[UILabel alloc]init];
-    desLab.frame = CGRectMake(65, 5, 150, 40);
-    desLab.textColor = [UIColor blackColor];
-    desLab.font = [UIFont systemFontOfSize:14];
-    desLab.text = @"牧童积木儿童专卖场";
-    
-
-    UILabel *stateLab = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 95, 5, 80, 40)];
-    stateLab.textAlignment = NSTextAlignmentRight;
-    stateLab.textColor = [UIColor orangeColor];
-    stateLab.font = [UIFont systemFontOfSize:14];
-    stateLab.text = @"交易成功";
-
-    UIImageView *setLine = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"s_n_set_line"]];
-    setLine.frame = CGRectMake(0, 44, SCREEN_WIDTH, 1);
-    
-    [headerView addSubview:grayColorView];
-    [headerView addSubview:layerlable];
-    [headerView addSubview:desLab];
-    [headerView addSubview:stateLab];
-    [headerView addSubview:setLine];
-    headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, grayColorView.frame.size.height +
-                                  desLab.frame.size.height);
-    headerView.backgroundColor = [UIColor whiteColor];
-    return headerView;
-    
-}
-
-#pragma mark 创建foorterview
-- (UIView *)creatFooterView{
-    UIView *footerView = [[UIView alloc]init];
-    footerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 80);
-    footerView.backgroundColor = [UIColor whiteColor];
-    
-
-    UIImageView *setLineA = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"s_n_set_line"]];
-    setLineA.frame = CGRectMake(0, 39, SCREEN_HEIGHT, 1);
-    
-    UIImageView *setLineB = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"s_n_set_line"]];
-    setLineB.frame = CGRectMake(0, 79, SCREEN_HEIGHT, 1);
-    
-    UIImageView *setLineC = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"s_n_set_line"]];
-    setLineB.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 1);
-    
-
-    [footerView addSubview:setLineA];
-    [footerView addSubview:setLineB];
-    [footerView addSubview:setLineC];
-    
-    return footerView;
-
-}
-
-#pragma mark  创建商品数量lable
-- (UILabel *)creatNumLab{
-    UILabel *numShop = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH, 40)];
-    numShop.textColor = [UIColor blackColor];
-    numShop.textAlignment = NSTextAlignmentLeft;
-    numShop.font = [UIFont systemFontOfSize:14];
-    return numShop;
-}
-#pragma mark  创建运费lable
-- (UILabel *)creatFreightLable{
-    /**
-     *  运费：
-     */
-    UILabel *freightLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 100)/2, 0, 100, 40)];
-//    freightLab.text = @"运费：¥123.00";
-    freightLab.textAlignment = NSTextAlignmentCenter;
-    freightLab.font = [UIFont systemFontOfSize:14];
-//    NSString *douB = @"：";
-//    NSRange rangB = [freightLab.text rangeOfString:douB];
-//    NSMutableAttributedString *strB = [[NSMutableAttributedString alloc] initWithString:freightLab.text];
-//    [strB addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, rangB.location)];
-//    [strB addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, rangB.location + 1)];
-//    [strB addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(rangB.location + 1, freightLab.text.length  - rangB.location - 1)];
-//    freightLab.attributedText = strB;
-    return freightLab;
-}
-
-#pragma mark  创建运费内容
-- (NSMutableAttributedString *)creeatFreightLableTextWith:(NSString *)string{
-    if ([string isEqualToString:@""]) {
-        return nil;
-    }else{
-        NSString *douB = @"：";
-        NSRange rangB = [string rangeOfString:douB];
-        NSMutableAttributedString *strB = [[NSMutableAttributedString alloc] initWithString:string];
-        [strB addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, rangB.location)];
-        [strB addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, rangB.location + 1)];
-        [strB addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(rangB.location + 1, string.length  - rangB.location - 1)];
-        return strB;
+    if (self.tableView == self.allTab) {
+        self.allPageNum = 1;
+        [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.allPageNum] statuses:@"" tableview:self.allTab];
+        NSLog(@"all");
+    }
+    if (self.tableView == self.needPayTab) {
+        self.needPayNum = 1;
+        [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.needPayNum] statuses:@"1" tableview:self.needPayTab];
+    }
+    if (self.tableView == self.electronTab) {
+        self.electronCardNum = 1;
+        [self getOrderDataWithEtickettype:@"1" pagenum:[NSString stringWithFormat:@"%ld",(long)self.electronCardNum] statuses:@"" tableview:self.electronTab];
+    }
+    if (self.tableView == self.orderTab) {
+        self.orderNum = 1;
+        [self getOrderDataWithEtickettype:@"2" pagenum:[NSString stringWithFormat:@"%ld",(long)self.orderNum] statuses:@"" tableview:self.orderTab];
+    }
+    if (self.tableView == self.reimburseTab) {
+        self.reimburseNum = 1;
+        [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.reimburseNum] statuses:@"5,6,7" tableview:self.reimburseTab];
     }
 }
-#pragma mark 创建付款lable
-- (UILabel *)creatPriceLable{
-    UILabel *priceTitle = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 130 , 0, 115, 40)];
-    priceTitle.text = @"合计：¥123.00";
-    priceTitle.textAlignment = NSTextAlignmentRight;
-    return priceTitle;
-}
 
-#pragma mark  创建价格text
-- (NSMutableAttributedString *)creatPriceTextWith:(NSString *)string{
-    if ([string isEqualToString:@""]) {
-        return nil;
+#pragma mark 付款按钮点击
+- (void)buyButtonTouched:(UIButton *)sender{
+    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    Order *order = [[Order alloc] init];
+    order.partner = appDelegate.patener;
+    order.seller = appDelegate.seller;
+    
+    if (self.tableView == self.allTab) {
+        XEOrderInfo *orders = self.allArray[sender.tag];
+        //order.id
+        order.tradeNO = orders.orderNo; //订单ID（由商家自行制定）
+        order.amount = @"0.01"; //商品价格
+
+        
+    }
+    if (self.tableView == self.needPayTab) {
+        XEOrderInfo *orders = self.needPayArray[sender.tag];
+        order.tradeNO = orders.orderNo; //订单ID（由商家自行制定）
+        order.amount = @"0.01"; //商品价格
+        
+    }
+    if (self.tableView == self.electronTab) {
+        XEOrderInfo *orders = self.electronCardArray[sender.tag];
+        order.tradeNO = orders.orderNo; //订单ID（由商家自行制定）
+        order.amount = @"0.01"; //商品价格
+        
+    }
+    if (self.tableView == self.orderTab) {
+        XEOrderInfo *orders = self.orderArray[sender.tag];
+        order.tradeNO = orders.orderNo; //订单ID（由商家自行制定）
+        order.amount = @"0.01"; //商品价格
+    }
+    if (self.tableView == self.reimburseTab) {
+        XEOrderInfo *orders = self.reimburseArray[sender.tag];
+        //order.id
+        order.tradeNO = orders.orderNo; //订单ID（由商家自行制定）
+        order.amount = @"0.01"; //商品价格
     }
     
-    NSString *dou = @"：";
-    NSRange rang = [string rangeOfString:dou];
-    NSMutableAttributedString *strA = [[NSMutableAttributedString alloc] initWithString:string];
-    [strA addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, rang.location)];
-    [strA addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, rang.location + 1)];
-    [strA addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17] range:NSMakeRange(rang.location, string.length  - rang.location)];
-    [strA addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(rang.location + 1, string.length  - rang.location - 1)];
-    return strA;
+    order.productName = @"晓儿"; //商品标题
+    order.productDescription = @"晓儿"; //商品描述
+
+    
+    NSString *url = [NSString stringWithFormat:@"%@/common/alipayorder/payed", [[XEEngine shareInstance] baseUrl]];
+    order.notifyURL = url;//回调URL
+    
+    order.service = @"mobile.securitypay.pay";
+    order.paymentType = @"1";
+    order.inputCharset = @"utf-8";
+    order.itBPay = @"30m";
+    order.showUrl = @"m.alipay.com";
+    
+    
+    //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
+    NSString *appScheme = @"xiaoerPay";
+    
+    //将商品信息拼接成字符串
+    NSString *orderSpec = [order description];
+    
+    
+    //获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode
+    id<DataSigner> signer = CreateRSADataSigner(appDelegate.privateKey);
+    NSString *signedString = [signer signString:orderSpec];
+    
+    NSString *orderString = nil;
+    if (signedString != nil) {
+        orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
+                       orderSpec, signedString, @"RSA"];
+        
+        [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+            NSLog(@"reslut = %@",resultDic);
+            NSString *string = resultDic[@"resultStatus"];
+            NSString *memo = resultDic[@"memo"];
+            if (memo.length > 0) {
+                [XEProgressHUD lightAlert:memo];
+            }
+            
+            if ([string isEqualToString:@"9000"]) {
+  
+                [XEProgressHUD AlertSuccess:@"支付成功" At:self.view];
+                
+                [self detailPaySuccessDelegate];
+                
+                
+                
+                
+                
+            } else if ([string isEqualToString:@"4000"]) {
+                NSLog(@"系统异常");
+                [XEProgressHUD AlertError:@"系统异常"];
+                
+            }else if ([string isEqualToString:@"6001"]){
+                NSLog(@"用户中途取消");
+                [XEProgressHUD AlertError:@"用户中途取消,请重新支付"];
+                
+            }else if ([string isEqualToString:@"6002"]){
+                NSLog(@"网络连接出错");
+                [XEProgressHUD AlertError:@"网络连接出错"];
+                
+            }else{
+                [XEProgressHUD AlertError:@"支付失败"];
+            }
+        }];
+        
+    }
+    
+//    VerifyIndentViewController *verify = [[VerifyIndentViewController alloc]init];
+//    
+//    verify.shopArray = [NSMutableArray array];
+//    
+//    
+//    if (self.tableView == self.allTab) {
+//        XEOrderInfo *order = self.allArray[sender.tag];
+//        //order.id
+//        for (XEOrderGoodInfo *good in [order SeriousReturnGoodsArray]) {
+//            XEShopCarInfo *car = [[XEShopCarInfo alloc]init];
+//            car.origPrice = good.origPrice;
+//            car.goodsId = good.id;
+//            car.num = good.num;
+//            car.price = good.price;
+//            if (good.standard) {
+//                car.standard = good.standard;
+//            }
+//            car.serieId = good.serieId;
+//            car.name = good.name;
+//            car.userId = [XEEngine shareInstance].uid;
+//            car.url = good.url;
+//            car.carriage = good.carriage;
+//            car.providerId = good.orderProviderId;
+//            [verify.shopArray addObject:car];
+//        }
+//
+//    }
+//    if (self.tableView == self.needPayTab) {
+//        XEOrderInfo *order = self.needPayArray[sender.tag];
+//        //order.id
+//        for (XEOrderGoodInfo *good in [order SeriousReturnGoodsArray]) {
+//            XEShopCarInfo *car = [[XEShopCarInfo alloc]init];
+//            car.origPrice = good.origPrice;
+//            car.goodsId = good.id;
+//            car.num = good.num;
+//            car.price = good.price;
+//            if (good.standard) {
+//                car.standard = good.standard;
+//            }
+//            car.serieId = good.serieId;
+//            car.name = good.name;
+//            car.userId = [XEEngine shareInstance].uid;
+//            car.url = good.url;
+//            car.carriage = good.carriage;
+//            car.providerId = good.orderProviderId;
+//            [verify.shopArray addObject:car];
+//        }
+//        
+//    }
+//    if (self.tableView == self.electronTab) {
+//        XEOrderInfo *order = self.electronCardArray[sender.tag];
+//        //order.id
+//        for (XEOrderGoodInfo *good in [order SeriousReturnGoodsArray]) {
+//            XEShopCarInfo *car = [[XEShopCarInfo alloc]init];
+//            car.origPrice = good.origPrice;
+//            car.goodsId = good.id;
+//            car.num = good.num;
+//            car.price = good.price;
+//            if (good.standard) {
+//                car.standard = good.standard;
+//            }
+//            car.serieId = good.serieId;
+//            car.name = good.name;
+//            car.userId = [XEEngine shareInstance].uid;
+//            car.url = good.url;
+//            car.carriage = good.carriage;
+//            car.providerId = good.orderProviderId;
+//            [verify.shopArray addObject:car];
+//        }
+//        
+//    }
+//    if (self.tableView == self.orderTab) {
+//        XEOrderInfo *order = self.orderArray[sender.tag];
+//        //order.id
+//        for (XEOrderGoodInfo *good in [order SeriousReturnGoodsArray]) {
+//            XEShopCarInfo *car = [[XEShopCarInfo alloc]init];
+//            car.origPrice = good.origPrice;
+//            car.goodsId = good.id;
+//            car.num = good.num;
+//            car.price = good.price;
+//            if (good.standard) {
+//                car.standard = good.standard;
+//            }
+//            car.serieId = good.serieId;
+//            car.name = good.name;
+//            car.userId = [XEEngine shareInstance].uid;
+//            car.url = good.url;
+//            car.carriage = good.carriage;
+//            car.providerId = good.orderProviderId;
+//            [verify.shopArray addObject:car];
+//        }
+//    }
+//    if (self.tableView == self.reimburseTab) {
+//        XEOrderInfo *order = self.reimburseArray[sender.tag];
+//        //order.id
+//        for (XEOrderGoodInfo *good in [order SeriousReturnGoodsArray]) {
+//            XEShopCarInfo *car = [[XEShopCarInfo alloc]init];
+//            car.origPrice = good.origPrice;
+//            car.goodsId = good.id;
+//            car.num = good.num;
+//            car.price = good.price;
+//            if (good.standard) {
+//                car.standard = good.standard;
+//            }
+//            car.serieId = good.serieId;
+//            car.name = good.name;
+//            car.userId = [XEEngine shareInstance].uid;
+//            car.url = good.url;
+//            car.carriage = good.carriage;
+//            car.providerId = good.orderProviderId;
+//            [verify.shopArray addObject:car];
+//        }
+//        
+//    }
+//    
+//    [self.navigationController pushViewController:verify animated:YES];
 }
 
-#pragma mark 创建删除订单按钮
-- (UIButton *)creatFooterLayerDeleteBtn{
-    UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [deleteBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    [deleteBtn setTitle:@"删除订单" forState:UIControlStateNormal];
-    [deleteBtn addTarget:self action:@selector(deleteOrder:) forControlEvents:UIControlEventTouchUpInside];
-    deleteBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    deleteBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    deleteBtn.layer.borderWidth = 1;
-    deleteBtn.layer.cornerRadius = 8;
-    return deleteBtn;
-}
-#pragma mark 创建重新购买按钮
-- (UIButton *)creatFooterLayerAgainBuyBtn{
-    UIButton *againBuy = [UIButton buttonWithType:UIButtonTypeCustom];
-    [againBuy setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    [againBuy setTitle:@"重新购买" forState:UIControlStateNormal];
-    againBuy.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    againBuy.titleLabel.font = [UIFont systemFontOfSize:15];
-    againBuy.layer.borderWidth = 1;
-    againBuy.layer.cornerRadius = 8;
-    return againBuy;
-}
-#pragma mark    创建申请退款按钮
-- (UIButton *)creatApplyReimburseBtn{
-    UIButton *ApplyReimburseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [ApplyReimburseBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    [ApplyReimburseBtn setTitle:@"申请退款" forState:UIControlStateNormal];
-    ApplyReimburseBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    ApplyReimburseBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [ApplyReimburseBtn addTarget:self action:@selector(ApplyReimburseBtnTouchTo:) forControlEvents:UIControlEventTouchUpInside];
-    ApplyReimburseBtn.layer.borderWidth = 1;
-    ApplyReimburseBtn.layer.cornerRadius = 8;
-    return ApplyReimburseBtn;
-}
 #pragma mark 申请退款按钮点击
 - (void)ApplyReimburseBtnTouchTo:(UIButton *)sender{
     OrderApplyReimburseController *apply = [[OrderApplyReimburseController alloc]init];
+    if (self.tableView == self.allTab) {
+        XEOrderInfo *order = self.allArray[sender.tag];
+        //order.id
+        NSLog(@"%@",order.id);
+        apply.order = order;
+
+    }
+    if (self.tableView == self.needPayTab) {
+        XEOrderInfo *order = self.needPayArray[sender.tag];
+        //order.id
+        NSLog(@"%@",order.id);
+        apply.order = order;
+        
+    }
+    if (self.tableView == self.electronTab) {
+        XEOrderInfo *order = self.electronCardArray[sender.tag];
+        //order.id
+        NSLog(@"%@",order.id);
+        apply.order = order;
+        
+    }
+    if (self.tableView == self.orderTab) {
+        XEOrderInfo *order = self.orderArray[sender.tag];
+        //order.id
+        NSLog(@"%@",order.id);
+        apply.order = order;
+    }
+    if (self.tableView == self.reimburseTab) {
+        XEOrderInfo *order = self.reimburseArray[sender.tag];
+        //order.id
+        NSLog(@"%@",order.id);
+        apply.order = order;
+        
+    }
     [self.navigationController pushViewController:apply animated:YES];
-}
-#pragma mark  创建取消订单按钮
-- (UIButton *)creatCancleOrderBtn{
-    UIButton *CancleOrderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [CancleOrderBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    [CancleOrderBtn setTitle:@"取消订单" forState:UIControlStateNormal];
-    CancleOrderBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    CancleOrderBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    CancleOrderBtn.layer.borderWidth = 1;
-    CancleOrderBtn.layer.cornerRadius = 8;
-    [CancleOrderBtn addTarget:self action:@selector(CancleOrderBtnTouched) forControlEvents:UIControlEventTouchUpInside];
-    return CancleOrderBtn;
+
 }
 
+
 #pragma mark 区尾取消订单按钮点击
-- (void)CancleOrderBtnTouched{
-    [self animationCancleReasonView];
+- (void)CancleOrderBtnTouched:(UIButton *)sender{
+//    [self animationCancleReasonView];
+    NSString *orderproviderid = @"";
+    if (self.tableView == self.allTab) {
+        XEOrderInfo *good = self.allArray[sender.tag];
+        orderproviderid = good.id;
+    }
+    if (self.tableView == self.needPayTab) {
+
+        XEOrderInfo *good = self.needPayArray[sender.tag];
+        orderproviderid = good.id;
+    }
+    if (self.tableView == self.electronTab) {
+        XEOrderGoodInfo *good = self.electronCardArray[sender.tag];
+        orderproviderid = good.id;
+        
+    }
+    if (self.tableView == self.orderTab) {
+        XEOrderGoodInfo *good = self.orderArray[sender.tag];
+        orderproviderid = good.orderProviderId;
+        
+    }
+    if (self.tableView == self.reimburseTab) {
+        XEOrderGoodInfo *good = self.reimburseArray[sender.tag];
+        orderproviderid = good.orderProviderId;
+        NSLog(@"%@",good.orderProviderId);
+
+    }
     
+    __weak OrderViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance]cancleOrderWith:tag orderproviderid:orderproviderid];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"取消订单失败" At:weakSelf.view];
+            return;
+        }
+        if ([[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertSuccess:@"取消订单成功" At:weakSelf.view];
+        }
+        if (self.tableView == self.allTab) {
+            self.allPageNum = 1;
+            [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.allPageNum] statuses:@"" tableview:self.allTab];
+        }
+        if (self.tableView == self.needPayTab) {
+            self.needPayNum = 1;
+            
+            [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.needPayNum] statuses:@"1" tableview:self.needPayTab];
+        }
+        if (self.tableView == self.electronTab) {
+            self.electronCardNum = 1;
+            [self getOrderDataWithEtickettype:@"1" pagenum:[NSString stringWithFormat:@"%ld",(long)self.electronCardNum] statuses:@"" tableview:self.electronTab];
+        }
+        if (self.tableView == self.orderTab) {
+            self.orderNum = 1;
+            [self getOrderDataWithEtickettype:@"2" pagenum:[NSString stringWithFormat:@"%ld",(long)self.orderNum] statuses:@"" tableview:self.orderTab];
+        }
+        if (self.tableView == self.reimburseTab) {
+            self.reimburseNum = 1;
+            [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.reimburseNum] statuses:@"5,6,7" tableview:self.reimburseTab];
+        }
+        
+    } tag:tag];
+    
+ 
     
 }
 #pragma mark 取消原因界面 取消按钮点击
@@ -635,10 +791,43 @@
 
 #pragma mark  删除订单按钮点击
 - (void)deleteOrder:(UIButton *)sender{
+    
+    if (self.tableView == self.allTab) {
+        XEOrderInfo *order = self.allArray[sender.tag];
+        //order.id
+        NSLog(@"%@",order.id);
+        self.deleteOrderID = order.id;
+    }
+    if (self.tableView == self.needPayTab) {
+        XEOrderInfo *order = self.needPayArray[sender.tag];
+        //order.id
+        NSLog(@"%@",order.id);
+        self.deleteOrderID = order.id;
+
+    }
+    if (self.tableView == self.electronTab) {
+        XEOrderInfo *order = self.electronCardArray[sender.tag];
+        //order.id
+        NSLog(@"%@",order.id);
+        self.deleteOrderID = order.id;
+
+    }
+    if (self.tableView == self.orderTab) {
+        XEOrderInfo *order = self.orderArray[sender.tag];
+        //order.id
+        NSLog(@"%@",order.id);
+        self.deleteOrderID = order.id;
+    }
+    if (self.tableView == self.reimburseTab) {
+        XEOrderInfo *order = self.reimburseArray[sender.tag];
+        //order.id
+        NSLog(@"%@",order.id);
+        self.deleteOrderID = order.id;
+
+    }
+    
     self.hideView.hidden = NO;
     self.deleteOrderView.hidden = NO;
-
-    
 
 }
 #pragma mark   删除订单界面取消按钮点击
@@ -651,6 +840,7 @@
 - (IBAction)cancaleReasonVerifyBtnTouched:(id)sender {
     self.hideView.hidden = YES;
     self.deleteOrderView.hidden = YES;
+    [self deleteOrderDataWith:self.deleteOrderID];
     
 }
 
@@ -663,11 +853,11 @@
     Buy.titleLabel.font = [UIFont systemFontOfSize:15];
     Buy.layer.borderWidth = 1;
     Buy.layer.cornerRadius = 8;
+    [Buy addTarget:self action:@selector(buyButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     return Buy;
 }
-- (void)outOfDataBtnToouched:(UIButton *)sender{
-    
-}
+
+
 //#pragma mark 创建footerView   的第二行左边的卡券图片
 //- (UIImageView *)creatSectionFooterBoottomLeftCardImageView{
 //    UIImageView *leftImage  = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 30, 20)];
@@ -881,44 +1071,6 @@
         }];
     }
 }
-#pragma mark 头部按钮点击
-- (IBAction)allBtnTouched:(id)sender {
-    NSLog(@"全部");
-    self.touchChangeLab = YES;
-    [self changeContentOfSet:(UIButton *)sender];
-}
-- (IBAction)needPayBtnTouched:(id)sender {
-    NSLog(@"待付款");
-    self.touchChangeLab = YES;
-
-    [self changeContentOfSet:(UIButton *)sender];
-
-
-}
-- (IBAction)electronCardBtnTouched:(id)sender {
-    NSLog(@"电子券");
-    self.touchChangeLab = YES;
-
-    [self changeContentOfSet:(UIButton *)sender];
-
-
-}
-- (IBAction)orderBtnTouched:(id)sender {
-    NSLog(@"预约券");
-    self.touchChangeLab = YES;
-
-    [self changeContentOfSet:(UIButton *)sender];
-
-
-}
-- (IBAction)reimburseBtnTouched:(id)sender {
-    NSLog(@"退款单");
-    self.touchChangeLab = YES;
-
-    [self changeContentOfSet:(UIButton *)sender];
-
-
-}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (tableView == self.electronTab) {
 
@@ -935,7 +1087,11 @@
 
     }else if (tableView == self.orderTab){
         if (section == 0) {
-            return 50 ;
+            if ([self.orderPassCount isEqualToString:@"0"]) {
+                return 5;
+            }else{
+                return 50 ;
+            }
         }else{
             return 5;
         }
@@ -963,7 +1119,7 @@
                     
                 }else {
                     
-                    return 120;
+                    return 140;
                     
                 }
                 
@@ -1112,8 +1268,12 @@
         }
     }else if (tableView == self.orderTab){
         if (section == 0) {
-            return cardHeader;
-            
+            if ([self.orderPassCount isEqualToString:@"0"]) {
+                return nil;
+            }else{
+                [btn setTitle:[NSString stringWithFormat:@"您有%@张券即将过期",self.orderPassCount] forState:UIControlStateNormal];
+                return cardHeader;
+            }
         }else{
             
         }
@@ -1130,41 +1290,39 @@
     UIView *footerView = [self creatFooterView];
     //商品数量
     UILabel *numLab = [self creatNumLab];
-//    numLab.text = @"共一件商品";
     //运费
     UILabel *freightLab  = [self creatFreightLable];
     freightLab.frame = CGRectMake((SCREEN_WIDTH - 100)/2 - 20, 5, 100, 30);
     //支付款项
     UILabel *price = [self creatPriceLable];
     price.frame =CGRectMake(SCREEN_WIDTH - 130 , 5, 115,30);
-    //卡片
-//    UIImageView *cardState = [self creatSectionFooterBoottomLeftCardImageView];
-//    cardState.frame = CGRectMake(15, 50, 40, 20);
-    
-    //卡片使用情况
-//    UILabel *cardUsed = [self creatSectionFooterLeftCardStateLab];
-//    cardUsed.frame = CGRectMake(60, 50, 60, 20);
     
     //删除按钮
     UIButton *delete = [self creatFooterLayerDeleteBtn];
+    delete.frame = CGRectMake(15, 45, 80, 30);
+    delete.tag = section;
     //支付按钮
     UIButton *payBtn = [self creatFooterLayerPayBtn];
     payBtn.frame = CGRectMake(SCREEN_WIDTH - 85, 45, 70, 30);
+    payBtn.tag = section;
     
     //重新购买
-    UIButton *againPay = [self creatFooterLayerAgainBuyBtn];
+//    UIButton *againPay = [self creatFooterLayerAgainBuyBtn];
     
     //申请退款
     UIButton *applyReimburse = [self creatApplyReimburseBtn];
+    applyReimburse.frame =CGRectMake(SCREEN_WIDTH - 15 - 85 , 45, 85, 30);
+    applyReimburse.tag = section;
     
     //取消订单
     UIButton *cancleOrder = [self creatCancleOrderBtn];
+    cancleOrder.frame = CGRectMake(15, 45, 85, 30);
+    cancleOrder.tag = section;
     
-    
+    //(1 待付款 2 已失效 3 已付款（待发货）4 已发货 5 未发货的申请退款（待审核） 6 已发货的申请退款退货（待审核）7 审核退款 8 审核不退款 9 关闭交易)
     
     if (tableView == self.allTab) {
-        delete.frame = CGRectMake(SCREEN_WIDTH - 95, 45, 80, 30);
-        applyReimburse.frame = CGRectMake(SCREEN_WIDTH - 95 -100 , 45, 85, 30);
+
         XEOrderInfo *good = self.allArray[section];
         if (good.total) {
             numLab.text = [NSString stringWithFormat:@"共%@件商品",good.total];
@@ -1172,14 +1330,48 @@
         if (good.carriage) {
             freightLab.attributedText =  [self creeatFreightLableTextWith:[NSString stringWithFormat:@"运费：¥%.2f",[good.carriage floatValue]/100]];
         }
+        if ([good.status isEqualToString:@"1"]) {
+          //  self.shopState.text = @"待付款";
+            [footerView addSubview:payBtn];
+            
+        }
+        if ([good.status isEqualToString:@"2"]) {
+           // self.shopState.text = @"已失效";
+        }
+        if ([good.status isEqualToString:@"3"]) {
+          //  self.shopState.text = @"待发货";
+            [footerView addSubview:applyReimburse];
+        }
+        if ([good.status isEqualToString:@"4"]) {
+            //self.shopState.text = @"已发货";
+            [footerView addSubview:applyReimburse];
+        }
+        if ([good.status isEqualToString:@"5"]) {
+            //self.shopState.text = @"待审核";
+        }
+        if ([good.status isEqualToString:@"6"]) {
+            //self.shopState.text = @"待审核";
+        }
+        if ([good.status isEqualToString:@"7"]) {
+            //self.shopState.text = @"审核退款";
+            [footerView addSubview:delete];
+
+        }
+        if ([good.status isEqualToString:@"8"]) {
+            //self.shopState.text = @"审核不退款";
+            [footerView addSubview:delete];
+
+        }
+        if ([good.status isEqualToString:@"9"]) {
+            //self.shopState.text = @"关闭交易";
+            [footerView addSubview:delete];
+
+        }
         price.attributedText = [self creatPriceTextWith:[NSString stringWithFormat:@"合计：%.2f",[good.money floatValue]/100]];
         [footerView addSubview:freightLab];
         [footerView addSubview:numLab];
-        [footerView addSubview:applyReimburse];
-        [footerView addSubview:delete];
         [footerView addSubview:price];
     }else if (tableView == self.needPayTab){
-        cancleOrder.frame = CGRectMake(SCREEN_WIDTH - 190, 45, 90, 30);
         XEOrderInfo *good = self.needPayArray[section];
         if (good.total) {
         numLab.text = [NSString stringWithFormat:@"共%@件商品",good.total];
@@ -1187,10 +1379,46 @@
         if (good.carriage) {
             freightLab.attributedText =  [self creeatFreightLableTextWith:[NSString stringWithFormat:@"运费：¥%.2f",[good.carriage floatValue]/100]];
         }
+        if ([good.status isEqualToString:@"1"]) {
+            //  self.shopState.text = @"待付款";
+            [footerView addSubview:payBtn];
+            
+        }
+        if ([good.status isEqualToString:@"2"]) {
+            // self.shopState.text = @"已失效";
+        }
+        if ([good.status isEqualToString:@"3"]) {
+            //  self.shopState.text = @"待发货";
+            [footerView addSubview:applyReimburse];
+        }
+        if ([good.status isEqualToString:@"4"]) {
+            //self.shopState.text = @"已发货";
+            [footerView addSubview:applyReimburse];
+        }
+        if ([good.status isEqualToString:@"5"]) {
+            //self.shopState.text = @"待审核";
+        }
+        if ([good.status isEqualToString:@"6"]) {
+            //self.shopState.text = @"待审核";
+        }
+        if ([good.status isEqualToString:@"7"]) {
+            //self.shopState.text = @"审核退款";
+            [footerView addSubview:delete];
+            
+        }
+        if ([good.status isEqualToString:@"8"]) {
+            //self.shopState.text = @"审核不退款";
+            [footerView addSubview:delete];
+            
+        }
+        if ([good.status isEqualToString:@"9"]) {
+            //self.shopState.text = @"关闭交易";
+            [footerView addSubview:delete];
+            
+        }
         price.attributedText = [self creatPriceTextWith:[NSString stringWithFormat:@"合计：%.2f",[good.money floatValue]/100]];
         [footerView addSubview:numLab];
         [footerView addSubview:freightLab];
-        [footerView  addSubview:payBtn];
         [footerView addSubview:price];
         [footerView addSubview:cancleOrder];
     }else if (tableView == self.electronTab){
@@ -1199,20 +1427,52 @@
 
         numLab.text = [NSString stringWithFormat:@"共%@件商品",good.total];
         }
-        delete.frame = CGRectMake(SCREEN_WIDTH - 95, 45, 80, 30);
-        applyReimburse.frame = CGRectMake(SCREEN_WIDTH - 95 -100 , 45, 85, 30);
         if (good.carriage) {
             freightLab.attributedText =  [self creeatFreightLableTextWith:[NSString stringWithFormat:@"运费：¥%.2f",[good.carriage floatValue]/100]];
         }
+        if ([good.status isEqualToString:@"1"]) {
+            //  self.shopState.text = @"待付款";
+            [footerView addSubview:payBtn];
+            
+        }
+        if ([good.status isEqualToString:@"2"]) {
+            // self.shopState.text = @"已失效";
+        }
+        if ([good.status isEqualToString:@"3"]) {
+            //  self.shopState.text = @"待发货";
+            [footerView addSubview:applyReimburse];
+        }
+        if ([good.status isEqualToString:@"4"]) {
+            //self.shopState.text = @"已发货";
+            [footerView addSubview:applyReimburse];
+        }
+        if ([good.status isEqualToString:@"5"]) {
+            //self.shopState.text = @"待审核";
+        }
+        if ([good.status isEqualToString:@"6"]) {
+            //self.shopState.text = @"待审核";
+        }
+        if ([good.status isEqualToString:@"7"]) {
+            //self.shopState.text = @"审核退款";
+            [footerView addSubview:delete];
+            
+        }
+        if ([good.status isEqualToString:@"8"]) {
+            //self.shopState.text = @"审核不退款";
+            [footerView addSubview:delete];
+            
+        }
+        if ([good.status isEqualToString:@"9"]) {
+            //self.shopState.text = @"关闭交易";
+            [footerView addSubview:delete];
+            
+        }
+
         price.attributedText = [self creatPriceTextWith:[NSString stringWithFormat:@"合计：%.2f",[good.money floatValue]/100]];
         [footerView addSubview:freightLab];
-        [footerView addSubview:applyReimburse];
-        [footerView addSubview:delete];
         [footerView addSubview:numLab];
         [footerView addSubview:price];
     }else if (tableView == self.orderTab){
-        delete.frame = CGRectMake(SCREEN_WIDTH - 95, 45, 80, 30);
-        applyReimburse.frame = CGRectMake(SCREEN_WIDTH - 95 -100 , 45, 85, 30);
         XEOrderInfo *good = self.orderArray[section];
         if (good.total) {
 
@@ -1221,14 +1481,50 @@
         if (good.carriage) {
             freightLab.attributedText =  [self creeatFreightLableTextWith:[NSString stringWithFormat:@"运费：¥%.2f",[good.carriage floatValue]/100]];
         }
+        if ([good.status isEqualToString:@"1"]) {
+            //  self.shopState.text = @"待付款";
+            [footerView addSubview:payBtn];
+            
+        }
+        if ([good.status isEqualToString:@"2"]) {
+            // self.shopState.text = @"已失效";
+        }
+        if ([good.status isEqualToString:@"3"]) {
+            //  self.shopState.text = @"待发货";
+            [footerView addSubview:applyReimburse];
+        }
+        if ([good.status isEqualToString:@"4"]) {
+            //self.shopState.text = @"已发货";
+            [footerView addSubview:applyReimburse];
+        }
+        if ([good.status isEqualToString:@"5"]) {
+            //self.shopState.text = @"待审核";
+        }
+        if ([good.status isEqualToString:@"6"]) {
+            //self.shopState.text = @"待审核";
+        }
+        if ([good.status isEqualToString:@"7"]) {
+            //self.shopState.text = @"审核退款";
+            [footerView addSubview:delete];
+            
+        }
+        if ([good.status isEqualToString:@"8"]) {
+            //self.shopState.text = @"审核不退款";
+            [footerView addSubview:delete];
+            
+        }
+        if ([good.status isEqualToString:@"9"]) {
+            //self.shopState.text = @"关闭交易";
+            [footerView addSubview:delete];
+            
+        }
+
         price.attributedText = [self creatPriceTextWith:[NSString stringWithFormat:@"合计：%.2f",[good.money floatValue]/100]];
         [footerView addSubview:freightLab];
-        [footerView addSubview:applyReimburse];
-        [footerView addSubview:delete];
         [footerView addSubview:numLab];
         [footerView addSubview:price];
         }else if (tableView == self.reimburseTab){
-        againPay.frame = CGRectMake(SCREEN_WIDTH - 105, 45, 90, 30);
+            
         XEOrderInfo *good = self.reimburseArray[section];
             if (good.total) {
         numLab.text = [NSString stringWithFormat:@"共%@件商品",good.total];
@@ -1236,23 +1532,54 @@
         if (good.carriage) {
                 freightLab.attributedText =  [self creeatFreightLableTextWith:[NSString stringWithFormat:@"运费：¥%.2f",[good.carriage floatValue]/100]];
         }
+            if ([good.status isEqualToString:@"1"]) {
+                //  self.shopState.text = @"待付款";
+                [footerView addSubview:payBtn];
+                
+            }
+            if ([good.status isEqualToString:@"2"]) {
+                // self.shopState.text = @"已失效";
+            }
+            if ([good.status isEqualToString:@"3"]) {
+                //  self.shopState.text = @"待发货";
+                [footerView addSubview:applyReimburse];
+            }
+            if ([good.status isEqualToString:@"4"]) {
+                //self.shopState.text = @"已发货";
+                [footerView addSubview:applyReimburse];
+            }
+            if ([good.status isEqualToString:@"5"]) {
+                //self.shopState.text = @"待审核";
+            }
+            if ([good.status isEqualToString:@"6"]) {
+                //self.shopState.text = @"待审核";
+            }
+            if ([good.status isEqualToString:@"7"]) {
+                //self.shopState.text = @"审核退款";
+                [footerView addSubview:delete];
+                
+            }
+            if ([good.status isEqualToString:@"8"]) {
+                //self.shopState.text = @"审核不退款";
+                [footerView addSubview:delete];
+                
+            }
+            if ([good.status isEqualToString:@"9"]) {
+                //self.shopState.text = @"关闭交易";
+                [footerView addSubview:delete];
+                
+            }
+
         price.attributedText = [self creatPriceTextWith:[NSString stringWithFormat:@"合计：%.2f",[good.money floatValue]/100]];
         [footerView addSubview:freightLab];
         [footerView addSubview:price];
-        [footerView addSubview:againPay];
         [footerView addSubview:numLab];
 
     }
     return footerView;
 }
 - (NSInteger )numberOfSectionsInTableView:(UITableView *)tableView{
-//    if (tableView == self.electronTab) {
-//        return 2;
-//    }else if (tableView == self.orderTab){
-//        return 2;
-//    }else{
-//        return 5;
-//    }
+
     
     if (tableView == self.allTab) {
         return self.allArray.count;
@@ -1364,18 +1691,16 @@
         return cell;
     }else if (tableView == self.reimburseTab){
         OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reimburseCell" forIndexPath:indexPath];
-
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell configureCellWith:indexPath goodesInfo:[self.reimburseArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row] orderInfo:self.reimburseArray[indexPath.section]];
         return cell;
-
     }
 
     return nil;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderDetailViewController *detail = [[OrderDetailViewController alloc]init];
-
+    detail.delegte = self;
     if (tableView == self.allTab) {
         XEOrderGoodInfo *good = [self.allArray[indexPath.section] SeriousReturnGoodsArray][indexPath.row];
         NSLog(@"%@",good.orderProviderId);
@@ -1409,6 +1734,39 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
+#pragma mark  详情界面代理
+- (void)detailSuccessRrfreshData{
+    if (self.tableView == self.allTab) {
+        
+        [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.allPageNum] statuses:@"" tableview:self.allTab];
+    }
+    if (self.tableView == self.needPayTab) {
+        [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.needPayNum] statuses:@"1" tableview:self.needPayTab];
+    }
+    if (self.tableView == self.electronTab) {
+        [self getOrderDataWithEtickettype:@"1" pagenum:[NSString stringWithFormat:@"%ld",(long)self.electronCardNum] statuses:@"" tableview:self.electronTab];
+    }
+    if (self.tableView == self.orderTab) {
+        [self getOrderDataWithEtickettype:@"2" pagenum:[NSString stringWithFormat:@"%ld",(long)self.orderNum] statuses:@"" tableview:self.orderTab];
+    }
+    if (self.tableView == self.reimburseTab) {
+        [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.reimburseNum] statuses:@"5,6,7" tableview:self.reimburseTab];
+    }
+}
+
+- (void)detailPaySuccessDelegate{
+    self.allPageNum = 1;
+    [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.allPageNum] statuses:@"" tableview:self.allTab];
+    self.needPayNum = 1;
+    [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.needPayNum] statuses:@"1" tableview:self.needPayTab];
+    self.electronCardNum = 1;
+    [self getOrderDataWithEtickettype:@"1" pagenum:[NSString stringWithFormat:@"%ld",(long)self.electronCardNum] statuses:@"" tableview:self.electronTab];
+    self.orderNum = 1;
+    [self getOrderDataWithEtickettype:@"2" pagenum:[NSString stringWithFormat:@"%ld",(long)self.orderNum] statuses:@"" tableview:self.orderTab];
+    self.reimburseNum = 1;
+    [self getOrderDataWithEtickettype:@"" pagenum:[NSString stringWithFormat:@"%ld",(long)self.reimburseNum] statuses:@"5,6,7" tableview:self.reimburseTab];
+}
 
 #pragma mark scrollViewDelegate
 
@@ -1450,6 +1808,22 @@
         }
     }else{
         NSLog(@"没有横向偏移，不做任何处理");
+        NSInteger index = self.backScrollView.contentOffset.x/SCREEN_WIDTH;
+        NSLog(@"index === %ld",index);
+        if (index == 0 || index >(long) 4) {
+            self.tableView = self.allTab;
+            
+        } else if (index == 1) {
+            self.tableView = self.needPayTab;
+            
+        }else if (index == 2){
+            self.tableView = self.electronTab;
+            
+        }else if (index == 3){
+            self.tableView = self.orderTab;
+        }else if (index == 4){
+            self.tableView = self.reimburseTab;
+        }
     }
     
     
@@ -1476,6 +1850,335 @@
 //监听轮子的移动
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     self.canclePickerFinalIndex = row;
+    
+}
+
+
+#pragma mark  布局删除按钮界面和遮罩
+- (void)configurehideView{
+    
+    [self hideView];
+    self.hideView.hidden = YES;
+    self.deleteOrderView.layer.cornerRadius = 10;
+    self.deleteOrderView.layer.masksToBounds = YES;
+    self.deleteOrderView.frame = CGRectMake((SCREEN_WIDTH - 250)/2, (SCREEN_HEIGHT - 130)/2, 250, 130);
+    [self.view addSubview:self.deleteOrderView];
+    self.deleteOrderView.hidden = YES;
+    
+}
+
+#pragma mark 布局取消原因view
+- (void)configureCancleOrderReasonView{
+    
+    self.cancleOrderReasonView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 200);
+    self.canclePickerView.dataSource = self;
+    self.canclePickerView.delegate = self;
+    [self.view addSubview:self.cancleOrderReasonView];
+    
+}
+
+#pragma mark 布局backscrollview
+- (void)configureBackScrollview{
+    self.backScrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 5, 0);
+    self.backScrollView.delegate = self;
+    self.backScrollView.directionalLockEnabled = YES;
+    self.backScrollView.pagingEnabled = YES;
+    self.backScrollView.scrollEnabled = YES;
+    
+    self.allTab.delegate = self;
+    self.allTab.dataSource = self;
+    
+    self.needPayTab.delegate = self;
+    self.needPayTab.dataSource = self;
+    
+    self.electronTab.delegate = self;
+    self.electronTab.dataSource = self;
+    
+    self.orderTab.delegate = self;
+    self.orderTab.dataSource = self;
+    
+    self.reimburseTab.delegate = self;
+    self.reimburseTab.dataSource = self;
+    
+    
+    CGRect allFrame = self.allView.frame;
+    allFrame.origin.x = 0;
+    self.allView.frame = allFrame;
+    
+    CGRect needPayFrame = self.needPayView.frame;
+    needPayFrame.origin.x = SCREEN_WIDTH;
+    self.needPayView.frame = needPayFrame;
+    
+    CGRect electronFrame = self.electronView.frame;
+    electronFrame.origin.x = SCREEN_WIDTH * 2;
+    self.electronView.frame = electronFrame;
+    
+    CGRect orderFrame = self.orderView.frame;
+    orderFrame.origin.x = SCREEN_WIDTH * 3;
+    self.orderView.frame = orderFrame;
+    
+    CGRect reimburseFrame = self.reimburseView.frame;
+    reimburseFrame.origin.x = SCREEN_WIDTH * 4;
+    self.reimburseView.frame = reimburseFrame;
+    
+    [self.backScrollView addSubview:self.allView];
+    [self.backScrollView addSubview:self.needPayView];
+    [self.backScrollView addSubview:self.electronView];
+    [self.backScrollView addSubview:self.orderView];
+    [self.backScrollView addSubview:self.reimburseView];
+    
+    [self.allTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"allCell"];
+    
+    [self.allTab addHeaderWithTarget:self action:@selector(headerRefresh)];
+    [self.allTab addFooterWithTarget:self action:@selector(footerLoadData)];
+    
+    [self.needPayTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"needPayCell"];
+    [self.needPayTab addHeaderWithTarget:self action:@selector(headerRefresh)];
+    [self.needPayTab addFooterWithTarget:self action:@selector(footerLoadData)];
+    
+    [self.electronTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"electronCell"];
+    [self.electronTab addHeaderWithTarget:self action:@selector(headerRefresh)];
+    [self.electronTab addFooterWithTarget:self action:@selector(footerLoadData)];
+    
+    
+    [self.orderTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"orderCell"];
+    [self.orderTab addHeaderWithTarget:self action:@selector(headerRefresh)];
+    [self.orderTab addFooterWithTarget:self action:@selector(footerLoadData)];
+    
+    [self.reimburseTab registerNib:[UINib nibWithNibName:@"OrderCell" bundle:nil] forCellReuseIdentifier:@"reimburseCell"];
+    [self.reimburseTab addHeaderWithTarget:self action:@selector(headerRefresh)];
+    [self.reimburseTab addFooterWithTarget:self action:@selector(footerLoadData)];
+    self.allTab.sectionFooterHeight = 100;
+    self.needPayTab.sectionFooterHeight = 100;
+    
+    self.reimburseTab.sectionFooterHeight = 100;
+    self.reimburseTab.sectionHeaderHeight = 40;
+    
+    self.orderTab.sectionFooterHeight = 100;
+    self.orderTab.sectionHeaderHeight = 40;
+    
+    
+}
+#pragma mark 创建sectionHeaderView
+- (UIView *)creatSectionHeaderView{
+    UIView *headerView = [[UIView alloc]init];
+    //灰色背景色
+    UIView *grayColorView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 5)];
+    grayColorView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+    //白色背景色
+    UIView *whithBack = [[UIView alloc]initWithFrame:CGRectMake(0, 5, SCREEN_WIDTH, 40)];
+    UILabel *layerlable = [[UILabel alloc]initWithFrame:CGRectMake(10, 15, 40, 20)];
+    layerlable.layer.borderColor = [UIColor orangeColor].CGColor;
+    layerlable.layer.borderWidth = 1;
+    layerlable.layer.cornerRadius = 8;
+    layerlable.layer.masksToBounds = YES;
+    layerlable.text = @"商城";
+    layerlable.textColor = [UIColor orangeColor];
+    layerlable.textAlignment = NSTextAlignmentCenter;
+    layerlable.font = [UIFont systemFontOfSize:12];
+    
+    UILabel *desLab = [[UILabel alloc]init];
+    desLab.frame = CGRectMake(65, 5, 150, 40);
+    desLab.textColor = [UIColor blackColor];
+    desLab.font = [UIFont systemFontOfSize:14];
+    desLab.text = @"牧童积木儿童专卖场";
+    
+    
+    UILabel *stateLab = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 95, 5, 80, 40)];
+    stateLab.textAlignment = NSTextAlignmentRight;
+    stateLab.textColor = [UIColor orangeColor];
+    stateLab.font = [UIFont systemFontOfSize:14];
+    stateLab.text = @"交易成功";
+    
+    UIImageView *setLine = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"s_n_set_line"]];
+    setLine.frame = CGRectMake(0, 44, SCREEN_WIDTH, 1);
+    
+    [headerView addSubview:grayColorView];
+    [headerView addSubview:layerlable];
+    [headerView addSubview:desLab];
+    [headerView addSubview:stateLab];
+    [headerView addSubview:setLine];
+    headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, grayColorView.frame.size.height +
+                                  desLab.frame.size.height);
+    headerView.backgroundColor = [UIColor whiteColor];
+    return headerView;
+    
+}
+
+#pragma mark 创建foorterview
+- (UIView *)creatFooterView{
+    UIView *footerView = [[UIView alloc]init];
+    footerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 80);
+    footerView.backgroundColor = [UIColor whiteColor];
+    
+    
+    UIImageView *setLineA = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"s_n_set_line"]];
+    setLineA.frame = CGRectMake(0, 39, SCREEN_HEIGHT, 1);
+    
+    UIImageView *setLineB = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"s_n_set_line"]];
+    setLineB.frame = CGRectMake(0, 79, SCREEN_HEIGHT, 1);
+    
+    UIImageView *setLineC = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"s_n_set_line"]];
+    setLineB.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 1);
+    
+    
+    [footerView addSubview:setLineA];
+    [footerView addSubview:setLineB];
+    [footerView addSubview:setLineC];
+    
+    return footerView;
+    
+}
+
+#pragma mark  创建商品数量lable
+- (UILabel *)creatNumLab{
+    UILabel *numShop = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH, 40)];
+    numShop.textColor = [UIColor blackColor];
+    numShop.textAlignment = NSTextAlignmentLeft;
+    numShop.font = [UIFont systemFontOfSize:14];
+    return numShop;
+}
+#pragma mark  创建运费lable
+- (UILabel *)creatFreightLable{
+    /**
+     *  运费：
+     */
+    UILabel *freightLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 100)/2, 0, 100, 40)];
+    //    freightLab.text = @"运费：¥123.00";
+    freightLab.textAlignment = NSTextAlignmentCenter;
+    freightLab.font = [UIFont systemFontOfSize:14];
+    //    NSString *douB = @"：";
+    //    NSRange rangB = [freightLab.text rangeOfString:douB];
+    //    NSMutableAttributedString *strB = [[NSMutableAttributedString alloc] initWithString:freightLab.text];
+    //    [strB addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, rangB.location)];
+    //    [strB addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, rangB.location + 1)];
+    //    [strB addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(rangB.location + 1, freightLab.text.length  - rangB.location - 1)];
+    //    freightLab.attributedText = strB;
+    return freightLab;
+}
+
+#pragma mark  创建运费内容
+- (NSMutableAttributedString *)creeatFreightLableTextWith:(NSString *)string{
+    if ([string isEqualToString:@""]) {
+        return nil;
+    }else{
+        NSString *douB = @"：";
+        NSRange rangB = [string rangeOfString:douB];
+        NSMutableAttributedString *strB = [[NSMutableAttributedString alloc] initWithString:string];
+        [strB addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, rangB.location)];
+        [strB addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, rangB.location + 1)];
+        [strB addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(rangB.location + 1, string.length  - rangB.location - 1)];
+        return strB;
+    }
+}
+#pragma mark 创建付款lable
+- (UILabel *)creatPriceLable{
+    UILabel *priceTitle = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 130 , 0, 115, 40)];
+    priceTitle.text = @"合计：¥123.00";
+    priceTitle.textAlignment = NSTextAlignmentRight;
+    return priceTitle;
+}
+
+#pragma mark  创建价格text
+- (NSMutableAttributedString *)creatPriceTextWith:(NSString *)string{
+    if ([string isEqualToString:@""]) {
+        return nil;
+    }
+    
+    NSString *dou = @"：";
+    NSRange rang = [string rangeOfString:dou];
+    NSMutableAttributedString *strA = [[NSMutableAttributedString alloc] initWithString:string];
+    [strA addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, rang.location)];
+    [strA addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, rang.location + 1)];
+    [strA addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17] range:NSMakeRange(rang.location, string.length  - rang.location)];
+    [strA addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(rang.location + 1, string.length  - rang.location - 1)];
+    return strA;
+}
+
+#pragma mark 创建删除订单按钮
+- (UIButton *)creatFooterLayerDeleteBtn{
+    UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [deleteBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [deleteBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+    [deleteBtn addTarget:self action:@selector(deleteOrder:) forControlEvents:UIControlEventTouchUpInside];
+    deleteBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    deleteBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    deleteBtn.layer.borderWidth = 1;
+    deleteBtn.layer.cornerRadius = 8;
+    return deleteBtn;
+}
+#pragma mark 创建重新购买按钮
+- (UIButton *)creatFooterLayerAgainBuyBtn{
+    UIButton *againBuy = [UIButton buttonWithType:UIButtonTypeCustom];
+    [againBuy setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [againBuy setTitle:@"重新购买" forState:UIControlStateNormal];
+    againBuy.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    againBuy.titleLabel.font = [UIFont systemFontOfSize:15];
+    againBuy.layer.borderWidth = 1;
+    againBuy.layer.cornerRadius = 8;
+    return againBuy;
+}
+#pragma mark    创建申请退款按钮
+- (UIButton *)creatApplyReimburseBtn{
+    UIButton *ApplyReimburseBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [ApplyReimburseBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [ApplyReimburseBtn setTitle:@"申请退款" forState:UIControlStateNormal];
+    ApplyReimburseBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    ApplyReimburseBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [ApplyReimburseBtn addTarget:self action:@selector(ApplyReimburseBtnTouchTo:) forControlEvents:UIControlEventTouchUpInside];
+    ApplyReimburseBtn.layer.borderWidth = 1;
+    ApplyReimburseBtn.layer.cornerRadius = 8;
+    return ApplyReimburseBtn;
+}
+#pragma mark  创建取消订单按钮
+- (UIButton *)creatCancleOrderBtn{
+    UIButton *CancleOrderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [CancleOrderBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [CancleOrderBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+    CancleOrderBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    CancleOrderBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    CancleOrderBtn.layer.borderWidth = 1;
+    CancleOrderBtn.layer.cornerRadius = 8;
+    [CancleOrderBtn addTarget:self action:@selector(CancleOrderBtnTouched:) forControlEvents:UIControlEventTouchUpInside];
+    return CancleOrderBtn;
+}
+
+#pragma mark 头部按钮点击
+- (IBAction)allBtnTouched:(id)sender {
+    NSLog(@"全部");
+    self.touchChangeLab = YES;
+    [self changeContentOfSet:(UIButton *)sender];
+}
+- (IBAction)needPayBtnTouched:(id)sender {
+    NSLog(@"待付款");
+    self.touchChangeLab = YES;
+    
+    [self changeContentOfSet:(UIButton *)sender];
+    
+    
+}
+- (IBAction)electronCardBtnTouched:(id)sender {
+    NSLog(@"电子券");
+    self.touchChangeLab = YES;
+    
+    [self changeContentOfSet:(UIButton *)sender];
+    
+    
+}
+- (IBAction)orderBtnTouched:(id)sender {
+    NSLog(@"预约券");
+    self.touchChangeLab = YES;
+    
+    [self changeContentOfSet:(UIButton *)sender];
+    
+    
+}
+- (IBAction)reimburseBtnTouched:(id)sender {
+    NSLog(@"退款单");
+    self.touchChangeLab = YES;
+    
+    [self changeContentOfSet:(UIButton *)sender];
+    
     
 }
 

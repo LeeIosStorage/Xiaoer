@@ -19,5 +19,10 @@
 
     // Configure the view for the selected state
 }
-
+- (void)configureCellWithEtickerInfo:(XEAppointmentEticker *)eticker orderInfo:(XEAppointmentOrder *)orderInfo{
+    self.people.text = eticker.linkName;
+    self.address.text = eticker.linkAddress;
+    self.cardNum.text = orderInfo.cardNo;
+    self.seriveContent.text = eticker.sercontent;
+}
 @end

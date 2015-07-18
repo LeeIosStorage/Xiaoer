@@ -7,7 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrderDetailViewController">
             <connections>
-                <outlet property="applyReimburseBtn" destination="8v2-H2-rRf" id="57d-Fz-i7I"/>
                 <outlet property="cardAddressView" destination="81Q-Ts-9lX" id="2Lq-tM-uk3"/>
                 <outlet property="cardCarriey" destination="OIo-TG-Z5D" id="g1J-bD-NY7"/>
                 <outlet property="cardOrder" destination="5HU-p6-I3t" id="Xzh-TZ-Flv"/>
@@ -15,7 +14,6 @@
                 <outlet property="cardSectionHeader" destination="iJU-i8-Cft" id="ZRU-lt-6nV"/>
                 <outlet property="carriey" destination="eWh-gm-2ba" id="o5B-Hb-KJb"/>
                 <outlet property="contactService" destination="As2-eN-haI" id="cMc-PJ-ekk"/>
-                <outlet property="delateOrder" destination="whI-2f-Gwv" id="Slu-FX-Y3y"/>
                 <outlet property="footerCarriey" destination="I9i-w7-zVR" id="A3g-za-9ZR"/>
                 <outlet property="footerDealTime" destination="3Zr-S9-G3Y" id="MmW-uJ-6vZ"/>
                 <outlet property="footerMoney" destination="gsG-fm-bDt" id="9tC-8m-Y0I"/>
@@ -261,13 +259,6 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="whI-2f-Gwv">
-                    <rect key="frame" x="40" y="175" width="90" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <state key="normal" title="删除订单">
-                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CqM-O2-jLl">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -303,16 +294,6 @@
                     <color key="textColor" red="1" green="0.34700410520000002" blue="0.88769117590000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8v2-H2-rRf">
-                    <rect key="frame" x="190" y="175" width="90" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <state key="normal" title="申请退款">
-                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="applyReimburseBtnTouched:" destination="-1" eventType="touchUpInside" id="l1R-9J-sCt"/>
-                    </connections>
-                </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="5pe-K6-cdf">
                     <rect key="frame" x="0.0" y="40" width="320" height="1"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>

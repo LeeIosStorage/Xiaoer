@@ -13,7 +13,8 @@
  * 传递textfield 信息
  */
 - (void)passOrderInfocellLeftLableText:(NSString *)leftStr
-            textFieldtext:(NSString *)textFieldText;
+            textFieldtext:(NSString *)textFieldText
+                          textFieldTag:(NSInteger )tag;
 /**
  *  检查控制器中选择器的状态
  */

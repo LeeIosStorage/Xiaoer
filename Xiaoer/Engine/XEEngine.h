@@ -355,4 +355,53 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
  */
 - (BOOL)getOrderDetailInfomationWith:(int)tag
                      orderproviderid:(NSString *)orderproviderid;
+
+
+/**
+ *  获取用户预约券预约记录
+ */
+- (BOOL)getOrderHistoryInfomationWith:(int)tag
+                      orderproviderid:(NSString *)orderproviderid
+                               userid:(NSString *)userid
+                              goodsid:(NSString *)goodsid;
+/**
+ *  用户预约券预约
+ */
+
+- (BOOL)getApplyOrderInfomationWith:(int)tag
+                             userid:(NSString *)userid
+                          eticketid:(NSString *)eticketid
+                           linkname:(NSString *)linkname
+                          linkphone:(NSString *)linkphone
+                        linkaddress:(NSString *)linkaddress
+                        appointtime:(NSString *)appointtime
+                         sercontent:(NSString *)sercontent;
+/**
+ *  删除订单
+ */
+- (BOOL)deleteOrderWith:(int)tag
+        orderproviderid:(NSString *)orderproviderid;
+
+/**
+ *  申请退款
+ */
+- (BOOL)applyForRefundWith:(int)tag
+                    userid:(NSString *)userid
+           orderproviderid:(NSString *)orderproviderid
+             refundservice:(NSString *)refundservice
+              refundreason:(NSString *)refundreason
+               refundprice:(NSString *)refundprice
+               refundintro:(NSString *)refundintro;
+/**
+ *  取消订单
+ */
+- (BOOL)cancleOrderWith:(int)tag
+        orderproviderid:(NSString *)orderproviderid;
+
+/**
+ *  获取用户即将过期预约券列表
+ */
+- (BOOL)getOrderWillpassOrderWith:(int)tag
+                             type:(NSString *)type
+                           userid:(NSString *)userid;
 @end

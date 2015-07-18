@@ -1913,4 +1913,69 @@ static XEEngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/order/detail",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
+
+- (BOOL)getOrderHistoryInfomationWith:(int)tag orderproviderid:(NSString *)orderproviderid userid:(NSString *)userid goodsid:(NSString *)goodsid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:orderproviderid forKey:@"orderproviderid"];
+    [params setObject:userid forKey:@"userid"];
+    [params setObject:goodsid forKey:@"goodsid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/eticket/appointlist",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)getApplyOrderInfomationWith:(int)tag userid:(NSString *)userid eticketid:(NSString *)eticketid linkname:(NSString *)linkname linkphone:(NSString *)linkphone linkaddress:(NSString *)linkaddress appointtime:(NSString *)appointtime sercontent:(NSString *)sercontent{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    [params setObject:eticketid forKey:@"eticketid"];
+    [params setObject:linkname forKey:@"linkname"];
+    [params setObject:linkphone forKey:@"linkphone"];
+    [params setObject:linkaddress forKey:@"linkaddress"];
+    [params setObject:appointtime forKey:@"appointtime"];
+    [params setObject:sercontent forKey:@"sercontent"];
+    
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/eticket/appoint",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)deleteOrderWith:(int)tag orderproviderid:(NSString *)orderproviderid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:orderproviderid forKey:@"orderproviderid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/order/del",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+
+}
+
+
+- (BOOL)applyForRefundWith:(int)tag userid:(NSString *)userid orderproviderid:(NSString *)orderproviderid refundservice:(NSString *)refundservice refundreason:(NSString *)refundreason refundprice:(NSString *)refundprice refundintro:(NSString *)refundintro{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    [params setObject:orderproviderid forKey:@"orderproviderid"];
+    [params setObject:refundservice forKey:@"refundservice"];
+    [params setObject:refundreason forKey:@"refundreason"];
+    [params setObject:refundprice forKey:@"refundprice"];
+    if ([refundintro isEqualToString:@""]) {
+        
+    }else{
+        [params setObject:refundintro forKey:@"refundintro"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/order/applyForRefund",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+
+}
+
+- (BOOL)cancleOrderWith:(int)tag orderproviderid:(NSString *)orderproviderid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:orderproviderid forKey:@"orderproviderid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/order/cancel",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+
+- (BOOL)getOrderWillpassOrderWith:(int)tag type:(NSString *)type userid:(NSString *)userid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:type forKey:@"type"];
+    [params setObject:userid forKey:@"userid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/eticket/willPass",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
 @end

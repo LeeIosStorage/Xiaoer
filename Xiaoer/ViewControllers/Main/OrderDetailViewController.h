@@ -8,6 +8,16 @@
 
 #import "XESuperViewController.h"
 
+#import "XEOrderInfo.h"
+
+
+@protocol detailRrfreshData <NSObject>
+
+- (void)detailSuccessRrfreshData;
+- (void)detailPaySuccessDelegate;
+
+@end
+
 @interface OrderDetailViewController : XESuperViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /**
@@ -79,21 +89,20 @@
  *  区头显示商城的按钮
  */
 @property (weak, nonatomic) IBOutlet UIButton *shopSectionHeaderBtn;
-/**
- *  删除订单
- */
-@property (weak, nonatomic) IBOutlet UIButton *delateOrder;
+
 /**
  *  预约信息
  */
 @property (weak, nonatomic) IBOutlet UIButton *cardOrder;
-//申请退款
-@property (weak, nonatomic) IBOutlet UIButton *applyReimburseBtn;
+
 /**
  *  联系客服 拨打电话 背景图
  */
 @property (weak, nonatomic) IBOutlet UILabel *phoneLab;
 
+/**
+ *  申请退款ID
+ */
 @property (nonatomic,strong)NSString *orderproviderid;
 
 
@@ -118,6 +127,8 @@
  */
 @property (weak, nonatomic) IBOutlet UILabel *footerDealTime;
 
+
+@property (nonatomic,assign)id<detailRrfreshData>delegte;
 
 
 @end

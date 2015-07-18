@@ -43,6 +43,10 @@
  */
 @property (nonatomic,strong)NSString *tip;
 
+/**
+ *  描述
+*/
+@property (nonatomic,strong)NSString *title;
 - (NSMutableArray *)returnGoodsInfo;
 
 - (NSURL *)totalImageUrl;

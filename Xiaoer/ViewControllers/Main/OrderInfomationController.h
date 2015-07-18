@@ -7,7 +7,8 @@
 //
 
 #import "XESuperViewController.h"
-
+#import "XEOrderGoodInfo.h"
+#import "XEOrderDetailInfo.h"
 @interface OrderInfomationController : XESuperViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /**
@@ -36,5 +37,11 @@
 //卡券pickerview
 @property (weak, nonatomic) IBOutlet UIPickerView *cardPickerView;
 
+
+
+
+
+@property (nonatomic,strong)XEOrderGoodInfo *goodInfo;
+@property (nonatomic,strong)XEOrderDetailInfo *detail;
 
 @end

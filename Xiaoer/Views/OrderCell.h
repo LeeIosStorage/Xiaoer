@@ -57,6 +57,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *cardImage;
 @property (weak, nonatomic) IBOutlet UILabel *cardUsedLab;
 
+
+@property (weak, nonatomic) IBOutlet UIImageView *setLineA;
+
+@property (weak, nonatomic) IBOutlet UIImageView *setLineB;
+
 - (void)configureCellWith:(NSIndexPath *)indexPath
                goodesInfo:(XEOrderGoodInfo *)goodInfo
                 orderInfo:(XEOrderInfo *)orderInfo;

@@ -11,6 +11,9 @@
 #import "UIImage+ProportionalFill.h"
 #import "QHQnetworkingTool.h"
 
+
+#import "XEEngine.h"
+#import "XEProgressHUD.h"
 @interface OrderApplyReimburseController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /**
@@ -19,7 +22,15 @@
 @property (nonatomic,strong)NSMutableArray *desArray;
 @property (strong, nonatomic) IBOutlet UIView *pickBackView;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
+
+
 @property (strong, nonatomic) IBOutlet UIView *tabFooterView;
+/**
+ *  退款说明（最多0.00元，含发货邮费0.00元）
+ */
+@property (weak, nonatomic) IBOutlet UILabel *specification;
+
+
 
 //退款服务
 @property (nonatomic,strong)NSMutableArray *serveArray;
@@ -93,7 +104,7 @@
 }
 - (NSMutableArray *)desArray{
     if(!_desArray){
-        self.desArray = [NSMutableArray arrayWithObjects:@"1",@"2",@"3", nil];
+        self.desArray = [NSMutableArray array];
     }
     return _desArray;
 }
@@ -104,6 +115,22 @@
     self.submitApplyBtn.layer.borderWidth = 1;
     self.submitApplyBtn.layer.borderColor = SKIN_COLOR.CGColor;
     self.submitApplyBtn.layer.cornerRadius = 8;
+    
+    //    （最多0.00元，含发货邮费0.00元）
+    
+    if (self.order) {
+        NSString *money = [NSString stringWithFormat:@"%.2f",([self.order.money floatValue] - [self.order.carriage floatValue])/100];
+        self.specification.text = [NSString stringWithFormat:@"最多%@元，含发货邮费：%.2f元",money,[self.order.carriage floatValue]/100];
+        self.desArray = [NSMutableArray arrayWithObjects:@"退货退款",@"尺寸问题",money, nil];
+    }else{
+        NSString *money = [NSString stringWithFormat:@"%.2f",([self.detailInfo.money floatValue] - [self.detailInfo.carriage floatValue])/100];
+        self.specification.text = [NSString stringWithFormat:@"最多%@元，含发货邮费：%.2f元",money,[self.detailInfo.carriage floatValue]/100];
+        self.desArray = [NSMutableArray arrayWithObjects:@"退货退款",@"尺寸问题",money, nil];
+    
+    }
+    
+
+    
     [self configureTableView];
     [self configurePickBackView];
     
@@ -115,6 +142,7 @@
      *  键盘将要消失的监听
      */
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyBoardEndChange:) name:UIKeyboardWillHideNotification object:nil];
+
 
     // Do any additional setup after loading the view from its nib.
 }
@@ -128,6 +156,9 @@
 }
 #pragma mark 布局tableview
 - (void)configureTableView{
+    
+    self.tabFooterView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 200);
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -139,11 +170,12 @@
     self.textView.delegate = self;
     
     
-    CGRect postPhotoRect = self.postPhotoView.frame;
-    postPhotoRect.origin.x = 15;
-    postPhotoRect.origin.y = 223;
-    self.postPhotoView.frame = postPhotoRect;
-    [self.tabFooterView addSubview:self.postPhotoView];
+#warning 此版本不加上传图片功能 暂时隐藏
+//    CGRect postPhotoRect = self.postPhotoView.frame;
+//    postPhotoRect.origin.x = 15;
+//    postPhotoRect.origin.y = 223;
+//    self.postPhotoView.frame = postPhotoRect;
+//    [self.tabFooterView addSubview:self.postPhotoView];
     [self.tableView registerNib:[UINib nibWithNibName:@"OrderApplyReimburseCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 }
 
@@ -153,7 +185,56 @@
     if ([self.textView isFirstResponder]) {
         [self.textView resignFirstResponder];
     }
+    __weak OrderApplyReimburseController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
     
+    NSString *money = @"";
+    NSString *orderproviderid = @"";
+    if (self.order) {
+        money = [NSString stringWithFormat:@"%f",([self.order.money floatValue] - [self.order.carriage floatValue])];
+        orderproviderid = self.order.id;
+    }else{
+        orderproviderid = self.detailInfo.id;
+        money = [NSString stringWithFormat:@"%f",([self.detailInfo.money floatValue] - [self.detailInfo.carriage floatValue])];
+    }
+    
+    if (self.textView.text.length == 0 ) {
+        self.textView.text = @"";
+        NSLog(@"nohave");
+    }else {
+        NSLog(@"have");
+    }
+    
+
+    
+
+    [[XEEngine shareInstance]applyForRefundWith:tag userid:[XEEngine shareInstance].uid orderproviderid:orderproviderid refundservice:self.desArray[0] refundreason:self.desArray[1] refundprice:money refundintro:self.textView.text];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+        }
+        
+        if ([[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertLoading:@"申请退款成功" At: weakSelf.view];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(sucessRefreshData)]) {
+                [self.delegate  sucessRefreshData];
+            }
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"apply" object:nil];
+            [self performSelector:@selector(back) withObject:nil afterDelay:2];
+            return;
+        }
+    
+    } tag:tag];
+
+}
+- (void)back{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark 键盘将要消失的监听

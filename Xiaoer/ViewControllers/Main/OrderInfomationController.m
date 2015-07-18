@@ -9,6 +9,10 @@
 #import "OrderInfomationController.h"
 #import "OrderInfomationCell.h"
 #import "OrderCardHistoryController.h"
+#import "XEDetailEticketsInfo.h"
+#import "XEProgressHUD.h"
+#import "NSString+Value.h"
+#import "XEEngine.h"
 @interface OrderInfomationController ()<UITableViewDataSource,UITableViewDelegate,orderInfocellTextFieldEndEditing,UIAlertViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>
 //底部的人确定按钮
 @property (weak, nonatomic) IBOutlet UIButton *verifyBtn;
@@ -32,9 +36,12 @@
 @end
 
 @implementation OrderInfomationController
+/**
+ *
+ */
 - (NSMutableArray *)cardNumberArr{
     if (!_cardNumberArr) {
-        self.cardNumberArr = [NSMutableArray arrayWithObjects:@"1",@"2",@"3", nil];
+        self.cardNumberArr = [NSMutableArray array];
     }
     return _cardNumberArr;
 }
@@ -48,7 +55,7 @@
 
 - (NSMutableArray *)infomationArray{
     if (!_infomationArray) {
-        self.infomationArray = [NSMutableArray arrayWithObjects:@"1",@"1",@"1",@"1",@"1",@"1", nil];
+        self.infomationArray = [NSMutableArray arrayWithCapacity:6];
     }
     return _infomationArray;
 }
@@ -57,19 +64,37 @@
     self.title = @"预约信息";
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     self.touchDataPicker = NO;
+    
+    for (XEDetailEticketsInfo *info in [self.goodInfo goodReturnEticketsArray]) {
+        [self.cardNumberArr addObject:info.cardNo];
+    }
+    
+    self.infomationArray[0] = self.detail.linkName;
+    self.infomationArray[1] = self.detail.linkPhone;
+    self.infomationArray[2] = self.detail.linkAddress;
+    self.infomationArray[3] = self.cardNumberArr[0];
+    self.infomationArray[4] = @"";
+    self.infomationArray[5] = self.goodInfo.sercontent;
+    
     [self configureTableView];
     [self configureVerifyBtnLayer];
     [self configureDataBackView];
     [self configureCardPickerBackView];
     [self setRightButtonWithTitle:@"历史记录" selector:@selector(PushToHistory)];
     
+    NSLog(@"self.goodInfo.price == %@",self.goodInfo.price);
+    
+    
+
+    
 
     
     // Do any additional setup after loading the view from its nib.
 }
-#pragma mark  历时纪录
+#pragma mark  历史纪录
 - (void)PushToHistory{
     OrderCardHistoryController *history = [[OrderCardHistoryController alloc]init];
+    history.goodInfo = self.goodInfo;
     [self.navigationController pushViewController:history animated:YES];
 }
 
@@ -158,6 +183,67 @@
 #pragma mark 底部确认按钮点击
 - (IBAction)verifyBtnTouched:(id)sender {
     NSLog(@"底部确定");
+    NSString *name = self.infomationArray[0];
+    if (name.length == 0) {
+        [XEProgressHUD AlertError:@"请输入收件人" At:self.view];
+        return;
+    }
+    
+
+    /**
+     *  检测用户手机号
+     *
+     */
+    NSString *phone = self.infomationArray[1];
+        if (![phone isPhone]) {
+            [XEProgressHUD lightAlert:@"请输入正确的手机号"];
+            return;
+        }
+    NSString *address = self.infomationArray[2];
+    if (address.length == 0) {
+        [XEProgressHUD AlertError:@"请输入地址" At:self.view];
+        return;
+    }
+    
+    NSString *time = self.infomationArray[4];
+    if (time.length == 0) {
+        [XEProgressHUD AlertError:@"请选择预约时间" At:self.view];
+        return;
+    }
+    NSString *eticketid = nil;
+    for (XEDetailEticketsInfo *etick in [self.goodInfo goodReturnEticketsArray]) {
+        NSString *selectEtict = self.infomationArray[3];
+        if ([selectEtict isEqualToString:etick.cardNo]) {
+            eticketid = etick.id;
+        }
+    }
+    
+    __weak OrderInfomationController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance]getApplyOrderInfomationWith:tag userid:[XEEngine shareInstance].uid eticketid:eticketid linkname:self.infomationArray[0] linkphone:self.infomationArray[1] linkaddress:self.infomationArray[2] appointtime:self.infomationArray[4] sercontent:self.infomationArray[5]];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+        }
+        if ([jsonRet[@"object"] isKindOfClass:[NSNull class]]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+        }
+        if ([[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertSuccess:@"预约成功" At:weakSelf.view];
+            return;
+        }
+        
+
+    } tag:tag];
+    
+    
     
 }
 
@@ -221,7 +307,7 @@
         }else if (self.dataPickerView.datePickerMode == UIDatePickerModeTime){
 
             self.infomationArray[4]= [NSString stringWithFormat:@"%@ %@",self.dataStr,self.timeStr];
-            NSLog(@"self.infomationArray[3] == %@",self.infomationArray[4]);
+            NSLog(@"self.infomationArray[4] == %@",self.infomationArray[4]);
             [self.tableView reloadData];
             [self animationChooseDataView];
         }
@@ -250,6 +336,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderInfomationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.selectionStyle = 0;
+    cell.tag = indexPath.section;
     [cell configurcellwithIndexPath:indexPath leftStr:[self.leftArray objectAtIndex:indexPath.section] rightStr:[self.infomationArray objectAtIndex:indexPath.section]];
     cell.delegate = self;
     return cell;
@@ -274,7 +361,7 @@
 }
 
 #pragma mark cell delegate
-- (void)passOrderInfocellLeftLableText:(NSString *)leftStr textFieldtext:(NSString *)textFieldText{
+- (void)passOrderInfocellLeftLableText:(NSString *)leftStr textFieldtext:(NSString *)textFieldText textFieldTag:(NSInteger)tag{
     
     if ([leftStr isEqualToString:@"收件人"]) {
         

@@ -9,6 +9,22 @@
 #import "XESuperViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "UzysAssetsPickerController.h"
-@interface OrderApplyReimburseController : XESuperViewController<UIPickerViewDelegate,UIPickerViewDataSource,UzysAssetsPickerControllerDelegate>
 
+#import "XEOrderInfo.h"
+
+#import "XEOrderDetailInfo.h"
+
+
+@protocol refreshDataDelegate <NSObject>
+
+- (void)sucessRefreshData;
+
+@end
+
+@interface OrderApplyReimburseController : XESuperViewController<UIPickerViewDelegate,UIPickerViewDataSource,UzysAssetsPickerControllerDelegate>
+@property (nonatomic,assign)id<refreshDataDelegate>delegate;
+
+@property (nonatomic,strong)XEOrderInfo *order;
+
+@property (nonatomic,strong)XEOrderDetailInfo *detailInfo;
 @end

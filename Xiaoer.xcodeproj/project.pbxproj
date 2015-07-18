@@ -474,6 +474,13 @@
 		AA8EE0FD1B37B723003D8FFB /* ShopCarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8EE0FB1B37B723003D8FFB /* ShopCarCell.xib */; };
 		AA8EE1081B380D3E003D8FFB /* SearchListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8EE1061B380D3E003D8FFB /* SearchListCell.m */; };
 		AA8EE1091B380D3E003D8FFB /* SearchListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8EE1071B380D3E003D8FFB /* SearchListCell.xib */; };
+		AA92336C1B5A449B0087AD66 /* XEAppointmentOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = AA92336B1B5A449B0087AD66 /* XEAppointmentOrder.m */; };
+		AA92336F1B5A44EC0087AD66 /* XEAppointmentEticker.m in Sources */ = {isa = PBXBuildFile; fileRef = AA92336E1B5A44EC0087AD66 /* XEAppointmentEticker.m */; };
+		AA9233731B5A57160087AD66 /* OrderWillPassController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9233711B5A57160087AD66 /* OrderWillPassController.m */; };
+		AA9233741B5A57160087AD66 /* OrderWillPassController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA9233721B5A57160087AD66 /* OrderWillPassController.xib */; };
+		AA92337D1B5A57DF0087AD66 /* OrderWillPassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA92337B1B5A57DF0087AD66 /* OrderWillPassCell.m */; };
+		AA92337E1B5A57DF0087AD66 /* OrderWillPassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA92337C1B5A57DF0087AD66 /* OrderWillPassCell.xib */; };
+		AA9233811B5A5C6B0087AD66 /* XEOrderWillPassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9233801B5A5C6B0087AD66 /* XEOrderWillPassInfo.m */; };
 		AA9A56091B56490400E6F62A /* XEOrderGoodInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9A56081B56490400E6F62A /* XEOrderGoodInfo.m */; };
 		AA9A560C1B564A8300E6F62A /* XEOrderSeriesInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9A560B1B564A8300E6F62A /* XEOrderSeriesInfo.m */; };
 		AA9E83411B52040300CA66F3 /* XECouponsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9E83401B52040300CA66F3 /* XECouponsInfo.m */; };
@@ -1401,6 +1408,18 @@
 		AA8EE1051B380D3E003D8FFB /* SearchListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchListCell.h; sourceTree = "<group>"; };
 		AA8EE1061B380D3E003D8FFB /* SearchListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchListCell.m; sourceTree = "<group>"; };
 		AA8EE1071B380D3E003D8FFB /* SearchListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchListCell.xib; sourceTree = "<group>"; };
+		AA92336A1B5A449B0087AD66 /* XEAppointmentOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAppointmentOrder.h; sourceTree = "<group>"; };
+		AA92336B1B5A449B0087AD66 /* XEAppointmentOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAppointmentOrder.m; sourceTree = "<group>"; };
+		AA92336D1B5A44EC0087AD66 /* XEAppointmentEticker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAppointmentEticker.h; sourceTree = "<group>"; };
+		AA92336E1B5A44EC0087AD66 /* XEAppointmentEticker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAppointmentEticker.m; sourceTree = "<group>"; };
+		AA9233701B5A57160087AD66 /* OrderWillPassController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderWillPassController.h; sourceTree = "<group>"; };
+		AA9233711B5A57160087AD66 /* OrderWillPassController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderWillPassController.m; sourceTree = "<group>"; };
+		AA9233721B5A57160087AD66 /* OrderWillPassController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderWillPassController.xib; sourceTree = "<group>"; };
+		AA92337A1B5A57DF0087AD66 /* OrderWillPassCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderWillPassCell.h; sourceTree = "<group>"; };
+		AA92337B1B5A57DF0087AD66 /* OrderWillPassCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderWillPassCell.m; sourceTree = "<group>"; };
+		AA92337C1B5A57DF0087AD66 /* OrderWillPassCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderWillPassCell.xib; sourceTree = "<group>"; };
+		AA92337F1B5A5C6B0087AD66 /* XEOrderWillPassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEOrderWillPassInfo.h; sourceTree = "<group>"; };
+		AA9233801B5A5C6B0087AD66 /* XEOrderWillPassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEOrderWillPassInfo.m; sourceTree = "<group>"; };
 		AA9A56071B56490400E6F62A /* XEOrderGoodInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEOrderGoodInfo.h; sourceTree = "<group>"; };
 		AA9A56081B56490400E6F62A /* XEOrderGoodInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEOrderGoodInfo.m; sourceTree = "<group>"; };
 		AA9A560A1B564A8300E6F62A /* XEOrderSeriesInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEOrderSeriesInfo.h; sourceTree = "<group>"; };
@@ -2662,6 +2681,12 @@
 				AAE233CD1B57985C004BE9FF /* XEOrderDetailInfo.m */,
 				AAE233CF1B579B7D004BE9FF /* XEDetailEticketsInfo.h */,
 				AAE233D01B579B7D004BE9FF /* XEDetailEticketsInfo.m */,
+				AA92336A1B5A449B0087AD66 /* XEAppointmentOrder.h */,
+				AA92336B1B5A449B0087AD66 /* XEAppointmentOrder.m */,
+				AA92336D1B5A44EC0087AD66 /* XEAppointmentEticker.h */,
+				AA92336E1B5A44EC0087AD66 /* XEAppointmentEticker.m */,
+				AA92337F1B5A5C6B0087AD66 /* XEOrderWillPassInfo.h */,
+				AA9233801B5A5C6B0087AD66 /* XEOrderWillPassInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2956,6 +2981,9 @@
 				AA1696171B3FC18F008BF027 /* OrderDetailViewController.h */,
 				AA1696181B3FC18F008BF027 /* OrderDetailViewController.m */,
 				AA1696191B3FC18F008BF027 /* OrderDetailViewController.xib */,
+				AA9233701B5A57160087AD66 /* OrderWillPassController.h */,
+				AA9233711B5A57160087AD66 /* OrderWillPassController.m */,
+				AA9233721B5A57160087AD66 /* OrderWillPassController.xib */,
 				AA5C52451B4520990039900E /* OrderInfomationController.h */,
 				AA5C52461B4520990039900E /* OrderInfomationController.m */,
 				AA5C52471B4520990039900E /* OrderInfomationController.xib */,
@@ -2985,6 +3013,9 @@
 				AAE233D21B57BBBF004BE9FF /* OrderDetailShopCell.h */,
 				AAE233D31B57BBBF004BE9FF /* OrderDetailShopCell.m */,
 				AAE233D41B57BBBF004BE9FF /* OrderDetailShopCell.xib */,
+				AA92337A1B5A57DF0087AD66 /* OrderWillPassCell.h */,
+				AA92337B1B5A57DF0087AD66 /* OrderWillPassCell.m */,
+				AA92337C1B5A57DF0087AD66 /* OrderWillPassCell.xib */,
 				AA5C524A1B4522870039900E /* OrderInfomationCell.h */,
 				AA5C524B1B4522870039900E /* OrderInfomationCell.m */,
 				AA5C524C1B4522870039900E /* OrderInfomationCell.xib */,
@@ -3596,6 +3627,7 @@
 				AA8784BE1B2013A4005A11E8 /* MainTabScrollCell.xib in Resources */,
 				078E89101AA1C32D008AD45A /* UMSocialSnsPlatform.html in Resources */,
 				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
+				AA92337E1B5A57DF0087AD66 /* OrderWillPassCell.xib in Resources */,
 				0760E9301A81ACB300BBEA3D /* MineMsgViewController.xib in Resources */,
 				7E7241251A77C12A001E1F69 /* TopicCommentViewCell.xib in Resources */,
 				078623761A84529900B17230 /* BabyProfileViewController.xib in Resources */,
@@ -3686,6 +3718,7 @@
 				078E89011AA1C32D008AD45A /* UMSocialDoubanData.html in Resources */,
 				078E88FA1AA1C32D008AD45A /* UMSocialButton.html in Resources */,
 				078E89121AA1C32D008AD45A /* UMSocialSnsService.html in Resources */,
+				AA9233741B5A57160087AD66 /* OrderWillPassController.xib in Resources */,
 				078E891B1AA1C32D008AD45A /* stylesPrint.css in Resources */,
 				AA4E1E7D1B3E7691003043F4 /* PaySuccessViewController.xib in Resources */,
 				077663971A80674E004C885B /* MineActivityListViewController.xib in Resources */,
@@ -3792,6 +3825,7 @@
 				0752F7AE1A7B25C5008C0E0A /* MWZoomingScrollView.m in Sources */,
 				075E40971A59386C0062F6AD /* AFHTTPRequestOperation.m in Sources */,
 				0752F7AB1A7B25C5008C0E0A /* MWPhotoBrowser.m in Sources */,
+				AA92336F1B5A44EC0087AD66 /* XEAppointmentEticker.m in Sources */,
 				075DD04B1A78BA3F009A64B4 /* UIImageExtras.m in Sources */,
 				AABC37861B4BEB1E0090660B /* NSObject+MJProperty.m in Sources */,
 				073F9F0B1A68B2B8009D94E3 /* XECategoryView.m in Sources */,
@@ -3863,6 +3897,7 @@
 				0712B3A61A5BD853000A1A7F /* NSData+ImageContentType.m in Sources */,
 				073F9F131A68B38F009D94E3 /* CategoryItemCell.m in Sources */,
 				AA89D44B1B5516E900F31927 /* NSDataEx.m in Sources */,
+				AA92336C1B5A449B0087AD66 /* XEAppointmentOrder.m in Sources */,
 				0752F7DA1A7B2638008C0E0A /* PSTGridLayoutInfo.m in Sources */,
 				075E40AC1A593A820062F6AD /* ProgressHUDJF.m in Sources */,
 				0710A22C1AB2B4820050DFB7 /* XETrainInfo.m in Sources */,
@@ -3906,6 +3941,7 @@
 				AA7572A01B418A67002A8AA2 /* XEShopListInfo.m in Sources */,
 				AAD5EFD81B36BC7B006C17FC /* PayAndDistributionViewController.m in Sources */,
 				0712B3A41A5BD853000A1A7F /* MKAnnotationView+WebCache.m in Sources */,
+				AA9233811B5A5C6B0087AD66 /* XEOrderWillPassInfo.m in Sources */,
 				AA125DDD1B2811D1000163A7 /* UIScrollView+MJRefresh.m in Sources */,
 				0752F7DD1A7B2638008C0E0A /* PSTGridLayoutSection.m in Sources */,
 				AAE0F1551B32BFC6005C4B3D /* CycleView.m in Sources */,
@@ -3977,6 +4013,7 @@
 				076380561AA9446400F449CD /* XEBabyInfo.m in Sources */,
 				AACD9F7C1B21A81D0093E21C /* focusAndHabitViewController.m in Sources */,
 				074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */,
+				AA9233731B5A57160087AD66 /* OrderWillPassController.m in Sources */,
 				AA5C52481B4520990039900E /* OrderInfomationController.m in Sources */,
 				0774A8731A666EAB00336465 /* GMGridView.m in Sources */,
 				0712B3A51A5BD853000A1A7F /* NSData+GIF.m in Sources */,
@@ -4042,6 +4079,7 @@
 				0752F7D11A7B2638008C0E0A /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				075DD0481A78BA3F009A64B4 /* UIImage+Alpha.m in Sources */,
 				075AA0431A68DEFA000B6302 /* ActivityViewCell.m in Sources */,
+				AA92337D1B5A57DF0087AD66 /* OrderWillPassCell.m in Sources */,
 				7E7241241A77C12A001E1F69 /* TopicCommentViewCell.m in Sources */,
 				075AA0481A690C58000B6302 /* ActivityDetailsViewController.m in Sources */,
 				AAD5EF901B365766006C17FC /* VerifyIndentViewController.m in Sources */,

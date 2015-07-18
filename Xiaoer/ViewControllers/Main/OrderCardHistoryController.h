@@ -7,7 +7,8 @@
 //
 
 #import "XESuperViewController.h"
-
+#import "XEOrderGoodInfo.h"
 @interface OrderCardHistoryController : XESuperViewController
+@property (nonatomic,strong)XEOrderGoodInfo *goodInfo;
 
 @end

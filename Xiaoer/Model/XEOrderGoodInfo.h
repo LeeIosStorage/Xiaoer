@@ -70,6 +70,15 @@
 @property (nonatomic,strong)NSString *price;
 
 /**
+ *  系列名称
+ */
+@property (nonatomic,strong)NSString *serieName;
+/**
+ *  商品服务内容
+ */
+@property (nonatomic,strong)NSString *sercontent;
+
+/**
  *  返回原价
  * */
 - (NSString *)resultOrigPric;

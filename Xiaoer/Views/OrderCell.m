@@ -25,9 +25,12 @@
     if (self.contentView.frame.size.height == 180) {
         self.topDesLab.hidden = NO;
         self.shopState.hidden = NO;
+        self.setLineA.hidden = NO;
+
     }else{
         self.topDesLab.hidden = YES;
         self.shopState.hidden = YES;
+        self.setLineA.hidden = YES;
     }
     
     [self.mainImage sd_setImageWithURL:[goodInfo totalImageUrl] placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
@@ -40,6 +43,8 @@
         self.langImgView.hidden = NO;
         self.standard.text = @"";
         self.cardImage.hidden = NO;
+
+        
         if ([goodInfo.isUsed isEqualToString:@"0"]) {
             //未使用
             self.cardImage.image = [UIImage imageNamed:@"orderCardUsed"];
@@ -48,6 +53,14 @@
             self.cardImage.image = [UIImage imageNamed:@"orderCardNoUse"];
             self.cardUsedLab.text = @"已使用";
 
+        }
+        //改变frame
+
+        if (self.contentView.frame.size.height == 180) {
+            self.titleLab.frame = CGRectMake(110, 70, 200, 20);
+            
+        }else{
+            self.titleLab.frame = CGRectMake(110, 20, 200, 20);
         }
         
     }else{
@@ -58,7 +71,14 @@
         }
         self.cardUsedLab.text = @"";
         self.cardImage.hidden = YES;
-        
+        if (self.contentView.frame.size.height == 180) {
+            self.titleLab.frame = CGRectMake(110, 50, 200, 20);
+
+        }else{
+            self.titleLab.frame = CGRectMake(110, 10, 200, 20);
+        }
+
+
     }
     
     

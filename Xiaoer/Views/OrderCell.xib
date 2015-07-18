@@ -108,6 +108,8 @@
                 <outlet property="numLab" destination="iut-fq-ad3" id="jB9-0k-hpn"/>
                 <outlet property="orignalPrice" destination="Kkc-01-SnR" id="NVL-2Z-sTz"/>
                 <outlet property="priceLab" destination="gdG-0i-bNb" id="qQD-6i-bzt"/>
+                <outlet property="setLineA" destination="pcn-T1-Njh" id="MNW-os-499"/>
+                <outlet property="setLineB" destination="p7H-Xb-zvr" id="Jmz-3F-DK8"/>
                 <outlet property="shopState" destination="Wod-Py-apg" id="Zd5-2L-K9r"/>
                 <outlet property="standard" destination="xTi-lG-Tol" id="DQo-fD-4gp"/>
                 <outlet property="titleLab" destination="sU7-kg-wTK" id="ai6-n7-3bU"/>

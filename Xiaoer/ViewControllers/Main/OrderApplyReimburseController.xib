@@ -10,6 +10,7 @@
                 <outlet property="pickBackView" destination="7r9-pR-nio" id="xdb-ti-Pi6"/>
                 <outlet property="pickerView" destination="BHV-Yp-8Rc" id="u9R-mR-e1g"/>
                 <outlet property="postPhotoView" destination="GGe-kE-xE0" id="O5a-8m-jhP"/>
+                <outlet property="specification" destination="lMS-6a-FHr" id="Zkx-9v-7eY"/>
                 <outlet property="submitApplyBtn" destination="zwe-uh-kTY" id="a1h-vb-uAG"/>
                 <outlet property="tabFooterView" destination="Fza-mf-mGH" id="92y-sP-Tet"/>
                 <outlet property="tableView" destination="XXW-uk-ntI" id="YDT-3x-Yh5"/>
@@ -118,7 +119,7 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(最多28.8元，含发货邮费0.00元)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lMS-6a-FHr">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lMS-6a-FHr">
                     <rect key="frame" x="40" y="10" width="250" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -132,7 +133,7 @@
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="哈就是大家看哈瞬间坎大哈捐款事件扩大化设计开发哈狂欢节哈就是大家看哈瞬间坎大哈捐款事件扩大化设计开发哈狂欢节哈就是大家看哈瞬间坎大哈捐款事件扩大化设计开发哈狂欢节" id="Bzu-zJ-rLi">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Bzu-zJ-rLi">
                     <rect key="frame" x="30" y="80" width="260" height="100"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
