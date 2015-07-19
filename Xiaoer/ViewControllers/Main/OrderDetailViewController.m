@@ -193,7 +193,8 @@
     order.tradeNO = self.info.orderProviderNo; //订单ID（由商家自行制定）
     order.productName = @"晓儿"; //商品标题
     order.productDescription = @"晓儿"; //商品描述
-    order.amount = @"0.01"; //商品价格
+    NSString *money = [NSString stringWithFormat:@"%.2f",[self.info.money floatValue]/100];
+    order.amount =money; //商品价格
     
     NSString *url = [NSString stringWithFormat:@"%@/common/alipayorder/payed", [[XEEngine shareInstance] baseUrl]];
     order.notifyURL = url;//回调URL

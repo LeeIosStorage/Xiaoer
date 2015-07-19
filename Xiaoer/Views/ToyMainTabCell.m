@@ -30,7 +30,7 @@
     
     [self.mainImage sd_setImageWithURL:[model totalImageUrl] placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
     
-    self.titleLab.text = model.title;
+    self.titleLab.text = model.des;
     
     if ([model.tip isEqualToString: @"1"]) {
         self.bottomSmalLab.text = @"NEW";

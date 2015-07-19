@@ -30,7 +30,7 @@
     self.desLab.text = info.des;
     self.shopName.text = [NSString stringWithFormat:@"%@人付款",info.sales];
     self.afterPric.text = info.resultPrice;
-    self.fomerPric.text = [NSString stringWithFormat:@"%@元",info.resultOrigPric];
+    self.fomerPric.text = [NSString stringWithFormat:@"￥%@",info.resultOrigPric];
     
     /**
      *  让linelabd的宽度自适应字符串长度

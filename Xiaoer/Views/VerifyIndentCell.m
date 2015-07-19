@@ -37,6 +37,8 @@
 
     self.chooseCouponBtn.layer.cornerRadius = 8;
     self.chooseCouponBtn.layer.masksToBounds = YES;
+    self.chooseCouponBtn.layer.borderWidth = 1;
+    self.chooseCouponBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.useCouponBtn.layer.cornerRadius = 5;
     self.useCouponBtn.layer.masksToBounds = YES;
     

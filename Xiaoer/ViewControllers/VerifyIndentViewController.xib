@@ -12,7 +12,6 @@
                 <outlet property="addAddressViewB" destination="0Cj-sz-sB9" id="7AG-C5-Gb6"/>
                 <outlet property="bottomNeedPay" destination="B6z-J3-S8J" id="fOx-df-1zf"/>
                 <outlet property="bottomPayView" destination="Viy-mb-Olv" id="IWZ-XL-pBK"/>
-                <outlet property="bottomSetAddressBtn" destination="6HY-Pt-fGZ" id="Ct0-JZ-ghQ"/>
                 <outlet property="coupon" destination="RhY-K2-RjY" id="VYa-H9-IDe"/>
                 <outlet property="debitView" destination="jlF-Dk-xra" id="xqB-Ul-wVS"/>
                 <outlet property="favorableLab" destination="fUI-4x-8OB" id="0QS-Pa-6i7"/>
@@ -51,27 +50,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请先设置收货地址" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ke2-dY-nop">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" highlightedImage="s_n_set_line" id="RYC-tG-FvS">
                     <rect key="frame" x="0.0" y="39" width="320" height="1"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6HY-Pt-fGZ">
-                    <rect key="frame" x="0.0" y="40" width="320" height="40"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="确定">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="bottonAddRessBtnTouched:" destination="-1" eventType="touchUpInside" id="g91-uf-yRG"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>

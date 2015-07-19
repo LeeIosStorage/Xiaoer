@@ -448,32 +448,35 @@
         XEOrderInfo *orders = self.allArray[sender.tag];
         //order.id
         order.tradeNO = orders.orderNo; //订单ID（由商家自行制定）
-        order.amount = @"0.01"; //商品价格
+        NSString *money = [NSString stringWithFormat:@"%.2f",[orders.money floatValue]/100];
+        order.amount = money; //商品价格
 
         
     }
     if (self.tableView == self.needPayTab) {
         XEOrderInfo *orders = self.needPayArray[sender.tag];
         order.tradeNO = orders.orderNo; //订单ID（由商家自行制定）
-        order.amount = @"0.01"; //商品价格
-        
+        NSString *money = [NSString stringWithFormat:@"%.2f",[orders.money floatValue]/100];
+        order.amount = money; //商品价格
     }
     if (self.tableView == self.electronTab) {
         XEOrderInfo *orders = self.electronCardArray[sender.tag];
         order.tradeNO = orders.orderNo; //订单ID（由商家自行制定）
-        order.amount = @"0.01"; //商品价格
-        
+        NSString *money = [NSString stringWithFormat:@"%.2f",[orders.money floatValue]/100];
+        order.amount = money; //商品价格
     }
     if (self.tableView == self.orderTab) {
         XEOrderInfo *orders = self.orderArray[sender.tag];
         order.tradeNO = orders.orderNo; //订单ID（由商家自行制定）
-        order.amount = @"0.01"; //商品价格
+        NSString *money = [NSString stringWithFormat:@"%.2f",[orders.money floatValue]/100];
+        order.amount = money; //商品价格
     }
     if (self.tableView == self.reimburseTab) {
         XEOrderInfo *orders = self.reimburseArray[sender.tag];
         //order.id
         order.tradeNO = orders.orderNo; //订单ID（由商家自行制定）
-        order.amount = @"0.01"; //商品价格
+        NSString *money = [NSString stringWithFormat:@"%.2f",[orders.money floatValue]/100];
+        order.amount = money; //商品价格
     }
     
     order.productName = @"晓儿"; //商品标题

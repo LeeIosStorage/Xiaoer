@@ -109,7 +109,23 @@
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     
     //判断是否先设置地址
-    self.firstSetAddressView.frame = CGRectMake(0, SCREEN_HEIGHT - 80, SCREEN_WIDTH, 80);
+    self.firstSetAddressView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 80, [UIScreen mainScreen].bounds.size.width, 80);
+    UIButton *setAddressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [setAddressBtn setTitle:@"确定" forState:UIControlStateNormal];
+    setAddressBtn.frame = CGRectMake(40, 40, [UIScreen mainScreen].bounds.size.width - 80, 40);
+    [setAddressBtn setTitleColor:SKIN_COLOR forState:UIControlStateNormal];
+    [setAddressBtn addTarget:self action:@selector(firstSetAddressBtnTouched) forControlEvents:UIControlEventTouchUpOutside];
+    
+    [self.firstSetAddressView addSubview:setAddressBtn];
+    
+    
+    UILabel *setAddressLab = [[UILabel alloc]initWithFrame:CGRectMake(40, 0, [UIScreen mainScreen].bounds.size.width - 80, 39)];
+    setAddressLab.text = @"请先设置收货地址";
+    setAddressLab.textAlignment = NSTextAlignmentCenter;
+    [self.firstSetAddressView addSubview:setAddressLab];
+    
+    
+    
     if ([[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid]) {
         self.info = [[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid];
         self.firstSetAddressView.hidden = YES;
@@ -158,10 +174,17 @@
     [self getDiscountInfomation];
     
 }
+- (void)firstSetAddressBtnTouched{
+    
+    
+    NSLog(@"底部添加地址按钮");
+    AddAddressViewController *addAddress = [[AddAddressViewController alloc]init];
+    [self.navigationController pushViewController:addAddress animated:YES];
+}
 - (void)editVerifyInfoAndRefreshHeaderView:(NSNotificationCenter *)sender{
     NSLog(@"受到通知");
     self.firstSetAddressView.hidden = NO;
-    self.firstSetAddressView.frame = CGRectMake(0, SCREEN_HEIGHT - 80, SCREEN_WIDTH, 80);
+//    self.firstSetAddressView.frame = CGRectMake(0, SCREEN_HEIGHT - 80, SCREEN_WIDTH, 80);
     [self creatTabViewHeaderView];
 }
 
@@ -665,13 +688,7 @@
     [self animATionPickerBackView];
 }
 
-#pragma mark 底部添加地址按钮
-- (IBAction)bottonAddRessBtnTouched:(id)sender {
-    
-    NSLog(@"底部添加地址按钮");
-    AddAddressViewController *addAddress = [[AddAddressViewController alloc]init];
-    [self.navigationController pushViewController:addAddress animated:YES];
-}
+
 - (BOOL)ifHaveSectionFooterWith:(NSInteger )section{
 
     for (int i = 0; i < self.couponsArray.count; i++) {

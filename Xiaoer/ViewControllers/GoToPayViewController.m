@@ -61,7 +61,7 @@
     order.tradeNO = self.orderNum; //订单ID（由商家自行制定）
     order.productName = @"晓儿"; //商品标题
     order.productDescription = @"晓儿"; //商品描述
-    order.amount = @"0.01"; //商品价格
+    order.amount = self.orderPriceLab.text; //商品价格
     
     NSString *url = [NSString stringWithFormat:@"%@/common/alipayorder/payed", [[XEEngine shareInstance] baseUrl]];
     order.notifyURL = url;//回调URL
@@ -134,7 +134,7 @@
     return 60;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;

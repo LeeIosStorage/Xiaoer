@@ -55,6 +55,10 @@
 
 //底部提示添加地址按钮
 @property (weak, nonatomic) IBOutlet UIButton *bottomSetAddressBtn;
+//底部提示设置地址lable
+@property (weak, nonatomic) IBOutlet UILabel *bottomSetAddressLab;
+
+
 @property (weak, nonatomic) IBOutlet UITableView *tabView;
 @property (weak, nonatomic) IBOutlet UITextView *noteTextField;
 //footview总价

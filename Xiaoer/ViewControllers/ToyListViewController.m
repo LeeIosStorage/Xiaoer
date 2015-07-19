@@ -182,7 +182,7 @@
     CGRect frame = self.naviLable.frame;
     frame.origin.y = tframe.size.height - frame.size.height;
     self.naviLable.frame = frame;
-    self.titleLable.text = @"玩具专场";
+    self.titleLable.text = self.serieInfo.title;
     [self.view addSubview:self.naviLable];
     
 }

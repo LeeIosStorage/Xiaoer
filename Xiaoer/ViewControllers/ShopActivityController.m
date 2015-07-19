@@ -33,6 +33,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"活动";
+
+    if ([self.type isEqualToString:@"2"] && [self.category isEqualToString:@"1"]) {
+        self.title = @"活动";
+    }else if ([self.type isEqualToString:@"2"] && [self.category isEqualToString:@"2"]){
+        self.title = @"家政";
+    }
     [self setRightButtonWithImageName:@"shopSearchBar" selector:@selector(pushToSearch)];
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     [self configureTableView];

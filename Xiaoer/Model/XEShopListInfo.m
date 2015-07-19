@@ -34,14 +34,14 @@
 - (NSString *)resultOrigPric{
     if (self.origPrice) {
         CGFloat orige = [self.origPrice floatValue];
-        return [NSString stringWithFormat:@"原价%.2f",orige/100];
+        return [NSString stringWithFormat:@"%.2f",orige/100];
     }
     return @"";
 }
 - (NSString *)resultPrice{
     if (self.price) {
         CGFloat price = [self.price floatValue];
-        return [NSString stringWithFormat:@"%.2f",price/100];
+        return [NSString stringWithFormat:@"￥%.2f",price/100];
     }
     return @"";
 }
