@@ -630,16 +630,18 @@
     }
 
     ToyDetailCollectionFooterView *reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer" forIndexPath:indexPath];
-    
+    //加
     UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [addBtn setBackgroundImage:[UIImage imageNamed:@"jian-6p"] forState:UIControlStateNormal];
-    addBtn.frame = CGRectMake(SCREEN_WIDTH/2 - 55, 35, 30, 30);
+    addBtn.frame = CGRectMake(SCREEN_WIDTH/2 + 25, 35, 30, 30);
     [addBtn addTarget:self action:@selector(addBtnTouched) forControlEvents:UIControlEventTouchUpInside];
     UIImageView *deleImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"jian"]];
-    deleImage.frame = CGRectMake(SCREEN_WIDTH/2 + 55 - 30, 49, 30, 2);
+    
+    //减
+    deleImage.frame = CGRectMake(SCREEN_WIDTH/2 -25 - 30, 49, 30, 2);
     UIButton *deleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     deleBtn.backgroundColor = [UIColor clearColor];
-    deleBtn.frame = CGRectMake(SCREEN_WIDTH/2 + 55 - 30, 35, 30, 30);
+    deleBtn.frame = CGRectMake(SCREEN_WIDTH/2  - 25 - 30, 35, 30, 30);
     [deleBtn addTarget:self action:@selector(deleteBtnTouched) forControlEvents:UIControlEventTouchUpInside];
     [reusableview addSubview:deleImage];
     [reusableview addSubview:addBtn];

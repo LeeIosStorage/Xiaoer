@@ -26,11 +26,14 @@
         self.topDesLab.hidden = NO;
         self.shopState.hidden = NO;
         self.setLineA.hidden = NO;
+        self.topLeftNum.hidden = NO;
 
     }else{
         self.topDesLab.hidden = YES;
         self.shopState.hidden = YES;
         self.setLineA.hidden = YES;
+        self.topDesLab.hidden = YES;
+        self.topLeftNum.hidden = YES;
     }
     
     [self.mainImage sd_setImageWithURL:[goodInfo totalImageUrl] placeholderImage:[UIImage imageNamed:@"shopCellHolder"]];
@@ -42,6 +45,7 @@
         //卡券（非实体商品）
         self.langImgView.hidden = NO;
         self.standard.text = @"";
+        self.standard.hidden = YES;
         self.cardImage.hidden = NO;
 
         
@@ -55,27 +59,70 @@
 
         }
         //改变frame
-
+        
         if (self.contentView.frame.size.height == 180) {
             self.titleLab.frame = CGRectMake(110, 70, 200, 20);
+            self.reNumLab.frame = CGRectMake(110, 95, 90, 20);
+            self.numLab.frame = CGRectMake(155, 95, 100, 20);
+            self.priceLab.frame = CGRectMake(110, 120, 80, 20);
+            self.orignalPrice.frame = CGRectMake(200, 120, 100, 20);
             
         }else{
             self.titleLab.frame = CGRectMake(110, 20, 200, 20);
+            self.reNumLab.frame = CGRectMake(110, 45, 90, 20);
+            self.numLab.frame = CGRectMake(155, 45, 100, 20);
+            self.priceLab.frame = CGRectMake(110, 70, 80, 20);
+            self.orignalPrice.frame = CGRectMake(200, 70, 100, 20);
         }
+        
+        
+        
         
     }else{
         self.langImgView.hidden = YES;
-        self.standard.text = @"";
-        if (goodInfo.standard) {
-            self.standard.text = goodInfo.standard;
-        }
         self.cardUsedLab.text = @"";
         self.cardImage.hidden = YES;
+
         if (self.contentView.frame.size.height == 180) {
-            self.titleLab.frame = CGRectMake(110, 50, 200, 20);
+            if (goodInfo.standard) {
+                self.standard.text = goodInfo.standard;
+                self.standard.hidden = NO;
+                self.titleLab.frame = CGRectMake(110, 70, 200, 20);
+                self.standard.frame = CGRectMake(110, 95, 190, 20);
+                self.reNumLab.frame = CGRectMake(110, 120, 90, 20);
+                self.numLab.frame = CGRectMake(155, 120, 100, 20);
+                self.priceLab.frame = CGRectMake(110, 145, 80, 20);
+                self.orignalPrice.frame = CGRectMake(200, 145, 100, 20);
+            }else{
+                self.standard.text = @"";
+                self.standard.hidden = YES;
+                self.titleLab.frame = CGRectMake(110, 70, 200, 20);
+                self.reNumLab.frame = CGRectMake(110, 95, 90, 20);
+                self.numLab.frame = CGRectMake(155, 95, 100, 20);
+                self.priceLab.frame = CGRectMake(110, 120, 80, 20);
+                self.orignalPrice.frame = CGRectMake(200, 120, 100, 20);
+            }
+
 
         }else{
-            self.titleLab.frame = CGRectMake(110, 10, 200, 20);
+            self.titleLab.frame = CGRectMake(110, 30, 200, 20);
+            if (goodInfo.standard) {
+                self.standard.text = goodInfo.standard;
+                self.standard.hidden = NO;
+                self.standard.frame = CGRectMake(110, 55, 190, 20);
+                self.reNumLab.frame = CGRectMake(110, 80, 90, 20);
+                self.numLab.frame = CGRectMake(155, 80, 90, 20);
+                self.priceLab.frame = CGRectMake(110, 105, 80, 20);
+                self.orignalPrice.frame = CGRectMake(200, 105, 100, 20);
+            }else{
+                self.standard.text = @"";
+                self.standard.hidden = YES;
+                self.reNumLab.frame = CGRectMake(110, 55, 90, 20);
+                self.numLab.frame = CGRectMake(155,55 , 90, 20);
+                self.priceLab.frame = CGRectMake(110, 80, 80, 20);
+                self.orignalPrice.frame = CGRectMake(200, 80, 100, 20);
+          
+            }
         }
 
 
@@ -126,5 +173,13 @@
     
     
 }
+- (void)changeFrameWithArray:(NSMutableArray *)array Ycgloat:(CGFloat )ycgfloat{
+    for (UIView *view in array) {
+        CGRect frame = view.frame;
+        frame.origin.y += ycgfloat;
+        view.frame = frame;
+    }
+}
+
 
 @end

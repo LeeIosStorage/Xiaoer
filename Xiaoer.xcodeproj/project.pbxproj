@@ -385,6 +385,14 @@
 		AA1696161B3FBC2E008BF027 /* XEShopSerieInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1696151B3FBC2E008BF027 /* XEShopSerieInfo.m */; };
 		AA16961A1B3FC18F008BF027 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1696181B3FC18F008BF027 /* OrderDetailViewController.m */; };
 		AA16961B1B3FC18F008BF027 /* OrderDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1696191B3FC18F008BF027 /* OrderDetailViewController.xib */; };
+		AA1AE6F51B5F66A700F5B90D /* UzysAssetPickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AA1AE6E61B5F66A700F5B90D /* UzysAssetPickerController.bundle */; };
+		AA1AE6F61B5F66A700F5B90D /* UzysAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1AE6E81B5F66A700F5B90D /* UzysAssetsPickerController.m */; };
+		AA1AE6F71B5F66A700F5B90D /* UzysAssetsPickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1AE6E91B5F66A700F5B90D /* UzysAssetsPickerController.xib */; };
+		AA1AE6F81B5F66A700F5B90D /* UzysAssetsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1AE6EC1B5F66A700F5B90D /* UzysAssetsViewCell.m */; };
+		AA1AE6F91B5F66A700F5B90D /* UzysGroupPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1AE6EE1B5F66A700F5B90D /* UzysGroupPickerView.m */; };
+		AA1AE6FA1B5F66A700F5B90D /* UzysGroupPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1AE6F01B5F66A700F5B90D /* UzysGroupPickerViewController.m */; };
+		AA1AE6FB1B5F66A700F5B90D /* UzysGroupViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1AE6F21B5F66A700F5B90D /* UzysGroupViewCell.m */; };
+		AA1AE6FC1B5F66A700F5B90D /* UzysWrapperPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1AE6F41B5F66A700F5B90D /* UzysWrapperPickerController.m */; };
 		AA3C127C1B4A5A8600C9E555 /* OrderCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3C127A1B4A5A8600C9E555 /* OrderCardCell.m */; };
 		AA3C127D1B4A5A8600C9E555 /* OrderCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA3C127B1B4A5A8600C9E555 /* OrderCardCell.xib */; };
 		AA419DB01B4D2FF40020602B /* XEShopDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AA419DAF1B4D2FF40020602B /* XEShopDetailInfo.m */; };
@@ -421,6 +429,12 @@
 		AA6E8FA91B2FDCDF0087B754 /* 正在建设中6p.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6E8FA81B2FDCDF0087B754 /* 正在建设中6p.png */; };
 		AA6E8FB01B300C8C0087B754 /* shopOtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6E8FAE1B300C8C0087B754 /* shopOtherViewController.m */; };
 		AA6E8FB11B300C8C0087B754 /* shopOtherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA6E8FAF1B300C8C0087B754 /* shopOtherViewController.xib */; };
+		AA70A89D1B6080AA00132EDD /* BabyImpressMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA70A89B1B6080AA00132EDD /* BabyImpressMainController.m */; };
+		AA70A89E1B6080AA00132EDD /* BabyImpressMainController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA70A89C1B6080AA00132EDD /* BabyImpressMainController.xib */; };
+		AA70A8A21B60879700132EDD /* ImageScrollController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA70A8A01B60879700132EDD /* ImageScrollController.m */; };
+		AA70A8A31B60879700132EDD /* ImageScrollController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA70A8A11B60879700132EDD /* ImageScrollController.xib */; };
+		AA70A8A71B60D1AF00132EDD /* BabyImpressVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA70A8A51B60D1AF00132EDD /* BabyImpressVerifyController.m */; };
+		AA70A8A81B60D1AF00132EDD /* BabyImpressVerifyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA70A8A61B60D1AF00132EDD /* BabyImpressVerifyController.xib */; };
 		AA70D9731B3ED1320013FD96 /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA70D9711B3ED1320013FD96 /* OrderViewController.m */; };
 		AA70D9741B3ED1320013FD96 /* OrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA70D9721B3ED1320013FD96 /* OrderViewController.xib */; };
 		AA70D9791B3EF05F0013FD96 /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA70D9771B3EF05F0013FD96 /* OrderCell.m */; };
@@ -488,14 +502,6 @@
 		AAA3DE781B2564B60008275D /* EveryOneWeekController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA3DE761B2564B60008275D /* EveryOneWeekController.xib */; };
 		AAA3DE7D1B2568110008275D /* OneWeakCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA3DE7B1B2568110008275D /* OneWeakCell.m */; };
 		AAA3DE7E1B2568110008275D /* OneWeakCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA3DE7C1B2568110008275D /* OneWeakCell.xib */; };
-		AAA4CF051B47D828005FAA43 /* UzysAssetPickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AAA4CEF61B47D828005FAA43 /* UzysAssetPickerController.bundle */; };
-		AAA4CF061B47D828005FAA43 /* UzysAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA4CEF81B47D828005FAA43 /* UzysAssetsPickerController.m */; };
-		AAA4CF071B47D828005FAA43 /* UzysAssetsPickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA4CEF91B47D828005FAA43 /* UzysAssetsPickerController.xib */; };
-		AAA4CF081B47D828005FAA43 /* UzysAssetsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA4CEFC1B47D828005FAA43 /* UzysAssetsViewCell.m */; };
-		AAA4CF091B47D828005FAA43 /* UzysGroupPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA4CEFE1B47D828005FAA43 /* UzysGroupPickerView.m */; };
-		AAA4CF0A1B47D828005FAA43 /* UzysGroupPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA4CF001B47D828005FAA43 /* UzysGroupPickerViewController.m */; };
-		AAA4CF0B1B47D828005FAA43 /* UzysGroupViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA4CF021B47D828005FAA43 /* UzysGroupViewCell.m */; };
-		AAA4CF0C1B47D828005FAA43 /* UzysWrapperPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA4CF041B47D828005FAA43 /* UzysWrapperPickerController.m */; };
 		AAAA94D31B0D804C0029E7E1 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA94D21B0D804B0029E7E1 /* BaseModel.m */; };
 		AAAA94D91B0D80F60029E7E1 /* XEEastCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAA94D81B0D80F60029E7E1 /* XEEastCardInfo.m */; };
 		AABC37071B4BB99F0090660B /* OrderDreailCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AABC37051B4BB99F0090660B /* OrderDreailCardCell.m */; };
@@ -1195,6 +1201,21 @@
 		AA1696171B3FC18F008BF027 /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
 		AA1696181B3FC18F008BF027 /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
 		AA1696191B3FC18F008BF027 /* OrderDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderDetailViewController.xib; sourceTree = "<group>"; };
+		AA1AE6E61B5F66A700F5B90D /* UzysAssetPickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UzysAssetPickerController.bundle; sourceTree = "<group>"; };
+		AA1AE6E71B5F66A700F5B90D /* UzysAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAssetsPickerController.h; sourceTree = "<group>"; };
+		AA1AE6E81B5F66A700F5B90D /* UzysAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysAssetsPickerController.m; sourceTree = "<group>"; };
+		AA1AE6E91B5F66A700F5B90D /* UzysAssetsPickerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UzysAssetsPickerController.xib; sourceTree = "<group>"; };
+		AA1AE6EA1B5F66A700F5B90D /* UzysAssetsPickerController_Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAssetsPickerController_Configuration.h; sourceTree = "<group>"; };
+		AA1AE6EB1B5F66A700F5B90D /* UzysAssetsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAssetsViewCell.h; sourceTree = "<group>"; };
+		AA1AE6EC1B5F66A700F5B90D /* UzysAssetsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysAssetsViewCell.m; sourceTree = "<group>"; };
+		AA1AE6ED1B5F66A700F5B90D /* UzysGroupPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysGroupPickerView.h; sourceTree = "<group>"; };
+		AA1AE6EE1B5F66A700F5B90D /* UzysGroupPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysGroupPickerView.m; sourceTree = "<group>"; };
+		AA1AE6EF1B5F66A700F5B90D /* UzysGroupPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysGroupPickerViewController.h; sourceTree = "<group>"; };
+		AA1AE6F01B5F66A700F5B90D /* UzysGroupPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysGroupPickerViewController.m; sourceTree = "<group>"; };
+		AA1AE6F11B5F66A700F5B90D /* UzysGroupViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysGroupViewCell.h; sourceTree = "<group>"; };
+		AA1AE6F21B5F66A700F5B90D /* UzysGroupViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysGroupViewCell.m; sourceTree = "<group>"; };
+		AA1AE6F31B5F66A700F5B90D /* UzysWrapperPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysWrapperPickerController.h; sourceTree = "<group>"; };
+		AA1AE6F41B5F66A700F5B90D /* UzysWrapperPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysWrapperPickerController.m; sourceTree = "<group>"; };
 		AA3C12791B4A5A8600C9E555 /* OrderCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderCardCell.h; path = ../ViewControllers/Main/OrderCardCell.h; sourceTree = "<group>"; };
 		AA3C127A1B4A5A8600C9E555 /* OrderCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderCardCell.m; path = ../ViewControllers/Main/OrderCardCell.m; sourceTree = "<group>"; };
 		AA3C127B1B4A5A8600C9E555 /* OrderCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OrderCardCell.xib; path = ../ViewControllers/Main/OrderCardCell.xib; sourceTree = "<group>"; };
@@ -1250,6 +1271,15 @@
 		AA6E8FAD1B300C8C0087B754 /* shopOtherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shopOtherViewController.h; sourceTree = "<group>"; };
 		AA6E8FAE1B300C8C0087B754 /* shopOtherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = shopOtherViewController.m; sourceTree = "<group>"; };
 		AA6E8FAF1B300C8C0087B754 /* shopOtherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = shopOtherViewController.xib; sourceTree = "<group>"; };
+		AA70A89A1B6080AA00132EDD /* BabyImpressMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressMainController.h; sourceTree = "<group>"; };
+		AA70A89B1B6080AA00132EDD /* BabyImpressMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressMainController.m; sourceTree = "<group>"; };
+		AA70A89C1B6080AA00132EDD /* BabyImpressMainController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressMainController.xib; sourceTree = "<group>"; };
+		AA70A89F1B60879700132EDD /* ImageScrollController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollController.h; sourceTree = "<group>"; };
+		AA70A8A01B60879700132EDD /* ImageScrollController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollController.m; sourceTree = "<group>"; };
+		AA70A8A11B60879700132EDD /* ImageScrollController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageScrollController.xib; sourceTree = "<group>"; };
+		AA70A8A41B60D1AF00132EDD /* BabyImpressVerifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressVerifyController.h; sourceTree = "<group>"; };
+		AA70A8A51B60D1AF00132EDD /* BabyImpressVerifyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressVerifyController.m; sourceTree = "<group>"; };
+		AA70A8A61B60D1AF00132EDD /* BabyImpressVerifyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressVerifyController.xib; sourceTree = "<group>"; };
 		AA70D9701B3ED1320013FD96 /* OrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
 		AA70D9711B3ED1320013FD96 /* OrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
 		AA70D9721B3ED1320013FD96 /* OrderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderViewController.xib; sourceTree = "<group>"; };
@@ -1432,21 +1462,6 @@
 		AAA3DE7A1B2568110008275D /* OneWeakCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneWeakCell.h; sourceTree = "<group>"; };
 		AAA3DE7B1B2568110008275D /* OneWeakCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneWeakCell.m; sourceTree = "<group>"; };
 		AAA3DE7C1B2568110008275D /* OneWeakCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OneWeakCell.xib; sourceTree = "<group>"; };
-		AAA4CEF61B47D828005FAA43 /* UzysAssetPickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UzysAssetPickerController.bundle; sourceTree = "<group>"; };
-		AAA4CEF71B47D828005FAA43 /* UzysAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAssetsPickerController.h; sourceTree = "<group>"; };
-		AAA4CEF81B47D828005FAA43 /* UzysAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysAssetsPickerController.m; sourceTree = "<group>"; };
-		AAA4CEF91B47D828005FAA43 /* UzysAssetsPickerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UzysAssetsPickerController.xib; sourceTree = "<group>"; };
-		AAA4CEFA1B47D828005FAA43 /* UzysAssetsPickerController_Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAssetsPickerController_Configuration.h; sourceTree = "<group>"; };
-		AAA4CEFB1B47D828005FAA43 /* UzysAssetsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysAssetsViewCell.h; sourceTree = "<group>"; };
-		AAA4CEFC1B47D828005FAA43 /* UzysAssetsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysAssetsViewCell.m; sourceTree = "<group>"; };
-		AAA4CEFD1B47D828005FAA43 /* UzysGroupPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysGroupPickerView.h; sourceTree = "<group>"; };
-		AAA4CEFE1B47D828005FAA43 /* UzysGroupPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysGroupPickerView.m; sourceTree = "<group>"; };
-		AAA4CEFF1B47D828005FAA43 /* UzysGroupPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysGroupPickerViewController.h; sourceTree = "<group>"; };
-		AAA4CF001B47D828005FAA43 /* UzysGroupPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysGroupPickerViewController.m; sourceTree = "<group>"; };
-		AAA4CF011B47D828005FAA43 /* UzysGroupViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysGroupViewCell.h; sourceTree = "<group>"; };
-		AAA4CF021B47D828005FAA43 /* UzysGroupViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysGroupViewCell.m; sourceTree = "<group>"; };
-		AAA4CF031B47D828005FAA43 /* UzysWrapperPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UzysWrapperPickerController.h; sourceTree = "<group>"; };
-		AAA4CF041B47D828005FAA43 /* UzysWrapperPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysWrapperPickerController.m; sourceTree = "<group>"; };
 		AAAA94D11B0D804B0029E7E1 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		AAAA94D21B0D804B0029E7E1 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		AAAA94D71B0D80F60029E7E1 /* XEEastCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XEEastCardInfo.h; path = ../../XEEastCardInfo.h; sourceTree = "<group>"; };
@@ -2578,7 +2593,7 @@
 			isa = PBXGroup;
 			children = (
 				AA89D3DA1B5516E900F31927 /* AliPayNeed */,
-				AAA4CEF51B47D828005FAA43 /* Librarya */,
+				AA1AE6E51B5F66A700F5B90D /* Library */,
 				AAE0F14C1B32BED3005C4B3D /* lunBoScrollView */,
 				AA125DC61B2811D1000163A7 /* MJRefresh */,
 				079F5A6B1AA02FEA00069EB7 /* JPush */,
@@ -2702,6 +2717,7 @@
 				AA70D96F1B3ED0CB0013FD96 /* Order */,
 				AA7AAFAF1B1F01FC00158B9A /* Shop */,
 				AA0C67FD1B259C5400478A72 /* MotherLook */,
+				AA70A8991B60791C00132EDD /* BabyImpress */,
 				AAA3DE731B2564650008275D /* oneWeek */,
 				07FC6D251A67B161001F34D8 /* Home */,
 				AA7AAFAE1B1F01CD00158B9A /* infomation */,
@@ -2940,6 +2956,28 @@
 			path = ../Views/Expert/MJRefresh;
 			sourceTree = "<group>";
 		};
+		AA1AE6E51B5F66A700F5B90D /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				AA1AE6E61B5F66A700F5B90D /* UzysAssetPickerController.bundle */,
+				AA1AE6E71B5F66A700F5B90D /* UzysAssetsPickerController.h */,
+				AA1AE6E81B5F66A700F5B90D /* UzysAssetsPickerController.m */,
+				AA1AE6E91B5F66A700F5B90D /* UzysAssetsPickerController.xib */,
+				AA1AE6EA1B5F66A700F5B90D /* UzysAssetsPickerController_Configuration.h */,
+				AA1AE6EB1B5F66A700F5B90D /* UzysAssetsViewCell.h */,
+				AA1AE6EC1B5F66A700F5B90D /* UzysAssetsViewCell.m */,
+				AA1AE6ED1B5F66A700F5B90D /* UzysGroupPickerView.h */,
+				AA1AE6EE1B5F66A700F5B90D /* UzysGroupPickerView.m */,
+				AA1AE6EF1B5F66A700F5B90D /* UzysGroupPickerViewController.h */,
+				AA1AE6F01B5F66A700F5B90D /* UzysGroupPickerViewController.m */,
+				AA1AE6F11B5F66A700F5B90D /* UzysGroupViewCell.h */,
+				AA1AE6F21B5F66A700F5B90D /* UzysGroupViewCell.m */,
+				AA1AE6F31B5F66A700F5B90D /* UzysWrapperPickerController.h */,
+				AA1AE6F41B5F66A700F5B90D /* UzysWrapperPickerController.m */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
 		AA6556A41B3BCC1000817DF6 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
@@ -2970,6 +3008,22 @@
 				AA6556C11B3BEBBE00817DF6 /* ActivityDetailCell.xib */,
 			);
 			name = Activity;
+			sourceTree = "<group>";
+		};
+		AA70A8991B60791C00132EDD /* BabyImpress */ = {
+			isa = PBXGroup;
+			children = (
+				AA70A89A1B6080AA00132EDD /* BabyImpressMainController.h */,
+				AA70A89B1B6080AA00132EDD /* BabyImpressMainController.m */,
+				AA70A89C1B6080AA00132EDD /* BabyImpressMainController.xib */,
+				AA70A8A41B60D1AF00132EDD /* BabyImpressVerifyController.h */,
+				AA70A8A51B60D1AF00132EDD /* BabyImpressVerifyController.m */,
+				AA70A8A61B60D1AF00132EDD /* BabyImpressVerifyController.xib */,
+				AA70A89F1B60879700132EDD /* ImageScrollController.h */,
+				AA70A8A01B60879700132EDD /* ImageScrollController.m */,
+				AA70A8A11B60879700132EDD /* ImageScrollController.xib */,
+			);
+			name = BabyImpress;
 			sourceTree = "<group>";
 		};
 		AA70D96F1B3ED0CB0013FD96 /* Order */ = {
@@ -3371,28 +3425,6 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		AAA4CEF51B47D828005FAA43 /* Librarya */ = {
-			isa = PBXGroup;
-			children = (
-				AAA4CEF61B47D828005FAA43 /* UzysAssetPickerController.bundle */,
-				AAA4CEF71B47D828005FAA43 /* UzysAssetsPickerController.h */,
-				AAA4CEF81B47D828005FAA43 /* UzysAssetsPickerController.m */,
-				AAA4CEF91B47D828005FAA43 /* UzysAssetsPickerController.xib */,
-				AAA4CEFA1B47D828005FAA43 /* UzysAssetsPickerController_Configuration.h */,
-				AAA4CEFB1B47D828005FAA43 /* UzysAssetsViewCell.h */,
-				AAA4CEFC1B47D828005FAA43 /* UzysAssetsViewCell.m */,
-				AAA4CEFD1B47D828005FAA43 /* UzysGroupPickerView.h */,
-				AAA4CEFE1B47D828005FAA43 /* UzysGroupPickerView.m */,
-				AAA4CEFF1B47D828005FAA43 /* UzysGroupPickerViewController.h */,
-				AAA4CF001B47D828005FAA43 /* UzysGroupPickerViewController.m */,
-				AAA4CF011B47D828005FAA43 /* UzysGroupViewCell.h */,
-				AAA4CF021B47D828005FAA43 /* UzysGroupViewCell.m */,
-				AAA4CF031B47D828005FAA43 /* UzysWrapperPickerController.h */,
-				AAA4CF041B47D828005FAA43 /* UzysWrapperPickerController.m */,
-			);
-			path = Librarya;
-			sourceTree = "<group>";
-		};
 		AAB965661B43E24F00F84911 /* lunbo */ = {
 			isa = PBXGroup;
 			children = (
@@ -3591,12 +3623,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA70D9741B3ED1320013FD96 /* OrderViewController.xib in Resources */,
-				AAA4CF071B47D828005FAA43 /* UzysAssetsPickerController.xib in Resources */,
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
 				AA6556AF1B3BCC5C00817DF6 /* ShopActivityCell.xib in Resources */,
 				0783F68B1AB819D600AAB5B0 /* BabyListViewCell.xib in Resources */,
 				076CF5721A78AD8C00CDE21D /* XECateTopicViewCell.xib in Resources */,
 				078E88EF1AA1C32D008AD45A /* UMSCommentInputController.xib in Resources */,
+				AA1AE6F51B5F66A700F5B90D /* UzysAssetPickerController.bundle in Resources */,
 				078E89251AA1C32D008AD45A /* UMSocialUIDelegate.html in Resources */,
 				AABC37081B4BB99F0090660B /* OrderDreailCardCell.xib in Resources */,
 				AA125DD71B2811D1000163A7 /* MJRefresh.bundle in Resources */,
@@ -3614,6 +3646,7 @@
 				AAD5EFD41B36AAC6006C17FC /* area.plist in Resources */,
 				AAD5EFE31B36C489006C17FC /* GoToPayCell.xib in Resources */,
 				AABC377F1B4BEB1E0090660B /* LICENSE in Resources */,
+				AA70A89E1B6080AA00132EDD /* BabyImpressMainController.xib in Resources */,
 				078E89191AA1C32D008AD45A /* UMSocialYXTimelineData.html in Resources */,
 				0760FC471A79D4DD00A0E5D8 /* QuestionDetailsViewController.xib in Resources */,
 				AA78B9361B4623C600B23EC9 /* OrderApplyReimburseController.xib in Resources */,
@@ -3707,6 +3740,7 @@
 				AA6E8FA91B2FDCDF0087B754 /* 正在建设中6p.png in Resources */,
 				078E89301AA1C32D008AD45A /* ios-social-sdk-like.html in Resources */,
 				07882C241A80675D003874FA /* CardViewCell.xib in Resources */,
+				AA1AE6F71B5F66A700F5B90D /* UzysAssetsPickerController.xib in Resources */,
 				AA6E8FB11B300C8C0087B754 /* shopOtherViewController.xib in Resources */,
 				AAE0F1671B32CB8E005C4B3D /* ToyMainTabCell.xib in Resources */,
 				07C988121A63AAEA003A2B30 /* SelectBirthdayViewController.xib in Resources */,
@@ -3730,6 +3764,7 @@
 				07AAB7FE1A8359CB0030D306 /* AboutViewController.xib in Resources */,
 				AAD6372C1B202A7000D17763 /* MainTabScrollCollectCell.xib in Resources */,
 				078E89231AA1C32D008AD45A /* index.html in Resources */,
+				AA70A8A81B60D1AF00132EDD /* BabyImpressVerifyController.xib in Resources */,
 				0783F6921AB819FE00AAB5B0 /* XECategoryView.xib in Resources */,
 				078E88F51AA1C32D008AD45A /* UMSShareListController.xib in Resources */,
 				078E89111AA1C32D008AD45A /* UMSocialSnsPlatformManager.html in Resources */,
@@ -3740,6 +3775,7 @@
 				075E321E1A762F4A006037B3 /* XECustomerWindow.xib in Resources */,
 				0758CD1E1AA1BBCB0086F270 /* ReadyTestViewController.xib in Resources */,
 				070346701A64F8E200EDE251 /* WelcomeViewController.xib in Resources */,
+				AA70A8A31B60879700132EDD /* ImageScrollController.xib in Resources */,
 				076971AF1A77564E00FEA571 /* TopicListViewController.xib in Resources */,
 				078E88FB1AA1C32D008AD45A /* UMSocialConfig.html in Resources */,
 				078E89041AA1C32D008AD45A /* UMSocialFacebookData.html in Resources */,
@@ -3798,7 +3834,6 @@
 				078E89151AA1C32D008AD45A /* UMSocialUrlResource.html in Resources */,
 				07C7C5121A70E336003E1272 /* arrow@2x.png in Resources */,
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
-				AAA4CF051B47D828005FAA43 /* UzysAssetPickerController.bundle in Resources */,
 				AA6556C31B3BEBBE00817DF6 /* ActivityDetailCell.xib in Resources */,
 				AAD5EFDE1B36C3C4006C17FC /* GoToPayViewController.xib in Resources */,
 				0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */,
@@ -3831,6 +3866,7 @@
 				073F9F0B1A68B2B8009D94E3 /* XECategoryView.m in Sources */,
 				AA9A560C1B564A8300E6F62A /* XEOrderSeriesInfo.m in Sources */,
 				074DD0DA1A5E33B80042B721 /* MineTabCell.m in Sources */,
+				AA1AE6F81B5F66A700F5B90D /* UzysAssetsViewCell.m in Sources */,
 				0774A8771A666EAB00336465 /* UIView+GMGridViewAdditions.m in Sources */,
 				0776639B1A80779A004C885B /* ActivityApplyViewCell.m in Sources */,
 				073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */,
@@ -3842,6 +3878,7 @@
 				07FC6D201A679D22001F34D8 /* XEGridView.m in Sources */,
 				AAD6372B1B202A7000D17763 /* MainTabScrollCollectCell.m in Sources */,
 				07E536361A529210005E1DA9 /* ExpertChatViewController.m in Sources */,
+				AA70A89D1B6080AA00132EDD /* BabyImpressMainController.m in Sources */,
 				AA0C68071B259D1400478A72 /* MotherLookCell.m in Sources */,
 				0752F7B31A7B2615008C0E0A /* DACircularProgressView.m in Sources */,
 				07FC6D1B1A675D3E001F34D8 /* XEScrollPage.m in Sources */,
@@ -3893,7 +3930,6 @@
 				0774A8861A66705D00336465 /* XEAlertView.m in Sources */,
 				AA16961A1B3FC18F008BF027 /* OrderDetailViewController.m in Sources */,
 				AAD5EFE21B36C489006C17FC /* GoToPayCell.m in Sources */,
-				AAA4CF0A1B47D828005FAA43 /* UzysGroupPickerViewController.m in Sources */,
 				0712B3A61A5BD853000A1A7F /* NSData+ImageContentType.m in Sources */,
 				073F9F131A68B38F009D94E3 /* CategoryItemCell.m in Sources */,
 				AA89D44B1B5516E900F31927 /* NSDataEx.m in Sources */,
@@ -3902,6 +3938,7 @@
 				075E40AC1A593A820062F6AD /* ProgressHUDJF.m in Sources */,
 				0710A22C1AB2B4820050DFB7 /* XETrainInfo.m in Sources */,
 				075B03291A6E3892002B577D /* MapChooseViewController.m in Sources */,
+				AA1AE6FC1B5F66A700F5B90D /* UzysWrapperPickerController.m in Sources */,
 				0774A8871A66705D00336465 /* XEProgressHUD.m in Sources */,
 				07702D011A5901AF00168E2E /* XESuperViewController.m in Sources */,
 				075E409C1A59386C0062F6AD /* AFURLConnectionOperation.m in Sources */,
@@ -3922,7 +3959,6 @@
 				0758CD1D1AA1BBCB0086F270 /* ReadyTestViewController.m in Sources */,
 				07508E891A51346300873B45 /* AppDelegate.m in Sources */,
 				075AA03A1A68B85D000B6302 /* ActivityViewController.m in Sources */,
-				AAA4CF091B47D828005FAA43 /* UzysGroupPickerView.m in Sources */,
 				07C49F471A5E7C9800E1725C /* XECommonVcTransition.m in Sources */,
 				0774A8751A666EAB00336465 /* GMGridViewLayoutStrategies.m in Sources */,
 				077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */,
@@ -3954,7 +3990,7 @@
 				077C98B51A53A6B300E2985B /* XENavigationController.m in Sources */,
 				07E536311A5290C9005E1DA9 /* EvaluationViewController.m in Sources */,
 				077C98C01A53D12700E2985B /* XECommonUtils.m in Sources */,
-				AAA4CF0B1B47D828005FAA43 /* UzysGroupViewCell.m in Sources */,
+				AA70A8A71B60D1AF00132EDD /* BabyImpressVerifyController.m in Sources */,
 				075E40AB1A593A820062F6AD /* ProgressHUD.m in Sources */,
 				AABC37831B4BEB1E0090660B /* MJType.m in Sources */,
 				0752F7D91A7B2638008C0E0A /* PSTCollectionViewUpdateItem.m in Sources */,
@@ -3970,12 +4006,12 @@
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
 				07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */,
 				0752F7D71A7B2638008C0E0A /* PSTCollectionViewItemKey.m in Sources */,
+				AA70A8A21B60879700132EDD /* ImageScrollController.m in Sources */,
 				075E409B1A59386C0062F6AD /* AFSecurityPolicy.m in Sources */,
 				AAE0F1611B32C83C005C4B3D /* ToyMainViewController.m in Sources */,
 				AA125DDE1B2811D1000163A7 /* UIView+MJExtension.m in Sources */,
 				075B03231A6DECE2002B577D /* XEPublicViewController.m in Sources */,
 				AA125DDB1B2811D1000163A7 /* MJRefreshHeaderView.m in Sources */,
-				AAA4CF081B47D828005FAA43 /* UzysAssetsViewCell.m in Sources */,
 				073F9F171A68D0CB009D94E3 /* XERecipesInfo.m in Sources */,
 				077916701A5E64BA0047C17C /* PerfectInfoViewController.m in Sources */,
 				0760E93C1A81ACCD00BBEA3D /* CardPackViewController.m in Sources */,
@@ -3992,6 +4028,7 @@
 				7E72412C1A77D2F8001E1F69 /* HPTextViewInternal.m in Sources */,
 				0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */,
 				073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */,
+				AA1AE6F61B5F66A700F5B90D /* UzysAssetsPickerController.m in Sources */,
 				075E409A1A59386C0062F6AD /* AFNetworkReachabilityManager.m in Sources */,
 				079E421C1A762ABE0056968E /* XEQuestionViewCell.m in Sources */,
 				074D4B5D1AB8192200C19972 /* TicketListViewCell.m in Sources */,
@@ -4080,6 +4117,7 @@
 				075DD0481A78BA3F009A64B4 /* UIImage+Alpha.m in Sources */,
 				075AA0431A68DEFA000B6302 /* ActivityViewCell.m in Sources */,
 				AA92337D1B5A57DF0087AD66 /* OrderWillPassCell.m in Sources */,
+				AA1AE6FB1B5F66A700F5B90D /* UzysGroupViewCell.m in Sources */,
 				7E7241241A77C12A001E1F69 /* TopicCommentViewCell.m in Sources */,
 				075AA0481A690C58000B6302 /* ActivityDetailsViewController.m in Sources */,
 				AAD5EF901B365766006C17FC /* VerifyIndentViewController.m in Sources */,
@@ -4099,8 +4137,9 @@
 				0727A5DF1A8C77A00037805A /* TaskViewController.m in Sources */,
 				AABC37151B4BD7E60090660B /* XEAddressListInfo.m in Sources */,
 				07C49F561A5E7E9900E1725C /* AVCamCaptureManager.m in Sources */,
-				AAA4CF0C1B47D828005FAA43 /* UzysWrapperPickerController.m in Sources */,
 				075E40B31A5940920062F6AD /* URLHelper.m in Sources */,
+				AA1AE6F91B5F66A700F5B90D /* UzysGroupPickerView.m in Sources */,
+				AA1AE6FA1B5F66A700F5B90D /* UzysGroupPickerViewController.m in Sources */,
 				075CAF4C1A5D0E6A005CF4B6 /* SetPwdViewController.m in Sources */,
 				AAD5EFDD1B36C3C4006C17FC /* GoToPayViewController.m in Sources */,
 				07FC6D291A67B317001F34D8 /* RecipesViewController.m in Sources */,
@@ -4133,7 +4172,6 @@
 				0752F7A71A7B25C5008C0E0A /* MWCaptionView.m in Sources */,
 				AAE0F1321B3270A6005C4B3D /* ShopViewController.m in Sources */,
 				0752F7D61A7B2638008C0E0A /* PSTCollectionViewFlowLayout.m in Sources */,
-				AAA4CF061B47D828005FAA43 /* UzysAssetsPickerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4269,8 +4307,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: diwei ma (C45GE8BX5L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: diwei ma (C45GE8BX5L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4309,8 +4347,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: diwei ma (C45GE8BX5L)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: diwei ma (C45GE8BX5L)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

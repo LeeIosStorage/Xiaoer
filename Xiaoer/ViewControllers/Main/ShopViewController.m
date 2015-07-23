@@ -133,7 +133,7 @@
     NSLog(@"布局轮播图");
     //轮播图
     CycleView *cycleView = [[CycleView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 150)];
-    cycleView.backgroundColor = [UIColor redColor];
+    cycleView.backgroundColor = [UIColor whiteColor];
     cycleView.delegate = self;
     if (self.bannerArray.count > 0) {
         [cycleView configureHeaderWith:array];
@@ -182,6 +182,8 @@
     self.shopTabView.tableHeaderView = self.headerView;
     [self.shopTabView addHeaderWithTarget:self action:@selector(headerLoadData)];
     [self.shopTabView addFooterWithTarget:self action:@selector(footerLoadData)];
+    self.shopTabView.sectionFooterHeight = 0.01;
+    self.shopTabView.sectionHeaderHeight = 50;
     
 }
 
@@ -495,7 +497,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 50;
 }
-
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.01;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
           NSUInteger numRow = self.activityArray.count/3;

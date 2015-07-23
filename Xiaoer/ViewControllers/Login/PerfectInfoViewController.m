@@ -102,9 +102,9 @@
 - (void)initNormalTitleNavBarSubviews{
     //title
     [self setTitle:@"完善资料"];
-//    if (_isNeedSkip) {
-//        [self setRightButtonWithTitle:@"跳过" selector:@selector(skipAction:)];
-//    }
+    if (_isNeedSkip) {
+        [self setRightButtonWithTitle:@"跳过" selector:@selector(skipAction:)];
+    }
 }
 
 -(void)backAction:(id)sender{

@@ -27,7 +27,9 @@
     self.phoneNum.userInteractionEnabled = NO;    
     self.consignee.text = info.name;
     self.phoneNum.text = info.phone;
-    self.addRess.text = info.address;
+    self.addRess.text = [NSString stringWithFormat:@"%@ %@ %@ %@",info.provinceName,info.cityName,info.districtName,info.address];
+    
+    
     
 
     

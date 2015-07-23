@@ -46,7 +46,7 @@
 }
 - (void)setupTableView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NavigationHeight, [UIScreen mainScreen].bounds.size.width, self.bounds.size.height -NavigationHeight) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NavigationHeight,[UIScreen mainScreen].bounds.size.width, self.bounds.size.height -NavigationHeight) style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.tableView.contentInset = UIEdgeInsetsMake(1, 0, 0, 0);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

@@ -27,6 +27,7 @@
         [self configContentViews];
         [self.animationTimer resumeTimerAfterTimeInterval:self.animationDuration];
     }
+    
 }
 
 - (id)initWithFrame:(CGRect)frame animationDuration:(NSTimeInterval)animationDuration
@@ -63,7 +64,7 @@
         //设置pageControl的位置
         self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake((self.bounds.size.width - 60)/2, self.bounds.size.height - 30, 60, 30)];
         self.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
-        self.pageControl.currentPageIndicatorTintColor = [UIColor orangeColor];
+        self.pageControl.currentPageIndicatorTintColor = SKIN_COLOR;
         self.pageControl.currentPage = 0;
         [self addSubview:self.pageControl];
         
@@ -71,7 +72,6 @@
     return self;
 }
 
-#pragma mark -
 #pragma mark - 私有函数
 
 - (void)configContentViews

@@ -27,7 +27,7 @@
         if ([dictionary[@"objId"] isKindOfClass:[NSNull class]]) {
             self.objid = @"";
         }else{
-            self.objid = dictionary[@"objId"];
+            self.objid = [dictionary[@"objId"] stringValue];
         }
         if ([dictionary[@"totalNum"] isKindOfClass:[NSNull class]]) {
             self.totalNum = @"0";

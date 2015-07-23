@@ -72,6 +72,10 @@
 //选择优惠券的界面
 @property (strong, nonatomic) IBOutlet UIView *pickeBackView;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
+/**
+ *  确定使用优惠券按钮
+ */
+@property (weak, nonatomic) IBOutlet UIButton *choosePickerBtn;
 
 
 /**

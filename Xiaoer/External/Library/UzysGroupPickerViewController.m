@@ -40,7 +40,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.view.frame = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 48 - 64);
     [self setupLayout];
     [self setupTableView];
     [self setupGestureRecognizer];
@@ -59,7 +58,7 @@
     //anchorPoint 를 잡는데 화살표 지점으로 잡아야함
     self.containerView = [[UIView alloc] init];
     self.containerView.layer.anchorPoint = CGPointMake(0.5, 0);
-    self.containerView.frame = CGRectMake(1, 55, [UIScreen mainScreen].bounds.size.width, 250);
+    self.containerView.frame = CGRectMake(1, 55, 318, 250);
     self.containerView.layer.cornerRadius = 4;
     self.containerView.alpha = 0;
     self.containerView.clipsToBounds = YES;
@@ -76,13 +75,12 @@
         height = kGroupPickerViewCellLength *5;
     }
     self.containerView.layer.anchorPoint = CGPointMake(0.5, 0);
-    self.containerView.frame = CGRectMake(1, 55, [UIScreen mainScreen].bounds.size.width, height);
+    self.containerView.frame = CGRectMake(1, 55, 318, height);
     
 }
 - (void)setupTableView
 {
-//    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height - 64 - 48]) style:UITableViewStylePlain];
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 64 - 48) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:self.containerView.bounds style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.dataSource = self;

@@ -515,11 +515,14 @@
     if ([good.type isEqualToString:@"2"]) {
         OrderDreailCardCell *card = [tableView dequeueReusableCellWithIdentifier:@"card" forIndexPath:indexPath];
         [card configureCellWith:good indexPath:indexPath detailInfo:self.info] ;
+        card.selectionStyle = UITableViewCellSelectionStyleNone;
         card.tag = indexPath.section*1000 + indexPath.row;
         card.delegate = self;
         return card;
     }else{
         OrderDetailShopCell *shop = [tableView dequeueReusableCellWithIdentifier:@"shop" forIndexPath:indexPath];
+        shop.selectionStyle = UITableViewCellSelectionStyleNone;
+
         [shop confugireShopCellWith:good detailInfo:self.info];
         return shop;
     }
@@ -527,10 +530,7 @@
     return nil;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-}
+
 
 #pragma mark cell delegate
 - (void)orderBtnTouchedWith:(UIButton *)button{

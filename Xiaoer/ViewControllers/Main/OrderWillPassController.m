@@ -13,6 +13,10 @@
 #import "XEProgressHUD.h"
 #import "XEOrderWillPassInfo.h"
 #import "MJExtension.h"
+
+
+#import "ToyDetailViewController.h"
+
 @interface OrderWillPassController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *dataSources;
@@ -82,6 +86,13 @@
     OrderWillPassCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     [cell configureCellWith:self.dataSources[indexPath.row]];
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    XEOrderWillPassInfo *info = self.dataSources[indexPath.row];
+    ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
+    detail.shopId = info.id;
+    [self.navigationController pushViewController:detail animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

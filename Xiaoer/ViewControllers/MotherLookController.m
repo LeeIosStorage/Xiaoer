@@ -28,6 +28,7 @@
         self.dataSources = [NSMutableArray array];
     }
     return _dataSources;
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,72 +52,61 @@
         
         ActivityDetailsViewController *vc = [[ActivityDetailsViewController alloc] init];
         XEActivityInfo *activityInfo = [[XEActivityInfo alloc]init];
-    
-        for (NSDictionary *dic in self.dataSources) {
-            
-            if ([[dic[@"type"] stringValue] isEqualToString:@"1"]) {
-                XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
-                NSLog(@"model.objid === %@",model.objid);
-                activityInfo.aId = model.objid;
-                activityInfo.aType = 1;
-                vc.activityInfo = activityInfo;
-                vc.isTicketActivity = YES;
-                if ([model.objid isEqualToString:@""]) {
-
-                    [aletr show];
-                    return;
-                }else{
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-
-            }
+        
+        NSDictionary *dic = self.dataSources[sender.tag];
+        XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
+        NSLog(@"model.objid === %@",model.objid);
+        activityInfo.aId = model.objid;
+        activityInfo.aType = 1;
+        vc.activityInfo = activityInfo;
+        vc.isTicketActivity = YES;
+        if ([model.objid isEqualToString:@""]) {
+            [aletr show];
+            return;
+        }else{
+            [self.navigationController pushViewController:vc animated:YES];
         }
+        
 
     } else if ([string isEqualToString:@"去看看"]) {
 
 
         ActivityDetailsViewController *vc = [[ActivityDetailsViewController alloc]init];
         XEActivityInfo *activityInfo = [[XEActivityInfo alloc]init];
-        for (NSDictionary *dic in self.dataSources) {
-            if ([[dic[@"type"] stringValue] isEqualToString:@"2"]) {
-                XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
-                activityInfo.aId = model.objid;
-                vc.activityInfo = activityInfo;
-                if ([model.objid isEqualToString:@""]) {
-                    
-                    [aletr show];
-                    return;
-                }else{
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-
-            }
+        NSDictionary *dic = self.dataSources[sender.tag];
+        XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
+        vc.activityInfo = activityInfo;
+        if ([model.objid isEqualToString:@""]) {
+            
+            [aletr show];
+            return;
+        }else{
+            [self.navigationController pushViewController:vc animated:YES];
         }
+
     }else if ([string isEqualToString:@"去逛逛"]){
+        
         shopOtherViewController *shop = [[shopOtherViewController alloc]init];
         [self.navigationController pushViewController:shop animated:YES];
+        
     }else if ([string isEqualToString:@"去瞧瞧"]){
-
-        for (NSDictionary *dic in self.dataSources) {
-            if ([[dic[@"type"] stringValue] isEqualToString:@"4"]) {
-                XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
-                NSString *url = [NSString stringWithFormat:@"%@/info/detail?id=%@", [[XEEngine shareInstance] baseUrl],model.objid];
-                id vc = [XELinkerHandler handleDealWithHref:url From:self.navigationController];
-                if ([model.objid isEqualToString:@""]) {
-                    
-                    [aletr show];
-                    return;
-                }else{
-                    if (vc) {
-                        [self.navigationController pushViewController:vc animated:YES];
-                    }
-                }
-  
+        
+        NSDictionary *dic = self.dataSources[sender.tag];
+        XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
+        NSString *url = [NSString stringWithFormat:@"%@/info/detail?id=%@", [[XEEngine shareInstance] baseUrl],model.objid];
+        id vc = [XELinkerHandler handleDealWithHref:url From:self.navigationController];
+        if ([model.objid isEqualToString:@""]) {
+            
+            [aletr show];
+            return;
+        }else{
+            if (vc) {
+                [self.navigationController pushViewController:vc animated:YES];
             }
         }
-        
+
     }
-        
+    
     
 }
 - (void)loadData{
@@ -203,9 +193,12 @@
 
     }
     if ([[dic[@"type"] stringValue] isEqualToString:@"4"]) {
+        
         lable.text = @"  咨询快车";
+        
         lable.backgroundColor = [UIColor colorWithRed:245/255.0 green:155/255.0 blue:181/255.0 alpha:1];
     }
+    
     return lable;
 }
 
@@ -218,6 +211,7 @@
     
     if (self.dataSources) {
         NSDictionary *dic = [self.dataSources objectAtIndex:indexPath.section];
+        cell.tag = indexPath.section;
         XEMotherLook *motherLook = [XEMotherLook modelWithDictioanry:dic];
         [cell configureCellWith:indexPath motherLook:motherLook];
         cell.delegate = self;

@@ -38,6 +38,7 @@
 #import "EveryOneWeekController.h"
 #import "MotherLookController.h"
 #import "BabyProfileViewController.h"
+#import "BabyImpressMainController.h"
 #import "AppDelegate.h"
 
 
@@ -295,7 +296,6 @@
     ScrollView.userInteractionEnabled = NO;
     ScrollView.backgroundColor = [UIColor colorWithRed:18/255.0 green:169/255.0 blue:229/255.0 alpha:1];
     [self.oneWeekScrollView addSubview:ScrollView];
-    
     for (int i = 0; i < index; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         XEUserInfo *userInfo = [self getBabyUserInfo:0];
@@ -945,14 +945,14 @@
         }
         
         if (indexPath.row == 0) {
-            cell.titleLabel.text = @"妈妈必看";
-            cell.subTitleLabel.text = @"当宝宝的好习惯和注意力指导老师";
+            cell.titleLabel.text = @"教子有方";
+            cell.subTitleLabel.text = @"迅速掌握育儿秘籍的第一课堂";
             cell.itemImageView.image = [UIImage imageNamed:@"home_attention_icon"];
             return cell;
             
         }else if (indexPath.row == 1) {
-            cell.titleLabel.text = @"好习惯指导和注意力指导";
-            cell.subTitleLabel.text = @"当宝宝的好习惯和注意力指导老师";
+            cell.titleLabel.text = @"宝宝足迹";
+            cell.subTitleLabel.text = @"你负责拍，我负责印";
             cell.itemImageView.image = [UIImage imageNamed:@"home_parklon_icon"];
             return cell;
         }
@@ -988,8 +988,9 @@
     if (indexPath.section == 0) {
 //        RecipesViewController *rVc = [[RecipesViewController alloc] init];
         if (indexPath.row == 0) {
-            MotherLookController *mother = [[MotherLookController alloc]init];
-            [self.navigationController pushViewController:mother animated:YES];
+            //原来的 妈妈必看
+//            MotherLookController *mother = [[MotherLookController alloc]init];
+//          [self.navigationController pushViewController:mother animated:YES];
             
             
             //        rVc.infoType = TYPE_ATTENTION;
@@ -1000,8 +1001,14 @@
 //            [self.navigationController pushViewController:rVc animated:YES];
             //        rVc.infoType = TYPE_HABIT;
             //        [self.navigationController pushViewController:rVc animated:YES];
-            focusAndHabitViewController *focus = [[focusAndHabitViewController alloc]init];
-            [self.navigationController pushViewController:focus animated:YES];
+            
+            //原来的 专注力和好习惯
+//            focusAndHabitViewController *focus = [[focusAndHabitViewController alloc]init];
+//            [self.navigationController pushViewController:focus animated:YES];
+            
+            BabyImpressMainController *impress = [[BabyImpressMainController alloc]init];
+            [self.navigationController pushViewController:impress animated:YES];
+            
             
         }
     }else if (indexPath.section == 1){

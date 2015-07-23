@@ -46,10 +46,27 @@
  */
 @property (nonatomic,strong)NSMutableArray *dataSources;
 
-
+/**
+ *  支付按钮
+ */
+@property (nonatomic,strong)UIButton *gotoPayBtn;
 @end
 
 @implementation ShopCarViewController
+- (UIButton *)gotoPayBtn{
+    if (!_gotoPayBtn) {
+        self.gotoPayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_gotoPayBtn setTitle:@"去结算" forState:UIControlStateNormal];
+        [_gotoPayBtn setBackgroundColor:SKIN_COLOR];
+        [_gotoPayBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_gotoPayBtn addTarget:self action:@selector(goToPayBtnTouched) forControlEvents:UIControlEventTouchUpInside];
+        _gotoPayBtn.frame = CGRectMake(SCREEN_WIDTH - 15 - 80, 10, 80, 40);
+        _gotoPayBtn.layer.cornerRadius = 10;
+        _gotoPayBtn.layer.masksToBounds = YES;
+        [self.tabFooterView addSubview:_gotoPayBtn];
+    }
+    return _gotoPayBtn;
+}
 - (NSMutableArray *)dataSources{
     if (!_dataSources) {
         self.dataSources = [NSMutableArray array];
@@ -100,8 +117,7 @@
     [super viewDidLoad];
     self.title = @"购物车";
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
-    self.payBtn.layer.cornerRadius = 10;
-    self.payBtn.layer.masksToBounds = YES;
+
     
     //初始化优惠和小记的现实价格
     self.privilegeLab.text = @"0.00元";
@@ -111,6 +127,11 @@
     
     self.shopCarPage = 1;
     
+
+    [self gotoPayBtn];
+    
+    self.tabFooterView.frame = CGRectMake(0, SCREEN_HEIGHT - 60, SCREEN_WIDTH, 60);
+    [self.view addSubview:self.tabFooterView];
 
     
     // Do any additional setup after loading the view from its nib.
@@ -247,8 +268,7 @@
      
 }
 #pragma mark  结算
-
-- (IBAction)payBtnTouched:(id)sender {
+- (void)goToPayBtnTouched{
     
     NSLog(@"去结算按钮点击");
     //保存要支付的商品的数组
@@ -258,7 +278,7 @@
             XEShopCarInfo *info = (XEShopCarInfo *)self.dataSources[i];
             [shopArray addObject:info];
         }
- 
+        
     }
     
     if (shopArray.count == 0) {
@@ -275,6 +295,7 @@
 
 
 
+
 #pragma mark 布局添加tableview属性
 
 - (void)configureTabView{
@@ -285,7 +306,7 @@
     [self.shopCarTab addHeaderWithTarget:self action:@selector(headerLoadData)];
     [self.shopCarTab addFooterWithTarget:self action:@selector(footerLoadData)];
     [self.shopCarTab registerNib:[UINib nibWithNibName:@"ShopCarCell" bundle:nil] forCellReuseIdentifier:@"cell"];
-    self.shopCarTab.tableFooterView = self.tabFooterView;
+//    self.shopCarTab.tableFooterView = self.tabFooterView;
 }
 
 #pragma mark tableView delegate datasources

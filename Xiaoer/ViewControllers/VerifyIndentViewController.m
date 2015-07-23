@@ -66,11 +66,22 @@
  *  折扣
  */
 @property (nonatomic,assign)CGFloat discount;
-
-
+/**
+ *  设置地址alert
+ */
+@property (nonatomic,strong)UIAlertView *setAddressAlert;
 @end
 
 @implementation VerifyIndentViewController
+
+- (UIAlertView *)setAddressAlert{
+    if (!_setAddressAlert) {
+        self.setAddressAlert = [[UIAlertView alloc]initWithTitle:@"请先设置收货地址" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        _setAddressAlert.frame = CGRectMake(0, SCREEN_HEIGHT - 60, SCREEN_WIDTH, 60);
+    }
+    return _setAddressAlert;
+}
+
 - (NSMutableArray *)usedArray{
     if (!_usedArray) {
         self.usedArray = [NSMutableArray array];
@@ -109,29 +120,29 @@
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     
     //判断是否先设置地址
-    self.firstSetAddressView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 80, [UIScreen mainScreen].bounds.size.width, 80);
-    UIButton *setAddressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [setAddressBtn setTitle:@"确定" forState:UIControlStateNormal];
-    setAddressBtn.frame = CGRectMake(40, 40, [UIScreen mainScreen].bounds.size.width - 80, 40);
-    [setAddressBtn setTitleColor:SKIN_COLOR forState:UIControlStateNormal];
-    [setAddressBtn addTarget:self action:@selector(firstSetAddressBtnTouched) forControlEvents:UIControlEventTouchUpOutside];
-    
-    [self.firstSetAddressView addSubview:setAddressBtn];
-    
-    
-    UILabel *setAddressLab = [[UILabel alloc]initWithFrame:CGRectMake(40, 0, [UIScreen mainScreen].bounds.size.width - 80, 39)];
-    setAddressLab.text = @"请先设置收货地址";
-    setAddressLab.textAlignment = NSTextAlignmentCenter;
-    [self.firstSetAddressView addSubview:setAddressLab];
+//    self.firstSetAddressView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 80, [UIScreen mainScreen].bounds.size.width, 80);
+//    UIButton *setAddressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [setAddressBtn setTitle:@"确定" forState:UIControlStateNormal];
+//    setAddressBtn.frame = CGRectMake(40, 40, [UIScreen mainScreen].bounds.size.width - 80, 40);
+//    [setAddressBtn setTitleColor:SKIN_COLOR forState:UIControlStateNormal];
+//    [setAddressBtn addTarget:self action:@selector(firstSetAddressBtnTouched) forControlEvents:UIControlEventTouchUpOutside];
+//    
+//    [self.firstSetAddressView addSubview:setAddressBtn];
+//    
+//    
+//    UILabel *setAddressLab = [[UILabel alloc]initWithFrame:CGRectMake(40, 0, [UIScreen mainScreen].bounds.size.width - 80, 39)];
+//    setAddressLab.text = @"请先设置收货地址";
+//    setAddressLab.textAlignment = NSTextAlignmentCenter;
+//    [self.firstSetAddressView addSubview:setAddressLab];
     
     
     
     if ([[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid]) {
         self.info = [[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid];
-        self.firstSetAddressView.hidden = YES;
+//        self.firstSetAddressView.hidden = YES;
 
     }else{
-        self.firstSetAddressView.hidden = NO;
+//        self.firstSetAddressView.hidden = NO;
 
     }
     NSString *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
@@ -143,7 +154,7 @@
     [self configureCouponView];
     [self creatTabFooterView];
     [self configurePickerBackView];
-    [self.view addSubview:self.firstSetAddressView];
+//    [self.view addSubview:self.firstSetAddressView];
 
     
     /**
@@ -183,7 +194,7 @@
 }
 - (void)editVerifyInfoAndRefreshHeaderView:(NSNotificationCenter *)sender{
     NSLog(@"受到通知");
-    self.firstSetAddressView.hidden = NO;
+//    self.firstSetAddressView.hidden = NO;
 //    self.firstSetAddressView.frame = CGRectMake(0, SCREEN_HEIGHT - 80, SCREEN_WIDTH, 80);
     [self creatTabViewHeaderView];
 }
@@ -413,6 +424,10 @@
     self.pickerView.backgroundColor = [UIColor whiteColor];
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
+    self.choosePickerBtn.layer.borderWidth = 1;
+    self.choosePickerBtn.layer.borderColor = SKIN_COLOR.CGColor;
+    self.choosePickerBtn.layer.cornerRadius = 5;
+    self.choosePickerBtn.layer.masksToBounds = YES;
     [self.view addSubview:self.pickeBackView];
 }
 
@@ -500,12 +515,24 @@
 }
 
 - (void)useCouponWith:(UIButton *)button chooseBtnText:(NSString *)choosetBtnText{
-    NSLog(@"%ld %@",button.tag ,choosetBtnText);
-    if (self.usedArray.count > 0) {
-        self.usedArray[button.tag] = @"1";
-        NSLog(@"%ld",self.usedArray.count);
-        [self changeAllPrice];
+    if ([button.titleLabel.text isEqualToString:@"使用"]) {
+        
+        NSLog(@"%ld %@",button.tag ,choosetBtnText);
+        if (self.usedArray.count > 0) {
+            self.usedArray[button.tag] = @"1";
+            NSLog(@"%ld",self.usedArray.count);
+            [self changeAllPrice];
+        }
+    }else{
+        NSLog(@"%ld %@",button.tag ,choosetBtnText);
+        if (self.usedArray.count > 0) {
+            self.usedArray[button.tag] = @"0";
+            NSLog(@"%ld",self.usedArray.count);
+            [self changeAllPrice];
+        }
     }
+    
+
 
 
 
@@ -521,7 +548,12 @@
     CGFloat dazhe = [self calculateDazhe]/100;
     CGFloat youhuiquan = [self calculateYouHuiQuan]/100;
     
-    self.bottomNeedPay.text = [NSString stringWithFormat:@"%.2f",[[self calculateTotalPrice] floatValue] + [self.freightLab.text floatValue] - dazhe - youhuiquan] ;
+    if ([[self calculateTotalPrice] floatValue] + [self.freightLab.text floatValue] - dazhe - youhuiquan < 0) {
+        self.bottomNeedPay.text = @"0";
+    }else{
+        self.bottomNeedPay.text = [NSString stringWithFormat:@"%.2f",[[self calculateTotalPrice] floatValue] + [self.freightLab.text floatValue] - dazhe - youhuiquan] ;
+    }
+    
     [self.tabView reloadData];
     
 }
@@ -634,10 +666,17 @@
 #pragma mark 确定按钮点击
 - (void)veryBtnTouched{
     
-    //
-    [self manualDisappearKtyBoard];
-    //下单
-    [self getOrderToPlaceAnOrder];
+    if (!self.info.id) {
+        [self.setAddressAlert show];
+        return;
+    }else{
+        
+        //
+        [self manualDisappearKtyBoard];
+        //下单
+        [self getOrderToPlaceAnOrder];
+    }
+
 
 
 //    GoToPayViewController *toPay = [[GoToPayViewController alloc]init];
@@ -659,7 +698,7 @@
 - (void)refreshAddressInfoWith:(XEAddressListInfo *)info{
     NSLog(@"执行代理 %@",info.phone);
     self.info = info;
-    self.firstSetAddressView.hidden = YES;
+//    self.firstSetAddressView.hidden = YES;
     [self creatTabViewHeaderView];
     
 }
@@ -676,7 +715,7 @@
     
     
     NSLog(@"self.info.id === 代理收到的%@",self.info.id);
-    self.firstSetAddressView.hidden = YES;
+//    self.firstSetAddressView.hidden = YES;
     [self creatTabViewHeaderView];
 }
 
@@ -796,12 +835,22 @@
             cell.chooseCouponBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
             cell.chooseCouponBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
             [cell.chooseCouponBtn setTitle:@"请选择促销活动优惠券" forState:UIControlStateNormal];
+            [cell.useCouponBtn setTitle:@"使用" forState:UIControlStateNormal];
+
         }else{
 
             cell.chooseCouponBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             cell.chooseCouponBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
             cell.chooseCouponBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
             [cell.chooseCouponBtn setTitle:self.selectPickerAtr[indexPath.section] forState:UIControlStateNormal];
+            if ([self.usedArray[indexPath.section] isEqualToString:@"0"]) {
+                //未使用
+                [cell.useCouponBtn setTitle:@"使用" forState:UIControlStateNormal];
+            }else{
+                //已经使用
+                [cell.useCouponBtn setTitle:@"不使用" forState:UIControlStateNormal];
+            }
+            
         }
     }else{
         cell.chooseCouponBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
@@ -864,27 +913,37 @@
 
 #pragma mark alertView delagate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 0) {
-
-
-    }else if (buttonIndex == 1){
-    for (int  j = 0; j < self.selectPickerAtr.count; j++) {
-        for (int i = 0 ; i < self.pickerArray.count; i++) {
-
-                if ([self.pickerArray[i] isEqualToString:self.selectPickerAtr[j]]) {
-                    self.usedArray[self.senderBtn.tag] = @"0";
-                    self.usedArray[j] = @"0";
-                    self.selectPickerAtr[j] = @"";
-                    self.selectPickerAtr[self.senderBtn.tag] = self.pickerArray[i];
-                    [self changeAllPrice];
-                    [self.tabView reloadData];
+    
+    if (alertView == self.setAddressAlert) {
+        AddAddressViewController *add = [[AddAddressViewController alloc]init];
+        add.delegate = self;
+        [self.navigationController pushViewController:add animated:YES];
+        
+    }else{
+        
+        if (buttonIndex == 0) {
+            
+            
+        }else if (buttonIndex == 1){
+            for (int  j = 0; j < self.selectPickerAtr.count; j++) {
+                for (int i = 0 ; i < self.pickerArray.count; i++) {
+                    
+                    if ([self.pickerArray[i] isEqualToString:self.selectPickerAtr[j]]) {
+                        self.usedArray[self.senderBtn.tag] = @"0";
+                        self.usedArray[j] = @"0";
+                        self.selectPickerAtr[j] = @"";
+                        self.selectPickerAtr[self.senderBtn.tag] = self.pickerArray[i];
+                        [self changeAllPrice];
+                        [self.tabView reloadData];
+                    }
                 }
             }
         }
+        [self animATionPickerBackView];
+        
+        NSLog(@"buttonIndex === %ld",buttonIndex);
     }
-    [self animATionPickerBackView];
-    
-    NSLog(@"buttonIndex === %ld",buttonIndex);
+
 }
 
 #pragma mark pickerView 的动画
@@ -1016,18 +1075,32 @@
 #pragma mark 返回收获地址视图
 - (UIView *)returnResultAddAddressView{
     
-    //无参数
-    if (self.firstSetAddressView.hidden == NO) {
-        self.addAddressViewB.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100);
-        return self.addAddressViewB;
-    }else{
+    if (self.info.id) {
         //有参数
         self.addAddressView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 150);
         self.InfoName.text = self.info.name;
         self.infoPhone.text = self.info.phone;
         self.infoAddress.text = [NSString stringWithFormat:@"%@ %@ %@ %@",self.info.provinceName,self.info.cityName,self.info.districtName,self.info.address];
         return self.addAddressView;
+    }else{
+        self.addAddressViewB.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100);
+        return self.addAddressViewB;
     }
+    
+    
+    
+    //无参数
+//    if (self.firstSetAddressView.hidden == NO) {
+//        self.addAddressViewB.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100);
+//        return self.addAddressViewB;
+//    }else{
+//        //有参数
+//        self.addAddressView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 150);
+//        self.InfoName.text = self.info.name;
+//        self.infoPhone.text = self.info.phone;
+//        self.infoAddress.text = [NSString stringWithFormat:@"%@ %@ %@ %@",self.info.provinceName,self.info.cityName,self.info.districtName,self.info.address];
+//        return self.addAddressView;
+//    }
     
 }
 

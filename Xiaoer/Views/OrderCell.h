@@ -15,9 +15,14 @@
 #import "XEOrderSeriesInfo.h"
 
 @interface OrderCell : UITableViewCell
+/**
+ *  左边的订单号
+ */
+@property (weak, nonatomic) IBOutlet UILabel *topLeftNum;
+
 
 /**
- *  头部描述区头的lable
+ *  右边的订单号
  */
 @property (weak, nonatomic) IBOutlet UILabel *topDesLab;
 /**
@@ -37,6 +42,12 @@
  *  数量
  */
 @property (weak, nonatomic) IBOutlet UILabel *numLab;
+/**
+ *  左边的数量
+ */
+@property (weak, nonatomic) IBOutlet UILabel *reNumLab;
+
+
 /**
  *  现价
  */
@@ -65,4 +76,6 @@
 - (void)configureCellWith:(NSIndexPath *)indexPath
                goodesInfo:(XEOrderGoodInfo *)goodInfo
                 orderInfo:(XEOrderInfo *)orderInfo;
+- (void)changeFrameWithArray:(NSMutableArray *)array
+                     Ycgloat:(CGFloat )ycgfloat;
 @end

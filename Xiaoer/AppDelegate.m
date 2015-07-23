@@ -30,11 +30,6 @@
 
 //#import "APService.h"
 
-
-
-
-
-
 @interface AppDelegate () <NewIntroViewControllerDelegate>
 
 @end
@@ -96,6 +91,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     NSDictionary *plist = [[NSBundle mainBundle]infoDictionary];
     
+    /**
+     *  支付宝
+     */
     self.seller = [plist objectForKey:@"seller"];
     self.patener = [plist objectForKey:@"patener"];
     self.privateKey = [plist objectForKey:@"privateKey"];

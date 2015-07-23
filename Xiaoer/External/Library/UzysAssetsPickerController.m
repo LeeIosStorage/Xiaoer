@@ -89,7 +89,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
     [self initVariable];
     [self initImagePicker];
     [self setupOneMediaTypeSelection];
@@ -199,9 +198,9 @@
         self.segmentedControl.hidden = YES;
         self.labelSelectedMedia.hidden = NO;
         if(_maximumNumberOfSelection >1)
-            self.labelSelectedMedia.text = @"选择照片";
+            self.labelSelectedMedia.text = @"Choose media";
         else
-            self.labelSelectedMedia.text = @"选择照片";
+            self.labelSelectedMedia.text = @"Choose media";
 
     }
     else
@@ -213,9 +212,9 @@
             self.segmentedControl.hidden = YES;
             self.labelSelectedMedia.hidden = NO;
             if(_maximumNumberOfSelection >1)
-                self.labelSelectedMedia.text = @"选择照片";
+                self.labelSelectedMedia.text = @"Choose videos";
             else
-                self.labelSelectedMedia.text = @"选择照片";
+                self.labelSelectedMedia.text = @"Choose a video";
         }
         else if(_maximumNumberOfSelectionVideo ==0)
         {
@@ -240,24 +239,12 @@
 - (void)setupCollectionView
 {
     UICollectionViewFlowLayout *layout  = [[UICollectionViewFlowLayout alloc] init];
-//    if(IS_IPHONE_6_IOS8)
-//    {
-//        layout.itemSize = kThumbnailSize_IPHONE6;
-//    }
-//    else if(IS_IPHONE_6P_IOS8)
-//    {
-//        layout.itemSize = kThumbnailSize_IPHONE6P;
-//    }
-//    else
-//    {
-//        layout.itemSize                     = kThumbnailSize;
-//    }
     layout.itemSize                     = kThumbnailSize;
     layout.sectionInset                 = UIEdgeInsetsMake(1.0, 0, 0, 0);
     layout.minimumInteritemSpacing      = 1.0;
-    layout.minimumLineSpacing           = 1.0;
+    layout.minimumLineSpacing           = 3;
 
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, self.view.bounds.size.height - 64 -48) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64,[UIScreen mainScreen].bounds.size.width, self.view.bounds.size.height - 64 -48) collectionViewLayout:layout];
     self.collectionView.allowsMultipleSelection = YES;
     [self.collectionView registerClass:[UzysAssetsViewCell class]
             forCellWithReuseIdentifier:kAssetsViewCellIdentifier];
@@ -544,7 +531,6 @@
     static NSString *CellIdentifier = kAssetsViewCellIdentifier;
     
     UzysAssetsViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    
     [cell applyData:[self.assets objectAtIndex:indexPath.row]];
     
     return cell;
@@ -677,9 +663,9 @@
     [super setTitle:title];
     [self.btnTitle setTitle:@"选择相册" forState:UIControlStateNormal];
     NSLog(@" x %f self.btnTitle.labe width %f",self.btnTitle.titleLabel.frame.origin.x,self.btnTitle.titleLabel.bounds.size.width);
-    [self.btnTitle setImageEdgeInsets:UIEdgeInsetsMake(- 5, self.btnTitle.titleLabel.frame.origin.x +self.btnTitle.titleLabel.frame.size.width + self.btnTitle.imageView.bounds.size.width, -5, 0)];
-    [self.btnTitle setTitleEdgeInsets:UIEdgeInsetsMake(10, 0, 0, 0)];
-    [self.btnTitle layoutIfNeeded];
+//    [self.btnTitle setImageEdgeInsets:UIEdgeInsetsMake(5, self.btnTitle.titleLabel.frame.origin.x +self.btnTitle.titleLabel.frame.size.width + self.btnTitle.imageView.bounds.size.width, 0, 0)];
+//    [self.btnTitle setTitleEdgeInsets:UIEdgeInsetsMake(5, 0, 0, 0)];
+//    [self.btnTitle layoutIfNeeded];
 }
 - (void)menuArrowRotate
 {

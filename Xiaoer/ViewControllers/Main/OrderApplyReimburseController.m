@@ -157,7 +157,7 @@
 #pragma mark 布局tableview
 - (void)configureTableView{
     
-    self.tabFooterView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 200);
+    self.tabFooterView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 308);
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -171,11 +171,11 @@
     
     
 #warning 此版本不加上传图片功能 暂时隐藏
-//    CGRect postPhotoRect = self.postPhotoView.frame;
-//    postPhotoRect.origin.x = 15;
-//    postPhotoRect.origin.y = 223;
-//    self.postPhotoView.frame = postPhotoRect;
-//    [self.tabFooterView addSubview:self.postPhotoView];
+    CGRect postPhotoRect = self.postPhotoView.frame;
+    postPhotoRect.origin.x = 15;
+    postPhotoRect.origin.y = 223;
+    self.postPhotoView.frame = postPhotoRect;
+    [self.tabFooterView addSubview:self.postPhotoView];
     [self.tableView registerNib:[UINib nibWithNibName:@"OrderApplyReimburseCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 }
 
@@ -422,6 +422,7 @@
             UIImage *img = [UIImage imageWithCGImage:representation.defaultRepresentation.fullResolutionImage
                                                scale:representation.defaultRepresentation.scale
                                          orientation:(UIImageOrientation)representation.defaultRepresentation.orientation];
+        NSLog(@"img.size == %f %f",img.size.width,img.size.height);
             [self addPicrArrayWith:img];
         }];
         

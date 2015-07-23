@@ -180,6 +180,7 @@
     
     if (_vcType == VcType_Login) {
        // [self setRightButtonWithTitle:@"注册"];
+        self.segmentedControl.hidden = NO;
         [self.segmentedControl setTitle:@"手机登录" forSegmentAtIndex:0];
         [self.segmentedControl setTitle:@"邮箱登录" forSegmentAtIndex:1];
         self.loginButton.layer.cornerRadius = 4;
@@ -209,8 +210,11 @@
         
     }else if (_vcType == VcType_Register){
       //  [self setRightButtonWithTitle:@"登录"];
-        [self.segmentedControl setTitle:@"手机注册" forSegmentAtIndex:0];
-        [self.segmentedControl setTitle:@"邮箱注册" forSegmentAtIndex:1];
+        self.segmentedControl.hidden = YES;
+        self.title = @"手机注册";
+#warning 此版本 暂时不适用邮箱注册  所以隐藏掉
+//        [self.segmentedControl setTitle:@"手机注册" forSegmentAtIndex:0];
+//        [self.segmentedControl setTitle:@"邮箱注册" forSegmentAtIndex:1];
         [_protocolButton setTitleColor:UIColorToRGB(0x6cc5e9) forState:0];
         
         self.registerAffirmButton.layer.cornerRadius = 4;

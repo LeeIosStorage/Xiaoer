@@ -68,10 +68,12 @@
 }
 - (IBAction)loginAction:(id)sender {
     [XEEngine shareInstance].firstLogin = NO;
+    
     LoginViewController *mpVc = [[LoginViewController alloc] init];
     mpVc.vcType = VcType_Login;
     mpVc.isCanBack = _showBackButton;
     [self.navigationController pushViewController:mpVc animated:YES];
+    
 }
 
 - (IBAction)registerAction:(id)sender {

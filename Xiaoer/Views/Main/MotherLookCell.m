@@ -59,6 +59,9 @@
 - (IBAction)cellBtn:(id)sender {
     UIButton *btn = sender;
     NSString *string = btn.titleLabel.text;
+    NSLog(@"%@ %ld ",btn.superview.superview,(long)btn.superview.superview.tag);
+    UITableViewCell *cell = (UITableViewCell *)btn.superview.superview;
+    btn.tag = cell.tag;
     if (string && self.delegate && [self.delegate respondsToSelector:@selector(touchMotherLookCellBtn:)]) {
         [self.delegate touchMotherLookCellBtn:btn];
     }

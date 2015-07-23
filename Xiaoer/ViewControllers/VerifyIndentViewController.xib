@@ -12,6 +12,7 @@
                 <outlet property="addAddressViewB" destination="0Cj-sz-sB9" id="7AG-C5-Gb6"/>
                 <outlet property="bottomNeedPay" destination="B6z-J3-S8J" id="fOx-df-1zf"/>
                 <outlet property="bottomPayView" destination="Viy-mb-Olv" id="IWZ-XL-pBK"/>
+                <outlet property="choosePickerBtn" destination="L9G-a4-Kw7" id="Uvz-DT-DjG"/>
                 <outlet property="coupon" destination="RhY-K2-RjY" id="VYa-H9-IDe"/>
                 <outlet property="debitView" destination="jlF-Dk-xra" id="xqB-Ul-wVS"/>
                 <outlet property="favorableLab" destination="fUI-4x-8OB" id="0QS-Pa-6i7"/>
@@ -98,7 +99,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="王鹏" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Vw-th-ThS">
-                    <rect key="frame" x="75" y="35" width="200" height="20"/>
+                    <rect key="frame" x="90" y="35" width="200" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
@@ -550,7 +551,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="L9G-a4-Kw7">
-                    <rect key="frame" x="130" y="160" width="60" height="30"/>
+                    <rect key="frame" x="120" y="165" width="80" height="28"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="确定">
                         <color key="titleColor" red="0.12156862745098039" green="0.66666666666666663" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>

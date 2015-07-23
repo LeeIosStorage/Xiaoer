@@ -18,8 +18,8 @@ typedef void (^voidBlock)(void);
 #define kGroupViewCellIdentifier           @"groupViewCellIdentifier"
 #define kAssetsViewCellIdentifier           @"AssetsViewCellIdentifier"
 #define kAssetsSupplementaryViewIdentifier  @"AssetsSupplementaryViewIdentifier"
-#define kThumbnailLength    78.0f
 #define kThumbnailSize      CGSizeMake(kThumbnailLength, kThumbnailLength)
+#define kThumbnailLength    ([UIScreen mainScreen].bounds.size.width - 10)/4
 
 #define kTagButtonClose 101
 #define kTagButtonCamera 102

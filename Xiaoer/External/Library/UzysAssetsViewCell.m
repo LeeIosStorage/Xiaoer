@@ -45,6 +45,7 @@ static UIColor *selectedColor;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
+
     if (self)
     {
         // Initialization code
@@ -54,6 +55,7 @@ static UIColor *selectedColor;
 }
 - (void)applyData:(ALAsset *)asset
 {
+
     self.asset  = asset;
     self.image  = [UIImage imageWithCGImage:asset.thumbnail];
     self.type   = [asset valueForProperty:ALAssetPropertyType];
