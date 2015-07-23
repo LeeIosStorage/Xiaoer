@@ -7,6 +7,8 @@
 //
 
 #import "BabyImpressVerifyController.h"
+#import "AppDelegate.h"
+#import <QiniuSDK.h>
 
 @interface BabyImpressVerifyController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
 
@@ -24,6 +26,8 @@
 @property (nonatomic,assign)BOOL ifHavePayWay;
 
 
+
+
 @end
 
 @implementation BabyImpressVerifyController
@@ -37,6 +41,17 @@
     self.ifHaveAddress = NO;
     self.ifHavePayWay = NO;
     [self configureTableView];
+    
+    /*  七牛
+    NSString *token = @"从服务端SDK获取";
+    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSData *data = [@"Hello, World!" dataUsingEncoding : NSUTF8StringEncoding];
+    [appDelegate.upManager putData:data key:@"hello" token:token
+              complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                  NSLog(@"1 %@", info);
+                  NSLog(@"2 %@", resp);
+              } option:nil];
+     */
     
     // Do any additional setup after loading the view from its nib.
 }

@@ -98,6 +98,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     self.patener = [plist objectForKey:@"patener"];
     self.privateKey = [plist objectForKey:@"privateKey"];
     
+    /**
+     *  七牛的mananger创建
+     */
+    self.upManager = [[QNUploadManager alloc] init];
     
     [self.window makeKeyAndVisible];
     

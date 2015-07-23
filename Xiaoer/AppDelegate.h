@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "XETabBarViewController.h"
+#import <QiniuSDK.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -30,5 +31,7 @@
  *  商户私钥
  */
 @property (nonatomic,strong)NSString *privateKey;
+
+@property (nonatomic,strong)QNUploadManager *upManager;
 @end
 
