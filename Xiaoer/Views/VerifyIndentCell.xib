@@ -54,7 +54,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="HmK-ae-o0A">
-                        <rect key="frame" x="255" y="99" width="45" height="1"/>
+                        <rect key="frame" x="255.00000079472858" y="99" width="45" height="1"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jiajianback" id="T4w-kp-Nyn">
@@ -105,6 +105,10 @@
                             <action selector="chooseCouponBtnTouched:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qRE-hS-gD5"/>
                         </connections>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_n_set_line" id="kjy-Jx-MNN">
+                        <rect key="frame" x="0.0" y="158" width="320" height="2"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -8,7 +8,7 @@
 
 #import "BabyImpressMainController.h"
 #import "BabyImpressVerifyController.h"
-
+#import "BabyImpressAddController.h"
 @interface BabyImpressMainController ()<UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic,strong)UIImagePickerController *imagePicker;
 @property (weak, nonatomic) IBOutlet UIImageView *testImageView;
@@ -55,8 +55,10 @@
             case 0:
                 //取消
             {
-                BabyImpressVerifyController *verify = [[BabyImpressVerifyController alloc]init];
-                [self.navigationController pushViewController:verify animated:YES];
+                BabyImpressAddController *add = [[BabyImpressAddController alloc]init];
+                [self.navigationController pushViewController:add animated:YES];
+//                BabyImpressVerifyController *verify = [[BabyImpressVerifyController alloc]init];
+//                [self.navigationController pushViewController:verify animated:YES];
             }
                 break;
             case 1:

@@ -433,6 +433,16 @@
 		AA70D97A1B3EF05F0013FD96 /* OrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA70D9781B3EF05F0013FD96 /* OrderCell.xib */; };
 		AA70F2F21B1EBC7200122F57 /* InfomationViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA70F2F01B1EBC7200122F57 /* InfomationViewCell.m */; };
 		AA70F2F31B1EBC7200122F57 /* InfomationViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */; };
+		AA7447DE1B632BC4009C02C3 /* BabyImpressPayWayController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7447DC1B632BC4009C02C3 /* BabyImpressPayWayController.m */; };
+		AA7447DF1B632BC4009C02C3 /* BabyImpressPayWayController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7447DD1B632BC4009C02C3 /* BabyImpressPayWayController.xib */; };
+		AA7447E41B632CBF009C02C3 /* BabyImpressPayWayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7447E21B632CBF009C02C3 /* BabyImpressPayWayCell.m */; };
+		AA7447E51B632CBF009C02C3 /* BabyImpressPayWayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7447E31B632CBF009C02C3 /* BabyImpressPayWayCell.xib */; };
+		AA7447E91B63346F009C02C3 /* BabyImpressPayWayOtherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7447E71B63346F009C02C3 /* BabyImpressPayWayOtherCell.m */; };
+		AA7447EA1B63346F009C02C3 /* BabyImpressPayWayOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7447E81B63346F009C02C3 /* BabyImpressPayWayOtherCell.xib */; };
+		AA7447EE1B633A68009C02C3 /* BabyImpressMyPictureController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7447EC1B633A68009C02C3 /* BabyImpressMyPictureController.m */; };
+		AA7447EF1B633A68009C02C3 /* BabyImpressMyPictureController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7447ED1B633A68009C02C3 /* BabyImpressMyPictureController.xib */; };
+		AA7447F31B633BD7009C02C3 /* BabyImpressMyPicturerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7447F11B633BD7009C02C3 /* BabyImpressMyPicturerCell.m */; };
+		AA7447F41B633BD7009C02C3 /* BabyImpressMyPicturerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7447F21B633BD7009C02C3 /* BabyImpressMyPicturerCell.xib */; };
 		AA7572A01B418A67002A8AA2 /* XEShopListInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AA75729F1B418A67002A8AA2 /* XEShopListInfo.m */; };
 		AA78B9351B4623C600B23EC9 /* OrderApplyReimburseController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA78B9331B4623C600B23EC9 /* OrderApplyReimburseController.m */; };
 		AA78B9361B4623C600B23EC9 /* OrderApplyReimburseController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA78B9341B4623C600B23EC9 /* OrderApplyReimburseController.xib */; };
@@ -556,6 +566,16 @@
 		AAE233D11B579B7D004BE9FF /* XEDetailEticketsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE233D01B579B7D004BE9FF /* XEDetailEticketsInfo.m */; };
 		AAE233D51B57BBBF004BE9FF /* OrderDetailShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE233D31B57BBBF004BE9FF /* OrderDetailShopCell.m */; };
 		AAE233D61B57BBBF004BE9FF /* OrderDetailShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE233D41B57BBBF004BE9FF /* OrderDetailShopCell.xib */; };
+		AAE399351B639A8C001B8EE8 /* BabyImpressCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE399331B639A8C001B8EE8 /* BabyImpressCollectCell.m */; };
+		AAE399361B639A8C001B8EE8 /* BabyImpressCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE399341B639A8C001B8EE8 /* BabyImpressCollectCell.xib */; };
+		AAE3993F1B63A187001B8EE8 /* BabyImpressPrintController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE3993D1B63A187001B8EE8 /* BabyImpressPrintController.xib */; };
+		AAE399401B63A187001B8EE8 /* BabyImpressPrintController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE3993E1B63A187001B8EE8 /* BabyImpressPrintController.m */; };
+		AAF6EC721B662AB300D64F36 /* BabyImpressAddController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF6EC701B662AB300D64F36 /* BabyImpressAddController.m */; };
+		AAF6EC731B662AB300D64F36 /* BabyImpressAddController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAF6EC711B662AB300D64F36 /* BabyImpressAddController.xib */; };
+		AAF6EC771B662B7E00D64F36 /* BabyImpressAddCollectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF6EC751B662B7E00D64F36 /* BabyImpressAddCollectCell.m */; };
+		AAF6EC781B662B7E00D64F36 /* BabyImpressAddCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAF6EC761B662B7E00D64F36 /* BabyImpressAddCollectCell.xib */; };
+		AAF6EC7C1B662F1900D64F36 /* BabyImpressAddFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF6EC7A1B662F1900D64F36 /* BabyImpressAddFooterView.m */; };
+		AAF6EC7D1B662F1900D64F36 /* BabyImpressAddFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAF6EC7B1B662F1900D64F36 /* BabyImpressAddFooterView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1265,6 +1285,21 @@
 		AA70F2EF1B1EBC7200122F57 /* InfomationViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationViewCell.h; sourceTree = "<group>"; };
 		AA70F2F01B1EBC7200122F57 /* InfomationViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationViewCell.m; sourceTree = "<group>"; };
 		AA70F2F11B1EBC7200122F57 /* InfomationViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationViewCell.xib; sourceTree = "<group>"; };
+		AA7447DB1B632BC4009C02C3 /* BabyImpressPayWayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressPayWayController.h; sourceTree = "<group>"; };
+		AA7447DC1B632BC4009C02C3 /* BabyImpressPayWayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressPayWayController.m; sourceTree = "<group>"; };
+		AA7447DD1B632BC4009C02C3 /* BabyImpressPayWayController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressPayWayController.xib; sourceTree = "<group>"; };
+		AA7447E11B632CBF009C02C3 /* BabyImpressPayWayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressPayWayCell.h; sourceTree = "<group>"; };
+		AA7447E21B632CBF009C02C3 /* BabyImpressPayWayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressPayWayCell.m; sourceTree = "<group>"; };
+		AA7447E31B632CBF009C02C3 /* BabyImpressPayWayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressPayWayCell.xib; sourceTree = "<group>"; };
+		AA7447E61B63346F009C02C3 /* BabyImpressPayWayOtherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressPayWayOtherCell.h; sourceTree = "<group>"; };
+		AA7447E71B63346F009C02C3 /* BabyImpressPayWayOtherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressPayWayOtherCell.m; sourceTree = "<group>"; };
+		AA7447E81B63346F009C02C3 /* BabyImpressPayWayOtherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressPayWayOtherCell.xib; sourceTree = "<group>"; };
+		AA7447EB1B633A68009C02C3 /* BabyImpressMyPictureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressMyPictureController.h; sourceTree = "<group>"; };
+		AA7447EC1B633A68009C02C3 /* BabyImpressMyPictureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressMyPictureController.m; sourceTree = "<group>"; };
+		AA7447ED1B633A68009C02C3 /* BabyImpressMyPictureController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressMyPictureController.xib; sourceTree = "<group>"; };
+		AA7447F01B633BD7009C02C3 /* BabyImpressMyPicturerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressMyPicturerCell.h; sourceTree = "<group>"; };
+		AA7447F11B633BD7009C02C3 /* BabyImpressMyPicturerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressMyPicturerCell.m; sourceTree = "<group>"; };
+		AA7447F21B633BD7009C02C3 /* BabyImpressMyPicturerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressMyPicturerCell.xib; sourceTree = "<group>"; };
 		AA75729E1B418A67002A8AA2 /* XEShopListInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEShopListInfo.h; sourceTree = "<group>"; };
 		AA75729F1B418A67002A8AA2 /* XEShopListInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEShopListInfo.m; sourceTree = "<group>"; };
 		AA78B9321B4623C600B23EC9 /* OrderApplyReimburseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderApplyReimburseController.h; sourceTree = "<group>"; };
@@ -1540,6 +1575,21 @@
 		AAE233D21B57BBBF004BE9FF /* OrderDetailShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailShopCell.h; sourceTree = "<group>"; };
 		AAE233D31B57BBBF004BE9FF /* OrderDetailShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailShopCell.m; sourceTree = "<group>"; };
 		AAE233D41B57BBBF004BE9FF /* OrderDetailShopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderDetailShopCell.xib; sourceTree = "<group>"; };
+		AAE399321B639A8C001B8EE8 /* BabyImpressCollectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressCollectCell.h; sourceTree = "<group>"; };
+		AAE399331B639A8C001B8EE8 /* BabyImpressCollectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressCollectCell.m; sourceTree = "<group>"; };
+		AAE399341B639A8C001B8EE8 /* BabyImpressCollectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressCollectCell.xib; sourceTree = "<group>"; };
+		AAE3993C1B63A187001B8EE8 /* BabyImpressPrintController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressPrintController.h; sourceTree = "<group>"; };
+		AAE3993D1B63A187001B8EE8 /* BabyImpressPrintController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressPrintController.xib; sourceTree = "<group>"; };
+		AAE3993E1B63A187001B8EE8 /* BabyImpressPrintController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressPrintController.m; sourceTree = "<group>"; };
+		AAF6EC6F1B662AB300D64F36 /* BabyImpressAddController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressAddController.h; sourceTree = "<group>"; };
+		AAF6EC701B662AB300D64F36 /* BabyImpressAddController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressAddController.m; sourceTree = "<group>"; };
+		AAF6EC711B662AB300D64F36 /* BabyImpressAddController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressAddController.xib; sourceTree = "<group>"; };
+		AAF6EC741B662B7E00D64F36 /* BabyImpressAddCollectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressAddCollectCell.h; sourceTree = "<group>"; };
+		AAF6EC751B662B7E00D64F36 /* BabyImpressAddCollectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressAddCollectCell.m; sourceTree = "<group>"; };
+		AAF6EC761B662B7E00D64F36 /* BabyImpressAddCollectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressAddCollectCell.xib; sourceTree = "<group>"; };
+		AAF6EC791B662F1900D64F36 /* BabyImpressAddFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressAddFooterView.h; sourceTree = "<group>"; };
+		AAF6EC7A1B662F1900D64F36 /* BabyImpressAddFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressAddFooterView.m; sourceTree = "<group>"; };
+		AAF6EC7B1B662F1900D64F36 /* BabyImpressAddFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressAddFooterView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2686,6 +2736,7 @@
 		07E536141A528239005E1DA9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AA7447E01B632C8F009C02C3 /* BabyImpress */,
 				AA70D9751B3ED2000013FD96 /* order */,
 				AAE0F1341B32840D005C4B3D /* shop */,
 				07AAB7F41A832FD00030D306 /* Setting */,
@@ -2980,6 +3031,18 @@
 				AA70A8A41B60D1AF00132EDD /* BabyImpressVerifyController.h */,
 				AA70A8A51B60D1AF00132EDD /* BabyImpressVerifyController.m */,
 				AA70A8A61B60D1AF00132EDD /* BabyImpressVerifyController.xib */,
+				AA7447DB1B632BC4009C02C3 /* BabyImpressPayWayController.h */,
+				AA7447DC1B632BC4009C02C3 /* BabyImpressPayWayController.m */,
+				AA7447DD1B632BC4009C02C3 /* BabyImpressPayWayController.xib */,
+				AAF6EC6F1B662AB300D64F36 /* BabyImpressAddController.h */,
+				AAF6EC701B662AB300D64F36 /* BabyImpressAddController.m */,
+				AAF6EC711B662AB300D64F36 /* BabyImpressAddController.xib */,
+				AA7447EB1B633A68009C02C3 /* BabyImpressMyPictureController.h */,
+				AA7447EC1B633A68009C02C3 /* BabyImpressMyPictureController.m */,
+				AA7447ED1B633A68009C02C3 /* BabyImpressMyPictureController.xib */,
+				AAE3993C1B63A187001B8EE8 /* BabyImpressPrintController.h */,
+				AAE3993E1B63A187001B8EE8 /* BabyImpressPrintController.m */,
+				AAE3993D1B63A187001B8EE8 /* BabyImpressPrintController.xib */,
 				AA70A89F1B60879700132EDD /* ImageScrollController.h */,
 				AA70A8A01B60879700132EDD /* ImageScrollController.m */,
 				AA70A8A11B60879700132EDD /* ImageScrollController.xib */,
@@ -3042,6 +3105,31 @@
 				AABC37101B4BCD780090660B /* OrderCardHistoryCell.xib */,
 			);
 			name = order;
+			sourceTree = "<group>";
+		};
+		AA7447E01B632C8F009C02C3 /* BabyImpress */ = {
+			isa = PBXGroup;
+			children = (
+				AA7447E11B632CBF009C02C3 /* BabyImpressPayWayCell.h */,
+				AA7447E21B632CBF009C02C3 /* BabyImpressPayWayCell.m */,
+				AA7447E31B632CBF009C02C3 /* BabyImpressPayWayCell.xib */,
+				AA7447E61B63346F009C02C3 /* BabyImpressPayWayOtherCell.h */,
+				AA7447E71B63346F009C02C3 /* BabyImpressPayWayOtherCell.m */,
+				AA7447E81B63346F009C02C3 /* BabyImpressPayWayOtherCell.xib */,
+				AAF6EC741B662B7E00D64F36 /* BabyImpressAddCollectCell.h */,
+				AAF6EC751B662B7E00D64F36 /* BabyImpressAddCollectCell.m */,
+				AAF6EC761B662B7E00D64F36 /* BabyImpressAddCollectCell.xib */,
+				AAF6EC791B662F1900D64F36 /* BabyImpressAddFooterView.h */,
+				AAF6EC7A1B662F1900D64F36 /* BabyImpressAddFooterView.m */,
+				AAF6EC7B1B662F1900D64F36 /* BabyImpressAddFooterView.xib */,
+				AA7447F01B633BD7009C02C3 /* BabyImpressMyPicturerCell.h */,
+				AA7447F11B633BD7009C02C3 /* BabyImpressMyPicturerCell.m */,
+				AA7447F21B633BD7009C02C3 /* BabyImpressMyPicturerCell.xib */,
+				AAE399321B639A8C001B8EE8 /* BabyImpressCollectCell.h */,
+				AAE399331B639A8C001B8EE8 /* BabyImpressCollectCell.m */,
+				AAE399341B639A8C001B8EE8 /* BabyImpressCollectCell.xib */,
+			);
+			name = BabyImpress;
 			sourceTree = "<group>";
 		};
 		AA7AAFAE1B1F01CD00158B9A /* infomation */ = {
@@ -3586,6 +3674,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA70D9741B3ED1320013FD96 /* OrderViewController.xib in Resources */,
+				AAE3993F1B63A187001B8EE8 /* BabyImpressPrintController.xib in Resources */,
 				075E40AA1A593A820062F6AD /* ProgressHUD.bundle in Resources */,
 				AA6556AF1B3BCC5C00817DF6 /* ShopActivityCell.xib in Resources */,
 				0783F68B1AB819D600AAB5B0 /* BabyListViewCell.xib in Resources */,
@@ -3642,13 +3731,16 @@
 				078E89001AA1C32D008AD45A /* UMSocialDataService.html in Resources */,
 				07B650531A67A1E500DEDE4E /* ExpertIntroViewController.xib in Resources */,
 				074644861A6CFFDA00CE2935 /* XECollectionViewCell.xib in Resources */,
+				AA7447E51B632CBF009C02C3 /* BabyImpressPayWayCell.xib in Resources */,
 				AA5C52491B4520990039900E /* OrderInfomationController.xib in Resources */,
 				078E890B1AA1C32D008AD45A /* UMSocialRenrenData.html in Resources */,
 				07913F661A67808F0083E8E5 /* ExpertListViewCell.xib in Resources */,
 				078E89131AA1C32D008AD45A /* UMSocialTencentData.html in Resources */,
 				078E89171AA1C32D008AD45A /* UMSocialWechatTimelineData.html in Resources */,
+				AAF6EC781B662B7E00D64F36 /* BabyImpressAddCollectCell.xib in Resources */,
 				07C7C5111A70E336003E1272 /* arrow.png in Resources */,
 				078E89311AA1C32D008AD45A /* ios-social-sdk-login-detail.html in Resources */,
+				AA7447DF1B632BC4009C02C3 /* BabyImpressPayWayController.xib in Resources */,
 				07C988171A63B44B003A2B30 /* ChooseLocationViewController.xib in Resources */,
 				078E891A1AA1C32D008AD45A /* styles.css in Resources */,
 				AA149F141B4E838B007DFC6D /* jian-6p.png in Resources */,
@@ -3656,6 +3748,7 @@
 				078E87ED1AA18CAE008AD45A /* StageSelectViewCell.xib in Resources */,
 				AA4FC5301B33E15D007F90B5 /* ToyCollectionHeaderCell.xib in Resources */,
 				AA149EB21B4E1B35007DFC6D /* ToyDetailCollectiCell.xib in Resources */,
+				AA7447EA1B63346F009C02C3 /* BabyImpressPayWayOtherCell.xib in Resources */,
 				075DD03B1A78B42E009A64B4 /* WSAssetViewSelectionIndicator.png in Resources */,
 				078E892C1AA1C32D008AD45A /* iOS-social-analytics-releasenote.html in Resources */,
 				AACD9F7D1B21A81D0093E21C /* focusAndHabitViewController.xib in Resources */,
@@ -3676,6 +3769,7 @@
 				07AAB7F91A8330130030D306 /* SettingViewCell.xib in Resources */,
 				AAD5EF9B1B36888C006C17FC /* AddAddressCell.xib in Resources */,
 				07FC6D241A679D4C001F34D8 /* XEGridView.xib in Resources */,
+				AA7447EF1B633A68009C02C3 /* BabyImpressMyPictureController.xib in Resources */,
 				AA3C127D1B4A5A8600C9E555 /* OrderCardCell.xib in Resources */,
 				AA78B9401B46248700B23EC9 /* OrderApplyReimburseCell.xib in Resources */,
 				7E72411C1A77BFA2001E1F69 /* TopicDetailsViewController.xib in Resources */,
@@ -3731,6 +3825,7 @@
 				0783F6921AB819FE00AAB5B0 /* XECategoryView.xib in Resources */,
 				078E88F51AA1C32D008AD45A /* UMSShareListController.xib in Resources */,
 				078E89111AA1C32D008AD45A /* UMSocialSnsPlatformManager.html in Resources */,
+				AAF6EC7D1B662F1900D64F36 /* BabyImpressAddFooterView.xib in Resources */,
 				078E892F1AA1C32D008AD45A /* ios-social-sdk-comment-quick.html in Resources */,
 				07FC6D2A1A67B317001F34D8 /* RecipesViewController.xib in Resources */,
 				07508E941A51346300873B45 /* LaunchScreen.xib in Resources */,
@@ -3758,6 +3853,7 @@
 				078E89141AA1C32D008AD45A /* UMSocialTwitterData.html in Resources */,
 				073F9F141A68B38F009D94E3 /* CategoryItemCell.xib in Resources */,
 				075CAF4D1A5D0E6A005CF4B6 /* SetPwdViewController.xib in Resources */,
+				AAE399361B639A8C001B8EE8 /* BabyImpressCollectCell.xib in Resources */,
 				AAD8EC8E1B0B0A8E00B24F9A /* CardOfEastSucceedController.xib in Resources */,
 				AA6556B91B3BD4CD00817DF6 /* ActivityMainCell.xib in Resources */,
 				AA8EE0F11B37AE6E003D8FFB /* SearchListViewController.xib in Resources */,
@@ -3779,6 +3875,7 @@
 				AAD5EF911B365766006C17FC /* VerifyIndentViewController.xib in Resources */,
 				0797A32A1A7F106C00D5650A /* XEScrollPage.xib in Resources */,
 				07E5362D1A52905F005E1DA9 /* MainPageViewController.xib in Resources */,
+				AAF6EC731B662AB300D64F36 /* BabyImpressAddController.xib in Resources */,
 				078E89211AA1C32D008AD45A /* library_background.png in Resources */,
 				078E890F1AA1C32D008AD45A /* UMSocialSnsData.html in Resources */,
 				078E892D1AA1C32D008AD45A /* iOS-social-releasenote.html in Resources */,
@@ -3800,6 +3897,7 @@
 				AA6556C31B3BEBBE00817DF6 /* ActivityDetailCell.xib in Resources */,
 				AAD5EFDE1B36C3C4006C17FC /* GoToPayViewController.xib in Resources */,
 				0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */,
+				AA7447F41B633BD7009C02C3 /* BabyImpressMyPicturerCell.xib in Resources */,
 				AA4FC52B1B33C132007F90B5 /* ToyListViewController.xib in Resources */,
 				AA89D4411B5516E900F31927 /* AlipaySDK.bundle in Resources */,
 			);
@@ -3867,6 +3965,7 @@
 				073FD99D1A53EB9700FF0EFD /* XELinkerHandler.m in Sources */,
 				AAE0F1411B32A73F005C4B3D /* WaterFlowLayout.m in Sources */,
 				AA6C63B01B4CF10A003E05E6 /* AddressInfoManager.m in Sources */,
+				AA7447EE1B633A68009C02C3 /* BabyImpressMyPictureController.m in Sources */,
 				077C98C31A53D48800E2985B /* XEUIUtils.m in Sources */,
 				075DD0351A78AC0C009A64B4 /* WSAssetsTableViewCell.m in Sources */,
 				07457C901AC3F490009343FC /* HotUpButton.m in Sources */,
@@ -3925,6 +4024,7 @@
 				AA16961A1B3FC18F008BF027 /* OrderDetailViewController.m in Sources */,
 				AAD5EFE21B36C489006C17FC /* GoToPayCell.m in Sources */,
 				0712B3A61A5BD853000A1A7F /* NSData+ImageContentType.m in Sources */,
+				AAF6EC771B662B7E00D64F36 /* BabyImpressAddCollectCell.m in Sources */,
 				073F9F131A68B38F009D94E3 /* CategoryItemCell.m in Sources */,
 				AA89D44B1B5516E900F31927 /* NSDataEx.m in Sources */,
 				AA92336C1B5A449B0087AD66 /* XEAppointmentOrder.m in Sources */,
@@ -3940,6 +4040,7 @@
 				0760FC461A79D4DD00A0E5D8 /* QuestionDetailsViewController.m in Sources */,
 				07B6505B1A67B85200DEDE4E /* XEDoctorInfo.m in Sources */,
 				07C49F4A1A5E7CD000E1725C /* XEImagePickerController.m in Sources */,
+				AA7447DE1B632BC4009C02C3 /* BabyImpressPayWayController.m in Sources */,
 				0712B3B21A5BD853000A1A7F /* UIImageView+HighlightedWebCache.m in Sources */,
 				AA8EE0FC1B37B723003D8FFB /* ShopCarCell.m in Sources */,
 				AA5C524D1B4522870039900E /* OrderInfomationCell.m in Sources */,
@@ -3953,14 +4054,17 @@
 				075AA03A1A68B85D000B6302 /* ActivityViewController.m in Sources */,
 				07C49F471A5E7C9800E1725C /* XECommonVcTransition.m in Sources */,
 				0774A8751A666EAB00336465 /* GMGridViewLayoutStrategies.m in Sources */,
+				AA7447E41B632CBF009C02C3 /* BabyImpressPayWayCell.m in Sources */,
 				077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */,
 				0774A8741A666EAB00336465 /* GMGridViewCell.m in Sources */,
 				AA1696161B3FBC2E008BF027 /* XEShopSerieInfo.m in Sources */,
+				AA7447F31B633BD7009C02C3 /* BabyImpressMyPicturerCell.m in Sources */,
 				077663961A80674E004C885B /* MineActivityListViewController.m in Sources */,
 				AA89D44A1B5516E900F31927 /* MD5DataSigner.m in Sources */,
 				0752F7D21A7B2638008C0E0A /* PSTCollectionView.m in Sources */,
 				AAD5EF951B36846B006C17FC /* AddAddressViewController.m in Sources */,
 				AA7AE68A1B1EA91F00396699 /* InformationViewController.m in Sources */,
+				AAE399351B639A8C001B8EE8 /* BabyImpressCollectCell.m in Sources */,
 				0712B3AA1A5BD853000A1A7F /* SDWebImageDownloader.m in Sources */,
 				0712B3AE1A5BD853000A1A7F /* UIButton+WebCache.m in Sources */,
 				AA89D4471B5516E900F31927 /* base64.m in Sources */,
@@ -3983,6 +4087,7 @@
 				07E536311A5290C9005E1DA9 /* EvaluationViewController.m in Sources */,
 				077C98C01A53D12700E2985B /* XECommonUtils.m in Sources */,
 				AA70A8A71B60D1AF00132EDD /* BabyImpressVerifyController.m in Sources */,
+				AA7447E91B63346F009C02C3 /* BabyImpressPayWayOtherCell.m in Sources */,
 				075E40AB1A593A820062F6AD /* ProgressHUD.m in Sources */,
 				AABC37831B4BEB1E0090660B /* MJType.m in Sources */,
 				0752F7D91A7B2638008C0E0A /* PSTCollectionViewUpdateItem.m in Sources */,
@@ -4010,10 +4115,12 @@
 				AA149EFA1B4E348A007DFC6D /* ToyDetailCollectHeaderView.m in Sources */,
 				AAE0F1661B32CB8E005C4B3D /* ToyMainTabCell.m in Sources */,
 				073FD9971A53D64400FF0EFD /* JSONKit.m in Sources */,
+				AAF6EC7C1B662F1900D64F36 /* BabyImpressAddFooterView.m in Sources */,
 				AA125DD81B2811D1000163A7 /* MJRefreshBaseView.m in Sources */,
 				0752F7D41A7B2638008C0E0A /* PSTCollectionViewController.m in Sources */,
 				07913F651A67808F0083E8E5 /* ExpertListViewCell.m in Sources */,
 				075DD0331A78AC0C009A64B4 /* WSAssetPickerController.m in Sources */,
+				AAF6EC721B662AB300D64F36 /* BabyImpressAddController.m in Sources */,
 				AA125DD91B2811D1000163A7 /* MJRefreshConst.m in Sources */,
 				7E72412C1A77D2F8001E1F69 /* HPTextViewInternal.m in Sources */,
 				0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */,
@@ -4053,6 +4160,7 @@
 				AA4FC5341B33E17C007F90B5 /* ToyListCollectionCell.m in Sources */,
 				074594061A5BB52C008F4665 /* NewIntroView.m in Sources */,
 				0752F7AD1A7B25C5008C0E0A /* MWTapDetectingView.m in Sources */,
+				AAE399401B63A187001B8EE8 /* BabyImpressPrintController.m in Sources */,
 				AA419DB01B4D2FF40020602B /* XEShopDetailInfo.m in Sources */,
 				0712B3B41A5BD853000A1A7F /* UIView+WebCacheOperation.m in Sources */,
 				AAD9C60D1B2EA1C9007C9235 /* XEMotherLook.m in Sources */,

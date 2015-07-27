@@ -231,7 +231,7 @@ static CGFloat beginImageH = 64;
 {
     // Return the number of rows in the section.
     if (section == kMyProfile) {
-        return 5;
+        return 4;
     }
 //    else if (section == kMyCard){
 //        return 1;
@@ -267,24 +267,24 @@ static CGFloat beginImageH = 64;
     switch (indexPath.section) {
         case kMyProfile:{
             
+//            if (indexPath.row == 0) {
+//                cell.titleLabel.text = @"我的订单";
+//                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_baby_icon"]];
+//                break;
+//            }
             if (indexPath.row == 0) {
-                cell.titleLabel.text = @"我的订单";
-                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_baby_icon"]];
-                break;
-            }
-            if (indexPath.row == 1) {
                 cell.titleLabel.text = @"我的消息";
                 [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_msg_icon"]];
                 break;
-            }else if (indexPath.row == 2){
+            }else if (indexPath.row == 1){
                 cell.titleLabel.text = @"我的活动";
                 [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_activity_icon"]];
                 break;
-            }else if (indexPath.row == 3){
+            }else if (indexPath.row == 2){
                 cell.titleLabel.text = @"我的收藏";
                 [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_collection_icon"]];
                 break;
-            }else if (indexPath.row == 4){
+            }else if (indexPath.row == 3){
                 cell.titleLabel.text = @"我的话题";
                 [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_topic_icon"]];
                 break;
@@ -339,32 +339,32 @@ static CGFloat beginImageH = 64;
     
     switch (indexPath.section) {
         case kMyProfile:{
-            if (indexPath.row == 1) {
+            if (indexPath.row == 0) {
                 MineMsgViewController *mVc = [[MineMsgViewController alloc] init];
                 [self.navigationController pushViewController:mVc animated:YES];
                 break;
-            }else if (indexPath.row == 2){
+            }else if (indexPath.row == 1){
                 if ([[XEEngine shareInstance] needUserLogin:nil]) {
                     return;
                 }
                 MineActivityListViewController *mVc = [[MineActivityListViewController alloc] init];
                 [self.navigationController pushViewController:mVc animated:YES];
                 break;
-            }else if (indexPath.row == 3){
+            }else if (indexPath.row == 2){
                 if ([[XEEngine shareInstance] needUserLogin:nil]) {
                     return;
                 }
                 CollectionViewController *cVc = [[CollectionViewController alloc] init];
                 [self.navigationController pushViewController:cVc animated:YES];
                 break;
-            }else if (indexPath.row == 4){
+            }else if (indexPath.row == 3){
                 if ([[XEEngine shareInstance] needUserLogin:nil]) {
                     return;
                 }
                 MineTopicListViewController *mVc = [[MineTopicListViewController alloc] init];
                 [self.navigationController pushViewController:mVc animated:YES];
                 break;
-            }else if (indexPath.row == 0){
+            }else if (indexPath.row == 4){
                 if ([[XEEngine shareInstance] needUserLogin:nil]) {
                     return;
                 }

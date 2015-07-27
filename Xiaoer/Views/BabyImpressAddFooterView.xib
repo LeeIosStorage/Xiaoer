@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   ps:您当月剩余上传数量还剩18张" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acl-Gg-ohe">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="2MJ-Sw-HNv"/>
+                        <constraint firstAttribute="width" constant="320" id="daP-Nk-Tib"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hpe-AX-OzI">
+                    <rect key="frame" x="0.0" y="40" width="320" height="160"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="160" id="gGP-kp-Qbb"/>
+                        <constraint firstAttribute="width" constant="320" id="hA5-xp-JQx"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2:照片大小建议不要超过10M，否则容易上传失败" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7Y-Sa-3Ca">
+                    <rect key="frame" x="15" y="108" width="290" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="3GT-X3-aWm"/>
+                        <constraint firstAttribute="width" constant="280" id="nVt-5d-77x"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="nVt-5d-77x"/>
+                        </mask>
+                    </variation>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  照片上传说明：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="900-kx-10P">
+                    <rect key="frame" x="15" y="48" width="200" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="BYX-Wm-dib"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1:照片一次最多上传10张，总共可上传30张" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dwc-FO-JrM">
+                    <rect key="frame" x="15" y="78" width="280" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="280" id="GQ8-Gm-65y"/>
+                        <constraint firstAttribute="height" constant="20" id="KQ4-Hx-39L"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="hO9-xJ-HE0"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="lEU-ny-5Yx"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3:上传的照片将保存3个月后删除" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uWq-P0-7ZA">
+                    <rect key="frame" x="15" y="138" width="290" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="lNn-AA-xs4"/>
+                        <constraint firstAttribute="width" constant="280" id="x8W-or-XX3"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="x8W-or-XX3"/>
+                        </mask>
+                    </variation>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4:上传的照片将保存在“我的照片”中" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chK-94-hhP">
+                    <rect key="frame" x="15" y="168" width="290" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="280" id="U0f-xg-Aev"/>
+                        <constraint firstAttribute="height" constant="20" id="bbf-BJ-DNR"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="U0f-xg-Aev"/>
+                        </mask>
+                    </variation>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="uWq-P0-7ZA" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="15" id="0C6-cE-Pm3"/>
+                <constraint firstAttribute="trailing" secondItem="Hpe-AX-OzI" secondAttribute="trailing" id="1QZ-Ud-Jcs"/>
+                <constraint firstItem="chK-94-hhP" firstAttribute="top" secondItem="uWq-P0-7ZA" secondAttribute="bottom" constant="10" id="5Yp-jw-akT"/>
+                <constraint firstItem="acl-Gg-ohe" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="7WD-ob-QOE"/>
+                <constraint firstItem="900-kx-10P" firstAttribute="top" secondItem="acl-Gg-ohe" secondAttribute="bottom" constant="8" symbolic="YES" id="HDX-v9-GED"/>
+                <constraint firstItem="900-kx-10P" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="15" id="IJG-rI-g8J"/>
+                <constraint firstAttribute="trailing" secondItem="chK-94-hhP" secondAttribute="trailing" constant="15" id="Nvs-Hc-2OA"/>
+                <constraint firstItem="l7Y-Sa-3Ca" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="15" id="Pk3-I2-TKs"/>
+                <constraint firstItem="l7Y-Sa-3Ca" firstAttribute="top" secondItem="Dwc-FO-JrM" secondAttribute="bottom" constant="10" id="Pw2-Sg-EiE"/>
+                <constraint firstItem="Hpe-AX-OzI" firstAttribute="top" secondItem="acl-Gg-ohe" secondAttribute="bottom" id="S6x-EZ-5X9"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Dwc-FO-JrM" secondAttribute="trailing" constant="25" id="TZc-ji-LKu"/>
+                <constraint firstAttribute="trailing" secondItem="uWq-P0-7ZA" secondAttribute="trailing" constant="15" id="V0n-qx-u7Y"/>
+                <constraint firstItem="acl-Gg-ohe" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="Z4Q-bX-DW9"/>
+                <constraint firstAttribute="trailing" secondItem="l7Y-Sa-3Ca" secondAttribute="trailing" constant="15" id="csN-op-dF4"/>
+                <constraint firstItem="chK-94-hhP" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="15" id="duQ-lu-rDh"/>
+                <constraint firstAttribute="bottom" secondItem="Hpe-AX-OzI" secondAttribute="bottom" id="h6X-hd-BRt"/>
+                <constraint firstItem="Dwc-FO-JrM" firstAttribute="top" secondItem="900-kx-10P" secondAttribute="bottom" constant="10" id="kYR-rK-WlB"/>
+                <constraint firstItem="Dwc-FO-JrM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="15" id="leU-UP-cgS"/>
+                <constraint firstAttribute="trailing" secondItem="acl-Gg-ohe" secondAttribute="trailing" id="lu4-cG-pIG"/>
+                <constraint firstItem="Hpe-AX-OzI" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="sHw-Sa-FUB"/>
+                <constraint firstAttribute="trailing" secondItem="Dwc-FO-JrM" secondAttribute="trailing" constant="25" id="slu-o6-qda"/>
+                <constraint firstItem="Dwc-FO-JrM" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="15" id="stv-if-wlt"/>
+                <constraint firstItem="uWq-P0-7ZA" firstAttribute="top" secondItem="l7Y-Sa-3Ca" secondAttribute="bottom" constant="10" id="urP-Pd-Bya"/>
+                <constraint firstAttribute="trailing" secondItem="l7Y-Sa-3Ca" secondAttribute="trailing" constant="15" id="zjc-zH-V8I"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="slu-o6-qda"/>
+                    <exclude reference="zjc-zH-V8I"/>
+                </mask>
+            </variation>
+        </collectionReusableView>
+    </objects>
+</document>

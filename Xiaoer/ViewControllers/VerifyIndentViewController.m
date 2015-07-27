@@ -588,11 +588,11 @@
     
     CGFloat Favora = 0;
     //普通优惠
-    for (int i = 0; i < self.shopArray.count; i++) {
-        XEShopCarInfo *info = self.shopArray[i];
-        CGFloat diff = [info.num floatValue] * ([info.origPrice floatValue] - [info.price floatValue]);
-        Favora += diff;
-    }
+//    for (int i = 0; i < self.shopArray.count; i++) {
+//        XEShopCarInfo *info = self.shopArray[i];
+//        CGFloat diff = [info.num floatValue] * ([info.origPrice floatValue] - [info.price floatValue]);
+//        Favora += diff;
+//    }
 //    //优惠券优惠
 //    for (int i = 0;i< self.usedArray.count; i++) {
 //        if ([self.usedArray[i] isEqualToString:@"0"]) {

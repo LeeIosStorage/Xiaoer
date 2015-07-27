@@ -947,12 +947,16 @@
         if (indexPath.row == 0) {
             cell.titleLabel.text = @"教子有方";
             cell.subTitleLabel.text = @"迅速掌握育儿秘籍的第一课堂";
+//            cell.titleLabel.text = @"妈妈必看";
+//            cell.subTitleLabel.text = @"注意力不集中影响宝宝智力发育";
             cell.itemImageView.image = [UIImage imageNamed:@"home_attention_icon"];
             return cell;
             
         }else if (indexPath.row == 1) {
             cell.titleLabel.text = @"宝宝足迹";
             cell.subTitleLabel.text = @"你负责拍，我负责印";
+//            cell.titleLabel.text = @"好习惯指导和注意力指导";
+//            cell.subTitleLabel.text = @"当宝宝的好习惯和注意力指导老师";
             cell.itemImageView.image = [UIImage imageNamed:@"home_parklon_icon"];
             return cell;
         }
@@ -989,8 +993,8 @@
 //        RecipesViewController *rVc = [[RecipesViewController alloc] init];
         if (indexPath.row == 0) {
             //原来的 妈妈必看
-//            MotherLookController *mother = [[MotherLookController alloc]init];
-//          [self.navigationController pushViewController:mother animated:YES];
+            MotherLookController *mother = [[MotherLookController alloc]init];
+          [self.navigationController pushViewController:mother animated:YES];
             
             
             //        rVc.infoType = TYPE_ATTENTION;

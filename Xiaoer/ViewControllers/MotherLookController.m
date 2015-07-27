@@ -41,6 +41,9 @@
     [self.motherLookTab addHeaderWithTarget:self action:@selector(headerRefreshing)];
 
     [self headerRefreshing];
+    
+    self.motherLookTab.sectionHeaderHeight = 0;
+    self.motherLookTab.sectionFooterHeight = 40;
 
 }
 - (void)touchMotherLookCellBtn:(UIButton *)sender{
@@ -60,7 +63,7 @@
         activityInfo.aType = 1;
         vc.activityInfo = activityInfo;
         vc.isTicketActivity = YES;
-        if ([model.objid isEqualToString:@""]) {
+        if ([model.objid isKindOfClass:[NSNull class]]) {
             [aletr show];
             return;
         }else{
@@ -76,7 +79,7 @@
         NSDictionary *dic = self.dataSources[sender.tag];
         XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
         vc.activityInfo = activityInfo;
-        if ([model.objid isEqualToString:@""]) {
+        if ([model.objid isKindOfClass:[NSNull class]]) {
             
             [aletr show];
             return;
@@ -95,7 +98,7 @@
         XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
         NSString *url = [NSString stringWithFormat:@"%@/info/detail?id=%@", [[XEEngine shareInstance] baseUrl],model.objid];
         id vc = [XELinkerHandler handleDealWithHref:url From:self.navigationController];
-        if ([model.objid isEqualToString:@""]) {
+        if ([model.objid isKindOfClass:[NSNull class]]) {
             
             [aletr show];
             return;
@@ -171,6 +174,9 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 40;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.01;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 40)];

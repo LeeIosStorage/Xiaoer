@@ -512,6 +512,7 @@
         pData.filename = @".png";
         pData.mimeType = @"image/png";
         [self.imageDataArr addObject:pData];
+        NSLog(@"pData.name === %@ %ld",pData.name,pData.data.length);
     }
     NSLog(@"self.imageDataArr ==%@",self.imageDataArr);
 }

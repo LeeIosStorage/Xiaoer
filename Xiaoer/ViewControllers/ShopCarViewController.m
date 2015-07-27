@@ -355,6 +355,7 @@
     return YES;
     
 }
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     __weak ShopCarViewController *weakSelf = self;
     XEShopCarInfo *info = (XEShopCarInfo *)self.dataSources[indexPath.row];

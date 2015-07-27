@@ -8,9 +8,17 @@
 
 #import "BabyImpressVerifyController.h"
 #import "AppDelegate.h"
+#import "AddAddressViewController.h"
+#import "AddressManagerController.h"
+#import "XEAddressListInfo.h"
+#import "BabyImpressPayWayController.h"
 #import <QiniuSDK.h>
+#import "BabyImpressMyPictureController.h"
 
-@interface BabyImpressVerifyController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
+
+
+
+@interface BabyImpressVerifyController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,postInfoDelegate,refreshAddtessInfoDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (strong, nonatomic) IBOutlet UIView *noAddressView;
@@ -22,11 +30,14 @@
 @property (strong, nonatomic) IBOutlet UIView *footerView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
-@property (nonatomic,assign)BOOL ifHaveAddress;
+@property (weak, nonatomic) IBOutlet UIButton *verifyBtn;
 @property (nonatomic,assign)BOOL ifHavePayWay;
 
 
-
+@property (nonatomic,strong)XEAddressListInfo *addressInfo;
+@property (weak, nonatomic) IBOutlet UILabel *infoPhone;
+@property (weak, nonatomic) IBOutlet UILabel *infoAddress;
+@property (weak, nonatomic) IBOutlet UILabel *infoName;
 
 @end
 
@@ -37,66 +48,106 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     self.tableview.backgroundColor = [UIColor clearColor];
-    
-    self.ifHaveAddress = NO;
+    self.verifyBtn.layer.cornerRadius = 5;
+    self.verifyBtn.layer.masksToBounds = YES;
     self.ifHavePayWay = NO;
     [self configureTableView];
     
-    /*  七牛
+    
+    
+    
+    
+//      七牛
     NSString *token = @"从服务端SDK获取";
     AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     NSData *data = [@"Hello, World!" dataUsingEncoding : NSUTF8StringEncoding];
-    [appDelegate.upManager putData:data key:@"hello" token:token
-              complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                  NSLog(@"1 %@", info);
-                  NSLog(@"2 %@", resp);
-              } option:nil];
-     */
+    
+    for (int i = 0; i < 10; i++) {
+        [appDelegate.upManager putData:data key:@"hello" token:token
+                              complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                                  NSLog(@"1 %@", info);
+                                  NSLog(@"2 %@", resp);
+                              } option:nil];
+    }
+  
     
     // Do any additional setup after loading the view from its nib.
 }
+- (IBAction)verrfyBtnTouched:(id)sender {
+    NSLog(@"确定");
+    if (self.view.frame.origin.y == 0) {
+    } else {
+        [self animtionTabView];
+    }
+    BabyImpressMyPictureController *picture = [[BabyImpressMyPictureController alloc]init];
+    [self.navigationController pushViewController:picture  animated:YES];
+    
+}
+
+- (IBAction)noAddressBtnTouched:(id)sender {
+    AddAddressViewController *add = [[AddAddressViewController alloc]init];
+    add.delegate = self;
+    [self.navigationController pushViewController:add animated:YES];
+}
+- (void)postInfoWith:(XEAddressListInfo *)info{
+    NSLog(@"info === %@",info);
+    self.addressInfo = info;
+    self.tableview.tableHeaderView = [self returnAddressView];
+}
+- (IBAction)haveAddressBtnTouched:(id)sender {
+    AddressManagerController *manager = [[AddressManagerController alloc]init];
+    manager.delegate = self;
+    [self.navigationController pushViewController:manager animated:YES];
+}
+- (void)refreshAddressInfoWith:(XEAddressListInfo *)info{
+    NSLog(@"info === %@",info);
+    self.addressInfo = info;
+    self.tableview.tableHeaderView = [self returnAddressView];
+}
+- (IBAction)noPayBtnTouched:(id)sender {
+    BabyImpressPayWayController *payWay = [[BabyImpressPayWayController alloc]init];
+    [self.navigationController pushViewController:payWay animated:YES];
+}
+
 - (void)configureTableView{
     [self.tableview  registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.tableview.delegate  = self;
     self.tableview.dataSource = self;
-    self.tableview.tableFooterView = self.footerView;
-    self.tableview.tableHeaderView = [self creatTabHeaderView];
+    self.tableview.tableFooterView = [self creatFooterView];
+    self.tableview.tableHeaderView = [self returnAddressView];
     
     self.textView.delegate = self;
-    self.textView.frame = CGRectMake(40, 40, SCREEN_WIDTH - 80, 80);
     self.textView.layer.borderWidth = 1;
     self.textView.layer.cornerRadius = 8;
     self.textView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
 }
-#pragma mark  headerView
-- (UIView *)creatTabHeaderView{
-    for (UIView *view in self.tableview.tableHeaderView.subviews) {
+
+- (UIView *)creatFooterView{
+    for (UIView *view in self.tableview.tableFooterView.subviews) {
         [view removeFromSuperview];
     }
     
-    UIView *header = [[UIView alloc]init];
-    header.backgroundColor = [UIColor whiteColor];
     
-    UIView *address = [self returnAddressView];
-    [header addSubview:address];
-    
+    UIView *footer = [[UIView alloc]init];
     UIView *payWay = [self returhPayWayView];
-    payWay.frame = CGRectMake(0, address.frame.size.height, SCREEN_WIDTH, payWay.frame.size.height);
-    [header addSubview:payWay];
     
-    
-    self.noteView.frame = CGRectMake(0, address.frame.size.height + payWay.frame.size.height, SCREEN_WIDTH, 140);
-    [header addSubview:self.noteView];
-    
-    header.frame = CGRectMake(0, 0, SCREEN_WIDTH, address.frame.size.height + payWay.frame.size.height + self.noteView.frame.size.height);
-    return header;
+    self.noteView.frame = CGRectMake(0, payWay.frame.size.height, SCREEN_WIDTH, 140);
+    self.footerView.frame = CGRectMake(0, payWay.frame.size.height + self.noteView.frame.size.height, SCREEN_WIDTH, 130);
+    footer.frame = CGRectMake(0, 0, SCREEN_WIDTH, payWay.frame.size.height + self.noteView.frame.size.height + self.footerView.frame.size.height);
+    [footer addSubview:payWay];
+    [footer addSubview:self.noteView];
+    [footer addSubview:self.footerView];
+    return footer;
 }
-
 - (UIView *)returnAddressView{
-    if (self.ifHaveAddress == NO) {
+
+    if (!self.addressInfo.id) {
         return  self.noAddressView;
     }else{
+        self.infoAddress.text = self.addressInfo.address;
+        self.infoName.text = self.addressInfo.name;
+        self.infoPhone.text = self.addressInfo.phone;
         return self.haveAddressView;
     }
 }
@@ -104,9 +155,12 @@
 - (UIView *)returhPayWayView{
     
     if (self.ifHavePayWay == NO) {
+        self.noPayWayView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 40);
         return self.noPayWayView;
     }else{
-        return self.haveAddressView;
+        self.havePayView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 135);
+
+        return self.havePayView;
     }
     
 }
@@ -117,10 +171,17 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
+    return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80;
+    return 0.01;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 5;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 5)];
+    return view;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
