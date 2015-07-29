@@ -13,23 +13,31 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pa5-H1-1Nz">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RbI-h8-sRH">
                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
-                        <color key="backgroundColor" red="0.64705882349999999" green="0.81176470590000005" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="80" id="3jq-hY-Epp"/>
-                            <constraint firstAttribute="height" constant="80" id="OZZ-TZ-NmM"/>
+                            <constraint firstAttribute="height" constant="80" id="gOS-YN-noP"/>
+                            <constraint firstAttribute="width" constant="80" id="oSg-06-0rb"/>
                         </constraints>
-                    </imageView>
+                        <state key="normal" title="+">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="addBtnTouched:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Mxc-aS-i4L"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="Pa5-H1-1Nz" secondAttribute="bottom" id="bbA-CE-Hgq"/>
-                <constraint firstItem="Pa5-H1-1Nz" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="c9C-Pn-yl5"/>
-                <constraint firstAttribute="trailing" secondItem="Pa5-H1-1Nz" secondAttribute="trailing" id="gLs-ew-Avb"/>
-                <constraint firstItem="Pa5-H1-1Nz" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="see-5Q-csC"/>
+                <constraint firstAttribute="trailing" secondItem="RbI-h8-sRH" secondAttribute="trailing" id="OGe-Ax-Mmw"/>
+                <constraint firstItem="RbI-h8-sRH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="R2w-5i-ks9"/>
+                <constraint firstAttribute="bottom" secondItem="RbI-h8-sRH" secondAttribute="bottom" id="hbc-ka-Ray"/>
+                <constraint firstItem="RbI-h8-sRH" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="xFc-GL-aRV"/>
             </constraints>
+            <connections>
+                <outlet property="addBtn" destination="RbI-h8-sRH" id="2ej-B3-f44"/>
+            </connections>
         </collectionViewCell>
     </objects>
 </document>

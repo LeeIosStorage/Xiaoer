@@ -42,7 +42,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"每周一练";
+    self.title = @"妈妈必看";
     [self.mainTabView registerNib:[UINib nibWithNibName:@"OneWeakCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"cells"];
     self.mainTabView.dataSource = self;
     self.mainTabView.delegate = self;

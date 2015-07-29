@@ -7,9 +7,9 @@
 //
 
 #import "XESuperViewController.h"
-#import "UzysAssetsPickerController.h"
 
 
-@interface BabyImpressMainController : XESuperViewController<UzysAssetsPickerControllerDelegate>
+@interface BabyImpressMainController : XESuperViewController
+
 
 @end

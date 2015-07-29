@@ -9,23 +9,15 @@
 #import "BabyImpressMainController.h"
 #import "BabyImpressVerifyController.h"
 #import "BabyImpressAddController.h"
-@interface BabyImpressMainController ()<UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
-@property (nonatomic,strong)UIImagePickerController *imagePicker;
+
+@interface BabyImpressMainController ()<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *testImageView;
 @property (nonatomic,strong)UIAlertView *chooseWayUpload;
 @end
 
 @implementation BabyImpressMainController
 
-- (UIImagePickerController *)imagePicker{
-    if (!_imagePicker) {
-        self.imagePicker = [[UIImagePickerController alloc]init];
-        _imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;//如果有相机，则设置图片选取器的类型为相机
-        _imagePicker.delegate = self;//设置图片选择器的代理对象为当前视图控制器
-        _imagePicker.allowsEditing = NO;
-    }
-    return _imagePicker;
-}
+
 
 - (UIAlertView *)chooseWayUpload{
     if (!_chooseWayUpload) {
@@ -55,10 +47,7 @@
             case 0:
                 //取消
             {
-                BabyImpressAddController *add = [[BabyImpressAddController alloc]init];
-                [self.navigationController pushViewController:add animated:YES];
-//                BabyImpressVerifyController *verify = [[BabyImpressVerifyController alloc]init];
-//                [self.navigationController pushViewController:verify animated:YES];
+
             }
                 break;
             case 1:
@@ -69,22 +58,20 @@
                     [alert show];
                     return;
                 }else{
-                    [self presentViewController:self.imagePicker animated:YES completion:^{
-                        
-                    }];
+                    BabyImpressAddController *add = [[BabyImpressAddController alloc]init];
+                    add.index = 0;
+                    [self.navigationController pushViewController:add animated:YES];
+
                 }
+
             }
                 break;
             case 2:
                 //从手机相册选择
             {
-                UzysAssetsPickerController *picker = [[UzysAssetsPickerController alloc] init];
-                picker.delegate = self;
-                picker.maximumNumberOfSelectionVideo = 0;
-                picker.maximumNumberOfSelectionPhoto = 10;
-                [self presentViewController:picker animated:YES completion:^{
-                    
-                }];
+                BabyImpressAddController *add = [[BabyImpressAddController alloc]init];
+                add.index = 1;
+                [self.navigationController pushViewController:add animated:YES];
             }
                 break;
             default:
@@ -94,34 +81,7 @@
     
 
 }
-#pragma mark  上传照片第三方代理
-- (void)UzysAssetsPickerController:(UzysAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
-{
-    NSLog(@"assets %@",assets);
-    [assets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        ALAsset *representation = obj;
-        NSLog(@"obj == %@",obj);
-        UIImage *img = [UIImage imageWithCGImage:representation.defaultRepresentation.fullResolutionImage
-                                           scale:representation.defaultRepresentation.scale
-                                     orientation:(UIImageOrientation)representation.defaultRepresentation.orientation];
-        NSLog(@"img.size == %f %f",img.size.width,img.size.height);
-        
-        
-    }];
-    
-    
-    
-    
-}
 
-#pragma mark imagePicker Delegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    NSLog(@"%@", info);
-    UIImage *editedImage = info[@"UIImagePickerControllerOriginalImage"];
-    self.testImageView.image = editedImage;
-    //将imagePicker撤销
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 /*
 #pragma mark - Navigation
 

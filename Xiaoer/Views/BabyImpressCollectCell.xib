@@ -13,14 +13,22 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="GZm-ro-5FP">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="C3s-Wl-yjx">
                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.8862745098" green="0.30196078430000001" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
-                    </imageView>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="mainBtnTouched:" destination="gTV-IL-0wX" eventType="touchUpInside" id="vs1-4U-vL2"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <connections>
+                <outlet property="mainBtn" destination="C3s-Wl-yjx" id="Liu-eB-poq"/>
+            </connections>
             <point key="canvasLocation" x="373" y="260"/>
         </collectionViewCell>
     </objects>

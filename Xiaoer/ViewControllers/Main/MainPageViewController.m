@@ -105,23 +105,10 @@
 @property (nonatomic,strong)NSMutableArray *allWeeksConclude;
 
 @property (nonatomic,assign)NSInteger month;
-@property (nonatomic,strong)UIButton *oneWeekBtn;
 @end
 
 @implementation MainPageViewController
-- (UIButton *)oneWeekBtn{
-    if (!_oneWeekBtn) {
-        self.oneWeekBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _oneWeekBtn.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width - 250)/2, 12, 250, 40);
-        _oneWeekBtn.backgroundColor = [UIColor colorWithRed:27/255.0 green:184/255.0 blue:231/255.0 alpha:1];
-        _oneWeekBtn.titleLabel.textColor = [UIColor whiteColor];
-        _oneWeekBtn.layer.cornerRadius = 10;
-        _oneWeekBtn.layer.masksToBounds = YES;
-        [_oneWeekBtn addTarget:self action:@selector(dengLu) forControlEvents:UIControlEventTouchUpInside];
-        [_oneWeekBtn setTitle:@"查看每周一练内容" forState:UIControlStateNormal];
-    }
-    return _oneWeekBtn;
-}
+
 - (NSMutableArray *)allWeeksConclude{
     if (!_allWeeksConclude) {
         self.allWeeksConclude = [NSMutableArray array];
@@ -168,12 +155,10 @@
     [XEEngine shareInstance].serverPlatform = OnlinePlatform;
     NSString *userid = [XEEngine shareInstance].uid;
     if (!userid) {
-        self.oneWeekBtn.hidden = NO;
         NSInteger index = 5;
         [self configureOneWeekScrollviewwith:index];
         
     }else{
-        self.oneWeekBtn.hidden = YES;
         [XEEngine shareInstance].serverPlatform = OnlinePlatform;
         [[XEEngine shareInstance]getOneWeekScrollviewInfomationWith:userid tag:tag];
         [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
@@ -198,6 +183,7 @@
             /**
              *  后台包含了哪些周
              */
+            
             NSMutableString *string = jsonRet[@"object"][@"cweeks"];
             NSLog(@"string === %@",string);
             if ([string isKindOfClass:[NSNull class]]) {
@@ -292,7 +278,7 @@
      *  布局下面的横线
      */
     CGFloat flo = self.oneWeekScrollView.contentSize.width;
-    UIScrollView *ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(20, 32, flo- 60, 2)];
+    UIScrollView *ScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(40, 32, flo- 60, 2)];
     ScrollView.userInteractionEnabled = NO;
     ScrollView.backgroundColor = [UIColor colorWithRed:18/255.0 green:169/255.0 blue:229/255.0 alpha:1];
     [self.oneWeekScrollView addSubview:ScrollView];
@@ -303,11 +289,11 @@
             NSString *str = [NSString stringWithFormat:@"%d",i + 1];
             NSInteger inde = [str integerValue];
             button.tag = inde;
-            button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) + 20, 23, 20, 20);
+            button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) + 40, 23, 20, 20);
 
         }else{
 
-            button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) + 20, 23, 20, 20);
+            button.frame = CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) + 40, 23, 20, 20);
             if (self.allWeeksConclude.count > 0) {
                  NSString *string = (NSString *)[self.allWeeksConclude objectAtIndex:i];
                 button.tag = [string integerValue];
@@ -319,7 +305,7 @@
         button.layer.cornerRadius = 10;
         button.backgroundColor = [UIColor colorWithRed:18/255.0 green:169/255.0 blue:229/255.0 alpha:1];
         [button addTarget:self action:@selector(touchSmallBtn:) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) , 50, 60, 10)];
+        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) + 20, 50, 60, 10)];
         lable.textAlignment = NSTextAlignmentCenter;
         lable.font = [UIFont systemFontOfSize:12];
         lable.text = [NSString stringWithFormat:@"第%ld周",(long)button.tag];
@@ -427,7 +413,7 @@
     NSLog(@"index =====  %ld",(long)index);
     self.oneWeekScrollView.showsHorizontalScrollIndicator = YES;
     self.oneWeekScrollView.directionalLockEnabled = YES;
-    self.oneWeekScrollView.contentSize = CGSizeMake( 60 *index , 60);
+    self.oneWeekScrollView.contentSize = CGSizeMake( 80 *index , 65);
     self.oneWeekScrollView.alwaysBounceHorizontal = YES;
     self.oneWeekScrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     [self configureSmallBtnWith:index];

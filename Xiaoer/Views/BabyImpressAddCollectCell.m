@@ -13,5 +13,10 @@
 - (void)awakeFromNib {
     // Initialization code
 }
+- (IBAction)addBtnTouched:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(babyImpressAddbtnTouched)]) {
+        [self.delegate babyImpressAddbtnTouched];
+    }
+}
 
 @end

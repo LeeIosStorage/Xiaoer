@@ -7,7 +7,10 @@
 //
 
 #import "XESuperViewController.h"
+#import "UzysAssetsPickerController.h"
 
-@interface BabyImpressAddController : XESuperViewController
 
+
+@interface BabyImpressAddController : XESuperViewController<UzysAssetsPickerControllerDelegate>
+@property (nonatomic,assign)NSInteger index;
 @end

@@ -37,10 +37,11 @@
     self.scrollView.pagingEnabled = YES;
     
     if (self.ifHaveDelete == YES) {
-        self.deleteBtn.hidden = NO;
+        [self setRightButtonWithTitle:@"删除" selector:@selector(deleteBtnTouched)];
     }else{
-        self.deleteBtn.hidden = YES;
+        
     }
+    self.ifDeleteBtnTouched = NO;
     
     [self configureScrollViewWith:self.array];
 
@@ -51,13 +52,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)deleteBtnTouched:(id)sender {
-
-        NSInteger index = self.scrollView.contentOffset.x/[UIScreen mainScreen].bounds.size.width;
+- (void)deleteBtnTouched{
+    self.ifDeleteBtnTouched = YES;
+    NSInteger index = self.scrollView.contentOffset.x/[UIScreen mainScreen].bounds.size.width;
     if (self.array.count > 0) {
         [self.array removeObjectAtIndex:index];
         if (self.array.count == 0) {
-            [self.deleteBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        
         }
         NSLog(@"self.array.count === %ld",self.array.count);
         [self configureScrollViewWith:self.array];
@@ -65,11 +66,11 @@
         if (self.delegate && [self.delegate respondsToSelector:@selector(deleteResultWith:)]) {
             [self.delegate deleteResultWith:self.array];
         }
-
+        
     }
 
-
 }
+
 - (void)configureScrollViewWith:(NSMutableArray *)array{
     self.array = array;
     [self setScrollviewWith:array];
@@ -82,21 +83,30 @@
     for (UIView *view in self.scrollView.subviews) {
         [view removeFromSuperview];
     }
+    NSLog(@"%f %f",SCREEN_WIDTH,SCREEN_HEIGHT);
     
     self.scrollView.contentSize = CGSizeMake(array.count * [UIScreen mainScreen].bounds.size.width,0);
     self.pageControll.numberOfPages = array.count;
     for (int i = 0; i < array.count; i++) {
         UIImageView *imageView = [[UIImageView alloc]init];
         imageView.backgroundColor = [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1];
-        UIImage *image = [UIImage imageNamed:array[i]];
+        UIImage *image = array[i];
         imageView.tag = i;
         imageView.image = image;
+        NSLog(@"%d  %f  %f",i,image.size.width,image.size.height);
         CGFloat wide = imageView.image.size.width /[UIScreen mainScreen].bounds.size.width > 1 ? [UIScreen mainScreen].bounds.size.width : image.size.width;
-        CGFloat height = imageView.image.size.height /[UIScreen mainScreen].bounds.size.
-        height> 1 ? [UIScreen mainScreen].bounds.size.height : image.size.height;
-        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width + ([UIScreen mainScreen].bounds.size.width - wide)/2, ([UIScreen mainScreen].bounds.size.height - height)/2, wide, height);
+        CGFloat height = imageView.image.size.height /(SCREEN_HEIGHT - 64)> 1 ? SCREEN_HEIGHT-64 : image.size.height;
+        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width + ([UIScreen mainScreen].bounds.size.width - wide)/2,(SCREEN_HEIGHT -64 - height)/2, wide, height);
         [self.scrollView addSubview:imageView];
+        if (self.ifDeleteBtnTouched == NO && self.moveIndex && self.moveIndex == i) {
+            //此处不理解  －64
+            [self.scrollView setContentOffset:CGPointMake(SCREEN_WIDTH*self.moveIndex,- 64)];
+            NSLog(@"%f",SCREEN_WIDTH*self.moveIndex);
+            self.pageControll.currentPage = self.moveIndex;
+            
+        }
     }
+
     
 }
 
@@ -105,7 +115,9 @@
     self.pageControll.currentPage = index;
 
 }
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+}
 
 
 /*

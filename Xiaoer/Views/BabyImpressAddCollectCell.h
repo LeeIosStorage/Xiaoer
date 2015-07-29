@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BabyImpressAddCollectCell : UICollectionViewCell
+@protocol babyImpressAddbtnTouchedDelegate <NSObject>
 
+- (void)babyImpressAddbtnTouched;
+
+@end
+
+
+@interface BabyImpressAddCollectCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIButton *addBtn;
+@property (nonatomic,assign)id<babyImpressAddbtnTouchedDelegate>delegate;
 @end

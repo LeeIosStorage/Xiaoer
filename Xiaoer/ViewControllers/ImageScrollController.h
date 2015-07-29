@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "XESuperViewController.h"
 @protocol deleteDelegate <NSObject>
 
 - (void)deleteResultWith:(NSMutableArray *)array;
@@ -15,12 +15,16 @@
 @end
 
 
-@interface ImageScrollController : UIViewController
+@interface ImageScrollController : XESuperViewController
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControll;
-
-@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 @property (nonatomic,strong)NSMutableArray *array;
 @property (nonatomic,assign)BOOL ifHaveDelete;
 @property (nonatomic,assign)id<deleteDelegate>delegate;
+/**
+ *  展示第几张图片
+ */
+@property (nonatomic,assign)NSInteger moveIndex;
+
+@property (nonatomic,assign)BOOL ifDeleteBtnTouched;
 @end

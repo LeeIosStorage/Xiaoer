@@ -100,6 +100,7 @@
     }
 }
 
+
 - (NSDate *)pullToRefreshViewLastUpdated:(PullToRefreshView *)view {
     return [NSDate date];
 }

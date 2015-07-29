@@ -79,6 +79,8 @@
         NSDictionary *dic = self.dataSources[sender.tag];
         XEMotherLook *model = [XEMotherLook modelWithDictioanry:dic];
         vc.activityInfo = activityInfo;
+        vc.activityInfo.aType = 0;
+         vc.activityInfo.aId = model.objid;
         if ([model.objid isKindOfClass:[NSNull class]]) {
             
             [aletr show];
@@ -213,7 +215,7 @@
     /**
      *  选中样式
      */
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (self.dataSources) {
         NSDictionary *dic = [self.dataSources objectAtIndex:indexPath.section];

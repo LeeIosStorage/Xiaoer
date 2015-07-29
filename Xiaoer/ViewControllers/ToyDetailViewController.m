@@ -349,12 +349,14 @@
         
         NSMutableString *muStr = [self.detailInfo.standard copy];
         NSArray *array = [muStr componentsSeparatedByString:@";"];
-        for (NSString *str in array) {
-            NSMutableString * muStrB = [str copy];
-            NSArray *arrayB = [muStrB componentsSeparatedByString:@":"];
-            [self.leftArray addObject:arrayB[0]];
-            [self.rightArray addObject:arrayB[1]];
-            
+        if (array.count >= 1 && muStr.length > 0) {
+            for (NSString *str in array) {
+                NSMutableString * muStrB = [str copy];
+                NSArray *arrayB = [muStrB componentsSeparatedByString:@":"];
+                [self.leftArray addObject:arrayB[0]];
+                [self.rightArray addObject:arrayB[1]];
+                
+            }
         }
 
         [self configureChoosecollectionView];
@@ -441,7 +443,7 @@
 - (void)toShopCar{
     NSLog(@"前往购物车");
 
-    if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
+    if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查看购物车"]) {
         return;
     }
 
@@ -457,7 +459,7 @@
 
 #pragma mark  web下面点击加入到购物车
 - (IBAction)bottomAddToShopCar:(id)sender {
-    if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
+    if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能加入购物车"]) {
         return;
     }
     
@@ -469,7 +471,7 @@
 
 #pragma mark  立即购买
 - (IBAction)buy:(id)sender {
-    if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能查阅卡券"]) {
+    if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能购买"]) {
         return;
     }
     VerifyIndentViewController *verify = [[VerifyIndentViewController alloc]init];
@@ -711,7 +713,8 @@
 #pragma mark  web delegate
 
 - (void)loadWebViewWithUrl:(NSURL *)url {
-    
+    [XEProgressHUD AlertLoading:@"正在加载页面"];
+
     self.request =[NSURLRequest requestWithURL:url];
     [self.webView loadRequest:_request];
     
@@ -719,7 +722,7 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     NSLog(@"webViewDidFinishLoad: ");
-
+    [XEProgressHUD AlertSuccess:@"加载页面成功"];
     
 }
 

@@ -17,6 +17,9 @@
 #import "UzysGroupPickerViewController.h"
 
 
+#import "XEProgressHUD.h"
+
+
 @interface UzysAssetsPickerController ()<UICollectionViewDataSource,UICollectionViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 //View
 @property (weak, nonatomic) IBOutlet UIButton *btnTitle;
@@ -564,14 +567,13 @@
     {
         [assets addObject:[self.assets objectAtIndex:indexPath.item]];
     }
-    
+
     if([assets count]>0)
     {
         UzysAssetsPickerController *picker = (UzysAssetsPickerController *)self;
         
         if([picker.delegate respondsToSelector:@selector(UzysAssetsPickerController:didFinishPickingAssets:)])
             [picker.delegate UzysAssetsPickerController:picker didFinishPickingAssets:assets];
-        
         [self dismissViewControllerAnimated:YES completion:^{
             
         }];

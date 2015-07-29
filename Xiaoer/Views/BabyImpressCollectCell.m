@@ -13,5 +13,17 @@
 - (void)awakeFromNib {
     // Initialization code
 }
+- (void)configureCellWith:(UIImage *)image{
+    [self.mainBtn setBackgroundImage:image forState:UIControlStateNormal];
+}
+
+- (IBAction)mainBtnTouched:(id)sender {
+    UIButton *button = (UIButton *)sender;
+    UITableViewCell *cell = (UITableViewCell *)button.superview.superview;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(babyImpressShowBtnTouchedWith:)]) {
+        [self.delegate babyImpressShowBtnTouchedWith:cell.tag];
+    }
+}
+
 
 @end
