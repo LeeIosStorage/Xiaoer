@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import "XEBabyImpressMonthListInfo.h"
+
+
 @protocol babyImpressShowBtnTouched <NSObject>
 
 -(void)babyImpressShowBtnTouchedWith:(NSInteger)index;
@@ -18,6 +21,7 @@
 @interface BabyImpressCollectCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *mainBtn;
-- (void)configureCellWith:(UIImage *)image;
+- (void)configureCellWith:(XEBabyImpressMonthListInfo *)info;
+- (void)configureCellWithImage:(UIImage *)image;
 @property (nonatomic,assign)id<babyImpressShowBtnTouched>delegate;
 @end

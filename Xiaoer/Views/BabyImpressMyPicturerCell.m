@@ -7,7 +7,7 @@
 //
 
 #import "BabyImpressMyPicturerCell.h"
-
+#import "UIImageView+WebCache.h"
 @implementation BabyImpressMyPicturerCell
 
 - (void)awakeFromNib {
@@ -18,6 +18,11 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+- (void)configureCellWith:(XEBabyImpressPhotoListInfo *)info{
+    [self.mainImg sd_setImageWithURL:[NSURL URLWithString:info.sma] placeholderImage:[UIImage imageNamed:@"首页默认头像"]];
+    self.monthLab.text = [NSString stringWithFormat:@"%@月份照片",info.month];
+    self.numLab.text = [NSString stringWithFormat:@"%@张",info.total];
 }
 
 @end

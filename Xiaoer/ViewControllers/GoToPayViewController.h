@@ -10,9 +10,15 @@
 #import "XESuperViewController.h"
 
 @interface GoToPayViewController : XESuperViewController
+@property (weak, nonatomic) IBOutlet UILabel *backWhiteLab;
 @property (weak, nonatomic) IBOutlet UITableView *goToPayTabView;
 @property (strong, nonatomic) IBOutlet UIView *tabHeader;
 @property (strong, nonatomic) IBOutlet UIView *tabFooter;
+/**
+ *  提醒lable
+ */
+@property (weak, nonatomic) IBOutlet UILabel *remindView;
+
 /**
  *  订单编号lable
  */
@@ -29,6 +35,8 @@
  *  订单价格
  */
 @property (nonatomic,strong)NSString *orderPrice;
-
-
+/**
+ *  0 商城  1宝宝印象
+ */
+@property (nonatomic,strong)NSString *from;
 @end

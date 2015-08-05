@@ -10,7 +10,7 @@
 #import "XESuperViewController.h"
 @protocol deleteDelegate <NSObject>
 
-- (void)deleteResultWith:(NSMutableArray *)array;
+- (void)deleteResultWith:(NSInteger )index;
 
 @end
 

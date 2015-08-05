@@ -8,10 +8,14 @@
 
 #import "BabyImpressAddFooterView.h"
 
+
+
+
 @implementation BabyImpressAddFooterView
 
 - (void)awakeFromNib {
     // Initialization code
 }
+
 
 @end

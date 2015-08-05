@@ -19,7 +19,7 @@
                             <constraint firstAttribute="height" constant="80" id="gOS-YN-noP"/>
                             <constraint firstAttribute="width" constant="80" id="oSg-06-0rb"/>
                         </constraints>
-                        <state key="normal" title="+">
+                        <state key="normal" backgroundImage="babyAdd">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <connections>
@@ -40,4 +40,7 @@
             </connections>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="babyAdd" width="130" height="130"/>
+    </resources>
 </document>

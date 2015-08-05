@@ -27,8 +27,7 @@
 #import "ShopViewController.h"
 
 #import <AlipaySDK/AlipaySDK.h>
-
-//#import "APService.h"
+#import "APService.h"
 
 @interface AppDelegate () <NewIntroViewControllerDelegate>
 
@@ -44,8 +43,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
     
 }
-
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
@@ -64,6 +61,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     _appMenu = [[UIMenuController alloc] init];
     
 //    [XEUIUtils colorWithHex:0xb4b4b4 alpha:1.0];//180 180 180
+    
+    
     
     //友盟组件
     [UMSocialData setAppKey:UMS_APP];
@@ -98,16 +97,56 @@ void uncaughtExceptionHandler(NSException *exception) {
     self.patener = [plist objectForKey:@"patener"];
     self.privateKey = [plist objectForKey:@"privateKey"];
     
+    
+    
     /**
      *  七牛的mananger创建
      */
     self.upManager = [[QNUploadManager alloc] init];
     
+    
+    
+    
     [self.window makeKeyAndVisible];
     
+    /**
+     *  激光推送
+     */
+    
+    // Required
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
+        if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+            //categories
+            [APService
+             registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+                                                 UIUserNotificationTypeSound |
+                                                 UIUserNotificationTypeAlert)
+             categories:nil];
+        } else {
+            //categories nil
+            [APService
+             registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                 UIRemoteNotificationTypeSound |
+                                                 UIRemoteNotificationTypeAlert)
+#else
+             //categories nil
+             categories:nil];
+            [APService
+             registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                 UIRemoteNotificationTypeSound |
+                                                 UIRemoteNotificationTypeAlert)
+#endif
+             // Required
+             categories:nil];
+        }
+    [APService setupWithOption:launchOptions];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [APService resetBadge];
+
+
+
     return YES;
 }
-
 //新手引导
 -(void)showNewIntro{
     NewIntroViewController *introVc = [[NewIntroViewController alloc] init];
@@ -117,7 +156,9 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void)signIn{
     NSLog(@"signIn");
-//    [APService setAlias:@"" callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+    NSSet *set = [NSSet setWithObject:@12];
+    [APService setTags:set callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+//    [APService setAlias:@"12" callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
     if ([[XEEngine shareInstance] hasAccoutLoggedin]) {
         [XEEngine shareInstance].bVisitor = NO;
     }else {
@@ -243,6 +284,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
@@ -252,6 +294,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [APService resetBadge];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
@@ -260,42 +304,51 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-//    [APService registerDeviceToken:deviceToken];
+    NSLog(@"deviceToken ---------------  %@",deviceToken);
+    [APService registerDeviceToken:deviceToken];
+
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
-//    [APService handleRemoteNotification:userInfo];
-//    NSLog(@"收到通知:%@", userInfo);
+    [APService handleRemoteNotification:userInfo];
+    NSLog(@"1收到通知:%@", userInfo);
 //    NSDictionary *alertContent = [userInfo objectForKey:@"aps"];
 //    NSString *alertContentStr = [alertContent objectForKey:@"alert"];
 //    UIAlertView *remoteNotificationAlert = [[UIAlertView alloc] initWithTitle:@"消息推送" message:alertContentStr delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"查看", nil];
 //    [remoteNotificationAlert show];
+    [UIApplication sharedApplication].applicationIconBadgeNumber++;
+    [APService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
-//    [APService handleRemoteNotification:userInfo];
-//    NSLog(@"收到通知:%@", userInfo);
-//    
-//    NSDictionary *alertContent = [userInfo objectForKey:@"aps"];
-//    NSString *alertContentStr = [alertContent objectForKey:@"alert"];
-//    UIAlertView *remoteNotificationAlert = [[UIAlertView alloc] initWithTitle:@"消息推送" message:alertContentStr delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"查看", nil];
-//    remoteNotificationAlert.tag = 10001;
-//    [remoteNotificationAlert show];
-//    
-//    completionHandler(UIBackgroundFetchResultNewData);
+    [APService handleRemoteNotification:userInfo];
+    NSLog(@"2收到通知:%@", userInfo);
+    NSDictionary *alertContent = [userInfo objectForKey:@"aps"];
+    NSString *alertContentStr = [alertContent objectForKey:@"alert"];
+    UIAlertView *remoteNotificationAlert = [[UIAlertView alloc] initWithTitle:@"消息推送" message:alertContentStr delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"查看", nil];
+    remoteNotificationAlert.tag = 10001;
+    [remoteNotificationAlert show];
+    [UIApplication sharedApplication].applicationIconBadgeNumber --;
+    [APService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-  //  [APService showLocalNotificationAtFront:notification identifierKey:nil];
+    NSLog(@"收到3");
+    [APService showLocalNotificationAtFront:notification identifierKey:nil];
+    
 }
 
 ////极光推送绑定别名回掉
-//- (void)tagsAliasCallback:(int)iResCode tags:(NSSet*)tags alias:(NSString*)alias {
-//    NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
-//}
+- (void)tagsAliasCallback:(int)iResCode tags:(NSSet*)tags alias:(NSString*)alias {
+    NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
+}
 
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+    NSLog(@"error======%@",error);
+}
 
 
 @end

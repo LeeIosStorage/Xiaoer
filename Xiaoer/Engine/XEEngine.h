@@ -404,4 +404,52 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)getOrderWillpassOrderWith:(int)tag
                              type:(NSString *)type
                            userid:(NSString *)userid;
+
+#pragma mark  七牛
+/**
+ * 获取用户上传剩余数量
+ */
+- (BOOL)qiNiuGetRestCanPostImageWith:(int)tag
+                               userid:(NSString *)userid;
+/**
+ *  获取七牛上传token值
+ */
+- (BOOL)qiNiuGetTokenWith:(int)tag;
+/**
+ *   获取我的照片列表
+ */
+- (BOOL)qiniuCheckPosedPhotoWith:(int)tag
+                          userid:(NSString *)userid;
+/**
+ *  获取某月照片列表
+ */
+- (BOOL)qiNiuGetMolthListInfoWith:(int)tag
+                              cat:(NSString *)cat
+                            objid:(NSString *)objid
+                             year:(NSString *)year
+                            month:(NSString *)month;
+/**
+ *   保存用户图片
+ */
+- (BOOL)qiNiuSavePhotoWith:(int)tag
+                       cat:(NSString *)cat
+                       url:(NSString *)url
+                     objid:(NSString *)objid;
+/**
+ *  删除用户图片
+ */
+- (BOOL)qiNiuDeleteImageDataWith:(int)tag
+                              id:(NSString *)id;
+/**
+ *  获取宝宝印象运费
+ */
+- (BOOL)qiNiuGetCarriageMoneyWith:(int)tag
+                       provinceid:(NSString *)provinceid;
+/**
+ *  用户下印刷单
+ */
+- (BOOL)qiNiuOrderWith:(int)tag
+                userid:(NSString *)userid
+         useraddressid:(NSString *)useraddressid
+                  mark:(NSString *)mark;
 @end

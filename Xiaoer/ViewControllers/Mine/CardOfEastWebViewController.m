@@ -86,7 +86,6 @@
     NSString *kabao = [userDefaults objectForKey:[NSString stringWithFormat:@"kabaoid%@",[XEEngine shareInstance].uid]];
     __block CardOfEastWebViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [XEEngine shareInstance].serverPlatform = OnlinePlatform;
     [[XEEngine shareInstance]getEastCardInfomaitonWithuserid:[XEEngine shareInstance].uid kabaoid:self.cardinfo.cid tag:tag];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
 //        NSLog(@"jsonRet = %@",jsonRet);

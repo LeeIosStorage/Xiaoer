@@ -17,6 +17,8 @@
 #import "UzysGroupPickerViewController.h"
 
 
+#import "MBProgressHUD.h"
+
 #import "XEProgressHUD.h"
 
 
@@ -247,7 +249,7 @@
     layout.minimumInteritemSpacing      = 1.0;
     layout.minimumLineSpacing           = 3;
 
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64,[UIScreen mainScreen].bounds.size.width, self.view.bounds.size.height - 64 -48) collectionViewLayout:layout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64,[UIScreen mainScreen].bounds.size.width, SCREEN_HEIGHT - 64 -48) collectionViewLayout:layout];
     self.collectionView.allowsMultipleSelection = YES;
     [self.collectionView registerClass:[UzysAssetsViewCell class]
             forCellWithReuseIdentifier:kAssetsViewCellIdentifier];
@@ -561,7 +563,13 @@
 
 - (void)finishPickingAssets
 {
-    NSMutableArray *assets = [[NSMutableArray alloc] init];
+        if(self.collectionView.indexPathsForSelectedItems.count>0)
+        {
+        NSThread *nsth=  [[NSThread alloc] initWithTarget:self selector:@selector(showmbpMessage) object:nil];
+        [nsth start];
+    
+        }
+        NSMutableArray *assets = [[NSMutableArray alloc] init];
     
     for (NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems)
     {
@@ -578,6 +586,15 @@
             
         }];
     }
+}
+- (void)showmbpMessage{
+    // 快速显示一个提示信息
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"加载图片，请稍等";
+    // 隐藏时候从父控件中移除
+    hud.removeFromSuperViewOnHide = YES;
+    // YES代表需要蒙版效果
+    hud.dimBackground = YES;
 }
 #pragma mark - Notification
 

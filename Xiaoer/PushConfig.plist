@@ -4,9 +4,9 @@
 <dict>
 	<key>APS_FOR_PRODUCTION</key>
 	<string>0</string>
-	<key>APP_KEY</key>
-	<string>d302d3fa4189f01c094eb1e5</string>
 	<key>CHANNEL</key>
-	<string>Apple Store</string>
+	<string>Publish channel</string>
+	<key>APP_KEY</key>
+	<string>d13817384a52a8275de3dc9a</string>
 </dict>
 </plist>

@@ -35,7 +35,8 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     //整页翻动,和scrollView的高度相关
     self.scrollView.pagingEnabled = YES;
-    
+    self.scrollView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+
     if (self.ifHaveDelete == YES) {
         [self setRightButtonWithTitle:@"删除" selector:@selector(deleteBtnTouched)];
     }else{
@@ -45,13 +46,11 @@
     
     [self configureScrollViewWith:self.array];
 
+
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (void)deleteBtnTouched{
     self.ifDeleteBtnTouched = YES;
     NSInteger index = self.scrollView.contentOffset.x/[UIScreen mainScreen].bounds.size.width;
@@ -60,11 +59,10 @@
         if (self.array.count == 0) {
         
         }
-        NSLog(@"self.array.count === %ld",self.array.count);
         [self configureScrollViewWith:self.array];
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(deleteResultWith:)]) {
-            [self.delegate deleteResultWith:self.array];
+            [self.delegate deleteResultWith:index];
         }
         
     }
@@ -74,8 +72,6 @@
 - (void)configureScrollViewWith:(NSMutableArray *)array{
     self.array = array;
     [self setScrollviewWith:array];
-
-
 }
 
 - (void)setScrollviewWith:(NSMutableArray *)array{
@@ -83,7 +79,7 @@
     for (UIView *view in self.scrollView.subviews) {
         [view removeFromSuperview];
     }
-    NSLog(@"%f %f",SCREEN_WIDTH,SCREEN_HEIGHT);
+//    NSLog(@"%f %f",SCREEN_WIDTH,SCREEN_HEIGHT);
     
     self.scrollView.contentSize = CGSizeMake(array.count * [UIScreen mainScreen].bounds.size.width,0);
     self.pageControll.numberOfPages = array.count;
@@ -93,15 +89,42 @@
         UIImage *image = array[i];
         imageView.tag = i;
         imageView.image = image;
-        NSLog(@"%d  %f  %f",i,image.size.width,image.size.height);
-        CGFloat wide = imageView.image.size.width /[UIScreen mainScreen].bounds.size.width > 1 ? [UIScreen mainScreen].bounds.size.width : image.size.width;
-        CGFloat height = imageView.image.size.height /(SCREEN_HEIGHT - 64)> 1 ? SCREEN_HEIGHT-64 : image.size.height;
-        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width + ([UIScreen mainScreen].bounds.size.width - wide)/2,(SCREEN_HEIGHT -64 - height)/2, wide, height);
+        
+        
+        CGFloat Swidth = [UIScreen mainScreen].bounds.size.width;
+        CGFloat Sheight = [UIScreen mainScreen].bounds.size.height - 64;
+        NSLog(@"%f  %f  %f %f",imageView.image.size.width,imageView.image.size.height,Swidth,Sheight);
+        if (imageView.image.size.width > Swidth && imageView.image.size.height < Sheight) {
+            
+            imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width,(Sheight - (imageView.image.size.height * Swidth/imageView.image.size.width))/2 , Swidth, imageView.image.size.height * Swidth/imageView.image.size.width);
+        }
+        
+        else if (imageView.image.size.width > Swidth && imageView.image.size.height > Sheight) {
+            if (imageView.image.size.width > imageView.image.size.height) {
+                imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, (Sheight - (imageView.image.size.height * Swidth/imageView.image.size.width))/2, Swidth, imageView.image.size.height * Swidth/imageView.image.size.width);
+            } else {
+                NSLog(@"=====  %f",(Swidth - (Swidth*imageView.image.size.height/Sheight))/2);
+                if ((Swidth - (Swidth*imageView.image.size.height/Sheight))/2 < 0) {
+                    imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, 0,SCREEN_WIDTH, Sheight);
+                }else{
+                    imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width + (Swidth - (Sheight*imageView.image.size.width/imageView.image.size.height))/2, 0, Sheight*imageView.image.size.width/imageView.image.size.height, Sheight);
+                }
+            }
+        }
+        else  if (imageView.image.size.width < Swidth && imageView.image.size.height > Sheight) {
+            imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - (Sheight*imageView.image.size.width/imageView.image.size.height))/2 , 64,Sheight*imageView.image.size.width/imageView.image.size.height, Sheight);
+        }
+        else   if (imageView.image.size.width < Swidth && imageView.image.size.height < Sheight) {
+            imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - (Sheight*imageView.image.size.width/imageView.image.size.height))/2 , (SCREEN_HEIGHT -64 - imageView.image.size.height)/2, imageView.image.size.width, imageView.image.size.height);
+        }
+//        CGFloat wide = imageView.image.size.width /[UIScreen mainScreen].bounds.size.width > 1 ? [UIScreen mainScreen].bounds.size.width : image.size.width;
+//        CGFloat height = imageView.image.size.height /(SCREEN_HEIGHT - 64)> 1 ? SCREEN_HEIGHT-64 : image.size.height;
+//        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width + ([UIScreen mainScreen].bounds.size.width - wide)/2,(SCREEN_HEIGHT -64 - height)/2, wide, height);
         [self.scrollView addSubview:imageView];
         if (self.ifDeleteBtnTouched == NO && self.moveIndex && self.moveIndex == i) {
             //此处不理解  －64
             [self.scrollView setContentOffset:CGPointMake(SCREEN_WIDTH*self.moveIndex,- 64)];
-            NSLog(@"%f",SCREEN_WIDTH*self.moveIndex);
+//            NSLog(@"%f",SCREEN_WIDTH*self.moveIndex);
             self.pageControll.currentPage = self.moveIndex;
             
         }
@@ -119,7 +142,10 @@
     
 }
 
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 /*
 #pragma mark - Navigation
 

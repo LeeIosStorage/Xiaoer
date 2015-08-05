@@ -50,10 +50,12 @@
     self.tableView.dataSource = self;
     self.tableView.sectionFooterHeight = 0;
     self.tableView.sectionHeaderHeight = 40;
-    [self.ownStateArray addObject:@"0"];
+    [self.ownStateArray addObject:@"1"];
     [self.otherStateArray addObject:@"0"];
     [self.otherStateArray addObject:@"0"];
-
+    [self.otherStateArray addObject:@"0"];
+    [self.otherStateArray addObject:@"0"];
+    [self.otherStateArray addObject:@"0"];
 
 }
 #pragma mark tableView delegate
@@ -114,19 +116,26 @@
         cell.delegate = self;
         if (indexPath.section == 0) {
             if ([self.ownStateArray[indexPath.row] isEqualToString:@"0"]) {
-                [cell.chooseBtn setBackgroundColor:[UIColor redColor]];
+                [cell.chooseBtn setBackgroundImage:[UIImage imageNamed:@"babyPayWayNoUse"] forState:UIControlStateNormal];
             }else{
-                [cell.chooseBtn setBackgroundColor:[UIColor purpleColor]];
+                [cell.chooseBtn setBackgroundImage:[UIImage imageNamed:@"babyPayWayUse"] forState:UIControlStateNormal];
+
             }
+            [cell configureCellBtnWith:self.ownStateArray[indexPath.row]];
         }
         
         if (indexPath.section == 1) {
             if ([self.otherStateArray[indexPath.row] isEqualToString:@"0"]) {
-                [cell.chooseBtn setBackgroundColor:[UIColor redColor]];
+                [cell.chooseBtn setBackgroundImage:[UIImage imageNamed:@"babyPayWayNoUse"] forState:UIControlStateNormal];
             }else{
-                [cell.chooseBtn setBackgroundColor:[UIColor purpleColor]];
+                [cell.chooseBtn setBackgroundImage:[UIImage imageNamed:@"babyPayWayUse"] forState:UIControlStateNormal];
+                
             }
+            [cell configureCellBtnWith:self.otherStateArray[indexPath.row]];
         }
+        
+        
+        
         return cell;
     }
     

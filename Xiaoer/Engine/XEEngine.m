@@ -159,9 +159,13 @@ static XEEngine* s_ShareInstance = nil;
 - (void)serverInit{
 //    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
     if (self.serverPlatform == TestPlatform) {
-        API_URL = @"http://test.xiaor123.cn:801/api";
-    } else {
         API_URL = @"http://xiaor123.cn:801/api";
+
+    } else {
+        API_URL = @"http://test.xiaor123.cn:801/api";
+
+//        API_URL = @"http://xiaor123.cn:801/api";
+
     }
 }
 
@@ -303,6 +307,7 @@ static XEEngine* s_ShareInstance = nil;
     _serverPlatform = serverPlatform;
     [[NSUserDefaults standardUserDefaults] setInteger:_serverPlatform forKey:@"serverPlatform"];
     [self serverInit];
+    
 }
 
 - (void)refreshUserInfo{
@@ -1978,4 +1983,65 @@ static XEEngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/eticket/willPass",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
+- (BOOL)qiNiuGetRestCanPostImageWith:(int)tag userid:(NSString *)userid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/babyPrintRemain",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+
+}
+
+- (BOOL)qiNiuGetTokenWith:(int)tag{
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/common/qiniu/uploadToken",API_URL] type:1 parameters:nil];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)qiniuCheckPosedPhotoWith:(int)tag userid:(NSString *)userid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/photo/bobayprint/myphoto",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+
+}
+- (BOOL)qiNiuGetMolthListInfoWith:(int)tag cat:(NSString *)cat objid:(NSString *)objid year:(NSString *)year month:(NSString *)month{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:cat forKey:@"cat"];
+    [params setObject:objid forKey:@"objid"];
+    [params setObject:year forKey:@"year"];
+    [params setObject:month forKey:@"month"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/common/qiniu/sel",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)qiNiuSavePhotoWith:(int)tag cat:(NSString *)cat url:(NSString *)url objid:(NSString *)objid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:cat forKey:@"cat"];
+    [params setObject:objid forKey:@"objid"];
+    [params setObject:url forKey:@"url"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/common/qiniu/save",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)qiNiuDeleteImageDataWith:(int)tag id:(NSString *)id{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:id forKey:@"id"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/common/qiniu/del",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)qiNiuGetCarriageMoneyWith:(int)tag provinceid:(NSString *)provinceid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:provinceid forKey:@"provinceid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/photo/bobayprint/photoCarriage",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)qiNiuOrderWith:(int)tag userid:(NSString *)userid useraddressid:(NSString *)useraddressid mark:(NSString *)mark{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    [params setObject:useraddressid forKey:@"useraddressid"];
+    if ([mark isEqualToString:@""]) {
+    }else{
+        [params setObject:mark forKey:@"mark"];
+    }
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/photo/order/saveOrUpdate",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
 @end

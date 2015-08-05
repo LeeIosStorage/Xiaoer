@@ -13,12 +13,10 @@
 #import "AppDelegate.h"
 #import "XEEngine.h"
 #import "DataSigner.h"
-
 #import "XEProgressHUD.h"
-
 #import "Order.h"
-
 #import "ToyDetailViewController.h"
+#import "BabyImpressPrintController.h"
 
 @interface GoToPayViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -31,20 +29,23 @@
     self.title = @"确认订单";
     [self configureGoToPayTab];
     NSLog(@"orderPrice == %@  orderNum == %@ ",self.orderPrice,self.orderNum);
-    self.orderNumLab.text = self.orderNum;
-    self.orderPriceLab.text = self.orderPrice;
+
     //接收支付成功的通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(paySuccess:) name:@"success" object:nil];
-    
+    if ([self.from isEqualToString:@"0"]) {
+        self.remindView.text = @"订单提交成功，请尽快付款，30分钟未付款将取消";
+    }else{
+        self.remindView.text = @"订单提交成功，请尽快付款，我们将会在每月的最后一天24点取消未付款的订单";
+    }
 
-    // Do any additional setup after loading the view from its nib.
 }
 - (void)paySuccess:(NSNotificationCenter *)sender{
     ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
     [self.navigationController popToRootViewControllerAnimated:YES];
-//    [self.navigationController popToViewController:detail animated:YES];
 }
 - (void)configureGoToPayTab{
+    self.orderNumLab.text = self.orderNum;
+    self.orderPriceLab.text = self.orderPrice;
     [self.goToPayTabView registerNib:[UINib nibWithNibName:@"GoToPayCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.view.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
     self.goToPayTabView.dataSource = self;
@@ -55,6 +56,7 @@
 }
 - (IBAction)payBtnTouched:(id)sender {
     AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
     Order *order = [[Order alloc] init];
     order.partner = appDelegate.patener;
     order.seller = appDelegate.seller;
@@ -63,8 +65,15 @@
     order.productDescription = @"晓儿"; //商品描述
     order.amount = self.orderPriceLab.text; //商品价格
     
-    NSString *url = [NSString stringWithFormat:@"%@/common/alipayorder/payed", [[XEEngine shareInstance] baseUrl]];
-    order.notifyURL = url;//回调URL
+    if ([self.from isEqualToString:@"0"]) {
+        NSString *url = [NSString stringWithFormat:@"%@/common/alipayorder/payed", [[XEEngine shareInstance] baseUrl]];
+        order.notifyURL = url;//回调URl
+    }
+    
+    if ([self.from isEqualToString:@"1"]) {
+        NSString *url = [NSString stringWithFormat:@"%@/common/alipayorder/photoPayed", [[XEEngine shareInstance] baseUrl]];
+        order.notifyURL = url;//回调URl
+    }
     
     order.service = @"mobile.securitypay.pay";
     order.paymentType = @"1";
@@ -79,7 +88,6 @@
     //将商品信息拼接成字符串
     NSString *orderSpec = [order description];
     
-    
     //获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode
     id<DataSigner> signer = CreateRSADataSigner(appDelegate.privateKey);
     NSString *signedString = [signer signString:orderSpec];
@@ -88,6 +96,8 @@
     if (signedString != nil) {
         orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
                        orderSpec, signedString, @"RSA"];
+    //获取快捷支付单例并调用快捷支付接口
+
         
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
             NSLog(@"reslut = %@",resultDic);
@@ -98,15 +108,27 @@
             }
             
             if ([string isEqualToString:@"9000"]) {
-                /**
-                 *  定位到商品详情页面 pop过去
-                 */
                 
-                for (UIViewController *controller in self.navigationController.viewControllers) {
-                    if ([controller isKindOfClass:[ToyDetailViewController class]]) {
-                        [self.navigationController popToViewController:controller animated:YES];
+                if ([self.from isEqualToString:@"0"]) {
+                    /**
+                     *  定位到商品详情页面 pop过去
+                     */
+                    
+                    for (UIViewController *controller in self.navigationController.viewControllers) {
+                        if ([controller isKindOfClass:[ToyDetailViewController class]]) {
+                            [self.navigationController popToViewController:controller animated:YES];
+                        }
                     }
                 }
+                
+                if ([self.from isEqualToString:@"1"]) {
+                    for (UIViewController *controller in self.navigationController.viewControllers) {
+                        if ([controller isKindOfClass:[BabyImpressPrintController class]]) {
+                            [self.navigationController popToViewController:controller animated:YES];
+                        }
+                    }
+                }
+
             } else if ([string isEqualToString:@"4000"]) {
                 NSLog(@"系统异常");
                 [XEProgressHUD AlertError:@"系统异常"];

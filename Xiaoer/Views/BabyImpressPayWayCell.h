@@ -19,5 +19,5 @@
 @interface BabyImpressPayWayCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
 @property (nonatomic,assign)id<payWayCellDelageta>delegate;
-
+- (void)configureCellBtnWith:(NSString *)str;
 @end

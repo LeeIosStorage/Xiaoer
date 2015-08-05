@@ -24,7 +24,7 @@
 - (IBAction)leftBtnTouched:(id)sender {
     UIButton *button = (UIButton *)sender;
     if ([button.currentBackgroundImage isEqual:[UIImage imageNamed:@"arrowheadToDown"]]) {
-        [button setBackgroundImage:[UIImage imageNamed:@"orderApplyAdd"] forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:@"babyPayWayUp"] forState:UIControlStateNormal];
         if (self.delegate && [self.delegate respondsToSelector:@selector(ifNumIsZeroWith:)]) {
             [self.delegate ifNumIsZeroWith:YES];
         }

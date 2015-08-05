@@ -201,7 +201,6 @@
  
     __weak CardOfEastVerifyController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [XEEngine shareInstance].serverPlatform = OnlinePlatform;
     [[XEEngine shareInstance]activityEastCardWithKabaoid:self.kabaoid userid:[XEEngine shareInstance].uid eno:self.cardNum ekey:self.passWord tag:tag];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         /**

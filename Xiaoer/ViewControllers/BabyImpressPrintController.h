@@ -8,6 +8,9 @@
 
 #import "XESuperViewController.h"
 
-@interface BabyImpressPrintController : XESuperViewController
 
+#import "XEBabyImpressPhotoListInfo.h"
+
+@interface BabyImpressPrintController : XESuperViewController
+@property (nonatomic,strong)XEBabyImpressPhotoListInfo *info;
 @end

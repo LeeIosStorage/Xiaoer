@@ -995,7 +995,9 @@
             //原来的 专注力和好习惯
 //            focusAndHabitViewController *focus = [[focusAndHabitViewController alloc]init];
 //            [self.navigationController pushViewController:focus animated:YES];
-            
+            if ([[XEEngine shareInstance] needUserLogin:@"登录或注册后才能预览"]) {
+                return;
+            }
             BabyImpressMainController *impress = [[BabyImpressMainController alloc]init];
             [self.navigationController pushViewController:impress animated:YES];
             

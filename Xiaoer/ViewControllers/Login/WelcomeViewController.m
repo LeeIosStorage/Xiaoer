@@ -42,6 +42,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     self.qqLoginButton.hidden= ![QQApi isQQInstalled];
     self.weixinLoginButton.hidden= ![WXApi isWXAppInstalled];
 }

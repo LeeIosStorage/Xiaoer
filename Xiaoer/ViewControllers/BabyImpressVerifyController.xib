@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BabyImpressVerifyController">
             <connections>
+                <outlet property="carriageMoneyLab" destination="KMO-Ve-y8y" id="raY-Wz-a8I"/>
                 <outlet property="footerView" destination="s5e-NQ-j0V" id="zUf-nl-iPJ"/>
                 <outlet property="haveAddressView" destination="Rhy-4l-JUE" id="iqJ-yU-iEj"/>
                 <outlet property="havePayView" destination="50c-XB-NpJ" id="aWn-WI-czH"/>
@@ -16,8 +17,11 @@
                 <outlet property="noAddressView" destination="Usc-Vx-Oto" id="WEr-ks-Oxi"/>
                 <outlet property="noPayWayView" destination="42P-dO-6Tg" id="MG1-D5-SjS"/>
                 <outlet property="noteView" destination="QG3-KP-NLl" id="uVU-yM-dpL"/>
+                <outlet property="numPhotoLab" destination="w4a-8W-AVS" id="bLZ-hQ-PGE"/>
+                <outlet property="photoMoney" destination="M49-L6-Bbj" id="Qcv-yR-7UA"/>
                 <outlet property="tableview" destination="2Ug-q4-3lK" id="PMk-ho-dUj"/>
                 <outlet property="textView" destination="34x-ZA-XUN" id="aPp-op-op7"/>
+                <outlet property="totalMoneyLab" destination="FMA-af-6fX" id="WEq-QU-6is"/>
                 <outlet property="verifyBtn" destination="DKJ-eK-eU0" id="5gh-Tt-QPt"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -245,7 +249,7 @@
                     <rect key="frame" x="285" y="12" width="5" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择配送方式" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XTe-1w-jhe">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="圆通快递" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XTe-1w-jhe">
                     <rect key="frame" x="180" y="12" width="90" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -370,7 +374,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="550" y="991"/>
+            <point key="canvasLocation" x="544" y="992"/>
         </view>
     </objects>
     <resources>

@@ -205,7 +205,7 @@
     [XEEngine shareInstance].serverPlatform = TestPlatform;
     int tag = [[XEEngine shareInstance] getConnectTag];
 
-    NSString *PageString = [NSString stringWithFormat:@"%ld",self.pageNum];
+    NSString *PageString = [NSString stringWithFormat:@"%ld",(long)self.pageNum];
     [[XEEngine shareInstance]getShopMainListInfomationWith:tag types:typeString pageNum:PageString];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         

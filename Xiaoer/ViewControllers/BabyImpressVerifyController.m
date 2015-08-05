@@ -7,17 +7,16 @@
 //
 
 #import "BabyImpressVerifyController.h"
-#import "AppDelegate.h"
 #import "AddAddressViewController.h"
 #import "AddressManagerController.h"
 #import "XEAddressListInfo.h"
 #import "BabyImpressPayWayController.h"
-#import <QiniuSDK.h>
 #import "BabyImpressMyPictureController.h"
-
-
-
-
+#import "XEEngine.h"
+#import "XEProgressHUD.h"
+#import "GoToPayViewController.h"
+#import "AddressInfoManager.h"
+#import "AppDelegate.h"
 @interface BabyImpressVerifyController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,postInfoDelegate,refreshAddtessInfoDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
@@ -39,48 +38,170 @@
 @property (weak, nonatomic) IBOutlet UILabel *infoAddress;
 @property (weak, nonatomic) IBOutlet UILabel *infoName;
 
+
+/**
+ *  照片数量
+ */
+@property (weak, nonatomic) IBOutlet UILabel *numPhotoLab;
+/**
+ *  运费
+ */
+@property (weak, nonatomic) IBOutlet UILabel *carriageMoneyLab;
+/**
+ *  总金额
+ */
+@property (weak, nonatomic) IBOutlet UILabel *totalMoneyLab;
+/**
+ *  纯照片金额
+ */
+@property (weak, nonatomic) IBOutlet UILabel *photoMoney;
+
+
 @end
 
 @implementation BabyImpressVerifyController
+- (NSMutableArray *)dataSources{
+    if (!_dataSources) {
+        self.dataSources = [NSMutableArray array];
+    }
+    return _dataSources;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"确认订单";
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     self.tableview.backgroundColor = [UIColor clearColor];
     self.verifyBtn.layer.cornerRadius = 5;
     self.verifyBtn.layer.masksToBounds = YES;
     self.ifHavePayWay = NO;
-    [self configureTableView];
-    
-    
-    
-    
-    
-//      七牛
-    NSString *token = @"从服务端SDK获取";
-    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    NSData *data = [@"Hello, World!" dataUsingEncoding : NSUTF8StringEncoding];
-    
-    for (int i = 0; i < 10; i++) {
-        [appDelegate.upManager putData:data key:@"hello" token:token
-                              complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                                  NSLog(@"1 %@", info);
-                                  NSLog(@"2 %@", resp);
-                              } option:nil];
+    self.numPhotoLab.text = [NSString stringWithFormat:@"%ld",self.dataSources.count];
+    self.carriageMoneyLab.text = @"0";
+
+    if (self.dataSources.count < 10) {
+        self.photoMoney.text = [NSString stringWithFormat:@"0.%ld",self.dataSources.count];
+    }else{
+        self.photoMoney.text = [NSString stringWithFormat:@"%.1f",self.dataSources.count/10 + (self.dataSources.count%10*0.1)];
     }
-  
+    if ([[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid]) {
+        self.addressInfo = [[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid];
+    }else{
+    }
+    [self configureTableView];
+    self.totalMoneyLab.attributedText = [self creatTotalMoneyTextWith:[NSString stringWithFormat:@"合计:%.2f",[self.carriageMoneyLab.text floatValue] + [self.photoMoney.text floatValue]]];
+
     
     // Do any additional setup after loading the view from its nib.
 }
+
+
+
+#pragma mark 请求运费
+- (void)getCarriageMoney{
+    __weak BabyImpressVerifyController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance]qiNiuGetCarriageMoneyWith:tag provinceid:self.addressInfo.provinceId];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        //获取失败信息
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"删除运费失败" At:weakSelf.view];
+            return;
+        }
+        
+        if ([jsonRet[@"object"] isKindOfClass:[NSNull class]]) {
+            self.carriageMoneyLab.text = @"0";
+            [XEProgressHUD AlertError:@"删除运费失败" At:weakSelf.view];
+        }
+        if (jsonRet[@"object"]) {
+            self.carriageMoneyLab.text = [NSString stringWithFormat:@"%.2f",[jsonRet[@"object"] floatValue]/100];
+        }
+        self.totalMoneyLab.text = [NSString stringWithFormat:@"%.2f",[self.carriageMoneyLab.text floatValue] + [self.photoMoney.text floatValue]];
+        self.tableview.tableHeaderView = [self returnAddressView];
+    } tag:tag];
+    
+}
+
+
+#pragma mark  创建价格text
+- (NSMutableAttributedString *)creatTotalMoneyTextWith:(NSString *)string{
+    if ([string isEqualToString:@""]) {
+        return nil;
+    }
+    NSString *dou = @":";
+    NSRange rang = [string rangeOfString:dou];
+    NSMutableAttributedString *strA = [[NSMutableAttributedString alloc] initWithString:string];
+    [strA addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, rang.location)];
+    [strA addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, rang.location + 1)];
+    [strA addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(rang.location, string.length  - rang.location)];
+    [strA addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(rang.location + 1, string.length  - rang.location - 1)];
+    return strA;
+}
 - (IBAction)verrfyBtnTouched:(id)sender {
-    NSLog(@"确定");
+
+    
     if (self.view.frame.origin.y == 0) {
     } else {
         [self animtionTabView];
     }
-    BabyImpressMyPictureController *picture = [[BabyImpressMyPictureController alloc]init];
-    [self.navigationController pushViewController:picture  animated:YES];
+    
+    if (!self.addressInfo.provinceId) {
+        [XEProgressHUD lightAlert:@"请选择收货地址"];
+        return;
+    }
+    NSString *textStr;
+    if (self.textView.text.length == 0) {
+        textStr = @"";
+    }else{
+        textStr = self.textView.text;
+    }
+    
+    __weak BabyImpressVerifyController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance]qiNiuOrderWith:tag userid:[XEEngine shareInstance].uid useraddressid:self.addressInfo.id mark:self.textView.text];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        //获取失败信息
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if ([[jsonRet objectForKey:@"code"] isEqual:@01]) {
+            [XEProgressHUD AlertError:jsonRet[@"result"] At:weakSelf.view];
+            return;
+        }
+        if ([[jsonRet objectForKey:@"code"] isEqual:@02]) {
+            [XEProgressHUD AlertError:jsonRet[@"result"] At:weakSelf.view];
+            return;
+        }
+        if ([[jsonRet objectForKey:@"code"] isEqual:@03]) {
+            [XEProgressHUD AlertError:jsonRet[@"result"] At:weakSelf.view];
+            return;
+        }
+        if ([[jsonRet objectForKey:@"code"] isEqual:@04]) {
+            [XEProgressHUD AlertError:jsonRet[@"result"] At:weakSelf.view];
+            return;
+        }
+        
+        if ([[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertSuccess:@"下单成功"];
+            
+            GoToPayViewController *goToPay = [[GoToPayViewController alloc]init];
+            goToPay.orderPrice = [NSString stringWithFormat:@"%.2f",[jsonRet[@"object"][@"money"] floatValue]/100];
+            goToPay.orderNum = [NSString stringWithFormat:@"%@",jsonRet[@"object"][@"orderNo"]];
+            goToPay.from = @"1";
+            [[AddressInfoManager manager]addDictionaryWith:self.addressInfo With:[XEEngine shareInstance].uid];
+            [self.navigationController pushViewController:goToPay animated:YES];
+            return;
+        }
+        
+        
+    } tag:tag];
+     
     
 }
 
@@ -90,23 +211,24 @@
     [self.navigationController pushViewController:add animated:YES];
 }
 - (void)postInfoWith:(XEAddressListInfo *)info{
-    NSLog(@"info === %@",info);
     self.addressInfo = info;
-    self.tableview.tableHeaderView = [self returnAddressView];
+    [self getCarriageMoney];
 }
 - (IBAction)haveAddressBtnTouched:(id)sender {
     AddressManagerController *manager = [[AddressManagerController alloc]init];
     manager.delegate = self;
     [self.navigationController pushViewController:manager animated:YES];
 }
+
 - (void)refreshAddressInfoWith:(XEAddressListInfo *)info{
-    NSLog(@"info === %@",info);
     self.addressInfo = info;
-    self.tableview.tableHeaderView = [self returnAddressView];
+    [self getCarriageMoney];
 }
+
+#warning 暂时不设置配送方式
 - (IBAction)noPayBtnTouched:(id)sender {
-    BabyImpressPayWayController *payWay = [[BabyImpressPayWayController alloc]init];
-    [self.navigationController pushViewController:payWay animated:YES];
+//    BabyImpressPayWayController *payWay = [[BabyImpressPayWayController alloc]init];
+//    [self.navigationController pushViewController:payWay animated:YES];
 }
 
 - (void)configureTableView{
@@ -138,6 +260,9 @@
     [footer addSubview:payWay];
     [footer addSubview:self.noteView];
     [footer addSubview:self.footerView];
+    if (self.addressInfo) {
+        [self getCarriageMoney];
+    }
     return footer;
 }
 - (UIView *)returnAddressView{
@@ -164,7 +289,6 @@
     }
     
 }
-
 
 #pragma mark tableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -210,15 +334,12 @@
         return;
     }
     if (self.view.frame.origin.y == 0) {
-        NSLog(@"1");
-        
         [UIView animateWithDuration:0.3 animations:^{
             [self.tableview setContentOffset:CGPointMake(0, 0) animated:NO];
             self.view.frame = CGRectMake(0, - (SCREEN_WIDTH/3), SCREEN_WIDTH, SCREEN_HEIGHT);
         }];
         
     } else {
-        NSLog(@"2");
         [UIView animateWithDuration:0.3 animations:^{
             [self.tableview setContentOffset:CGPointMake(0, 0) animated:NO];
             self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -227,10 +348,8 @@
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (self.view.frame.origin.y == 0) {
-        NSLog(@"1");
         
     } else {
-        NSLog(@"2");
         [self animtionTabView];
     }
 }

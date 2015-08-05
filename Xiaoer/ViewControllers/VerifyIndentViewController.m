@@ -374,6 +374,7 @@
         GoToPayViewController *goToPay = [[GoToPayViewController alloc]init];
         goToPay.orderPrice = [NSString stringWithFormat:@"%.2f",[jsonRet[@"object"][@"money"] floatValue]/100];
         goToPay.orderNum = [NSString stringWithFormat:@"%@",jsonRet[@"object"][@"orderNo"]];
+        goToPay.from = @"0";
         [[AddressInfoManager manager]addDictionaryWith:self.info With:[XEEngine shareInstance].uid];
         
         [self.navigationController pushViewController:goToPay animated:YES];

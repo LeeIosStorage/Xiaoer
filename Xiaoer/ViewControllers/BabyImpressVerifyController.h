@@ -9,5 +9,6 @@
 #import "XESuperViewController.h"
 
 @interface BabyImpressVerifyController : XESuperViewController
+@property (nonatomic,strong)NSMutableArray *dataSources;
 
 @end
