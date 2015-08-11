@@ -308,7 +308,9 @@
     if (!phone) {
         phone = @"";
     }
-    self.phoneLabel.text = [NSString stringWithFormat:@"%@ %@\n%d人已报名 至少%d人 最多%d人",contact,phone,_activityInfo.regnum,_activityInfo.minnum,_activityInfo.totalnum];
+//    self.phoneLabel.text = [NSString stringWithFormat:@"%@ %@\n%d人已报名 至少%d人 最多%d人",contact,phone,_activityInfo.regnum,_activityInfo.minnum,_activityInfo.totalnum];
+    self.phoneLabel.text = [NSString stringWithFormat:@"%@ %@\n至少%d人 最多%d人",contact,phone,_activityInfo.minnum,_activityInfo.totalnum];
+
     self.activityIntroLabel.text = _activityInfo.des;
     
     CGRect frame = self.activityIntroLabel.frame;

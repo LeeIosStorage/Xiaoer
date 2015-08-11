@@ -36,8 +36,14 @@
     self.title = @"地址管理";
     self.view.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
     [self setRightButtonWithImageName:@"AddAddress" selector:@selector(addAddressBtn)];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deledate:) name:@"editVerifyInfo" object:nil];
 
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)deledate:(NSNotificationCenter *)sender{
+    [self getAddressList];
+    
 }
 #pragma mark 布局tableview
 - (void)configureTableView{
@@ -82,11 +88,10 @@
             return;
 
         }
+            [self.dataSources removeAllObjects];
         if (jsonRet[@"object"]) {
             NSLog(@"有返回数据");
-            if (self.dataSources.count > 0) {
-                [self.dataSources removeAllObjects];
-            }
+
             
             for (NSDictionary *dic in array) {
                 XEAddressListInfo *info = [XEAddressListInfo objectWithKeyValues:dic];
@@ -172,7 +177,7 @@
     }else{
         add.ifCanDelete = NO;
     }
-
+    NSLog(@"%@",self.ifCanDelete ? @"y ":@"n");
     [self.navigationController pushViewController:add animated:YES];
 }
 - (void)didReceiveMemoryWarning {

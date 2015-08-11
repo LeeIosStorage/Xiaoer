@@ -39,8 +39,8 @@
                         <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" id="rd5-Z7-vdI" userLabel="Button - Title">
                             <rect key="frame" x="50" y="23" width="220" height="40"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="16"/>
-                            <state key="normal" image="UzysAssetPickerController.bundle/uzysAP_ico_arrow_upload_album_d.png">
+                            <fontDescription key="fontDescription" type="system" weight="black" pointSize="16"/>
+                            <state key="normal" image="babyPayWayDown">
                                 <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -111,10 +111,10 @@
         </view>
     </objects>
     <resources>
-        <image name="UzysAssetPickerController.bundle/uzysAP_ico_arrow_upload_album_d.png" width="15" height="15"/>
         <image name="UzysAssetPickerController.bundle/uzysAP_ico_upload_camera.png" width="15" height="15"/>
         <image name="UzysAssetPickerController.bundle/uzysAP_ico_upload_done.png" width="15" height="15"/>
         <image name="UzysAssetPickerController.bundle/uzysAP_navi_icon_close.png" width="15" height="15"/>
+        <image name="babyPayWayDown" width="16" height="8"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

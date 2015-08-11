@@ -25,11 +25,12 @@
 #import "LSReachability.h"
 #import "XEAlertView.h"
 #import "ShopViewController.h"
-
 #import <AlipaySDK/AlipaySDK.h>
 #import "APService.h"
+#import "AddressInfoManager.h"
+#import "BabyImpressMyPictureController.h"
 
-@interface AppDelegate () <NewIntroViewControllerDelegate>
+@interface AppDelegate () <NewIntroViewControllerDelegate,UIAlertViewDelegate>
 
 @end
 
@@ -140,8 +141,8 @@ void uncaughtExceptionHandler(NSException *exception) {
              categories:nil];
         }
     [APService setupWithOption:launchOptions];
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    [APService resetBadge];
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+//    [APService resetBadge];
 
 
 
@@ -150,15 +151,21 @@ void uncaughtExceptionHandler(NSException *exception) {
 //新手引导
 -(void)showNewIntro{
     NewIntroViewController *introVc = [[NewIntroViewController alloc] init];
+    
     introVc.delegate = self;
     self.window.rootViewController = introVc;
 }
 
 - (void)signIn{
     NSLog(@"signIn");
-    NSSet *set = [NSSet setWithObject:@12];
-    [APService setTags:set callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
-//    [APService setAlias:@"12" callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+    if ([XEEngine shareInstance].uid) {
+        NSSet *set = [NSSet setWithObject:[XEEngine shareInstance].uid];
+        [APService setTags:set callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+    }else{
+        
+        NSSet *set = [NSSet setWithObject:@"XiaoEr_Cancel"];
+        [APService setTags:set callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+    }
     if ([[XEEngine shareInstance] hasAccoutLoggedin]) {
         [XEEngine shareInstance].bVisitor = NO;
     }else {
@@ -203,7 +210,10 @@ void uncaughtExceptionHandler(NSException *exception) {
         [self showNewIntro];
         return;
     }
-    
+
+    NSSet *set = [NSSet setWithObject:@"XiaoEr_Cancel"];
+    [APService setTags:set callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+    [[AddressInfoManager manager]deleteFile];
     WelcomeViewController* welcomeViewController = [[WelcomeViewController alloc] init];
     XENavigationController* navigationController = [[XENavigationController alloc] initWithRootViewController:welcomeViewController];
     navigationController.navigationBarHidden = YES;
@@ -312,43 +322,87 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     [APService handleRemoteNotification:userInfo];
-    NSLog(@"1收到通知:%@", userInfo);
+//    NSLog(@"1收到通知:%@", userInfo);
 //    NSDictionary *alertContent = [userInfo objectForKey:@"aps"];
 //    NSString *alertContentStr = [alertContent objectForKey:@"alert"];
 //    UIAlertView *remoteNotificationAlert = [[UIAlertView alloc] initWithTitle:@"消息推送" message:alertContentStr delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"查看", nil];
 //    [remoteNotificationAlert show];
-    [UIApplication sharedApplication].applicationIconBadgeNumber++;
-    [APService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
+//    [UIApplication sharedApplication].applicationIconBadgeNumber--;
+//    [APService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    
+    NSLog(@"2收到通知:%@", userInfo);
     [APService handleRemoteNotification:userInfo];
+
     NSLog(@"2收到通知:%@", userInfo);
     NSDictionary *alertContent = [userInfo objectForKey:@"aps"];
     NSString *alertContentStr = [alertContent objectForKey:@"alert"];
-    UIAlertView *remoteNotificationAlert = [[UIAlertView alloc] initWithTitle:@"消息推送" message:alertContentStr delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"查看", nil];
-    remoteNotificationAlert.tag = 10001;
-    [remoteNotificationAlert show];
-    [UIApplication sharedApplication].applicationIconBadgeNumber --;
-    [APService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
+    self.type = [[userInfo objectForKeyedSubscript:@"type"] stringValue];
+    if ([self.type isEqualToString:@"4"]) {
+        UIAlertView *remoteNotificationAlert = [[UIAlertView alloc] initWithTitle:@"消息推送" message:alertContentStr delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"查看", nil];
+        remoteNotificationAlert.tag = 10001;
+        [remoteNotificationAlert show];
+        [UIApplication sharedApplication].applicationIconBadgeNumber += 1;
+        NSLog(@"app badge = %ld",(long)[UIApplication sharedApplication].applicationIconBadgeNumber);
+        [APService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
+    
+    }
+
     completionHandler(UIBackgroundFetchResultNewData);
+    
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    NSLog(@"收到3");
+    NSLog(@"收到本地消息");
     [APService showLocalNotificationAtFront:notification identifierKey:nil];
     
 }
 
+
 ////极光推送绑定别名回掉
 - (void)tagsAliasCallback:(int)iResCode tags:(NSSet*)tags alias:(NSString*)alias {
     NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
+    if ([XEEngine shareInstance].uid) {
+        if (iResCode  == 6002) {
+            NSSet *set = [NSSet setWithObject:[XEEngine shareInstance].uid];
+            [APService setTags:set callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
+        
+        }
+    }
+
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
     NSLog(@"error======%@",error);
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSLog(@"%ld",(long)buttonIndex);
+    if (buttonIndex == 0) {
+        return;
+    }
+    if (![XEEngine shareInstance].uid) {
+        
+        if ([[XEEngine shareInstance] needUserLogin:nil]) {
+            return;
+        }
+    }
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber -= 1;
+    [APService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
+    NSLog(@"app badge = %ld",(long)[UIApplication sharedApplication].applicationIconBadgeNumber);
+
+    if ([self.type isEqualToString:@"4"]) {
+        BabyImpressMyPictureController *my = [[BabyImpressMyPictureController alloc]init];
+        UINavigationController *navi = (UINavigationController *)self.window.rootViewController;
+        if ([navi.viewControllers.lastObject isKindOfClass:[BabyImpressMyPictureController class]]) {
+            
+        }else{
+            [navi pushViewController:my animated:YES];
+        }
+    }
+
+}
 
 @end

@@ -14,6 +14,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *goToPayTabView;
 @property (strong, nonatomic) IBOutlet UIView *tabHeader;
 @property (strong, nonatomic) IBOutlet UIView *tabFooter;
+
+@property (weak, nonatomic) IBOutlet UIButton *specialtyBtn;
+
 /**
  *  提醒lable
  */

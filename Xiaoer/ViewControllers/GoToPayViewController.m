@@ -34,7 +34,11 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(paySuccess:) name:@"success" object:nil];
     if ([self.from isEqualToString:@"0"]) {
         self.remindView.text = @"订单提交成功，请尽快付款，30分钟未付款将取消";
+        self.remindView.frame = CGRectMake(60, 10, SCREEN_WIDTH - 60 - 15, 40);
+        self.specialtyBtn.hidden = NO;
     }else{
+        self.remindView.frame = CGRectMake(15, 10, SCREEN_WIDTH - 30, 40);
+        self.specialtyBtn.hidden = YES;
         self.remindView.text = @"订单提交成功，请尽快付款，我们将会在每月的最后一天24点取消未付款的订单";
     }
 
@@ -151,7 +155,14 @@
 }
 
 #pragma mark tableView Delagate
-
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 8;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 8)];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 60;
 }
@@ -163,6 +174,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     GoToPayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.selectionStyle = 0;
     [cell configureCellWith:indexPath];
     return cell;
 }

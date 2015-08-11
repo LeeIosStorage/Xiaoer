@@ -32,7 +32,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"妈妈必看";
+    self.title = @"教子有方";
     NSLog(@"%@",self.navigationController);
 
     self.motherLookTab.delegate = self;
@@ -117,7 +117,6 @@
 - (void)loadData{
     __weak MotherLookController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [XEEngine shareInstance].serverPlatform = OnlinePlatform;
     [[XEEngine shareInstance]getMotherLookListWithTag:tag];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
 

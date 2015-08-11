@@ -526,13 +526,14 @@
 		AACD9F7D1B21A81D0093E21C /* focusAndHabitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACD9F7B1B21A81D0093E21C /* focusAndHabitViewController.xib */; };
 		AAD1240F1B6F351D007908F7 /* ImageScrollWithDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD1240D1B6F351D007908F7 /* ImageScrollWithDataController.m */; };
 		AAD124101B6F351D007908F7 /* ImageScrollWithDataController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD1240E1B6F351D007908F7 /* ImageScrollWithDataController.xib */; };
+		AAD22CA31B7478DB00ADE701 /* BabyImpressMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD22CA11B7478DB00ADE701 /* BabyImpressMainCell.m */; };
+		AAD22CA41B7478DB00ADE701 /* BabyImpressMainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD22CA21B7478DB00ADE701 /* BabyImpressMainCell.xib */; };
 		AAD5EF901B365766006C17FC /* VerifyIndentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD5EF8E1B365766006C17FC /* VerifyIndentViewController.m */; };
 		AAD5EF911B365766006C17FC /* VerifyIndentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD5EF8F1B365766006C17FC /* VerifyIndentViewController.xib */; };
 		AAD5EF951B36846B006C17FC /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD5EF931B36846B006C17FC /* AddAddressViewController.m */; };
 		AAD5EF961B36846B006C17FC /* AddAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD5EF941B36846B006C17FC /* AddAddressViewController.xib */; };
 		AAD5EF9A1B36888C006C17FC /* AddAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD5EF981B36888C006C17FC /* AddAddressCell.m */; };
 		AAD5EF9B1B36888C006C17FC /* AddAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD5EF991B36888C006C17FC /* AddAddressCell.xib */; };
-		AAD5EFD41B36AAC6006C17FC /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAD5EFD31B36AAC6006C17FC /* area.plist */; };
 		AAD5EFD81B36BC7B006C17FC /* PayAndDistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD5EFD61B36BC7B006C17FC /* PayAndDistributionViewController.m */; };
 		AAD5EFD91B36BC7B006C17FC /* PayAndDistributionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD5EFD71B36BC7B006C17FC /* PayAndDistributionViewController.xib */; };
 		AAD5EFDD1B36C3C4006C17FC /* GoToPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD5EFDB1B36C3C4006C17FC /* GoToPayViewController.m */; };
@@ -1517,6 +1518,9 @@
 		AAD1240C1B6F351D007908F7 /* ImageScrollWithDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollWithDataController.h; sourceTree = "<group>"; };
 		AAD1240D1B6F351D007908F7 /* ImageScrollWithDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollWithDataController.m; sourceTree = "<group>"; };
 		AAD1240E1B6F351D007908F7 /* ImageScrollWithDataController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageScrollWithDataController.xib; sourceTree = "<group>"; };
+		AAD22CA01B7478DB00ADE701 /* BabyImpressMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressMainCell.h; sourceTree = "<group>"; };
+		AAD22CA11B7478DB00ADE701 /* BabyImpressMainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressMainCell.m; sourceTree = "<group>"; };
+		AAD22CA21B7478DB00ADE701 /* BabyImpressMainCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressMainCell.xib; sourceTree = "<group>"; };
 		AAD5EF8D1B365766006C17FC /* VerifyIndentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyIndentViewController.h; sourceTree = "<group>"; };
 		AAD5EF8E1B365766006C17FC /* VerifyIndentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyIndentViewController.m; sourceTree = "<group>"; };
 		AAD5EF8F1B365766006C17FC /* VerifyIndentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyIndentViewController.xib; sourceTree = "<group>"; };
@@ -1526,7 +1530,6 @@
 		AAD5EF971B36888C006C17FC /* AddAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAddressCell.h; sourceTree = "<group>"; };
 		AAD5EF981B36888C006C17FC /* AddAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAddressCell.m; sourceTree = "<group>"; };
 		AAD5EF991B36888C006C17FC /* AddAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAddressCell.xib; sourceTree = "<group>"; };
-		AAD5EFD31B36AAC6006C17FC /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
 		AAD5EFD51B36BC7B006C17FC /* PayAndDistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayAndDistributionViewController.h; sourceTree = "<group>"; };
 		AAD5EFD61B36BC7B006C17FC /* PayAndDistributionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayAndDistributionViewController.m; sourceTree = "<group>"; };
 		AAD5EFD71B36BC7B006C17FC /* PayAndDistributionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayAndDistributionViewController.xib; sourceTree = "<group>"; };
@@ -1820,7 +1823,6 @@
 		07508E831A51346300873B45 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AAD5EFD31B36AAC6006C17FC /* area.plist */,
 				079F5A6F1AA0540F00069EB7 /* PushConfig.plist */,
 				07508E841A51346300873B45 /* Info.plist */,
 				074593FF1A5B8391008F4665 /* Xiaoer-Prefx.pch */,
@@ -3136,6 +3138,9 @@
 		AA7447E01B632C8F009C02C3 /* BabyImpress */ = {
 			isa = PBXGroup;
 			children = (
+				AAD22CA01B7478DB00ADE701 /* BabyImpressMainCell.h */,
+				AAD22CA11B7478DB00ADE701 /* BabyImpressMainCell.m */,
+				AAD22CA21B7478DB00ADE701 /* BabyImpressMainCell.xib */,
 				AA7447E11B632CBF009C02C3 /* BabyImpressPayWayCell.h */,
 				AA7447E21B632CBF009C02C3 /* BabyImpressPayWayCell.m */,
 				AA7447E31B632CBF009C02C3 /* BabyImpressPayWayCell.xib */,
@@ -3726,7 +3731,6 @@
 				AA4E1E821B3E774C003043F4 /* PaySuccessCell.xib in Resources */,
 				07AAB7F31A8306460030D306 /* SettingViewController.xib in Resources */,
 				0760E92E1A81ACB300BBEA3D /* CollectionViewController.xib in Resources */,
-				AAD5EFD41B36AAC6006C17FC /* area.plist in Resources */,
 				AAD5EFE31B36C489006C17FC /* GoToPayCell.xib in Resources */,
 				AABC377F1B4BEB1E0090660B /* LICENSE in Resources */,
 				AA70A89E1B6080AA00132EDD /* BabyImpressMainController.xib in Resources */,
@@ -3844,6 +3848,7 @@
 				AA9233741B5A57160087AD66 /* OrderWillPassController.xib in Resources */,
 				078E891B1AA1C32D008AD45A /* stylesPrint.css in Resources */,
 				AA4E1E7D1B3E7691003043F4 /* PaySuccessViewController.xib in Resources */,
+				AAD22CA41B7478DB00ADE701 /* BabyImpressMainCell.xib in Resources */,
 				077663971A80674E004C885B /* MineActivityListViewController.xib in Resources */,
 				078E88F81AA1C32D008AD45A /* UMSocialAccountManager.html in Resources */,
 				075AA03B1A68B85D000B6302 /* ActivityViewController.xib in Resources */,
@@ -4157,6 +4162,7 @@
 				AA125DD91B2811D1000163A7 /* MJRefreshConst.m in Sources */,
 				7E72412C1A77D2F8001E1F69 /* HPTextViewInternal.m in Sources */,
 				0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */,
+				AAD22CA31B7478DB00ADE701 /* BabyImpressMainCell.m in Sources */,
 				073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */,
 				AA1AE6F61B5F66A700F5B90D /* UzysAssetsPickerController.m in Sources */,
 				079E421C1A762ABE0056968E /* XEQuestionViewCell.m in Sources */,
@@ -4390,6 +4396,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4426,6 +4433,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -4453,6 +4461,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Xiaoer/External/AliPayNeed",
+					"$(SRCROOT)/Xiaoer/External/JPush",
 				);
 				INFOPLIST_FILE = Xiaoer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -4467,7 +4476,7 @@
 					"$(PROJECT_DIR)/Xiaoer/External/AliPayNeed",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c909dc26-352d-44bf-bea8-5070160034df";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Xiaoer/External/JPush";
@@ -4495,6 +4504,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Xiaoer/External/AliPayNeed",
+					"$(SRCROOT)/Xiaoer/External/JPush",
 				);
 				INFOPLIST_FILE = Xiaoer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -4509,7 +4519,7 @@
 					"$(PROJECT_DIR)/Xiaoer/External/AliPayNeed",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c909dc26-352d-44bf-bea8-5070160034df";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Xiaoer/External/JPush";

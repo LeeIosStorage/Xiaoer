@@ -97,29 +97,29 @@
     
     [super viewDidLoad];
     
-    self.searchBtn.layer.cornerRadius = 10;
-    self.searchBtn.layer.borderWidth = 1;
-    self.searchBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-//布局heaerview的collectionview
-    [self configureHeaderCollectionView];
-    
-//布局tableView
-    [self configureShopTableView];
-    
-//布局searchView
-    [self configuresearchView];
+//    self.searchBtn.layer.cornerRadius = 10;
+//    self.searchBtn.layer.borderWidth = 1;
+//    self.searchBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+////布局heaerview的collectionview
+//    [self configureHeaderCollectionView];
+//    
+////布局tableView
+//    [self configureShopTableView];
+//    
+////布局searchView
+//    [self configuresearchView];
+//
+//
+//    self.addActivity = NO;
+//    self.addNew = NO;
+//    self.ifToEnd = NO;
+//    self.pageNum = 1;
+//    [self getChooseDataWithTypeString:@"1,2"];
+//    [self getHomeShopNewDataWithTypeString:@"3"];
 
-
-    self.addActivity = NO;
-    self.addNew = NO;
-    self.ifToEnd = NO;
-    self.pageNum = 1;
-    [self getChooseDataWithTypeString:@"1,2"];
-    [self getHomeShopNewDataWithTypeString:@"3"];
-
-//        UIImageView *ImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
-//        ImageView.image = [UIImage imageNamed:@"正在建设中6p"];
-//        [self.view addSubview:ImageView];
+        UIImageView *ImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        ImageView.image = [UIImage imageNamed:@"正在建设中6p"];
+        [self.view addSubview:ImageView];
 
     
 }

@@ -348,9 +348,9 @@
                 if ([addInfo.id  isEqualToString:self.info.id]) {
                     [[AddressInfoManager manager]deleteTheDictionaryWith:[XEEngine shareInstance].uid];
                 }
-                
             }
-            [self performSelector:@selector(performPop) withObject:self afterDelay:1.5];
+            [self performPop];
+//            [self performSelector:@selector(performPop) withObject:self afterDelay:1.5];
         }
     } tag:tag];
     

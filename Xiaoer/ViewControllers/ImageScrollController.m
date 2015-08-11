@@ -8,6 +8,8 @@
 
 #import "ImageScrollController.h"
 
+#import "XEProgressHUD.h"
+
 @interface ImageScrollController ()<UIScrollViewDelegate>
 
 @end
@@ -38,12 +40,13 @@
     self.scrollView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
 
     if (self.ifHaveDelete == YES) {
-        [self setRightButtonWithTitle:@"删除" selector:@selector(deleteBtnTouched)];
+//        babayRubbish
+        [self setRightButtonWithImageName:@"babayRubbish" selector:@selector(deleteBtnTouched)];
     }else{
         
     }
     self.ifDeleteBtnTouched = NO;
-    
+    self.pageControll.hidden = YES;
     [self configureScrollViewWith:self.array];
 
 
@@ -63,8 +66,11 @@
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(deleteResultWith:)]) {
             [self.delegate deleteResultWith:index];
+            [XEProgressHUD AlertSuccess:@"删除成功"];
         }
         
+    }else{
+        [XEProgressHUD lightAlert:@"暂无照片，请添加"];
     }
 
 }
@@ -79,7 +85,6 @@
     for (UIView *view in self.scrollView.subviews) {
         [view removeFromSuperview];
     }
-//    NSLog(@"%f %f",SCREEN_WIDTH,SCREEN_HEIGHT);
     
     self.scrollView.contentSize = CGSizeMake(array.count * [UIScreen mainScreen].bounds.size.width,0);
     self.pageControll.numberOfPages = array.count;
@@ -100,22 +105,30 @@
         }
         
         else if (imageView.image.size.width > Swidth && imageView.image.size.height > Sheight) {
+            
             if (imageView.image.size.width > imageView.image.size.height) {
                 imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, (Sheight - (imageView.image.size.height * Swidth/imageView.image.size.width))/2, Swidth, imageView.image.size.height * Swidth/imageView.image.size.width);
-            } else {
+            } else  if(imageView.image.size.width < imageView.image.size.height){
+                
                 NSLog(@"=====  %f",(Swidth - (Swidth*imageView.image.size.height/Sheight))/2);
                 if ((Swidth - (Swidth*imageView.image.size.height/Sheight))/2 < 0) {
                     imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, 0,SCREEN_WIDTH, Sheight);
-                }else{
+                }else {
                     imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width + (Swidth - (Sheight*imageView.image.size.width/imageView.image.size.height))/2, 0, Sheight*imageView.image.size.width/imageView.image.size.height, Sheight);
                 }
+                
+            }
+             else if (imageView.image.size.width == imageView.image.size.height){
+                NSLog(@"进入 %f",imageView.image.size.width*Sheight/imageView.image.size.height);
+                imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width , (SCREEN_HEIGHT -64 - Swidth)/2, Swidth,Swidth);
             }
         }
         else  if (imageView.image.size.width < Swidth && imageView.image.size.height > Sheight) {
             imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - (Sheight*imageView.image.size.width/imageView.image.size.height))/2 , 64,Sheight*imageView.image.size.width/imageView.image.size.height, Sheight);
         }
         else   if (imageView.image.size.width < Swidth && imageView.image.size.height < Sheight) {
-            imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - (Sheight*imageView.image.size.width/imageView.image.size.height))/2 , (SCREEN_HEIGHT -64 - imageView.image.size.height)/2, imageView.image.size.width, imageView.image.size.height);
+            
+                imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - imageView.image.size.width)/2 , (SCREEN_HEIGHT -64 - imageView.image.size.height)/2, imageView.image.size.width, imageView.image.size.height);
         }
 //        CGFloat wide = imageView.image.size.width /[UIScreen mainScreen].bounds.size.width > 1 ? [UIScreen mainScreen].bounds.size.width : image.size.width;
 //        CGFloat height = imageView.image.size.height /(SCREEN_HEIGHT - 64)> 1 ? SCREEN_HEIGHT-64 : image.size.height;

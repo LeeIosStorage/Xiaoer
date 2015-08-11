@@ -76,31 +76,42 @@
     self.verifyBtn.layer.masksToBounds = YES;
     self.ifHavePayWay = NO;
     self.numPhotoLab.text = [NSString stringWithFormat:@"%ld",self.dataSources.count];
-    self.carriageMoneyLab.text = @"0";
+    self.carriageMoneyLab.text = @"0.00";
 
     if (self.dataSources.count < 10) {
-        self.photoMoney.text = [NSString stringWithFormat:@"0.%ld",self.dataSources.count];
+        self.photoMoney.text = [NSString stringWithFormat:@"%.2f",self.dataSources.count*0.1];
     }else{
-        self.photoMoney.text = [NSString stringWithFormat:@"%.1f",self.dataSources.count/10 + (self.dataSources.count%10*0.1)];
+        self.photoMoney.text = [NSString stringWithFormat:@"%.2f",self.dataSources.count/10 + (self.dataSources.count%10*0.1)];
     }
     if ([[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid]) {
         self.addressInfo = [[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid];
+        NSLog(@"Manager  self.addressInfo.id == %@",self.addressInfo.id);
     }else{
     }
     [self configureTableView];
-    self.totalMoneyLab.attributedText = [self creatTotalMoneyTextWith:[NSString stringWithFormat:@"合计:%.2f",[self.carriageMoneyLab.text floatValue] + [self.photoMoney.text floatValue]]];
+//    self.totalMoneyLab.attributedText = [self creatTotalMoneyTextWith:[NSString stringWithFormat:@"合计：￥%.2f",[self.carriageMoneyLab.text floatValue] + [self.photoMoney.text floatValue]]];
+//    self.totalMoneyLab.text = [[NSString stringWithFormat:@"%.2f",[self.carriageMoneyLab.text floatValue] + [self.photoMoney.text floatValue]];
+    self.totalMoneyLab.text = [NSString stringWithFormat:@"%.2f",[self.carriageMoneyLab.text floatValue]+ [self.photoMoney.text floatValue]];
+
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deledate:) name:@"editVerifyInfo" object:nil];
+
 
     
     // Do any additional setup after loading the view from its nib.
 }
+- (void)deledate:(NSNotificationCenter *)sender{
+    NSLog(@"进入");
+    self.tableview.tableHeaderView = self.noAddressView;
+    [self.tableview reloadData];
 
+}
 
 
 #pragma mark 请求运费
 - (void)getCarriageMoney{
     __weak BabyImpressVerifyController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance]qiNiuGetCarriageMoneyWith:tag provinceid:self.addressInfo.provinceId];
+    [[XEEngine shareInstance]qiNiuGetCarriageMoneyWith:tag provinceid:self.addressInfo.provinceId userid:[XEEngine shareInstance].uid];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         //获取失败信息
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -114,14 +125,17 @@
         }
         
         if ([jsonRet[@"object"] isKindOfClass:[NSNull class]]) {
-            self.carriageMoneyLab.text = @"0";
+            self.carriageMoneyLab.text = @"0.00";
             [XEProgressHUD AlertError:@"删除运费失败" At:weakSelf.view];
         }
         if (jsonRet[@"object"]) {
             self.carriageMoneyLab.text = [NSString stringWithFormat:@"%.2f",[jsonRet[@"object"] floatValue]/100];
         }
-        self.totalMoneyLab.text = [NSString stringWithFormat:@"%.2f",[self.carriageMoneyLab.text floatValue] + [self.photoMoney.text floatValue]];
+        self.totalMoneyLab.text = [NSString stringWithFormat:@"%.2f",[self.carriageMoneyLab.text floatValue]+ [self.photoMoney.text floatValue]];
+
+//        self.totalMoneyLab.text = [NSString stringWithFormat:@"%.2f",[self.carriageMoneyLab.text floatValue] + [self.photoMoney.text floatValue]];
         self.tableview.tableHeaderView = [self returnAddressView];
+        [self.tableview reloadData];
     } tag:tag];
     
 }
@@ -132,12 +146,12 @@
     if ([string isEqualToString:@""]) {
         return nil;
     }
-    NSString *dou = @":";
+    NSString *dou = @"：";
     NSRange rang = [string rangeOfString:dou];
     NSMutableAttributedString *strA = [[NSMutableAttributedString alloc] initWithString:string];
-    [strA addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, rang.location)];
+    [strA addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0, rang.location)];
     [strA addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, rang.location + 1)];
-    [strA addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(rang.location, string.length  - rang.location)];
+    [strA addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(rang.location, string.length  - rang.location)];
     [strA addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(rang.location + 1, string.length  - rang.location - 1)];
     return strA;
 }
@@ -162,32 +176,18 @@
     
     __weak BabyImpressVerifyController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
+    NSLog(@"结算  ＝＝  %@", self.addressInfo.id);
     [[XEEngine shareInstance]qiNiuOrderWith:tag userid:[XEEngine shareInstance].uid useraddressid:self.addressInfo.id mark:self.textView.text];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         //获取失败信息
-        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-        if (errorMsg) {
-            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-            return ;
-        }
-        if ([[jsonRet objectForKey:@"code"] isEqual:@01]) {
-            [XEProgressHUD AlertError:jsonRet[@"result"] At:weakSelf.view];
-            return;
-        }
-        if ([[jsonRet objectForKey:@"code"] isEqual:@02]) {
-            [XEProgressHUD AlertError:jsonRet[@"result"] At:weakSelf.view];
-            return;
-        }
-        if ([[jsonRet objectForKey:@"code"] isEqual:@03]) {
-            [XEProgressHUD AlertError:jsonRet[@"result"] At:weakSelf.view];
-            return;
-        }
-        if ([[jsonRet objectForKey:@"code"] isEqual:@04]) {
-            [XEProgressHUD AlertError:jsonRet[@"result"] At:weakSelf.view];
-            return;
-        }
-        
-        if ([[jsonRet objectForKey:@"code"] isEqual:@0]) {
+//        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+//        if (errorMsg) {
+//            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+//            return ;
+//        }
+
+        NSString *string = [[jsonRet objectForKey:@"code"] stringValue];
+        if ([string isEqualToString:@"0"]) {
             [XEProgressHUD AlertSuccess:@"下单成功"];
             
             GoToPayViewController *goToPay = [[GoToPayViewController alloc]init];
@@ -197,11 +197,21 @@
             [[AddressInfoManager manager]addDictionaryWith:self.addressInfo With:[XEEngine shareInstance].uid];
             [self.navigationController pushViewController:goToPay animated:YES];
             return;
+        }else if ([string isEqualToString:@"5"]){
+            
+            [XEProgressHUD AlertError:@"尊敬的用户，您当月打印照片次数已上限" At:weakSelf.view];
+            return;
+            
+        }else{
+            
+            [XEProgressHUD AlertError:@"订单提交失败了" At:weakSelf.view];
+            return;
+            
         }
         
         
     } tag:tag];
-     
+    
     
 }
 
@@ -217,6 +227,7 @@
 - (IBAction)haveAddressBtnTouched:(id)sender {
     AddressManagerController *manager = [[AddressManagerController alloc]init];
     manager.delegate = self;
+    manager.fromVerifyInfo = self.addressInfo;
     [self.navigationController pushViewController:manager animated:YES];
 }
 
@@ -255,13 +266,15 @@
     UIView *payWay = [self returhPayWayView];
     
     self.noteView.frame = CGRectMake(0, payWay.frame.size.height, SCREEN_WIDTH, 140);
-    self.footerView.frame = CGRectMake(0, payWay.frame.size.height + self.noteView.frame.size.height, SCREEN_WIDTH, 130);
+    self.footerView.frame = CGRectMake(0, payWay.frame.size.height + self.noteView.frame.size.height, SCREEN_WIDTH, 190);
     footer.frame = CGRectMake(0, 0, SCREEN_WIDTH, payWay.frame.size.height + self.noteView.frame.size.height + self.footerView.frame.size.height);
     [footer addSubview:payWay];
     [footer addSubview:self.noteView];
     [footer addSubview:self.footerView];
     if (self.addressInfo) {
         [self getCarriageMoney];
+        NSLog(@"  self.addressInfo.id == %@",self.addressInfo.id);
+
     }
     return footer;
 }
@@ -273,6 +286,8 @@
         self.infoAddress.text = self.addressInfo.address;
         self.infoName.text = self.addressInfo.name;
         self.infoPhone.text = self.addressInfo.phone;
+        NSLog(@"  self.addressInfo.id == %@",self.addressInfo.id);
+
         return self.haveAddressView;
     }
 }

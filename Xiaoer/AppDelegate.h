@@ -33,5 +33,7 @@
 @property (nonatomic,strong)NSString *privateKey;
 
 @property (nonatomic,strong)QNUploadManager *upManager;
+
+@property (nonatomic,strong)NSString *type;
 @end
 

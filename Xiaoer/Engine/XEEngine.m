@@ -25,8 +25,8 @@
 
 #define CONNECT_TIMEOUT 20
 //测试接口
-//static NSString* API_URL = @"http://xiaor123.cn:801/api";
-static NSString* API_URL = @"http://test.xiaor123.cn:801/api";
+static NSString* API_URL = @"http://xiaor123.cn:801/api";
+//static NSString* API_URL = @"http://test.xiaor123.cn:801/api";
 
 static XEEngine* s_ShareInstance = nil;
 
@@ -159,12 +159,13 @@ static XEEngine* s_ShareInstance = nil;
 - (void)serverInit{
 //    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
     if (self.serverPlatform == TestPlatform) {
-        API_URL = @"http://xiaor123.cn:801/api";
+       API_URL = @"http://test.xiaor123.cn:801/api";
+//        API_URL = @"http://xiaor123.cn:801/api";
 
     } else {
-        API_URL = @"http://test.xiaor123.cn:801/api";
+        API_URL = @"http://xiaor123.cn:801/api";
 
-//        API_URL = @"http://xiaor123.cn:801/api";
+//       API_URL = @"http://test.xiaor123.cn:801/api";
 
     }
 }
@@ -2026,9 +2027,11 @@ static XEEngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/common/qiniu/del",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
-- (BOOL)qiNiuGetCarriageMoneyWith:(int)tag provinceid:(NSString *)provinceid{
+- (BOOL)qiNiuGetCarriageMoneyWith:(int)tag provinceid:(NSString *)provinceid userid:(NSString *)userid{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     [params setObject:provinceid forKey:@"provinceid"];
+    [params setObject:userid forKey:@"userid"];
+
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/photo/bobayprint/photoCarriage",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }

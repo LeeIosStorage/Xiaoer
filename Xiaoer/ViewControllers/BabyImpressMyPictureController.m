@@ -50,10 +50,15 @@
 
     [self configureTabeView];
 
+
+    
     // Do any additional setup after loading the view from its nib.
 }
+
+
 - (void)getPosedData{
     __weak BabyImpressMyPictureController *weakSelf = self;
+//    [XEEngine shareInstance].serverPlatform = TestPlatform;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance]qiniuCheckPosedPhotoWith:tag userid:[XEEngine shareInstance].uid];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
@@ -91,6 +96,7 @@
             self.tableView.tableFooterView = [self creatFooterWithExpressage:jsonRet[@"object"][@"sendInfo"]];
         }else{
             NSLog(@"快递信息不存在");
+            self.tabFooterView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 60);
             self.tableView.tableFooterView = self.tabFooterView;
         }
         [self.tableView reloadData];
@@ -109,13 +115,13 @@
     [self.tableView addHeaderWithTarget:self action:@selector(headerRefresh)];
 }
 - (UIView *)creatFooterWithExpressage:(NSString *)str{
-    UIView *footer = [[UIView alloc]init];
+    self.tabFooterView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 60);
+    self.expressageView.frame = CGRectMake(0, 60, SCREEN_WIDTH, 60);
+    UIView *footer = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 120)];
     [footer addSubview:self.tabFooterView];
     NSArray *array = [str componentsSeparatedByString:@"##"];
-    self.expressageLab.text = [NSString stringWithFormat:@"您的订单已通过%@，快递单号：%@",array[0],array[1]];
-    self.expressageView.frame = CGRectMake(0, self.tabFooterView.frame.size.height, SCREEN_WIDTH, 40);
+    self.expressageLab.text = [NSString stringWithFormat:@"您的订单已通过%@发出，快递单号：%@",array[0],array[1]];
     [footer addSubview:self.expressageView];
-    footer.frame = CGRectMake(0, 0, SCREEN_WIDTH, self.tabFooterView.frame.size.height + self.expressageView.frame.size.height);
     
     return footer;
 }

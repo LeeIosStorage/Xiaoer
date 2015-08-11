@@ -567,7 +567,7 @@
         {
         NSThread *nsth=  [[NSThread alloc] initWithTarget:self selector:@selector(showmbpMessage) object:nil];
         [nsth start];
-    
+
         }
         NSMutableArray *assets = [[NSMutableArray alloc] init];
     
@@ -583,10 +583,26 @@
         if([picker.delegate respondsToSelector:@selector(UzysAssetsPickerController:didFinishPickingAssets:)])
             [picker.delegate UzysAssetsPickerController:picker didFinishPickingAssets:assets];
         [self dismissViewControllerAnimated:YES completion:^{
-            
+
         }];
+
     }
 }
+//- (void)quicklyDissMove{
+//    NSMutableArray *assets = [[NSMutableArray alloc] init];
+//
+//    for (NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems)
+//    {
+//        [assets addObject:[self.assets objectAtIndex:indexPath.item]];
+//    }
+//    UzysAssetsPickerController *picker = (UzysAssetsPickerController *)self;
+//    
+//    if([picker.delegate respondsToSelector:@selector(UzysAssetsPickerController:didFinishPickingAssets:)])
+//        [picker.delegate UzysAssetsPickerController:picker didFinishPickingAssets:assets];
+//    [self dismissViewControllerAnimated:YES completion:^{
+//        
+//    }];
+//}
 - (void)showmbpMessage{
     // 快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -682,9 +698,9 @@
     [super setTitle:title];
     [self.btnTitle setTitle:@"选择相册" forState:UIControlStateNormal];
     NSLog(@" x %f self.btnTitle.labe width %f",self.btnTitle.titleLabel.frame.origin.x,self.btnTitle.titleLabel.bounds.size.width);
-//    [self.btnTitle setImageEdgeInsets:UIEdgeInsetsMake(5, self.btnTitle.titleLabel.frame.origin.x +self.btnTitle.titleLabel.frame.size.width + self.btnTitle.imageView.bounds.size.width, 0, 0)];
-//    [self.btnTitle setTitleEdgeInsets:UIEdgeInsetsMake(5, 0, 0, 0)];
-//    [self.btnTitle layoutIfNeeded];
+//    [self.btnTitle setImageEdgeInsets:UIEdgeInsetsMake(3, self.btnTitle.titleLabel.frame.origin.x +self.btnTitle.titleLabel.frame.size.width + self.btnTitle.imageView.bounds.size.width - 30, 0, 0)];
+//    [self.btnTitle setTitleEdgeInsets:UIEdgeInsetsMake(5, 20, 0, 0)];
+    [self.btnTitle layoutIfNeeded];
 }
 - (void)menuArrowRotate
 {
@@ -737,7 +753,8 @@
         {
             if([self.delegate respondsToSelector:@selector(UzysAssetsPickerControllerDidCancel:)])
             {
-                
+
+                [self.delegate UzysAssetsPickerControllerDidCancel:self];
             }
             [self dismissViewControllerAnimated:YES completion:^{
                 
@@ -805,7 +822,6 @@
             }];
     }
     [picker dismissViewControllerAnimated:YES completion:^{}];
-
     
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

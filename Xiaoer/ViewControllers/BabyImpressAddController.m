@@ -19,7 +19,7 @@
 #import "XEEngine.h"
 #import <QiniuSDK.h>
 
-
+#import "XETabBarViewController.h"
 
 #import "MBProgressHUD.h"
 
@@ -53,7 +53,7 @@
 }
 - (UIAlertView *)goToOtherAlert{
     if (!_goToOtherAlert) {
-        self.goToOtherAlert =  [[UIAlertView alloc]initWithTitle:@"您可以到别处逛逛" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",nil];
+        self.goToOtherAlert =  [[UIAlertView alloc]initWithTitle:@"正在上传照片，您可以去首页看看哦" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",nil];
     }
     return _goToOtherAlert;
 }
@@ -104,7 +104,10 @@
     return _dataSources;
 }
 
-
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    [self finalGetResuNum];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
@@ -133,10 +136,19 @@
     //      七牛
     [self getQiNiutoken];
 
-    
 }
 - (void)goToOtherView{
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    for (UIViewController *controller in self.navigationController.viewControllers) {
+        if ([controller isKindOfClass:[XETabBarViewController class]]) {
+            [self.navigationController popToViewController:controller animated:YES];
+        }else{
+            NSLog(@"%@",controller);
+
+            NSLog(@"没有");
+        }
+    }
+    
 }
 - (IBAction)showPosedPhoto:(id)sender {
     BabyImpressMyPictureController *my = [[BabyImpressMyPictureController alloc]init];
@@ -146,8 +158,9 @@
 - (void)ExtentionPhotoGetRestImageNumber{
     __weak BabyImpressAddController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [XEEngine shareInstance].serverPlatform = OnlinePlatform;
-    [[XEEngine shareInstance]qiNiuGetRestCanPostImageWith:tag userid:@"217"];
+//    [XEEngine shareInstance].serverPlatform = TestPlatform;
+    
+    [[XEEngine shareInstance]qiNiuGetRestCanPostImageWith:tag userid:[XEEngine shareInstance].uid];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         //获取失败信息
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -179,18 +192,33 @@
             UzysAssetsPickerController *picker = [[UzysAssetsPickerController alloc] init];
             picker.delegate = self;
             picker.maximumNumberOfSelectionVideo = 0;
-            if (self.restNum - self.dataSources.count >= 10) {
-                picker.maximumNumberOfSelectionPhoto = 10;
-                NSLog(@"picker.maximumNumberOfSelectionPhoto === %ld",(long)picker.maximumNumberOfSelectionPhoto);
-            }else if(self.restNum - self.dataSources.count > 0 && self.restNum - self.dataSources.count < 10){
-                picker.maximumNumberOfSelectionPhoto = (self.restNum - self.dataSources.count);
-                NSLog(@" picker.maximumNumberOfSelectionPhoto == %ld",(long)picker.maximumNumberOfSelectionPhoto);
-            }else if (self.restNum - self.dataSources.count == 0){
+            
+            if (self.restNum == 0) {
+                [XEProgressHUD lightAlert:@"您上传的照片数量已经超过当月上传数"];
+                return;
+            }
+            
+            
+            if (self.restNum > self.dataSources.count) {
+                if (self.restNum - self.dataSources.count > 10) {
+                    picker.maximumNumberOfSelectionPhoto = (10 - self.dataSources.count);
+                }else if (self.restNum - self.dataSources.count == 10){
+                    picker.maximumNumberOfSelectionPhoto = 10;
+                }else if (self.restNum - self.dataSources.count < 10){
+                    picker.maximumNumberOfSelectionPhoto = (self.restNum - self.dataSources.count);
+                }
+                
+            }
+
+            if (self.restNum < self.dataSources.count) {
+                picker.maximumNumberOfSelectionPhoto = 0;
+                
+            }
+            if (self.restNum == self.dataSources.count) {
                 [XEProgressHUD lightAlert:@"您选择的照片数量已经超过当月上传数"];
                 return;
             }
 
-            
             [self presentViewController:picker animated:YES completion:^{
                 
             }];
@@ -206,8 +234,6 @@
 - (void)getQiNiutoken{
     [self.failedStr setString:@"0"];
     [self.successStr setString:@"0"];
-//    self.failedStr = nil;
-//    self.successStr = nil;
     __weak BabyImpressAddController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance]qiNiuGetTokenWith:tag];
@@ -234,11 +260,14 @@
         weakSelf.hideView.hidden = NO;
         [weakSelf.goToOtherAlert show];
         weakSelf.goToOtherAlert.hidden = NO;
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"begainPostImage" object:nil];
 
          for (int i = 0; i < self.imageData.count; i++) {
 
         QHQFormData *qdata = (QHQFormData *)self.imageData[i];
-        NSString *fileName = [NSString stringWithFormat:@"xiaorup/photoprint/%@-%@-%d%@",@"217",[self getDateTimeString],i,qdata.mimeType];
+        NSString *fileName = [NSString stringWithFormat:@"xiaorup/photoprint/%@-%@-%d%@",[XEEngine shareInstance].uid,[self getDateTimeString],i,qdata.mimeType];
+             NSLog(@"fileName ==  %@", fileName);
+
         [appDelegate.upManager putData:qdata.data key:fileName token:token
                                       complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                                           NSLog(@"1 %@", info.error);
@@ -246,12 +275,19 @@
                                               NSInteger fail = [weakSelf.failedStr integerValue];
                                               fail++;
                                               weakSelf.failedStr = [NSMutableString stringWithFormat:@"%ld",(long)fail];
+                                              if ( i == weakSelf.imageData.count - 1) {
+                                                  [weakSelf.dataSources removeAllObjects];
+                                                  [weakSelf.imageData removeAllObjects];
+                                                  [weakSelf finalGetResuNum];
+                                                  [self configureHideView];
+                                              }
+                                              return ;
                                     
                                           }
                                           {
                                               //保存
                                               int tag = [[XEEngine shareInstance] getConnectTag];
-                                              [[XEEngine shareInstance]qiNiuSavePhotoWith:tag cat:@"1" url:[NSString stringWithFormat:@"%@",key] objid:@"217"];
+                                              [[XEEngine shareInstance]qiNiuSavePhotoWith:tag cat:@"1" url:[NSString stringWithFormat:@"%@",key] objid:[XEEngine shareInstance].uid];
                                               [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
                                                   if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
                                                       NSInteger fail = [weakSelf.failedStr integerValue];
@@ -265,19 +301,22 @@
                                                       weakSelf.successStr = [NSMutableString stringWithFormat:@"%ld",(long)sucess];
 
                                                   }
-                                                  
-                                                  if (i == weakSelf.imageData.count-1) {
+                                                  [self finalGetResuNum];
 
+                                                  if (i == weakSelf.imageData.count-1) {
+                                                      [[NSNotificationCenter defaultCenter]postNotificationName:@"endPostImage" object:nil];
                                                       if ([weakSelf.failedStr integerValue] > 0) {
-                                                          [XEProgressHUD lightAlert:[NSString stringWithFormat:@"%@张图片上传失败,%@张图片上传成功",weakSelf.failedStr,weakSelf.successStr]];
+//                                                          [XEProgressHUD lightAlert:[NSString stringWithFormat:@"%@张图片上传失败,%@张图片上传成功",weakSelf.failedStr,weakSelf.successStr]];
                                                           [weakSelf.dataSources removeAllObjects];
                                                           [weakSelf.imageData removeAllObjects];
                                                           [weakSelf finalGetResuNum];
                                                           [self configureHideView];
                                                       }else{
 
-                                                          [XEProgressHUD lightAlert:[NSString stringWithFormat:@"%@张图片上传成功",weakSelf.successStr]];
+//                                                          [XEProgressHUD lightAlert:[NSString stringWithFormat:@"%@张图片上传成功",weakSelf.successStr]];
                                                           [XEProgressHUD AlertSuccess:@"上传完成"];
+                                                          [XEProgressHUD lightAlert:[NSString stringWithFormat:@"上传成功"]];
+
                                                           NSLog(@"weakSelf.successStr === %@",weakSelf.successStr);
                                                           [weakSelf.dataSources removeAllObjects];
                                                           [weakSelf.imageData removeAllObjects];
@@ -301,11 +340,13 @@
     self.goToOtherAlert.hidden = YES;
     [self.goToOtherAlert removeFromSuperview];
     [self.goToOtherAlert dismissWithClickedButtonIndex:0 animated:YES];
+    [self finalGetResuNum];
 }
 - (void)finalGetResuNum{
     __weak BabyImpressAddController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance]qiNiuGetRestCanPostImageWith:tag userid:@"217"];
+    
+    [[XEEngine shareInstance]qiNiuGetRestCanPostImageWith:tag userid:[XEEngine shareInstance].uid];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         //获取失败信息
         NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
@@ -379,6 +420,14 @@
             case 1:
                 //拍照
             {
+                if (self.dataSources.count >= 10) {
+                    [XEProgressHUD lightAlert:@"单次上传数量不得超过十张"];
+                    return;
+                }
+                if (self.dataSources.count == self.restNum) {
+                    [XEProgressHUD lightAlert:@"您选择的照片数已超过剩余可上传数"];
+                    return;
+                }
                 self.index = 0;
                 [self ExtentionPhotoGetRestImageNumber];
                 
@@ -387,6 +436,15 @@
             case 2:
                 //从手机相册选择
             {
+                
+                if (self.dataSources.count >= 10) {
+                    [XEProgressHUD lightAlert:@"单次上传数量不得超过十张"];
+                    return;
+                }
+                if (self.dataSources.count == self.restNum) {
+                    [XEProgressHUD lightAlert:@"您选择的照片数已超过剩余可上传数"];
+                    return;
+                }
                 self.index = 1;
                 [self ExtentionPhotoGetRestImageNumber];
             }
@@ -394,9 +452,11 @@
             default:
                 break;
         }
-    }else{
+    }else if (alertView == self.goToOtherAlert){
         NSLog(@"buttonIndex == %ld",(long)buttonIndex);
         [self goToOtherView];
+    }else{
+        
     }
     
     
@@ -415,7 +475,9 @@
         UIImage *img = [UIImage imageWithCGImage:representation.defaultRepresentation.fullResolutionImage
                                            scale:representation.defaultRepresentation.scale
                                      orientation:(UIImageOrientation)representation.defaultRepresentation.orientation];
+
         [self addPicrArrayWith:img];
+
     }];
     
     [XEProgressHUD AlertSuccess:@"加载完成"];
@@ -428,18 +490,10 @@
     UIImage * scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-//    [self.dataSources addObject:scaledImage];
-    [self resultImageDataArratWith:img scalimage:scaledImage];
+    [self resultImageDataArratWith:scaledImage];
     
 }
-- (void)resultImageDataArratWith:(UIImage *)img scalimage:(UIImage *)scalimage{
-    UIImage* imageAfterScale = img;
-    if (img.size.width != img.size.height) {
-        CGSize cropSize = img.size;
-        cropSize.height = MIN(img.size.width, img.size.height);
-        cropSize.width = MIN(img.size.width, img.size.height);
-        imageAfterScale = [img imageCroppedToFitSize:cropSize];
-    }
+- (void)resultImageDataArratWith:(UIImage *)img{
     NSData* data;
     QHQFormData* pData = [[QHQFormData alloc] init];
     //判断图片是不是png格式的文件
@@ -456,27 +510,23 @@
     if (data) {
         pData.data = data;
         NSLog(@"pData.name === %@ %ld",pData.name,(unsigned long)pData.data.length);
-//        if (pData.data.length > 1000000) {
-//            
-//        }else{
+
             [self.imageData addObject:pData];
-            [self.dataSources addObject:scalimage];
-//        }
+            [self.dataSources addObject:img];
     }
+
     [self.collectionView reloadData];
 }
 
 #pragma mark imagePicker Delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    NSLog(@"%@", info);
+    [self dismissViewControllerAnimated:YES completion:^{
+
+    }];
+
     UIImage *editedImage = info[@"UIImagePickerControllerOriginalImage"];
-    //将imagePicker撤销
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [self.dataSources addObject:editedImage];
-
-    [self.collectionView reloadData];
+    [self addPicrArrayWith:editedImage];
 }
-
 
 
 #pragma mark Cell delegate

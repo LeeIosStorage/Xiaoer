@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "XEUserInfo.h"
 
 #define XE_USERINFO_CHANGED_NOTIFICATION @"XE_USERINFO_CHANGED_NOTIFICATION"
@@ -444,7 +445,8 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
  *  获取宝宝印象运费
  */
 - (BOOL)qiNiuGetCarriageMoneyWith:(int)tag
-                       provinceid:(NSString *)provinceid;
+                       provinceid:(NSString *)provinceid
+                           userid:(NSString *)userid;
 /**
  *  用户下印刷单
  */

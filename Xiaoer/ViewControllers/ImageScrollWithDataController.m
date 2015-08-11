@@ -41,12 +41,13 @@
     self.scrollView.pagingEnabled = YES;
     self.scrollView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     if (self.ifHaveDelete == YES) {
-        [self setRightButtonWithTitle:@"删除" selector:@selector(deleteBtnTouched)];
+        [self setRightButtonWithImageName:@"babayRubbish" selector:@selector(deleteBtnTouched)];
     }else{
         
     }
     self.ifDeleteBtnTouched = NO;
     self.pageController.pageIndicatorTintColor = SKIN_COLOR;
+    self.pageController.hidden = YES;
     [self configureScrollViewWith:self.array];
 }
 
@@ -65,16 +66,18 @@
         [[XEEngine shareInstance]qiNiuDeleteImageDataWith:tag id:info.id];
         [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
             //获取失败信息
-            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-            if (errorMsg) {
-                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-                return ;
-            }
-            if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
-                [XEProgressHUD AlertError:@"删除照片失败" At:weakSelf.view];
+//            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+//            if (errorMsg) {
+//                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+//                return ;
+//            }
+            NSString *string = [[jsonRet objectForKey:@"code"] stringValue];
+            if ([string isEqualToString:@"3"]) {
+                [XEProgressHUD AlertError:@"用户已有单子处于已付款或已发货状态，图片不允许删除!" At:weakSelf.view];
                 return;
             }
-            if ([[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            else if ([string isEqualToString:@"0"]) {
+                
                 [XEProgressHUD AlertSuccess:@"删除照片成功"];
                 [self.array removeObjectAtIndex:index];
                 [self configureScrollViewWith:self.array];
@@ -82,11 +85,23 @@
                     [self.delegate imageScrolldeleteDataResultWith:index];
                 }
                 return;
+            }else if ([string isEqualToString:@"1"]){
+                [XEProgressHUD AlertError:@"图片id不存在" At:weakSelf.view];
+                return;
+            }else if ([string isEqualToString:@"2"]){
+                [XEProgressHUD AlertError:@"图片不存在" At:weakSelf.view];
+                
+                return;
+            }else{
+                [XEProgressHUD AlertError:@"删除照片失败" At:weakSelf.view];
+                return;
             }
             
         } tag:tag];
         
         
+    }else{
+        [XEProgressHUD lightAlert:@"暂无照片，请添加"];
     }
     
     
@@ -139,29 +154,34 @@
             }
             
             else if (imageView.image.size.width > Swidth && imageView.image.size.height > Sheight) {
+                
                 if (imageView.image.size.width > imageView.image.size.height) {
-                    imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, (Sheight - (imageView.image.size.height * Swidth/imageView.image.size.width))/2, Swidth, imageView.image.size.height * Swidth/imageView.image.size.width);
-                } else {
+                    if (imageView.image.size.height * Swidth/imageView.image.size.width > SCREEN_HEIGHT - 64) {
+                        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, (Sheight - (imageView.image.size.height * Swidth/imageView.image.size.width))/2, Swidth, SCREEN_HEIGHT - 64);
+                    }else if(imageView.image.size.width < imageView.image.size.height){
+                        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, (Sheight - (imageView.image.size.height * Swidth/imageView.image.size.width))/2, Swidth, imageView.image.size.height * Swidth/imageView.image.size.width);
+                    }
+
+                } else if (imageView.image.size.width < imageView.image.size.height) {
                     NSLog(@"=====  %f",(Swidth - (Swidth*imageView.image.size.height/Sheight))/2);
                     if ((Swidth - (Swidth*imageView.image.size.height/Sheight))/2 < 0) {
                         imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, 0,SCREEN_WIDTH, Sheight);
                     }else{
                         imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width + (Swidth - (Sheight*imageView.image.size.width/imageView.image.size.height))/2, 0, Sheight*imageView.image.size.width/imageView.image.size.height, Sheight);
                     }
+                }else if (imageView.image.size.width == imageView.image.size.height){
+                        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width , (SCREEN_HEIGHT -64 - Swidth)/2, Swidth,Swidth);
                 }
             }
           else  if (imageView.image.size.width < Swidth && imageView.image.size.height > Sheight) {
                 imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - (Sheight*imageView.image.size.width/imageView.image.size.height))/2 , 64,Sheight*imageView.image.size.width/imageView.image.size.height, Sheight);
             }
-         else   if (imageView.image.size.width < Swidth && imageView.image.size.height < Sheight) {
-                imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - (Sheight*imageView.image.size.width/imageView.image.size.height))/2 , (SCREEN_HEIGHT -64 - imageView.image.size.height)/2, imageView.image.size.width, imageView.image.size.height);
-            }
+
+          else   if (imageView.image.size.width < Swidth && imageView.image.size.height < Sheight) {
+              imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - imageView.image.size.width)/2 , (SCREEN_HEIGHT -64 - imageView.image.size.height)/2, imageView.image.size.width, imageView.image.size.height);
+          }
             
             
-            
-//            CGFloat wide = imageView.image.size.width /[UIScreen mainScreen].bounds.size.width > 1 ? [UIScreen mainScreen].bounds.size.width : imageView.image.size.width;
-//            CGFloat height = imageView.image.size.height /(SCREEN_HEIGHT - 64)> 1 ? SCREEN_HEIGHT-64 : imageView.image.size.height;
-//            imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width + ([UIScreen mainScreen].bounds.size.width - wide)/2,(SCREEN_HEIGHT -64 - height)/2, wide, height);
         }];
         [self.scrollView addSubview:imageView];
         if (self.ifDeleteBtnTouched == NO && self.moveIndex) {

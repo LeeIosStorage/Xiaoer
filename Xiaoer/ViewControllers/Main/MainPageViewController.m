@@ -105,6 +105,8 @@
 @property (nonatomic,strong)NSMutableArray *allWeeksConclude;
 
 @property (nonatomic,assign)NSInteger month;
+
+@property (nonatomic,assign)BOOL ifPostFinished;
 @end
 
 @implementation MainPageViewController
@@ -119,7 +121,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.ifPostFinished = YES;
     [self refreshUserInfoShow];
     
     //获取广告位信息
@@ -147,19 +149,35 @@
 
   //获取每周一练线条的数据
     [self getOneWeekScrollviewInfomation];
-
+    
+    //获取上传照片完成情况
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(begainPostImage:) name:@"begainPostImage" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(endPostImage:) name:@"endPostImage" object:nil];
+    
+    // Do any additional setup after loading the view from its nib.
 }
+
+- (void)begainPostImage:(NSNotificationCenter *)sender{
+    NSLog(@"收到开始上传通知");
+    self.ifPostFinished = NO;
+}
+- (void)endPostImage:(NSNotificationCenter *)sender{
+    NSLog(@"收到正在上传通知");
+    
+    self.ifPostFinished = YES;
+}
+
+
 - (void)getOneWeekScrollviewInfomation{
     __weak MainPageViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-    [XEEngine shareInstance].serverPlatform = OnlinePlatform;
+//    [XEEngine shareInstance].serverPlatform = OnlinePlatform;
     NSString *userid = [XEEngine shareInstance].uid;
     if (!userid) {
         NSInteger index = 5;
         [self configureOneWeekScrollviewwith:index];
         
     }else{
-        [XEEngine shareInstance].serverPlatform = OnlinePlatform;
         [[XEEngine shareInstance]getOneWeekScrollviewInfomationWith:userid tag:tag];
         [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
             /**
@@ -410,6 +428,7 @@
 #pragma mark  配置每周一练的scrollview
 
 - (void)configureOneWeekScrollviewwith:(NSInteger)index{
+    
     NSLog(@"index =====  %ld",(long)index);
     self.oneWeekScrollView.showsHorizontalScrollIndicator = YES;
     self.oneWeekScrollView.directionalLockEnabled = YES;
@@ -417,7 +436,7 @@
     self.oneWeekScrollView.alwaysBounceHorizontal = YES;
     self.oneWeekScrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     [self configureSmallBtnWith:index];
-    
+
 }
 
 - (BOOL)isVisitor{
@@ -939,11 +958,11 @@
             return cell;
             
         }else if (indexPath.row == 1) {
-            cell.titleLabel.text = @"宝宝足迹";
+            cell.titleLabel.text = @"宝宝印像";
             cell.subTitleLabel.text = @"你负责拍，我负责印";
 //            cell.titleLabel.text = @"好习惯指导和注意力指导";
 //            cell.subTitleLabel.text = @"当宝宝的好习惯和注意力指导老师";
-            cell.itemImageView.image = [UIImage imageNamed:@"home_parklon_icon"];
+            cell.itemImageView.image = [UIImage imageNamed:@"babyImpressMain"];
             return cell;
         }
     }else{
@@ -999,6 +1018,12 @@
                 return;
             }
             BabyImpressMainController *impress = [[BabyImpressMainController alloc]init];
+
+            if (self.ifPostFinished == YES) {
+                impress.ifPostFinished = self.ifPostFinished;
+            }else{
+                impress.ifPostFinished = self.ifPostFinished;
+            }
             [self.navigationController pushViewController:impress animated:YES];
             
             

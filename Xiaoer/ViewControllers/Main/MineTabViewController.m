@@ -31,10 +31,11 @@
 #import "XEWebViewWithEvaluationVc.h"
 #import "BabyListViewController.h"
 #import "OrderViewController.h"
-
+#import "BabyImpressMyPictureController.h"
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
     kMyBaby,
+    KMyPhoto,
     kMyCard,
 //    kMyOrder,
     kSectionNumber,
@@ -61,6 +62,8 @@ enum TABLEVIEW_SECTION_INDEX {
 @property (strong, nonatomic) IBOutlet UIView *visitorHeadView;
 @property (strong, nonatomic) IBOutlet UIImageView *visitorImageView;
 
+@property (nonatomic,assign)BOOL ifPostFinished;
+
 - (IBAction)ownerHeadAction:(id)sender;
 - (IBAction)setOwnerImageAction:(id)sender;
 - (IBAction)editInfoAction:(id)sender;
@@ -80,7 +83,22 @@ enum TABLEVIEW_SECTION_INDEX {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.ifPostFinished = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(begainPostImage:) name:@"begainPostImage" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(endPostImage:) name:@"endPostImage" object:nil];
+    
+    // Do any additional setup after loading the view from its nib.
+}
+
+- (void)begainPostImage:(NSNotificationCenter *)sender{
+    NSLog(@"收到开始上传通知");
+    self.ifPostFinished = NO;
+}
+- (void)endPostImage:(NSNotificationCenter *)sender{
+    NSLog(@"收到正在上传通知");
+    
+    self.ifPostFinished = YES;
 }
 
 
@@ -233,10 +251,7 @@ static CGFloat beginImageH = 64;
     if (section == kMyProfile) {
         return 4;
     }
-//    else if (section == kMyCard){
-//        return 1;
-//    }
-//    return 0;
+
     else {
         return 1;
     }
@@ -305,7 +320,7 @@ static CGFloat beginImageH = 64;
         case kMyBaby:{
             if (indexPath.row == 0) {
                 cell.titleLabel.text = @"我的宝宝";
-                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_baby_icon"]];
+                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_msg_icon"]];
                 break;
             }
 //            if (indexPath.row == 0) {
@@ -319,6 +334,11 @@ static CGFloat beginImageH = 64;
 //                }
 //                break;
 //            }
+        }
+        case KMyPhoto:{
+            cell.titleLabel.text = @"我的照片";
+            [cell.avatarImageView setImage:[UIImage imageNamed:@"babyOrder"]];
+            break;
         }
 
         default:
@@ -414,6 +434,20 @@ static CGFloat beginImageH = 64;
 //            //暂时放下
         }
 
+        case KMyPhoto:{
+            BabyImpressMyPictureController *myPicture = [[BabyImpressMyPictureController alloc]init];
+
+            if ([[XEEngine shareInstance] needUserLogin:nil]) {
+                return;
+            }
+            if (self.ifPostFinished == YES) {
+                [self.navigationController pushViewController:myPicture animated:YES];
+            }else{
+                [XEProgressHUD lightAlert:@"正在上传图片，请到别处看看"];
+            }
+
+            break;
+        }
         default:
             break;
     }
