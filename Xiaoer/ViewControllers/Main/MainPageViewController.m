@@ -106,7 +106,6 @@
 
 @property (nonatomic,assign)NSInteger month;
 
-@property (nonatomic,assign)BOOL ifPostFinished;
 @end
 
 @implementation MainPageViewController
@@ -121,7 +120,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.ifPostFinished = YES;
     [self refreshUserInfoShow];
     
     //获取广告位信息
@@ -150,22 +148,11 @@
   //获取每周一练线条的数据
     [self getOneWeekScrollviewInfomation];
     
-    //获取上传照片完成情况
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(begainPostImage:) name:@"begainPostImage" object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(endPostImage:) name:@"endPostImage" object:nil];
+
     
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void)begainPostImage:(NSNotificationCenter *)sender{
-    NSLog(@"收到开始上传通知");
-    self.ifPostFinished = NO;
-}
-- (void)endPostImage:(NSNotificationCenter *)sender{
-    NSLog(@"收到正在上传通知");
-    
-    self.ifPostFinished = YES;
-}
 
 
 - (void)getOneWeekScrollviewInfomation{
@@ -1019,11 +1006,7 @@
             }
             BabyImpressMainController *impress = [[BabyImpressMainController alloc]init];
 
-            if (self.ifPostFinished == YES) {
-                impress.ifPostFinished = self.ifPostFinished;
-            }else{
-                impress.ifPostFinished = self.ifPostFinished;
-            }
+
             [self.navigationController pushViewController:impress animated:YES];
             
             

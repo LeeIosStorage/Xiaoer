@@ -368,6 +368,7 @@ static int redIconImageView_tag = 201;
         redIconImgView.tag = redIconImageView_tag;
         [cell addSubview:redIconImgView];
     }
+    cell.introduceImg.hidden = YES;
     CGRect frame = cell.titleLabel.frame;
     frame.origin.x = 13;
     cell.titleLabel.frame = frame;

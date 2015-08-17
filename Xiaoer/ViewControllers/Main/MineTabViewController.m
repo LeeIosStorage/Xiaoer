@@ -62,7 +62,6 @@ enum TABLEVIEW_SECTION_INDEX {
 @property (strong, nonatomic) IBOutlet UIView *visitorHeadView;
 @property (strong, nonatomic) IBOutlet UIImageView *visitorImageView;
 
-@property (nonatomic,assign)BOOL ifPostFinished;
 
 - (IBAction)ownerHeadAction:(id)sender;
 - (IBAction)setOwnerImageAction:(id)sender;
@@ -83,23 +82,23 @@ enum TABLEVIEW_SECTION_INDEX {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.ifPostFinished = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(begainPostImage:) name:@"begainPostImage" object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(endPostImage:) name:@"endPostImage" object:nil];
     
-    // Do any additional setup after loading the view from its nib.
+
+    //给图片添加高斯模糊
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    UIVisualEffectView *effectView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
+    effectView.frame = CGRectMake(0, 0, SCREEN_WIDTH, self.ownerbkImageView.frame.size.height);
+    effectView.alpha = 0.9;
+    [self.ownerbkImageView addSubview:effectView];
+    
+    self.editBtn.layer.cornerRadius = 15;
+    self.editBtn.layer.masksToBounds = YES;
+    self.editBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.editBtn.layer.borderWidth = 1;
 }
 
-- (void)begainPostImage:(NSNotificationCenter *)sender{
-    NSLog(@"收到开始上传通知");
-    self.ifPostFinished = NO;
-}
-- (void)endPostImage:(NSNotificationCenter *)sender{
-    NSLog(@"收到正在上传通知");
-    
-    self.ifPostFinished = YES;
-}
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -210,32 +209,31 @@ static CGFloat beginOffsetY = 190;
 static CGFloat BKImageHeight = 320;
 static CGFloat beginImageH = 64;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    CGPoint offset = scrollView.contentOffset;
-//    XELog(@"offset = %f",offset.y);
-    CGRect frame = CGRectMake(0, -63, SCREEN_WIDTH, BKImageHeight);
-    CGFloat factor;
-    
-    //pull animation
-    if (offset.y < 0) {
-        factor = 0.5;
-    } else {
-        factor = 1;
-    }
-    
-    float topOffset = -63;
-    frame.origin.y = topOffset-offset.y*factor;
-    if (frame.origin.y > 0) {
-        frame.origin.y =  topOffset/factor - offset.y;
-    }
-    
-    // zoom image
-    if (offset.y <= -beginOffsetY) {
-        factor = (ABS(offset.y+beginOffsetY)+BKImageHeight) * SCREEN_WIDTH/BKImageHeight;
-        frame = CGRectMake(-(factor-SCREEN_WIDTH)/2, beginImageH, factor, BKImageHeight+ABS(offset.y+beginOffsetY));
-    }
-//    XELog(@"frame = %@",NSStringFromCGRect(frame));
-    _ownerbkImageView.frame = frame;
+//    
+//    CGPoint offset = scrollView.contentOffset;
+////    XELog(@"offset = %f",offset.y);
+//    CGRect frame = CGRectMake(0, -63, SCREEN_WIDTH, BKImageHeight);
+//    CGFloat factor;
+//    
+//    //pull animation
+//    if (offset.y < 0) {
+//        factor = 0.5;
+//    } else {
+//        factor = 1;
+//    }
+//    
+//    float topOffset = -63;
+//    frame.origin.y = topOffset-offset.y*factor;
+//    if (frame.origin.y > 0) {
+//        frame.origin.y =  topOffset/factor - offset.y;
+//    }
+//    
+//    // zoom image
+//    if (offset.y <= -beginOffsetY) {
+//        factor = (ABS(offset.y+beginOffsetY)+BKImageHeight) * SCREEN_WIDTH/BKImageHeight;
+//        frame = CGRectMake(-(factor-SCREEN_WIDTH)/2, beginImageH, factor, BKImageHeight+ABS(offset.y+beginOffsetY));
+//    }
+//    _ownerbkImageView.frame = frame;
 }
 
 #pragma mark - Table view data source
@@ -256,7 +254,9 @@ static CGFloat beginImageH = 64;
         return 1;
     }
 }
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
     return SINGLE_HEADER_HEADER;
@@ -279,6 +279,10 @@ static CGFloat beginImageH = 64;
         cell = [cells objectAtIndex:0];
     }
     
+//    cell.badgeLab.backgroundColor = SKIN_COLOR;
+//    cell.badgeLab.layer.cornerRadius = 10;
+//    cell.badgeLab.layer.masksToBounds = YES;
+//    cell.badgeLab.text = @"2";
     switch (indexPath.section) {
         case kMyProfile:{
             
@@ -320,7 +324,7 @@ static CGFloat beginImageH = 64;
         case kMyBaby:{
             if (indexPath.row == 0) {
                 cell.titleLabel.text = @"我的宝宝";
-                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_msg_icon"]];
+                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_baby_icon"]];
                 break;
             }
 //            if (indexPath.row == 0) {
@@ -440,11 +444,7 @@ static CGFloat beginImageH = 64;
             if ([[XEEngine shareInstance] needUserLogin:nil]) {
                 return;
             }
-            if (self.ifPostFinished == YES) {
-                [self.navigationController pushViewController:myPicture animated:YES];
-            }else{
-                [XEProgressHUD lightAlert:@"正在上传图片，请到别处看看"];
-            }
+            [self.navigationController pushViewController:myPicture animated:YES];
 
             break;
         }

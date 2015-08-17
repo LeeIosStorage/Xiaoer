@@ -387,6 +387,8 @@
 		AA3C127C1B4A5A8600C9E555 /* OrderCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3C127A1B4A5A8600C9E555 /* OrderCardCell.m */; };
 		AA3C127D1B4A5A8600C9E555 /* OrderCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA3C127B1B4A5A8600C9E555 /* OrderCardCell.xib */; };
 		AA419DB01B4D2FF40020602B /* XEShopDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AA419DAF1B4D2FF40020602B /* XEShopDetailInfo.m */; };
+		AA47B0331B7DC4C100200291 /* BabyImpressTransmitLoveController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA47B0311B7DC4C100200291 /* BabyImpressTransmitLoveController.m */; };
+		AA47B0341B7DC4C100200291 /* BabyImpressTransmitLoveController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA47B0321B7DC4C100200291 /* BabyImpressTransmitLoveController.xib */; };
 		AA4E1E7C1B3E7691003043F4 /* PaySuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E1E7A1B3E7691003043F4 /* PaySuccessViewController.m */; };
 		AA4E1E7D1B3E7691003043F4 /* PaySuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4E1E7B1B3E7691003043F4 /* PaySuccessViewController.xib */; };
 		AA4E1E811B3E774C003043F4 /* PaySuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4E1E7F1B3E774C003043F4 /* PaySuccessCell.m */; };
@@ -457,7 +459,11 @@
 		AA7C6D401B394A530035103D /* AddressManagerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7C6D3E1B394A530035103D /* AddressManagerController.xib */; };
 		AA7C6D441B394B580035103D /* AddressManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7C6D421B394B580035103D /* AddressManagerCell.m */; };
 		AA7C6D451B394B580035103D /* AddressManagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7C6D431B394B580035103D /* AddressManagerCell.xib */; };
+		AA7D29C21B8028740036BA25 /* BabyImpressLoveVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7D29C01B8028740036BA25 /* BabyImpressLoveVerifyController.m */; };
+		AA7D29C31B8028740036BA25 /* BabyImpressLoveVerifyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA7D29C11B8028740036BA25 /* BabyImpressLoveVerifyController.xib */; };
 		AA7E0D9E1B4F676400E78E30 /* XEShopCarInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7E0D9D1B4F676400E78E30 /* XEShopCarInfo.m */; };
+		AA80B7F31B7DDC0B00E26BF3 /* BabyImpressBoundPhoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA80B7F11B7DDC0B00E26BF3 /* BabyImpressBoundPhoneController.m */; };
+		AA80B7F41B7DDC0B00E26BF3 /* BabyImpressBoundPhoneController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA80B7F21B7DDC0B00E26BF3 /* BabyImpressBoundPhoneController.xib */; };
 		AA8784BD1B2013A4005A11E8 /* MainTabScrollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8784BB1B2013A4005A11E8 /* MainTabScrollCell.m */; };
 		AA8784BE1B2013A4005A11E8 /* MainTabScrollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8784BC1B2013A4005A11E8 /* MainTabScrollCell.xib */; };
 		AA89D4411B5516E900F31927 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AA89D3DB1B5516E900F31927 /* AlipaySDK.bundle */; };
@@ -522,6 +528,8 @@
 		AABC37861B4BEB1E0090660B /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AABC377B1B4BEB1E0090660B /* NSObject+MJProperty.m */; };
 		AABC37871B4BEB1E0090660B /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = AABC377D1B4BEB1E0090660B /* NSString+MJExtension.m */; };
 		AABC37881B4BEB1E0090660B /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = AABC377E1B4BEB1E0090660B /* README.md */; };
+		AABD05F91B7D98780005A760 /* BabyImpressDeclareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AABD05F71B7D98780005A760 /* BabyImpressDeclareViewController.m */; };
+		AABD05FA1B7D98780005A760 /* BabyImpressDeclareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AABD05F81B7D98780005A760 /* BabyImpressDeclareViewController.xib */; };
 		AACD9F7C1B21A81D0093E21C /* focusAndHabitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AACD9F7A1B21A81D0093E21C /* focusAndHabitViewController.m */; };
 		AACD9F7D1B21A81D0093E21C /* focusAndHabitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AACD9F7B1B21A81D0093E21C /* focusAndHabitViewController.xib */; };
 		AAD1240F1B6F351D007908F7 /* ImageScrollWithDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD1240D1B6F351D007908F7 /* ImageScrollWithDataController.m */; };
@@ -1222,6 +1230,9 @@
 		AA3C127B1B4A5A8600C9E555 /* OrderCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OrderCardCell.xib; path = ../ViewControllers/Main/OrderCardCell.xib; sourceTree = "<group>"; };
 		AA419DAE1B4D2FF40020602B /* XEShopDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEShopDetailInfo.h; sourceTree = "<group>"; };
 		AA419DAF1B4D2FF40020602B /* XEShopDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEShopDetailInfo.m; sourceTree = "<group>"; };
+		AA47B0301B7DC4C100200291 /* BabyImpressTransmitLoveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressTransmitLoveController.h; sourceTree = "<group>"; };
+		AA47B0311B7DC4C100200291 /* BabyImpressTransmitLoveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressTransmitLoveController.m; sourceTree = "<group>"; };
+		AA47B0321B7DC4C100200291 /* BabyImpressTransmitLoveController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressTransmitLoveController.xib; sourceTree = "<group>"; };
 		AA4E1E791B3E7691003043F4 /* PaySuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySuccessViewController.h; sourceTree = "<group>"; };
 		AA4E1E7A1B3E7691003043F4 /* PaySuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySuccessViewController.m; sourceTree = "<group>"; };
 		AA4E1E7B1B3E7691003043F4 /* PaySuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaySuccessViewController.xib; sourceTree = "<group>"; };
@@ -1328,8 +1339,14 @@
 		AA7C6D411B394B580035103D /* AddressManagerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressManagerCell.h; sourceTree = "<group>"; };
 		AA7C6D421B394B580035103D /* AddressManagerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressManagerCell.m; sourceTree = "<group>"; };
 		AA7C6D431B394B580035103D /* AddressManagerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressManagerCell.xib; sourceTree = "<group>"; };
+		AA7D29BF1B8028740036BA25 /* BabyImpressLoveVerifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressLoveVerifyController.h; sourceTree = "<group>"; };
+		AA7D29C01B8028740036BA25 /* BabyImpressLoveVerifyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressLoveVerifyController.m; sourceTree = "<group>"; };
+		AA7D29C11B8028740036BA25 /* BabyImpressLoveVerifyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressLoveVerifyController.xib; sourceTree = "<group>"; };
 		AA7E0D9C1B4F676400E78E30 /* XEShopCarInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEShopCarInfo.h; sourceTree = "<group>"; };
 		AA7E0D9D1B4F676400E78E30 /* XEShopCarInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEShopCarInfo.m; sourceTree = "<group>"; };
+		AA80B7F01B7DDC0B00E26BF3 /* BabyImpressBoundPhoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressBoundPhoneController.h; sourceTree = "<group>"; };
+		AA80B7F11B7DDC0B00E26BF3 /* BabyImpressBoundPhoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressBoundPhoneController.m; sourceTree = "<group>"; };
+		AA80B7F21B7DDC0B00E26BF3 /* BabyImpressBoundPhoneController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressBoundPhoneController.xib; sourceTree = "<group>"; };
 		AA8784BA1B2013A4005A11E8 /* MainTabScrollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabScrollCell.h; sourceTree = "<group>"; };
 		AA8784BB1B2013A4005A11E8 /* MainTabScrollCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabScrollCell.m; sourceTree = "<group>"; };
 		AA8784BC1B2013A4005A11E8 /* MainTabScrollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainTabScrollCell.xib; sourceTree = "<group>"; };
@@ -1512,6 +1529,9 @@
 		AABC377C1B4BEB1E0090660B /* NSString+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MJExtension.h"; sourceTree = "<group>"; };
 		AABC377D1B4BEB1E0090660B /* NSString+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MJExtension.m"; sourceTree = "<group>"; };
 		AABC377E1B4BEB1E0090660B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		AABD05F61B7D98780005A760 /* BabyImpressDeclareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BabyImpressDeclareViewController.h; sourceTree = "<group>"; };
+		AABD05F71B7D98780005A760 /* BabyImpressDeclareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BabyImpressDeclareViewController.m; sourceTree = "<group>"; };
+		AABD05F81B7D98780005A760 /* BabyImpressDeclareViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BabyImpressDeclareViewController.xib; sourceTree = "<group>"; };
 		AACD9F791B21A81D0093E21C /* focusAndHabitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = focusAndHabitViewController.h; sourceTree = "<group>"; };
 		AACD9F7A1B21A81D0093E21C /* focusAndHabitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = focusAndHabitViewController.m; sourceTree = "<group>"; };
 		AACD9F7B1B21A81D0093E21C /* focusAndHabitViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = focusAndHabitViewController.xib; sourceTree = "<group>"; };
@@ -3074,6 +3094,18 @@
 				AAD1240C1B6F351D007908F7 /* ImageScrollWithDataController.h */,
 				AAD1240D1B6F351D007908F7 /* ImageScrollWithDataController.m */,
 				AAD1240E1B6F351D007908F7 /* ImageScrollWithDataController.xib */,
+				AABD05F61B7D98780005A760 /* BabyImpressDeclareViewController.h */,
+				AABD05F71B7D98780005A760 /* BabyImpressDeclareViewController.m */,
+				AABD05F81B7D98780005A760 /* BabyImpressDeclareViewController.xib */,
+				AA47B0301B7DC4C100200291 /* BabyImpressTransmitLoveController.h */,
+				AA47B0311B7DC4C100200291 /* BabyImpressTransmitLoveController.m */,
+				AA47B0321B7DC4C100200291 /* BabyImpressTransmitLoveController.xib */,
+				AA80B7F01B7DDC0B00E26BF3 /* BabyImpressBoundPhoneController.h */,
+				AA80B7F11B7DDC0B00E26BF3 /* BabyImpressBoundPhoneController.m */,
+				AA80B7F21B7DDC0B00E26BF3 /* BabyImpressBoundPhoneController.xib */,
+				AA7D29BF1B8028740036BA25 /* BabyImpressLoveVerifyController.h */,
+				AA7D29C01B8028740036BA25 /* BabyImpressLoveVerifyController.m */,
+				AA7D29C11B8028740036BA25 /* BabyImpressLoveVerifyController.xib */,
 			);
 			name = BabyImpress;
 			sourceTree = "<group>";
@@ -3809,6 +3841,7 @@
 				AA78B9401B46248700B23EC9 /* OrderApplyReimburseCell.xib in Resources */,
 				7E72411C1A77BFA2001E1F69 /* TopicDetailsViewController.xib in Resources */,
 				07E284961A5A8F26005651EB /* LoginViewController.xib in Resources */,
+				AABD05FA1B7D98780005A760 /* BabyImpressDeclareViewController.xib in Resources */,
 				07E536251A528CF8005E1DA9 /* XETabBarItemView.xib in Resources */,
 				07508E8F1A51346300873B45 /* Main.storyboard in Resources */,
 				078E88F11AA1C32D008AD45A /* UMShareEditViewController.xib in Resources */,
@@ -3856,6 +3889,7 @@
 				07E536371A529210005E1DA9 /* ExpertChatViewController.xib in Resources */,
 				078E89071AA1C32D008AD45A /* UMSocialLWSessionData.html in Resources */,
 				07AAB7FE1A8359CB0030D306 /* AboutViewController.xib in Resources */,
+				AA7D29C31B8028740036BA25 /* BabyImpressLoveVerifyController.xib in Resources */,
 				AAD6372C1B202A7000D17763 /* MainTabScrollCollectCell.xib in Resources */,
 				078E89231AA1C32D008AD45A /* index.html in Resources */,
 				AA70A8A81B60D1AF00132EDD /* BabyImpressVerifyController.xib in Resources */,
@@ -3881,6 +3915,7 @@
 				AA0C68081B259D1400478A72 /* MotherLookCell.xib in Resources */,
 				AA149EFB1B4E348A007DFC6D /* ToyDetailCollectHeaderView.xib in Resources */,
 				0783F6861AB8137A00AAB5B0 /* ToolCollectionCell.xib in Resources */,
+				AA80B7F41B7DDC0B00E26BF3 /* BabyImpressBoundPhoneController.xib in Resources */,
 				078E891E1AA1C32D008AD45A /* class_grath.png in Resources */,
 				AA70F2F31B1EBC7200122F57 /* InfomationViewCell.xib in Resources */,
 				078E88FE1AA1C32D008AD45A /* UMSocialCustomAccount.html in Resources */,
@@ -3923,6 +3958,7 @@
 				078E892E1AA1C32D008AD45A /* ios-social-sdk-comment-detail.html in Resources */,
 				AA8EE1091B380D3E003D8FFB /* SearchListCell.xib in Resources */,
 				0760E93D1A81ACCD00BBEA3D /* CardPackViewController.xib in Resources */,
+				AA47B0341B7DC4C100200291 /* BabyImpressTransmitLoveController.xib in Resources */,
 				0776639C1A80779A004C885B /* ActivityApplyViewCell.xib in Resources */,
 				078E89221AA1C32D008AD45A /* title_background.png in Resources */,
 				AA79B93A1B3AB4700046A326 /* ShopViewCell.xib in Resources */,
@@ -3996,6 +4032,7 @@
 				073F9F0B1A68B2B8009D94E3 /* XECategoryView.m in Sources */,
 				AA9A560C1B564A8300E6F62A /* XEOrderSeriesInfo.m in Sources */,
 				074DD0DA1A5E33B80042B721 /* MineTabCell.m in Sources */,
+				AABD05F91B7D98780005A760 /* BabyImpressDeclareViewController.m in Sources */,
 				AA1AE6F81B5F66A700F5B90D /* UzysAssetsViewCell.m in Sources */,
 				0774A8771A666EAB00336465 /* UIView+GMGridViewAdditions.m in Sources */,
 				0776639B1A80779A004C885B /* ActivityApplyViewCell.m in Sources */,
@@ -4023,6 +4060,7 @@
 				078E87E61AA18934008AD45A /* StageSelectViewController.m in Sources */,
 				AAAA94D91B0D80F60029E7E1 /* XEEastCardInfo.m in Sources */,
 				07AAB8021A8367420030D306 /* LSReachability.m in Sources */,
+				AA80B7F31B7DDC0B00E26BF3 /* BabyImpressBoundPhoneController.m in Sources */,
 				075B031E1A6CAC28002B577D /* ApplyActivityViewController.m in Sources */,
 				AABC370C1B4BCD2C0090660B /* OrderCardHistoryController.m in Sources */,
 				AA149F041B4E637A007DFC6D /* ToyDetailCollectTopCell.m in Sources */,
@@ -4138,6 +4176,7 @@
 				0752F7A91A7B25C5008C0E0A /* MWGridViewController.m in Sources */,
 				07C7C5141A70E336003E1272 /* PullToRefreshView.m in Sources */,
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
+				AA47B0331B7DC4C100200291 /* BabyImpressTransmitLoveController.m in Sources */,
 				07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */,
 				0752F7D71A7B2638008C0E0A /* PSTCollectionViewItemKey.m in Sources */,
 				AA70A8A21B60879700132EDD /* ImageScrollController.m in Sources */,
@@ -4181,6 +4220,7 @@
 				AA6556BD1B3BE82F00817DF6 /* ActivityDetailController.m in Sources */,
 				AABC37811B4BEB1E0090660B /* MJFoundation.m in Sources */,
 				AAE0F1511B32BF0F005C4B3D /* CycleScrollView.m in Sources */,
+				AA7D29C21B8028740036BA25 /* BabyImpressLoveVerifyController.m in Sources */,
 				076380561AA9446400F449CD /* XEBabyInfo.m in Sources */,
 				AACD9F7C1B21A81D0093E21C /* focusAndHabitViewController.m in Sources */,
 				074DD0DE1A5E6A740042B721 /* XESettingConfig.m in Sources */,

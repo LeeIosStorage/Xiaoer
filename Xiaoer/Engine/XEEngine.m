@@ -2028,6 +2028,7 @@ static XEEngine* s_ShareInstance = nil;
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 - (BOOL)qiNiuGetCarriageMoneyWith:(int)tag provinceid:(NSString *)provinceid userid:(NSString *)userid{
+    
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     [params setObject:provinceid forKey:@"provinceid"];
     [params setObject:userid forKey:@"userid"];

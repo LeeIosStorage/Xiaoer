@@ -569,13 +569,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"MineTabCell";
     MineTabCell *cell;
-    
+    cell.introduceImg.hidden = YES;
     cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         NSArray* cells = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:nil options:nil];
         cell = [cells objectAtIndex:0];
     }
-    
+    cell.introduceImg.hidden = YES;
     CGRect frame = cell.leftAvater.frame;
     frame.size.width = 61-8*2;
     frame.size.height = frame.size.width;

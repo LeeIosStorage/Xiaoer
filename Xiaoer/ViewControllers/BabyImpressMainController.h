@@ -10,7 +10,6 @@
 
 
 @interface BabyImpressMainController : XESuperViewController
-@property (nonatomic,assign)BOOL ifPostFinished;
 
 
 @end

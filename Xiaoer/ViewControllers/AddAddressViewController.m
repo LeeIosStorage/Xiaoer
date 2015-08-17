@@ -46,7 +46,7 @@
     self.ifDelete = @"0";
     
     [self configureTabView];
-    [self configurePickerView];
+//    [self configurePickerView];
     [self configureCommonAddressBtn];
     
     //注册最后一层  县区的通知

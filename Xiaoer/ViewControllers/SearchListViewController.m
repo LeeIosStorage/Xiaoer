@@ -160,7 +160,6 @@
     [textField resignFirstResponder];
     
  //   NSLog(@"结束  %@",textField.text);
-    [textField resignFirstResponder];
 
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{

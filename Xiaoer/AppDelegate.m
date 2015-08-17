@@ -49,13 +49,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
-    //极光推送
-//    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-//                                                   UIRemoteNotificationTypeSound |
-//                                                   UIRemoteNotificationTypeAlert)
-//                                       categories:nil];
-//    
-//    [APService setupWithOption:launchOptions];
     
     application.statusBarHidden = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -141,8 +134,6 @@ void uncaughtExceptionHandler(NSException *exception) {
              categories:nil];
         }
     [APService setupWithOption:launchOptions];
-//    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-//    [APService resetBadge];
 
 
 
@@ -200,6 +191,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     self.window.rootViewController = tabNavVc;
     
 //    [self checkVersion];
+    [self motionCheckVerison];
     
 }
 
@@ -224,7 +216,54 @@ void uncaughtExceptionHandler(NSException *exception) {
     [[XEEngine shareInstance] logout];
 //    [XEEngine shareInstance].firstLogin = YES;
 }
-
+/**
+ *  自动检查更新
+ */
+- (void)motionCheckVerison{
+    NSString *appID = @"967105015";
+    NSError *error ;
+    NSString *urlStr = @"http://itunes.apple.com/lookup?id=967105015";
+    NSURL *url = [NSURL URLWithString:urlStr];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if (!response) {
+        NSLog(@"没有网络");
+        return;
+    }else{
+        NSLog(@"有网络");
+    }
+    NSDictionary *appInfoDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+    if (error) {
+        NSLog(@"error == %@",[error description]);
+        return ;
+    }
+    NSLog(@"appInfoDic === %@",appInfoDic);
+    NSArray *resultsArray = [appInfoDic objectForKey:@"results"];
+    if (![resultsArray count]) {
+        NSLog(@"error == resultsArray ==nil");
+        return;
+    }
+    NSDictionary *info = [resultsArray objectAtIndex:0];
+    //需要 verions trackViewUrl trackName
+    NSString *latesrVerison = [info objectForKey:@"version"];
+    NSString *trackViewUrl = [info objectForKey:@"trackViewUrl"];
+    NSString *localVserion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSLog(@"localVserion === %@  latesrVerison %@",localVserion,latesrVerison);
+    if ([localVserion isEqualToString:latesrVerison]) {
+        return;
+    }
+    XEAlertView *alert = [[XEAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@版本已上线", latesrVerison] message:@"宝爸宝妈快去更新吧" cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"立刻更新" okBlock:^{
+//        NSURL *url = [[ NSURL alloc ] initWithString: @"http://itunes.apple.com/app/id967105015"] ;
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:trackViewUrl]];
+    }];
+    [alert show];
+    return;
+    
+    
+    
+    
+    
+}
 - (void)checkVersion{
     if ([[LSReachability reachabilityForLocalWiFi] isReachableViaWiFi]) {
         int tag = [[XEEngine shareInstance] getConnectTag];
@@ -234,17 +273,26 @@ void uncaughtExceptionHandler(NSException *exception) {
             if (!jsonRet || err){
                 return ;
             }
-
-            NSString *localVserion = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
+            NSString *localVserion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+            NSLog(@"localVserion --------------  %@",localVserion);
             NSString* version = nil;
-            
+            NSLog(@"jsonRet --------------  %@",jsonRet);
             version = [jsonRet stringObjectForKey:@"object"];
             
-//            NSString* checkedVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"checkedVersion"];
-//            if ([checkedVersion isEqualToString:version]) {
-//                return;
+            NSString* checkedVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"checkedVersion"];
+            NSLog(@"checkedVersion === %@",checkedVersion);
+            if ([checkedVersion isEqualToString:version]) {
+                return;
+            }
+//            }else{
+//                                XEAlertView *alert = [[XEAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@版本已上线", version] message:@"宝爸宝妈快去更新吧" cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"立刻更新" okBlock:^{
+//                                    NSURL *url = [[ NSURL alloc ] initWithString: @"http://itunes.apple.com/app/id967105015"] ;
+//                                    [[UIApplication sharedApplication] openURL:url];
+//                                }];
+//                                [alert show];
 //            }
-//            [[NSUserDefaults standardUserDefaults] setObject:version forKey:@"checkedVersion"];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:version forKey:@"checkedVersion"];
             if ([XECommonUtils isVersion:version greaterThanVersion:localVserion]) {
                 
                 XEAlertView *alert = [[XEAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@版本已上线", version] message:@"宝爸宝妈快去更新吧" cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"立刻更新" okBlock:^{
@@ -322,20 +370,13 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
     [APService handleRemoteNotification:userInfo];
-//    NSLog(@"1收到通知:%@", userInfo);
-//    NSDictionary *alertContent = [userInfo objectForKey:@"aps"];
-//    NSString *alertContentStr = [alertContent objectForKey:@"alert"];
-//    UIAlertView *remoteNotificationAlert = [[UIAlertView alloc] initWithTitle:@"消息推送" message:alertContentStr delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"查看", nil];
-//    [remoteNotificationAlert show];
-//    [UIApplication sharedApplication].applicationIconBadgeNumber--;
-//    [APService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
+
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     NSLog(@"2收到通知:%@", userInfo);
     [APService handleRemoteNotification:userInfo];
 
-    NSLog(@"2收到通知:%@", userInfo);
     NSDictionary *alertContent = [userInfo objectForKey:@"aps"];
     NSString *alertContentStr = [alertContent objectForKey:@"alert"];
     self.type = [[userInfo objectForKeyedSubscript:@"type"] stringValue];

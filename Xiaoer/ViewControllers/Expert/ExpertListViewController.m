@@ -162,7 +162,7 @@
 -(void)initNormalTitleNavBarSubviews{
     [self setTitle:@"晓儿专家"];
     if (_vcType == VcType_Nurser) {
-        [self setTitle:@"晓儿育婴师"];
+        [self setTitle:@"晓儿测评师"];
     }
 }
 

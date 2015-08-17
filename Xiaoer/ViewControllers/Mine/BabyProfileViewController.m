@@ -269,7 +269,7 @@
     }else{
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+    cell.introduceImg.hidden = YES;
     CGRect frame = cell.leftAvater.frame;
     frame.size.width = 61-8*2;
     frame.size.height = frame.size.width;

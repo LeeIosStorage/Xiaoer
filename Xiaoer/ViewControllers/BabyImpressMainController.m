@@ -12,17 +12,29 @@
 #import "BabyImpressMainCell.h"
 #import "XEEngine.h"
 #import "XEProgressHUD.h"
+#import "BabyImpressDeclareViewController.h"
+#import "BabyImpressTransmitLoveController.h"
 @interface BabyImpressMainController ()<UIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *rullView;
-@property (weak, nonatomic) IBOutlet UILabel *rulLab;
 @property (strong, nonatomic) IBOutlet UIView *headerView;
-
 @property (strong, nonatomic) IBOutlet UIView *footerView;
 @property (nonatomic,strong)UIAlertView *chooseWayUpload;
 @property (nonatomic,assign)BOOL ifHide;
 @property (nonatomic,strong)NSMutableArray *imageArray ;
 @property (nonatomic,strong)NSMutableArray *desArray;
+/**
+ *  疑问
+ *
+ */
+- (IBAction)askBtn:(id)sender;
+/**
+ *  充值
+ */
+@property (weak, nonatomic) IBOutlet UIButton *topUp;
+
+- (IBAction)topUpBtnToouched:(id)sender;
+
 @end
 
 @implementation BabyImpressMainController
@@ -35,10 +47,13 @@
 }
 - (NSMutableArray *)desArray{
     if (!_desArray) {
-        self.desArray = [NSMutableArray arrayWithObjects:@"2015年，“新家庭”启动了《“婴幼儿早期发展评估与促进”公益计划》，依照国家卫生计生委针对0-3岁婴幼儿发展的统一标准，逐步帮助社区指导中心、早教中心配置“婴幼儿早期发展评估与促进”软硬件系统。为更多宝宝免费提供语言、动作、适应、社交等多方面能力发展的科学评估和促进指导。",@"为了帮助更多的社区指导中心、早教中心尽快能够采购和配置“婴幼儿早期发展评估与促进”软硬件系统，让更多的宝宝能够得到免费发展评估和指导，“新家庭”发起了“10分公益”主题活动，希望邀请您及您周边的0-3岁家庭，以互帮互助的爱心，共同为推进我们的《“婴幼儿早期发展评估与促进”公益计划》献出一小份心意——不要那么多，每份爱心只要10分钱！",@"您的每一份爱心，都将得到超乎想象的惊喜：“新家庭”将在创学科技、晓儿信息、恒印影像、七牛云存储等单位的大力支持下，在您每献出每一份0.1元爱心的同时，我们都将免费为您冲印宝宝照片一张，多献多得，惊喜全年。", nil];
+        self.desArray = [NSMutableArray arrayWithObjects:@"“10分公益”活动是由国家卫生计生委主导的“新家庭”项目，面向全国0~3岁婴幼儿家庭推出的爱心传递公益活动。每位参加活动奉献爱心的家长都将获得由“新家庭”送出的惊喜大礼哦~", nil];
     }
     return _desArray;
 }
+
+
+
 
 - (UIAlertView *)chooseWayUpload{
     if (!_chooseWayUpload) {
@@ -50,43 +65,61 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.ifHide = YES;
+    self.topUp.layer.cornerRadius = 3;
+    self.topUp.layer.masksToBounds = YES;
     [self configureTableView];
 
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(begainPostImage:) name:@"begainPostImage" object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(endPostImage:) name:@"endPostImage" object:nil];
+
+    self.title = @"宝宝印像";
+    [self setRightButtonWithTitle:@"传递爱心" selector:@selector(transmitLove)];
+    
     
     // Do any additional setup after loading the view from its nib.
 }
-
-- (void)begainPostImage:(NSNotificationCenter *)sender{
-    NSLog(@"收到开始上传通知");
-    self.ifPostFinished = NO;
-}
-- (void)endPostImage:(NSNotificationCenter *)sender{
-    NSLog(@"收到正在上传通知");
-    
-    self.ifPostFinished = YES;
+- (void)transmitLove{
+    NSLog(@"传递爱心");
+    BabyImpressTransmitLoveController *transmitLove = [[BabyImpressTransmitLoveController alloc]init];
+    [self.navigationController pushViewController:transmitLove animated:YES];
 }
 
 - (void)configureTableView{
     self.tableView.delegate= self;
     self.tableView.dataSource = self;
     [self.tableView  registerNib:[UINib nibWithNibName:@"BabyImpressMainCell" bundle:nil] forCellReuseIdentifier:@"cell"];
-    self.tableView.tableHeaderView = self.headerView;
+    self.tableView.tableHeaderView = [self creatHeaderView];
     self.tableView.tableFooterView = [self creatFooterView];
     self.tableView.sectionFooterHeight = 0;
     self.tableView.sectionHeaderHeight = 40;
 }
-
+- (UIView *)creatHeaderView{
+    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(20, 260, SCREEN_WIDTH - 40, 0)];
+    lable.font = [UIFont systemFontOfSize:16];
+    lable.numberOfLines = 0;
+    NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:16],NSFontAttributeName, nil];
+    lable.text = @"      10分公益”活动是由国家卫生计生委主导的“新家庭”项目，面向全国0~3岁婴幼儿家庭推出的爱心传递公益活动。每位参加活动奉献爱心的家长都将获得由“新家庭”送出的惊喜大礼哦~";
+    
+    CGRect rect = [lable.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
+    CGRect textFram = lable.frame;
+    textFram.size.height = rect.size.height ;
+    lable.frame = textFram;
+    [self.headerView addSubview:lable];
+    self.headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 260 + rect.size.height);
+    return  self.headerView;
+    
+}
 - (UIView *)creatFooterView{
     UIView *footer = [[UIView alloc]init];
-    self.rulLab.text = @"1:本活动暂限0-3岁婴幼儿家庭参加;\n2:用户每献一份0.1元爱心即获得免费冲印6寸照片一张；\n3:用户首月上传照片的上限为20张，次月上限为10张；\n4:次月始，邀请好友参与本次活动，上传上限增为30张；\n5:照片将在每月一次性打印后快递至用户指定地址，首月免收快递费（全国通用）；\n6:本次公益活动将于2015年9月正式开始，主办方将有权根据活动进程适当调整活动规则。  \n";
+    UILabel *rulLab = [[UILabel alloc]initWithFrame:CGRectMake(20, 60, SCREEN_WIDTH - 40, 0)];
+    rulLab.text = @"1、本活动面向全国0~3岁婴幼儿家庭的家长。\n2、用户每奉献一份0.1元的爱心，都将免费获得由主办方提供免费冲印的宝宝照片一张，以回馈其付出的爱心。\n3、每个注册用户首月限上传20张照片，主办方将免费冲印并包邮递送；从次月开始可邀请好友共同参与爱心传递，上传上限为30张照片，邮费自理。\n\n\t“新家庭”诚挚地邀请您一起参加“10 分公益”。您的每一份爱心，都将是对“婴幼儿早期发展和促进”公益行动最珍贵的帮助。献上“10分”爱心，获得精美照片，还在等什么呢？ ";
+    rulLab.font = [UIFont systemFontOfSize:16];
+    rulLab.numberOfLines = 0;
     NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:16],NSFontAttributeName, nil];
-    CGRect rect = [self.rulLab.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
-    CGRect textFram = self.rulLab.frame;
+    CGRect rect = [rulLab.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
+    CGRect textFram = rulLab.frame;
     textFram.size.height = rect.size.height ;
-    self.rulLab.frame = textFram;
-    self.rullView.frame = CGRectMake(0, 0, SCREEN_WIDTH, rect.size.height + 100 );
+    rulLab.frame = textFram;
+    [self.rullView addSubview:rulLab];
+    self.rullView.frame = CGRectMake(0, 0, SCREEN_WIDTH, rect.size.height + 60 );
     self.footerView.frame = CGRectMake(0, self.rullView.frame.size.height, SCREEN_WIDTH, 160);
     footer.frame = CGRectMake(0, 0, SCREEN_WIDTH, self.rullView.frame.size.height + self.footerView.frame.size.height);
     [footer addSubview:self.footerView];
@@ -120,7 +153,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
 
-    return 40;
+    return 0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.01;
@@ -133,9 +166,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         if (self.ifHide == YES) {
-            return 1;
+            return 0;
         }else{
-            return 3;
+            return 0;
         }
     }
     return 0;
@@ -182,11 +215,7 @@
 
 #pragma mark 上传照片按钮点击
 - (IBAction)uploadPhotoBtnTouched:(id)sender {
-    if (self.ifPostFinished == YES) {
         [self.chooseWayUpload show];
-    }else{
-        [XEProgressHUD lightAlert:@"正在上传图片，请到别处看看"];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -254,5 +283,15 @@
     // Pass the selected object to the new view controller.
 }
 */
+#pragma mark 充值
 
+- (IBAction)topUpBtnToouched:(id)sender {
+
+}
+#pragma mark 疑问
+
+- (IBAction)askBtn:(id)sender {
+    BabyImpressDeclareViewController *declare = [[BabyImpressDeclareViewController alloc]init];
+    [self.navigationController pushViewController:declare animated:YES];
+}
 @end

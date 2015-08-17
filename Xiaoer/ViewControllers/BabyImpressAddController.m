@@ -27,47 +27,46 @@
 @interface BabyImpressAddController ()<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UICollectionViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,babyImpressAddbtnTouchedDelegate,UIAlertViewDelegate,babyImpressShowBtnTouched,deleteDelegate>
 @property (nonatomic,strong)NSMutableArray *dataSources;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIButton *checkBtn;
+
+
 @property (nonatomic,strong)UIImagePickerController *imagePicker;
 @property (nonatomic,strong)UIAlertView *chooseWayUpload;
 @property (nonatomic,strong)NSMutableArray *imageData;
 @property (nonatomic,assign)NSInteger restNum;
 @property (nonatomic,strong)UIView *hideView;
-@property (nonatomic,strong)UIButton *gotoOtherBtn;
-@property (nonatomic,strong)NSMutableString *failedStr;
-@property (nonatomic,strong)NSMutableString *successStr;
-@property (nonatomic,strong)UIAlertView *goToOtherAlert;
+//@property (nonatomic,strong)UIButton *gotoOtherBtn;
+//@property (nonatomic,strong)NSMutableString *failedStr;
+//@property (nonatomic,strong)NSMutableString *successStr;
+//@property (nonatomic,strong)UIAlertView *goToOtherAlert;
+
+- (IBAction)verify:(id)sender;
+
+
 @end
 
 @implementation BabyImpressAddController
-- (NSMutableString *)successStr{
-    if (!_successStr) {
-        self.successStr = [[NSMutableString alloc]init];
-    }
-    return _successStr;
-}
-- (NSMutableString *)failedStr{
-    if (!_failedStr) {
-        self.failedStr = [[NSMutableString alloc]init];
-    }
-    return _failedStr;
-}
-- (UIAlertView *)goToOtherAlert{
-    if (!_goToOtherAlert) {
-        self.goToOtherAlert =  [[UIAlertView alloc]initWithTitle:@"正在上传照片，您可以去首页看看哦" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",nil];
-    }
-    return _goToOtherAlert;
-}
-//- (UIButton *)gotoOtherBtn{
-//    if (!_gotoOtherBtn) {
-//        self.gotoOtherBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        _gotoOtherBtn.backgroundColor = SKIN_COLOR;
-//        [_gotoOtherBtn setTitle:@"你可以到别处逛逛" forState:UIControlStateNormal];
-//        [_gotoOtherBtn setTitle:@"你可以到别处逛逛" forState:UIControlStateHighlighted];
-//        [_gotoOtherBtn addTarget:self action:@selector(goToOtherView) forControlEvents:UIControlEventTouchUpInside];
-//        _gotoOtherBtn.frame = CGRectMake(0, SCREEN_HEIGHT - 40, SCREEN_WIDTH, 40);
+//- (NSMutableString *)successStr{
+//    if (!_successStr) {
+//        self.successStr = [[NSMutableString alloc]init];
 //    }
-//    return _gotoOtherBtn;
+//    return _successStr;
 //}
+//- (NSMutableString *)failedStr{
+//    if (!_failedStr) {
+//        self.failedStr = [[NSMutableString alloc]init];
+//    }
+//    return _failedStr;
+//}
+//- (UIAlertView *)goToOtherAlert{
+//    if (!_goToOtherAlert) {
+//        self.goToOtherAlert =  [[UIAlertView alloc]initWithTitle:@"正在上传照片，您可以去首页看看哦" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",nil];
+//    }
+//    return _goToOtherAlert;
+//}
+
+
+
 - (UIView *)hideView{
     if (!_hideView) {
         self.hideView = [[UIView alloc]initWithFrame:CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT + 64)];
@@ -110,12 +109,15 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+   self.view.backgroundColor = [UIColor whiteColor];
     self.restNum = 0;
+    self.title = @"宝宝印像";
+    self.checkBtn.layer.borderWidth = 1;
+    self.checkBtn.layer.borderColor = SKIN_COLOR.CGColor;
+    self.checkBtn.layer.cornerRadius = 5;
+    self.checkBtn.layer.masksToBounds = YES;
     [self configureCollectionView];
 
-    [self setLeftButtonWithTitle:@"取消" selector:@selector(cancle)];
-    [self setRightButtonWithTitle:@"确定" selector:@selector(verify)];
     [self presentColtrollWith:self.index];
     [self.view addSubview:self.hideView];
     self.hideView.hidden = YES;
@@ -123,20 +125,14 @@
 }
 
 #pragma mark 按钮
-
-- (void)cancle{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)verify{
+- (IBAction)verify:(id)sender {
     if (self.dataSources.count == 0) {
         [XEProgressHUD lightAlert:@"您还没有选择照片，请选择照片"];
         return;
     }
-    //      七牛
     [self getQiNiutoken];
-
 }
+
 - (void)goToOtherView{
     
     for (UIViewController *controller in self.navigationController.viewControllers) {
@@ -232,8 +228,8 @@
 }
 
 - (void)getQiNiutoken{
-    [self.failedStr setString:@"0"];
-    [self.successStr setString:@"0"];
+//    [self.failedStr setString:@"0"];
+//    [self.successStr setString:@"0"];
     __weak BabyImpressAddController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance]qiNiuGetTokenWith:tag];
@@ -255,11 +251,11 @@
         }
 
         AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        [XEProgressHUD AlertLoading:@"正在上传，请稍等" At:weakSelf.view];
+        [XEProgressHUD AlertLoading:@"照片正在上传中，因为上传照片较大，可能需要几分钟时间，请耐心等待" At:weakSelf.view];
         weakSelf.view.userInteractionEnabled = YES;
         weakSelf.hideView.hidden = NO;
-        [weakSelf.goToOtherAlert show];
-        weakSelf.goToOtherAlert.hidden = NO;
+//        [weakSelf.goToOtherAlert show];
+//        weakSelf.goToOtherAlert.hidden = NO;
         [[NSNotificationCenter defaultCenter]postNotificationName:@"begainPostImage" object:nil];
 
          for (int i = 0; i < self.imageData.count; i++) {
@@ -272,9 +268,9 @@
                                       complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                                           NSLog(@"1 %@", info.error);
                                           if (info.error) {
-                                              NSInteger fail = [weakSelf.failedStr integerValue];
-                                              fail++;
-                                              weakSelf.failedStr = [NSMutableString stringWithFormat:@"%ld",(long)fail];
+//                                              NSInteger fail = [weakSelf.failedStr integerValue];
+//                                              fail++;
+//                                              weakSelf.failedStr = [NSMutableString stringWithFormat:@"%ld",(long)fail];
                                               if ( i == weakSelf.imageData.count - 1) {
                                                   [weakSelf.dataSources removeAllObjects];
                                                   [weakSelf.imageData removeAllObjects];
@@ -290,40 +286,40 @@
                                               [[XEEngine shareInstance]qiNiuSavePhotoWith:tag cat:@"1" url:[NSString stringWithFormat:@"%@",key] objid:[XEEngine shareInstance].uid];
                                               [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
                                                   if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
-                                                      NSInteger fail = [weakSelf.failedStr integerValue];
-                                                      fail++;
-                                                      weakSelf.failedStr = [NSMutableString stringWithFormat:@"%ld",(long)fail];
+//                                                      NSInteger fail = [weakSelf.failedStr integerValue];
+//                                                      fail++;
+//                                                      weakSelf.failedStr = [NSMutableString stringWithFormat:@"%ld",(long)fail];
                                                       NSLog(@"失败");
                                                   }else{
                                                       NSLog(@"成功");
-                                                      NSInteger sucess = [weakSelf.successStr integerValue];
-                                                      sucess++;
-                                                      weakSelf.successStr = [NSMutableString stringWithFormat:@"%ld",(long)sucess];
+//                                                      NSInteger sucess = [weakSelf.successStr integerValue];
+//                                                      sucess++;
+//                                                      weakSelf.successStr = [NSMutableString stringWithFormat:@"%ld",(long)sucess];
 
                                                   }
                                                   [self finalGetResuNum];
 
                                                   if (i == weakSelf.imageData.count-1) {
-                                                      [[NSNotificationCenter defaultCenter]postNotificationName:@"endPostImage" object:nil];
-                                                      if ([weakSelf.failedStr integerValue] > 0) {
+//                                                      [[NSNotificationCenter defaultCenter]postNotificationName:@"endPostImage" object:nil];
+//                                                      if ([weakSelf.failedStr integerValue] > 0) {
 //                                                          [XEProgressHUD lightAlert:[NSString stringWithFormat:@"%@张图片上传失败,%@张图片上传成功",weakSelf.failedStr,weakSelf.successStr]];
-                                                          [weakSelf.dataSources removeAllObjects];
-                                                          [weakSelf.imageData removeAllObjects];
-                                                          [weakSelf finalGetResuNum];
-                                                          [self configureHideView];
-                                                      }else{
+//                                                          [weakSelf.dataSources removeAllObjects];
+//                                                          [weakSelf.imageData removeAllObjects];
+//                                                          [weakSelf finalGetResuNum];
+//                                                          [self configureHideView];
+//                                                      }else{
 
 //                                                          [XEProgressHUD lightAlert:[NSString stringWithFormat:@"%@张图片上传成功",weakSelf.successStr]];
                                                           [XEProgressHUD AlertSuccess:@"上传完成"];
                                                           [XEProgressHUD lightAlert:[NSString stringWithFormat:@"上传成功"]];
 
-                                                          NSLog(@"weakSelf.successStr === %@",weakSelf.successStr);
+//                                                          NSLog(@"weakSelf.successStr === %@",weakSelf.successStr);
                                                           [weakSelf.dataSources removeAllObjects];
                                                           [weakSelf.imageData removeAllObjects];
 
                                                           [weakSelf finalGetResuNum];
                                                           [weakSelf configureHideView];
-                                                      }
+//                                                      }
 
                                                   }
                                                   
@@ -337,9 +333,9 @@
 }
 - (void)configureHideView{
     self.hideView.hidden = YES;
-    self.goToOtherAlert.hidden = YES;
-    [self.goToOtherAlert removeFromSuperview];
-    [self.goToOtherAlert dismissWithClickedButtonIndex:0 animated:YES];
+//    self.goToOtherAlert.hidden = YES;
+//    [self.goToOtherAlert removeFromSuperview];
+//    [self.goToOtherAlert dismissWithClickedButtonIndex:0 animated:YES];
     [self finalGetResuNum];
 }
 - (void)finalGetResuNum{
@@ -452,13 +448,7 @@
             default:
                 break;
         }
-    }else if (alertView == self.goToOtherAlert){
-        NSLog(@"buttonIndex == %ld",(long)buttonIndex);
-        [self goToOtherView];
-    }else{
-        
     }
-    
     
 }
 
@@ -599,7 +589,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
-    return CGSizeMake(SCREEN_WIDTH, 200);
+    return CGSizeMake(SCREEN_WIDTH, 245);
 }
 
 //定义区头
@@ -609,7 +599,7 @@
         for (UIView *view in footer.subviews) {
             if (view.tag == 100) {
                 UILabel *lable = (UILabel *)view;
-                lable.text = [NSString stringWithFormat:@"   ps:您当月剩余上传数量还剩%ld张",self.restNum];
+                lable.text = [NSString stringWithFormat:@"您当月剩余上传数量还剩%ld张",self.restNum];
             }else{
             }
         }

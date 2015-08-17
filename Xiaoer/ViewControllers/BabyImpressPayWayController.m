@@ -18,6 +18,9 @@
  *  早教中心 保存选择状态的数组 0未选择 1已选择
  */
 @property (nonatomic,strong)NSMutableArray *otherStateArray;
+
+
+
 @end
 
 @implementation BabyImpressPayWayController
@@ -78,6 +81,7 @@
     return lable;
     
 }
+
 - (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 1 ) {
         if (self.ifZero == YES) {
@@ -89,15 +93,18 @@
         return self.ownStateArray.count;
     }
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1 && indexPath.row == 0) {
         return 40;
     }
     return 60;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 1 && indexPath.row == 0) {
@@ -114,6 +121,7 @@
         cell.selectionStyle = 0;
         cell.tag = indexPath.section*1000 + indexPath.row;
         cell.delegate = self;
+        
         if (indexPath.section == 0) {
             if ([self.ownStateArray[indexPath.row] isEqualToString:@"0"]) {
                 [cell.chooseBtn setBackgroundImage:[UIImage imageNamed:@"babyPayWayNoUse"] forState:UIControlStateNormal];

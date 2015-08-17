@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BabyImpressAddController">
             <connections>
+                <outlet property="checkBtn" destination="VuK-1c-Mel" id="Gje-xW-4sY"/>
                 <outlet property="collectionView" destination="2n7-rm-xCm" id="Ebh-cV-Fqe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -17,10 +18,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="2n7-rm-xCm">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="440"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="420"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="480" id="IRk-a1-AkF"/>
-                        <constraint firstAttribute="width" constant="320" id="QLR-O7-kW4"/>
+                        <constraint firstAttribute="width" constant="320" id="V1T-By-QR9"/>
                     </constraints>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hkt-sd-JHG">
                         <size key="itemSize" width="50" height="50"/>
@@ -31,6 +33,7 @@
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="IRk-a1-AkF"/>
+                            <exclude reference="V1T-By-QR9"/>
                         </mask>
                     </variation>
                     <connections>
@@ -39,11 +42,11 @@
                     </connections>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VuK-1c-Mel">
-                    <rect key="frame" x="0.0" y="440" width="320" height="40"/>
+                    <rect key="frame" x="20" y="430" width="129" height="45"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="MA6-3K-chq"/>
-                        <constraint firstAttribute="width" constant="320" id="TKJ-Cy-cLZ"/>
+                        <constraint firstAttribute="width" constant="129" id="Gn8-bi-w1d"/>
+                        <constraint firstAttribute="height" constant="45" id="z3P-1x-Q3f"/>
                     </constraints>
                     <state key="normal" title="查看上传照片">
                         <color key="titleColor" red="0.1215686275" green="0.6705882353" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
@@ -53,18 +56,37 @@
                         <action selector="showPosedPhoto:" destination="-1" eventType="touchUpInside" id="bub-4I-Nsx"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8s-Ji-cfa">
+                    <rect key="frame" x="169" y="430" width="131" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="45o-VK-2JY"/>
+                    </constraints>
+                    <state key="normal" title="确认上传照片" backgroundImage="激活">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="verify:" destination="-1" eventType="touchUpInside" id="VBC-26-k43"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="2n7-rm-xCm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="3EJ-2U-pNn"/>
-                <constraint firstAttribute="bottom" secondItem="2n7-rm-xCm" secondAttribute="bottom" constant="40" id="3xa-Tn-l1m"/>
-                <constraint firstItem="2n7-rm-xCm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="HgD-Y7-iky"/>
-                <constraint firstAttribute="trailing" secondItem="VuK-1c-Mel" secondAttribute="trailing" id="dEk-EN-ysc"/>
-                <constraint firstAttribute="bottom" secondItem="VuK-1c-Mel" secondAttribute="bottom" id="jHP-VR-2nE"/>
-                <constraint firstAttribute="trailing" secondItem="2n7-rm-xCm" secondAttribute="trailing" id="je2-lr-9LL"/>
-                <constraint firstItem="VuK-1c-Mel" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="okP-Ff-oit"/>
+                <constraint firstAttribute="bottom" secondItem="VuK-1c-Mel" secondAttribute="bottom" constant="5" id="Ghc-hW-Twc"/>
+                <constraint firstItem="Q8s-Ji-cfa" firstAttribute="bottom" secondItem="VuK-1c-Mel" secondAttribute="bottom" id="HVB-Gk-7jK"/>
+                <constraint firstItem="2n7-rm-xCm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NBO-3Q-WhM"/>
+                <constraint firstItem="2n7-rm-xCm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="UCu-jD-Bcs"/>
+                <constraint firstAttribute="trailing" secondItem="Q8s-Ji-cfa" secondAttribute="trailing" constant="20" id="W6b-fd-oMr"/>
+                <constraint firstItem="Q8s-Ji-cfa" firstAttribute="leading" secondItem="VuK-1c-Mel" secondAttribute="trailing" constant="20" id="b5L-ec-PhQ"/>
+                <constraint firstAttribute="trailing" secondItem="2n7-rm-xCm" secondAttribute="trailing" id="mP5-QY-NGU"/>
+                <constraint firstAttribute="bottom" secondItem="2n7-rm-xCm" secondAttribute="bottom" constant="60" id="uDF-pX-lzc"/>
+                <constraint firstItem="VuK-1c-Mel" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="uXV-nV-Mwe"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-6" y="276"/>
         </view>
     </objects>
+    <resources>
+        <image name="激活" width="300" height="60"/>
+    </resources>
 </document>

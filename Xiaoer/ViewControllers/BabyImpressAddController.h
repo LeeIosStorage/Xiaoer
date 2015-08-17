@@ -6,12 +6,12 @@
 //
 //
 
-//#import "XESuperViewController.h"
+#import "XESuperViewController.h"
 #import "UzysAssetsPickerController.h"
-#import "SuperMainViewController.h"
+//#import "SuperMainViewController.h"
 
 
 
-@interface BabyImpressAddController : SuperMainViewController<UzysAssetsPickerControllerDelegate>
+@interface BabyImpressAddController : XESuperViewController<UzysAssetsPickerControllerDelegate>
 @property (nonatomic,assign)NSInteger index;
 @end

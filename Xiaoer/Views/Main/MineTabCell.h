@@ -20,6 +20,8 @@
 @property (nonatomic, strong) IBOutlet UIImageView *topline;
 
 @property (nonatomic, strong) IBOutlet UIImageView *sepline;
+@property (weak, nonatomic) IBOutlet UIImageView *introduceImg;
+@property (weak, nonatomic) IBOutlet UILabel *badgeLab;
 
 - (void) setbottomLineWithType:(int)type;
 

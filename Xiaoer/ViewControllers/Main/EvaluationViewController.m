@@ -96,7 +96,7 @@
     
     [self setTitle:@"评测"];
     [self setRightButtonWithImageName:@"eva_recipes_icon" selector:@selector(showAction)];
-    [self setLeftButtonWithTitle:@"育婴师" selector:@selector(nurserAction)];
+    [self setLeftButtonWithTitle:@"测评师" selector:@selector(nurserAction)];
     if ([self isVisitor]) {
         [self.titleNavBarRightBtn setHidden:YES];
     }else{

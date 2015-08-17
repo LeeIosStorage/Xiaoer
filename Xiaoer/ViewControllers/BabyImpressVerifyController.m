@@ -264,9 +264,9 @@
     
     UIView *footer = [[UIView alloc]init];
     UIView *payWay = [self returhPayWayView];
-    
-    self.noteView.frame = CGRectMake(0, payWay.frame.size.height, SCREEN_WIDTH, 140);
-    self.footerView.frame = CGRectMake(0, payWay.frame.size.height + self.noteView.frame.size.height, SCREEN_WIDTH, 190);
+#warning 此版本备注留言不要 暂时隐藏
+    self.noteView.frame = CGRectMake(0, payWay.frame.size.height, SCREEN_WIDTH, 0);
+    self.footerView.frame = CGRectMake(0, payWay.frame.size.height + self.noteView.frame.size.height, SCREEN_WIDTH, 270);
     footer.frame = CGRectMake(0, 0, SCREEN_WIDTH, payWay.frame.size.height + self.noteView.frame.size.height + self.footerView.frame.size.height);
     [footer addSubview:payWay];
     [footer addSubview:self.noteView];
