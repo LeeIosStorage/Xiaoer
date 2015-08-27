@@ -17,7 +17,7 @@
 #define XEPublishMenuHorizontalMargin 24
 
 #define XEPublishMenuItemAppearKey  @"XEPublishMenuItemAppearKey"
-#define XEPublishMenuAnimationTime 0.35
+#define XEPublishMenuAnimationTime 0.01
 
 @interface XEPublishMenuItemButton : UIButton
 
@@ -195,6 +195,21 @@
 }
 
 - (void)buttonTapped:(XEPublishMenuItemButton*)btn {
+    
+    for (UIButton *sonBtn in _buttonArray) {
+        if ([btn isEqual:sonBtn]) {
+            NSLog(@"1");
+            sonBtn.userInteractionEnabled = YES;
+        }else{
+            NSLog(@"2");
+
+            sonBtn.userInteractionEnabled = NO;
+        }
+        
+    }
+    
+    NSLog(@"qw4234124");
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         double delayInSeconds = XEPublishMenuAnimationTime;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));

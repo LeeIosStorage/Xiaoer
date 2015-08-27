@@ -58,7 +58,13 @@
     if (!self.info) {
         self.info = [[XEAddressListInfo alloc]init];
     }
-    [self setRightButtonWithTitle:@"删除" selector:@selector(deleteAddressInfo)];
+    
+    if (self.ifHaveDeleteBtn == YES) {
+        [self setRightButtonWithTitle:@"删除" selector:@selector(deleteAddressInfo)];
+    }else{
+        
+    }
+    
 }
 
 #pragma mark  删除地址按钮

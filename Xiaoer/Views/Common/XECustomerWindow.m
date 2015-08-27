@@ -8,6 +8,12 @@
 
 #import "XECustomerWindow.h"
 
+#import "WXApi.h"
+
+#import "/Users/wangpeng/Xiaoer/Xiaoer/External/UMeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/TencentOpenAPI.framework/Headers/QQApi.h"
+
+
+
 #define Share_To_Item_Base_Tag 10
 #define Share_To_Item_Name @"op"
 #define Share_To_Item_Icon @"icon"
@@ -115,10 +121,13 @@ float labelColor = 170/255.0;
         //分享item
         _shareToItemArray = [NSMutableArray array];
         
-        [_shareToItemArray addObject:@{Share_To_Item_Name: @"微博", Share_To_Item_Icon:@"share_sina_icon"}];
+//        [_shareToItemArray addObject:@{Share_To_Item_Name: @"微博", Share_To_Item_Icon:@"share_sina_icon"}];
         [_shareToItemArray addObject:@{Share_To_Item_Name: @"微信好友", Share_To_Item_Icon:@"share_wx_friend_icon"}];
         [_shareToItemArray addObject:@{Share_To_Item_Name: @"朋友圈", Share_To_Item_Icon:@"share_wx_circle_icon"}];
-        [_shareToItemArray addObject:@{Share_To_Item_Name: @"QQ", Share_To_Item_Icon:@"share_qq_icon"}];
+        if ([QQApi isQQInstalled] && [QQApi isQQSupportApi]) {
+            [_shareToItemArray addObject:@{Share_To_Item_Name: @"QQ", Share_To_Item_Icon:@"share_qq_icon"}];
+        }
+        
         
         oframe.size.width = cview.frame.size.width;
         _sheetShareView.frame = oframe;

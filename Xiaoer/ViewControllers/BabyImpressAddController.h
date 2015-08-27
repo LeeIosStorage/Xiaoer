@@ -14,4 +14,6 @@
 
 @interface BabyImpressAddController : XESuperViewController<UzysAssetsPickerControllerDelegate>
 @property (nonatomic,assign)NSInteger index;
+- (void)savePhothWith:(NSString *)url
+                index:(int)index;
 @end

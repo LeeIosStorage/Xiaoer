@@ -35,9 +35,9 @@
 enum TABLEVIEW_SECTION_INDEX {
     kMyProfile = 0,
     kMyBaby,
+    kMyOrder,
     KMyPhoto,
     kMyCard,
-//    kMyOrder,
     kSectionNumber,
 };
 
@@ -53,21 +53,33 @@ enum TABLEVIEW_SECTION_INDEX {
 @property (strong, nonatomic) IBOutlet UIImageView *ownerHeadImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *locationImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *ownerbkImageView;
-@property (strong, nonatomic) IBOutlet UILabel *nickName;
-@property (strong, nonatomic) IBOutlet UILabel *address;
-@property (strong, nonatomic) IBOutlet UILabel *birthday;
+
+
+@property (weak, nonatomic) IBOutlet UIButton *nickName;
+@property (weak, nonatomic) IBOutlet UIButton *address;
+@property (weak, nonatomic) IBOutlet UIButton *birthday;
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *header_stoneImg;
+@property (weak, nonatomic) IBOutlet UILabel *header_stoneLab;
+@property (weak, nonatomic) IBOutlet UIImageView *header_loveImg;
+@property (weak, nonatomic) IBOutlet UILabel *header_loveLab;
+
+
 @property (strong, nonatomic) IBOutlet UIButton *editBtn;
 @property (strong, nonatomic) IBOutlet UIButton *loginBtn;
 
 @property (strong, nonatomic) IBOutlet UIView *visitorHeadView;
 @property (strong, nonatomic) IBOutlet UIImageView *visitorImageView;
 
+@property (weak, nonatomic) IBOutlet UIView *headerRound;
 
 - (IBAction)ownerHeadAction:(id)sender;
 - (IBAction)setOwnerImageAction:(id)sender;
 - (IBAction)editInfoAction:(id)sender;
 - (IBAction)loginAction:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIButton *textBtn;
 @end
 
 @implementation MineTabViewController
@@ -75,30 +87,28 @@ enum TABLEVIEW_SECTION_INDEX {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    //_userInfo = [XEEngine shareInstance].userInfo;
     [self refreshUserInfoShow];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    self.textBtn.imageView.image.size = CGSizeMake(18, 18);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
+#warning 此版本暂时隐藏headxer_stone
+    self.header_stoneImg.hidden = YES;
+    self.header_stoneLab.hidden = YES;
     
 
-    //给图片添加高斯模糊
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-    UIVisualEffectView *effectView = [[UIVisualEffectView alloc]initWithEffect:blurEffect];
-    effectView.frame = CGRectMake(0, 0, SCREEN_WIDTH, self.ownerbkImageView.frame.size.height);
-    effectView.alpha = 0.9;
-    [self.ownerbkImageView addSubview:effectView];
     
     self.editBtn.layer.cornerRadius = 15;
     self.editBtn.layer.masksToBounds = YES;
     self.editBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     self.editBtn.layer.borderWidth = 1;
+    
+    self.headerRound.layer.cornerRadius = 45;
+    self.headerRound.layer.masksToBounds = YES;
 }
-
-
 
 
 - (void)didReceiveMemoryWarning {
@@ -149,9 +159,16 @@ enum TABLEVIEW_SECTION_INDEX {
 {
     if ([self isVisitor]) {
         [self setTitle:@"未登录"];
-        [self.visitorImageView setImage:[UIImage imageNamed:@"tmp_avatar_icon"]];
         self.visitorImageView.layer.cornerRadius = 8;
-        self.tableView.tableHeaderView = self.visitorHeadView;
+        self.tableView.tableHeaderView = self.headView;
+        self.ownerHeadImageView.image = [UIImage imageNamed:@"header_avatarHold"];
+        [self.nickName setTitle:@"未设置" forState:UIControlStateNormal];
+        [self.birthday setTitle:@"未设置" forState:UIControlStateNormal];
+        [self.address setTitle:@"未绑定手机" forState:UIControlStateNormal];
+        [self.editBtn setTitle:@"请登录" forState:UIControlStateNormal];
+        self.header_loveLab.text = @"0";
+        [self.editBtn setBackgroundColor:SKIN_COLOR ];
+
     }else{
         XEUserInfo *userInfo = [self getBabyUserInfo:0];
         if (_userInfo.nickName.length > 0) {
@@ -166,28 +183,39 @@ enum TABLEVIEW_SECTION_INDEX {
 
         self.ownerbkImageView.clipsToBounds = YES;
         self.ownerbkImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [self.ownerbkImageView sd_setImageWithURL:_userInfo.bgImgUrl placeholderImage:[UIImage imageNamed:@"user_default_bg_img"]];
-        [self.ownerHeadImageView sd_setImageWithURL:_userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
+        [self.ownerHeadImageView sd_setImageWithURL:_userInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"header_avatarHold"]];
         self.ownerHeadImageView.layer.cornerRadius = 8;
         NSString *babyNick = userInfo.babyNick;
         if (babyNick.length == 0) {
-            babyNick = @"未设置宝宝信息";
+            babyNick = @"未设置";
         }
-        self.nickName.text = babyNick;
-        self.birthday.text = [XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate];
-        NSString *regionName = _userInfo.regionName;
-        if (regionName.length == 0) {
-            regionName = @"未知地区";
+        [self.nickName setTitle:babyNick forState:UIControlStateNormal];
+
+        if ([XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate].length  > 0 ) {
+            [self.birthday setTitle:[XEUIUtils dateDiscription1FromNowBk: userInfo.birthdayDate] forState:UIControlStateNormal];
+        }else{
+            
+            [self.birthday setTitle:@"未设置" forState:UIControlStateNormal];
         }
-        self.address.text  = regionName;
-        CGSize textSize = [XECommonUtils sizeWithText:regionName font:self.address.font width:SCREEN_WIDTH-200];
-        CGRect frame = self.address.frame;
-        if (textSize.height > 38) {
-            textSize.height = 37;
-        }
-        frame.size.height = textSize.height;
-        self.address.frame = frame;
         
+        NSLog(@"userInfo.bphone === %@",[XEEngine shareInstance].userInfo.bphone);
+        if (![XEEngine shareInstance].userInfo.bphone) {
+            [self.address setTitle:@"未绑定手机" forState:UIControlStateNormal];
+        }else{
+            
+            [self.address setTitle:[NSString stringWithFormat:@"已绑定手机：%@",[XEEngine shareInstance].userInfo.bphone] forState:UIControlStateNormal];
+
+        }
+
+        if (_userInfo.lovePoint) {
+            self.header_loveLab.text = _userInfo.lovePoint;
+        }else{
+            self.header_loveLab.text = @"0";
+        }
+
+        [self.editBtn setBackgroundColor:[UIColor lightGrayColor]];
+        [self.editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+
         self.tableView.tableHeaderView = self.headView;
     }
     
@@ -202,6 +230,7 @@ enum TABLEVIEW_SECTION_INDEX {
 //    }else{
 //        [self.ownerbkImageView setImage:[UIImage imageNamed:@"placeholder_avatar_bg"]];
 //    }
+    [self.tableView reloadData];
 }
 
 #pragma mark - Scroll view
@@ -285,12 +314,7 @@ static CGFloat beginImageH = 64;
 //    cell.badgeLab.text = @"2";
     switch (indexPath.section) {
         case kMyProfile:{
-            
-//            if (indexPath.row == 0) {
-//                cell.titleLabel.text = @"我的订单";
-//                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_baby_icon"]];
-//                break;
-//            }
+
             if (indexPath.row == 0) {
                 cell.titleLabel.text = @"我的消息";
                 [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_msg_icon"]];
@@ -309,40 +333,35 @@ static CGFloat beginImageH = 64;
                 break;
             }
         }
-        case kMyCard:{
-            if (indexPath.row == 0) {
-                cell.titleLabel.text = @"我的卡包";
-                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_card_icon"]];
-                break;
-            }
-//            else if (indexPath.row == 1){
-//                cell.titleLabel.text = @"历史测评";
-//                [cell.avatarImageView setImage:[UIImage imageNamed:@""]];
-//                break;
-//            }
-        }
+            
         case kMyBaby:{
             if (indexPath.row == 0) {
                 cell.titleLabel.text = @"我的宝宝";
                 [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_baby_icon"]];
                 break;
             }
-//            if (indexPath.row == 0) {
-//                cell.titleLabel.text = @"用户退出";
-//                break;
-//            }else if (indexPath.row == 1){
-//                if ([XEEngine shareInstance].serverPlatform == OnlinePlatform) {
-//                    cell.titleLabel.text = @"测试环境";
-//                }else{
-//                    cell.titleLabel.text = @"线上环境";
-//                }
-//                break;
-//            }
         }
+            
+        case kMyOrder:{
+            if (indexPath.row == 0) {
+                cell.titleLabel.text = @"我的订单";
+                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_order_icon"]];
+                break;
+            }
+        }
+            
         case KMyPhoto:{
             cell.titleLabel.text = @"我的照片";
-            [cell.avatarImageView setImage:[UIImage imageNamed:@"babyOrder"]];
+            [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_photo_icon"]];
             break;
+        }
+            
+        case kMyCard:{
+            if (indexPath.row == 0) {
+                cell.titleLabel.text = @"我的卡包";
+                [cell.avatarImageView setImage:[UIImage imageNamed:@"mine_card_icon"]];
+                break;
+            }
         }
 
         default:
@@ -388,35 +407,12 @@ static CGFloat beginImageH = 64;
                 MineTopicListViewController *mVc = [[MineTopicListViewController alloc] init];
                 [self.navigationController pushViewController:mVc animated:YES];
                 break;
-            }else if (indexPath.row == 4){
-                if ([[XEEngine shareInstance] needUserLogin:nil]) {
-                    return;
-                }
-                OrderViewController *order = [[OrderViewController alloc]init];
-                [self.navigationController pushViewController:order animated:YES];
             }
             break;
             
         }
-        case kMyCard:{
-            if (indexPath.row == 0) {
-                if ([[XEEngine shareInstance] needUserLogin:nil]) {
-                    return;
-                }
-                CardPackViewController *cpVc = [[CardPackViewController alloc] init];
-                [self.navigationController pushViewController:cpVc animated:YES];
-                break;
-            }
-//            else if (indexPath.row == 1){
-//                NSLog(@"============历史测评");
-//                if ([[XEEngine shareInstance] needUserLogin:nil]) {
-//                    return;
-//                }
-//                StageSelectViewController *cpVc = [[StageSelectViewController alloc] init];
-//                [self.navigationController pushViewController:cpVc animated:YES];
-//                break;
-//            }
-        }
+            
+            
         case kMyBaby:{
             if (indexPath.row == 0) {
                 if ([[XEEngine shareInstance] needUserLogin:nil]) {
@@ -426,17 +422,29 @@ static CGFloat beginImageH = 64;
                 [self.navigationController pushViewController:vc animated:YES];
                 break;
             }
-//            if (indexPath.row == 0) {
-//                [[XEEngine shareInstance] logout];
-//                WelcomeViewController *weVc = [[WelcomeViewController alloc] init];
-//                [self.navigationController pushViewController:weVc animated:YES];
-//                break;
-//            }else if (indexPath.row == 1){
-//                [self onLogoutWithError:nil];
-//                break;
-//            }
-//            //暂时放下
+            //            if (indexPath.row == 0) {
+            //                [[XEEngine shareInstance] logout];
+            //                WelcomeViewController *weVc = [[WelcomeViewController alloc] init];
+            //                [self.navigationController pushViewController:weVc animated:YES];
+            //                break;
+            //            }else if (indexPath.row == 1){
+            //                [self onLogoutWithError:nil];
+            //                break;
+            //            }
+            //            //暂时放下
         }
+        
+        case kMyOrder:{
+            if ([[XEEngine shareInstance] needUserLogin:nil]) {
+                return;
+            }
+            OrderViewController *order = [[OrderViewController alloc]init];
+            [self.navigationController pushViewController:order animated:YES];
+            break;
+        }
+        
+
+
 
         case KMyPhoto:{
             BabyImpressMyPictureController *myPicture = [[BabyImpressMyPictureController alloc]init];
@@ -448,6 +456,27 @@ static CGFloat beginImageH = 64;
 
             break;
         }
+        case kMyCard:{
+            
+            if (indexPath.row == 0) {
+                if ([[XEEngine shareInstance] needUserLogin:nil]) {
+                    return;
+                }
+                CardPackViewController *cpVc = [[CardPackViewController alloc] init];
+                [self.navigationController pushViewController:cpVc animated:YES];
+                break;
+            }
+            //            else if (indexPath.row == 1){
+            //                NSLog(@"============历史测评");
+            //                if ([[XEEngine shareInstance] needUserLogin:nil]) {
+            //                    return;
+            //                }
+            //                StageSelectViewController *cpVc = [[StageSelectViewController alloc] init];
+            //                [self.navigationController pushViewController:cpVc animated:YES];
+            //                break;
+            //            }
+        }
+            
         default:
             break;
     }
@@ -475,6 +504,9 @@ static CGFloat beginImageH = 64;
 }
 
 - (IBAction)editInfoAction:(id)sender {
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
     PerfectInfoViewController *piVc = [[PerfectInfoViewController alloc] init];
     piVc.userInfo = _userInfo;
     [self.navigationController pushViewController:piVc animated:YES];

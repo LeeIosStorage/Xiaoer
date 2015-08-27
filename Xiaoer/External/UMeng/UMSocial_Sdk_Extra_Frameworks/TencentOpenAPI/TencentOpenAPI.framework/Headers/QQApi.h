@@ -133,6 +133,7 @@ enum
     // Message from Plugin app to QZone,
     QQApiMessageTypeSendMessageToQQQZoneRequest = 0x07,
     
+    //
 	QQApiMessageTypeReserved   = 0xF0
 };
 

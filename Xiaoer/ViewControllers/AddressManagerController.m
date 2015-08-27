@@ -82,13 +82,15 @@
             return;
             
         }
+        [self.dataSources removeAllObjects];
+
         NSArray *array = jsonRet[@"object"];
         if (array.count == 0) {
             [XEProgressHUD AlertError:@"没有获取到数据" At:weakSelf.view];
+            [self.tabView reloadData];
             return;
 
         }
-            [self.dataSources removeAllObjects];
         if (jsonRet[@"object"]) {
             NSLog(@"有返回数据");
 
@@ -98,9 +100,13 @@
                 [self.dataSources addObject:info];
             }
             [self.tabView reloadData];
+            return;
             
         }else{
             [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            [self.tabView reloadData];
+            return;
+
         }
     } tag:tag];
 
@@ -134,6 +140,7 @@
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, 20)];
     view.backgroundColor = [UIColor clearColor];
     return view;
+    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     AddressManagerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
@@ -161,6 +168,7 @@
     
     AddAddressViewController *add = [[AddAddressViewController alloc]init];
     add.info = Addinfo;
+    add.ifHaveDeleteBtn = YES;
     if (self.fromVerifyInfo) {
         
         if ([Addinfo.id isEqualToString:self.fromVerifyInfo.id]) {

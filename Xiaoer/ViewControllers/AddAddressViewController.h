@@ -41,4 +41,6 @@
 //是否可以删除默认的地址
 @property (nonatomic,assign)BOOL ifCanDelete;
 @property (nonatomic,assign)id<postInfoDelegate>delegate;
+
+@property (nonatomic,assign)BOOL ifHaveDeleteBtn;
 @end

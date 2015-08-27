@@ -22,6 +22,10 @@
 #import "UIButton+WebCache.h"
 #import "ToyDetailViewController.h"
 #import "MJExtension.h"
+#import "ToyListViewController.h"
+
+#import "XEShopSerieInfo.h"
+
 @interface ShopViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,XEScrollPageDelegate,TouchCellDelegate,lunboDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *shopTabView;
 @property (strong, nonatomic) IBOutlet UIView *headerView;
@@ -97,29 +101,29 @@
     
     [super viewDidLoad];
     
-//    self.searchBtn.layer.cornerRadius = 10;
-//    self.searchBtn.layer.borderWidth = 1;
-//    self.searchBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-////布局heaerview的collectionview
-//    [self configureHeaderCollectionView];
-//    
-////布局tableView
-//    [self configureShopTableView];
-//    
-////布局searchView
-//    [self configuresearchView];
-//
-//
-//    self.addActivity = NO;
-//    self.addNew = NO;
-//    self.ifToEnd = NO;
-//    self.pageNum = 1;
-//    [self getChooseDataWithTypeString:@"1,2"];
-//    [self getHomeShopNewDataWithTypeString:@"3"];
+    self.searchBtn.layer.cornerRadius = 10;
+    self.searchBtn.layer.borderWidth = 1;
+    self.searchBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+//布局heaerview的collectionview
+    [self configureHeaderCollectionView];
+    
+//布局tableView
+    [self configureShopTableView];
+    
+//布局searchView
+    [self configuresearchView];
 
-        UIImageView *ImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        ImageView.image = [UIImage imageNamed:@"正在建设中6p"];
-        [self.view addSubview:ImageView];
+
+    self.addActivity = NO;
+    self.addNew = NO;
+    self.ifToEnd = NO;
+    self.pageNum = 1;
+    [self getChooseDataWithTypeString:@"1,2"];
+    [self getHomeShopNewDataWithTypeString:@"3"];
+
+//        UIImageView *ImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//        ImageView.image = [UIImage imageNamed:@"正在建设中6p"];
+//        [self.view addSubview:ImageView];
 
     
 }
@@ -151,9 +155,23 @@
     AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     XEShopHomeInfo *info = (XEShopHomeInfo *)self.bannerArray[index];
     if (self.bannerArray.count > 0) {
-        ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
-        detail.shopId = info.id;
-        [appDelegate.mainTabViewController.navigationController pushViewController:detail animated:YES];
+        if ([info.objType isEqualToString:@"2"]) {
+            //商品
+            ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
+            detail.shopId = info.objId;
+            [appDelegate.mainTabViewController.navigationController pushViewController:detail animated:YES];
+        }else{
+            //系列
+            ToyListViewController *list = [[ToyListViewController alloc]init];
+            XEShopSerieInfo *serious = [[XEShopSerieInfo alloc]init];
+            serious.id = info.objId;
+            serious.imgUrl = info.imgUrl;
+            serious.leftDay = info.leftDay;
+            list.serieInfo = serious;
+            [appDelegate.mainTabViewController.navigationController pushViewController:list animated:YES];
+            
+        }
+
     }
 }
 #pragma mark 搜索按钮
@@ -598,18 +616,50 @@
         NSLog(@"cellTag == %ld btnTag == %ld ",cellTag,btnTag);
         XEShopHomeInfo *info = self.activityArray[cellTag*3+ btnTag - 1];
         
-        NSLog(@"activity.IdNum === %@",info.id);
-        detail.shopId = info.id;
+        NSLog(@"activity.IdNum === %@",info.objId);
+        detail.shopId = info.objId;
+        
+        if ([info.objType isEqualToString:@"2"]) {
+            //商品
+            ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
+            detail.shopId = info.objId;
+            [appDelegate.mainTabViewController.navigationController pushViewController:detail animated:YES];
+        }else{
+            //系列
+            ToyListViewController *list = [[ToyListViewController alloc]init];
+            XEShopSerieInfo *serious = [[XEShopSerieInfo alloc]init];
+            serious.id = info.objId;
+            serious.imgUrl = info.imgUrl;
+            serious.leftDay = info.leftDay;
+            list.serieInfo = serious;
+            [appDelegate.mainTabViewController.navigationController pushViewController:list animated:YES];
+        }
+        
+
     }else if (cellTag >= 1000){
         NSLog(@"%ld %ld ",cellTag,btnTag);
         //第二个分区
         cellTag = cellTag%1000;
         XEShopHomeInfo *info = self.NewShopArray[cellTag*3+ btnTag - 1];
-        NSLog(@"info.IdNum === %@",info.id);
-        detail.shopId = info.id;
+        NSLog(@"info.IdNum === %@",info.objId);
+        detail.shopId = info.objId;
+        if ([info.objType isEqualToString:@"2"]) {
+            //商品
+            ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
+            detail.shopId = info.objId;
+            [appDelegate.mainTabViewController.navigationController pushViewController:detail animated:YES];
+        }else{
+            //系列
+            ToyListViewController *list = [[ToyListViewController alloc]init];
+            XEShopSerieInfo *serious = [[XEShopSerieInfo alloc]init];
+            serious.id = info.objId;
+            serious.imgUrl = info.imgUrl;
+            serious.leftDay = info.leftDay;
+            list.serieInfo = serious;
+            [appDelegate.mainTabViewController.navigationController pushViewController:list animated:YES];
+        }
 
     }
-    [appDelegate.mainTabViewController.navigationController pushViewController:detail animated:YES];
 
 }
 

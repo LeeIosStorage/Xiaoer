@@ -14,8 +14,8 @@
 
 //平台切换宏
 typedef enum {
+    TestPlatform    = 0,    //测试平台
     OnlinePlatform  = 1,    //线上平台
-    TestPlatform    = 2,    //测试平台
 }ServerPlatform;
 
 typedef void(^onAppServiceBlock)(NSInteger tag, NSDictionary* jsonRet, NSError* err);
@@ -453,5 +453,31 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 - (BOOL)qiNiuOrderWith:(int)tag
                 userid:(NSString *)userid
          useraddressid:(NSString *)useraddressid
-                  mark:(NSString *)mark;
+                  mark:(NSString *)mark
+                   tip:(NSString *)tip;
+
+#pragma mark 宝宝印象－爱心
+/**
+ *  是否可以下单
+ */
+- (BOOL)loveIfCanOrderWith:(int)tag
+                    userid:(NSString *)userid;
+/**
+ *  下单
+ */
+- (BOOL)lovePlaceAnOrderWith:(int)tag
+                      userid:(NSString *)userid;
+/**
+ *  绑定手机号码
+ */
+- (BOOL)loveBoundPhoneWith:(int)tag
+                    userid:(NSString *)userid
+                     phone:(NSString *)phone;
+/**
+ *  用户爱心分赠送
+ */
+- (BOOL)loveFreeGiveLovePointsWith:(int)tag
+                            userid:(NSString *)userid
+                             phone:(NSString *)phone
+                        lovepoints:(NSString *)lovepoints;
 @end

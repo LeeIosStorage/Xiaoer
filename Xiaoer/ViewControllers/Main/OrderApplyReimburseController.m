@@ -112,6 +112,8 @@
     [super viewDidLoad];
     self.title = @"申请退款";
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
+//    self.view.backgroundColor = [UIColor whiteColor];
+
     self.submitApplyBtn.layer.borderWidth = 1;
     self.submitApplyBtn.layer.borderColor = SKIN_COLOR.CGColor;
     self.submitApplyBtn.layer.cornerRadius = 8;
@@ -157,7 +159,7 @@
 #pragma mark 布局tableview
 - (void)configureTableView{
     
-    self.tabFooterView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 308);
+    self.tabFooterView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 200);
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -171,11 +173,11 @@
     
     
 #warning 此版本不加上传图片功能 暂时隐藏
-    CGRect postPhotoRect = self.postPhotoView.frame;
-    postPhotoRect.origin.x = 15;
-    postPhotoRect.origin.y = 223;
-    self.postPhotoView.frame = postPhotoRect;
-    [self.tabFooterView addSubview:self.postPhotoView];
+//    CGRect postPhotoRect = self.postPhotoView.frame;
+//    postPhotoRect.origin.x = 15;
+//    postPhotoRect.origin.y = 223;
+//    self.postPhotoView.frame = postPhotoRect;
+//    [self.tabFooterView addSubview:self.postPhotoView];
     [self.tableView registerNib:[UINib nibWithNibName:@"OrderApplyReimburseCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 }
 

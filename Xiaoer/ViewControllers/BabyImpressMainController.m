@@ -14,6 +14,8 @@
 #import "XEProgressHUD.h"
 #import "BabyImpressDeclareViewController.h"
 #import "BabyImpressTransmitLoveController.h"
+#import "GoToPayViewController.h"
+#import "AddressInfoManager.h"
 @interface BabyImpressMainController ()<UIAlertViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *rullView;
@@ -78,6 +80,9 @@
 }
 - (void)transmitLove{
     NSLog(@"传递爱心");
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
     BabyImpressTransmitLoveController *transmitLove = [[BabyImpressTransmitLoveController alloc]init];
     [self.navigationController pushViewController:transmitLove animated:YES];
 }
@@ -223,7 +228,6 @@
     // Dispose of any resources that can be recreated.
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-//    [XEEngine shareInstance].serverPlatform = TestPlatform;
     if (alertView == self.chooseWayUpload) {
         
         NSLog(@"%ld ",(long)buttonIndex);
@@ -286,12 +290,65 @@
 #pragma mark 充值
 
 - (IBAction)topUpBtnToouched:(id)sender {
+    NSLog(@"充值");
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
 
+    __weak BabyImpressMainController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance]loveIfCanOrderWith:tag userid:[XEEngine shareInstance].uid];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"该月已有已支付爱心订单,不允许下单" At:weakSelf.view];
+            return;
+        }
+        
+        /**
+         *  下单
+         */
+        [self placeAnOrder];
+    } tag:tag];
+    
 }
 #pragma mark 疑问
-
-- (IBAction)askBtn:(id)sender {
+- (IBAction)askBtnTouched:(id)sender {
+    
     BabyImpressDeclareViewController *declare = [[BabyImpressDeclareViewController alloc]init];
     [self.navigationController pushViewController:declare animated:YES];
+    
+}
+
+#pragma mark 充值爱心分下单
+- (void)placeAnOrder{
+    
+    __weak BabyImpressMainController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance]lovePlaceAnOrderWith:tag userid:[XEEngine shareInstance].uid];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+
+        if ([[jsonRet objectForKey:@"code"] isEqual:@3]) {
+            [XEProgressHUD AlertError:@"该用户该月实际已有已付款爱心订单,下单失败!" At:weakSelf.view];
+            return;
+        }else if ([[jsonRet objectForKey:@"code"] isEqual:@0]){
+            [XEProgressHUD AlertSuccess:@"下单成功"];
+            GoToPayViewController *pay = [[GoToPayViewController alloc]init];
+            pay.orderPrice = [NSString stringWithFormat:@"%.2f",[jsonRet[@"object"][@"money"] floatValue]/100];
+            pay.orderNum = [NSString stringWithFormat:@"%@",jsonRet[@"object"][@"orderNo"]];
+            pay.from = @"2";
+            [self.navigationController pushViewController:pay animated:YES];
+            
+            return;
+            
+        }else{
+            [XEProgressHUD AlertError:@"下单失败!" At:weakSelf.view];
+            
+            return;
+        }
+                
+    } tag:tag];
+     
+
 }
 @end

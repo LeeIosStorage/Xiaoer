@@ -27,9 +27,11 @@
  *  账户
  */
 @property (nonatomic,strong)NSString *seller;
+
 /**
  *  商户私钥
  */
+
 @property (nonatomic,strong)NSString *privateKey;
 
 @property (nonatomic,strong)QNUploadManager *upManager;

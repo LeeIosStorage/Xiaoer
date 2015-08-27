@@ -210,7 +210,7 @@
         
     }else if (_vcType == VcType_Register){
       //  [self setRightButtonWithTitle:@"登录"];
-        self.segmentedControl.hidden = NO;
+//        self.segmentedControl.hidden = YES;
         self.title = @"手机注册";
 #warning 此版本 暂时不适用邮箱注册  所以隐藏掉
         [self.segmentedControl setTitle:@"手机注册" forSegmentAtIndex:0];

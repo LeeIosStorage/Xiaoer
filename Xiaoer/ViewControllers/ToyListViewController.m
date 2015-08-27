@@ -132,6 +132,14 @@
     if (!self.name) {
         self.name = @"";
     }
+    
+    if (!self.type) {
+        self.type = @"";
+    }
+    if (!self.category) {
+        self.category = @"";
+    }
+    
     [[XEEngine shareInstance]getShopListInfoMationWith:tag category:self.category pagenum:[NSString stringWithFormat:@"%ld",(long)self.pageNum    ] type:self.type name:self.name serieid:self.serieInfo.id];
     
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
@@ -158,7 +166,7 @@
         NSArray *array = jsonRet[@"object"][@"goodses"];
         NSLog(@"array ==== %@",array);
         if (array.count <= 0) {
-            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+//            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
             return;
         }
         

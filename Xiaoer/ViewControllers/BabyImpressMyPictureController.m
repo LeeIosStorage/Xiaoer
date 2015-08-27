@@ -58,7 +58,6 @@
 
 - (void)getPosedData{
     __weak BabyImpressMyPictureController *weakSelf = self;
-//    [XEEngine shareInstance].serverPlatform = TestPlatform;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance]qiniuCheckPosedPhotoWith:tag userid:[XEEngine shareInstance].uid];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
@@ -89,6 +88,7 @@
         for (NSDictionary *dic in array) {
             XEBabyImpressPhotoListInfo *info = [XEBabyImpressPhotoListInfo objectWithKeyValues:dic];
             [self.dataSources addObject:info];
+            NSLog(@"%@",info.sma);
         }
         
         if (jsonRet[@"object"][@"sendInfo"]) {

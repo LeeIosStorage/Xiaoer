@@ -9,5 +9,5 @@
 #import "XESuperViewController.h"
 
 @interface BabyImpressMyPictureController : XESuperViewController
-
+- (void)getPosedData;
 @end

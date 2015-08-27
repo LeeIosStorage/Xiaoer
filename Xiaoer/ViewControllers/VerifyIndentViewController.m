@@ -70,10 +70,19 @@
  *  设置地址alert
  */
 @property (nonatomic,strong)UIAlertView *setAddressAlert;
+
+
+@property (nonatomic,strong)NSMutableArray *addListArray;
 @end
 
-@implementation VerifyIndentViewController
 
+@implementation VerifyIndentViewController
+- (NSMutableArray *)addListArray{
+    if (!_addListArray) {
+        self.addListArray = [NSMutableArray array];
+    }
+    return _addListArray;
+}
 - (UIAlertView *)setAddressAlert{
     if (!_setAddressAlert) {
         self.setAddressAlert = [[UIAlertView alloc]initWithTitle:@"请先设置收货地址" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -135,7 +144,7 @@
 //    setAddressLab.textAlignment = NSTextAlignmentCenter;
 //    [self.firstSetAddressView addSubview:setAddressLab];
     
-    
+   /*
     
     if ([[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid]) {
         self.info = [[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid];
@@ -147,7 +156,12 @@
     }
     NSString *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
     NSLog(@"默认地址 ： %@",[documentPath  stringByAppendingPathComponent:@"AddressManagers.arc"]);
+    */
+    
+    
     [self configureTabview];
+    [self getDefaultAddressInfo];
+
     [self creatTabViewHeaderView];
     
     [self configureVerifyView];
@@ -185,11 +199,62 @@
     [self getDiscountInfomation];
     
 }
+
+- (void)getDefaultAddressInfo{
+    __weak VerifyIndentViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    
+    [[XEEngine shareInstance]getAddressListWithTag:tag userId:[XEEngine shareInstance].uid];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        //获取失败信息
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+            
+        }
+        NSArray *array = jsonRet[@"object"];
+        if (array.count == 0) {
+            [XEProgressHUD lightAlert:@"暂无默认地址信息，请添加"];
+            return;
+            
+        }
+        [self.addListArray removeAllObjects];
+        if (jsonRet[@"object"]) {
+            
+            for (NSDictionary *dic in array) {
+                XEAddressListInfo *info = [XEAddressListInfo objectWithKeyValues:dic];
+                if ([info.def isEqualToString:@"1"]) {
+                    self.info = info;
+                }
+                [self.addListArray addObject:info];
+            }
+            
+            if (!self.info.id) {
+                [XEProgressHUD lightAlert:@"暂无默认地址信息，请添加"];
+            }
+
+        }else{
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+        }
+        [self creatTabViewHeaderView];
+
+    } tag:tag];
+    
+    
+}
+
+
 - (void)firstSetAddressBtnTouched{
     
     
     NSLog(@"底部添加地址按钮");
     AddAddressViewController *addAddress = [[AddAddressViewController alloc]init];
+    addAddress.ifHaveDeleteBtn = NO;
     [self.navigationController pushViewController:addAddress animated:YES];
 }
 - (void)editVerifyInfoAndRefreshHeaderView:(NSNotificationCenter *)sender{
@@ -687,11 +752,24 @@
 #pragma mark 收获地址按钮点击A (有默认地址情况)
 - (IBAction)addAddressBtn:(id)sender {
 
-    NSLog(@"收获地址按钮点击A");
-    AddressManagerController *manager = [[AddressManagerController alloc]init];
-    manager.delegate = self;
-    manager.fromVerifyInfo = self.info;
-    [self.navigationController pushViewController:manager animated:YES];
+//    NSLog(@"收获地址按钮点击A");
+//    if (self.addListArray.count == 0) {
+        AddressManagerController *manager = [[AddressManagerController alloc]init];
+        manager.delegate = self;
+        manager.fromVerifyInfo = self.info;
+        [self.navigationController pushViewController:manager animated:YES];
+//    }else{
+//        NSLog(@"收获地址按钮点击B");
+//        AddAddressViewController *addAddress = [[AddAddressViewController alloc]init];
+//        addAddress.delegate = self;
+//        addAddress.ifHaveDeleteBtn = NO;
+//        [self.navigationController pushViewController:addAddress animated:YES];
+//    }
+//    NSLog(@"收获地址按钮点击B");
+//    AddAddressViewController *addAddress = [[AddAddressViewController alloc]init];
+//    addAddress.delegate = self;
+//    addAddress.ifHaveDeleteBtn = NO;
+//    [self.navigationController pushViewController:addAddress animated:YES];
     
 }
 
@@ -705,10 +783,20 @@
 }
 #pragma mark 收获地址按钮点击B( 没有 默认收获地址)
 - (IBAction)addAddressBtnB:(id)sender {
-    NSLog(@"收获地址按钮点击B");
-    AddAddressViewController *addAddress = [[AddAddressViewController alloc]init];
-    addAddress.delegate = self;
-    [self.navigationController pushViewController:addAddress animated:YES];
+    NSLog(@"收获地址按钮点击A");
+    if (self.addListArray.count == 0) {
+        AddressManagerController *manager = [[AddressManagerController alloc]init];
+        manager.delegate = self;
+        manager.fromVerifyInfo = self.info;
+        [self.navigationController pushViewController:manager animated:YES];
+    }else{
+        NSLog(@"收获地址按钮点击B");
+        AddAddressViewController *addAddress = [[AddAddressViewController alloc]init];
+        addAddress.delegate = self;
+        addAddress.ifHaveDeleteBtn = NO;
+        [self.navigationController pushViewController:addAddress animated:YES];
+    }
+
 }
 
 - (void)postInfoWith:(XEAddressListInfo *)info{
@@ -918,6 +1006,7 @@
     if (alertView == self.setAddressAlert) {
         AddAddressViewController *add = [[AddAddressViewController alloc]init];
         add.delegate = self;
+        add.ifHaveDeleteBtn = NO;
         [self.navigationController pushViewController:add animated:YES];
         
     }else{

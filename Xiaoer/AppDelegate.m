@@ -30,6 +30,8 @@
 #import "AddressInfoManager.h"
 #import "BabyImpressMyPictureController.h"
 
+#import "BabyImpressTransmitLoveController.h"
+
 @interface AppDelegate () <NewIntroViewControllerDelegate,UIAlertViewDelegate>
 
 @end
@@ -191,7 +193,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     self.window.rootViewController = tabNavVc;
     
 //    [self checkVersion];
-    [self motionCheckVerison];
+//    [self motionCheckVerison];
     
 }
 
@@ -216,53 +218,63 @@ void uncaughtExceptionHandler(NSException *exception) {
     [[XEEngine shareInstance] logout];
 //    [XEEngine shareInstance].firstLogin = YES;
 }
+
 /**
  *  自动检查更新
  */
 - (void)motionCheckVerison{
     NSString *appID = @"967105015";
-    NSError *error ;
     NSString *urlStr = @"http://itunes.apple.com/lookup?id=967105015";
     NSURL *url = [NSURL URLWithString:urlStr];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if (!response) {
-        NSLog(@"没有网络");
-        return;
-    }else{
-        NSLog(@"有网络");
-    }
-    NSDictionary *appInfoDic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    if (error) {
-        NSLog(@"error == %@",[error description]);
-        return ;
-    }
-    NSLog(@"appInfoDic === %@",appInfoDic);
-    NSArray *resultsArray = [appInfoDic objectForKey:@"results"];
-    if (![resultsArray count]) {
-        NSLog(@"error == resultsArray ==nil");
-        return;
-    }
-    NSDictionary *info = [resultsArray objectAtIndex:0];
-    //需要 verions trackViewUrl trackName
-    NSString *latesrVerison = [info objectForKey:@"version"];
-    NSString *trackViewUrl = [info objectForKey:@"trackViewUrl"];
-    NSString *localVserion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSLog(@"localVserion === %@  latesrVerison %@",localVserion,latesrVerison);
-    if ([localVserion isEqualToString:latesrVerison]) {
-        return;
-    }
-    XEAlertView *alert = [[XEAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@版本已上线", latesrVerison] message:@"宝爸宝妈快去更新吧" cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"立刻更新" okBlock:^{
-//        NSURL *url = [[ NSURL alloc ] initWithString: @"http://itunes.apple.com/app/id967105015"] ;
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:trackViewUrl]];
+//    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+
+   [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+       if (!response) {
+           NSLog(@"没有网络");
+           return;
+       }else{
+           NSLog(@"有网络");
+       }
+       if (connectionError) {
+           NSLog(@"error == %@",[connectionError description]);
+           return ;
+       }
+       NSLog(@"response == %@",response);
+       [self handleResponseWith:data];
+
+       return;
+        
     }];
-    [alert show];
-    return;
+
     
     
     
     
     
+}
+- (void)handleResponseWith:(NSData *)data{
+           NSDictionary *appInfoDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+           NSLog(@"appInfoDic === %@",appInfoDic);
+           NSArray *resultsArray = [appInfoDic objectForKey:@"results"];
+           if (![resultsArray count]) {
+               NSLog(@"error == resultsArray ==nil");
+               return;
+           }
+           NSDictionary *info = [resultsArray objectAtIndex:0];
+           //需要 verions trackViewUrl trackName
+           NSString *latesrVerison = [info objectForKey:@"version"];
+           NSString *trackViewUrl = [info objectForKey:@"trackViewUrl"];
+           NSString *localVserion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+           NSLog(@"localVserion === %@  latesrVerison %@",localVserion,latesrVerison);
+           if ([localVserion isEqualToString:latesrVerison]) {
+               return;
+           }
+           XEAlertView *alert = [[XEAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@版本已上线", latesrVerison] message:@"宝爸宝妈快去更新吧" cancelButtonTitle:@"取消" cancelBlock:nil okButtonTitle:@"立刻更新" okBlock:^{
+               //        NSURL *url = [[ NSURL alloc ] initWithString: @"http://itunes.apple.com/app/id967105015"] ;
+               [[UIApplication sharedApplication] openURL:[NSURL URLWithString:trackViewUrl]];
+           }];
+           [alert show];
 }
 - (void)checkVersion{
     if ([[LSReachability reachabilityForLocalWiFi] isReachableViaWiFi]) {
@@ -270,9 +282,11 @@ void uncaughtExceptionHandler(NSException *exception) {
         //去服务器取版本信息
         [[XEEngine shareInstance] getAppNewVersionWithTag:tag];
         [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+            
             if (!jsonRet || err){
                 return ;
             }
+            
             NSString *localVserion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
             NSLog(@"localVserion --------------  %@",localVserion);
             NSString* version = nil;
@@ -299,8 +313,11 @@ void uncaughtExceptionHandler(NSException *exception) {
                     NSURL *url = [[ NSURL alloc ] initWithString: @"http://itunes.apple.com/app/id967105015"] ;
                     [[UIApplication sharedApplication] openURL:url];
                 }];
+                
                 [alert show];
+                
                 return;
+                
             }
         } tag:tag];
     }
@@ -308,7 +325,9 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
+    
     return  [UMSocialSnsService handleOpenURL:url];
+    
 }
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
@@ -375,21 +394,42 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     NSLog(@"2收到通知:%@", userInfo);
+    /*
+     1;// 商城下单
+     2;// 商城支付
+     3;// 商城退款
+     4;// 宝宝印象发货
+     5;// 爱心单支付成功
+     6;// 给爱心分赠送人的推送
+     7;// 给爱心分获赠人的推送
+     */
     [APService handleRemoteNotification:userInfo];
+    self.type = [userInfo objectForKey:@"type"];
 
     NSDictionary *alertContent = [userInfo objectForKey:@"aps"];
     NSString *alertContentStr = [alertContent objectForKey:@"alert"];
-    self.type = [[userInfo objectForKeyedSubscript:@"type"] stringValue];
-    if ([self.type isEqualToString:@"4"]) {
+    
+    if ([userInfo objectForKey:@"type"]) {
+        self.type = [[userInfo objectForKey:@"type"] stringValue];
+    } else {
+        self.type = [[userInfo objectForKeyedSubscript:@"type"] stringValue];
+    }
+    NSLog(@"self.type == %@",self.type);
+    if ([self.type isEqualToString:@"5"]) {
+        UIAlertView *remoteNotificationAlert = [[UIAlertView alloc] initWithTitle:@"消息推送" message:alertContentStr delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        remoteNotificationAlert.tag = 10001;
+        [remoteNotificationAlert show];
+    }else{
+        
         UIAlertView *remoteNotificationAlert = [[UIAlertView alloc] initWithTitle:@"消息推送" message:alertContentStr delegate:self cancelButtonTitle:@"忽略" otherButtonTitles:@"查看", nil];
         remoteNotificationAlert.tag = 10001;
         [remoteNotificationAlert show];
-        [UIApplication sharedApplication].applicationIconBadgeNumber += 1;
-        NSLog(@"app badge = %ld",(long)[UIApplication sharedApplication].applicationIconBadgeNumber);
-        [APService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
-    
     }
 
+    [UIApplication sharedApplication].applicationIconBadgeNumber += 1;
+    NSLog(@"app badge = %ld",(long)[UIApplication sharedApplication].applicationIconBadgeNumber);
+    [APService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
+    
     completionHandler(UIBackgroundFetchResultNewData);
     
 }
@@ -430,19 +470,32 @@ void uncaughtExceptionHandler(NSException *exception) {
         }
     }
     
-    [UIApplication sharedApplication].applicationIconBadgeNumber -= 1;
-    [APService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
     NSLog(@"app badge = %ld",(long)[UIApplication sharedApplication].applicationIconBadgeNumber);
-
     if ([self.type isEqualToString:@"4"]) {
         BabyImpressMyPictureController *my = [[BabyImpressMyPictureController alloc]init];
         UINavigationController *navi = (UINavigationController *)self.window.rootViewController;
         if ([navi.viewControllers.lastObject isKindOfClass:[BabyImpressMyPictureController class]]) {
+            BabyImpressMyPictureController *baby = (BabyImpressMyPictureController *)navi.viewControllers.lastObject;
+            [baby getPosedData];
+        }else{
             
+            [navi pushViewController:my animated:YES];
+        }
+    }
+    
+    if ([self.type isEqualToString:@"6"] || [self.type isEqualToString:@"7"]) {
+        BabyImpressTransmitLoveController *my = [[BabyImpressTransmitLoveController alloc]init];
+        UINavigationController *navi = (UINavigationController *)self.window.rootViewController;
+        if ([navi.viewControllers.lastObject isKindOfClass:[BabyImpressTransmitLoveController class]]) {
+            BabyImpressTransmitLoveController *baby = (BabyImpressTransmitLoveController *)navi.viewControllers.lastObject;
+            [baby refreshUserInfo];
         }else{
             [navi pushViewController:my animated:YES];
         }
     }
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber -= 1;
+    [APService setBadge:[UIApplication sharedApplication].applicationIconBadgeNumber];
 
 }
 

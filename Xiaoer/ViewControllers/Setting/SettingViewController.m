@@ -72,9 +72,9 @@
     if (section == 0) {
         return 3;
     }
-#ifdef DEBUG
-    return 2;
-#endif
+//#ifdef DEBUG
+//    return 2;
+//#endif
     return 1;
 }
 
@@ -142,15 +142,16 @@
                 }
                 cell.indicatorImage.hidden = YES;
                 break;
-            }else if (indexPath.row == 1){
-                if ([XEEngine shareInstance].serverPlatform == OnlinePlatform) {
-                    cell.titleLabel.text = @"测试环境";
-                }else{
-                    cell.titleLabel.text = @"线上环境";
-                }
-                cell.indicatorImage.hidden = YES;
-                break;
             }
+//            }else if (indexPath.row == 1){
+//                if ([XEEngine shareInstance].serverPlatform == OnlinePlatform) {
+//                    cell.titleLabel.text = @"测试环境";
+//                }else{
+//                    cell.titleLabel.text = @"线上环境";
+//                }
+//                cell.indicatorImage.hidden = YES;
+//                break;
+//            }
         }
         default:
             break;

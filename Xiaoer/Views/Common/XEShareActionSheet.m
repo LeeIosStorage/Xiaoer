@@ -120,11 +120,16 @@
     }else if (indexPath.section == 1){
         NSString *shareType = @"";
         if (row == 0){
-            shareType = [[NSString alloc]initWithString:UMShareToSina];
-        }else if (row == 1){
             shareType = [[NSString alloc]initWithString:UMShareToWechatSession];
-        }else if (row == 2){
+
+//            shareType = [[NSString alloc]initWithString:UMShareToSina];
+        }else if (row == 1){
+//            shareType = [[NSString alloc]initWithString:UMShareToWechatSession];
             shareType = [[NSString alloc]initWithString:UMShareToWechatTimeline];
+        }else if (row == 2){
+//            shareType = [[NSString alloc]initWithString:UMShareToWechatTimeline];
+            shareType = [[NSString alloc]initWithString:UMShareToQQ];
+
         }else if (row == 3) {
             shareType = [[NSString alloc]initWithString:UMShareToQQ];
         }

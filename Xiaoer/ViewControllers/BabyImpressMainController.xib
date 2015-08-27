@@ -24,8 +24,8 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="425"/>
                     <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rji-xW-i4p">
-                    <rect key="frame" x="177" y="429" width="125" height="45"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rji-xW-i4p">
+                    <rect key="frame" x="188" y="430" width="122" height="45"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" title="上传照片" backgroundImage="babyBottonBtn">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -35,24 +35,21 @@
                         <action selector="uploadPhotoBtnTouched:" destination="-1" eventType="touchUpInside" id="kNx-q1-oDu"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kiM-tc-FeW">
-                    <rect key="frame" x="8" y="442" width="20" height="20"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kiM-tc-FeW">
+                    <rect key="frame" x="15" y="440" width="25" height="25"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="20" id="lXd-oa-pf3"/>
-                        <constraint firstAttribute="width" constant="20" id="s2p-XC-eow"/>
+                        <constraint firstAttribute="height" constant="25" id="lXd-oa-pf3"/>
+                        <constraint firstAttribute="width" constant="25" id="s2p-XC-eow"/>
                     </constraints>
                     <state key="normal" backgroundImage="babyAsk">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <connections>
-                        <action selector="askBtn:" destination="-1" eventType="touchUpInside" id="6Xw-Zd-oz7"/>
-                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X1l-UW-MaI">
-                    <rect key="frame" x="34" y="430" width="125" height="45"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X1l-UW-MaI">
+                    <rect key="frame" x="55" y="430" width="123" height="45"/>
                     <color key="backgroundColor" red="0.8784313725490196" green="0.25098039215686274" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <state key="normal" title="充值10分爱心">
+                    <state key="normal" title="献上10分爱心">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -60,21 +57,36 @@
                         <action selector="topUpBtnToouched:" destination="-1" eventType="touchUpInside" id="dj3-n0-Ze9"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AcK-BM-JO3">
+                    <rect key="frame" x="5" y="435" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="LhO-Tr-7aR"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="askBtnTouched:" destination="-1" eventType="touchUpInside" id="TJW-sh-say"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="a4h-2t-K0C" secondAttribute="trailing" id="4KE-a6-ifF"/>
-                <constraint firstItem="kiM-tc-FeW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="4bR-22-O3f"/>
+                <constraint firstItem="kiM-tc-FeW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="4bR-22-O3f"/>
                 <constraint firstItem="kiM-tc-FeW" firstAttribute="centerY" secondItem="Rji-xW-i4p" secondAttribute="centerY" id="5P4-Q5-8Yg"/>
-                <constraint firstItem="Rji-xW-i4p" firstAttribute="leading" secondItem="X1l-UW-MaI" secondAttribute="trailing" constant="18" id="6lT-fy-EVa"/>
+                <constraint firstItem="Rji-xW-i4p" firstAttribute="leading" secondItem="X1l-UW-MaI" secondAttribute="trailing" constant="10" id="6lT-fy-EVa"/>
                 <constraint firstItem="Rji-xW-i4p" firstAttribute="top" secondItem="a4h-2t-K0C" secondAttribute="bottom" id="8ix-0V-wfd"/>
                 <constraint firstItem="a4h-2t-K0C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ag5-o8-Xha"/>
                 <constraint firstItem="X1l-UW-MaI" firstAttribute="height" secondItem="Rji-xW-i4p" secondAttribute="height" id="Cub-El-RDn"/>
-                <constraint firstItem="X1l-UW-MaI" firstAttribute="leading" secondItem="kiM-tc-FeW" secondAttribute="trailing" constant="6" id="DqE-pz-2wI"/>
+                <constraint firstItem="X1l-UW-MaI" firstAttribute="leading" secondItem="kiM-tc-FeW" secondAttribute="trailing" constant="15" id="DqE-pz-2wI"/>
+                <constraint firstItem="AcK-BM-JO3" firstAttribute="top" secondItem="a4h-2t-K0C" secondAttribute="bottom" constant="10" id="KnO-IO-YdS"/>
                 <constraint firstItem="X1l-UW-MaI" firstAttribute="width" secondItem="Rji-xW-i4p" secondAttribute="width" id="PZL-Fv-KiK"/>
                 <constraint firstItem="X1l-UW-MaI" firstAttribute="top" secondItem="a4h-2t-K0C" secondAttribute="bottom" constant="5" id="Tgq-V0-xCx"/>
                 <constraint firstAttribute="bottom" secondItem="a4h-2t-K0C" secondAttribute="bottom" constant="55" id="ayG-TB-uHK"/>
-                <constraint firstAttribute="trailing" secondItem="Rji-xW-i4p" secondAttribute="trailing" constant="18" id="ooL-GX-2Wh"/>
+                <constraint firstAttribute="trailing" secondItem="Rji-xW-i4p" secondAttribute="trailing" constant="10" id="ooL-GX-2Wh"/>
+                <constraint firstItem="AcK-BM-JO3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="5" id="qln-X9-Fct"/>
+                <constraint firstAttribute="bottom" secondItem="AcK-BM-JO3" secondAttribute="bottom" constant="5" id="w3V-Pr-2vi"/>
                 <constraint firstItem="a4h-2t-K0C" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="wTm-Xj-iPO"/>
                 <constraint firstItem="kiM-tc-FeW" firstAttribute="centerY" secondItem="X1l-UW-MaI" secondAttribute="centerY" id="x3U-1g-VSk"/>
             </constraints>
@@ -243,7 +255,7 @@
                         <constraint firstAttribute="height" constant="21" id="Vuk-wf-aJN"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -264,7 +276,7 @@
     </objects>
     <resources>
         <image name="babayHeaderFirst" width="375" height="212"/>
-        <image name="babyAsk" width="20" height="20"/>
+        <image name="babyAsk" width="25" height="25"/>
         <image name="babyBottonBtn" width="320" height="45"/>
         <image name="babyBtnLayer" width="3" height="18"/>
         <image name="babyPostFirst" width="30" height="23"/>

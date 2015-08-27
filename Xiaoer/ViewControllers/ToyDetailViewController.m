@@ -713,7 +713,7 @@
 #pragma mark  web delegate
 
 - (void)loadWebViewWithUrl:(NSURL *)url {
-    [XEProgressHUD AlertLoading:@"正在加载页面"];
+    [XEProgressHUD AlertLoading:@"正在加载"];
 
     self.request =[NSURLRequest requestWithURL:url];
     [self.webView loadRequest:_request];
@@ -722,7 +722,7 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     NSLog(@"webViewDidFinishLoad: ");
-    [XEProgressHUD AlertSuccess:@"加载页面成功"];
+    [XEProgressHUD AlertSuccess:@"加载成功"];
     
 }
 

@@ -477,6 +477,7 @@ CGFloat const SGProgressBarHeight = 2.5;
         _shareAction.recipesId = weakSelf.openId;
         NSString *title = [self.mainWebView stringByEvaluatingJavaScriptFromString:@"document.getElementById('shareid').innerHTML"];
         _shareAction.webShareTitle = title;
+        NSLog(@"title== %@",title);
         [_shareAction showShareAction];
     }tag:tag];
 }

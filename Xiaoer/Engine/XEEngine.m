@@ -776,9 +776,7 @@ static XEEngine* s_ShareInstance = nil;
 }
 - (BOOL)updateAvatarWithUid:(NSString *)uid avatar:(NSArray *)data tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    
     [params setObject:uid forKey:@"userid"];
-    
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/avatar",API_URL] type:2 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:data withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
@@ -2036,7 +2034,7 @@ static XEEngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/photo/bobayprint/photoCarriage",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
-- (BOOL)qiNiuOrderWith:(int)tag userid:(NSString *)userid useraddressid:(NSString *)useraddressid mark:(NSString *)mark{
+- (BOOL)qiNiuOrderWith:(int)tag userid:(NSString *)userid useraddressid:(NSString *)useraddressid mark:(NSString *)mark tip:(NSString *)tip{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     [params setObject:userid forKey:@"userid"];
     [params setObject:useraddressid forKey:@"useraddressid"];
@@ -2044,8 +2042,36 @@ static XEEngine* s_ShareInstance = nil;
     }else{
         [params setObject:mark forKey:@"mark"];
     }
+    [params setObject:tip forKey:@"tip"];
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/photo/order/saveOrUpdate",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
 
+- (BOOL)loveIfCanOrderWith:(int)tag userid:(NSString *)userid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/photo/loveorder/canOrder",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)lovePlaceAnOrderWith:(int)tag userid:(NSString *)userid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/photo/loveorder/order",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+- (BOOL)loveBoundPhoneWith:(int)tag userid:(NSString *)userid phone:(NSString *)phone{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    [params setObject:phone forKey:@"phone"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/user/boundPhone",API_URL] type:1 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+-(BOOL)loveFreeGiveLovePointsWith:(int)tag userid:(NSString *)userid phone:(NSString *)phone lovepoints:(NSString *)lovepoints{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    [params setObject:phone forKey:@"phone"];
+    [params setObject:lovepoints forKey:@"lovepoints"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/photo/userLovePoints/give",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
 @end

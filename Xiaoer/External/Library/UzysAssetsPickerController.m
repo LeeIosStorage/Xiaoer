@@ -563,11 +563,12 @@
 
 - (void)finishPickingAssets
 {
+    NSThread *nsth=  [[NSThread alloc] initWithTarget:self selector:@selector(showmbpMessage) object:nil];
+    [nsth start];
         if(self.collectionView.indexPathsForSelectedItems.count>0)
         {
-        NSThread *nsth=  [[NSThread alloc] initWithTarget:self selector:@selector(showmbpMessage) object:nil];
-        [nsth start];
 
+        
         }
         NSMutableArray *assets = [[NSMutableArray alloc] init];
     
@@ -583,26 +584,13 @@
         if([picker.delegate respondsToSelector:@selector(UzysAssetsPickerController:didFinishPickingAssets:)])
             [picker.delegate UzysAssetsPickerController:picker didFinishPickingAssets:assets];
         [self dismissViewControllerAnimated:YES completion:^{
-
+            
+            [nsth cancel];
         }];
 
     }
 }
-//- (void)quicklyDissMove{
-//    NSMutableArray *assets = [[NSMutableArray alloc] init];
-//
-//    for (NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems)
-//    {
-//        [assets addObject:[self.assets objectAtIndex:indexPath.item]];
-//    }
-//    UzysAssetsPickerController *picker = (UzysAssetsPickerController *)self;
-//    
-//    if([picker.delegate respondsToSelector:@selector(UzysAssetsPickerController:didFinishPickingAssets:)])
-//        [picker.delegate UzysAssetsPickerController:picker didFinishPickingAssets:assets];
-//    [self dismissViewControllerAnimated:YES completion:^{
-//        
-//    }];
-//}
+
 - (void)showmbpMessage{
     // 快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

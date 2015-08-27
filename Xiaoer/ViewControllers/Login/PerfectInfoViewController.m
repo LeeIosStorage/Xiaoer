@@ -621,6 +621,11 @@
         }
     }
     
+    
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        cell.titleLabel.frame = CGRectMake(15, 20, 60, 20);
+    }
+    
     return cell;
 }
 

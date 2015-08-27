@@ -35,7 +35,7 @@
  */
 @property (nonatomic,strong)NSString *type;
 
-
+@property (nonatomic,strong)NSString *leftDay;
 /**
  *  完整的图片地址
  */

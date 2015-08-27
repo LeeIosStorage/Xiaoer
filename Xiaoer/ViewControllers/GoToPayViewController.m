@@ -17,7 +17,8 @@
 #import "Order.h"
 #import "ToyDetailViewController.h"
 #import "BabyImpressPrintController.h"
-
+#import "BabyImpressMainController.h"
+#import "BabyImpressDeclareViewController.h"
 @interface GoToPayViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
@@ -27,21 +28,44 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"确认订单";
-    [self configureGoToPayTab];
-    NSLog(@"orderPrice == %@  orderNum == %@ ",self.orderPrice,self.orderNum);
 
     //接收支付成功的通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(paySuccess:) name:@"success" object:nil];
+    UILabel *remindLab = [[UILabel alloc]init];
+    remindLab.numberOfLines = 0;
+    
     if ([self.from isEqualToString:@"0"]) {
-        self.remindView.text = @"订单提交成功，请尽快付款，30分钟未付款将取消";
-        self.remindView.frame = CGRectMake(60, 10, SCREEN_WIDTH - 60 - 15, 40);
+        remindLab.text = @"订单提交成功，请尽快付款，30分钟未付款将取消";
+        remindLab.frame = CGRectMake(60, 10, SCREEN_WIDTH - 60 - 15, 40);
         self.specialtyBtn.hidden = NO;
-    }else{
-        self.remindView.frame = CGRectMake(15, 10, SCREEN_WIDTH - 30, 40);
+    }else if ([self.from isEqualToString:@"1"]){
+        remindLab.frame = CGRectMake(15, 10, SCREEN_WIDTH - 30, 40);
         self.specialtyBtn.hidden = YES;
-        self.remindView.text = @"订单提交成功，请尽快付款，我们将会在每月的最后一天24点取消未付款的订单";
+        remindLab.text = @"订单提交成功，请尽快付款，我们将会在每月的最后一天24点取消未付款的订单";
+    }else if ([self.from isEqualToString:@"2"]){
+        remindLab.frame = CGRectMake(20, 10, SCREEN_WIDTH - 40, 40);
+        self.specialtyBtn.hidden = YES;
+        remindLab.text = @"1、参与“10分公益，宝宝印像”活动，用户每献出1角钱即得10个“爱心分”。\n2、用户首月可献2元即200个“爱心分”，次月始可献1元即100个“爱心分”。\n3、10个“爱心分”可兑换一张6寸照片的冲印权。";
+        NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:17],NSFontAttributeName, nil];
+        
+        CGRect rect = [remindLab.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
+        CGRect textFram = remindLab.frame;
+        textFram.size.height = rect.size.height ;
+        remindLab.frame = textFram;
+        
+        CGRect headerFrame = self.tabHeader.frame;
+        headerFrame.size.height += (rect.size.height - 40);
+        self.tabHeader.frame = headerFrame;
+        
+        [self setRightButtonWithImageName:@"babyAsk" selector:@selector(showLoveDeclare)];
     }
+    [self.tabHeader addSubview:remindLab];
+    [self configureGoToPayTab];
 
+}
+- (void)showLoveDeclare{
+    BabyImpressDeclareViewController *declare = [[BabyImpressDeclareViewController alloc]init];
+    [self.navigationController pushViewController:declare animated:YES];
 }
 - (void)paySuccess:(NSNotificationCenter *)sender{
     ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
@@ -67,15 +91,20 @@
     order.tradeNO = self.orderNum; //订单ID（由商家自行制定）
     order.productName = @"晓儿"; //商品标题
     order.productDescription = @"晓儿"; //商品描述
-    order.amount = self.orderPriceLab.text; //商品价格
-    
+//    order.amount = self.orderPriceLab.text; //商品价格
+    order.amount = @"0.01"; //商品价格
+
     if ([self.from isEqualToString:@"0"]) {
         NSString *url = [NSString stringWithFormat:@"%@/common/alipayorder/payed", [[XEEngine shareInstance] baseUrl]];
         order.notifyURL = url;//回调URl
     }
     
     if ([self.from isEqualToString:@"1"]) {
-        NSString *url = [NSString stringWithFormat:@"%@/common/alipayorder/photoPayed", [[XEEngine shareInstance] baseUrl]];
+        NSString *url = [NSString stringWithFormat:@"%@/common/alipayorder/photoLovePayed", [[XEEngine shareInstance] baseUrl]];
+        order.notifyURL = url;//回调URl
+    }
+    if ([self.from isEqualToString:@"2"]) {
+        NSString *url = [NSString stringWithFormat:@"%@/common/alipayorder/lovePayed", [[XEEngine shareInstance] baseUrl]];
         order.notifyURL = url;//回调URl
     }
     
@@ -85,7 +114,6 @@
     order.itBPay = @"30m";
     order.showUrl = @"m.alipay.com";
 
-    
     //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
     NSString *appScheme = @"xiaoerPay";
     
@@ -107,12 +135,12 @@
             NSLog(@"reslut = %@",resultDic);
             NSString *string = resultDic[@"resultStatus"];
             NSString *memo = resultDic[@"memo"];
-            if (memo.length > 0) {
-                [XEProgressHUD lightAlert:memo];
-            }
+//            if (memo.length > 0) {
+//                [XEProgressHUD lightAlert:memo];
+//            }
             
             if ([string isEqualToString:@"9000"]) {
-                
+                [XEProgressHUD AlertSuccess:@"支付成功"];
                 if ([self.from isEqualToString:@"0"]) {
                     /**
                      *  定位到商品详情页面 pop过去
@@ -126,12 +154,25 @@
                 }
                 
                 if ([self.from isEqualToString:@"1"]) {
+                    [[XEEngine shareInstance]refreshUserInfo];
+
                     for (UIViewController *controller in self.navigationController.viewControllers) {
                         if ([controller isKindOfClass:[BabyImpressPrintController class]]) {
                             [self.navigationController popToViewController:controller animated:YES];
                         }
                     }
                 }
+                
+                
+                if ([self.from isEqualToString:@"2"]) {
+                    [[XEEngine shareInstance]refreshUserInfo];
+                    for (UIViewController *controller in self.navigationController.viewControllers) {
+                        if ([controller isKindOfClass:[BabyImpressMainController class]]) {
+                            [self.navigationController popToViewController:controller animated:YES];
+                        }
+                    }
+                }
+                
 
             } else if ([string isEqualToString:@"4000"]) {
                 NSLog(@"系统异常");

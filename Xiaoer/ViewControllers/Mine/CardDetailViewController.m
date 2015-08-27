@@ -36,10 +36,15 @@
     [self refreshDetailUI];
     [self refreshCardInfo];
     NSURL *cardUrl = [NSURL URLWithString:_cardInfo.cardActionUrl];
+    NSLog(@"cardUrl ==== %@",cardUrl);
     [_cardWebView loadRequest:[NSURLRequest requestWithURL:cardUrl]];
     [(UIScrollView *)[[_cardWebView subviews] objectAtIndex:0] setBounces:NO];
     [_containerView setContentSize:CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT*2)];
-//    _cardWebView.scalesPageToFit = YES;
+    _cardWebView.scalesPageToFit = YES;
+//    _cardImageView.userInteractionEnabled = NO;
+//    self.containerView.userInteractionEnabled = NO;
+    self.containerView.alwaysBounceHorizontal = NO;
+    self.containerView.alwaysBounceVertical = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,7 +102,7 @@
         [_cardImageView setImage:[UIImage imageNamed:@"topic_load_icon"]];
     }
     _cardTitle.text = _cardInfo.title;
-    _cardDes.text = _cardInfo.des;
+    _cardDes.text = @"";
     _leftNum.text = [NSString stringWithFormat:@"%d",_cardInfo.leftNum];
 }
 
@@ -171,10 +176,17 @@
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     NSLog(@"webViewDidFinishLoad: ");
     CGRect frame = webView.frame;
+    [webView sizeToFit];
     CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
     frame.size = fittingSize;
+//    webView.frame = frame;
+    NSLog(@"frame.size.height == %f",frame.size.height);
+    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.clientHeight"] floatValue];
+    NSLog(@"height == %f",height);
+    frame.size.height = height + 15;
     webView.frame = frame;
-    [_containerView setContentSize:CGSizeMake(SCREEN_WIDTH,265 + frame.size.height)];
+    
+    [_containerView setContentSize:CGSizeMake(SCREEN_WIDTH,285 + height)];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error

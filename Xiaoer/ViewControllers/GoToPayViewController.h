@@ -39,7 +39,8 @@
  */
 @property (nonatomic,strong)NSString *orderPrice;
 /**
- *  0 商城  1宝宝印象
+ *  0 商城  1宝宝印象支付 2充值爱心分
  */
 @property (nonatomic,strong)NSString *from;
+
 @end

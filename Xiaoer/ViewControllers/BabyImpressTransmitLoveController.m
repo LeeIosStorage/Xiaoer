@@ -8,6 +8,11 @@
 
 #import "BabyImpressTransmitLoveController.h"
 #import "BabyImpressBoundPhoneController.h"
+#import "XEEngine.h"
+#import "XEProgressHUD.h"
+#import "NSString+Value.h"
+
+
 @interface BabyImpressTransmitLoveController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *headerView;
@@ -26,15 +31,43 @@
 
 - (IBAction)vetifuBtnTouched:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIButton *lovePointLab;
 @end
 
 @implementation BabyImpressTransmitLoveController
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    [self refreshUserInfo];
+}
+- (void)refreshUserInfo{
+    __block BabyImpressTransmitLoveController *weakSelf = self;
+    int tag = [[XEEngine shareInstance]getConnectTag];
+    [[XEEngine shareInstance]refreshUserInfo];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        //获取失败信息
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (jsonRet[@"lovePoint"]) {
+            [self.lovePointLab setTitle:[NSString stringWithFormat:@"%@",[jsonRet[@"lovePoint"] stringValue]] forState:UIControlStateNormal];
+        }else{
+            [self.lovePointLab setTitle:@"0" forState:UIControlStateNormal];
+        }
+        
+        [self.tableView reloadData];
+        
+    } tag:tag];
 
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"传递爱心";
     [self setRightButtonWithTitle:@"绑定手机" selector:@selector(pinlessPhone)];
     [self configureTableView];
+    self.phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
+    self.numLoveTextfield.keyboardType = UIKeyboardTypeNumberPad;
     /**
      * 给texfField 添加 动态通知
      */
@@ -48,13 +81,20 @@
      *  键盘将要消失的监听
      */
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(babyImpressKeyBoardEndChangeFrame:) name:UIKeyboardWillHideNotification object:nil];
+    
+    
+    if ([XEEngine shareInstance].userInfo.lovePoint && [XEEngine shareInstance].userInfo.lovePoint.length > 0) {
+        
+        [self.lovePointLab setTitle:[XEEngine shareInstance].userInfo.lovePoint forState:UIControlStateNormal];
+    }else{
+        [self.lovePointLab setTitle:@"0" forState:UIControlStateNormal];
+
+    }
     // Do any additional setup after loading the view from its nib.
 }
 
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:YES];
-}
+
 - (void)dealloc{
     /**
      *  移通知
@@ -90,7 +130,6 @@
     self.numLoveLab.layer.masksToBounds = YES;
     self.numLoveLab.layer.cornerRadius = 5;
     
-    
     self.numLoveTextfield.delegate = self;
     self.phoneTextField.delegate = self;
 
@@ -101,7 +140,7 @@
     
 }
 - (UIView *)creatTabHeaderView{
-    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(20, 70, SCREEN_WIDTH - 40, 0)];
+    UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(20, 50, SCREEN_WIDTH - 40, 0)];
     lable.font = [UIFont systemFontOfSize:17];
     lable.numberOfLines = 0;
     lable.text = @"\t 首月20张，次月10张照片，觉着不够？想要每天都能有一张宝宝照片记忆？可以，晓儿了解到好多宝妈，宝爸的心声，故此通过传递爱心的办法，可以使每个用户每个月打印的照片达到30张喔！\n\t 每位宝妈，宝爸通过好友赠送，可获得更多照片打印权，快去邀请亲朋好友来赠送自己照片打印权吧。这里需要注意喔：为了防止赠送出错，每个用户都需要绑定唯一手机号码验证成功之后才能顺利接受赠送喔！";
@@ -112,7 +151,7 @@
     textFram.size.height = rect.size.height ;
     lable.frame = textFram;
     [self.headerView addSubview:lable];
-    self.headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 70 + rect.size.height);
+    self.headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 50 + rect.size.height);
     return self.headerView;
     
 }
@@ -162,9 +201,87 @@
 
 - (IBAction)vetifuBtnTouched:(id)sender {
     NSLog(@"确认传递爱心");
+    if (![self.phoneTextField.text isPhone]) {
+        [XEProgressHUD lightAlert:@"请输入正确的手机号"];
+        return;
+    }
+    if (self.numLoveTextfield.text.length == 0) {
+        [XEProgressHUD lightAlert:@"请输入爱心值"];
+        return;
+    }
+    
+    NSInteger num = [self.numLoveTextfield.text floatValue];
+    if (num <10) {
+        [XEProgressHUD lightAlert:@"爱心值不得小于10"];
+        return;
+    }
+    if (num >100) {
+        [XEProgressHUD lightAlert:@"爱心值不得大于100"];
+        return;
+    }
+    if (num%10 > 0) {
+        [XEProgressHUD lightAlert:@"赠送积分不是10的整数倍"];
+        return;
+    }
+
 
     [self.phoneTextField resignFirstResponder];
     [self.numLoveTextfield resignFirstResponder];
+    __weak BabyImpressTransmitLoveController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance]loveFreeGiveLovePointsWith:tag userid:[XEEngine shareInstance].uid phone:self.phoneTextField.text lovepoints:self.numLoveTextfield.text];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+
+        NSString *code = [jsonRet[@"code"] stringValue];
+        if ([code isEqualToString:@"0"]) {
+            [XEProgressHUD AlertSuccess:@"传递爱心成功"];
+            [[XEEngine shareInstance]refreshUserInfo];
+            [self.navigationController popViewControllerAnimated:YES];
+            return ;
+            
+        } else  if ([code isEqualToString:@"1"]){
+            [XEProgressHUD AlertError:@"请输入手机号码 或者 爱心分" At:weakSelf.view];
+            return ;
+
+        }else if ([code isEqualToString:@"2"]){
+            [XEProgressHUD AlertError:@"用户不存在" At:weakSelf.view];
+            return ;
+
+        }else if ([code isEqualToString:@"3"]){
+            [XEProgressHUD AlertError:@"您要赠送的手机，尚未绑定帐号呢，您可以提醒对方绑定再赠送哦，亲" At:weakSelf.view];
+            return ;
+
+        }else if ([code isEqualToString:@"4"]){
+            [XEProgressHUD AlertError:@"赠送积分不足1分无法赠送" At:weakSelf.view];
+            return ;
+
+        }else if ([code isEqualToString:@"5"]){
+            [XEProgressHUD AlertError:@"赠送积分不是10的整数倍" At:weakSelf.view];
+            return ;
+
+        }else if ([code isEqualToString:@"6"]){
+            [XEProgressHUD AlertError:@"您赠送的爱心值超过您剩余的爱心值咯，亲" At:weakSelf.view];
+            return ;
+
+        }else if ([code isEqualToString:@"7"]){
+            [XEProgressHUD AlertError:@"您本月赠送的积分已超出上限" At:weakSelf.view];
+            return ;
+
+        }else if ([code isEqualToString:@"8"]){
+            [XEProgressHUD AlertError:@"亲，您当前所拥有积分不足，请先充值" At:weakSelf.view];
+            return ;
+
+        }else if ([code isEqualToString:@"9"]){
+            [XEProgressHUD AlertError:@"无法将积分赠送给自己哦" At:weakSelf.view];
+            return ;
+
+        }else{
+            [XEProgressHUD AlertError:@"传递爱心失败" At:weakSelf.view];
+            return;
+        }
+        
+        
+    } tag:tag];
 }
 
 - (void)didReceiveMemoryWarning {

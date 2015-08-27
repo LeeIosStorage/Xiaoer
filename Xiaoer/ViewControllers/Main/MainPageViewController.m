@@ -158,7 +158,6 @@
 - (void)getOneWeekScrollviewInfomation{
     __weak MainPageViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
-//    [XEEngine shareInstance].serverPlatform = OnlinePlatform;
     NSString *userid = [XEEngine shareInstance].uid;
     if (!userid) {
         NSInteger index = 5;

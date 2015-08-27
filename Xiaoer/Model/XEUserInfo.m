@@ -147,6 +147,15 @@
     if ([dic objectForKey:@"profileStatus"]) {
         _profileStatus = [dic intValueForKey:@"profileStatus"];
     }
+    
+    if ([dic objectForKey:@"lovePoint"]) {
+        _lovePoint =  [[dic objectForKey:@"lovePoint"] stringValue];
+    }
+
+    if ([dic objectForKey:@"bphone"]) {
+        _bphone =  [dic objectForKey:@"bphone"] ;
+    }
+    
 }
 
 - (void)setUserInfoByJsonDic:(NSDictionary*)dic{

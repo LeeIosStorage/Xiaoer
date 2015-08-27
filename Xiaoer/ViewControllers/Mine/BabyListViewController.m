@@ -73,6 +73,7 @@
     for (XEUserInfo *babyInfo in [XEEngine shareInstance].userInfo.babys) {
         [self.babyInfos addObject:babyInfo];
     }
+    [[XEEngine shareInstance]refreshUserInfo];
     [self.tableView reloadData];
 }
 

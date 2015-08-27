@@ -61,9 +61,14 @@
 @property(nonatomic, readonly) NSURL* largeAvatarUrl;
 @property(nonatomic, readonly) NSURL* originalAvatarUrl;
 @property(nonatomic, readonly) NSURL* backgroudImageUrl;
+@property (nonatomic,strong)NSString *bphone;
 
 @property(nonatomic, strong) NSDictionary* userInfoByJsonDic;
 @property(nonatomic, strong) NSString* jsonString;
+
+@property (nonatomic,strong)NSString *lovePoint;
+
+#pragma mark
 
 + (NSString*)getBirthdayByDate:(NSDate*)date;
 

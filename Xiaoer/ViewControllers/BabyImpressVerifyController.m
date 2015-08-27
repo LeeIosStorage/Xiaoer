@@ -17,7 +17,9 @@
 #import "GoToPayViewController.h"
 #import "AddressInfoManager.h"
 #import "AppDelegate.h"
-@interface BabyImpressVerifyController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,postInfoDelegate,refreshAddtessInfoDelegate>
+#import "BabyImpressMainController.h"
+#import "MJExtension.h"
+@interface BabyImpressVerifyController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,postInfoDelegate,refreshAddtessInfoDelegate,UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (strong, nonatomic) IBOutlet UIView *noAddressView;
@@ -32,12 +34,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *verifyBtn;
 @property (nonatomic,assign)BOOL ifHavePayWay;
 
-
 @property (nonatomic,strong)XEAddressListInfo *addressInfo;
 @property (weak, nonatomic) IBOutlet UILabel *infoPhone;
 @property (weak, nonatomic) IBOutlet UILabel *infoAddress;
 @property (weak, nonatomic) IBOutlet UILabel *infoName;
-
 
 /**
  *  照片数量
@@ -56,17 +56,48 @@
  */
 @property (weak, nonatomic) IBOutlet UILabel *photoMoney;
 
+@property (weak, nonatomic) IBOutlet UILabel *totalLove;
+/**
+ *  需要充值
+ */
+@property (nonatomic,strong)UIAlertView *needRechargeAlert;
+
+
+@property (nonatomic,strong)NSMutableArray *addListArray;
 
 @end
 
 @implementation BabyImpressVerifyController
+
+- (NSMutableArray *)addListArray{
+    if (!_addListArray) {
+        self.addListArray = [NSMutableArray array];
+    }
+    return _addListArray;
+}
+- (UIAlertView *)needRechargeAlert{
+    if (!_needRechargeAlert) {
+        self.needRechargeAlert = [[UIAlertView alloc]initWithTitle:@"亲，您的爱心分不足以打印，请先充值爱心分或者呼叫好友赠送喔。" message:nil delegate:self cancelButtonTitle:@"暂时不去" otherButtonTitles:@"马上充值", nil];
+    }
+    return _needRechargeAlert;
+}
+
+
 - (NSMutableArray *)dataSources{
     if (!_dataSources) {
         self.dataSources = [NSMutableArray array];
     }
     return _dataSources;
 }
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    if ([XEEngine shareInstance].userInfo.lovePoint) {
+        self.totalLove.text =  [XEEngine shareInstance].userInfo.lovePoint;
+    }else{
+        self.totalLove.text = @"0";
+    }
 
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"确认订单";
@@ -75,33 +106,107 @@
     self.verifyBtn.layer.cornerRadius = 5;
     self.verifyBtn.layer.masksToBounds = YES;
     self.ifHavePayWay = NO;
-    self.numPhotoLab.text = [NSString stringWithFormat:@"%ld",self.dataSources.count];
+    self.numPhotoLab.text = [NSString stringWithFormat:@"%ld张",(unsigned long)self.dataSources.count];
     self.carriageMoneyLab.text = @"0.00";
 
-    if (self.dataSources.count < 10) {
-        self.photoMoney.text = [NSString stringWithFormat:@"%.2f",self.dataSources.count*0.1];
-    }else{
-        self.photoMoney.text = [NSString stringWithFormat:@"%.2f",self.dataSources.count/10 + (self.dataSources.count%10*0.1)];
-    }
-    if ([[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid]) {
-        self.addressInfo = [[AddressInfoManager manager]getTheAddressInfoWith:[XEEngine shareInstance].uid];
-        NSLog(@"Manager  self.addressInfo.id == %@",self.addressInfo.id);
-    }else{
-    }
+
+    self.photoMoney.text = [NSString stringWithFormat:@"%.2lu",self.dataSources.count*10];
+
+    
+    self.totalMoneyLab.attributedText = [self creatTotalMoneyTextWith:[NSString stringWithFormat:@"合计：￥%.2f",[self.carriageMoneyLab.text floatValue]]];
+
     [self configureTableView];
-//    self.totalMoneyLab.attributedText = [self creatTotalMoneyTextWith:[NSString stringWithFormat:@"合计：￥%.2f",[self.carriageMoneyLab.text floatValue] + [self.photoMoney.text floatValue]]];
-//    self.totalMoneyLab.text = [[NSString stringWithFormat:@"%.2f",[self.carriageMoneyLab.text floatValue] + [self.photoMoney.text floatValue]];
-    self.totalMoneyLab.text = [NSString stringWithFormat:@"%.2f",[self.carriageMoneyLab.text floatValue]+ [self.photoMoney.text floatValue]];
+    [self getDefaultAddressInfo];
 
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deledate:) name:@"editVerifyInfo" object:nil];
 
 
+}
+- (void)getDefaultAddressInfo{
+    __weak BabyImpressVerifyController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
     
-    // Do any additional setup after loading the view from its nib.
+    [[XEEngine shareInstance]getAddressListWithTag:tag userId:[XEEngine shareInstance].uid];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        //获取失败信息
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+            
+        }
+        NSArray *array = jsonRet[@"object"];
+        if (array.count == 0) {
+            [XEProgressHUD lightAlert:@"暂无默认地址信息，请添加"];
+            return;
+            
+        }
+        [self.addListArray removeAllObjects];
+        if (jsonRet[@"object"]) {
+            
+            for (NSDictionary *dic in array) {
+                XEAddressListInfo *info = [XEAddressListInfo objectWithKeyValues:dic];
+                if ([info.def isEqualToString:@"1"]) {
+                    self.addressInfo = info;
+                }
+                [self.addListArray addObject:info];
+            }
+            
+            if (!self.addressInfo.id) {
+                [XEProgressHUD lightAlert:@"暂无默认地址信息，请添加"];
+            }
+            [self configureTableView];
+            
+        }else{
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+        }
+    } tag:tag];
+    
+
+}
+- (void)refreshAddRessInfoList{
+    __weak BabyImpressVerifyController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    
+    [[XEEngine shareInstance]getAddressListWithTag:tag userId:[XEEngine shareInstance].uid];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        //获取失败信息
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (errorMsg) {
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return ;
+        }
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"数据获取失败，请检查网络设置" At:weakSelf.view];
+            return;
+            
+        }
+        NSArray *array = jsonRet[@"object"];
+        if (array.count == 0) {
+            [XEProgressHUD lightAlert:@"暂无默认地址信息，请添加"];
+            return;
+            
+        }
+        [self.addListArray removeAllObjects];
+        if (jsonRet[@"object"]) {
+            for (NSDictionary *dic in array) {
+                XEAddressListInfo *info = [XEAddressListInfo objectWithKeyValues:dic];
+                [self.addListArray addObject:info];
+            }
+        }else{
+            
+        }
+        
+    } tag:tag];
 }
 - (void)deledate:(NSNotificationCenter *)sender{
     NSLog(@"进入");
     self.tableview.tableHeaderView = self.noAddressView;
+    [self refreshAddRessInfoList];
     [self.tableview reloadData];
 
 }
@@ -109,6 +214,7 @@
 
 #pragma mark 请求运费
 - (void)getCarriageMoney{
+    [[XEEngine shareInstance]refreshUserInfo];
     __weak BabyImpressVerifyController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance]qiNiuGetCarriageMoneyWith:tag provinceid:self.addressInfo.provinceId userid:[XEEngine shareInstance].uid];
@@ -131,9 +237,7 @@
         if (jsonRet[@"object"]) {
             self.carriageMoneyLab.text = [NSString stringWithFormat:@"%.2f",[jsonRet[@"object"] floatValue]/100];
         }
-        self.totalMoneyLab.text = [NSString stringWithFormat:@"%.2f",[self.carriageMoneyLab.text floatValue]+ [self.photoMoney.text floatValue]];
-
-//        self.totalMoneyLab.text = [NSString stringWithFormat:@"%.2f",[self.carriageMoneyLab.text floatValue] + [self.photoMoney.text floatValue]];
+        self.totalMoneyLab.attributedText = [self creatTotalMoneyTextWith:[NSString stringWithFormat:@"合计：￥%.2f",[self.carriageMoneyLab.text floatValue]]];
         self.tableview.tableHeaderView = [self returnAddressView];
         [self.tableview reloadData];
     } tag:tag];
@@ -157,6 +261,10 @@
 }
 - (IBAction)verrfyBtnTouched:(id)sender {
 
+    if ([self.totalLove.text floatValue] < [self.photoMoney.text floatValue]) {
+        [self.needRechargeAlert show];
+        return;
+    }
     
     if (self.view.frame.origin.y == 0) {
     } else {
@@ -177,48 +285,102 @@
     __weak BabyImpressVerifyController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     NSLog(@"结算  ＝＝  %@", self.addressInfo.id);
-    [[XEEngine shareInstance]qiNiuOrderWith:tag userid:[XEEngine shareInstance].uid useraddressid:self.addressInfo.id mark:self.textView.text];
+    [[XEEngine shareInstance]qiNiuOrderWith:tag userid:[XEEngine shareInstance].uid useraddressid:self.addressInfo.id mark:self.textView.text tip:@"1"];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        //获取失败信息
-//        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-//        if (errorMsg) {
-//            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-//            return ;
-//        }
+
 
         NSString *string = [[jsonRet objectForKey:@"code"] stringValue];
-        if ([string isEqualToString:@"0"]) {
-            [XEProgressHUD AlertSuccess:@"下单成功"];
+        
+        if ([self.carriageMoneyLab.text floatValue]> 0) {
+            //有运费
             
-            GoToPayViewController *goToPay = [[GoToPayViewController alloc]init];
-            goToPay.orderPrice = [NSString stringWithFormat:@"%.2f",[jsonRet[@"object"][@"money"] floatValue]/100];
-            goToPay.orderNum = [NSString stringWithFormat:@"%@",jsonRet[@"object"][@"orderNo"]];
-            goToPay.from = @"1";
-            [[AddressInfoManager manager]addDictionaryWith:self.addressInfo With:[XEEngine shareInstance].uid];
-            [self.navigationController pushViewController:goToPay animated:YES];
-            return;
-        }else if ([string isEqualToString:@"5"]){
+            if ([string isEqualToString:@"0"]) {
+                [XEProgressHUD AlertSuccess:@"下单成功"];
+                
+                GoToPayViewController *goToPay = [[GoToPayViewController alloc]init];
+                goToPay.orderPrice = [NSString stringWithFormat:@"%.2f",[jsonRet[@"object"][@"money"] floatValue]/100];
+                goToPay.orderNum = [NSString stringWithFormat:@"%@",jsonRet[@"object"][@"orderNo"]];
+                goToPay.from = @"1";
+                [[AddressInfoManager manager]addDictionaryWith:self.addressInfo With:[XEEngine shareInstance].uid];
+                [self.navigationController pushViewController:goToPay animated:YES];
+                return;
+            }else if ([string isEqualToString:@"5"]){
+                
+                [XEProgressHUD AlertError:@"尊敬的用户，订单实际已支付或发货无法再次下单" At:weakSelf.view];
+                return;
+                
+            }else if ([string isEqualToString:@"6"]){
+                
+                [XEProgressHUD AlertError:@"亲，您的爱心分不足以打印，请先充值爱心分或者呼叫好友赠送喔。" At:weakSelf.view];
+                return;
+                
+            }else if ([string isEqualToString:@"7"]){
+                
+                [XEProgressHUD AlertError:@"亲，您的爱心分不足以打印，请先充值爱心分或者呼叫好友赠送喔。" At:weakSelf.view];
+                return;
+                
+            }else{
+                [XEProgressHUD AlertError:@"下单失败" At:weakSelf.view];
+                return;
+ 
+            }
             
-            [XEProgressHUD AlertError:@"尊敬的用户，您当月打印照片次数已上限" At:weakSelf.view];
-            return;
+            
+            
             
         }else{
-            
-            [XEProgressHUD AlertError:@"订单提交失败了" At:weakSelf.view];
-            return;
-            
+            //无运费
+            if ([string isEqualToString:@"0"]) {
+                [XEProgressHUD AlertSuccess:@"订单支付成功，请留意稍后短信信息喔！"];
+                [[AddressInfoManager manager]addDictionaryWith:self.addressInfo With:[XEEngine shareInstance].uid];
+                [[XEEngine shareInstance]refreshUserInfo];
+                [self.tableview reloadData];
+                for (UIViewController *controller in self.navigationController.viewControllers) {
+                    if ([controller isKindOfClass:[BabyImpressMainController class]]) {
+                        [self.navigationController popToViewController:controller animated:YES];
+                    }
+                }
+                
+            }else if ([string isEqualToString:@"5"]){
+                
+                [XEProgressHUD AlertError:@"尊敬的用户，订单实际已支付或发货无法再次下单" At:weakSelf.view];
+                return;
+                
+            }else if ([string isEqualToString:@"6"]){
+                
+                [XEProgressHUD AlertError:@"亲，您的爱心分不足以打印，请先充值爱心分或者呼叫好友赠送喔。" At:weakSelf.view];
+                return;
+                
+            }else if ([string isEqualToString:@"7"]){
+                
+                [XEProgressHUD AlertError:@"亲，您的爱心分不足以打印，请先充值爱心分或者呼叫好友赠送喔。" At:weakSelf.view];
+                return;
+                
+            }else{
+                [XEProgressHUD AlertError:@"下单失败" At:weakSelf.view];
+                return;
+                
+            }
         }
         
-        
     } tag:tag];
-    
     
 }
 
 - (IBAction)noAddressBtnTouched:(id)sender {
-    AddAddressViewController *add = [[AddAddressViewController alloc]init];
-    add.delegate = self;
-    [self.navigationController pushViewController:add animated:YES];
+    if (self.addListArray.count == 0) {
+        AddAddressViewController *add = [[AddAddressViewController alloc]init];
+        add.delegate = self;
+        add.ifHaveDeleteBtn = NO;
+        [self.navigationController pushViewController:add animated:YES];
+    }else{
+        
+        AddressManagerController *manager = [[AddressManagerController alloc]init];
+        manager.delegate = self;
+        manager.fromVerifyInfo = self.addressInfo;
+        [self.navigationController pushViewController:manager animated:YES];
+    }
+
 }
 - (void)postInfoWith:(XEAddressListInfo *)info{
     self.addressInfo = info;
@@ -238,6 +400,7 @@
 
 #warning 暂时不设置配送方式
 - (IBAction)noPayBtnTouched:(id)sender {
+    
 //    BabyImpressPayWayController *payWay = [[BabyImpressPayWayController alloc]init];
 //    [self.navigationController pushViewController:payWay animated:YES];
 }
@@ -266,7 +429,7 @@
     UIView *payWay = [self returhPayWayView];
 #warning 此版本备注留言不要 暂时隐藏
     self.noteView.frame = CGRectMake(0, payWay.frame.size.height, SCREEN_WIDTH, 0);
-    self.footerView.frame = CGRectMake(0, payWay.frame.size.height + self.noteView.frame.size.height, SCREEN_WIDTH, 270);
+    self.footerView.frame = CGRectMake(0, payWay.frame.size.height + self.noteView.frame.size.height, SCREEN_WIDTH, 290);
     footer.frame = CGRectMake(0, 0, SCREEN_WIDTH, payWay.frame.size.height + self.noteView.frame.size.height + self.footerView.frame.size.height);
     [footer addSubview:payWay];
     [footer addSubview:self.noteView];
@@ -331,6 +494,66 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark alert Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSLog(@"buttonIndex  == %ld",(long)buttonIndex);
+    if (alertView == self.needRechargeAlert) {
+        switch (buttonIndex) {
+            case 0:
+                
+                break;
+            case 1:
+                [self judgeIfCanRecharge];
+                break;
+            default:
+                break;
+        }
+    }
+}
+- (void)judgeIfCanRecharge{
+    
+    NSLog(@"充值");
+    if ([[XEEngine shareInstance] needUserLogin:nil]) {
+        return;
+    }
+    
+    __weak BabyImpressVerifyController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance]loveIfCanOrderWith:tag userid:[XEEngine shareInstance].uid];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"该月已有已支付爱心订单,不允许下单" At:weakSelf.view];
+            return;
+        }
+        
+        /**
+         *  下单
+         */
+        [self placeAnOrder];
+    } tag:tag];
+
+}
+- (void)placeAnOrder{
+    
+    __weak BabyImpressVerifyController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance]lovePlaceAnOrderWith:tag userid:[XEEngine shareInstance].uid];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
+            [XEProgressHUD AlertError:@"该月实际已有已付款爱心订单,下单失败!" At:weakSelf.view];
+            return;
+        }
+        [XEProgressHUD AlertSuccess:@"下单成功"];
+        GoToPayViewController *pay = [[GoToPayViewController alloc]init];
+        pay.orderPrice = [NSString stringWithFormat:@"%.2f",[jsonRet[@"object"][@"money"] floatValue]/100];
+        pay.orderNum = [NSString stringWithFormat:@"%@",jsonRet[@"object"][@"orderNo"]];
+        pay.from = @"2";
+        [self.navigationController pushViewController:pay animated:YES];
+        
+    } tag:tag];
+}
 #pragma mark 回车键 回收键盘
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@"\n"]) {

@@ -9,5 +9,5 @@
 #import "XESuperViewController.h"
 
 @interface BabyImpressTransmitLoveController : XESuperViewController
-
+- (void)refreshUserInfo;
 @end
