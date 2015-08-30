@@ -553,67 +553,85 @@
 #pragma mark - NSNotification
 -(void) keyboardWillShow:(NSNotification *)note{
     
-    // get keyboard size and loctaion
-    CGRect keyboardBounds;
-    [[note.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
-    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+//    // get keyboard size and loctaion
+//    CGRect keyboardBounds;
+//    [[note.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
+//    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+//    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+//    
+//    // Need to translate the bounds to account for rotation.
+//    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
+//    
+//    // get a rect for the textView frame
+//    CGRect toolbarFrame = _toolbarContainerView.frame;
+//    
+//    CGRect tableViewFrame = _tableView.frame;
+//    tableViewFrame.size.height = self.view.bounds.size.height - keyboardBounds.size.height - toolbarFrame.size.height;
+//    _tableView.frame = tableViewFrame;
+//    
+//    CGPoint offset = _tableView.contentOffset;
+//    
+//    // animations settings
+//    [UIView beginAnimations:nil context:NULL];
+//    [UIView setAnimationBeginsFromCurrentState:YES];
+//    [UIView setAnimationDuration:[duration doubleValue]];
+//    [UIView setAnimationCurve:[curve intValue]];
+//    
+//    toolbarFrame.origin.y = self.view.bounds.size.height - keyboardBounds.size.height - toolbarFrame.size.height;
+//    _toolbarContainerView.frame = toolbarFrame;
+//    
+//    if (_tableView.contentSize.height > _tableView.frame.size.height) {
+//        offset = CGPointMake(0, _tableView.contentSize.height -  _tableView.frame.size.height);
+//        _tableView.contentOffset = offset;
+//    }
+//    
+//    // commit animations
+//    [UIView commitAnimations];
     
-    // Need to translate the bounds to account for rotation.
-    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
-    
-    // get a rect for the textView frame
-    CGRect toolbarFrame = _toolbarContainerView.frame;
-    
-    CGRect tableViewFrame = _tableView.frame;
-    tableViewFrame.size.height = self.view.bounds.size.height - keyboardBounds.size.height - toolbarFrame.size.height;
-    _tableView.frame = tableViewFrame;
-    
-    CGPoint offset = _tableView.contentOffset;
-    
-    // animations settings
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:[duration doubleValue]];
-    [UIView setAnimationCurve:[curve intValue]];
-    
-    toolbarFrame.origin.y = self.view.bounds.size.height - keyboardBounds.size.height - toolbarFrame.size.height;
-    _toolbarContainerView.frame = toolbarFrame;
-    
-    if (_tableView.contentSize.height > _tableView.frame.size.height) {
-        offset = CGPointMake(0, _tableView.contentSize.height -  _tableView.frame.size.height);
-        _tableView.contentOffset = offset;
-    }
-    
-    // commit animations
-    [UIView commitAnimations];
+    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey]doubleValue];
+    CGRect keyBoardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey]CGRectValue];
+    CGFloat transFormY = keyBoardFrame.size.height ;
+    [UIView animateWithDuration:duration animations:^{
+        self.view.frame = CGRectMake(0, -transFormY, SCREEN_WIDTH, SCREEN_HEIGHT);
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 -(void) keyboardWillHide:(NSNotification *)note{
     
-    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    
-    // get a rect for the textView frame
-    
-    CGRect toolbarFrame = _toolbarContainerView.frame;
-    
-    CGRect tableViewFrame = _tableView.frame;
-    tableViewFrame.size.height = self.view.bounds.size.height - toolbarFrame.size.height;
-    
-    // animations settings
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:[duration doubleValue]];
-    [UIView setAnimationCurve:[curve intValue]];
-    
-    toolbarFrame.origin.y = self.view.bounds.size.height - toolbarFrame.size.height;
-    _toolbarContainerView.frame = toolbarFrame;
-    
-    _tableView.frame = tableViewFrame;
-    
-    // commit animations
-    [UIView commitAnimations];
+//    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+//    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+//    
+//    // get a rect for the textView frame
+//    
+//    CGRect toolbarFrame = _toolbarContainerView.frame;
+//    
+//    CGRect tableViewFrame = _tableView.frame;
+//    tableViewFrame.size.height = self.view.bounds.size.height - toolbarFrame.size.height;
+//    
+//    // animations settings
+//    [UIView beginAnimations:nil context:NULL];
+//    [UIView setAnimationBeginsFromCurrentState:YES];
+//    [UIView setAnimationDuration:[duration doubleValue]];
+//    [UIView setAnimationCurve:[curve intValue]];
+//    
+//    toolbarFrame.origin.y = self.view.bounds.size.height - toolbarFrame.size.height;
+//    _toolbarContainerView.frame = toolbarFrame;
+//    
+//    _tableView.frame = tableViewFrame;
+//    
+//    // commit animations
+//    [UIView commitAnimations];
+    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey]doubleValue];
+    CGRect keyBoardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey]CGRectValue];
+    CGFloat transFormY = keyBoardFrame.size.height ;
+    [UIView animateWithDuration:duration animations:^{
+        //        self.view.transform = CGAffineTransformMakeTranslation(0, transFormY);
+        self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 #pragma mark -HPGrowingTextViewDelegate
@@ -818,7 +836,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return self.sectionView.frame.size.height;
+    return 35;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     

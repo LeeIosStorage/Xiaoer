@@ -130,14 +130,11 @@
             
                 imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - imageView.image.size.width)/2 , (SCREEN_HEIGHT -64 - imageView.image.size.height)/2, imageView.image.size.width, imageView.image.size.height);
         }
-//        CGFloat wide = imageView.image.size.width /[UIScreen mainScreen].bounds.size.width > 1 ? [UIScreen mainScreen].bounds.size.width : image.size.width;
-//        CGFloat height = imageView.image.size.height /(SCREEN_HEIGHT - 64)> 1 ? SCREEN_HEIGHT-64 : image.size.height;
-//        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width + ([UIScreen mainScreen].bounds.size.width - wide)/2,(SCREEN_HEIGHT -64 - height)/2, wide, height);
+
         [self.scrollView addSubview:imageView];
         if (self.ifDeleteBtnTouched == NO && self.moveIndex && self.moveIndex == i) {
             //此处不理解  －64
             [self.scrollView setContentOffset:CGPointMake(SCREEN_WIDTH*self.moveIndex,- 64)];
-//            NSLog(@"%f",SCREEN_WIDTH*self.moveIndex);
             self.pageControll.currentPage = self.moveIndex;
             
         }

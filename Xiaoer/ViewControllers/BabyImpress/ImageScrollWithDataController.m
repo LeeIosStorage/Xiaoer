@@ -65,12 +65,7 @@
         XEBabyImpressMonthListInfo *info = self.array[index];
         [[XEEngine shareInstance]qiNiuDeleteImageDataWith:tag id:info.id];
         [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-            //获取失败信息
-//            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-//            if (errorMsg) {
-//                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-//                return ;
-//            }
+
             NSString *string = [[jsonRet objectForKey:@"code"] stringValue];
             if ([string isEqualToString:@"3"]) {
                 [XEProgressHUD AlertError:@"用户已有单子处于已付款或已发货状态，图片不允许删除!" At:weakSelf.view];
@@ -86,8 +81,10 @@
                 }
                 return;
             }else if ([string isEqualToString:@"1"]){
+
                 [XEProgressHUD AlertError:@"图片id不存在" At:weakSelf.view];
                 return;
+
             }else if ([string isEqualToString:@"2"]){
                 [XEProgressHUD AlertError:@"图片不存在" At:weakSelf.view];
                 
@@ -98,7 +95,6 @@
             }
             
         } tag:tag];
-        
         
     }else{
         [XEProgressHUD lightAlert:@"暂无照片，请添加"];
@@ -145,6 +141,43 @@
         XEBabyImpressMonthListInfo *info = array[i];
         imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width + ([UIScreen mainScreen].bounds.size.width - 300)/2, (SCREEN_HEIGHT -64 - 300)/2, 300, 300);
         [imageView sd_setImageWithURL:[NSURL URLWithString:info.url] placeholderImage:[UIImage imageNamed:@"shopCellHolder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+//            CGFloat Swidth = [UIScreen mainScreen].bounds.size.width;
+//            CGFloat Sheight = [UIScreen mainScreen].bounds.size.height - 64;
+//            NSLog(@"%f  %f  %f %f",imageView.image.size.width,imageView.image.size.height,Swidth,Sheight);
+//            if (imageView.image.size.width > Swidth && imageView.image.size.height < Sheight) {
+//                
+//                imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width,(Sheight - (imageView.image.size.height * Swidth/imageView.image.size.width))/2 , Swidth, imageView.image.size.height * Swidth/imageView.image.size.width);
+//            }
+//            
+//            else if (imageView.image.size.width > Swidth && imageView.image.size.height > Sheight) {
+//                
+//                if (imageView.image.size.width > imageView.image.size.height) {
+//                    if (imageView.image.size.height * Swidth/imageView.image.size.width > SCREEN_HEIGHT - 64) {
+//                        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, (Sheight - (imageView.image.size.height * Swidth/imageView.image.size.width))/2, Swidth, SCREEN_HEIGHT - 64);
+//                    }else if(imageView.image.size.width < imageView.image.size.height){
+//                        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, (Sheight - (imageView.image.size.height * Swidth/imageView.image.size.width))/2, Swidth, imageView.image.size.height * Swidth/imageView.image.size.width);
+//                    }
+//
+//                } else if (imageView.image.size.width < imageView.image.size.height) {
+//                    NSLog(@"=====  %f",(Swidth - (Swidth*imageView.image.size.height/Sheight))/2);
+//                    if ((Swidth - (Swidth*imageView.image.size.height/Sheight))/2 < 0) {
+//                        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, 0,SCREEN_WIDTH, Sheight);
+//                    }else{
+//                        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width + (Swidth - (Sheight*imageView.image.size.width/imageView.image.size.height))/2, 0, Sheight*imageView.image.size.width/imageView.image.size.height, Sheight);
+//                    }
+//                }else if (imageView.image.size.width == imageView.image.size.height){
+//                        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width , (SCREEN_HEIGHT -64 - Swidth)/2, Swidth,Swidth);
+//                }
+//            }
+//          else  if (imageView.image.size.width < Swidth && imageView.image.size.height > Sheight) {
+//                imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - (Sheight*imageView.image.size.width/imageView.image.size.height))/2 , 64,Sheight*imageView.image.size.width/imageView.image.size.height, Sheight);
+//            }
+//
+//          else   if (imageView.image.size.width < Swidth && imageView.image.size.height < Sheight) {
+//              imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - imageView.image.size.width)/2 , (SCREEN_HEIGHT -64 - imageView.image.size.height)/2, imageView.image.size.width, imageView.image.size.height);
+//          }
+
             CGFloat Swidth = [UIScreen mainScreen].bounds.size.width;
             CGFloat Sheight = [UIScreen mainScreen].bounds.size.height - 64;
             NSLog(@"%f  %f  %f %f",imageView.image.size.width,imageView.image.size.height,Swidth,Sheight);
@@ -156,31 +189,29 @@
             else if (imageView.image.size.width > Swidth && imageView.image.size.height > Sheight) {
                 
                 if (imageView.image.size.width > imageView.image.size.height) {
-                    if (imageView.image.size.height * Swidth/imageView.image.size.width > SCREEN_HEIGHT - 64) {
-                        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, (Sheight - (imageView.image.size.height * Swidth/imageView.image.size.width))/2, Swidth, SCREEN_HEIGHT - 64);
-                    }else if(imageView.image.size.width < imageView.image.size.height){
-                        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, (Sheight - (imageView.image.size.height * Swidth/imageView.image.size.width))/2, Swidth, imageView.image.size.height * Swidth/imageView.image.size.width);
-                    }
-
-                } else if (imageView.image.size.width < imageView.image.size.height) {
+                    imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, (Sheight - (imageView.image.size.height * Swidth/imageView.image.size.width))/2, Swidth, imageView.image.size.height * Swidth/imageView.image.size.width);
+                } else  if(imageView.image.size.width < imageView.image.size.height){
+                    
                     NSLog(@"=====  %f",(Swidth - (Swidth*imageView.image.size.height/Sheight))/2);
                     if ((Swidth - (Swidth*imageView.image.size.height/Sheight))/2 < 0) {
                         imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width, 0,SCREEN_WIDTH, Sheight);
-                    }else{
+                    }else {
                         imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width + (Swidth - (Sheight*imageView.image.size.width/imageView.image.size.height))/2, 0, Sheight*imageView.image.size.width/imageView.image.size.height, Sheight);
                     }
-                }else if (imageView.image.size.width == imageView.image.size.height){
-                        imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width , (SCREEN_HEIGHT -64 - Swidth)/2, Swidth,Swidth);
+                    
+                }
+                else if (imageView.image.size.width == imageView.image.size.height){
+                    NSLog(@"进入 %f",imageView.image.size.width*Sheight/imageView.image.size.height);
+                    imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width , (SCREEN_HEIGHT -64 - Swidth)/2, Swidth,Swidth);
                 }
             }
-          else  if (imageView.image.size.width < Swidth && imageView.image.size.height > Sheight) {
+            else  if (imageView.image.size.width < Swidth && imageView.image.size.height > Sheight) {
                 imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - (Sheight*imageView.image.size.width/imageView.image.size.height))/2 , 64,Sheight*imageView.image.size.width/imageView.image.size.height, Sheight);
             }
-
-          else   if (imageView.image.size.width < Swidth && imageView.image.size.height < Sheight) {
-              imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - imageView.image.size.width)/2 , (SCREEN_HEIGHT -64 - imageView.image.size.height)/2, imageView.image.size.width, imageView.image.size.height);
-          }
-            
+            else   if (imageView.image.size.width < Swidth && imageView.image.size.height < Sheight) {
+                
+                imageView.frame = CGRectMake(i*[UIScreen mainScreen].bounds.size.width +(Swidth - imageView.image.size.width)/2 , (SCREEN_HEIGHT -64 - imageView.image.size.height)/2, imageView.image.size.width, imageView.image.size.height);
+            }
             
         }];
         [self.scrollView addSubview:imageView];

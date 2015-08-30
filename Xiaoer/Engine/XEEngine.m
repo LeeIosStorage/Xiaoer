@@ -142,7 +142,7 @@ static XEEngine* s_ShareInstance = nil;
     _serverPlatform = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"serverPlatform"];
     if (_serverPlatform == 0)
     {
-        _serverPlatform = OnlinePlatform;//默认线上平台
+        _serverPlatform = TestPlatform;//默认线上平台
     }
     
     //设置访问

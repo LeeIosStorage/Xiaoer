@@ -19,6 +19,8 @@
 #import "ExpertListViewController.h"
 #import "XEPublicViewController.h"
 
+#import "ExpectSearchViewController.h"
+
 @interface TopicListViewController ()<UITableViewDelegate,UITableViewDataSource,QuestionDetailsViewControllerDelegate,TopicDetailsViewControllerDelegate>
 
 @property (assign, nonatomic) int nextCursor;
@@ -168,9 +170,9 @@
         }else if (self.topicType == TopicType_Kinder) {
             [self setTitle:@"入园话题"];
         }else{
-            [self setTitle:@"全部话题"];
+            [self setTitle:@"所有话题"];
         }
-        [self setRightButtonWithImageName:@"expert_public_icon" selector:@selector(publicTopic)];
+        [self setRightButtonWithImageName:@"expect_search" selector:@selector(searchBtnTouched)];
     }
 }
 
@@ -433,13 +435,18 @@
     [self.navigationController pushViewController:elVc animated:YES];
 }
 
-- (void)publicTopic{
-    XEPublicViewController *pVc = [[XEPublicViewController alloc] init];
-    pVc.publicType = Public_Type_Topic;
-    pVc.topicTypeCat = [NSString stringWithFormat:@"%d",_topicType];
-    [self.navigationController pushViewController:pVc animated:YES];
+#pragma mark  发布话题 不在此界面出现 改为搜索话题
+//- (void)publicTopic{
+//    XEPublicViewController *pVc = [[XEPublicViewController alloc] init];
+//    pVc.publicType = Public_Type_Topic;
+//    pVc.topicTypeCat = [NSString stringWithFormat:@"%d",_topicType];
+//    [self.navigationController pushViewController:pVc animated:YES];
+//}
+- (void)searchBtnTouched
+{
+    ExpectSearchViewController *search = [[ExpectSearchViewController alloc]init];
+    [self.navigationController pushViewController:search animated:YES];
 }
-
 - (void)dealloc{
     self.tableView.delegate = nil;
     self.tableView.dataSource = nil;

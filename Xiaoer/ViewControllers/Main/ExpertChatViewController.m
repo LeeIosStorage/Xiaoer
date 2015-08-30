@@ -5,6 +5,8 @@
 //  Created by KID on 14/12/30.
 //
 //
+#import "XEChatHeaderView.h"
+
 
 #import "ExpertChatViewController.h"
 #import "XETabBarViewController.h"
@@ -86,19 +88,21 @@
     [self setTitle:@"专家聊"];
     
     UIButton *topicBtn2 = (UIButton *)[self.sectionView2 viewWithTag:INFO_TYPE_TOPIC];
-    [topicBtn2 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [topicBtn2 setBackgroundImage:[[UIImage imageNamed:@"public_type_open_icon"] stretchableImageWithLeftCapWidth:18 topCapHeight:8] forState:UIControlStateNormal];
+    topicBtn2.backgroundColor = SKIN_COLOR;
     
     self.pullRefreshView = [[PullToRefreshView alloc] initWithScrollView:self.topicTableView];
     self.pullRefreshView.delegate = self;
     [self.topicTableView addSubview:self.pullRefreshView];
-    self.topicTableView.tableHeaderView = self.headView;
-    self.topicTableView.tableFooterView = self.footerView;
+    self.topicTableView.tableHeaderView.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 100);
     
+
+    
+    
+    self.topicTableView.tableFooterView = self.footerView;
     self.pullRefreshView2 = [[PullToRefreshView alloc] initWithScrollView:self.questionTableView];
     self.pullRefreshView2.delegate = self;
     [self.questionTableView addSubview:self.pullRefreshView2];
-    self.questionTableView.tableHeaderView = self.headView2;
+    self.questionTableView.tableHeaderView.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 100);
     self.questionTableView.tableFooterView = self.footerView2;
     
 //    UIPanGestureRecognizer *panRecognizer1 = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom1:)];
@@ -206,8 +210,8 @@
 
 - (void)initNormalTitleNavBarSubviews{
     if ([[XEEngine shareInstance] hasAccoutLoggedin]) {
-        //[self setLeftButtonWithTitle:@"我的问答" selector:@selector(mineAction)];
-        [self setLeft2ButtonWithImageName:@"expert_question_icon" selector:@selector(mineAction)];
+//        [self setLeftButtonWithTitle:@"我的问答" selector:@selector(mineAction)];
+//        [self setLeft2ButtonWithImageName:@"expert_question_icon" selector:@selector(mineAction)];
     }
     [self setRightButtonWithImageName:@"expert_public_icon" selector:@selector(showAction)];
 }
@@ -458,22 +462,49 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
 
-    return 44;
+    return 132;
 }
+- (void)publish{
+    NSLog(@"发话题");
+    XEPublicViewController *pVc = [[XEPublicViewController alloc] init];
+    pVc.publicType = Public_Type_Topic;
+    [self.navigationController pushViewController:pVc animated:YES];
+}
+- (void)askExpect{
+    NSLog(@"问专家");
 
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (tableView == self.questionTableView) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 132)];
+        
+        XEChatHeaderView *topView = [XEChatHeaderView chatHeaderView];
+        topView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100);
+        [topView publishAddTarget:self action:@selector(publish)];
+        [topView askExpectAddTarget:self action:@selector(askExpect)];
         CGRect frame = self.sectionView.frame;
         frame.size.width = SCREEN_WIDTH;
+        frame.origin.y = 102;
         self.sectionView.frame = frame;
         [view addSubview:self.sectionView];
+        [view addSubview:topView];
+
+        view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
         return view;
     }else{
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 132)];
         CGRect frame = self.sectionView2.frame;
         frame.size.width = SCREEN_WIDTH;
+        frame.origin.y = 102;
         self.sectionView2.frame = frame;
+        
+        XEChatHeaderView *topView = [XEChatHeaderView chatHeaderView];
+        topView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100);
+        [topView publishAddTarget:self action:@selector(publish)];
+        [topView askExpectAddTarget:self action:@selector(askExpect)];
+        
+        [view addSubview:topView];
+        view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
         [view addSubview:self.sectionView2];
         return view;
     }
@@ -521,12 +552,19 @@
 {
     NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
+    
     if (tableView == self.questionTableView) {
+        /**
+         *  专家问答
+         */
         XEQuestionInfo *info = _questionArray[indexPath.row];
         QuestionDetailsViewController *vc = [[QuestionDetailsViewController alloc] init];
         vc.questionInfo = info;
         [self.navigationController pushViewController:vc animated:YES];
     }else if (tableView == self.topicTableView){
+        /**
+         *  最新话题
+         */
         XETopicInfo *topicInfo = _topicArray[indexPath.row];
         TopicDetailsViewController *vc = [[TopicDetailsViewController alloc] init];
         vc.topicInfo = topicInfo;
@@ -539,16 +577,22 @@
     if (btn.tag == INFO_TYPE_TOPIC) {
         self.bQuestion = NO;
         [self.topicBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.topicBtn setBackgroundImage:[[UIImage imageNamed:@"public_type_open_icon"] stretchableImageWithLeftCapWidth:18 topCapHeight:8] forState:UIControlStateNormal];
-        [self.questionBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-        [self.questionBtn setBackgroundImage:nil forState:UIControlStateNormal];
+//        [self.topicBtn setBackgroundImage:[[UIImage imageNamed:@"public_type_open_icon"] stretchableImageWithLeftCapWidth:18 topCapHeight:8] forState:UIControlStateNormal];
+        self.topicBtn.backgroundColor = SKIN_COLOR;
+        
+        [self.questionBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        [self.questionBtn setBackgroundImage:nil forState:UIControlStateNormal];
+        self.questionBtn.backgroundColor = [UIColor whiteColor];
         [self feedsTypeSwitch:INFO_TYPE_TOPIC needRefreshFeeds:NO];
     }else if(btn.tag == INFO_TYPE_QUESTION){
         self.bQuestion = YES;
         [self.questionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.questionBtn setBackgroundImage:[[UIImage imageNamed:@"public_type_open_icon"] stretchableImageWithLeftCapWidth:18 topCapHeight:8] forState:UIControlStateNormal];
-        [self.topicBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+//        [self.questionBtn setBackgroundImage:[[UIImage imageNamed:@"public_type_open_icon"] stretchableImageWithLeftCapWidth:18 topCapHeight:8] forState:UIControlStateNormal];
+        self.questionBtn.backgroundColor = SKIN_COLOR;
+
+        [self.topicBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.topicBtn setBackgroundImage:nil forState:UIControlStateNormal];
+        self.topicBtn.backgroundColor = [UIColor whiteColor];
         [self feedsTypeSwitch:INFO_TYPE_QUESTION needRefreshFeeds:NO];
     }
 }

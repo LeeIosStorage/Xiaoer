@@ -39,10 +39,10 @@
 @property (nonatomic,strong)UIView *hideView;
 
 @property (nonatomic,assign)NSInteger totalIndex;
-//@property (nonatomic,strong)UIButton *gotoOtherBtn;
-//@property (nonatomic,strong)NSMutableString *failedStr;
-//@property (nonatomic,strong)NSMutableString *successStr;
-//@property (nonatomic,strong)UIAlertView *goToOtherAlert;
+
+
+
+@property (nonatomic,assign)NSInteger failNum;
 /**
  *  保存是否是进入此界面
  */
@@ -60,25 +60,6 @@
     }
     return _imageArray;
 }
-//- (NSMutableString *)successStr{
-//    if (!_successStr) {
-//        self.successStr = [[NSMutableString alloc]init];
-//    }
-//    return _successStr;
-//}
-//- (NSMutableString *)failedStr{
-//    if (!_failedStr) {
-//        self.failedStr = [[NSMutableString alloc]init];
-//    }
-//    return _failedStr;
-//}
-//- (UIAlertView *)goToOtherAlert{
-//    if (!_goToOtherAlert) {
-//        self.goToOtherAlert =  [[UIAlertView alloc]initWithTitle:@"正在上传照片，您可以去首页看看哦" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定",nil];
-//    }
-//    return _goToOtherAlert;
-//}
-
 
 
 - (UIView *)hideView{
@@ -107,6 +88,7 @@
         self.imagePicker = [[UIImagePickerController alloc]init];
         _imagePicker.delegate = self;//设置图片选择器的代理对象为当前视图控制器
         _imagePicker.allowsEditing = NO;
+        [_imagePicker setVideoQuality:UIImagePickerControllerQualityTypeMedium];
     }
     return _imagePicker;
 }
@@ -133,7 +115,6 @@
     self.checkBtn.layer.masksToBounds = YES;
     
     self.hideView.hidden = YES;
-    self.totalIndex = 0;
     
     [self configureCollectionView];
 
@@ -147,6 +128,7 @@
 - (IBAction)verify:(id)sender {
     self.firstIn = NO;
     self.totalIndex = 0;
+    self.failNum = 0;
     if (self.dataSources.count == 0) {
         [XEProgressHUD lightAlert:@"您还没有选择照片，请选择照片"];
         return;
@@ -281,8 +263,6 @@
 }
 
 - (void)getQiNiutoken{
-//    [self.failedStr setString:@"0"];
-//    [self.successStr setString:@"0"];
     __weak BabyImpressAddController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance]qiNiuGetTokenWith:tag];
@@ -295,91 +275,18 @@
         }
         if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
             [XEProgressHUD AlertError:@"获取上传token值失败" At:weakSelf.view];
+            weakSelf.hideView.hidden = YES;
             return;
         }
         NSString *token = jsonRet[@"object"];
         
         if (token.length <= 0 || [token isKindOfClass:[NSNull class]]) {
             [XEProgressHUD AlertError:@"获取上传token值失败" At:weakSelf.view];
+            weakSelf.hideView.hidden = YES;
             return;
         }
 
         [weakSelf reailPostDataWith:token];
-/*
-        AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        [XEProgressHUD AlertLoading:@"照片正在上传中，因为上传照片较大，可能需要几分钟时间，请耐心等待" At:weakSelf.view];
-        weakSelf.view.userInteractionEnabled = YES;
-        weakSelf.hideView.hidden = NO;
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"begainPostImage" object:nil];
-
-         for (int i = 0; i < self.imageData.count; i++) {
-
-        QHQFormData *qdata = (QHQFormData *)self.imageData[i];
-        NSString *fileName = [NSString stringWithFormat:@"xiaorup/photoprint/%@-%@-%d%@",[XEEngine shareInstance].uid,[self getDateTimeString],i,qdata.mimeType];
-             NSLog(@"fileName ==  %@", fileName);
-
-        [appDelegate.upManager putData:qdata.data key:fileName token:token
-                                      complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                                          NSLog(@"error ==  %@,info == %@", info.error,info);
-                                          if (info.error) {
-//                                              NSInteger fail = [weakSelf.failedStr integerValue];
-//                                              fail++;
-//                                              weakSelf.failedStr = [NSMutableString stringWithFormat:@"%ld",(long)fail];
-                                              if ( i == weakSelf.imageData.count - 1) {
-                                                  [weakSelf.dataSources removeAllObjects];
-                                                  [weakSelf.imageData removeAllObjects];
-                                                  [weakSelf finalGetResuNum];
-                                              }
-                                    
-                                          }else
-                                          
-                                          {
-                                              //保存
-                                              int tag = [[XEEngine shareInstance] getConnectTag];
-                                              [[XEEngine shareInstance]qiNiuSavePhotoWith:tag cat:@"1" url:[NSString stringWithFormat:@"%@",key] objid:[XEEngine shareInstance].uid];
-                                              [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-                                                  if (![[jsonRet objectForKey:@"code"] isEqual:@0]) {
-//                                                      NSInteger fail = [weakSelf.failedStr integerValue];
-//                                                      fail++;
-//                                                      weakSelf.failedStr = [NSMutableString stringWithFormat:@"%ld",(long)fail];
-                                                      NSLog(@"失败");
-                                                  }else{
-                                                      NSLog(@"成功");
-//                                                      NSInteger sucess = [weakSelf.successStr integerValue];
-//                                                      sucess++;
-//                                                      weakSelf.successStr = [NSMutableString stringWithFormat:@"%ld",(long)sucess];
-
-                                                  }
-//                                                  [self finalGetResuNum];
-
-                                                  if (i == weakSelf.imageData.count-1) {
-//                                                      [[NSNotificationCenter defaultCenter]postNotificationName:@"endPostImage" object:nil];
-//                                                      if ([weakSelf.failedStr integerValue] > 0) {
-//                                                          [XEProgressHUD lightAlert:[NSString stringWithFormat:@"%@张图片上传失败,%@张图片上传成功",weakSelf.failedStr,weakSelf.successStr]];
-//                                                          [weakSelf.dataSources removeAllObjects];
-//                                                          [weakSelf.imageData removeAllObjects];
-//                                                          [weakSelf finalGetResuNum];
-//                                                          [self configureHideView];
-//                                                      }else{
-
-//                                                          [XEProgressHUD lightAlert:[NSString stringWithFormat:@"%@张图片上传成功",weakSelf.successStr]];
-                                                          [XEProgressHUD AlertSuccess:@"上传完成"];
-                                                          [XEProgressHUD lightAlert:[NSString stringWithFormat:@"上传成功"]];
-
-//                                                          NSLog(@"weakSelf.successStr === %@",weakSelf.successStr);
-                                                          [weakSelf.dataSources removeAllObjects];
-                                                          [weakSelf.imageData removeAllObjects];
-                                                          [weakSelf finalGetResuNum];
-//                                                      }
-
-                                                  }
-                                                  
-                                              } tag:tag];
-                                          }
-                                      } option:nil];
-        
-        }
- */
 
     } tag:tag];
  
@@ -403,6 +310,7 @@
         {
             weakSelf.totalIndex +=1;
 
+            weakSelf.failNum += 1;
             if (weakSelf.totalIndex == weakSelf.imageData.count )
             {
                 [weakSelf.dataSources removeAllObjects];
@@ -443,7 +351,7 @@
          
          if (![[jsonRet objectForKey:@"code"] isEqual:@0])
          {
-             
+             weakSelf.failNum += 1;
              NSLog(@"失败");
              [weakSelf finalGetResuNum];
          }else
@@ -451,7 +359,7 @@
              NSLog(@"成功");
              if (weakSelf.totalIndex == weakSelf.imageData.count)
              {
-                 NSLog(@"进入最后一张== %d",weakSelf.totalIndex);
+                 NSLog(@"进入最后一张== %ld",(long)weakSelf.totalIndex);
                  [weakSelf.dataSources removeAllObjects];
                  [weakSelf.imageData removeAllObjects];
                  [weakSelf finalGetResuNum];
@@ -485,12 +393,27 @@
         self.restNum = [string integerValue];
         [self.collectionView reloadData];
         
-        if (self.firstIn == YES) {
+        if (self.firstIn == YES)
+        {
             
-        }else{
-            
-            [XEProgressHUD AlertSuccess:@"上传完成"];
-            [XEProgressHUD lightAlert:[NSString stringWithFormat:@"上传成功"]];
+        }else
+        
+        {
+            if (weakSelf.failNum == 0)
+            {
+
+                [XEProgressHUD AlertSuccess:@"上传完成"];
+                [XEProgressHUD lightAlert:[NSString stringWithFormat:@"上传成功"]];
+                
+            }else
+                
+            {
+                
+                [XEProgressHUD AlertSuccess:[NSString stringWithFormat:@"上传成功%ld张",(long)weakSelf.imageData.count - weakSelf.failNum]];
+                [XEProgressHUD lightAlert:[NSString stringWithFormat:@"上传失败%ld张",(long)weakSelf.failNum]];
+                
+             }
+
         }
         
         self.hideView.hidden = YES;
@@ -533,6 +456,7 @@
     flowOut.minimumLineSpacing = 10;
     flowOut.minimumInteritemSpacing = 0;
     self.collectionView.collectionViewLayout = flowOut;
+    
     
 }
 
@@ -592,18 +516,22 @@
 #pragma mark  上传照片第三方代理
 - (void)UzysAssetsPickerController:(UzysAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
+
+
     NSLog(@"assets %@",assets);
+    __block BabyImpressAddController *weakSelf = self;
     [XEProgressHUD AlertLoading:@"正在加载照片"];
     [assets enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         ALAsset *representation = obj;
-        UIImage *img = [UIImage imageWithCGImage:representation.defaultRepresentation.fullResolutionImage
+        UIImage *img = [UIImage imageWithCGImage:representation.defaultRepresentation.fullScreenImage
                                            scale:representation.defaultRepresentation.scale
                                      orientation:(UIImageOrientation)representation.defaultRepresentation.orientation];
-        [self.dataSources addObject:img];
+        [weakSelf.dataSources addObject:img];
         
     }];
     [self.collectionView reloadData];
     [XEProgressHUD AlertSuccess:@"加载完成"];
+ 
 }
 - (void)addPicrArrayWith:(UIImage *)img{
     CGSize size = CGSizeMake(img.size.width, img.size.height);
@@ -631,7 +559,7 @@
 //    }
     //强转jpg
     pData.mimeType = @".jpg";
-    data = UIImageJPEGRepresentation(img, 1.0);
+    data = UIImageJPEGRepresentation(img, 1);
     if (data) {
         pData.data = data;
         NSLog(@"pData.name === %@ %ld",pData.name,(unsigned long)pData.data.length);
@@ -646,7 +574,13 @@
     [self dismissViewControllerAnimated:YES completion:^{
 
     }];
-
+    NSLog(@"%@",info);
+    
+//    ALAsset *representation = info;
+//    UIImage *img = [UIImage imageWithCGImage:representation.defaultRepresentation.fullScreenImage
+//                                       scale:representation.defaultRepresentation.scale
+//                                 orientation:(UIImageOrientation)representation.defaultRepresentation.orientation];
+//
     UIImage *editedImage = info[@"UIImagePickerControllerOriginalImage"];
     [self.dataSources addObject:editedImage];
     [self.collectionView reloadData];

@@ -83,6 +83,15 @@
     
 }
 - (IBAction)payBtnTouched:(id)sender {
+    /**
+     *  判断是是否安装了支付宝
+     */
+    if (![[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:@"alipay://"]]) {
+        [XEProgressHUD AlertError:@"您的设备没有安装支付宝"];
+//        NSURL *url = [[ NSURL alloc ] initWithString: @"http://itunes.apple.com/app/id330206289"] ;
+//        [[UIApplication sharedApplication] openURL:url];
+        return;
+    }
     AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     
     Order *order = [[Order alloc] init];
