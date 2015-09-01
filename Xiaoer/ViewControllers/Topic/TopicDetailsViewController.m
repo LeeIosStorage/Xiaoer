@@ -27,7 +27,7 @@
 
 #define ONE_IMAGE_HEIGHT  93
 #define item_spacing  4
-#define growingTextViewMaxNumberOfLines 3
+#define growingTextViewMaxNumberOfLines 1
 
 @interface TopicDetailsViewController ()<XEShareActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,GMGridViewDataSource, GMGridViewActionDelegate,HPGrowingTextViewDelegate,TopicCommentViewCellDelegate,MWPhotoBrowserDelegate>
 {
@@ -46,39 +46,120 @@
 @property (strong, nonatomic) NSMutableDictionary* actionSheetIndexSelDic;
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-
+/**
+ *  headerView
+ */
 @property (nonatomic, strong) IBOutlet UIView *headView;
+/**
+ *   top View
+ */
 @property (strong, nonatomic) IBOutlet UIView *titleContainerView;
+/**
+ *  头部描述lable
+ */
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+/**
+ *  medium view
+ */
 @property (strong, nonatomic) IBOutlet UIView *contentContainerView;
+/**
+ *  人去头像
+ */
 @property (strong, nonatomic) IBOutlet UIImageView *authorAvatarImgView;
+/**
+ *  人物姓名 （头像右边）
+ */
 @property (strong, nonatomic) IBOutlet UILabel *authorNameLabel;
+/**
+ *  人物日期（头像右边）
+ */
 @property (strong, nonatomic) IBOutlet UILabel *authorHospitalLabel;
+/**
+ *  发表时间
+ */
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
-@property (strong, nonatomic) IBOutlet UILabel *contentLabel;
-@property (strong, nonatomic) IBOutlet GMGridView *imageGridView;
+/**
+ *  发表内容
+ */
+//@property (strong, nonatomic) IBOutlet UILabel *contentLabel;
+@property (nonatomic,strong)UILabel *contentLabel;
+/**
+ *  展示图片 （描述内容下方）
+ */
+@property (nonatomic,strong)GMGridView *imageGridView;;
+//@property (strong, nonatomic) IBOutlet GMGridView *imageGridView;
+/**
+ *  医生回答view
+ */
 @property (strong, nonatomic) IBOutlet UIView *expertCommentContainerView;
-@property (strong, nonatomic) IBOutlet UIImageView *expertCommentBgImgView;
-@property (strong, nonatomic) IBOutlet UILabel *comContentLabel;
+/**
+ *  回答内容背景图片
+ */
+//@property (strong, nonatomic) IBOutlet UIImageView *expertCommentBgImgView;
+/**
+ *  回答内容btn
+ */
+@property (weak, nonatomic) IBOutlet UIButton *comContentBtn;
+//@property (strong, nonatomic) IBOutlet UILabel *comContentLabel;
+/**
+ *  医生头像
+ */
 @property (strong, nonatomic) IBOutlet UIImageView *expertAvatarImgView;
+/**
+ *  医生姓名
+ */
 @property (strong, nonatomic) IBOutlet UILabel *expertNameLabel;
+/**
+ *  医院名称
+ */
 @property (strong, nonatomic) IBOutlet UILabel *expertHospitalLabel;
-
+/**
+ *  评论view
+ */
 @property (strong, nonatomic) IBOutlet UIView *toolbarContainerView;
+/**
+ *  评论输入框背景图
+ */
 @property (strong, nonatomic) IBOutlet UIImageView *inputViewBgImageView;
+/**
+ *  评论内容
+ */
 @property (strong, nonatomic) IBOutlet HPGrowingTextView *growingTextView;
+/**
+ *  评论提示label placeHolder
+ */
 @property (strong, nonatomic) IBOutlet UILabel *placeHolderLabel;
+/**
+ *  表情按钮
+ */
 @property (strong, nonatomic) IBOutlet UIButton *expressionBtn;
+/**
+ *  发送按钮
+ */
 @property (strong, nonatomic) IBOutlet UIButton *sendButton;
-
+/**
+ *  tableView sectionheader
+ */
 @property (nonatomic, strong) IBOutlet UIView *sectionView;
+/**
+ *  评论数量
+ */
 @property (nonatomic, strong) IBOutlet UIButton *commentButton;
+/**
+ *  收藏数量
+ */
 @property (nonatomic, strong) IBOutlet UIButton *collectButton;
 
 - (IBAction)commentAction:(id)sender;
 - (IBAction)collectAction:(id)sender;
 - (IBAction)expressionAction:(id)sender;
+/**
+ *  发送评论
+ */
 - (IBAction)sendAction:(id)sender;
+/**
+ *  医生头像点击
+ */
 - (IBAction)expertAvatarAction:(id)sender;
 
 @end
@@ -86,9 +167,11 @@
 @implementation TopicDetailsViewController
 
 - (void)dealloc{
+    NSLog(@"delloc");
     _tableView.delegate = nil;
     _tableView.dataSource = nil;
     _growingTextView.delegate = nil;
+//    self.imageGridView = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -111,17 +194,18 @@
     self.sendButton.layer.masksToBounds = YES;
     
     NSInteger spacing = item_spacing;
-    _imageGridView.style = GMGridViewStyleSwap;
-    _imageGridView.itemSpacing = spacing;
-    _imageGridView.minEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-    _imageGridView.centerGrid = NO;
-    _imageGridView.layoutStrategy = [GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutVertical];
-    _imageGridView.actionDelegate = self;
-    _imageGridView.showsHorizontalScrollIndicator = NO;
-    _imageGridView.showsVerticalScrollIndicator = NO;
-    _imageGridView.dataSource = self;
-    _imageGridView.scrollsToTop = NO;
-    _imageGridView.delegate = self;
+    self.imageGridView = [[GMGridView alloc]init];
+    self.imageGridView.style = GMGridViewStyleSwap;
+    self.imageGridView.itemSpacing = spacing;
+    self.imageGridView.minEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.imageGridView.centerGrid = NO;
+    self.imageGridView.layoutStrategy = [GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutVertical];
+    self.imageGridView.actionDelegate = self;
+    self.imageGridView.showsHorizontalScrollIndicator = NO;
+    self.imageGridView.showsVerticalScrollIndicator = NO;
+    self.imageGridView.dataSource = self;
+    self.imageGridView.scrollsToTop = NO;
+    self.imageGridView.delegate = self;
     
     _maxReplyTextLength = 1000;
     _growingTextView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -135,39 +219,36 @@
     _growingTextView.internalTextView.backgroundColor = [UIColor clearColor];
     self.placeHolderLabel.hidden = NO;
     
-    
     self.commentButton.selected = YES;
     self.collectButton.selected = NO;
     
     self.nextCursor = 1;
-    
+    /**
+     *  获取评论数组 内容（tableview）
+     */
     [self getCommentInfos];
+    /**
+     *  布局headerview
+     */
     [self refreshTopicInfoShow];
     
     [self getCacheTopicInfo];//cache
     [self refreshTopicInfo];
     
+    CGRect fram = self.growingTextView.frame;
+    fram.size.height = 35;
+    self.growingTextView.frame = fram;
+    
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 -(void)initNormalTitleNavBarSubviews{
     
     [self setTitle:@"话题详情"];
     [self setRightButtonWithImageName:@"more_icon" selector:@selector(moreAction:)];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (void)getCacheTopicInfo{
     __weak TopicDetailsViewController *weakSelf = self;
@@ -253,9 +334,11 @@
     
     __weak TopicDetailsViewController *weakSelf = self;
     [self.tableView addInfiniteScrollingWithActionHandler:^{
+        
         if (!weakSelf) {
             return;
         }
+        
         if (!weakSelf.canLoadMore) {
             [weakSelf.tableView.infiniteScrollingView stopAnimating];
             weakSelf.tableView.showsInfiniteScrolling = NO;
@@ -308,113 +391,161 @@
     self.authorAvatarImgView.clipsToBounds = YES;
     self.authorAvatarImgView.contentMode = UIViewContentModeScaleAspectFill;
     
-    self.expertAvatarImgView.layer.cornerRadius = self.expertAvatarImgView.frame.size.width/2;
-    self.expertAvatarImgView.layer.masksToBounds = YES;
-    self.expertAvatarImgView.clipsToBounds = YES;
-    self.expertAvatarImgView.contentMode = UIViewContentModeScaleAspectFill;
-    
-    self.expertCommentBgImgView.image = [[UIImage imageNamed:@"expert_comment_background"] stretchableImageWithLeftCapWidth:40 topCapHeight:48];
     _inputViewBgImageView.image = [[UIImage imageNamed:@"verify_commit_bg"] stretchableImageWithLeftCapWidth:20 topCapHeight:15];
     
     [self.authorAvatarImgView sd_setImageWithURL:_topicInfo.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
     self.authorNameLabel.text = _topicInfo.uname;
     self.authorHospitalLabel.text = _topicInfo.utitle;
     self.timeLabel.text = [XEUIUtils dateDiscriptionFromNowBk:_topicInfo.time];
-    
+
     [self.commentButton setTitle:[NSString stringWithFormat:@"评论%d",_topicInfo.commentnum] forState:0];
     [self.collectButton setTitle:[NSString stringWithFormat:@"收藏%d",_topicInfo.favnum] forState:0];
     
+    /**
+     *  头
+     */
     self.titleLabel.text = _topicInfo.title;
-    CGSize textSize = [XECommonUtils sizeWithText:_topicInfo.title font:self.titleLabel.font width:SCREEN_WIDTH-13*2];
-    CGRect frame = self.titleContainerView.frame;
-    frame.size.height = (textSize.height + 10);
-    self.titleContainerView.frame = frame;
-    
-    self.contentLabel.text = _topicInfo.content;
-    self.contentLabel.hidden = NO;
-    if (_topicInfo.content.length == 0) {
-        self.contentLabel.hidden = YES;
+
+    /**
+     *  中间
+     */
+    if (_topicInfo.content) {
+        
+        /**
+         有中间文字
+         */
+        self.contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 75, SCREEN_WIDTH - 20, 0)];
+        self.contentLabel.textColor = [UIColor darkGrayColor];
+        self.contentLabel.numberOfLines = 0;
+        self.contentLabel.text = _topicInfo.content;
+        self.contentLabel.font = [UIFont systemFontOfSize:14];
+        NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName, nil];
+        CGRect rect = [self.contentLabel.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
+        CGRect frame = self.contentLabel.frame;
+        frame.size.height = rect.size.height ;
+        self.contentLabel.frame = frame;
+        [self.contentContainerView addSubview:self.contentLabel];
+        self.contentContainerView.frame = CGRectMake(0, 40, SCREEN_WIDTH, 75 + frame.size.height + 10);
+        NSLog(@"rect.size.height == %f",rect.size.height);
+    }else{
+        
+        self.contentContainerView.frame = CGRectMake(0, 40, SCREEN_WIDTH, 75 );
+        self.contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 75, SCREEN_WIDTH - 20, 0)];
+
+        
     }
-    textSize = [XECommonUtils sizeWithText:_topicInfo.content font:self.contentLabel.font width:SCREEN_WIDTH-13*2];
-    frame = self.contentLabel.frame;
-    frame.size.height = textSize.height;
-    self.contentLabel.frame = frame;
+
     
-    //图片view
+//    //图片view
+    /**
+     *  中间有图片
+     */
     NSInteger imagesCount = self.topicInfo.picIds.count;
     if (imagesCount > 0) {
         self.imageGridView.hidden = NO;
         CGRect gridFrame = self.imageGridView.frame;
-        gridFrame.origin.y = self.contentLabel.frame.origin.y + self.contentLabel.frame.size.height + 6;
-        if (self.contentLabel.hidden) {
-            gridFrame.origin.y = self.contentLabel.frame.origin.y;
+        if (self.contentLabel.frame.size.height > 0) {
+            gridFrame.origin.y = 75 + self.contentLabel.frame.size.height + 20;
+        }else{
+            gridFrame.origin.y = 75;
         }
         int lines = (int)((imagesCount/3) + (imagesCount%3?1:0));
         CGFloat gvHeight = ONE_IMAGE_HEIGHT*lines + item_spacing*(lines - 1);
         gridFrame.size.height = gvHeight;
         gridFrame.size.width = ONE_IMAGE_HEIGHT*3 + item_spacing*2;
+        gridFrame.origin.x = 15;
         self.imageGridView.itemSpacing = item_spacing;
-        
         self.imageGridView.frame = gridFrame;
-        
+        [self.contentContainerView addSubview:self.imageGridView];
+        self.contentContainerView.frame = CGRectMake(0, 40, SCREEN_WIDTH, 75 + self.contentLabel.frame.size.height + gridFrame.size.height + 20);
+
     }else{
+        
         self.imageGridView.hidden = YES;
+        self.imageGridView.frame = CGRectMake(0, 0, 0, 0);
+        
     }
+    
+    NSLog(@"self.imageGridView==%@",NSStringFromCGRect(self.imageGridView.frame));
+    NSLog(@"contentContainerView==%@",NSStringFromCGRect(self.contentContainerView.frame));
+
     [self.imageGridView reloadData];
+    NSLog(@"self.imageGridView.frame.origin.y == %f %f %f",self.imageGridView.frame.origin.y,self.imageGridView.frame.size.height,self.contentContainerView.frame.size.height);
     
-    //content View
-    frame = self.contentContainerView.frame;
-    frame.origin.y = self.titleContainerView.frame.origin.y + self.titleContainerView.frame.size.height;
-    if (!self.imageGridView.hidden) {
-        frame.size.height = self.imageGridView.frame.origin.y + self.imageGridView.frame.size.height;
-    }else{
-        frame.size.height = self.contentLabel.frame.origin.y + self.contentLabel.frame.size.height;
-    }
-    self.contentContainerView.frame = frame;
+    self.expertCommentContainerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
+    self.expertCommentContainerView.hidden = YES;
     
-    CGFloat headHeight = self.contentContainerView.frame.origin.y + self.contentContainerView.frame.size.height;
+    UIView *bottom = [[UIView alloc]initWithFrame:CGRectMake(0, self.contentContainerView.frame.origin.y +self.contentContainerView.frame.size.height , SCREEN_WIDTH, 0)];
+    UIImageView *bobImage = [[UIImageView alloc]init];
     
+    bobImage.image = [[UIImage imageNamed:@"expert_comment_background"] stretchableImageWithLeftCapWidth:40 topCapHeight:48];
     //expertComment
+    self.expertCommentContainerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
     if (_expertComment.content) {
+        UILabel *contentLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH - 130, 0)];
+        contentLab.numberOfLines = 0;
+        contentLab.font = [UIFont systemFontOfSize:14];
+        contentLab.text =  _expertComment.content;
+        contentLab.textColor = [UIColor whiteColor];
+        NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:14],NSFontAttributeName, nil];
+        CGRect rect = [contentLab.text boundingRectWithSize:CGSizeMake(contentLab.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
+        CGRect fram = contentLab.frame;
+        fram.size.height = rect.size.height;
+        contentLab.frame = fram;
         
-        [self.expertAvatarImgView sd_setImageWithURL:_expertComment.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
-        self.expertNameLabel.text = _expertComment.userName;
-        self.expertHospitalLabel.text = _expertComment.title;
+        bobImage.frame = CGRectMake(10, 20, SCREEN_WIDTH  -100, contentLab.frame.size.height + 20);
+        [bobImage addSubview:contentLab];
         
-        self.comContentLabel.text = _expertComment.content;
-        textSize = [XECommonUtils sizeWithText:_expertComment.content font:self.comContentLabel.font width:SCREEN_WIDTH-100];
-        frame = self.comContentLabel.frame;
-        frame.size.height = textSize.height;
-        self.comContentLabel.frame = frame;
+        [bottom addSubview:bobImage];
+        bottom.frame = CGRectMake(0, self.contentContainerView.frame.origin.y +self.contentContainerView.frame.size.height , SCREEN_WIDTH, bobImage.frame.size.height + 50);
         
-        self.expertCommentContainerView.hidden = NO;
-        frame = self.expertCommentContainerView.frame;
-        frame.origin.y = self.contentContainerView.frame.origin.y + self.contentContainerView.frame.size.height + 10;
-        frame.size.height = self.comContentLabel.frame.origin.y + self.comContentLabel.frame.size.height + 18;
-        if (frame.size.height < 90) {
-            frame.size.height = 90;
-        }
-        self.expertCommentContainerView.frame = frame;
+        UIImageView *expertAvatar = [[UIImageView alloc]init];
+        [expertAvatar sd_setImageWithURL:_expertComment.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
+        expertAvatar.frame = CGRectMake(SCREEN_WIDTH - 22 - 35,15, 35, 35);
+        [bottom addSubview:expertAvatar];
         
-        headHeight += (self.expertCommentContainerView.frame.size.height + 10);
+        expertAvatar.layer.cornerRadius = self.expertAvatarImgView.frame.size.width/2;
+        expertAvatar.layer.masksToBounds = YES;
+        expertAvatar.clipsToBounds = YES;
+        expertAvatar.contentMode = UIViewContentModeScaleAspectFill;
+        
+        UILabel *hospital = [[UILabel alloc]init];
+        hospital.text = _expertComment.title;
+        hospital.textColor = [UIColor darkGrayColor];
+        hospital.frame = CGRectMake(SCREEN_WIDTH - 100, 55, 100, 40);
+        hospital.numberOfLines = 2;
+        hospital.font = [UIFont systemFontOfSize:13];
+        hospital.textAlignment = NSTextAlignmentCenter;
+        [bottom addSubview:hospital];
+        
+        UIButton *showExpect = [UIButton buttonWithType:UIButtonTypeCustom];
+        [showExpect addTarget:self action:@selector(showExpectDetail) forControlEvents:UIControlEventTouchUpInside];
+        showExpect.backgroundColor = [UIColor clearColor];
+        showExpect.frame = CGRectMake(SCREEN_WIDTH - 100, 15, 100, 100);
+        [bottom addSubview:showExpect];
+        
+
+        
     }else{
-        self.expertCommentContainerView.hidden = YES;
-        headHeight +=10;
+        bottom.frame = CGRectMake(0, self.contentContainerView.frame.origin.y +self.contentContainerView.frame.size.height , 0,0);
     }
     
+    NSLog(@"bottom%@",NSStringFromCGRect(bottom.frame));
+
+
     
-    //head view
-    frame = self.headView.frame;
-    frame.size.height = headHeight + 7;
-    self.headView.frame = frame;
-    
+    self.headView.frame = CGRectMake(0, 0, SCREEN_WIDTH, self.titleContainerView.frame.size.height + self.contentContainerView.frame.size.height + bottom.frame.size.height + 20);
+    [self.headView addSubview:bottom];
+    NSLog(@"headView%@",NSStringFromCGRect(self.headView.frame));
     self.tableView.tableHeaderView = self.headView;
+    [self.tableView reloadData];
+}
+- (void)showExpectDetail{
+    NSLog(@"分过");
 }
 
 -(void)moreAction:(id)sender{
-//    if ([[XEEngine shareInstance] needUserLogin:nil]) {
-//        return;
-//    }
+
     _shareAction = [[XEShareActionSheet alloc] init];
     _shareAction.owner = self;
     _shareAction.selectShareType = XEShareType_Topic;
@@ -493,7 +624,8 @@
         
         [weakSelf.tableView reloadData];
         [weakSelf growingTextViewResignFirstResponder];
-        
+        _topicInfo.commentnum ++;
+        [self refreshTopicInfoShow];
         [self.tableView setContentOffset:CGPointMake(0, 0 - self.tableView.contentInset.top) animated:YES];
         
     } tag:tag];
@@ -517,6 +649,8 @@
         [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
         
         weakSelf.topicInfo.clicknum --;
+        _topicInfo.commentnum--;
+//        [weakSelf ]
         [weakSelf.topicComments removeObject:_selCommentInfo];
         [weakSelf refreshTopicInfoShow];
         [weakSelf.tableView reloadData];
@@ -590,11 +724,11 @@
     
     CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey]doubleValue];
     CGRect keyBoardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey]CGRectValue];
+    NSLog(@"%@",NSStringFromCGRect(keyBoardFrame));
     CGFloat transFormY = keyBoardFrame.size.height ;
     [UIView animateWithDuration:duration animations:^{
-        self.view.frame = CGRectMake(0, -transFormY, SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.toolbarContainerView.transform = CGAffineTransformMakeTranslation(0,  -transFormY);
     } completion:^(BOOL finished) {
-        
     }];
 }
 
@@ -627,10 +761,9 @@
     CGRect keyBoardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey]CGRectValue];
     CGFloat transFormY = keyBoardFrame.size.height ;
     [UIView animateWithDuration:duration animations:^{
-        //        self.view.transform = CGAffineTransformMakeTranslation(0, transFormY);
-        self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                self.toolbarContainerView.transform = CGAffineTransformMakeTranslation(0, transFormY-keyBoardFrame.size.height);
+
     } completion:^(BOOL finished) {
-        
     }];
 }
 
@@ -660,11 +793,20 @@
 }
 
 - (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height{
+    NSLog(@"height == %f  %f",height,growingTextView.frame.size.height);
     float diff = (growingTextView.frame.size.height - height);
-    CGRect r = _toolbarContainerView.frame;
-    r.size.height -= diff;
-    r.origin.y += diff;
-    _toolbarContainerView.frame = r;
+    NSLog(@"diff== %f",diff);
+//    CGRect r = _toolbarContainerView.frame;
+//    r.size.height -= diff;
+//    r.origin.y += diff;
+//    _toolbarContainerView.frame = r;
+//    
+//    
+//    
+//    CGRect growFrame = growingTextView.frame;
+//    growFrame.size.height = r.size.height;
+//    growingTextView.frame = growFrame;
+
 }
 - (void)growingTextViewDidChange:(HPGrowingTextView *)growingTextView{
     _textRange = growingTextView.selectedRange;

@@ -1201,11 +1201,18 @@ static XEEngine* s_ShareInstance = nil;
 
 #pragma mark - expertChat
 //获取热门话题
-- (BOOL)getHotTopicWithWithPagenum:(int)page tag:(int)tag{
+- (BOOL)getHotTopicWithWithPagenum:(int)page tag:(int)tag cat:(NSString *)cat title:(NSString *)title{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (page > 0 ) {
         [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
     }
+    if (![cat isEqualToString:@""]) {
+        [params setObject:cat forKey:@"cat"];
+    }
+    if (![title isEqualToString:@""]) {
+        [params setObject:title forKey:@"title"];
+    }
+    
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/topic/all",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
@@ -1217,10 +1224,13 @@ static XEEngine* s_ShareInstance = nil;
 }
 
 //获取专家问答list
-- (BOOL)getQuestionListWithPagenum:(int)page tag:(int)tag{
+- (BOOL)getQuestionListWithPagenum:(int)page tag:(int)tag title:(NSString *)title{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     if (page > 0 ) {
         [params setObject:[NSNumber numberWithInt:page] forKey:@"pagenum"];
+    }
+    if (![title isEqualToString:@""]) {
+        [params setObject:title forKey:@"title"];
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/qa/publist",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];

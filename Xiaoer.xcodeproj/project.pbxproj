@@ -372,6 +372,11 @@
 		AA1AE6FB1B5F66A700F5B90D /* UzysGroupViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1AE6F21B5F66A700F5B90D /* UzysGroupViewCell.m */; };
 		AA1AE6FC1B5F66A700F5B90D /* UzysWrapperPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1AE6F41B5F66A700F5B90D /* UzysWrapperPickerController.m */; };
 		AA419DB01B4D2FF40020602B /* XEShopDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AA419DAF1B4D2FF40020602B /* XEShopDetailInfo.m */; };
+		AA495F741B94274E002C9CFF /* ExpectSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA495F721B94274E002C9CFF /* ExpectSearchCell.m */; };
+		AA495F751B94274E002C9CFF /* ExpectSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA495F731B94274E002C9CFF /* ExpectSearchCell.xib */; };
+		AA495F7A1B943A57002C9CFF /* MyAttributedStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = AA495F791B943A57002C9CFF /* MyAttributedStringBuilder.m */; };
+		AA56902B1B95881E0049B3A4 /* ExpextPublicController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5690291B95881E0049B3A4 /* ExpextPublicController.m */; };
+		AA56902C1B95881E0049B3A4 /* ExpextPublicController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA56902A1B95881E0049B3A4 /* ExpextPublicController.xib */; };
 		AA6E8FA91B2FDCDF0087B754 /* 正在建设中6p.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6E8FA81B2FDCDF0087B754 /* 正在建设中6p.png */; };
 		AA7572A01B418A67002A8AA2 /* XEShopListInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AA75729F1B418A67002A8AA2 /* XEShopListInfo.m */; };
 		AA7E0D9E1B4F676400E78E30 /* XEShopCarInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7E0D9D1B4F676400E78E30 /* XEShopCarInfo.m */; };
@@ -1209,6 +1214,14 @@
 		AA1AE6F41B5F66A700F5B90D /* UzysWrapperPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UzysWrapperPickerController.m; sourceTree = "<group>"; };
 		AA419DAE1B4D2FF40020602B /* XEShopDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEShopDetailInfo.h; sourceTree = "<group>"; };
 		AA419DAF1B4D2FF40020602B /* XEShopDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEShopDetailInfo.m; sourceTree = "<group>"; };
+		AA495F711B94274E002C9CFF /* ExpectSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpectSearchCell.h; sourceTree = "<group>"; };
+		AA495F721B94274E002C9CFF /* ExpectSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpectSearchCell.m; sourceTree = "<group>"; };
+		AA495F731B94274E002C9CFF /* ExpectSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpectSearchCell.xib; sourceTree = "<group>"; };
+		AA495F781B943A57002C9CFF /* MyAttributedStringBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAttributedStringBuilder.h; sourceTree = "<group>"; };
+		AA495F791B943A57002C9CFF /* MyAttributedStringBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAttributedStringBuilder.m; sourceTree = "<group>"; };
+		AA5690281B95881E0049B3A4 /* ExpextPublicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpextPublicController.h; sourceTree = "<group>"; };
+		AA5690291B95881E0049B3A4 /* ExpextPublicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpextPublicController.m; sourceTree = "<group>"; };
+		AA56902A1B95881E0049B3A4 /* ExpextPublicController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpextPublicController.xib; sourceTree = "<group>"; };
 		AA6E8FA81B2FDCDF0087B754 /* 正在建设中6p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "正在建设中6p.png"; sourceTree = "<group>"; };
 		AA75729E1B418A67002A8AA2 /* XEShopListInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEShopListInfo.h; sourceTree = "<group>"; };
 		AA75729F1B418A67002A8AA2 /* XEShopListInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEShopListInfo.m; sourceTree = "<group>"; };
@@ -2462,6 +2475,9 @@
 				AACCEB5B1B91DD5B0020BA0B /* ExpectSearchViewController.h */,
 				AACCEB5C1B91DD5B0020BA0B /* ExpectSearchViewController.m */,
 				AACCEB5D1B91DD5B0020BA0B /* ExpectSearchViewController.xib */,
+				AA5690281B95881E0049B3A4 /* ExpextPublicController.h */,
+				AA5690291B95881E0049B3A4 /* ExpextPublicController.m */,
+				AA56902A1B95881E0049B3A4 /* ExpextPublicController.xib */,
 			);
 			path = Expert;
 			sourceTree = "<group>";
@@ -2484,6 +2500,9 @@
 				AACCEB561B9153420020BA0B /* XEChatHeaderView.h */,
 				AACCEB571B9153420020BA0B /* XEChatHeaderView.m */,
 				AACCEB591B91535E0020BA0B /* XEChatHeaderView.xib */,
+				AA495F711B94274E002C9CFF /* ExpectSearchCell.h */,
+				AA495F721B94274E002C9CFF /* ExpectSearchCell.m */,
+				AA495F731B94274E002C9CFF /* ExpectSearchCell.xib */,
 			);
 			path = Expert;
 			sourceTree = "<group>";
@@ -2647,6 +2666,7 @@
 		07E5360F1A528203005E1DA9 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				AA495F771B943A4C002C9CFF /* StrExtention */,
 				AA89D3DA1B5516E900F31927 /* AliPayNeed */,
 				AA1AE6E51B5F66A700F5B90D /* Library */,
 				AAE0F14C1B32BED3005C4B3D /* lunBoScrollView */,
@@ -3020,6 +3040,15 @@
 				AA1AE6F41B5F66A700F5B90D /* UzysWrapperPickerController.m */,
 			);
 			path = Library;
+			sourceTree = "<group>";
+		};
+		AA495F771B943A4C002C9CFF /* StrExtention */ = {
+			isa = PBXGroup;
+			children = (
+				AA495F781B943A57002C9CFF /* MyAttributedStringBuilder.h */,
+				AA495F791B943A57002C9CFF /* MyAttributedStringBuilder.m */,
+			);
+			path = StrExtention;
 			sourceTree = "<group>";
 		};
 		AA89D3DA1B5516E900F31927 /* AliPayNeed */ = {
@@ -3805,6 +3834,7 @@
 				AACCEC651B92E05F0020BA0B /* AddAddressViewController.xib in Resources */,
 				07C988171A63B44B003A2B30 /* ChooseLocationViewController.xib in Resources */,
 				078E891A1AA1C32D008AD45A /* styles.css in Resources */,
+				AA495F751B94274E002C9CFF /* ExpectSearchCell.xib in Resources */,
 				AA149F141B4E838B007DFC6D /* jian-6p.png in Resources */,
 				075B032C1A6E3BB7002B577D /* Pin.png in Resources */,
 				AACCECF21B92E36E0020BA0B /* OrderCardCell.xib in Resources */,
@@ -3939,6 +3969,7 @@
 				078E89341AA1C32D008AD45A /* ios-social-sdk-share-detail.html in Resources */,
 				AACCED691B92E54B0020BA0B /* ToyMainTabCell.xib in Resources */,
 				078E88F01AA1C32D008AD45A /* UMSCommentInputControlleriPad.xib in Resources */,
+				AA56902C1B95881E0049B3A4 /* ExpextPublicController.xib in Resources */,
 				078E88F21AA1C32D008AD45A /* UMShareEditViewControlleriPad.xib in Resources */,
 				078E89031AA1C32D008AD45A /* UMSocialExtConfig.html in Resources */,
 				075AA0441A68DEFA000B6302 /* ActivityViewCell.xib in Resources */,
@@ -4067,6 +4098,7 @@
 				AACCECA51B92E1110020BA0B /* shopOtherViewController.m in Sources */,
 				AACCEB731B92D9F10020BA0B /* CardOfEastWebViewController.m in Sources */,
 				07AAB8021A8367420030D306 /* LSReachability.m in Sources */,
+				AA495F741B94274E002C9CFF /* ExpectSearchCell.m in Sources */,
 				AACCECCA1B92E2B10020BA0B /* BabyImpressAddFooterView.m in Sources */,
 				AACCEC901B92E0B70020BA0B /* OrderApplyReimburseController.m in Sources */,
 				075B031E1A6CAC28002B577D /* ApplyActivityViewController.m in Sources */,
@@ -4314,6 +4346,7 @@
 				AACCECD21B92E2B10020BA0B /* BabyImpressPayWayCell.m in Sources */,
 				0752F7A81A7B25C5008C0E0A /* MWGridCell.m in Sources */,
 				0760E92D1A81ACB300BBEA3D /* CollectionViewController.m in Sources */,
+				AA56902B1B95881E0049B3A4 /* ExpextPublicController.m in Sources */,
 				AA89D4481B5516E900F31927 /* DataSigner.m in Sources */,
 				0727A5DF1A8C77A00037805A /* TaskViewController.m in Sources */,
 				AABC37151B4BD7E60090660B /* XEAddressListInfo.m in Sources */,
@@ -4333,6 +4366,7 @@
 				07E536211A528C4B005E1DA9 /* XETabBarItemView.m in Sources */,
 				0752F7AC1A7B25C5008C0E0A /* MWTapDetectingImageView.m in Sources */,
 				075DD0361A78AC0C009A64B4 /* WSAssetTableViewController.m in Sources */,
+				AA495F7A1B943A57002C9CFF /* MyAttributedStringBuilder.m in Sources */,
 				079879E31AA98BDC00B59CED /* XEWebViewWithEvaluationVc.m in Sources */,
 				0712B3AF1A5BD853000A1A7F /* UIImage+GIF.m in Sources */,
 				07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */,

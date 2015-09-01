@@ -80,7 +80,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         NSLog(@"signOut for accout miss");
         [self signOut];
     }
-    [NSThread sleepForTimeInterval:2.0];
+//    [NSThread sleepForTimeInterval:2.0];
     
     
     

@@ -56,7 +56,7 @@
             
             int tag = [[XEEngine shareInstance] getConnectTag];
             if (weakSelf.topicType == TopicType_NONE) {
-                [[XEEngine shareInstance] getQuestionListWithPagenum:weakSelf.nextCursor tag:tag];
+                [[XEEngine shareInstance] getQuestionListWithPagenum:weakSelf.nextCursor tag:tag title:@""];
             }else{
                 [[XEEngine shareInstance] getQuestionListWithUid:[XEEngine shareInstance].uid pagenum:weakSelf.nextCursor tag:tag];
             }
@@ -108,7 +108,7 @@
             
             int tag = [[XEEngine shareInstance] getConnectTag];
             if (weakSelf.topicType == TopicType_Normal) {
-                [[XEEngine shareInstance] getHotTopicWithWithPagenum:weakSelf.nextCursor tag:tag];
+                [[XEEngine shareInstance] getHotTopicWithWithPagenum:weakSelf.nextCursor tag:tag cat:@"" title:@""];
             }else {
                 [[XEEngine shareInstance] getHotTopicListWithCat:weakSelf.topicType pagenum:weakSelf.nextCursor tag:tag];
             }
@@ -159,7 +159,7 @@
         }else{
             [self setTitle:@"我的问答"];
         }
-        [self setRightButtonWithImageName:@"expert_public_icon" selector:@selector(askAction)];
+//        [self setRightButtonWithImageName:@"expert_public_icon" selector:@selector(askAction)];
     }else {
         if (self.topicType == TopicType_Nutri) {
             [self setTitle:@"营养话题"];
@@ -172,8 +172,9 @@
         }else{
             [self setTitle:@"所有话题"];
         }
-        [self setRightButtonWithImageName:@"expect_search" selector:@selector(searchBtnTouched)];
     }
+    [self setRightButtonWithImageName:@"expect_search" selector:@selector(searchBtnTouched)];
+
 }
 
 - (void)getCacheQuestionList{
@@ -181,7 +182,7 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] addGetCacheTag:tag];
     if (self.topicType == TopicType_NONE) {
-        [[XEEngine shareInstance] getQuestionListWithPagenum:1 tag:tag];
+        [[XEEngine shareInstance] getQuestionListWithPagenum:1 tag:tag title:@""] ;
     }else{
         [[XEEngine shareInstance] getQuestionListWithUid:[XEEngine shareInstance].uid pagenum:1 tag:tag];
     }
@@ -210,7 +211,7 @@
     __weak TopicListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     if (self.topicType == TopicType_NONE) {
-        [[XEEngine shareInstance] getQuestionListWithPagenum:_nextCursor tag:tag];
+        [[XEEngine shareInstance] getQuestionListWithPagenum:_nextCursor tag:tag title:@""];
     }else{
         [[XEEngine shareInstance] getQuestionListWithUid:[XEEngine shareInstance].uid pagenum:_nextCursor tag:tag];
     }
@@ -255,7 +256,7 @@
     int tag = [[XEEngine shareInstance] getConnectTag];
     [[XEEngine shareInstance] addGetCacheTag:tag];
     if (self.topicType == TopicType_Normal) {
-        [[XEEngine shareInstance] getHotTopicWithWithPagenum:1 tag:tag];
+        [[XEEngine shareInstance] getHotTopicWithWithPagenum:1 tag:tag cat:@"" title:@""];
     }else {
         [[XEEngine shareInstance] getHotTopicListWithCat:self.topicType pagenum:1 tag:tag];
     }
@@ -280,7 +281,7 @@
     __weak TopicListViewController *weakSelf = self;
     int tag = [[XEEngine shareInstance] getConnectTag];
     if (self.topicType == TopicType_Normal) {
-        [[XEEngine shareInstance] getHotTopicWithWithPagenum:_nextCursor tag:tag];
+        [[XEEngine shareInstance] getHotTopicWithWithPagenum:_nextCursor tag:tag cat:@"" title:@""];
     }else{
         [[XEEngine shareInstance] getHotTopicListWithCat:self.topicType pagenum:_nextCursor tag:tag];
     }
@@ -444,7 +445,14 @@
 //}
 - (void)searchBtnTouched
 {
+    
+    
     ExpectSearchViewController *search = [[ExpectSearchViewController alloc]init];
+    if (_bQuestion) {
+        search.searchType = SearchEcpect;
+    }else {
+        search.searchType = SearchTopic;
+    }
     [self.navigationController pushViewController:search animated:YES];
 }
 - (void)dealloc{

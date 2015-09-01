@@ -72,6 +72,8 @@
     frame.size.height = textSize.height;
     self.contentLabel.frame = frame;
     
+    self.monthLabel.textColor = SKIN_COLOR;
+    
 }
 
 @end

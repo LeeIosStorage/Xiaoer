@@ -175,7 +175,6 @@ static bool dateFormatterOFUSInvalid ;
     NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit | NSWeekdayCalendarUnit;
     NSDateComponents *comps = [calender components:unitFlags fromDate:date];
     NSDateComponents *compsNow = [calender components:unitFlags fromDate:nowDate];
-    
     if (distance < 0) {
         distance = 0;
     }

@@ -13,12 +13,14 @@
 
 @property (strong, nonatomic) XETopicInfo *topicInfo;
 
+@property (weak, nonatomic) IBOutlet UILabel *typeLab;
 @property (strong, nonatomic) IBOutlet UIImageView *topicImageView;
 @property (strong, nonatomic) IBOutlet UILabel *topicNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *topicDateLabel;
-@property (strong, nonatomic) IBOutlet UILabel *nickNameLabel;
+//@property (strong, nonatomic) IBOutlet UILabel *topicDateLabel;
+//@property (strong, nonatomic) IBOutlet UILabel *nickNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *userTitleLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *numChatLab;
 @property (assign, nonatomic) BOOL isExpertChat;
 
 + (float)heightForTopicInfo:(XETopicInfo *)topicInfo;

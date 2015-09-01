@@ -165,11 +165,15 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
 
 #pragma mark - expertChat
 //获取热门话题list
-- (BOOL)getHotTopicWithWithPagenum:(int)page tag:(int)tag;
+- (BOOL)getHotTopicWithWithPagenum:(int)page tag:(int)tag
+                               cat:(NSString *)cat
+                             title:(NSString *)title;
+
 //获取热门话题20条
 - (BOOL)getHotTopicWithWithTag:(int)tag;
 //获取专家问答list
-- (BOOL)getQuestionListWithPagenum:(int)page tag:(int)tag;
+- (BOOL)getQuestionListWithPagenum:(int)page tag:(int)tag
+                             title:(NSString *)title;
 //获取专家问答20条
 - (BOOL)getHotQuestionWithTag:(int)tag;
 //获取类别话题list

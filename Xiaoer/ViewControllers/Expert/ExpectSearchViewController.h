@@ -8,6 +8,12 @@
 
 #import "XESuperViewController.h"
 
-@interface ExpectSearchViewController : XESuperViewController
+//平台切换宏
+typedef enum {
+    SearchTopic   = 0,    //话题
+    SearchEcpect  = 1,    //专家
+}SearchType;
 
+@interface ExpectSearchViewController : XESuperViewController
+@property (nonatomic,assign)SearchType searchType;
 @end

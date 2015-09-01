@@ -25,5 +25,8 @@
 @property (assign, nonatomic) BOOL isMineChat;
 
 + (float)heightForQuestionInfo:(XEQuestionInfo *)topicInfo;
+- (void)configureCellTitleDesWithSameStr:(NSString *)string
+                               topicInfo:(XEQuestionInfo *)topicInfo;
+
 
 @end

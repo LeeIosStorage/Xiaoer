@@ -12,7 +12,6 @@
 #import "XETabBarViewController.h"
 #import "XEEngine.h"
 #import "XELinkerHandler.h"
-//#import "XECateTopicViewCell.h"
 #import "XETopicViewCell.h"
 #import "XEQuestionViewCell.h"
 #import "XEProgressHUD.h"
@@ -24,6 +23,8 @@
 #import "XEPublicViewController.h"
 #import "ExpertListViewController.h"
 #import "QuestionDetailsViewController.h"
+
+#import "ExpextPublicController.h"
 
 #define TOPIC_TYPE_NOURISH   101
 #define TOPIC_TYPE_NUTRI     102
@@ -464,16 +465,7 @@
 
     return 132;
 }
-- (void)publish{
-    NSLog(@"发话题");
-    XEPublicViewController *pVc = [[XEPublicViewController alloc] init];
-    pVc.publicType = Public_Type_Topic;
-    [self.navigationController pushViewController:pVc animated:YES];
-}
-- (void)askExpect{
-    NSLog(@"问专家");
 
-}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (tableView == self.questionTableView) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 132)];
@@ -517,7 +509,10 @@
 //    }
 //    XETopicInfo *topicInfo = _topicArray[indexPath.row];
 //    return [XECateTopicViewCell heightForTopicInfo:topicInfo];
-    return 70;
+    if (tableView == self.questionTableView) {
+        return 70;
+    }
+    return 90;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -675,6 +670,26 @@
     [_menuView show];
 }
 
+#pragma mark 发话题
+- (void)publish{
+    NSLog(@"发话题");
+//    XEPublicViewController *pVc = [[XEPublicViewController alloc] init];
+//    pVc.publicType = Public_Type_Topic;
+    
+    
+    ExpextPublicController *public = [[ExpextPublicController alloc]init];
+    public.publicType = publicTopic;
+    [self.navigationController pushViewController:public animated:YES];
+}
+
+#pragma mark 问专家
+
+- (void)askExpect{
+    NSLog(@"问专家");
+    ExpertListViewController *list = [[ExpertListViewController alloc]init];
+    [self.navigationController pushViewController:list animated:YES];
+    
+}
 #pragma mark -XETabBarControllerSubVcProtocol
 - (void)tabBarController:(XETabBarViewController *)tabBarController reSelectVc:(UIViewController *)viewController {
     if (viewController == self) {

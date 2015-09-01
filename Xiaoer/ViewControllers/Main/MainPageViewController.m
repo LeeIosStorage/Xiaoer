@@ -312,6 +312,7 @@
         UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(i * (self.oneWeekScrollView.contentSize.width /index ) + 20, 50, 60, 10)];
         lable.textAlignment = NSTextAlignmentCenter;
         lable.font = [UIFont systemFontOfSize:12];
+        lable.textColor = [UIColor lightGrayColor];
         lable.text = [NSString stringWithFormat:@"第%ld周",(long)button.tag];
         [self.oneWeekScrollView addSubview:button];
         [self.oneWeekScrollView addSubview:lable];
