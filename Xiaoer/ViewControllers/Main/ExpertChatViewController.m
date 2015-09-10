@@ -575,7 +575,7 @@
 //        [self.topicBtn setBackgroundImage:[[UIImage imageNamed:@"public_type_open_icon"] stretchableImageWithLeftCapWidth:18 topCapHeight:8] forState:UIControlStateNormal];
         self.topicBtn.backgroundColor = SKIN_COLOR;
         
-        [self.questionBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.questionBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
 //        [self.questionBtn setBackgroundImage:nil forState:UIControlStateNormal];
         self.questionBtn.backgroundColor = [UIColor whiteColor];
         [self feedsTypeSwitch:INFO_TYPE_TOPIC needRefreshFeeds:NO];
@@ -585,7 +585,7 @@
 //        [self.questionBtn setBackgroundImage:[[UIImage imageNamed:@"public_type_open_icon"] stretchableImageWithLeftCapWidth:18 topCapHeight:8] forState:UIControlStateNormal];
         self.questionBtn.backgroundColor = SKIN_COLOR;
 
-        [self.topicBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.topicBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [self.topicBtn setBackgroundImage:nil forState:UIControlStateNormal];
         self.topicBtn.backgroundColor = [UIColor whiteColor];
         [self feedsTypeSwitch:INFO_TYPE_QUESTION needRefreshFeeds:NO];
@@ -658,9 +658,13 @@
     _menuView = [[XEPublishMenu alloc] init];
     __weak ExpertChatViewController *weakSelf = self;
     [_menuView addMenuItemWithTitle:@"发话题" andIcon:[UIImage imageNamed:@"expert_public_topic_icon"] andSelectedBlock:^{
-        XEPublicViewController *pVc = [[XEPublicViewController alloc] init];
-        pVc.publicType = Public_Type_Topic;
-        [weakSelf.navigationController pushViewController:pVc animated:YES];
+//        XEPublicViewController *pVc = [[XEPublicViewController alloc] init];
+//        pVc.publicType = Public_Type_Topic;
+//        [weakSelf.navigationController pushViewController:pVc animated:YES];
+        
+        ExpextPublicController *public = [[ExpextPublicController alloc]init];
+        public.publicType = publicTopic;
+        [weakSelf.navigationController pushViewController:public animated:YES];
     }];
     [_menuView addMenuItemWithTitle:@"问专家" andIcon:[UIImage imageNamed:@"expert_public_ask_icon"] andSelectedBlock:^{
         ExpertListViewController *elVc = [[ExpertListViewController alloc] init];
@@ -673,10 +677,7 @@
 #pragma mark 发话题
 - (void)publish{
     NSLog(@"发话题");
-//    XEPublicViewController *pVc = [[XEPublicViewController alloc] init];
-//    pVc.publicType = Public_Type_Topic;
-    
-    
+
     ExpextPublicController *public = [[ExpextPublicController alloc]init];
     public.publicType = publicTopic;
     [self.navigationController pushViewController:public animated:YES];

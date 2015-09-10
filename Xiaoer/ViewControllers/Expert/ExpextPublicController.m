@@ -27,7 +27,7 @@
 
 #define itemH (SCREEN_WIDTH - 40) / 3
 
-@interface ExpextPublicController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource,babyImpressAddbtnTouchedDelegate,babyImpressShowBtnTouched, UIImagePickerControllerDelegate,WSAssetPickerControllerDelegate,deleteDelegate>
+@interface ExpextPublicController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource,babyImpressAddbtnTouchedDelegate,babyImpressShowBtnTouched, UIImagePickerControllerDelegate,WSAssetPickerControllerDelegate,deleteDelegate,UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) IBOutlet UIView *typeView;
@@ -56,6 +56,10 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextView *desTextView;
+
+@property (weak, nonatomic) IBOutlet UILabel *placeHolderLab;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *backLab;
 
 @property (nonatomic,strong)UIButton *saveBtn;
@@ -91,6 +95,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.desTextView.delegate = self;
     
     if (![[XEEngine shareInstance] hasAccoutLoggedin]) {
         XEAlertView *alertView = [[XEAlertView alloc] initWithTitle:nil message:@"请登录" cancelButtonTitle:@"取消" cancelBlock:^{
@@ -113,9 +118,13 @@
     
     if (self.publicType == publicExpert) {
         self.ifPublic = NO;
-        self.title = @"发布话题";
+        if (self.doctorInfo) {
+            self.title = [NSString stringWithFormat:@"向%@专家提问",self.doctorInfo.doctorName];
+        }
     }else{
-        self.title = @"向专家提问";
+        
+        self.title = @"发布话题";
+
     }
     
     [self setRightButtonWithTitle:@"发布" selector:@selector(goToPublish)];
@@ -267,33 +276,31 @@
 
 - (void)publicAskExpert{
     
-//    NSString *imgs = nil;
-//    if (self.imgIds.count > 0) {
-//        imgs = [XECommonUtils stringSplitWithCommaForIds:self.imgIds];
-//    }
-//    [XEProgressHUD AlertLoading:@"发送中..." At:self.view];
-//    NSString *overt = [NSString stringWithFormat:@"%d",self.openStateButton.selected];
-//    __weak ExpextPublicController *weakSelf = self;
-//    int tag = [[XEEngine shareInstance] getConnectTag];
-//    [[XEEngine shareInstance] publishQuestionWithExpertId:_doctorInfo.doctorId uid:[XEEngine shareInstance].uid title:self.titleField.text content:self.desTextView.text overt:overt imgs:imgs tag:tag];
-//    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-//        //        [XEProgressHUD AlertLoadDone];
-//        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-//        if (!jsonRet || errorMsg) {
-//            if (!errorMsg.length) {
-//                errorMsg = @"请求失败";
-//            }
-//            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-//            return;
-//        }
-//        //        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"] At:weakSelf.view];
-//        //        [weakSelf.navigationController popViewControllerAnimated:YES];
-//        XEAlertView* alertView = [[XEAlertView alloc] initWithTitle:nil message:@"已向专家提问，需要您耐心等待，24小时内会解答" cancelButtonTitle:@"知道了" cancelBlock:^{
-//            [super backAction:nil];
-//        }];
-//        [alertView show];
-//        
-//    }tag:tag];
+    NSString *imgs = nil;
+    if (self.imgIds.count > 0) {
+        imgs = [XECommonUtils stringSplitWithCommaForIds:self.imgIds];
+    }
+    [XEProgressHUD AlertLoading:@"发送中..." At:self.view];
+    NSString *overt = [NSString stringWithFormat:@"%@",self.ifPublic ? @"0":@"1" ];
+    __weak ExpextPublicController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
+    [[XEEngine shareInstance] publishQuestionWithExpertId:self.doctorInfo.doctorId uid:[XEEngine shareInstance].uid title:self.titleField.text content:self.desTextView.text overt:overt imgs:imgs tag:tag];
+    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        //        [XEProgressHUD AlertLoadDone];
+        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+        if (!jsonRet || errorMsg) {
+            if (!errorMsg.length) {
+                errorMsg = @"请求失败";
+            }
+            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+            return;
+        }
+        XEAlertView* alertView = [[XEAlertView alloc] initWithTitle:nil message:@"已向专家提问，需要您耐心等待，24小时内会解答" cancelButtonTitle:@"知道了" cancelBlock:^{
+            [super backAction:nil];
+        }];
+        [alertView show];
+        
+    }tag:tag];
 }
 
 - (void)publicTopic{
@@ -598,6 +605,22 @@
     }
     [self refreshCollectionView];
 }
+
+
+#pragma mark textView delegate
+-(void)textViewDidChange:(UITextView *)textView
+{
+    NSLog(@"textViewDidChange");
+    if (textView.text.length == 0) {
+        self.placeHolderLab.hidden = NO;
+    }
+    else
+    {
+        self.placeHolderLab.hidden = YES;
+    }
+}
+
+
 
 - (void)deleteResultWith:(NSInteger)index{
     [self.imageArray removeObjectAtIndex:index];

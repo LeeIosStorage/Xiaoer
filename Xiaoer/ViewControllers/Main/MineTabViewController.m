@@ -93,7 +93,7 @@ enum TABLEVIEW_SECTION_INDEX {
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    self.textBtn.imageView.image.size = CGSizeMake(18, 18);
-    
+    self.view.backgroundColor = LGrayColor;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserInfoChanged:) name:XE_USERINFO_CHANGED_NOTIFICATION object:nil];
 #warning 此版本暂时隐藏headxer_stone
     self.header_stoneImg.hidden = YES;
@@ -108,6 +108,8 @@ enum TABLEVIEW_SECTION_INDEX {
     
     self.headerRound.layer.cornerRadius = 45;
     self.headerRound.layer.masksToBounds = YES;
+    self.headerRound.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.headerRound.layer.borderWidth = 2;
 }
 
 

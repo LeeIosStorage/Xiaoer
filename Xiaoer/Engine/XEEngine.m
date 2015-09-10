@@ -2084,4 +2084,32 @@ static XEEngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/photo/userLovePoints/give",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
+
+
+#pragma mark 预约挂号
+- (BOOL)appointmentGetHospitalListWith:(int)tag pagenum:(NSString *)pagenum{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:pagenum forKey:@"pagenum"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/hb/hospital/list",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+
+- (BOOL)appOfficeAppointmentWith:(int)tag hospitaldeptid:(NSString *)hospitaldeptid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:hospitaldeptid forKey:@"hospitaldeptid"];
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/hb/hospital/appointList",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+}
+-(BOOL)appOrderInfomationGoToOrderWith:(int)tag userid:(NSString *)userid linkname:(NSString *)linkname linkphone:(NSString *)linkphone linkcardno:(NSString *)linkcardno hdaid:(NSString *)hdaid{
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:userid forKey:@"userid"];
+    [params setObject:linkname forKey:@"linkname"];
+    [params setObject:linkphone forKey:@"linkphone"];
+    [params setObject:linkcardno forKey:@"linkcardno"];
+    [params setObject:hdaid forKey:@"hdaid"];
+
+    NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/hb/hospitalOrder/order",API_URL] type:0 parameters:params];
+    return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
+    
+}
 @end

@@ -154,13 +154,53 @@ static bool dateFormatterOFUSInvalid ;
     NSDateComponents *compsNow = [calender components:unitFlags fromDate:nowDate];
     
     if (comps.year == compsNow.year){
-        _timestamp = [NSString stringWithFormat:@"%d月%d日 %02d:%02d", (int)comps.month, (int)comps.day, (int)comps.hour, (int)comps.minute];
+        _timestamp = [NSString stringWithFormat:@"%d月%d号 %02d:%02d", (int)comps.month, (int)comps.day, (int)comps.hour, (int)comps.minute];
     } else {
         _timestamp = [NSString stringWithFormat:@"%04d-%02d-%02d %02d:%02d", (int)comps.year, (int)comps.month, (int)comps.day, (int)comps.hour, (int)comps.minute];
     }
     
     return _timestamp;
 }
++ (NSString*)dateDiscriptionAndWeekFromDate:(NSDate*)date
+{
+    NSString *_timestamp = nil;
+    NSDate* nowDate = [NSDate date];
+    if (date == nil) {
+        return @"";
+        
+    }
+    NSCalendar * calender = [NSCalendar currentCalendar];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit |
+    NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit | NSWeekdayCalendarUnit;
+    NSDateComponents *comps = [calender components:unitFlags fromDate:date];
+    NSDateComponents *compsNow = [calender components:unitFlags fromDate:nowDate];
+    
+    if (comps.year == compsNow.year){
+        _timestamp = [NSString stringWithFormat:@"%d月%d号 %@ %02d:%02d", (int)comps.month, (int)comps.day,[self weekDayStr:date], (int)comps.hour, (int)comps.minute];
+    } else {
+        _timestamp = [NSString stringWithFormat:@"%04d-%02d-%02d %02d:%02d", (int)comps.year, (int)comps.month, (int)comps.day, (int)comps.hour, (int)comps.minute];
+    }
+    
+    return _timestamp;
+}
++ (NSString*)weekDayStr:(NSDate *)date
+{
+    NSArray *weekdays = [NSArray arrayWithObjects: [NSNull null], @"星期日", @"星期一", @"星期二", @"星期三", @"星期四", @"星期五", @"星期六", nil];
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    NSTimeZone *timeZone = [[NSTimeZone alloc] initWithName:@"Asia/Shanghai"];
+    
+    [calendar setTimeZone: timeZone];
+    
+    NSCalendarUnit calendarUnit = NSWeekdayCalendarUnit;
+    
+    NSDateComponents *theComponents = [calendar components:calendarUnit fromDate:date];
+    
+    return [weekdays objectAtIndex:theComponents.weekday];
+
+}
+
 
 + (NSString*)dateDiscriptionFromNowBk:(NSDate*)date{
     NSString *_timestamp = nil;
@@ -404,5 +444,33 @@ static bool dateFormatterOFUSInvalid ;
     asset_view_frame.size.width = assetViewWidth;
     asset_view_frame.size.height = assetViewWidth;
     return asset_view_frame;
+}
++ (BOOL)validateIDCardNumber:(NSString *)cardNo{
+    if (cardNo.length != 18) {
+        return  NO;
+    }
+    NSArray* codeArray = [NSArray arrayWithObjects:@"7",@"9",@"10",@"5",@"8",@"4",@"2",@"1",@"6",@"3",@"7",@"9",@"10",@"5",@"8",@"4",@"2", nil];
+    NSDictionary* checkCodeDic = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"1",@"0",@"X",@"9",@"8",@"7",@"6",@"5",@"4",@"3",@"2", nil]  forKeys:[NSArray arrayWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10", nil]];
+    
+    NSScanner* scan = [NSScanner scannerWithString:[cardNo substringToIndex:17]];
+    
+    int val;
+    BOOL isNum = [scan scanInt:&val] && [scan isAtEnd];
+    if (!isNum) {
+        return NO;
+    }
+    int sumValue = 0;
+    
+    for (int i =0; i<17; i++) {
+        sumValue+=[[cardNo substringWithRange:NSMakeRange(i , 1) ] intValue]* [[codeArray objectAtIndex:i] intValue];
+    }
+    
+    NSString* strlast = [checkCodeDic objectForKey:[NSString stringWithFormat:@"%d",sumValue%11]];
+    
+    if ([strlast isEqualToString: [[cardNo substringWithRange:NSMakeRange(17, 1)]uppercaseString]]) {
+        return YES;
+    }
+    return  NO;
+
 }
 @end

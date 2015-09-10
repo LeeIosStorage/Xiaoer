@@ -15,6 +15,7 @@
                 <outlet property="getInbtn" destination="whb-Ma-5gw" id="KSc-pz-fwn"/>
                 <outlet property="heartBtn" destination="8lB-hD-DwO" id="clX-7e-Ifz"/>
                 <outlet property="nuration" destination="XIj-lX-yvB" id="CBV-52-3Mi"/>
+                <outlet property="placeHolderLab" destination="hnX-ld-4f0" id="OR3-jC-Bee"/>
                 <outlet property="raiseBtn" destination="7WG-9b-Rds" id="pXm-qw-Srr"/>
                 <outlet property="tableView" destination="Ugo-dR-0tc" id="fhL-jk-kJk"/>
                 <outlet property="titleField" destination="ZPJ-BI-mf1" id="rTs-GO-xfo"/>
@@ -205,7 +206,7 @@
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="请尽可能详细描述宝宝的状态，以便得到更好的解答" translatesAutoresizingMaskIntoConstraints="NO" id="1ow-qS-ULK">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ow-qS-ULK">
                     <rect key="frame" x="20" y="55" width="280" height="90"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -215,9 +216,19 @@
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请尽可能详细描述宝宝的状态，以便得到更好的解答" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hnX-ld-4f0">
+                    <rect key="frame" x="25" y="51" width="270" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="66z-eM-bkV"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="hnX-ld-4f0" firstAttribute="leading" secondItem="fgB-fZ-Sin" secondAttribute="leading" constant="25" id="1T7-md-7ey"/>
                 <constraint firstAttribute="trailing" secondItem="rU5-w9-JMY" secondAttribute="trailing" constant="10" id="1rS-sb-en5"/>
                 <constraint firstItem="1ow-qS-ULK" firstAttribute="leading" secondItem="fgB-fZ-Sin" secondAttribute="leading" constant="20" id="6A3-1D-uca"/>
                 <constraint firstItem="ZPJ-BI-mf1" firstAttribute="top" secondItem="fgB-fZ-Sin" secondAttribute="top" constant="15" id="8MU-fi-WLq"/>
@@ -225,9 +236,11 @@
                 <constraint firstItem="f58-CQ-DPm" firstAttribute="leading" secondItem="fgB-fZ-Sin" secondAttribute="leading" constant="10" id="M2K-SX-GmB"/>
                 <constraint firstAttribute="bottom" secondItem="1ow-qS-ULK" secondAttribute="bottom" constant="5" id="QPQ-i4-qUh"/>
                 <constraint firstItem="ZPJ-BI-mf1" firstAttribute="leading" secondItem="fgB-fZ-Sin" secondAttribute="leading" constant="20" id="R8X-Xd-TZW"/>
+                <constraint firstAttribute="trailing" secondItem="hnX-ld-4f0" secondAttribute="trailing" constant="25" id="VoO-p2-W6j"/>
                 <constraint firstItem="rU5-w9-JMY" firstAttribute="leading" secondItem="fgB-fZ-Sin" secondAttribute="leading" constant="10" id="ZLh-89-N82"/>
                 <constraint firstItem="f58-CQ-DPm" firstAttribute="top" secondItem="fgB-fZ-Sin" secondAttribute="top" id="gFM-GY-nc3"/>
                 <constraint firstItem="f58-CQ-DPm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fgB-fZ-Sin" secondAttribute="leading" constant="15" id="gPB-Rw-1mO"/>
+                <constraint firstItem="hnX-ld-4f0" firstAttribute="top" secondItem="rU5-w9-JMY" secondAttribute="bottom" id="mZG-JQ-QvB"/>
                 <constraint firstAttribute="trailing" secondItem="f58-CQ-DPm" secondAttribute="trailing" constant="10" id="muh-Xc-DO0"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="f58-CQ-DPm" secondAttribute="trailing" constant="15" id="oWp-km-5In"/>
                 <constraint firstItem="rU5-w9-JMY" firstAttribute="top" secondItem="fgB-fZ-Sin" secondAttribute="top" constant="50" id="pYr-Xw-rAz"/>
@@ -239,9 +252,9 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">
                 <mask key="constraints">
-                    <exclude reference="udy-Fr-d5u"/>
                     <exclude reference="gPB-Rw-1mO"/>
                     <exclude reference="oWp-km-5In"/>
+                    <exclude reference="udy-Fr-d5u"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="537" y="147"/>

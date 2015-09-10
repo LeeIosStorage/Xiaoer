@@ -19,7 +19,7 @@
 #import "PerfectInfoViewController.h"
 #import "XEAlertView.h"
 #import "BabyListViewController.h"
-
+#import "ExpextPublicController.h"
 @interface ExpertListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     
@@ -435,10 +435,14 @@
             [self bindNurser:doctorInfo];
             return;
         }
-        XEPublicViewController *vc = [[XEPublicViewController alloc] init];
-        vc.publicType = Public_Type_Expert;
-        vc.doctorInfo = doctorInfo;
-        [self.navigationController pushViewController:vc animated:YES];
+//        XEPublicViewController *vc = [[XEPublicViewController alloc] init];
+//        vc.publicType = Public_Type_Expert;
+//        vc.doctorInfo = doctorInfo;
+//        [self.navigationController pushViewController:vc animated:YES];
+        ExpextPublicController *public = [[ExpextPublicController alloc]init];
+        public.publicType = publicExpert;
+        public.doctorInfo = doctorInfo;
+        [self.navigationController pushViewController:public animated:YES];
     }
     
 }

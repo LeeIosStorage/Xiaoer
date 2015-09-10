@@ -17,7 +17,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"卡券详情";
-    
 }
 
 - (IBAction)showCardWebView:(id)sender {

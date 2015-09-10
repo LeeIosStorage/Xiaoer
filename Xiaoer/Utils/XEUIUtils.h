@@ -33,6 +33,8 @@
 //年龄
 + (int)getAgeByDate:(NSDate*)date;
 + (NSString*)dateDiscriptionFromDate:(NSDate*)date;
++ (NSString*)dateDiscriptionAndWeekFromDate:(NSDate*)date;
+
 + (NSString*)dateDiscriptionFromNowBk:(NSDate*)date;
 + (NSString*)dateDiscription1FromNowBk:(NSDate*)date;
 + (int)distanceSinceNowCompareDate:(NSDate*)date;
@@ -56,5 +58,8 @@
 +(CGSize) reSizeTextViewContentSize:(UITextView *) textview;
 
 +(CGRect)getAssetViewFrame;
-
+/**
+ *  验证身份证号码
+ */
++ (BOOL)validateIDCardNumber:(NSString *)value;
 @end

@@ -484,4 +484,28 @@ typedef void(^onLSMsgFileProgressBlock)(NSUInteger receivedSize, long long expec
                             userid:(NSString *)userid
                              phone:(NSString *)phone
                         lovepoints:(NSString *)lovepoints;
+
+
+#pragma mark 预约挂号
+/**
+ *   获取医院与科室列表
+ */
+- (BOOL)appointmentGetHospitalListWith:(int)tag
+                               pagenum:(NSString *)pagenum;
+
+/**
+ *  专家坐诊列表
+ */
+- (BOOL)appOfficeAppointmentWith:(int)tag
+                  hospitaldeptid:(NSString *)hospitaldeptid;
+/**
+ *  用户下挂号单
+ */
+- (BOOL)appOrderInfomationGoToOrderWith:(int)tag
+                                 userid:(NSString *)userid
+                               linkname:(NSString *)linkname
+                              linkphone:(NSString *)linkphone
+                             linkcardno:(NSString *)linkcardno
+                                  hdaid:(NSString *)hdaid;
+
 @end

@@ -171,6 +171,7 @@
 
     //网页加载
     NSString *url = [NSString stringWithFormat:@"%@/goods/h5detail/%@",[[XEEngine shareInstance] baseUrl],self.shopId];
+    NSLog(@"url=== %@",url);
     [self loadWebViewWithUrl:[NSURL URLWithString:url]];
     //获取商品详情
     [self getShopDetailInfomation];

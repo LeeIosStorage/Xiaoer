@@ -16,6 +16,9 @@
 #import "ActivityDetailsViewController.h"
 #import "XEActivityInfo.h"
 #import "XELinkerHandler.h"
+#import "ToyDetailCollectiCell.h"
+#import "ToyListCollectionCell.h"
+#import "ToyDetailViewController.h"
 @interface MotherLookController ()<UITableViewDataSource,UITableViewDelegate,MotherLookBtnDelegate>
 @property (nonatomic,strong)NSMutableArray *dataSources;
 @property (weak, nonatomic) IBOutlet UITableView *motherLookTab;
@@ -90,9 +93,14 @@
         }
 
     }else if ([string isEqualToString:@"去逛逛"]){
-        
-        shopOtherViewController *shop = [[shopOtherViewController alloc]init];
-        [self.navigationController pushViewController:shop animated:YES];
+        NSDictionary *dic = self.dataSources[sender.tag];
+
+        XEMotherLook *motherLook = [XEMotherLook modelWithDictioanry:dic];
+
+            //商品
+        ToyDetailViewController *detail = [[ToyDetailViewController alloc]init];
+        detail.shopId = motherLook.objid;
+        [self.navigationController pushViewController:detail animated:YES];
         
     }else if ([string isEqualToString:@"去瞧瞧"]){
         
@@ -109,9 +117,7 @@
                 [self.navigationController pushViewController:vc animated:YES];
             }
         }
-
     }
-    
     
 }
 - (void)loadData{
@@ -167,18 +173,23 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.dataSources.count;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 160;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 40;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.01;
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 40)];
     lable.textAlignment = NSTextAlignmentLeft;

@@ -598,6 +598,35 @@
 		AAE47F121B6B78FA00548684 /* libPushSDK-1.8.5.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE47F111B6B78FA00548684 /* libPushSDK-1.8.5.a */; };
 		AAE47F141B6B792900548684 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE47F131B6B792900548684 /* CFNetwork.framework */; };
 		AAE47F161B6B794000548684 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE47F151B6B794000548684 /* CoreFoundation.framework */; };
+		AAE4ED3A1B9E74BE00F78B45 /* XEAppOfficeAppointmentController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE4ED381B9E74BE00F78B45 /* XEAppOfficeAppointmentController.m */; };
+		AAE4ED3B1B9E74BE00F78B45 /* XEAppOfficeAppointmentController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE4ED391B9E74BE00F78B45 /* XEAppOfficeAppointmentController.xib */; };
+		AAE4ED3F1B9E755100F78B45 /* AppOfficeAppointmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE4ED3D1B9E755100F78B45 /* AppOfficeAppointmentCell.m */; };
+		AAE4ED401B9E755100F78B45 /* AppOfficeAppointmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE4ED3E1B9E755100F78B45 /* AppOfficeAppointmentCell.xib */; };
+		AAE4ED421B9E759500F78B45 /* AppOfficeAppointmentHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE4ED411B9E759500F78B45 /* AppOfficeAppointmentHeader.xib */; };
+		AAE4ED451B9E75B000F78B45 /* AppOfficeAppointmentHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE4ED441B9E75B000F78B45 /* AppOfficeAppointmentHeader.m */; };
+		AAE4ED481B9E821A00F78B45 /* XEAppOfficeAppointmentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE4ED471B9E821A00F78B45 /* XEAppOfficeAppointmentInfo.m */; };
+		AAE4ED4C1B9EAC1300F78B45 /* XEAppOrderInfomationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE4ED4A1B9EAC1300F78B45 /* XEAppOrderInfomationController.m */; };
+		AAE4ED4D1B9EAC1300F78B45 /* XEAppOrderInfomationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE4ED4B1B9EAC1300F78B45 /* XEAppOrderInfomationController.xib */; };
+		AAE4ED511B9EB1C500F78B45 /* AppOrderInfomationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE4ED4F1B9EB1C500F78B45 /* AppOrderInfomationCell.m */; };
+		AAE4ED521B9EB1C500F78B45 /* AppOrderInfomationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE4ED501B9EB1C500F78B45 /* AppOrderInfomationCell.xib */; };
+		AAE4ED561B9EBE6300F78B45 /* XEAPPAgreeDeclarationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE4ED541B9EBE6300F78B45 /* XEAPPAgreeDeclarationController.m */; };
+		AAE4ED571B9EBE6300F78B45 /* XEAPPAgreeDeclarationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE4ED551B9EBE6300F78B45 /* XEAPPAgreeDeclarationController.xib */; };
+		AAE4ED5B1B9EDB4D00F78B45 /* XEAppOrderVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE4ED591B9EDB4D00F78B45 /* XEAppOrderVerifyController.m */; };
+		AAE4ED5C1B9EDB4D00F78B45 /* XEAppOrderVerifyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE4ED5A1B9EDB4D00F78B45 /* XEAppOrderVerifyController.xib */; };
+		AAE4ED5F1B9EE4B900F78B45 /* AppOrderVerifyHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE4ED5E1B9EE4B900F78B45 /* AppOrderVerifyHeader.m */; };
+		AAE4ED611B9EE4C500F78B45 /* AppOrderVerifyHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE4ED601B9EE4C500F78B45 /* AppOrderVerifyHeader.xib */; };
+		AAEAEC341B9D6343004AC175 /* XEAPPHospitalListController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEAEC321B9D6343004AC175 /* XEAPPHospitalListController.m */; };
+		AAEAEC351B9D6343004AC175 /* XEAPPHospitalListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAEAEC331B9D6343004AC175 /* XEAPPHospitalListController.xib */; };
+		AAEAEC3A1B9D6767004AC175 /* AppHospitalListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEAEC381B9D6767004AC175 /* AppHospitalListCell.m */; };
+		AAEAEC3B1B9D6767004AC175 /* AppHospitalListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAEAEC391B9D6767004AC175 /* AppHospitalListCell.xib */; };
+		AAEAEC3E1B9D69DD004AC175 /* AppHospitalListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEAEC3D1B9D69DD004AC175 /* AppHospitalListHeaderView.m */; };
+		AAEAEC401B9D69F3004AC175 /* AppHospitalListHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAEAEC3F1B9D69F3004AC175 /* AppHospitalListHeaderView.xib */; };
+		AAEAEC431B9D7A6A004AC175 /* XEAppHospital.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEAEC421B9D7A6A004AC175 /* XEAppHospital.m */; };
+		AAEAEC461B9D7ADA004AC175 /* XEAppSubHospital.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEAEC451B9D7ADA004AC175 /* XEAppSubHospital.m */; };
+		AAEAEC4A1B9D8B35004AC175 /* AppHospitalIntroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEAEC481B9D8B35004AC175 /* AppHospitalIntroCell.m */; };
+		AAEAEC4B1B9D8B35004AC175 /* AppHospitalIntroCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAEAEC491B9D8B35004AC175 /* AppHospitalIntroCell.xib */; };
+		AAEAEC4F1B9D9876004AC175 /* XEAppOfficeIntroController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEAEC4D1B9D9876004AC175 /* XEAppOfficeIntroController.m */; };
+		AAEAEC501B9D9876004AC175 /* XEAppOfficeIntroController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAEAEC4E1B9D9876004AC175 /* XEAppOfficeIntroController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1646,6 +1675,51 @@
 		AAE47F111B6B78FA00548684 /* libPushSDK-1.8.5.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.5.a"; sourceTree = "<group>"; };
 		AAE47F131B6B792900548684 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		AAE47F151B6B794000548684 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		AAE4ED371B9E74BE00F78B45 /* XEAppOfficeAppointmentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAppOfficeAppointmentController.h; sourceTree = "<group>"; };
+		AAE4ED381B9E74BE00F78B45 /* XEAppOfficeAppointmentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAppOfficeAppointmentController.m; sourceTree = "<group>"; };
+		AAE4ED391B9E74BE00F78B45 /* XEAppOfficeAppointmentController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEAppOfficeAppointmentController.xib; sourceTree = "<group>"; };
+		AAE4ED3C1B9E755100F78B45 /* AppOfficeAppointmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppOfficeAppointmentCell.h; sourceTree = "<group>"; };
+		AAE4ED3D1B9E755100F78B45 /* AppOfficeAppointmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppOfficeAppointmentCell.m; sourceTree = "<group>"; };
+		AAE4ED3E1B9E755100F78B45 /* AppOfficeAppointmentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppOfficeAppointmentCell.xib; sourceTree = "<group>"; };
+		AAE4ED411B9E759500F78B45 /* AppOfficeAppointmentHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppOfficeAppointmentHeader.xib; sourceTree = "<group>"; };
+		AAE4ED431B9E75B000F78B45 /* AppOfficeAppointmentHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppOfficeAppointmentHeader.h; sourceTree = "<group>"; };
+		AAE4ED441B9E75B000F78B45 /* AppOfficeAppointmentHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppOfficeAppointmentHeader.m; sourceTree = "<group>"; };
+		AAE4ED461B9E821A00F78B45 /* XEAppOfficeAppointmentInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAppOfficeAppointmentInfo.h; sourceTree = "<group>"; };
+		AAE4ED471B9E821A00F78B45 /* XEAppOfficeAppointmentInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAppOfficeAppointmentInfo.m; sourceTree = "<group>"; };
+		AAE4ED491B9EAC1300F78B45 /* XEAppOrderInfomationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAppOrderInfomationController.h; sourceTree = "<group>"; };
+		AAE4ED4A1B9EAC1300F78B45 /* XEAppOrderInfomationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAppOrderInfomationController.m; sourceTree = "<group>"; };
+		AAE4ED4B1B9EAC1300F78B45 /* XEAppOrderInfomationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEAppOrderInfomationController.xib; sourceTree = "<group>"; };
+		AAE4ED4E1B9EB1C500F78B45 /* AppOrderInfomationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppOrderInfomationCell.h; sourceTree = "<group>"; };
+		AAE4ED4F1B9EB1C500F78B45 /* AppOrderInfomationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppOrderInfomationCell.m; sourceTree = "<group>"; };
+		AAE4ED501B9EB1C500F78B45 /* AppOrderInfomationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppOrderInfomationCell.xib; sourceTree = "<group>"; };
+		AAE4ED531B9EBE6300F78B45 /* XEAPPAgreeDeclarationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAPPAgreeDeclarationController.h; sourceTree = "<group>"; };
+		AAE4ED541B9EBE6300F78B45 /* XEAPPAgreeDeclarationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAPPAgreeDeclarationController.m; sourceTree = "<group>"; };
+		AAE4ED551B9EBE6300F78B45 /* XEAPPAgreeDeclarationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEAPPAgreeDeclarationController.xib; sourceTree = "<group>"; };
+		AAE4ED581B9EDB4D00F78B45 /* XEAppOrderVerifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAppOrderVerifyController.h; sourceTree = "<group>"; };
+		AAE4ED591B9EDB4D00F78B45 /* XEAppOrderVerifyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAppOrderVerifyController.m; sourceTree = "<group>"; };
+		AAE4ED5A1B9EDB4D00F78B45 /* XEAppOrderVerifyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEAppOrderVerifyController.xib; sourceTree = "<group>"; };
+		AAE4ED5D1B9EE4B900F78B45 /* AppOrderVerifyHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppOrderVerifyHeader.h; sourceTree = "<group>"; };
+		AAE4ED5E1B9EE4B900F78B45 /* AppOrderVerifyHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppOrderVerifyHeader.m; sourceTree = "<group>"; };
+		AAE4ED601B9EE4C500F78B45 /* AppOrderVerifyHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppOrderVerifyHeader.xib; sourceTree = "<group>"; };
+		AAEAEC311B9D6343004AC175 /* XEAPPHospitalListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAPPHospitalListController.h; sourceTree = "<group>"; };
+		AAEAEC321B9D6343004AC175 /* XEAPPHospitalListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAPPHospitalListController.m; sourceTree = "<group>"; };
+		AAEAEC331B9D6343004AC175 /* XEAPPHospitalListController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEAPPHospitalListController.xib; sourceTree = "<group>"; };
+		AAEAEC371B9D6767004AC175 /* AppHospitalListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppHospitalListCell.h; sourceTree = "<group>"; };
+		AAEAEC381B9D6767004AC175 /* AppHospitalListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHospitalListCell.m; sourceTree = "<group>"; };
+		AAEAEC391B9D6767004AC175 /* AppHospitalListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppHospitalListCell.xib; sourceTree = "<group>"; };
+		AAEAEC3C1B9D69DD004AC175 /* AppHospitalListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppHospitalListHeaderView.h; sourceTree = "<group>"; };
+		AAEAEC3D1B9D69DD004AC175 /* AppHospitalListHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHospitalListHeaderView.m; sourceTree = "<group>"; };
+		AAEAEC3F1B9D69F3004AC175 /* AppHospitalListHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppHospitalListHeaderView.xib; sourceTree = "<group>"; };
+		AAEAEC411B9D7A6A004AC175 /* XEAppHospital.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAppHospital.h; sourceTree = "<group>"; };
+		AAEAEC421B9D7A6A004AC175 /* XEAppHospital.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAppHospital.m; sourceTree = "<group>"; };
+		AAEAEC441B9D7ADA004AC175 /* XEAppSubHospital.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAppSubHospital.h; sourceTree = "<group>"; };
+		AAEAEC451B9D7ADA004AC175 /* XEAppSubHospital.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAppSubHospital.m; sourceTree = "<group>"; };
+		AAEAEC471B9D8B35004AC175 /* AppHospitalIntroCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppHospitalIntroCell.h; sourceTree = "<group>"; };
+		AAEAEC481B9D8B35004AC175 /* AppHospitalIntroCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHospitalIntroCell.m; sourceTree = "<group>"; };
+		AAEAEC491B9D8B35004AC175 /* AppHospitalIntroCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppHospitalIntroCell.xib; sourceTree = "<group>"; };
+		AAEAEC4C1B9D9876004AC175 /* XEAppOfficeIntroController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XEAppOfficeIntroController.h; sourceTree = "<group>"; };
+		AAEAEC4D1B9D9876004AC175 /* XEAppOfficeIntroController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XEAppOfficeIntroController.m; sourceTree = "<group>"; };
+		AAEAEC4E1B9D9876004AC175 /* XEAppOfficeIntroController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XEAppOfficeIntroController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2780,6 +2854,12 @@
 				AAE47F0B1B6B098600548684 /* XEBabyImpressPhotoListInfo.m */,
 				AAE47F0D1B6B208000548684 /* XEBabyImpressMonthListInfo.h */,
 				AAE47F0E1B6B208000548684 /* XEBabyImpressMonthListInfo.m */,
+				AAEAEC411B9D7A6A004AC175 /* XEAppHospital.h */,
+				AAEAEC421B9D7A6A004AC175 /* XEAppHospital.m */,
+				AAEAEC441B9D7ADA004AC175 /* XEAppSubHospital.h */,
+				AAEAEC451B9D7ADA004AC175 /* XEAppSubHospital.m */,
+				AAE4ED461B9E821A00F78B45 /* XEAppOfficeAppointmentInfo.h */,
+				AAE4ED471B9E821A00F78B45 /* XEAppOfficeAppointmentInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2796,6 +2876,7 @@
 				AACCEC7D1B92E0B70020BA0B /* Order */,
 				AACCEBEE1B92DF680020BA0B /* BabyImpress */,
 				AACCEC9C1B92E1110020BA0B /* MotherLook */,
+				AAEAEC301B9D62EC004AC175 /* Appointment */,
 				AACCECA71B92E14C0020BA0B /* InFomation */,
 				AACCED841B92E6A00020BA0B /* OneWeak */,
 				07FC6D251A67B161001F34D8 /* Home */,
@@ -2820,6 +2901,7 @@
 				AACCED6D1B92E58C0020BA0B /* Infomation */,
 				075E32161A762C1C006037B3 /* Common */,
 				073F9F081A68B234009D94E3 /* Home */,
+				AAEAEC361B9D65F6004AC175 /* Appointment */,
 				AACCED731B92E5CB0020BA0B /* MotherLook */,
 				AACCED791B92E5FA0020BA0B /* OneWeak */,
 				074DD0D61A5E33B80042B721 /* Main */,
@@ -3682,6 +3764,59 @@
 			name = lunBoScrollView;
 			sourceTree = "<group>";
 		};
+		AAEAEC301B9D62EC004AC175 /* Appointment */ = {
+			isa = PBXGroup;
+			children = (
+				AAEAEC311B9D6343004AC175 /* XEAPPHospitalListController.h */,
+				AAEAEC321B9D6343004AC175 /* XEAPPHospitalListController.m */,
+				AAEAEC331B9D6343004AC175 /* XEAPPHospitalListController.xib */,
+				AAEAEC4C1B9D9876004AC175 /* XEAppOfficeIntroController.h */,
+				AAEAEC4D1B9D9876004AC175 /* XEAppOfficeIntroController.m */,
+				AAEAEC4E1B9D9876004AC175 /* XEAppOfficeIntroController.xib */,
+				AAE4ED371B9E74BE00F78B45 /* XEAppOfficeAppointmentController.h */,
+				AAE4ED381B9E74BE00F78B45 /* XEAppOfficeAppointmentController.m */,
+				AAE4ED391B9E74BE00F78B45 /* XEAppOfficeAppointmentController.xib */,
+				AAE4ED491B9EAC1300F78B45 /* XEAppOrderInfomationController.h */,
+				AAE4ED4A1B9EAC1300F78B45 /* XEAppOrderInfomationController.m */,
+				AAE4ED4B1B9EAC1300F78B45 /* XEAppOrderInfomationController.xib */,
+				AAE4ED581B9EDB4D00F78B45 /* XEAppOrderVerifyController.h */,
+				AAE4ED591B9EDB4D00F78B45 /* XEAppOrderVerifyController.m */,
+				AAE4ED5A1B9EDB4D00F78B45 /* XEAppOrderVerifyController.xib */,
+				AAE4ED531B9EBE6300F78B45 /* XEAPPAgreeDeclarationController.h */,
+				AAE4ED541B9EBE6300F78B45 /* XEAPPAgreeDeclarationController.m */,
+				AAE4ED551B9EBE6300F78B45 /* XEAPPAgreeDeclarationController.xib */,
+			);
+			path = Appointment;
+			sourceTree = "<group>";
+		};
+		AAEAEC361B9D65F6004AC175 /* Appointment */ = {
+			isa = PBXGroup;
+			children = (
+				AAEAEC371B9D6767004AC175 /* AppHospitalListCell.h */,
+				AAEAEC381B9D6767004AC175 /* AppHospitalListCell.m */,
+				AAEAEC391B9D6767004AC175 /* AppHospitalListCell.xib */,
+				AAEAEC3C1B9D69DD004AC175 /* AppHospitalListHeaderView.h */,
+				AAEAEC3D1B9D69DD004AC175 /* AppHospitalListHeaderView.m */,
+				AAEAEC3F1B9D69F3004AC175 /* AppHospitalListHeaderView.xib */,
+				AAEAEC471B9D8B35004AC175 /* AppHospitalIntroCell.h */,
+				AAEAEC481B9D8B35004AC175 /* AppHospitalIntroCell.m */,
+				AAEAEC491B9D8B35004AC175 /* AppHospitalIntroCell.xib */,
+				AAE4ED3C1B9E755100F78B45 /* AppOfficeAppointmentCell.h */,
+				AAE4ED3D1B9E755100F78B45 /* AppOfficeAppointmentCell.m */,
+				AAE4ED3E1B9E755100F78B45 /* AppOfficeAppointmentCell.xib */,
+				AAE4ED431B9E75B000F78B45 /* AppOfficeAppointmentHeader.h */,
+				AAE4ED441B9E75B000F78B45 /* AppOfficeAppointmentHeader.m */,
+				AAE4ED411B9E759500F78B45 /* AppOfficeAppointmentHeader.xib */,
+				AAE4ED4E1B9EB1C500F78B45 /* AppOrderInfomationCell.h */,
+				AAE4ED4F1B9EB1C500F78B45 /* AppOrderInfomationCell.m */,
+				AAE4ED501B9EB1C500F78B45 /* AppOrderInfomationCell.xib */,
+				AAE4ED5D1B9EE4B900F78B45 /* AppOrderVerifyHeader.h */,
+				AAE4ED5E1B9EE4B900F78B45 /* AppOrderVerifyHeader.m */,
+				AAE4ED601B9EE4C500F78B45 /* AppOrderVerifyHeader.xib */,
+			);
+			path = Appointment;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3788,6 +3923,7 @@
 				AACCED5C1B92E54B0020BA0B /* ShopViewCell.xib in Resources */,
 				AACCEC9B1B92E0B70020BA0B /* OrderWillPassController.xib in Resources */,
 				AACCECF41B92E36E0020BA0B /* OrderCardHistoryCell.xib in Resources */,
+				AAEAEC351B9D6343004AC175 /* XEAPPHospitalListController.xib in Resources */,
 				AACCED831B92E6430020BA0B /* CardInfoVerifyCell.xib in Resources */,
 				AACCEC731B92E05F0020BA0B /* SearchListViewController.xib in Resources */,
 				078E89091AA1C32D008AD45A /* UMSocialQQData.html in Resources */,
@@ -3802,6 +3938,7 @@
 				075AA0491A690C58000B6302 /* ActivityDetailsViewController.xib in Resources */,
 				074D4B591AB8107900C19972 /* TicketListViewController.xib in Resources */,
 				AA8784BE1B2013A4005A11E8 /* MainTabScrollCell.xib in Resources */,
+				AAE4ED4D1B9EAC1300F78B45 /* XEAppOrderInfomationController.xib in Resources */,
 				AACCEC211B92DF680020BA0B /* BabyImpressVerifyController.xib in Resources */,
 				078E89101AA1C32D008AD45A /* UMSocialSnsPlatform.html in Resources */,
 				07913F601A676F840083E8E5 /* ExpertListViewController.xib in Resources */,
@@ -3835,6 +3972,7 @@
 				07C988171A63B44B003A2B30 /* ChooseLocationViewController.xib in Resources */,
 				078E891A1AA1C32D008AD45A /* styles.css in Resources */,
 				AA495F751B94274E002C9CFF /* ExpectSearchCell.xib in Resources */,
+				AAE4ED521B9EB1C500F78B45 /* AppOrderInfomationCell.xib in Resources */,
 				AA149F141B4E838B007DFC6D /* jian-6p.png in Resources */,
 				075B032C1A6E3BB7002B577D /* Pin.png in Resources */,
 				AACCECF21B92E36E0020BA0B /* OrderCardCell.xib in Resources */,
@@ -3860,6 +3998,7 @@
 				AAE0F1331B3270A6005C4B3D /* ShopViewController.xib in Resources */,
 				078E89361AA1C32D008AD45A /* ios-social-sdk-socialBar.html in Resources */,
 				AACCEC791B92E05F0020BA0B /* ToyListViewController.xib in Resources */,
+				AAEAEC401B9D69F3004AC175 /* AppHospitalListHeaderView.xib in Resources */,
 				07AAB7F91A8330130030D306 /* SettingViewCell.xib in Resources */,
 				AACCED621B92E54B0020BA0B /* ToyDetailCollectiCell.xib in Resources */,
 				07FC6D241A679D4C001F34D8 /* XEGridView.xib in Resources */,
@@ -3882,17 +4021,20 @@
 				078E891F1AA1C32D008AD45A /* disclosure.png in Resources */,
 				AACCEC231B92DF680020BA0B /* ImageScrollController.xib in Resources */,
 				AACCECCB1B92E2B10020BA0B /* BabyImpressAddFooterView.xib in Resources */,
+				AAE4ED3B1B9E74BE00F78B45 /* XEAppOfficeAppointmentController.xib in Resources */,
 				078E891D1AA1C32D008AD45A /* button_bar_background.png in Resources */,
 				078E89081AA1C32D008AD45A /* UMSocialLWTimelineData.html in Resources */,
 				AACCEC191B92DF680020BA0B /* BabyImpressMyPictureController.xib in Resources */,
 				AACCEC251B92DF680020BA0B /* ImageScrollWithDataController.xib in Resources */,
 				078E890A1AA1C32D008AD45A /* UMSocialQzoneData.html in Resources */,
 				AACCEB741B92D9F10020BA0B /* CardOfEastWebViewController.xib in Resources */,
+				AAE4ED401B9E755100F78B45 /* AppOfficeAppointmentCell.xib in Resources */,
 				078E890C1AA1C32D008AD45A /* UMSocialResponseEntity.html in Resources */,
 				078E891C1AA1C32D008AD45A /* hierarchy.html in Resources */,
 				07E536231A528CBF005E1DA9 /* XETabBarView.xib in Resources */,
 				AA6E8FA91B2FDCDF0087B754 /* 正在建设中6p.png in Resources */,
 				AACCEC991B92E0B70020BA0B /* OrderViewController.xib in Resources */,
+				AAEAEC501B9D9876004AC175 /* XEAppOfficeIntroController.xib in Resources */,
 				AACCED5E1B92E54B0020BA0B /* ToyCollectionHeaderCell.xib in Resources */,
 				078E89301AA1C32D008AD45A /* ios-social-sdk-like.html in Resources */,
 				07882C241A80675D003874FA /* CardViewCell.xib in Resources */,
@@ -3907,6 +4049,7 @@
 				0752F7E01A7B267A008C0E0A /* MWPhotoBrowser.bundle in Resources */,
 				AACCED5A1B92E54B0020BA0B /* ShopHeaderCollectCell.xib in Resources */,
 				078E89011AA1C32D008AD45A /* UMSocialDoubanData.html in Resources */,
+				AAE4ED571B9EBE6300F78B45 /* XEAPPAgreeDeclarationController.xib in Resources */,
 				AACCEC131B92DF680020BA0B /* BabyImpressBoundPhoneController.xib in Resources */,
 				078E88FA1AA1C32D008AD45A /* UMSocialButton.html in Resources */,
 				078E89121AA1C32D008AD45A /* UMSocialSnsService.html in Resources */,
@@ -3915,14 +4058,17 @@
 				077663971A80674E004C885B /* MineActivityListViewController.xib in Resources */,
 				078E88F81AA1C32D008AD45A /* UMSocialAccountManager.html in Resources */,
 				075AA03B1A68B85D000B6302 /* ActivityViewController.xib in Resources */,
+				AAE4ED421B9E759500F78B45 /* AppOfficeAppointmentHeader.xib in Resources */,
 				078E88FC1AA1C32D008AD45A /* UMSocialControllerService.html in Resources */,
 				07E536371A529210005E1DA9 /* ExpertChatViewController.xib in Resources */,
 				078E89071AA1C32D008AD45A /* UMSocialLWSessionData.html in Resources */,
 				AACCED561B92E54B0020BA0B /* SearchListCell.xib in Resources */,
+				AAEAEC4B1B9D8B35004AC175 /* AppHospitalIntroCell.xib in Resources */,
 				AACCEC681B92E05F0020BA0B /* AddressManagerController.xib in Resources */,
 				07AAB7FE1A8359CB0030D306 /* AboutViewController.xib in Resources */,
 				AACCEC751B92E05F0020BA0B /* ShopCarViewController.xib in Resources */,
 				AACCED521B92E54B0020BA0B /* PaySuccessCell.xib in Resources */,
+				AAE4ED5C1B9EDB4D00F78B45 /* XEAppOrderVerifyController.xib in Resources */,
 				AAD6372C1B202A7000D17763 /* MainTabScrollCollectCell.xib in Resources */,
 				AACCECF61B92E36E0020BA0B /* OrderCell.xib in Resources */,
 				078E89231AA1C32D008AD45A /* index.html in Resources */,
@@ -3992,6 +4138,7 @@
 				AACCED581B92E54B0020BA0B /* ShopCarCell.xib in Resources */,
 				0760E93D1A81ACCD00BBEA3D /* CardPackViewController.xib in Resources */,
 				AACCEC1F1B92DF680020BA0B /* BabyImpressTransmitLoveController.xib in Resources */,
+				AAEAEC3B1B9D6767004AC175 /* AppHospitalListCell.xib in Resources */,
 				AACCED6B1B92E54B0020BA0B /* WaterCollectionCell.xib in Resources */,
 				0776639C1A80779A004C885B /* ActivityApplyViewCell.xib in Resources */,
 				078E89221AA1C32D008AD45A /* title_background.png in Resources */,
@@ -4006,6 +4153,7 @@
 				AACCED721B92E58C0020BA0B /* InfomationViewCell.xib in Resources */,
 				AACCED671B92E54B0020BA0B /* ToyListCollectionCell.xib in Resources */,
 				07508E911A51346300873B45 /* Images.xcassets in Resources */,
+				AAE4ED611B9EE4C500F78B45 /* AppOrderVerifyHeader.xib in Resources */,
 				0712B37F1A5BC0DE000A1A7F /* RetrievePwdViewController.xib in Resources */,
 				AACCED781B92E5CB0020BA0B /* MotherLookCell.xib in Resources */,
 				AA89D4411B5516E900F31927 /* AlipaySDK.bundle in Resources */,
@@ -4069,6 +4217,7 @@
 				AACCECFD1B92E36E0020BA0B /* OrderWillPassCell.m in Sources */,
 				AA92336F1B5A44EC0087AD66 /* XEAppointmentEticker.m in Sources */,
 				075DD04B1A78BA3F009A64B4 /* UIImageExtras.m in Sources */,
+				AAEAEC3A1B9D6767004AC175 /* AppHospitalListCell.m in Sources */,
 				AABC37861B4BEB1E0090660B /* NSObject+MJProperty.m in Sources */,
 				073F9F0B1A68B2B8009D94E3 /* XECategoryView.m in Sources */,
 				AA9A560C1B564A8300E6F62A /* XEOrderSeriesInfo.m in Sources */,
@@ -4145,14 +4294,18 @@
 				075B03291A6E3892002B577D /* MapChooseViewController.m in Sources */,
 				AA1AE6FC1B5F66A700F5B90D /* UzysWrapperPickerController.m in Sources */,
 				0774A8871A66705D00336465 /* XEProgressHUD.m in Sources */,
+				AAEAEC4A1B9D8B35004AC175 /* AppHospitalIntroCell.m in Sources */,
 				07702D011A5901AF00168E2E /* XESuperViewController.m in Sources */,
 				AACCECF91B92E36E0020BA0B /* OrderDreailCardCell.m in Sources */,
 				AACCECF31B92E36E0020BA0B /* OrderCardHistoryCell.m in Sources */,
 				0752F7DB1A7B2638008C0E0A /* PSTGridLayoutItem.m in Sources */,
 				076D73371AAD9E7A00C1A30A /* XEItemInfo.m in Sources */,
 				0760FC461A79D4DD00A0E5D8 /* QuestionDetailsViewController.m in Sources */,
+				AAEAEC341B9D6343004AC175 /* XEAPPHospitalListController.m in Sources */,
 				07B6505B1A67B85200DEDE4E /* XEDoctorInfo.m in Sources */,
 				07C49F4A1A5E7CD000E1725C /* XEImagePickerController.m in Sources */,
+				AAEAEC4F1B9D9876004AC175 /* XEAppOfficeIntroController.m in Sources */,
+				AAEAEC431B9D7A6A004AC175 /* XEAppHospital.m in Sources */,
 				0712B3B21A5BD853000A1A7F /* UIImageView+HighlightedWebCache.m in Sources */,
 				0752F7DC1A7B2638008C0E0A /* PSTGridLayoutRow.m in Sources */,
 				075B032F1A6E3CC7002B577D /* XELocationServiceUtil.m in Sources */,
@@ -4165,6 +4318,7 @@
 				075AA03A1A68B85D000B6302 /* ActivityViewController.m in Sources */,
 				AACCECC81B92E2B10020BA0B /* BabyImpressAddCollectCell.m in Sources */,
 				AACCEC601B92E05F0020BA0B /* ActivityMainViewController.m in Sources */,
+				AAE4ED3A1B9E74BE00F78B45 /* XEAppOfficeAppointmentController.m in Sources */,
 				07C49F471A5E7C9800E1725C /* XECommonVcTransition.m in Sources */,
 				0774A8751A666EAB00336465 /* GMGridViewLayoutStrategies.m in Sources */,
 				077C98AF1A53A11000E2985B /* XEUserInfo.m in Sources */,
@@ -4181,6 +4335,7 @@
 				AA89D44E1B5516E900F31927 /* RSADataVerifier.m in Sources */,
 				AACCED661B92E54B0020BA0B /* ToyListCollectionCell.m in Sources */,
 				AACCED551B92E54B0020BA0B /* SearchListCell.m in Sources */,
+				AAE4ED481B9E821A00F78B45 /* XEAppOfficeAppointmentInfo.m in Sources */,
 				AA7572A01B418A67002A8AA2 /* XEShopListInfo.m in Sources */,
 				0712B3A41A5BD853000A1A7F /* MKAnnotationView+WebCache.m in Sources */,
 				AA9233811B5A5C6B0087AD66 /* XEOrderWillPassInfo.m in Sources */,
@@ -4214,12 +4369,14 @@
 				AACCED681B92E54B0020BA0B /* ToyMainTabCell.m in Sources */,
 				AACCED881B92E6A00020BA0B /* EveryOneWeekController.m in Sources */,
 				AACCEC101B92DF680020BA0B /* BabyImpressAddController.m in Sources */,
+				AAE4ED3F1B9E755100F78B45 /* AppOfficeAppointmentCell.m in Sources */,
 				07E536281A529037005E1DA9 /* SuperMainViewController.m in Sources */,
 				07C988111A63AAEA003A2B30 /* SelectBirthdayViewController.m in Sources */,
 				0752F7D71A7B2638008C0E0A /* PSTCollectionViewItemKey.m in Sources */,
 				AA125DDE1B2811D1000163A7 /* UIView+MJExtension.m in Sources */,
 				AACCEC1E1B92DF680020BA0B /* BabyImpressTransmitLoveController.m in Sources */,
 				075B03231A6DECE2002B577D /* XEPublicViewController.m in Sources */,
+				AAEAEC3E1B9D69DD004AC175 /* AppHospitalListHeaderView.m in Sources */,
 				AA125DDB1B2811D1000163A7 /* MJRefreshHeaderView.m in Sources */,
 				AACCEC721B92E05F0020BA0B /* SearchListViewController.m in Sources */,
 				073F9F171A68D0CB009D94E3 /* XERecipesInfo.m in Sources */,
@@ -4240,6 +4397,7 @@
 				AA125DD91B2811D1000163A7 /* MJRefreshConst.m in Sources */,
 				7E72412C1A77D2F8001E1F69 /* HPTextViewInternal.m in Sources */,
 				0794259C1A5A59A7002BF56C /* UIImage+HQ.m in Sources */,
+				AAE4ED511B9EB1C500F78B45 /* AppOrderInfomationCell.m in Sources */,
 				073FD9881A53C55200FF0EFD /* PathHelper.m in Sources */,
 				AA1AE6F61B5F66A700F5B90D /* UzysAssetsPickerController.m in Sources */,
 				079E421C1A762ABE0056968E /* XEQuestionViewCell.m in Sources */,
@@ -4271,6 +4429,7 @@
 				07882C271A80753D003874FA /* XECardInfo.m in Sources */,
 				AACCECCC1B92E2B10020BA0B /* BabyImpressCollectCell.m in Sources */,
 				074594061A5BB52C008F4665 /* NewIntroView.m in Sources */,
+				AAE4ED561B9EBE6300F78B45 /* XEAPPAgreeDeclarationController.m in Sources */,
 				0752F7AD1A7B25C5008C0E0A /* MWTapDetectingView.m in Sources */,
 				AA419DB01B4D2FF40020602B /* XEShopDetailInfo.m in Sources */,
 				0712B3B41A5BD853000A1A7F /* UIView+WebCacheOperation.m in Sources */,
@@ -4300,6 +4459,7 @@
 				AACCEC5E1B92E05F0020BA0B /* ActivityDetailController.m in Sources */,
 				075E32191A762C49006037B3 /* XEShareActionSheet.m in Sources */,
 				07C988161A63B44B003A2B30 /* ChooseLocationViewController.m in Sources */,
+				AAE4ED5F1B9EE4B900F78B45 /* AppOrderVerifyHeader.m in Sources */,
 				AA125DDA1B2811D1000163A7 /* MJRefreshFooterView.m in Sources */,
 				AACCED6C1B92E54B0020BA0B /* WaterFlowLayout.m in Sources */,
 				0794259B1A5A59A7002BF56C /* QHQnetworkingTool.m in Sources */,
@@ -4314,6 +4474,7 @@
 				07E5363B1A529259005E1DA9 /* MineTabViewController.m in Sources */,
 				AACCEC941B92E0B70020BA0B /* OrderDetailViewController.m in Sources */,
 				078E87EC1AA18CAE008AD45A /* StageSelectViewCell.m in Sources */,
+				AAE4ED5B1B9EDB4D00F78B45 /* XEAppOrderVerifyController.m in Sources */,
 				AABC37881B4BEB1E0090660B /* README.md in Sources */,
 				074D4B581AB8107900C19972 /* TicketListViewController.m in Sources */,
 				0774A8761A666EAB00336465 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
@@ -4336,6 +4497,7 @@
 				7E7241241A77C12A001E1F69 /* TopicCommentViewCell.m in Sources */,
 				075AA0481A690C58000B6302 /* ActivityDetailsViewController.m in Sources */,
 				AABC37871B4BEB1E0090660B /* NSString+MJExtension.m in Sources */,
+				AAEAEC461B9D7ADA004AC175 /* XEAppSubHospital.m in Sources */,
 				AACCECCE1B92E2B10020BA0B /* BabyImpressMainCell.m in Sources */,
 				AACCEC671B92E05F0020BA0B /* AddressManagerController.m in Sources */,
 				0712B3B31A5BD853000A1A7F /* UIImageView+WebCache.m in Sources */,
@@ -4370,6 +4532,8 @@
 				079879E31AA98BDC00B59CED /* XEWebViewWithEvaluationVc.m in Sources */,
 				0712B3AF1A5BD853000A1A7F /* UIImage+GIF.m in Sources */,
 				07E5361B1A528BE6005E1DA9 /* XETabBarViewController.m in Sources */,
+				AAE4ED4C1B9EAC1300F78B45 /* XEAppOrderInfomationController.m in Sources */,
+				AAE4ED451B9E75B000F78B45 /* AppOfficeAppointmentHeader.m in Sources */,
 				AACCED591B92E54B0020BA0B /* ShopHeaderCollectCell.m in Sources */,
 				AACCEB581B9153420020BA0B /* XEChatHeaderView.m in Sources */,
 				AACCED611B92E54B0020BA0B /* ToyDetailCollectiCell.m in Sources */,

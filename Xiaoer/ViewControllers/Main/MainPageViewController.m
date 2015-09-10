@@ -40,7 +40,7 @@
 #import "BabyProfileViewController.h"
 #import "BabyImpressMainController.h"
 #import "AppDelegate.h"
-
+#import "XEAPPHospitalListController.h"
 
 @interface MainPageViewController ()<UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,XEScrollPageDelegate,UICollectionViewDataSource,UICollectionViewDelegate,selestDelegate>{
     ODRefreshControl *_themeControl;
@@ -694,8 +694,8 @@
 
         }else if (indexPath.row == 3){
             //咨询
-            [cell.avatarImgView setImage:[UIImage imageNamed:@"资讯"]];
-            cell.nameLabel.text = @"资讯";
+            [cell.avatarImgView setImage:[UIImage imageNamed:@"appointment"]];
+            cell.nameLabel.text = @"预约挂号";
         }
         return cell;
 
@@ -752,7 +752,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (collectionView == self.collectionView) {
-        return CGSizeMake((SCREEN_WIDTH - 120) / 4, (SCREEN_WIDTH - 120) / 4 + 17);
+        return CGSizeMake((SCREEN_WIDTH - 70) / 4, (SCREEN_WIDTH - 70) / 4 + 20);
 
     }
     return CGSizeMake((SCREEN_WIDTH - 120) / 4, (SCREEN_WIDTH - 120) / 4 + 17);
@@ -762,7 +762,7 @@
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     if (collectionView == self.collectionView) {
-        return UIEdgeInsetsMake(20, 15, 15, 15);
+        return UIEdgeInsetsMake(15, 10, 15, 10);
     }
     return UIEdgeInsetsMake(20, 15, 15, 15);
 }
@@ -802,8 +802,11 @@
             break;
         }
         case 3:{
-            InformationViewController *infomation = [[InformationViewController alloc]init];
-            [self.navigationController pushViewController:infomation  animated:YES];
+//            InformationViewController *infomation = [[InformationViewController alloc]init];
+//            [self.navigationController pushViewController:infomation  animated:YES];
+            XEAPPHospitalListController *hospital = [[XEAPPHospitalListController alloc]init];
+            [self.navigationController pushViewController:hospital animated:YES];
+            
             break;
         }
         default:

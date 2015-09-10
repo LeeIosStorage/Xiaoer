@@ -349,6 +349,11 @@
      {
          weakSelf.totalIndex += 1;
          
+         if ([[jsonRet objectForKey:@"code"] isEqual:@3])
+         {
+             [XEProgressHUD lightAlert:@"无法找到该图片，保存图片失败"];
+         }
+         
          if (![[jsonRet objectForKey:@"code"] isEqual:@0])
          {
              weakSelf.failNum += 1;

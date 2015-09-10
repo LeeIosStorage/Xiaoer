@@ -17,29 +17,50 @@
 #import "XEShareActionSheet.h"
 #import "TopicDetailsViewController.h"
 
-@interface ExpertIntroViewController () <UITableViewDelegate,UITableViewDataSource,XEShareActionSheetDelegate>
+#import "ExpextPublicController.h"
+
+@interface ExpertIntroViewController () <UITableViewDelegate,UITableViewDataSource,XEShareActionSheetDelegate,UIWebViewDelegate>
 {
     XEShareActionSheet *_shareAction;
 }
 @property (assign, nonatomic) int  nextCursor;
 @property (assign, nonatomic) BOOL canLoadMore;
-@property (nonatomic, strong) NSMutableArray *doctorTopics;
+//@property (nonatomic, strong) NSMutableArray *doctorTopics;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *footerView;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @property (nonatomic, strong) IBOutlet UIView *headView;
+/**
+ *  人物头像
+ */
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
+/**
+ *  点赞数量
+ */
 @property (strong, nonatomic) IBOutlet UILabel *hotLabel;
+/**
+ *  医生姓名
+ */
 @property (strong, nonatomic) IBOutlet UILabel *doctorNameLabel;
+/**
+ *  医院名称
+ */
 @property (strong, nonatomic) IBOutlet UILabel *doctorCollegeLabel;
-@property (strong, nonatomic) IBOutlet UIView *professionalContentView;
-@property (strong, nonatomic) IBOutlet UILabel *professionalLabel;
-@property (strong, nonatomic) IBOutlet UILabel *doctorIntroLabel;
-@property (strong, nonatomic) IBOutlet UIButton *moreButton;
+
+
+/**
+ *  话题
+ */
 @property (strong, nonatomic) IBOutlet UIButton *topicButton;
+/**
+ *  粉丝
+ */
 @property (strong, nonatomic) IBOutlet UIButton *fansButton;
 
 @property (nonatomic, strong) IBOutlet UIView *sectionView;
 @property (strong, nonatomic) IBOutlet UILabel *topicLabel;
+@property (weak, nonatomic) IBOutlet UIButton *askBtn;
 
 - (IBAction)consultAction:(id)sender;
 - (IBAction)topicAction:(id)sender;
@@ -50,70 +71,101 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.webView.delegate = self;
+    self.askBtn.layer.cornerRadius = 5;
+    self.askBtn.layer.masksToBounds = YES;
+    
     
     [self refreshDoctorInfoShow];
+    //网页加载
+    NSString *url = [NSString stringWithFormat:@"%@/expert/detailh5?expertid=%@",[[XEEngine shareInstance] baseUrl],_doctorInfo.doctorId];
+//    NSString *url = [NSString stringWithFormat:@"%@/goods/h5detail/%@",[[XEEngine shareInstance] baseUrl],@"1"];
+
+    NSLog(@"url == %@",url);
+    [self loadWebViewWithUrl:[NSURL URLWithString:url]];
     
-    [self getCacheExpertInfo];//cache
-    [self refreshExpertInfo];
     
-    [self getCacheTopicList];
-    [self getExpertTopicList];
+//    [self getCacheExpertInfo];//cache
+//    [self refreshExpertInfo];
+//    
+//    [self getCacheTopicList];
+//    [self getExpertTopicList];
     
     
-    __weak ExpertIntroViewController *weakSelf = self;
-    [self.tableView addInfiniteScrollingWithActionHandler:^{
-        if (!weakSelf) {
-            return;
-        }
-        if (!weakSelf.canLoadMore) {
-            [weakSelf.tableView.infiniteScrollingView stopAnimating];
-            weakSelf.tableView.showsInfiniteScrolling = NO;
-            return ;
-        }
-        
-        int tag = [[XEEngine shareInstance] getConnectTag];
-        [[XEEngine shareInstance] getMyPublishTopicListWithUid:weakSelf.doctorInfo.doctorId page:weakSelf.nextCursor tag:tag];
-        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-            if (!weakSelf) {
-                return;
-            }
-            [weakSelf.tableView.infiniteScrollingView stopAnimating];
-            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-            if (!jsonRet || errorMsg) {
-                if (!errorMsg.length) {
-                    errorMsg = @"请求失败";
-                }
-                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-                return;
-            }
-//            [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
-            
-            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"pubs"];
-            for (NSDictionary *dic in object) {
-                XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
-                [topicInfo setTopicInfoByJsonDic:dic];
-                [weakSelf.doctorTopics addObject:topicInfo];
-            }
-            
-            weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
-            if (!weakSelf.canLoadMore) {
-                weakSelf.tableView.showsInfiniteScrolling = NO;
-            }else{
-                weakSelf.tableView.showsInfiniteScrolling = YES;
-                weakSelf.nextCursor ++;
-            }
-            [weakSelf.tableView reloadData];
-            
-        } tag:tag];
-    }];
+//    __weak ExpertIntroViewController *weakSelf = self;
+//    [self.tableView addInfiniteScrollingWithActionHandler:^{
+//        if (!weakSelf) {
+//            return;
+//        }
+//        if (!weakSelf.canLoadMore) {
+//            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+//            weakSelf.tableView.showsInfiniteScrolling = NO;
+//            return ;
+//        }
+//        
+//        int tag = [[XEEngine shareInstance] getConnectTag];
+//        [[XEEngine shareInstance] getMyPublishTopicListWithUid:weakSelf.doctorInfo.doctorId page:weakSelf.nextCursor tag:tag];
+//        [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+//            if (!weakSelf) {
+//                return;
+//            }
+//            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+//            NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+//            if (!jsonRet || errorMsg) {
+//                if (!errorMsg.length) {
+//                    errorMsg = @"请求失败";
+//                }
+//                [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+//                return;
+//            }
+//            
+//            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"pubs"];
+//            for (NSDictionary *dic in object) {
+//                XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
+//                [topicInfo setTopicInfoByJsonDic:dic];
+//                [weakSelf.doctorTopics addObject:topicInfo];
+//            }
+//            
+//            weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+//            if (!weakSelf.canLoadMore) {
+//                weakSelf.tableView.showsInfiniteScrolling = NO;
+//            }else{
+//                weakSelf.tableView.showsInfiniteScrolling = YES;
+//                weakSelf.nextCursor ++;
+//            }
+//            [weakSelf.tableView reloadData];
+//            
+//        } tag:tag];
+//    }];
+    
+}
+#pragma mark  web delegate
+
+- (void)loadWebViewWithUrl:(NSURL *)url {
+    
+    NSURLRequest *request =[NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:request];
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    
+    [XEProgressHUD AlertLoading:@"正在加载"];
+
 }
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    [XEProgressHUD AlertSuccess:@"加载成功"];
+    CGRect frame = self.footerView.frame;
+    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
+    frame.size = fittingSize;
+    self.footerView.frame = frame;
+    self.tableView.tableFooterView = self.footerView;
+    [self.tableView reloadData];
+    
+}
+
 
 -(void)initNormalTitleNavBarSubviews{
     [self setTitle:@"专家介绍"];
@@ -122,126 +174,118 @@
 //    [self setRight2ButtonWithImageName:@"share_icon" selector:@selector(shareAction:)];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
-- (void)getCacheExpertInfo{
-    __weak ExpertIntroViewController *weakSelf = self;
-    int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] addGetCacheTag:tag];
-    [[XEEngine shareInstance] getExpertDetailWithUid:[XEEngine shareInstance].uid expertId:_doctorInfo.doctorId tag:tag];
-    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
-        if (jsonRet == nil) {
-            //...
-        }else{
-            NSDictionary *expertDic = [jsonRet dictionaryObjectForKey:@"object"];
-            [_doctorInfo setDoctorInfoByJsonDic:expertDic];
-            [weakSelf refreshDoctorInfoShow];
-            [weakSelf.tableView reloadData];
-        }
-    }];
-}
+//- (void)getCacheExpertInfo{
+//    __weak ExpertIntroViewController *weakSelf = self;
+//    int tag = [[XEEngine shareInstance] getConnectTag];
+//    [[XEEngine shareInstance] addGetCacheTag:tag];
+//    [[XEEngine shareInstance] getExpertDetailWithUid:[XEEngine shareInstance].uid expertId:_doctorInfo.doctorId tag:tag];
+//    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+//        if (jsonRet == nil) {
+//            //...
+//        }else{
+//            NSDictionary *expertDic = [jsonRet dictionaryObjectForKey:@"object"];
+//            [_doctorInfo setDoctorInfoByJsonDic:expertDic];
+//            [weakSelf refreshDoctorInfoShow];
+//            [weakSelf.tableView reloadData];
+//        }
+//    }];
+//}
+//
+//- (void)getCacheTopicList{
+//    __weak ExpertIntroViewController *weakSelf = self;
+//    int tag = [[XEEngine shareInstance] getConnectTag];
+//    [[XEEngine shareInstance] addGetCacheTag:tag];
+//    [[XEEngine shareInstance] getMyPublishTopicListWithUid:_doctorInfo.doctorId page:1 tag:tag];
+//    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
+//        if (jsonRet == nil) {
+//            //...
+//        }else{
+//            weakSelf.doctorTopics = [[NSMutableArray alloc] init];
+//            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"pubs"];
+//            for (NSDictionary *dic in object) {
+//                XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
+//                [topicInfo setTopicInfoByJsonDic:dic];
+//                [weakSelf.doctorTopics addObject:topicInfo];
+//            }
+//            [weakSelf refreshDoctorInfoShow];
+//            [weakSelf.tableView reloadData];
+//        }
+//    }];
+//}
 
-- (void)getCacheTopicList{
-    __weak ExpertIntroViewController *weakSelf = self;
-    int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] addGetCacheTag:tag];
-    [[XEEngine shareInstance] getMyPublishTopicListWithUid:_doctorInfo.doctorId page:1 tag:tag];
-    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
-        if (jsonRet == nil) {
-            //...
-        }else{
-            weakSelf.doctorTopics = [[NSMutableArray alloc] init];
-            NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"pubs"];
-            for (NSDictionary *dic in object) {
-                XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
-                [topicInfo setTopicInfoByJsonDic:dic];
-                [weakSelf.doctorTopics addObject:topicInfo];
-            }
-            [weakSelf refreshDoctorInfoShow];
-            [weakSelf.tableView reloadData];
-        }
-    }];
-}
+//- (void)refreshExpertInfo{
+//    
+//    __weak ExpertIntroViewController *weakSelf = self;
+//    int tag = [[XEEngine shareInstance] getConnectTag];
+//    [[XEEngine shareInstance] getExpertDetailWithUid:[XEEngine shareInstance].uid expertId:_doctorInfo.doctorId tag:tag];
+//    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+//        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+//        if (!jsonRet || errorMsg) {
+//            if (!errorMsg.length) {
+//                errorMsg = @"请求失败";
+//            }
+//            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+//            return;
+//        }
+////        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+//        
+//        NSDictionary *expertDic = [jsonRet objectForKey:@"object"];
+//        [_doctorInfo setDoctorInfoByJsonDic:expertDic];
+//        
+//        
+////        weakSelf.doctorTopics = [[NSMutableArray alloc] init];
+////        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+////        for (NSDictionary *dic in object) {
+////            XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
+////            [topicInfo setTopicInfoByJsonDic:dic];
+////            [weakSelf.doctorTopics addObject:topicInfo];
+////        }
+//        [weakSelf refreshDoctorInfoShow];
+//        [weakSelf.tableView reloadData];
+//        
+//    }tag:tag];
+//}
 
-- (void)refreshExpertInfo{
-    
-    __weak ExpertIntroViewController *weakSelf = self;
-    int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getExpertDetailWithUid:[XEEngine shareInstance].uid expertId:_doctorInfo.doctorId tag:tag];
-    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-        if (!jsonRet || errorMsg) {
-            if (!errorMsg.length) {
-                errorMsg = @"请求失败";
-            }
-            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-            return;
-        }
-//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
-        
-        NSDictionary *expertDic = [jsonRet objectForKey:@"object"];
-        [_doctorInfo setDoctorInfoByJsonDic:expertDic];
-        
-        
+//-(void)getExpertTopicList{
+//    
+//    _nextCursor = 1;
+//    __weak ExpertIntroViewController *weakSelf = self;
+//    int tag = [[XEEngine shareInstance] getConnectTag];
+//    [[XEEngine shareInstance] getMyPublishTopicListWithUid:_doctorInfo.doctorId page:_nextCursor tag:tag];
+//    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+//        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
+//        if (!jsonRet || errorMsg) {
+//            if (!errorMsg.length) {
+//                errorMsg = @"请求失败";
+//            }
+//            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
+//            return;
+//        }
+////        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
+//        
 //        weakSelf.doctorTopics = [[NSMutableArray alloc] init];
-//        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"topics"];
+//        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"pubs"];
 //        for (NSDictionary *dic in object) {
 //            XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
 //            [topicInfo setTopicInfoByJsonDic:dic];
 //            [weakSelf.doctorTopics addObject:topicInfo];
 //        }
-        [weakSelf refreshDoctorInfoShow];
-        [weakSelf.tableView reloadData];
-        
-    }tag:tag];
-}
-
--(void)getExpertTopicList{
-    
-    _nextCursor = 1;
-    __weak ExpertIntroViewController *weakSelf = self;
-    int tag = [[XEEngine shareInstance] getConnectTag];
-    [[XEEngine shareInstance] getMyPublishTopicListWithUid:_doctorInfo.doctorId page:_nextCursor tag:tag];
-    [[XEEngine shareInstance] addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
-        NSString* errorMsg = [XEEngine getErrorMsgWithReponseDic:jsonRet];
-        if (!jsonRet || errorMsg) {
-            if (!errorMsg.length) {
-                errorMsg = @"请求失败";
-            }
-            [XEProgressHUD AlertError:errorMsg At:weakSelf.view];
-            return;
-        }
-//        [XEProgressHUD AlertSuccess:[jsonRet stringObjectForKey:@"result"]];
-        
-        weakSelf.doctorTopics = [[NSMutableArray alloc] init];
-        NSArray *object = [[jsonRet objectForKey:@"object"] arrayObjectForKey:@"pubs"];
-        for (NSDictionary *dic in object) {
-            XETopicInfo *topicInfo = [[XETopicInfo alloc] init];
-            [topicInfo setTopicInfoByJsonDic:dic];
-            [weakSelf.doctorTopics addObject:topicInfo];
-        }
-        
-        weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
-        if (!weakSelf.canLoadMore) {
-            weakSelf.tableView.showsInfiniteScrolling = NO;
-        }else{
-            weakSelf.tableView.showsInfiniteScrolling = YES;
-            weakSelf.nextCursor ++;
-        }
-        
-        [weakSelf refreshDoctorInfoShow];
-        [weakSelf.tableView reloadData];
-        
-    }tag:tag];
-}
+//        
+//        weakSelf.canLoadMore = [[[jsonRet objectForKey:@"object"] objectForKey:@"end"] boolValue];
+//        if (!weakSelf.canLoadMore) {
+//            weakSelf.tableView.showsInfiniteScrolling = NO;
+//        }else{
+//            weakSelf.tableView.showsInfiniteScrolling = YES;
+//            weakSelf.nextCursor ++;
+//        }
+//        
+//        [weakSelf refreshDoctorInfoShow];
+//        [weakSelf.tableView reloadData];
+//        
+//    }tag:tag];
+//}
 
 #pragma mark - Judge
 -(BOOL)isCollect{
@@ -278,35 +322,30 @@
     
     self.doctorNameLabel.text = [NSString stringWithFormat:@"%@ %@ %d岁",_doctorInfo.doctorName,title,_doctorInfo.age];
     self.doctorCollegeLabel.text = _doctorInfo.hospital;
-    self.doctorIntroLabel.text = _doctorInfo.des;
-    
+
     [self.topicButton setTitle:[NSString stringWithFormat:@"话题%d",_doctorInfo.topicnum] forState:0];
     [self.fansButton setTitle:[NSString stringWithFormat:@"粉丝%d",_doctorInfo.favnum] forState:0];
     self.hotLabel.text = [NSString stringWithFormat:@"%d",_doctorInfo.popularscore];
     
-    //擅长领域
-    self.professionalLabel.text = _doctorInfo.professional;
-    CGRect frame = self.professionalLabel.frame;
-    CGSize professionalTextSize = [XECommonUtils sizeWithText:_doctorInfo.professional font:_professionalLabel.font width:SCREEN_WIDTH-60];
-    frame.size.height = professionalTextSize.height;
-    self.professionalLabel.frame = frame;
-    frame = self.professionalContentView.frame;
-    frame.size.height = self.professionalLabel.frame.origin.y*2 + self.professionalLabel.frame.size.height;
-    self.professionalContentView.frame = frame;
+    UILabel *desLable  = [[UILabel alloc]initWithFrame:CGRectMake(15,  243, SCREEN_WIDTH - 30, 0)];
+    desLable.backgroundColor = [UIColor whiteColor];
+    desLable.numberOfLines = 0;
+    desLable.font = [UIFont systemFontOfSize:15];
     
     
-    frame = _doctorIntroLabel.frame;
-    frame.origin.y = self.professionalContentView.frame.origin.y + self.professionalContentView.frame.size.height + 10;
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
-    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    NSDictionary *attributes = @{NSFontAttributeName:_doctorIntroLabel.font, NSParagraphStyleAttributeName:paragraphStyle.copy};
-    CGSize topicTextSize = [_doctorInfo.des boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-40, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
-    frame.size.height = topicTextSize.height;
-    _doctorIntroLabel.frame = frame;
+    NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:15],NSFontAttributeName, nil];
+    desLable.text = [NSString stringWithFormat:@"     %@ \n \n     %@",_doctorInfo.professional,_doctorInfo.des];
     
-    frame = self.headView.frame;
-    frame.size.height = self.doctorIntroLabel.frame.origin.y + self.doctorIntroLabel.frame.size.height + 22;
-    self.headView.frame = frame;
+    CGRect rect = [desLable.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
+    
+    CGRect desFrame = desLable.frame;
+    desFrame.size.height = rect.size.height ;
+    desLable.frame = desFrame;
+    
+    self.headView.frame  = CGRectMake(0, 0, SCREEN_WIDTH, 243 + rect.size.height + 10);
+    [self.headView addSubview:desLable];
+    
+
     
     self.tableView.tableHeaderView = self.headView;
 }
@@ -375,10 +414,15 @@
 }
 
 - (IBAction)consultAction:(id)sender {
-    XEPublicViewController *vc = [[XEPublicViewController alloc] init];
-    vc.publicType = Public_Type_Expert;
-    vc.doctorInfo = _doctorInfo;
-    [self.navigationController pushViewController:vc animated:YES];
+    NSLog(@"123");
+//    XEPublicViewController *vc = [[XEPublicViewController alloc] init];
+//    vc.publicType = Public_Type_Expert;
+//    vc.doctorInfo = _doctorInfo;
+//    [self.navigationController pushViewController:vc animated:YES];
+    ExpextPublicController *public = [[ExpextPublicController alloc]init];
+    public.publicType = publicExpert;
+    public.doctorInfo =self.doctorInfo;
+    [self.navigationController pushViewController:public animated:YES];
 }
 
 - (IBAction)topicAction:(id)sender {
@@ -396,23 +440,24 @@
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return self.sectionView.frame.size.height;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    return self.sectionView;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return self.sectionView.frame.size.height;
+//}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    
+//    return self.sectionView;
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return _doctorTopics.count;
+    return 0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    XETopicInfo *topicInfo = _doctorTopics[indexPath.row];
-    return [XECateTopicViewCell heightForTopicInfo:topicInfo];
+//    
+//    XETopicInfo *topicInfo = _doctorTopics[indexPath.row];
+//    return [XECateTopicViewCell heightForTopicInfo:topicInfo];
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -424,20 +469,20 @@
         cell = [cells objectAtIndex:0];
         cell.backgroundColor = [UIColor clearColor];
     }
-    XETopicInfo *topicInfo = _doctorTopics[indexPath.row];
-    cell.topicInfo = topicInfo;
+//    XETopicInfo *topicInfo = _doctorTopics[indexPath.row];
+//    cell.topicInfo = topicInfo;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
-    [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
-    
-    XETopicInfo *topicInfo = _doctorTopics[indexPath.row];
-    TopicDetailsViewController *topicVc = [[TopicDetailsViewController alloc] init];
-    topicVc.topicInfo = topicInfo;
-    [self.navigationController pushViewController:topicVc animated:YES];
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSIndexPath* selIndexPath = [tableView indexPathForSelectedRow];
+//    [tableView deselectRowAtIndexPath:selIndexPath animated:YES];
+//    
+//    XETopicInfo *topicInfo = _doctorTopics[indexPath.row];
+//    TopicDetailsViewController *topicVc = [[TopicDetailsViewController alloc] init];
+//    topicVc.topicInfo = topicInfo;
+//    [self.navigationController pushViewController:topicVc animated:YES];
+//}
 
 @end

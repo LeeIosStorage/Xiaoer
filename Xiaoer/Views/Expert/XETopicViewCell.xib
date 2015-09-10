@@ -22,7 +22,7 @@
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V5g-oE-4St">
-                        <rect key="frame" x="10" y="10" width="90" height="69"/>
+                        <rect key="frame" x="10" y="12" width="90" height="67"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="90" id="JA5-1X-fBc"/>
                         </constraints>
@@ -80,7 +80,7 @@
                     <constraint firstItem="mS2-Lg-dve" firstAttribute="top" secondItem="31w-SI-vr7" secondAttribute="bottom" constant="10" id="OHn-UV-LaH"/>
                     <constraint firstItem="D1R-hi-vqy" firstAttribute="top" secondItem="5u4-c1-Hvr" secondAttribute="bottom" constant="5" id="T9Y-UX-S9I"/>
                     <constraint firstItem="D1R-hi-vqy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="Vmq-BI-F1Z"/>
-                    <constraint firstItem="V5g-oE-4St" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Xb2-GC-VS4"/>
+                    <constraint firstItem="V5g-oE-4St" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="Xb2-GC-VS4"/>
                     <constraint firstItem="5u4-c1-Hvr" firstAttribute="leading" secondItem="V5g-oE-4St" secondAttribute="trailing" constant="10" id="Xsq-ch-MxY"/>
                     <constraint firstItem="mS2-Lg-dve" firstAttribute="top" secondItem="V5g-oE-4St" secondAttribute="bottom" constant="9" id="Y5u-8T-dfT"/>
                     <constraint firstAttribute="trailing" secondItem="mS2-Lg-dve" secondAttribute="trailing" id="YQw-6W-qh3"/>

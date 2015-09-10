@@ -13,6 +13,11 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "XESystem.h"
+#import "XEEngine.h"
+#import "XEProgressHUD.h"
+#import "MJExtension.h"
+
+#define LGrayColor  [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1]
 #endif
 
 // Include any system framework and library headers here that should be included in all compilation units.
