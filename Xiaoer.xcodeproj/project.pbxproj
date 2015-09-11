@@ -4720,7 +4720,7 @@
 					"$(PROJECT_DIR)/Xiaoer/External/AliPayNeed",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c909dc26-352d-44bf-bea8-5070160034df";
+				PROVISIONING_PROFILE = "486af6e6-072e-402f-9eb1-f67aadbad0c2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Xiaoer/External/JPush";
@@ -4763,7 +4763,7 @@
 					"$(PROJECT_DIR)/Xiaoer/External/AliPayNeed",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c909dc26-352d-44bf-bea8-5070160034df";
+				PROVISIONING_PROFILE = "486af6e6-072e-402f-9eb1-f67aadbad0c2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Xiaoer/External/JPush";

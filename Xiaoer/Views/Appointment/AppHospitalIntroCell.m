@@ -13,6 +13,7 @@
 - (UILabel *)introLab{
     if (!_introLab) {
         self.introLab = [[UILabel alloc]init];
+        _introLab.frame = CGRectMake(0, 0, SCREEN_HEIGHT, 0);
         _introLab.numberOfLines = 0;
         _introLab.font = [UIFont systemFontOfSize:introFont];
         [self.contentView addSubview:_introLab];
@@ -20,6 +21,7 @@
     return _introLab;
 }
 - (void)awakeFromNib {
+    self.autoresizingMask = 0;
     // Initialization code
 }
 
@@ -32,13 +34,16 @@
     /**
      *   0 隐藏 1 不隐藏
      */
-    
+    self.info = info;
+    self.backLable.backgroundColor = LGrayColor;
+    self.introLab.text = info.intro;
     self.nameLable.text = @"医院简介";
     if ([hideStr isEqualToString:@"0"])
     {
         self.introLab.hidden = YES;
         self.setLine.hidden = YES;
-        
+        self.introLab.frame = CGRectZero;
+
         [self.rightBtn setBackgroundImage:[UIImage imageNamed:@"addRight"] forState:UIControlStateNormal];
 
     }
@@ -48,13 +53,14 @@
 
         self.introLab.hidden = NO;
         self.setLine.hidden = NO;
+        NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:introFont],NSFontAttributeName, nil];
+
+        CGRect rect = [info.intro boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
+
+        self.introLab.frame = CGRectMake(15, 40, SCREEN_WIDTH - 30, rect.size.height);
     }
-    self.info = info;
-    self.backLable.backgroundColor = LGrayColor;
-    self.introLab.text = info.intro;
-    NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:introFont],NSFontAttributeName, nil];
-    CGRect rect = [info.intro boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
-    self.introLab.frame = CGRectMake(15, 40, SCREEN_WIDTH - 30, rect.size.height);
+
+
    
 }
 

@@ -73,6 +73,8 @@
 - (IBAction)topicAction:(id)sender;
 
 - (IBAction)loadMoreAction:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *showBtn;
+@property (weak, nonatomic) IBOutlet UIButton *showBtnB;
 
 @end
 
@@ -85,6 +87,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.showBtn.layer.cornerRadius = 5;
+    self.showBtnB.layer.cornerRadius = 5;
+    self.showBtn.layer.masksToBounds = YES;
+    self.showBtnB.layer.masksToBounds = YES;
+
     // Do any additional setup after loading the view from its nib.
     [self setTitle:@"专家聊"];
     
@@ -657,7 +664,7 @@
 //    }
     _menuView = [[XEPublishMenu alloc] init];
     __weak ExpertChatViewController *weakSelf = self;
-    [_menuView addMenuItemWithTitle:@"发话题" andIcon:[UIImage imageNamed:@"expert_public_topic_icon"] andSelectedBlock:^{
+    [_menuView addMenuItemWithTitle:@"发话题" andIcon:[UIImage imageNamed:@"exper_publishChat"] andSelectedBlock:^{
 //        XEPublicViewController *pVc = [[XEPublicViewController alloc] init];
 //        pVc.publicType = Public_Type_Topic;
 //        [weakSelf.navigationController pushViewController:pVc animated:YES];
@@ -666,7 +673,7 @@
         public.publicType = publicTopic;
         [weakSelf.navigationController pushViewController:public animated:YES];
     }];
-    [_menuView addMenuItemWithTitle:@"问专家" andIcon:[UIImage imageNamed:@"expert_public_ask_icon"] andSelectedBlock:^{
+    [_menuView addMenuItemWithTitle:@"问专家" andIcon:[UIImage imageNamed:@"expect_askExpect"] andSelectedBlock:^{
         ExpertListViewController *elVc = [[ExpertListViewController alloc] init];
         elVc.isNeedSelect = YES;
         [weakSelf.navigationController pushViewController:elVc animated:YES];

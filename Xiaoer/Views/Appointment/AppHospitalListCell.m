@@ -11,6 +11,7 @@
 @implementation AppHospitalListCell
 
 - (void)awakeFromNib {
+    self.autoresizingMask = 0;
     // Initialization code
 }
 

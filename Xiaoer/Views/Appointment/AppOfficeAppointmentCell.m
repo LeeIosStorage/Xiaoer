@@ -76,7 +76,7 @@
     MyAttributedStringBuilder *builder = [[MyAttributedStringBuilder alloc] initWithString:self.desLab.text];
     [builder includeString:[NSString stringWithFormat:@"%.2f",price] all:YES].textColor = [UIColor redColor];
     NSRange rang = [self.desLab.text  rangeOfString:[self notRounding:price afterPoint:0]];
-    [builder range:rang].font = [UIFont systemFontOfSize:17];
+    [builder range:rang].font = [UIFont systemFontOfSize:20];
     self.desLab.attributedText = builder.commit;
 
     self.titleLab.text = [XEUIUtils dateDiscriptionAndWeekFromDate:info.resultBeginTime];

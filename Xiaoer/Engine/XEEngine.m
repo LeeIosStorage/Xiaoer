@@ -984,18 +984,18 @@ static XEEngine* s_ShareInstance = nil;
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/index/expert",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
-
-- (BOOL)getExpertDetailWithUid:(NSString *)uid expertId:(NSString *)expertId tag:(int)tag{
+- (BOOL)getExpertDetailWithUid:(NSString *)userid expertid:(NSString *)expertid tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    if (expertId) {
-        [params setObject:expertId forKey:@"expertid"];
+    if (expertid) {
+        [params setObject:expertid forKey:@"expertid"];
     }
-    if (uid) {
-        [params setObject:uid forKey:@"userid"];
+    if (userid) {
+        [params setObject:userid forKey:@"userid"];
     }
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/expert/detail",API_URL] type:1 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
 }
+
 
 - (BOOL)collectExpertWithExpertId:(NSString *)expertId uid:(NSString *)uid tag:(int)tag{
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
@@ -2110,6 +2110,6 @@ static XEEngine* s_ShareInstance = nil;
 
     NSDictionary* formatDic = [self getRequestJsonWithUrl:[NSString stringWithFormat:@"%@/hb/hospitalOrder/order",API_URL] type:0 parameters:params];
     return [self reDirectXECommonWithFormatDic:formatDic withData:nil withTag:tag withTimeout:CONNECT_TIMEOUT error:nil];
-    
+
 }
 @end

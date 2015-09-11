@@ -362,11 +362,15 @@
     des.font = [UIFont systemFontOfSize:15];
     des.numberOfLines = 0;
     NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:15],NSFontAttributeName, nil];
-    des.text = @"10分公益”活动是由国家卫生计生委主导的“新家庭”项目，面向全国0~3岁婴幼儿家庭推出的爱心传递公益活动。每位参加活动奉献爱心的家长都将获得由“新家庭”送出的惊喜大礼哦~";
+    if (self.publicType == publicExpert) {
+        des.text = @"不论是亲子教育还是健康养育，您有任何有关宝宝方面的问题都可以在这里提问哦，我们的专家团队会及时为您排忧解难！";
+    }else{
+        des.text = @"宝宝开口晚要不要紧？宝宝爱乱丢东西？您的话题或许是大家正在关心的问题，欢迎您来发起新话题~";
+    }
     CGRect rect = [des.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
     CGRect textFram = des.frame;
     
-    textFram.size.height = rect.size.height + 10;
+    textFram.size.height = rect.size.height + 20;
     des.frame = textFram;
     
     if (self.publicType == publicTopic) {
@@ -714,13 +718,13 @@
 - (void)configureTableView{
     
     
-    self.heartBtn.layer.cornerRadius = 7;
+    self.heartBtn.layer.cornerRadius = 10;
     self.heartBtn.layer.masksToBounds = YES;
-    self.raiseBtn.layer.cornerRadius = 7;
+    self.raiseBtn.layer.cornerRadius = 10;
     self.raiseBtn.layer.masksToBounds = YES;
-    self.nuration.layer.cornerRadius = 7;
+    self.nuration.layer.cornerRadius = 10;
     self.nuration.layer.masksToBounds = YES;
-    self.getInbtn.layer.cornerRadius = 7;
+    self.getInbtn.layer.cornerRadius = 10;
     self.getInbtn.layer.masksToBounds = YES;
     
     self.titleField.placeholder = @"请输入标题";

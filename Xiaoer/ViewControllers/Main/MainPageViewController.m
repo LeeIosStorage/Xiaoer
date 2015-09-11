@@ -676,21 +676,21 @@
             [cell.avatarImgView setImage:[UIImage imageNamed:@"home_rush_icon"]];
 
             cell.nameLabel.text = @"卡券";
-            if (_cardNum > 0) {
-                cell.roundImgView.hidden = NO;
-            }else{
-                cell.roundImgView.hidden = YES;
-            }
+//            if (_cardNum > 0) {
+//                cell.roundImgView.hidden = NO;
+//            }else{
+//                cell.roundImgView.hidden = YES;
+//            }
             
         }else if (indexPath.row == 2){
             //抢票
             [cell.avatarImgView setImage:[UIImage imageNamed:@"home_card_icon"]];
             cell.nameLabel.text = @"抢票";
-            if (_ticketNum > 0) {
-                cell.roundImgView.hidden = NO;
-            }else{
-                cell.roundImgView.hidden = YES;
-            }
+//            if (_ticketNum > 0) {
+//                cell.roundImgView.hidden = NO;
+//            }else{
+//                cell.roundImgView.hidden = YES;
+//            }
 
         }else if (indexPath.row == 3){
             //咨询

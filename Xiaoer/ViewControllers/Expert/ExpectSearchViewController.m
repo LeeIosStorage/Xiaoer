@@ -89,14 +89,14 @@
     
     [self configureTableView];
     [self configureTypeView];
-    [self.rollBtn setBackgroundImage:[UIImage imageNamed:@"expect_rowUp"] forState:UIControlStateNormal];
+    [self.rollBtn setBackgroundImage:[UIImage imageNamed:@"expect_rowDown"] forState:UIControlStateNormal];
     NSLog(@"searchType == %u",self.searchType);
 
 }
 #pragma mark 搜索
 - (void)searchDataWith:(NSString *)string{
     
-    
+    [XEProgressHUD AlertLoading:@"正在搜索请稍候"];
     if (self.searchType == SearchTopic) {
         [self exactSearchWith:string];
     }else{
@@ -113,14 +113,17 @@
 
 - (void)blurSearchWith:(NSString *)string
 {
+    
     int tag = [[XEEngine shareInstance]getConnectTag];
     [[XEEngine shareInstance]getQuestionListWithPagenum:self.pageNum tag:tag title:string];
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
 
+        [XEProgressHUD AlertSuccess:@"搜索完成"];
         
         if ([jsonRet[@"object"][@"end"] isEqual:@0]) {
             self.ifToEnd = YES;
         }
+        
         NSArray *array = jsonRet[@"object"][@"questions"];
         
         if (array.count == 0)
@@ -136,7 +139,8 @@
         else
         {
             
-            if (self.ifRemoveData == YES) {
+            if (self.ifRemoveData == YES)
+            {
                 [self.dataSoures removeAllObjects];
             }
             for (NSDictionary *dic in array)
@@ -184,7 +188,7 @@
     [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
         
 
-        
+        [XEProgressHUD AlertSuccess:@"搜索完成"];
         if ([jsonRet[@"object"][@"end"] isEqual:@0]) {
             self.ifToEnd = YES;
         }
@@ -223,6 +227,22 @@
 
 - (void)footerRefresh
 {
+    if (self.searchType == SearchTopic && self.searchContentLab.text.length == 0) {
+        // 2.2秒后刷新表格UI
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView footerEndRefreshing];
+        });
+        return;
+    }
+    
+    if (self.searchType == SearchEcpect && self.searchExpectContent.text.length == 0) {
+        // 2.2秒后刷新表格UI
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView footerEndRefreshing];
+        });
+        return;
+    }
+    
     self.ifRemoveData = NO;
     if (self.ifToEnd == YES ) {
         [XEProgressHUD lightAlert:@"已经到最后一页了"];
@@ -241,6 +261,21 @@
     });
 }
 - (void)headerRefresh{
+    if (self.searchType == SearchTopic && self.searchContentLab.text.length == 0) {
+        // 2.2秒后刷新表格UI
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView headerEndRefreshing];
+        });
+        return;
+    }
+    
+    if (self.searchType == SearchEcpect && self.searchExpectContent.text.length == 0) {
+        // 2.2秒后刷新表格UI
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView headerEndRefreshing];
+        });
+        return;
+    }
     self.ifRemoveData = YES;
     self.pageNum = 1;
     self.ifToEnd = NO;
@@ -256,7 +291,7 @@
     });
 }
 - (void)configureTypeView{
-    self.chooseTypeView.frame = CGRectMake(10, 100, 60, 125);
+    self.chooseTypeView.frame = CGRectMake(10, 100, 100, 180);
     [self.view addSubview:self.chooseTypeView];
     self.chooseTypeView.hidden = YES;
     self.searchContentLab.delegate = self;
@@ -378,9 +413,9 @@
 - (IBAction)raiseTouched:(id)sender {
     NSLog(@"养育");
     UIButton *button = (UIButton *)sender;
+    [self changeTypeBtnTitleWith:button];
 
     [self configureRollBtnBackGroundImage];
-    [self changeTypeBtnTitleWith:button];
 
 }
 
@@ -394,13 +429,18 @@
 
 - (IBAction)typeBtnTouched:(id)sender {
     
-    self.chooseTypeView.hidden = NO;
+    self.chooseTypeView.hidden =! self.chooseTypeView.hidden;
+    if (self.chooseTypeView.hidden == NO) {
+        [self.rollBtn setBackgroundImage:[UIImage imageNamed:@"expect_rowDown"] forState:UIControlStateNormal];
+    }else{
+        [self.rollBtn setBackgroundImage:[UIImage imageNamed:@"expect_rowUp"] forState:UIControlStateNormal];
+    }
     [self configureRollBtnBackGroundImage];
 
 }
 - (void)configureRollBtnBackGroundImage{
 
-    if (self.chooseTypeView.hidden == NO) {
+    if (self.chooseTypeView.hidden == YES) {
         [self.rollBtn setBackgroundImage:[UIImage imageNamed:@"expect_rowDown"] forState:UIControlStateNormal];
     }else{
         [self.rollBtn setBackgroundImage:[UIImage imageNamed:@"expect_rowUp"] forState:UIControlStateNormal];
@@ -408,12 +448,14 @@
 
 }
 - (IBAction)cancleBtnTouched:(id)sender {
+    [self.searchExpectContent resignFirstResponder];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)cancleExpectBtnTouched:(id)sender {
     
     [self.searchExpectContent resignFirstResponder];
-}
+    [self.navigationController popViewControllerAnimated:YES];}
 
 
 #pragma mark texeFiled delagate

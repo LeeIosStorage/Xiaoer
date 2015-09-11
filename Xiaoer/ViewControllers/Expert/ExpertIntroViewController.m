@@ -76,16 +76,16 @@
     self.askBtn.layer.masksToBounds = YES;
     
     
-    [self refreshDoctorInfoShow];
     //网页加载
     NSString *url = [NSString stringWithFormat:@"%@/expert/detailh5?expertid=%@",[[XEEngine shareInstance] baseUrl],_doctorInfo.doctorId];
 //    NSString *url = [NSString stringWithFormat:@"%@/goods/h5detail/%@",[[XEEngine shareInstance] baseUrl],@"1"];
 
     NSLog(@"url == %@",url);
     [self loadWebViewWithUrl:[NSURL URLWithString:url]];
+    [self refreshDoctorInfoShow];
+
     
-    
-//    [self getCacheExpertInfo];//cache
+    [self getCacheExpertInfo];//cache
 //    [self refreshExpertInfo];
 //    
 //    [self getCacheTopicList];
@@ -168,7 +168,7 @@
 
 
 -(void)initNormalTitleNavBarSubviews{
-    [self setTitle:@"专家介绍"];
+    [self setTitle:[NSString stringWithFormat:@"%@详情",self.doctorInfo.doctorName]];
     [self setRightButtonWithImageName:@"more_icon" selector:@selector(collectAction:)];
     
 //    [self setRight2ButtonWithImageName:@"share_icon" selector:@selector(shareAction:)];
@@ -176,22 +176,29 @@
 
 
 
-//- (void)getCacheExpertInfo{
-//    __weak ExpertIntroViewController *weakSelf = self;
-//    int tag = [[XEEngine shareInstance] getConnectTag];
+- (void)getCacheExpertInfo{
+    __weak ExpertIntroViewController *weakSelf = self;
+    int tag = [[XEEngine shareInstance] getConnectTag];
 //    [[XEEngine shareInstance] addGetCacheTag:tag];
 //    [[XEEngine shareInstance] getExpertDetailWithUid:[XEEngine shareInstance].uid expertId:_doctorInfo.doctorId tag:tag];
+    [[XEEngine shareInstance] getExpertDetailWithUid:[XEEngine shareInstance].uid expertid:self.doctorInfo.doctorId tag:tag];
+    [[XEEngine shareInstance]addOnAppServiceBlock:^(NSInteger tag, NSDictionary *jsonRet, NSError *err) {
+        NSLog(@"-----%@",jsonRet);
+                    NSDictionary *expertDic = [jsonRet dictionaryObjectForKey:@"object"];
+                    [_doctorInfo setDoctorInfoByJsonDic:expertDic];
+                    [weakSelf refreshDoctorInfoShow];
+                    [weakSelf.tableView reloadData];
+    } tag:tag];
+
 //    [[XEEngine shareInstance] getCacheReponseDicForTag:tag complete:^(NSDictionary *jsonRet){
-//        if (jsonRet == nil) {
-//            //...
-//        }else{
+//
+//            NSLog(@"-----%@",jsonRet);
 //            NSDictionary *expertDic = [jsonRet dictionaryObjectForKey:@"object"];
 //            [_doctorInfo setDoctorInfoByJsonDic:expertDic];
 //            [weakSelf refreshDoctorInfoShow];
 //            [weakSelf.tableView reloadData];
-//        }
 //    }];
-//}
+}
 //
 //- (void)getCacheTopicList{
 //    __weak ExpertIntroViewController *weakSelf = self;
@@ -304,10 +311,10 @@
 //        [self.titleNavBarRightBtn setImage:[UIImage imageNamed:@"nav_collect_icon"] forState:UIControlStateNormal];
 //    }
     self.topicLabel.text = @"她的话题";
-    
     self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width/2;
     self.avatarImageView.layer.masksToBounds = YES;
     self.avatarImageView.clipsToBounds = YES;
+    NSLog(@"%@  %@ ",_doctorInfo.professional,_doctorInfo.des);
     self.avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.avatarImageView sd_setImageWithURL:_doctorInfo.largeAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_load_icon"]];
     
@@ -320,7 +327,7 @@
         title = [NSString stringWithFormat:@"%@...",[XECommonUtils getHanziTextWithText:_doctorInfo.title maxLength:maxTitleLength-1]];
     }
     
-    self.doctorNameLabel.text = [NSString stringWithFormat:@"%@ %@ %d岁",_doctorInfo.doctorName,title,_doctorInfo.age];
+    self.doctorNameLabel.text = [NSString stringWithFormat:@"%@ %@ %d岁",self.doctorInfo.doctorName,title,_doctorInfo.age];
     self.doctorCollegeLabel.text = _doctorInfo.hospital;
 
     [self.topicButton setTitle:[NSString stringWithFormat:@"话题%d",_doctorInfo.topicnum] forState:0];
@@ -334,7 +341,7 @@
     
     
     NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:15],NSFontAttributeName, nil];
-    desLable.text = [NSString stringWithFormat:@"     %@ \n \n     %@",_doctorInfo.professional,_doctorInfo.des];
+    desLable.text = [NSString stringWithFormat:@"     %@ \n \n     %@",self.doctorInfo.professional,_doctorInfo.des];
     
     CGRect rect = [desLable.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
     

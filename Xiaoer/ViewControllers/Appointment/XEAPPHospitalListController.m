@@ -230,7 +230,7 @@
     if (indexPath.row == hos.subHospital.count) {
         
         if ([self.cellHide[indexPath.section] isEqualToString:@"0"]) {
-            return 35;
+            return 30;
         }
         
         return [AppHospitalIntroCell cellHeightWith:hos.intro];
@@ -240,8 +240,12 @@
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+
+    
     return [AppHospitalListHeaderView appHospitalListHeaderView].frame.size.height;
+
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.01;
 }

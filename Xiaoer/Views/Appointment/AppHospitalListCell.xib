@@ -54,14 +54,18 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="腹部修复预约" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ULy-K8-obb">
-                        <rect key="frame" x="95" y="40" width="200" height="20"/>
+                        <rect key="frame" x="95" y="40" width="138" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="3ti-ki-ISv"/>
                             <constraint firstAttribute="width" constant="200" id="4qg-uw-5mD"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.17254901959999999" green="0.65098039220000004" blue="0.031372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="4qg-uw-5mD"/>
+                            </mask>
+                        </variation>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="撒打算打算打算打撒的撒上" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1D8-Q6-8NK">
                         <rect key="frame" x="97" y="70" width="138" height="40"/>
@@ -69,7 +73,7 @@
                             <constraint firstAttribute="height" constant="40" id="8gv-yK-5hA"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iue-wj-80h">
@@ -97,6 +101,7 @@
                     <constraint firstItem="ULy-K8-obb" firstAttribute="leading" secondItem="7Ui-qS-ovD" secondAttribute="trailing" constant="10" id="X4u-EO-Jra"/>
                     <constraint firstItem="iue-wj-80h" firstAttribute="leading" secondItem="1D8-Q6-8NK" secondAttribute="trailing" constant="12" id="dWc-Gq-9jj"/>
                     <constraint firstItem="7Ui-qS-ovD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="3" id="gvO-3o-bo8"/>
+                    <constraint firstItem="1D8-Q6-8NK" firstAttribute="width" secondItem="ULy-K8-obb" secondAttribute="width" id="hEM-IS-Hy6"/>
                     <constraint firstAttribute="trailingMargin" secondItem="hNu-Qg-zum" secondAttribute="trailing" constant="62" id="hVG-ag-05j"/>
                     <constraint firstItem="1D8-Q6-8NK" firstAttribute="leading" secondItem="7Ui-qS-ovD" secondAttribute="trailing" constant="12" id="ifp-qa-lPu"/>
                     <constraint firstItem="iue-wj-80h" firstAttribute="top" secondItem="hNu-Qg-zum" secondAttribute="bottom" constant="35" id="imz-KY-R8s"/>

@@ -432,7 +432,6 @@
         self.contentContainerView.frame = CGRectMake(0, 40, SCREEN_WIDTH, 75 );
         self.contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 75, SCREEN_WIDTH - 20, 0)];
 
-        
     }
 
     
@@ -457,7 +456,7 @@
         self.imageGridView.itemSpacing = item_spacing;
         self.imageGridView.frame = gridFrame;
         [self.contentContainerView addSubview:self.imageGridView];
-        self.contentContainerView.frame = CGRectMake(0, 40, SCREEN_WIDTH, 75 + self.contentLabel.frame.size.height + gridFrame.size.height + 20);
+        self.contentContainerView.frame = CGRectMake(0, 40, SCREEN_WIDTH, 75 + self.contentLabel.frame.size.height + gridFrame.size.height + 30);
 
     }else{
         
@@ -501,11 +500,11 @@
         
         UIImageView *expertAvatar = [[UIImageView alloc]init];
         [expertAvatar sd_setImageWithURL:_expertComment.smallAvatarUrl placeholderImage:[UIImage imageNamed:@"topic_avatar_icon"]];
-        expertAvatar.frame = CGRectMake(SCREEN_WIDTH - 22 - 35,15, 35, 35);
+        expertAvatar.frame = CGRectMake(SCREEN_WIDTH - 22 - 50,15, 50, 50);
+        expertAvatar.layer.cornerRadius = 25;
+        expertAvatar.layer.masksToBounds = YES;
         [bottom addSubview:expertAvatar];
         
-        expertAvatar.layer.cornerRadius = self.expertAvatarImgView.frame.size.width/2;
-        expertAvatar.layer.masksToBounds = YES;
         expertAvatar.clipsToBounds = YES;
         expertAvatar.contentMode = UIViewContentModeScaleAspectFill;
         
@@ -534,7 +533,7 @@
 
 
     
-    self.headView.frame = CGRectMake(0, 0, SCREEN_WIDTH, self.titleContainerView.frame.size.height + self.contentContainerView.frame.size.height + bottom.frame.size.height + 20);
+    self.headView.frame = CGRectMake(0, 0, SCREEN_WIDTH, self.titleContainerView.frame.size.height + self.contentContainerView.frame.size.height + bottom.frame.size.height +20);
     [self.headView addSubview:bottom];
     NSLog(@"headView%@",NSStringFromCGRect(self.headView.frame));
     self.tableView.tableHeaderView = self.headView;
@@ -542,6 +541,14 @@
 }
 - (void)showExpectDetail{
     NSLog(@"分过");
+    XEDoctorInfo *doctorInfo = [[XEDoctorInfo alloc] init];
+    doctorInfo.doctorId = _expertComment.uId;
+    doctorInfo.doctorName = _expertComment.userName;
+    doctorInfo.avatar = _expertComment.avatar;
+    doctorInfo.title = _expertComment.title;
+    ExpertIntroViewController *vc = [[ExpertIntroViewController alloc] init];
+    vc.doctorInfo = doctorInfo;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)moreAction:(id)sender{

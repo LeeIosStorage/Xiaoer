@@ -101,7 +101,7 @@ enum TABLEVIEW_SECTION_INDEX {
     
 
     
-    self.editBtn.layer.cornerRadius = 15;
+    self.editBtn.layer.cornerRadius = 18;
     self.editBtn.layer.masksToBounds = YES;
     self.editBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     self.editBtn.layer.borderWidth = 1;
